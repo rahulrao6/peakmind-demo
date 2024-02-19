@@ -11,9 +11,19 @@ struct RegistrationView: View {
     
     @State private var email = ""
     @State private var full_name = ""
+    @State private var location = ""
+    @State private var color_raw = Color.blue
+    @State private var firstPeak = ""
+
+    var color_hex: String {
+        let hexColor = color_raw.toHex()
+        return hexColor ?? "#FFF"
+    }
+
     @State private var password = ""
     @State private var confirm_password = ""
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: AuthViewModel
     
     
     var body: some View {
@@ -21,48 +31,93 @@ struct RegistrationView: View {
     
         VStack{
             //title
-            Text("Register your account")
-                .bold()
-                .frame(width: .infinity, height: 100)
-                .cornerRadius(15)
-                .padding()
-                .background(.black)
-                .foregroundColor(.white)
-                .cornerRadius(15)
-                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-            
-            //form fields
-            VStack(spacing: 24) {
-                InputView(text: $email, title: "Email Address", placeholder: "Enter your email", isSecureField: false)
-                    .autocapitalization(.none)
+            HStack {
+                Text("Register Your Account")
+                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    .bold()
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                    .padding()
                 
-                InputView(text: $full_name, title: "Full Name", placeholder: "Enter your name", isSecureField: false)
+                Image(systemName: "brain.head.profile")
+                    .imageScale(.large)
+                    .font(.title)
+                    .padding()
+                    
                 
-                InputView(text: $password, title: "Password", placeholder: "Enter your password", isSecureField: true)
                 
-                InputView(text: $confirm_password, title: "Comfirm Password", placeholder: "Confirm your password", isSecureField: true)
             }
-            .padding(.horizontal)
-            .padding(.top, 12)
-            
-            Button {
-                print("Sign User Up")
-                
-            } label: {
-                HStack {
-                    Text("Sign Up")
+            ScrollView {
+                //form fields
+                VStack(spacing: 24) {
+                    InputView(text: $email, title: "Email Address", placeholder: "Enter your email", isSecureField: false)
+                        .autocapitalization(.none)
+                    
+                    InputView(text: $full_name, title: "Full Name", placeholder: "Enter your name", isSecureField: false)
+                    
+                    InputView(text: $location, title: "City", placeholder: "Enter your city", isSecureField: false)
+                    
+                    InputView(text: $firstPeak, title: "First Peak To Tackle?", placeholder: "", isSecureField: false, isPickerField: true, pickerOptions: ["Anxiety", "Depression", "Anger Issues", "Self Help", "Eating Disorders"])
+                    
+                    ColorPicker("Choose a background color:", selection: $color_raw)
+                        .foregroundColor(Color(.black))
                         .fontWeight(.semibold)
-                    Image(systemName: "arrow.right")
+                        .font(.system(size: 18))
+
+                    InputView(text: $password, title: "Password", placeholder: "Enter your password", isSecureField: true)
+                    
+                    ZStack(alignment: .bottomTrailing) {
+                        InputView(text: $confirm_password, title: "Confirm Password", placeholder: "Confirm your password", isSecureField: true)
+                        
+                        if !password.isEmpty && !confirm_password.isEmpty {
+                            if password == confirm_password {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .imageScale(.large)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color(.systemGreen))
+                                    .padding(.bottom, 4)
+                                    .padding(.trailing, 4)
+                            } else {
+                                Image(systemName: "xmark.circle.fill")
+                                    .imageScale(.large)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color(.systemRed))
+                                    .padding(.bottom, 4)
+                                    .padding(.trailing, 4)
+
+
+                            }
+                        }
+                    }
                 }
-                .foregroundColor(.white)
-                .frame(width: UIScreen.main.bounds.width - 32, height: 48)
-                .background(Color.black)
-                .cornerRadius(10)
-                .padding(.top, 24)
+                .padding(.horizontal)
+                .padding(.top, 12)
+            }
+            
+            VStack {
+                Button {
+                    print("Sign User Up")
+                    Task {
+                        try await viewModel.createUser(withEmail: email, password: password, fullname: full_name, location: location, color: color_hex, firstPeak: firstPeak)
+                    }
+                    
+                } label: {
+                    HStack {
+                        Text("Sign Up")
+                            .fontWeight(.semibold)
+                        Image(systemName: "arrow.right")
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                    .background(Color.black)
+                    .disabled(!formIsValid)
+                    .opacity(formIsValid ? 1 : 0.5)
+                    .cornerRadius(10)
+                    .padding(.top, 24)
+            }
             }
  
             
-            Spacer()
+            //Spacer()
             
             Button {
                 dismiss()
@@ -73,6 +128,8 @@ struct RegistrationView: View {
                         .fontWeight(.bold)
                 }
                 .font(.system(size: 16))
+                .padding(.top)
+                
                 
             }
             
@@ -80,6 +137,14 @@ struct RegistrationView: View {
             
         }
     }
+}
+
+extension RegistrationView: AuthenticationFormProtocol {
+    var formIsValid: Bool {
+        return !email.isEmpty && email.contains("@") && !password.isEmpty && password.count > 5 && password == confirm_password && !full_name.isEmpty
+    }
+    
+    
 }
 
 #Preview {

@@ -20,8 +20,6 @@
 		1CF4A8992B8309CD00051684 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4A8982B8309CD00051684 /* GoogleSignIn */; };
 		1CF4A89B2B8309CD00051684 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4A89A2B8309CD00051684 /* GoogleSignInSwift */; };
 		1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A89D2B830BFF00051684 /* ViewExtension.swift */; };
-		1CF4A8A02B830C6B00051684 /* GoogleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A89F2B830C6B00051684 /* GoogleAuth.swift */; };
-		1CF4A8A22B830D5600051684 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A8A12B830D5600051684 /* GoogleSignInButton.swift */; };
 		1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4C3E12B7B15E10028BC3C /* peakmind_mvpApp.swift */; };
 		1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4C3E32B7B15E10028BC3C /* ContentView.swift */; };
 		1CF4C3E62B7B15E40028BC3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF4C3E52B7B15E40028BC3C /* Assets.xcassets */; };
@@ -88,8 +86,6 @@
 		1CF4A8952B82EE9900051684 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		1CF4A89C2B8309F100051684 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1CF4A89D2B830BFF00051684 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
-		1CF4A89F2B830C6B00051684 /* GoogleAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuth.swift; sourceTree = "<group>"; };
-		1CF4A8A12B830D5600051684 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "peakmind-mvp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF4C3E12B7B15E10028BC3C /* peakmind_mvpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpApp.swift; sourceTree = "<group>"; };
 		1CF4C3E32B7B15E10028BC3C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -169,8 +165,6 @@
 			children = (
 				1C9C63C72B81359A0066AF70 /* InputView.swift */,
 				1CF4A89D2B830BFF00051684 /* ViewExtension.swift */,
-				1CF4A8A12B830D5600051684 /* GoogleSignInButton.swift */,
-				1CF4A89F2B830C6B00051684 /* GoogleAuth.swift */,
 				1C9C63CD2B81428B0066AF70 /* SettingsRowView.swift */,
 				1CF4A8932B82E9EA00051684 /* ColorConverter.swift */,
 			);
@@ -478,11 +472,9 @@
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
-				1CF4A8A22B830D5600051684 /* GoogleSignInButton.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
-				1CF4A8A02B830C6B00051684 /* GoogleAuth.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,

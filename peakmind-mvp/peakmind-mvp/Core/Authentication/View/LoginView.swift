@@ -19,20 +19,20 @@ struct LoginView: View {
                 //image
                 HStack {
                     Text("PeakMinds")
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .font(.title)
                         .bold()
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
                     
                     Image(systemName: "brain.head.profile")
                         .imageScale(.large)
                         .font(.title)
                         .padding()
-                        
+                    
                     
                     
                 }
-                    
+                
                 
                 // form fields
                 
@@ -45,14 +45,14 @@ struct LoginView: View {
                     NavigationLink {
                         ResetPasswordView()
                             .navigationBarBackButtonHidden(true)
-
+                        
                     } label: {
                         Text("Forgot your password?")
                             .font(.footnote)
                             .foregroundColor(Color.black)
-                            //.padding(.top, -20)
+                        //.padding(.top, -20)
                             .frame(maxWidth: .infinity, alignment: .trailing)
-                            
+                        
                     }
                 }
                 .padding(.horizontal)
@@ -61,26 +61,52 @@ struct LoginView: View {
                 
                 //sign in button
                 
-                Button {
-                    Task {
-                        try await viewModel.signIn(withEmail: email, password: password)
+                HStack(alignment: .center) {
+                    Button {
+                        Task {
+                            try await viewModel.signIn(withEmail: email, password: password)
+                        }
+                    } label: {
+                        HStack {
+                            Text("Sign In")
+                                .fontWeight(.semibold)
+                            Image(systemName: "arrow.right")
+                        }
+                        .foregroundColor(.white)
+                        .frame(width: UIScreen.main.bounds.width - 80, height: 48)
+                        .background(Color.black)
+                        .disabled(!formIsValid)
+                        .opacity(formIsValid ? 1.0 : 0.5)
+                        .cornerRadius(10)
+                        .padding(.top, 24)
                     }
-                } label: {
-                    HStack {
-                        Text("Sign In")
-                            .fontWeight(.semibold)
-                        Image(systemName: "arrow.right")
+                    
+                    
+                    
+                    Button {
+                        Task {
+                            do {
+                                //let googleAuth = GoogleAuthenticationStruct()
+                                try await viewModel.signinWithGoogle()
+                            } catch let e {
+                                print(e.localizedDescription)
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Image("google")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                            //Text("Sign in with Google")
+                        }
+                        .padding(8)
+                        .frame(width: 40, height: 40)
+                        .padding(.top, 24)
+
+                        
                     }
-                    .foregroundColor(.white)
-                    .frame(width: UIScreen.main.bounds.width - 32, height: 48)
-                    .background(Color.black)
-                    .disabled(!formIsValid)
-                    .opacity(formIsValid ? 1.0 : 0.5)
-                    .cornerRadius(10)
-                    .padding(.top, 24)
+                    
                 }
-
-
                 
                 Spacer()
                 

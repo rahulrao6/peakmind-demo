@@ -17,6 +17,11 @@
 		1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */; };
 		1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A8932B82E9EA00051684 /* ColorConverter.swift */; };
 		1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A8952B82EE9900051684 /* ResetPasswordView.swift */; };
+		1CF4A8992B8309CD00051684 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4A8982B8309CD00051684 /* GoogleSignIn */; };
+		1CF4A89B2B8309CD00051684 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4A89A2B8309CD00051684 /* GoogleSignInSwift */; };
+		1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A89D2B830BFF00051684 /* ViewExtension.swift */; };
+		1CF4A8A02B830C6B00051684 /* GoogleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A89F2B830C6B00051684 /* GoogleAuth.swift */; };
+		1CF4A8A22B830D5600051684 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A8A12B830D5600051684 /* GoogleSignInButton.swift */; };
 		1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4C3E12B7B15E10028BC3C /* peakmind_mvpApp.swift */; };
 		1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4C3E32B7B15E10028BC3C /* ContentView.swift */; };
 		1CF4C3E62B7B15E40028BC3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF4C3E52B7B15E40028BC3C /* Assets.xcassets */; };
@@ -81,6 +86,10 @@
 		1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		1CF4A8932B82E9EA00051684 /* ColorConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConverter.swift; sourceTree = "<group>"; };
 		1CF4A8952B82EE9900051684 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		1CF4A89C2B8309F100051684 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1CF4A89D2B830BFF00051684 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		1CF4A89F2B830C6B00051684 /* GoogleAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuth.swift; sourceTree = "<group>"; };
+		1CF4A8A12B830D5600051684 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "peakmind-mvp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF4C3E12B7B15E10028BC3C /* peakmind_mvpApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpApp.swift; sourceTree = "<group>"; };
 		1CF4C3E32B7B15E10028BC3C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,12 +114,14 @@
 				1CF4C4102B7B1DD50028BC3C /* FirebaseAnalytics in Frameworks */,
 				1CF4C4122B7B1DD50028BC3C /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				1CF4C42C2B7B1DD50028BC3C /* FirebaseFirestoreSwift in Frameworks */,
+				1CF4A89B2B8309CD00051684 /* GoogleSignInSwift in Frameworks */,
 				1CF4C43A2B7B1DD50028BC3C /* FirebaseMLModelDownloader in Frameworks */,
 				1CF4C4182B7B1DD50028BC3C /* FirebaseAppCheck in Frameworks */,
 				1CF4C4162B7B1DD50028BC3C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				1CF4C4382B7B1DD50028BC3C /* FirebaseMessaging in Frameworks */,
 				1CF4C41C2B7B1DD50028BC3C /* FirebaseAuth in Frameworks */,
 				1CF4C4402B7B1DD50028BC3C /* FirebaseRemoteConfigSwift in Frameworks */,
+				1CF4A8992B8309CD00051684 /* GoogleSignIn in Frameworks */,
 				1CF4C4202B7B1DD50028BC3C /* FirebaseCrashlytics in Frameworks */,
 				1CF4C4322B7B1DD50028BC3C /* FirebaseInAppMessaging-Beta in Frameworks */,
 				1CF4C4242B7B1DD50028BC3C /* FirebaseDatabaseSwift in Frameworks */,
@@ -157,6 +168,9 @@
 			isa = PBXGroup;
 			children = (
 				1C9C63C72B81359A0066AF70 /* InputView.swift */,
+				1CF4A89D2B830BFF00051684 /* ViewExtension.swift */,
+				1CF4A8A12B830D5600051684 /* GoogleSignInButton.swift */,
+				1CF4A89F2B830C6B00051684 /* GoogleAuth.swift */,
 				1C9C63CD2B81428B0066AF70 /* SettingsRowView.swift */,
 				1CF4A8932B82E9EA00051684 /* ColorConverter.swift */,
 			);
@@ -248,6 +262,7 @@
 		1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */ = {
 			isa = PBXGroup;
 			children = (
+				1CF4A89C2B8309F100051684 /* Info.plist */,
 				1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */,
 				1C9C63C12B8132840066AF70 /* Model */,
 				1C9C63C02B81327A0066AF70 /* Core */,
@@ -335,6 +350,8 @@
 				1CF4C43F2B7B1DD50028BC3C /* FirebaseRemoteConfigSwift */,
 				1CF4C4412B7B1DD60028BC3C /* FirebaseStorage */,
 				1CF4C4432B7B1DD60028BC3C /* FirebaseStorageCombine-Community */,
+				1CF4A8982B8309CD00051684 /* GoogleSignIn */,
+				1CF4A89A2B8309CD00051684 /* GoogleSignInSwift */,
 			);
 			productName = "peakmind-mvp";
 			productReference = 1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */;
@@ -410,6 +427,7 @@
 			mainGroup = 1CF4C3D52B7B15E10028BC3C;
 			packageReferences = (
 				1CF4C40D2B7B1DBB0028BC3C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 1CF4C3DF2B7B15E10028BC3C /* Products */;
 			projectDirPath = "";
@@ -460,8 +478,11 @@
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
+				1CF4A8A22B830D5600051684 /* GoogleSignInButton.swift in Sources */,
+				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
+				1CF4A8A02B830C6B00051684 /* GoogleAuth.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
@@ -630,6 +651,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -658,6 +680,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -790,6 +813,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		1CF4C40D2B7B1DBB0028BC3C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -801,6 +832,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1CF4A8982B8309CD00051684 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		1CF4A89A2B8309CD00051684 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		1CF4C40F2B7B1DD50028BC3C /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1CF4C40D2B7B1DBB0028BC3C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

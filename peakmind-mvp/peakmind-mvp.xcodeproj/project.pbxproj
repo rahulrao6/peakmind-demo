@@ -54,6 +54,15 @@
 		1CF4C4402B7B1DD50028BC3C /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C43F2B7B1DD50028BC3C /* FirebaseRemoteConfigSwift */; };
 		1CF4C4422B7B1DD60028BC3C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4412B7B1DD60028BC3C /* FirebaseStorage */; };
 		1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4432B7B1DD60028BC3C /* FirebaseStorageCombine-Community */; };
+		791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreen.swift */; };
+		798EFB602B84374800E6027A /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB5F2B84374800E6027A /* MapScreen.swift */; };
+		798EFB622B84376200E6027A /* WorldScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB612B84376200E6027A /* WorldScreen.swift */; };
+		798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB632B84376F00E6027A /* ChecklistScreen.swift */; };
+		798EFB662B84377B00E6027A /* CartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB652B84377B00E6027A /* CartScreen.swift */; };
+		798EFB682B84378A00E6027A /* IglooScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB672B84378A00E6027A /* IglooScreen.swift */; };
+		798EFB6A2B84379D00E6027A /* PlayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* PlayScreen.swift */; };
+		798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB6B2B8437A800E6027A /* PlanScreen.swift */; };
+		79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3DAED2B843CE0003C3B44 /* MainTabView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +105,15 @@
 		1CF4C3F82B7B15E50028BC3C /* peakmind-mvpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "peakmind-mvpUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF4C3FC2B7B15E50028BC3C /* peakmind_mvpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITests.swift; sourceTree = "<group>"; };
 		1CF4C3FE2B7B15E50028BC3C /* peakmind_mvpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		791D1AA02B84344900E28162 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		798EFB5F2B84374800E6027A /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
+		798EFB612B84376200E6027A /* WorldScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldScreen.swift; sourceTree = "<group>"; };
+		798EFB632B84376F00E6027A /* ChecklistScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistScreen.swift; sourceTree = "<group>"; };
+		798EFB652B84377B00E6027A /* CartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartScreen.swift; sourceTree = "<group>"; };
+		798EFB672B84378A00E6027A /* IglooScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooScreen.swift; sourceTree = "<group>"; };
+		798EFB692B84379D00E6027A /* PlayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayScreen.swift; sourceTree = "<group>"; };
+		798EFB6B2B8437A800E6027A /* PlanScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanScreen.swift; sourceTree = "<group>"; };
+		79B3DAED2B843CE0003C3B44 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +173,7 @@
 		1C9C63BD2B81324D0066AF70 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				79B3DAEF2B8456DE003C3B44 /* App Screens */,
 				1CF4C3E12B7B15E10028BC3C /* peakmind_mvpApp.swift */,
 			);
 			path = App;
@@ -298,6 +317,22 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		79B3DAEF2B8456DE003C3B44 /* App Screens */ = {
+			isa = PBXGroup;
+			children = (
+				791D1AA02B84344900E28162 /* HomeScreen.swift */,
+				798EFB5F2B84374800E6027A /* MapScreen.swift */,
+				798EFB612B84376200E6027A /* WorldScreen.swift */,
+				798EFB632B84376F00E6027A /* ChecklistScreen.swift */,
+				798EFB652B84377B00E6027A /* CartScreen.swift */,
+				798EFB672B84378A00E6027A /* IglooScreen.swift */,
+				798EFB692B84379D00E6027A /* PlayScreen.swift */,
+				798EFB6B2B8437A800E6027A /* PlanScreen.swift */,
+				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
+			);
+			path = "App Screens";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -468,16 +503,25 @@
 			files = (
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
+				798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
+				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
+				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
+				798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */,
+				798EFB602B84374800E6027A /* MapScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
+				798EFB662B84377B00E6027A /* CartScreen.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
+				798EFB682B84378A00E6027A /* IglooScreen.swift in Sources */,
+				798EFB6A2B84379D00E6027A /* PlayScreen.swift in Sources */,
+				798EFB622B84376200E6027A /* WorldScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

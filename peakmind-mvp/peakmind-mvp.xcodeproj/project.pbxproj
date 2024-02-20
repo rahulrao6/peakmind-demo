@@ -63,6 +63,7 @@
 		798EFB6A2B84379D00E6027A /* PlayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* PlayScreen.swift */; };
 		798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB6B2B8437A800E6027A /* PlanScreen.swift */; };
 		79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3DAED2B843CE0003C3B44 /* MainTabView.swift */; };
+		79B3DAF12B845CFB003C3B44 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3DAF02B845CFB003C3B44 /* LoginScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		798EFB692B84379D00E6027A /* PlayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayScreen.swift; sourceTree = "<group>"; };
 		798EFB6B2B8437A800E6027A /* PlanScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanScreen.swift; sourceTree = "<group>"; };
 		79B3DAED2B843CE0003C3B44 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		79B3DAF02B845CFB003C3B44 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +333,7 @@
 				798EFB692B84379D00E6027A /* PlayScreen.swift */,
 				798EFB6B2B8437A800E6027A /* PlanScreen.swift */,
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
+				79B3DAF02B845CFB003C3B44 /* LoginScreen.swift */,
 			);
 			path = "App Screens";
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
+				79B3DAF12B845CFB003C3B44 /* LoginScreen.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,

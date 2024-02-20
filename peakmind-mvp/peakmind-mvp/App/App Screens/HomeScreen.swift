@@ -71,7 +71,7 @@ struct HomeScreenView: View {
                     }
                 )
                 
-                Image("SherpaExample")
+                Image("Sherpa")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 150, height: 150)

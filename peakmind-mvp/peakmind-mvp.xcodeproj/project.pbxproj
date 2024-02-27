@@ -65,7 +65,13 @@
 		798EFB6A2B84379D00E6027A /* PlayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* PlayScreen.swift */; };
 		798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB6B2B8437A800E6027A /* PlanScreen.swift */; };
 		79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3DAED2B843CE0003C3B44 /* MainTabView.swift */; };
-		79B3DAF12B845CFB003C3B44 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3DAF02B845CFB003C3B44 /* LoginScreen.swift */; };
+		79BFB5202B8EAAB300634262 /* AvatarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */; };
+		79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5212B8EAAE600634262 /* CustomButton.swift */; };
+		79BFB5242B8EAB2B00634262 /* PersonalizedPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */; };
+		79BFB5262B8EAB4500634262 /* ProfileViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5252B8EAB4500634262 /* ProfileViewTest.swift */; };
+		79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5272B8EAB5C00634262 /* QuestionsView.swift */; };
+		79BFB52A2B8EABBB00634262 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5292B8EABBB00634262 /* Question.swift */; };
+		79BFB52C2B8EABC500634262 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52B2B8EABC500634262 /* Info.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,7 +125,13 @@
 		798EFB692B84379D00E6027A /* PlayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayScreen.swift; sourceTree = "<group>"; };
 		798EFB6B2B8437A800E6027A /* PlanScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanScreen.swift; sourceTree = "<group>"; };
 		79B3DAED2B843CE0003C3B44 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
-		79B3DAF02B845CFB003C3B44 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarScreen.swift; sourceTree = "<group>"; };
+		79BFB5212B8EAAE600634262 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedPlanView.swift; sourceTree = "<group>"; };
+		79BFB5252B8EAB4500634262 /* ProfileViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTest.swift; sourceTree = "<group>"; };
+		79BFB5272B8EAB5C00634262 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
+		79BFB5292B8EABBB00634262 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		79BFB52B2B8EABC500634262 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +223,8 @@
 			isa = PBXGroup;
 			children = (
 				1C9C63CF2B8144C20066AF70 /* User.swift */,
+				79BFB5292B8EABBB00634262 /* Question.swift */,
+				79BFB52B2B8EABC500634262 /* Info.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -371,7 +385,11 @@
 				798EFB692B84379D00E6027A /* PlayScreen.swift */,
 				798EFB6B2B8437A800E6027A /* PlanScreen.swift */,
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
-				79B3DAF02B845CFB003C3B44 /* LoginScreen.swift */,
+				79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */,
+				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
+				79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */,
+				79BFB5252B8EAB4500634262 /* ProfileViewTest.swift */,
+				79BFB5272B8EAB5C00634262 /* QuestionsView.swift */,
 			);
 			path = "App Screens";
 			sourceTree = "<group>";
@@ -542,23 +560,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
 				798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
+				79BFB5202B8EAAB300634262 /* AvatarScreen.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
+				79BFB5242B8EAB2B00634262 /* PersonalizedPlanView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
-				79B3DAF12B845CFB003C3B44 /* LoginScreen.swift in Sources */,
+				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
+				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
+				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
 				798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */,
 				798EFB602B84374800E6027A /* MapScreen.swift in Sources */,
+				79BFB5262B8EAB4500634262 /* ProfileViewTest.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				798EFB662B84377B00E6027A /* CartScreen.swift in Sources */,

@@ -23,17 +23,17 @@ struct MainScreenView: View {
                     .tabItem {
                         Image("ListTemp")
                     }
-                CartScreen()
+                AvatarScreen()
                     .tabItem {
-                        Image("CartTemp")
+                        Image(systemName: "person.circle")
                     }
-                IglooScreen()
+                ProfileViewTest()
                     .tabItem {
-                        Image("IglooTemp")
+                        Image(systemName: "gear")
                     }
             }
             
-            //.accentColor(.white)
+            .accentColor(.white)
             .onAppear() {
                 UITabBar.appearance().backgroundColor = UIColor.black.withAlphaComponent(0.8)
                 UITabBar.appearance().unselectedItemTintColor = UIColor.lightGray

@@ -16,30 +16,36 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             VStack{
-                //image
-                HStack {
-                    Text("PeakMinds")
-                        .font(.title)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
-                    
-                    Image("PM Logo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 135, height: 135)
-                    
-                    
-                }
-                
+                Spacer()
+                Image("PM Logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 200)
+                    .shadow(color: .gray, radius: 6, x: 0, y: 4)
+                Text("Welcome to PeakMind")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 20)
+                    .shadow(color: .gray, radius: 10, x: 0, y: 4)
                 
                 // form fields
                 
-                VStack(spacing: 24) {
-                    InputView(text: $email, title: "Email Address", placeholder: "Enter Your Email", isSecureField: false)
-                        .autocapitalization(.none)
-                    
-                    InputView(text: $password, title: "Password", placeholder: "Enter Your Password", isSecureField: true)
+                VStack(spacing: 18) {
+                    TextField("Email Address", text: $email)
+                        .padding()
+                        .background(Color(.white).opacity(0.8))
+                        .cornerRadius(5.0)
+                        .shadow(color: .gray, radius: 10, x: 0, y: 4)
+                        .padding(.bottom, 5)
+
+                    SecureField("Password", text: $password)
+                        .padding()
+                        .background(Color(.white).opacity(0.8))
+                        .cornerRadius(5.0)
+                        .shadow(color: .gray, radius: 10, x: 0, y: 4)
+                        .padding(.bottom, 0)
+
+
                     
                     NavigationLink {
                         ResetPasswordView()
@@ -73,12 +79,11 @@ struct LoginView: View {
                         }
                         .foregroundColor(.white)
                         .frame(width: UIScreen.main.bounds.width - 80, height: 48)
-                        .background(Color.black)
-                        .disabled(!formIsValid)
-                        .opacity(formIsValid ? 1.0 : 0.5)
+                        .background(formIsValid ? Color.blue : Color.black)
                         .cornerRadius(10)
                         .padding(.top, 24)
                     }
+                    .disabled(!formIsValid)
                     
                     
                     
@@ -123,6 +128,12 @@ struct LoginView: View {
                     .font(.system(size: 16))
                 }
             }
+            .background(
+                 Image("Login2") // Replace "your_background_image_name" with your actual image name
+                     .resizable()
+                     .aspectRatio(contentMode: .fill)
+                     .ignoresSafeArea() // Make sure the background image covers the whole screen
+             )
         }
     }
 }

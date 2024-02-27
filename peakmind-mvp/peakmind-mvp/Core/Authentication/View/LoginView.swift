@@ -24,11 +24,10 @@ struct LoginView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
                     
-                    Image(systemName: "brain.head.profile")
-                        .imageScale(.large)
-                        .font(.title)
-                        .padding()
-                    
+                    Image("PM Logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 135, height: 135)
                     
                     
                 }

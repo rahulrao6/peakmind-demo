@@ -20,7 +20,7 @@ struct ProfileView: View {
                             .foregroundColor(.white)
                             .frame(width: 72, height: 72)
                             .background(Color.init(hex: user.color))
-                            //.background(Color(.systemGray3))
+                        //.background(Color(.systemGray3))
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                         
                         VStack (alignment: .leading, spacing: 4) {
@@ -61,15 +61,21 @@ struct ProfileView: View {
                         
                         Text("1.0.0")
                     }
-                    
-                    HStack {
-                        SettingsRowView(imageName: "calendar", title: "Next Update", tintColor: Color(.systemGray))
+                    NavigationLink {
+                        ChatView()
+                            .environmentObject(viewModel)
+                            .navigationTitle("Chat With Your Sherpa")
+
+                    } label: {
+                        HStack {
+                            SettingsRowView(imageName: "bubble.left.and.text.bubble.right.fill", title: "Chat with Sherpa", tintColor: Color(.systemGray))
+                            
+                            Spacer()
+                            
+                            Text("")
+                        }
                         
-                        Spacer()
-                        
-                        Text("2/22/2024")
                     }
-                    
                     
                 }
                 
@@ -88,11 +94,8 @@ struct ProfileView: View {
                     }
                     
                 }
+                
             }
         }
     }
-}
-
-#Preview {
-    ProfileView()
 }

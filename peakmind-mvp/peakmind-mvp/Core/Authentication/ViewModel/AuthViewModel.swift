@@ -133,6 +133,48 @@ class AuthViewModel : ObservableObject {
             await fetchUser()
         }
     }
+    
+//    func fetchMessages(completion: @escaping ([ChatMessage]) -> Void) {
+//        guard let currentUser = currentUser else {
+//            print("No current user")
+//            completion([])
+//            return
+//        }
+//
+//        let messagesCollection = Firestore.firestore().collection("messages").document(currentUser.id).collection("chats")
+//
+//        messagesCollection.getDocuments { snapshot, error in
+//            guard let snapshot = snapshot else {
+//                if let error = error {
+//                    print("Error getting documents: \(error)")
+//                } else {
+//                    print("Snapshot is nil")
+//                }
+//                completion([])
+//                return
+//            }
+//
+//            var messages: [ChatMessage] = []
+//
+//            for document in snapshot.documents {
+//                let data = document.data()
+//                if let messageContent = data["message"] as? String,
+//                   let sender = data["user"] as? String {
+//                    let message = ChatMessage(sender: sender, content: messageContent)
+//                    messages.append(message)
+//                } else {
+//                    print("Error: Document data is missing or not in the expected format")
+//                }
+//            }
+//
+//            DispatchQueue.main.async {
+//                completion(messages)
+//            }
+//        }
+//    }
+
+
+    
     func signinWithGoogle() async -> Bool  {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
           fatalError("No client ID found in Firebase configuration")

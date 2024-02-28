@@ -27,7 +27,7 @@ struct MainScreenView: View {
                     .tabItem {
                         Image(systemName: "person.circle")
                     }
-                ProfileViewTest()
+                ProfileView()
                     .tabItem {
                         Image(systemName: "gear")
                     }

@@ -32,6 +32,7 @@ struct QuestionsView: View {
                 .font(.title)
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundColor(.white)
             
             GeometryReader { geometry in
                 let size = geometry.size
@@ -120,9 +121,9 @@ struct QuestionsView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.black)
             
-            Spacer() // Pushes all content to the top
+            Spacer() 
         }
-        .padding(30) // Reduced padding around VStack
+        .padding(30)
         .background {
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(.white)

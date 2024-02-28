@@ -46,7 +46,6 @@ struct HomeScreenView: View {
                 }
                 .offset(y: 240)
                 .offset(x: -80)
-                // NavigationLink is here
                 .background(
                     NavigationLink(destination: PlayScreen(), isActive: $navigateToPlayScreen) {
                         EmptyView()
@@ -64,9 +63,8 @@ struct HomeScreenView: View {
                 }
                 .offset(y: 240)
                 .offset(x: 80)
-                // NavigationLink is here
                 .background(
-                    NavigationLink(destination: PlanScreen(), isActive: $navigateToPlanScreen) {
+                    NavigationLink(destination: PersonalizedPlanView(), isActive: $navigateToPlanScreen) {
                         EmptyView()
                     }
                 )
@@ -92,7 +90,7 @@ struct HomeScreenView: View {
                 }
                 .offset(y: -185)
             }
-            .navigationBarTitle("") // Optionally, hide or set the navigation bar title
+            .navigationBarTitle("")
             .navigationBarHidden(true)
         }
     }

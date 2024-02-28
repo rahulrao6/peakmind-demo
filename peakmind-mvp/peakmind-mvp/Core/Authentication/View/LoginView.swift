@@ -129,10 +129,10 @@ struct LoginView: View {
                 }
             }
             .background(
-                 Image("Login2") // Replace "your_background_image_name" with your actual image name
+                 Image("Login2")
                      .resizable()
                      .aspectRatio(contentMode: .fill)
-                     .ignoresSafeArea() // Make sure the background image covers the whole screen
+                     .ignoresSafeArea()
              )
         }
     }

@@ -72,6 +72,7 @@
 		79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5272B8EAB5C00634262 /* QuestionsView.swift */; };
 		79BFB52A2B8EABBB00634262 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5292B8EABBB00634262 /* Question.swift */; };
 		79BFB52C2B8EABC500634262 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52B2B8EABC500634262 /* Info.swift */; };
+		79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52D2B8EDA6E00634262 /* JournalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,7 @@
 		79BFB5272B8EAB5C00634262 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
 		79BFB5292B8EABBB00634262 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		79BFB52B2B8EABC500634262 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		79BFB52D2B8EDA6E00634262 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,6 +392,7 @@
 				79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */,
 				79BFB5252B8EAB4500634262 /* ProfileViewTest.swift */,
 				79BFB5272B8EAB5C00634262 /* QuestionsView.swift */,
+				79BFB52D2B8EDA6E00634262 /* JournalView.swift */,
 			);
 			path = "App Screens";
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
+				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,

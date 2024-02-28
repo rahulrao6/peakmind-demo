@@ -71,6 +71,7 @@ struct QuestionsView: View {
             }
             
             // Next or Finish Button
+            // Finish button needs to save + send info to Firebase when clicked
             CustomButton(title: currentIndex == (questions.count - 1) ? "Finish" : "Next Question") {
                 if currentIndex == (questions.count - 1) {
                     showPersonalizedPlan = true

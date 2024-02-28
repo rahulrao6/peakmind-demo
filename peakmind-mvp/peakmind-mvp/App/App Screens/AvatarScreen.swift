@@ -17,7 +17,7 @@ struct AvatarScreen: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Your Profile")
+                Text("Your Profile") // Change this to [NAME]'s Profile from Firebase first name
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.bottom, 20)
@@ -44,6 +44,7 @@ struct AvatarScreen: View {
                 .padding()
 
                 if showPicker {
+                    // Save avatar info to Firebase
                     Picker("Select your avatar", selection: $selectedAvatar) {
                         ForEach(avatarOptions, id: \.self) { option in
                             Text(option).tag(option)
@@ -54,15 +55,17 @@ struct AvatarScreen: View {
                 }
 
                 // Display the username in a TextField
+                // Update this from what's actually in Firebase
                 TextField("Enter your username", text: $username)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(maxWidth: 300)
                     .disabled(!isEditingUsername)  // Disable editing unless the user is in edit mode
 
                 // Text button for toggling username editing state
+                // When confirm button is clicked, update username in Firebase
                 Text(isEditingUsername ? "Confirm" : "Change Username")
                     .font(.caption)
-                    .foregroundColor(.blue) // Use a color that makes it look like a link
+                    .foregroundColor(.blue)
                     .onTapGesture {
                         if isEditingUsername {
                             self.isEditingUsername = false
@@ -92,8 +95,6 @@ struct AvatarScreen: View {
             }
             .padding()
             .frame(maxWidth: .infinity)
-            
-            
         }
         .padding(.top, 40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

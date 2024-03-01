@@ -145,7 +145,7 @@ class AuthViewModel : ObservableObject {
 //
 //        messagesCollection.getDocuments { snapshot, error in
 //            guard let snapshot = snapshot else {
-//                if let error = error {
+//                if let errodxzr = error {
 //                    print("Error getting documents: \(error)")
 //                } else {
 //                    print("Snapshot is nil")

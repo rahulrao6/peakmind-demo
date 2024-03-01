@@ -111,11 +111,12 @@ struct ChatView: View {
         
         let timestamp = NSDate().timeIntervalSince1970
         // Create the URL
-        guard let url = URL(string: "http://localhost:3000/api/chat") else {
+        guard let url = URL(string: "http://35.188.88.124/api/chat") else {
             print("Invalid URL")
             return
         }
-
+        print(url)
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -133,6 +134,7 @@ struct ChatView: View {
             print("Failed to convert message to JSON")
             return
         }
+        print(request)
         Firestore.firestore().collection("messages").document(currentUser.id).collection("chats").addDocument(data: messageDictionary) { error in
             if let error = error {
                 print("Error adding document: \(error)")

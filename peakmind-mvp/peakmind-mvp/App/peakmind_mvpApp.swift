@@ -33,6 +33,8 @@ struct peakmind_mvpApp: App {
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var viewModel = AuthViewModel()
+    @StateObject var journalDataManager = JournalDataManager() // Instantiate JournalDataManager
+
     
     
   var body: some Scene {
@@ -40,6 +42,8 @@ struct peakmind_mvpApp: App {
       NavigationView {
           ContentView()
               .environmentObject(viewModel)
+              .environmentObject(journalDataManager) // Provide JournalDataManager
+
       }
     }
   }

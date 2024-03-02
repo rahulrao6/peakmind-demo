@@ -134,6 +134,7 @@
 		79BFB5292B8EABBB00634262 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		79BFB52B2B8EABC500634262 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		79BFB52D2B8EDA6E00634262 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
+		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +340,7 @@
 				1C9C63BD2B81324D0066AF70 /* App */,
 				1CF4C3E52B7B15E40028BC3C /* Assets.xcassets */,
 				1CF4C3E72B7B15E40028BC3C /* Preview Content */,
+				B08AF59C2B92A544001A1253 /* README.md */,
 			);
 			path = "peakmind-mvp";
 			sourceTree = "<group>";

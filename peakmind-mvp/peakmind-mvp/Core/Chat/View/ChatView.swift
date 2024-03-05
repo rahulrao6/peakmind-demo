@@ -28,39 +28,55 @@ struct ChatView: View {
     @State private var receivedMessages: [ChatMessage] = []
 
     var body: some View {
-        if let user = viewModel.currentUser {
-            VStack {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 10) {
-                        ForEach(receivedMessages, id: \.self) { chatMessage in
-                            MessageBubble(message: chatMessage.content, sender: chatMessage.sender, timestamp: chatMessage.timestamp)
-                            //Text("\(chatMessage.sender): \(chatMessage.content)")
+        ZStack {
+            Image("ChatBG")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+
+            if let user = viewModel.currentUser {
+                VStack {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 10) {
+                            ForEach(receivedMessages, id: \.self) { chatMessage in
+                                MessageBubble(message: chatMessage.content, sender: chatMessage.sender, timestamp: chatMessage.timestamp)
+                            }
                         }
                     }
-                }
+                    .padding()
 
-                .padding()
+                    Spacer()
+                    // Sherpa image positioned at the bottom left, behind the message box
+                    HStack {
+                        Image("Sherpa")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 120, height: 120)
+                            .padding(.leading, 0)
 
-                HStack {
-                    TextField("Enter your message", text: $message)
-                        .padding(8)
-                        .background(Color(.systemGray5))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-
-                    Button(action: sendMessage) {
-                        Text("Send")
-                            .padding(8)
-                            .foregroundColor(.white)
-                            .background(Color.blue)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                        Spacer()
                     }
+                    .padding(.bottom, -60)
+                    HStack {
+                        TextField("Enter your message", text: $message)
+                            .padding(8)
+                            .background(Color(.systemGray5))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+
+                        Button(action: sendMessage) {
+                            Text("Send")
+                                .padding(8)
+                                .foregroundColor(.white)
+                                .background(Color.blue)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        }
+                    }
+                    .padding()
                 }
-                .padding()
-            }.onAppear{
-                fetchMessages()
+                .onAppear {
+                    fetchMessages()
+                }
             }
         }
-        
     }
     
     // call the messages from the backend to populate the screen

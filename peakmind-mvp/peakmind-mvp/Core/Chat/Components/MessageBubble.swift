@@ -36,7 +36,7 @@ struct MessageBubble: View {
                 HStack {
                     Text(timeAgo())
                         //.padding(3)
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                         //.font(.footnote)
                         .padding(.trailing, -4)
                         .font(.system(size: 10))
@@ -46,22 +46,26 @@ struct MessageBubble: View {
                     //.padding(2)
                 Text(message)
                     .padding(10)
-                    .background(Color.blue)
+                    .background(Color("SentMessage"))
                     .foregroundColor(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+
                     //.clipShape(ChatBubbleShape(isFromCurrentUser: false))
                     .padding(5)
             } else {
                 HStack {
                     Text(message)
                         .padding(10)
-                        .background(Color.gray)
-                        .foregroundColor(.white)
+                        .background(Color("ReceivedMessage"))
+                        .foregroundColor(.black)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+
                         //.clipShape(ChatBubbleShape(isFromCurrentUser: true))
                         .padding(5)
                     
                     Text(timeAgo())
                         //.padding(3)
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                     //.font(.footnote)
                         .padding(.leading, -4)
                         .italic()

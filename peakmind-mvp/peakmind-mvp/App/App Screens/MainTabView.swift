@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct MainScreenView: View {
-    @State private var selectedTab = 2  // Index for ChecklistScreen, assuming it's the middle tab
+    @State private var selectedTab = 2
 
     var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
-                ChecklistScreen()
+                ChatView()
                     .tabItem {
                         Image(systemName: "ellipsis.message")
                     }
@@ -41,6 +41,7 @@ struct MainScreenView: View {
                         Image(systemName: "person.circle")
                     }
                     .tag(4)
+                
             }
             .accentColor(.white)
             .onAppear() {
@@ -48,6 +49,7 @@ struct MainScreenView: View {
                 UITabBar.appearance().unselectedItemTintColor = UIColor.lightGray
             }
         }
+        
     }
 }
 

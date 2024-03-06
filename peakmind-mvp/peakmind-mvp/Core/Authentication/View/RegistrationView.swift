@@ -12,14 +12,20 @@ struct RegistrationView: View {
     @State private var email = ""
     @State private var full_name = ""
     @State private var location = ""
+    @State private var username = ""
     @State private var color_raw = Color.blue
     @State private var firstPeak = ""
+    @State private var hasCompletedInitialQuiz = false
 
+    let avatarOptions = ["Asian", "Indian", "White"]
+    let backgroundOptions = ["Pink Igloo", "Orange Igloo", "Blue Igloo", "Navy Igloo"]
+    @State private var selectedAvatar = "Asian"
+    @State private var selectedBackground = "Blue Igloo"
+    
     var color_hex: String {
         let hexColor = color_raw.toHex()
         return hexColor ?? "#FFF"
     }
-
     @State private var password = ""
     @State private var confirm_password = ""
     @Environment(\.dismiss) var dismiss
@@ -52,16 +58,37 @@ struct RegistrationView: View {
                     InputView(text: $email, title: "Email Address", placeholder: "Enter your email", isSecureField: false)
                         .autocapitalization(.none)
                     
+                    InputView(text: $username, title: "Username", placeholder: "Enter your username", isSecureField: true)
+                    
                     InputView(text: $full_name, title: "Full Name", placeholder: "Enter your name", isSecureField: false)
                     
                     InputView(text: $location, title: "City", placeholder: "Enter your city", isSecureField: false)
                     
                     InputView(text: $firstPeak, title: "First Peak To Tackle?", placeholder: "", isSecureField: false, isPickerField: true, pickerOptions: ["Anxiety", "Depression", "Anger Issues", "Self Help", "Eating Disorders"])
                     
-                    ColorPicker("Choose a background color:", selection: $color_raw)
-                        .foregroundColor(Color(.black))
-                        .fontWeight(.semibold)
-                        .font(.system(size: 18))
+//                    ColorPicker("Choose a background color:", selection: $color_raw)
+//                        .foregroundColor(Color(.black))
+//                        .fontWeight(.semibold)
+//                        .font(.system(size: 18))
+                    
+                    HStack {
+                        Picker("Avatar", selection: $selectedAvatar) {
+                            ForEach(avatarOptions, id: \.self) { option in
+                                Text(option).tag(option)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .accentColor(.blue)
+
+                        Picker("Background", selection: $selectedBackground) {
+                            ForEach(backgroundOptions, id: \.self) { option in
+                                Text(option).tag(option)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .accentColor(.blue)
+                    }
+                    
 
                     InputView(text: $password, title: "Password", placeholder: "Enter your password", isSecureField: true)
                     
@@ -88,16 +115,19 @@ struct RegistrationView: View {
                             }
                         }
                     }
+
                 }
                 .padding(.horizontal)
                 .padding(.top, 12)
             }
             
+            
+            
             VStack {
                 Button {
                     print("Sign User Up")
                     Task {
-                        try await viewModel.createUser(withEmail: email, password: password, fullname: full_name, location: location, color: color_hex, firstPeak: firstPeak)
+                        try await viewModel.createUser(withEmail: email, password: password, fullname: full_name, location: location, color: color_hex, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz)
                     }
                     
                 } label: {

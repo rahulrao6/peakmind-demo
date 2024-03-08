@@ -48,11 +48,11 @@ class AuthViewModel : ObservableObject {
     }
     
     
-    func createUser(withEmail email: String, password: String, fullname: String, location: String, color: String, firstPeak: String) async throws {
+    func createUser(withEmail email: String, password: String, fullname: String, location: String, color: String, firstPeak: String, username: String, selectedAvatar: String, selectedBackground: String, hasCompletedInitialQuiz: Bool) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, fullname: fullname, email: email, location: location, color: color, firstPeak: firstPeak)
+            let user = User(id: result.user.uid, fullname: fullname, email: email, location: location, color: color, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
             await fetchUser()
@@ -145,7 +145,7 @@ class AuthViewModel : ObservableObject {
 //
 //        messagesCollection.getDocuments { snapshot, error in
 //            guard let snapshot = snapshot else {
-//                if let error = error {
+//                if let errodxzr = error {
 //                    print("Error getting documents: \(error)")
 //                } else {
 //                    print("Snapshot is nil")

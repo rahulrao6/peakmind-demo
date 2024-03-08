@@ -6,15 +6,28 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+
 
 struct QuestionsView: View {
-    @State var questions: [Question]
-    var onFinish: ()->()
+    @EnvironmentObject var viewModel : AuthViewModel
+
+    //@State var questions: [Question]
+    //var onFinish: () -> ()
+    
+    @State var questions = [
+        Question(id: UUID(), question: "Rank your anxiety.", selectedNumber: 1, peak_tackled: "Anxiety"),
+        Question(id: UUID(), question: "Rank your current mental state.", selectedNumber: 1, peak_tackled: "Current Mental State"),
+        Question(id: UUID(), question: "Rank your self-care abilities.", selectedNumber: 1, peak_tackled: "Self Care abilities"),
+        Question(id: UUID(), question: "Rank your support systems.", selectedNumber: 1, peak_tackled: "Support Systems"),
+        Question(id: UUID(), question: "Rank your stress.", selectedNumber: 1, peak_tackled: "Stress"),
+        Question(id: UUID(), question: "Rank your eating habits.", selectedNumber: 1, peak_tackled: "Eating"),
+    ]
     
     @Environment(\.dismiss) private var dismiss
     @State private var progress: CGFloat = 0
     @State private var currentIndex: Int = 0
-    @State private var showPersonalizedPlan: Bool = false
+    //@State private var showPersonalizedPlan: Bool = false
     
     var body: some View {
         VStack(spacing: 15) {
@@ -74,7 +87,10 @@ struct QuestionsView: View {
             // Finish button needs to save + send info to Firebase when clicked
             CustomButton(title: currentIndex == (questions.count - 1) ? "Finish" : "Next Question") {
                 if currentIndex == (questions.count - 1) {
-                    showPersonalizedPlan = true
+                    //onFinish()
+                    sendToFirebase()
+                    print(questions)
+                    //showPersonalizedPlan = true
                 } else {
                     withAnimation(.easeInOut) {
                         currentIndex += 1
@@ -87,9 +103,9 @@ struct QuestionsView: View {
         .background {
             Color("Pink").ignoresSafeArea()
         }
-        .sheet(isPresented: $showPersonalizedPlan) {
-            PersonalizedPlanView()
-        }
+        //.sheet(isPresented: $showPersonalizedPlan) {
+        //    PersonalizedPlanView()
+        //}
     }
     
     @ViewBuilder
@@ -130,22 +146,103 @@ struct QuestionsView: View {
                 .fill(.white)
         }
     }
+    
+    
+    func sendToModel() {
+        var questionnaireAnswers = [String: Int]()
+        for question in questions {
+            questionnaireAnswers[question.peak_tackled] = question.selectedNumber
+        }
+        
+        
+    }
+    
+    func callModel() {
+        guard let currentUserID = viewModel.currentUser?.id else {
+            print("User ID not found.")
+            return
+        }
+        
+        guard let url = URL(string: "http://35.188.88.124/api/tasks") else {
+            print("Invalid URL.")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let parameters: [String: Any] = [
+            "user_id": currentUserID
+        ]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Error calling model: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
+                print("Model called successfully.")
+            } else {
+                print("Error calling model: \(response?.description ?? "Unknown error")")
+            }
+        }.resume()
+    }
+    
+    
+    func sendToFirebase() {
+        guard let currentUserID = viewModel.currentUser?.id else {
+            print("User ID not found.")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let userDocRef = db.collection("users").document(currentUserID)
+        let questionnaireAnswersDocRef = db.collection("questionnaire_answers").document(currentUserID)
+        
+        var questionnaireAnswers = [String: Int]()
+        for question in questions {
+            questionnaireAnswers[question.peak_tackled] = question.selectedNumber
+        }
+            // Save questionnaire answers
+        questionnaireAnswersDocRef.setData(questionnaireAnswers) { error in
+            if let error = error {
+                print("Error saving questionnaire answers: \(error.localizedDescription)")
+            } else {
+                print("Questionnaire answers saved successfully.")
+            }
+        }
+        
+        
+        // Update hasCompletedInitialQuiz field
+        userDocRef.updateData(["hasCompletedInitialQuiz": true]) { error in
+            if let error = error {
+                print("Error updating hasCompletedInitialQuiz: \(error.localizedDescription)")
+            } else {
+                print("hasCompletedInitialQuiz updated successfully.")
+            }
+        }
+        Task {
+            await viewModel.fetchUser()
+        }
+        
+        callModel()
+        
+    }
 }
 
 struct QuestionsView_Previews: PreviewProvider {
     static var previews: some View {
         // Example questions
         let exampleQuestions = [
-            Question(id: UUID(), question: "How do you feel today?", selectedNumber: 0),
-            Question(id: UUID(), question: "How was your sleep last night?", selectedNumber: 0),
-            Question(id: UUID(), question: "How productive were you today?", selectedNumber: 0),
-            Question(id: UUID(), question: "Are you anxious?", selectedNumber: 0),
-            Question(id: UUID(), question: "What is your biggest stressor right now?", selectedNumber: 0),
+            Question(id: UUID(), question: "Rank your anxiety.", selectedNumber: 1, peak_tackled: "Anxiety"),
+            Question(id: UUID(), question: "Rank your current mental state.", selectedNumber: 1, peak_tackled: "Current Mental State"),
+            Question(id: UUID(), question: "Rank your self-care abilities.", selectedNumber: 1, peak_tackled: "Self Care abilites"),
+            Question(id: UUID(), question: "Rank your support systems.", selectedNumber: 1, peak_tackled: "Support System"),
+            Question(id: UUID(), question: "Rank your stress.", selectedNumber: 1, peak_tackled: "Stress"),
+            Question(id: UUID(), question: "Rank your eating habits.", selectedNumber: 1, peak_tackled: "Eating"),
         ]
         
         // Initializing QuestionsView with example questions and a dummy onFinish function
-        QuestionsView(questions: exampleQuestions, onFinish: {
-            print("Finished answering all questions.")
-        })
+        QuestionsView(questions: exampleQuestions)
     }
 }

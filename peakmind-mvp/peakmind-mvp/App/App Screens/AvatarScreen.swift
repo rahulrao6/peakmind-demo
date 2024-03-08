@@ -1,115 +1,210 @@
-//
-//  AvatarScreen.swift
-//  peakmind-mvp
-//
-//  Created by Mikey Halim on 2/27/24.
-//
-
 import SwiftUI
+import FirebaseFirestore
 
 struct AvatarScreen: View {
     let avatarOptions = ["Asian", "Indian", "White"]
-    @State private var selectedAvatar = "Asian"
+    let backgroundOptions = ["Pink Igloo", "Orange Igloo", "Blue Igloo", "Navy Igloo"]
+    @State private var selectedAvatar = "White"
+    @State private var selectedBackground = "Navy Igloo"
     @State private var showPicker = false
-    @State private var username: String = "DefaultUsername"
-    @State private var isEditingUsername = false  // Track whether the username is being edited
+    @State private var username: String = ""
+    @State private var newUsername = ""
+    @State private var isEditingUsername = false
+    @State private var isNavigatingToProfileView = false
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("Your Profile") // Change this to [NAME]'s Profile from Firebase first name
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 20)
-
+        if let user = viewModel.currentUser {
+            NavigationView {
                 ZStack {
-                       Image("AvatarBG") // Background image
-                           .resizable()
-                           .scaledToFill()
-                           .frame(width: 300, height: 300)
-                           .cornerRadius(15)
-                           .clipped()
+                    Image("ChatBG2")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
 
-                       Image(selectedAvatar) // Foreground avatar image
-                           .resizable()
-                           .scaledToFit()
-                           .frame(width: 300, height: 300)
-                   }
-                   .padding(.bottom, 20)
-                Button(action: {
-                    showPicker.toggle()
-                }) {
-                    Text(showPicker ? "Confirm" : "Change Avatar")
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(Color.black.opacity(0.5))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 20) 
+                        .overlay(
+                            VStack {
+                                Text("Your Profile")
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .padding(.bottom, 20)
+
+                                ZStack {
+                                    if showPicker {
+                                        Image(selectedBackground)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 300, height: 300)
+                                            .cornerRadius(15)
+                                            .clipped()
+
+                                        Image(selectedAvatar)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 280, height: 280)
+                                    } else {
+                                        Image(user.selectedBackground)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 300, height: 300)
+                                            .cornerRadius(15)
+                                            .clipped()
+
+                                        Image(user.selectedAvatar)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 280, height: 280)
+                                    }
+                                }
+                                .padding(.bottom, 20)
+
+                                if showPicker {
+                                    Button(action: {
+                                        Task {
+                                            showPicker.toggle()
+                                            do {
+                                                try await updateBackgroundAvatar()
+                                            } catch {
+                                                print("Error updating background avatar: \(error)")
+                                            }
+                                        }
+                                    }) {
+                                        Text("Confirm Choices")
+                                    }
+                                    .accentColor(.white)
+                                    .padding()
+                                } else {
+                                    Button(action: {
+                                        showPicker.toggle()
+                                    }) {
+                                        Text("Change Avatar / Igloo")
+                                    }
+                                    .accentColor(.white)
+                                    .padding()
+                                }
+
+                                if showPicker {
+                                    HStack {
+                                        Picker("Avatar", selection: $selectedAvatar) {
+                                            ForEach(avatarOptions, id: \.self) { option in
+                                                Text(option).tag(option)
+                                            }
+                                        }
+                                        .pickerStyle(MenuPickerStyle())
+                                        .accentColor(.white)
+
+                                        Picker("Background", selection: $selectedBackground) {
+                                            ForEach(backgroundOptions, id: \.self) { option in
+                                                Text(option).tag(option)
+                                            }
+                                        }
+                                        .pickerStyle(MenuPickerStyle())
+                                        .accentColor(.white)
+                                    }
+                                    .padding()
+                                }
+                                
+                                if (!isEditingUsername) {
+                                    Text(user.username)
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                    
+                                } else {
+                                    TextField("Change your username", text: $username)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .frame(maxWidth: 300)
+                                }
+
+//                                TextField("Change your username", text: $username)
+//                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+//                                    .frame(maxWidth: 300)
+//                                    .disabled(!isEditingUsername)
+
+                                Text(isEditingUsername ? "Confirm" : "Change Username")
+                                    .font(.caption)
+                                    .foregroundColor(.white)
+                                    .onTapGesture {
+                                        isEditingUsername.toggle()
+                                    }
+                                    .padding(.bottom, 15)
+
+                                HStack(spacing: 10) {
+                                    Button(action: {}) {
+                                        HStack {
+                                            Image(systemName: "chart.bar")
+                                            Text("Analytics")
+                                        }
+                                    }
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.blue)
+                                    .foregroundColor(Color.white)
+                                    .cornerRadius(10)
+
+                                    Button(action: {
+                                        isNavigatingToProfileView = true
+                                    }) {
+                                        HStack {
+                                            Image(systemName: "gear")
+                                            Text("Settings")
+                                        }
+                                    }
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.gray)
+                                    .foregroundColor(Color.white)
+                                    .cornerRadius(10)
+                                }
+                                .frame(maxWidth: 300)
+
+                                NavigationLink(destination: ProfileView(), isActive: $isNavigatingToProfileView) {
+                                    EmptyView()
+                                }
+                            }
+                            .padding()
+                        )
+
                 }
-                .padding()
-
-                if showPicker {
-                    // Save avatar info to Firebase
-                    Picker("Select your avatar", selection: $selectedAvatar) {
-                        ForEach(avatarOptions, id: \.self) { option in
-                            Text(option).tag(option)
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .padding()
-                }
-
-                // Display the username in a TextField
-                // Update this from what's actually in Firebase
-                TextField("Enter your username", text: $username)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(maxWidth: 300)
-                    .disabled(!isEditingUsername)  // Disable editing unless the user is in edit mode
-
-                // Text button for toggling username editing state
-                // When confirm button is clicked, update username in Firebase
-                Text(isEditingUsername ? "Confirm" : "Change Username")
-                    .font(.caption)
-                    .foregroundColor(.blue)
-                    .onTapGesture {
-                        if isEditingUsername {
-                            self.isEditingUsername = false
-                        } else {
-                            // Open the TextField for editing
-                            self.isEditingUsername = true
-                        }
-                    }
-                    .padding(.bottom, 15)
-                Button("Analytics") {
-                    // Action for Analytics button
-                }
-                .padding()
-                .frame(maxWidth: 300)
-                .background(Color.blue)
-                .foregroundColor(Color.white)
-                .cornerRadius(10)
-
-                NavigationLink(destination: ProfileView()) {
-                    Text("Settings")
-                        .padding()
-                        .frame(maxWidth: 300)
-                        .background(Color.green)
-                        .foregroundColor(Color.white)
-                        .cornerRadius(10)
-                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .navigationBarHidden(true)
             }
-            .padding()
-            .frame(maxWidth: .infinity)
         }
-        .padding(.top, 40)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationBarHidden(true)
     }
-    
+
+    func updateBackgroundAvatar() async throws {
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id)
+
+        do {
+            try await userRef.setData([
+                "selectedAvatar": selectedAvatar,
+                "selectedBackground": selectedBackground
+            ], merge: true)
+
+            print("User fields updated successfully.")
+
+            // Assuming fetchUser is also an asynchronous function
+            await viewModel.fetchUser()
+        } catch {
+            print("Error updating user fields: \(error)")
+        }
+    }
 }
 
-#Preview {
-    AvatarScreen()
+// Preview
+struct AvatarScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        AvatarScreen().environmentObject(AuthViewModel())
+    }
 }
-
-
-
-
-
-
-

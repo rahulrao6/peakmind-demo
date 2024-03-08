@@ -46,7 +46,7 @@ struct ProfileView: View {
                         
                         Spacer()
                         
-                        Text("11%")
+                        Text("100%")
                     }
                     
                     
@@ -60,21 +60,6 @@ struct ProfileView: View {
                         Spacer()
                         
                         Text("1.0.0")
-                    }
-                    NavigationLink {
-                        ChatView()
-                            .environmentObject(viewModel)
-                            .navigationTitle("Chat With Your Sherpa")
-
-                    } label: {
-                        HStack {
-                            SettingsRowView(imageName: "bubble.left.and.text.bubble.right.fill", title: "Chat with Sherpa", tintColor: Color(.systemGray))
-                            
-                            Spacer()
-                            
-                            Text("")
-                        }
-                        
                     }
                     
                 }

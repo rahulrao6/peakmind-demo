@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
-    @State private var showingSplash = false // State to control splash screen visibility
+    @State private var showingSplash = true // State to control splash screen visibility
 
     
     var body: some View {

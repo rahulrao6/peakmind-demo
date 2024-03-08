@@ -74,6 +74,7 @@
 		79BFB52C2B8EABC500634262 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52B2B8EABC500634262 /* Info.swift */; };
 		79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52D2B8EDA6E00634262 /* JournalView.swift */; };
 		79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52F2B914A5000634262 /* SplashScreen.swift */; };
+		79BFB5342B987D4400634262 /* AvatarSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5332B987D4400634262 /* AvatarSettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +137,7 @@
 		79BFB52B2B8EABC500634262 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		79BFB52D2B8EDA6E00634262 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
 		79BFB52F2B914A5000634262 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		79BFB5332B987D4400634262 /* AvatarSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +398,7 @@
 				79BFB5272B8EAB5C00634262 /* QuestionsView.swift */,
 				79BFB52D2B8EDA6E00634262 /* JournalView.swift */,
 				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
+				79BFB5332B987D4400634262 /* AvatarSettingsView.swift */,
 			);
 			path = "App Screens";
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
+				79BFB5342B987D4400634262 /* AvatarSettingsView.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreen.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,

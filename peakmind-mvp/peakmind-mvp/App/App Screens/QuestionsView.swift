@@ -27,7 +27,7 @@ struct QuestionsView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var progress: CGFloat = 0
     @State private var currentIndex: Int = 0
-    @State private var showPersonalizedPlan: Bool = false
+    //@State private var showPersonalizedPlan: Bool = false
     
     var body: some View {
         VStack(spacing: 15) {
@@ -90,7 +90,7 @@ struct QuestionsView: View {
                     //onFinish()
                     sendToFirebase()
                     print(questions)
-                    showPersonalizedPlan = true
+                    //showPersonalizedPlan = true
                 } else {
                     withAnimation(.easeInOut) {
                         currentIndex += 1
@@ -103,9 +103,9 @@ struct QuestionsView: View {
         .background {
             Color("Pink").ignoresSafeArea()
         }
-        .sheet(isPresented: $showPersonalizedPlan) {
-            PersonalizedPlanView()
-        }
+        //.sheet(isPresented: $showPersonalizedPlan) {
+        //    PersonalizedPlanView()
+        //}
     }
     
     @ViewBuilder

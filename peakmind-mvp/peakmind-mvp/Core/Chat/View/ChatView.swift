@@ -29,19 +29,33 @@ struct ChatView: View {
 
     var body: some View {
         ZStack {
-            Image("ChatBG")
+            Image("ChatBG2")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
 
             if let user = viewModel.currentUser {
                 VStack {
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 10) {
-                            ForEach(receivedMessages, id: \.self) { chatMessage in
-                                MessageBubble(message: chatMessage.content, sender: chatMessage.sender, timestamp: chatMessage.timestamp)
+                        ScrollViewReader { scrollViewProxy in
+                            VStack(alignment: .leading, spacing: 10) {
+                                ForEach(receivedMessages, id: \.self) { chatMessage in
+                                    MessageBubble(message: chatMessage.content, sender: chatMessage.sender, timestamp: chatMessage.timestamp)
+                                        .id(chatMessage.id)
+                                }
+                            }
+                            .onAppear {
+                                if let lastMessage = receivedMessages.last {
+                                    scrollViewProxy.scrollTo(lastMessage.id, anchor: .bottom)
+                                }
+                            }
+                            .onChange(of: receivedMessages) { _ in
+                                if let lastMessage = receivedMessages.last {
+                                    scrollViewProxy.scrollTo(lastMessage.id, anchor: .bottom)
+                                }
                             }
                         }
                     }
+
                     .padding()
 
                     Spacer()

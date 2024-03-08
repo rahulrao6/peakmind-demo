@@ -16,8 +16,10 @@ struct ContentView: View {
         ZStack {
             // Main content conditionally displayed based on authentication status
             Group {
-                if viewModel.userSession != nil && viewModel.currentUser != nil {
-                    if (viewModel.currentUser?.hasCompletedInitialQuiz == false) {
+                if viewModel.userSession != nil && viewModel.currentUser  != nil {
+                    if (viewModel.currentUser?.hasSetInitialAvatar == false) {
+                        AvatarSettingsView()
+                    } else if (viewModel.currentUser?.hasCompletedInitialQuiz == false && viewModel.currentUser?.hasSetInitialAvatar == true) {
                         QuestionsView()
                     } else {
                         MainScreenView()

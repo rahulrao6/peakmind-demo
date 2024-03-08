@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Firebase
 
 class JournalDataManager: ObservableObject {
     @Published var journalEntries: [JournalEntry] = []
@@ -11,6 +12,7 @@ class JournalDataManager: ObservableObject {
     }
     
     func addJournalEntry(_ entry: JournalEntry) {
+        
         journalEntries.append(entry)
         saveJournalEntries()
     }

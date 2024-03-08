@@ -1,7 +1,11 @@
 import SwiftUI
+import Firebase
+
 
 struct JournalView: View {
     @EnvironmentObject var dataManager: JournalDataManager
+    @EnvironmentObject var viewModel : AuthViewModel
+
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var mood: String = "Neutral"
@@ -122,8 +126,30 @@ struct JournalView: View {
     }
     
     private func saveEntry() {
-        let newEntry = JournalEntry(title: title, content: content, date: entryDate, mood: mood, tags: tags)
-        dataManager.addJournalEntry(newEntry)
+        let newEntry = JournalEntry(id: "", title: title, content: content, date: entryDate, mood: mood, tags: tags)
+        let db = Firestore.firestore()
+        guard let currentUser = viewModel.currentUser else {
+            print("Current user not found.")
+            return
+        }
+        
+        let userJournalRef = db.collection("users").document(currentUser.id).collection("journal_entries").document()
+        
+        userJournalRef.setData([
+            "id": "\(userJournalRef.documentID)",
+            "title": newEntry.title,
+            "content": newEntry.content,
+            "date": Timestamp(date: newEntry.date),
+            "mood": newEntry.mood,
+            "tags": newEntry.tags
+        ]) { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document added with ID: \(userJournalRef.documentID)")
+            }
+        }
+        //dataManager.addJournalEntry(newEntry)
         presentationMode.wrappedValue.dismiss()
     }
 }

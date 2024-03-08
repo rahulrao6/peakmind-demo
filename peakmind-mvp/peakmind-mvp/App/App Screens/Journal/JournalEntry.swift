@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 struct JournalEntry: Identifiable, Codable {
-    var id: UUID
+    var id: String
     var title: String
     var content: String
     var date: Date
@@ -10,7 +10,7 @@ struct JournalEntry: Identifiable, Codable {
     var tags: [String] // Ensure this property exists
 
     // Initialize all properties. UUID() provides a default value for id.
-    init(id: UUID = UUID(), title: String, content: String, date: Date, mood: String, tags: [String]) {
+    init(id: String, title: String, content: String, date: Date, mood: String, tags: [String]) {
         self.id = id
         self.title = title
         self.content = content
@@ -18,6 +18,7 @@ struct JournalEntry: Identifiable, Codable {
         self.mood = mood
         self.tags = tags
     }
+    
     
     // Example moods with system icons and colors (SwiftUI.Color cannot be directly Codable)
     var moodDetails: (iconName: String, color: UIColor) {

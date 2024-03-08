@@ -1,7 +1,10 @@
 import SwiftUI
+import Firebase
 
 struct JournalDetailView: View {
     @EnvironmentObject var dataManager: JournalDataManager
+    @EnvironmentObject var viewModel : AuthViewModel
+
     @Environment(\.presentationMode) var presentationMode
     @State private var editedEntry: JournalEntry
     @State private var isEditing: Bool = false
@@ -61,6 +64,7 @@ struct JournalDetailView: View {
     }
     
     private var tagSection: some View {
+        
         TagEditor(tags: $editedEntry.tags)
             .opacity(isEditing ? 1 : 0)
     }
@@ -97,9 +101,28 @@ struct JournalDetailView: View {
         }
     
     private func saveChanges() {
-        guard let index = dataManager.journalEntries.firstIndex(where: { $0.id == editedEntry.id }) else { return }
-        dataManager.journalEntries[index] = editedEntry
-        dataManager.saveJournalEntries()
+        
+        let db = Firestore.firestore()
+        guard let currentUser = viewModel.currentUser else {
+            print("Current user not found.")
+            return
+        }
+        
+        let userJournalRef = db.collection("users").document(currentUser.id).collection("journal_entries").document("\(editedEntry.id)")
+        
+        userJournalRef.updateData([
+            "title": editedEntry.title,
+            "content": editedEntry.content,
+            "mood": editedEntry.mood,
+            "tags": editedEntry.tags
+        ]) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("Document updated successfully.")
+            }
+        }
+        
     }
 }
 

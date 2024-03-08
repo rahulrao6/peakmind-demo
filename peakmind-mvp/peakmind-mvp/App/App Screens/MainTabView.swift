@@ -19,9 +19,9 @@ struct MainScreenView: View {
                     }
                     .tag(0)
                 
-                JournalView()
+                JournalEntriesView()
                     .tabItem {
-                        Image(systemName: "note.text")
+                        Label("Journal", systemImage: "note.text")
                     }
                     .tag(1)
                 HomeScreenView()

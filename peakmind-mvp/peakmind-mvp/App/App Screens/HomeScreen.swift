@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeScreenView: View {
     @State private var navigateToPlayScreen = false
     @State private var navigateToPlanScreen = false
+    @State private var navigateToJournal = false
+
 
     var body: some View {
         NavigationView {

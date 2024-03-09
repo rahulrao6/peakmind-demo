@@ -20,7 +20,7 @@ struct ContentView: View {
                     if (viewModel.currentUser?.hasCompletedInitialQuiz == false) {
                         QuestionsView()
                     } else {
-                        MainScreenView()
+                        HomeScreenView()
                     }
                 } else {
                     LoginView()

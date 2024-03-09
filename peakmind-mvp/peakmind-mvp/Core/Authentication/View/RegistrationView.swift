@@ -39,17 +39,17 @@ struct RegistrationView: View {
         VStack{
             //title
             HStack {
-                Text("Register Your Account")
+                Text("Sign Up For PeakMind")
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     .bold()
                     .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                     .padding()
                 
-                Image(systemName: "brain.head.profile")
-                    .imageScale(.large)
-                    .font(.title)
-                    .padding()
-                    
+                Image("PM Logo")
+                             .resizable()
+                             .scaledToFit()
+                             .frame(width: 110, height: 110) // Adjust the size as needed
+                             .padding(8) // Padding around the image
                 
                 
             }
@@ -65,8 +65,7 @@ struct RegistrationView: View {
                     
                     InputView(text: $location, title: "City", placeholder: "Enter your city", isSecureField: false)
                     
-                    InputView(text: $firstPeak, title: "First Peak To Tackle?", placeholder: "", isSecureField: false, isPickerField: true, pickerOptions: ["Anxiety", "Depression", "Anger Issues", "Self Help", "Eating Disorders"])
-                    
+
 //                    ColorPicker("Choose a background color:", selection: $color_raw)
 //                        .foregroundColor(Color(.black))
 //                        .fontWeight(.semibold)
@@ -149,6 +148,8 @@ struct RegistrationView: View {
                 
             }
         }
+        //.background(Color("Ice Blue")) // Set background color using selectedBackground
+
     }
 }
 

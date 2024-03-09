@@ -7,10 +7,10 @@ struct JournalEntriesView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
+                Color("UIColor.systemGroupedBackground").edgesIgnoringSafeArea(.all)
 
                 if dataManager.journalEntries.isEmpty {
-                    EmptyStateView() // Assumes definition elsewhere
+                    EmptyStateView()
                 } else {
                     entriesList
                 }
@@ -19,7 +19,7 @@ struct JournalEntriesView: View {
             }
             .navigationTitle("Journal Entries")
             .sheet(isPresented: $showingAddJournalEntryView) {
-                JournalView().environmentObject(dataManager) // Assumes JournalView conforms to the environment object requirement
+                JournalView().environmentObject(dataManager)
             }
         }
     }
@@ -28,7 +28,7 @@ struct JournalEntriesView: View {
         List {
             ForEach(dataManager.journalEntries.sorted { $0.date > $1.date }, id: \.id) { entry in
                 NavigationLink(destination: JournalDetailView(entry: entry).environmentObject(dataManager)) {
-                    JournalEntryCard(entry: entry) // Assumes definition elsewhere
+                    JournalEntryCard(entry: entry)
                 }
             }
             .onDelete(perform: deleteItem)
@@ -44,12 +44,9 @@ struct JournalEntriesView: View {
                 Button(action: {
                     showingAddJournalEntryView = true
                 }) {
-                    Image(systemName: "plus")
+                    Image("AddButton")                         
                         .resizable()
                         .frame(width: 60, height: 60)
-                        .foregroundColor(.white)
-                        .background(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .clipShape(Circle())
                         .shadow(radius: 10)
                 }
                 .padding()
@@ -120,5 +117,3 @@ struct JournalEntryCard: View {
             .shadow(radius: 2)
     }
 }
-
-

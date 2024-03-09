@@ -10,87 +10,109 @@ import SwiftUI
 struct HomeScreenView: View {
     @State private var navigateToPlayScreen = false
     @State private var navigateToPlanScreen = false
-    @State private var navigateToJournal = false
-
+    @State private var navigateToChatScreen = false
+    @State private var navigateToJournalScreen = false
+    @State private var navigateToProfileScreen = false
 
     var body: some View {
         NavigationView {
             ZStack {
-                Image("GameScreenTemp")
+                Image("HomeScreenBG")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
                 
-                ZStack {
-                    Rectangle()
-                        .fill(Color.white.opacity(1))
-                        .frame(width: 330, height: 120)
-                        .cornerRadius(10)
-                        .shadow(radius: 10)
-                    Text("What struggles are you facing today?")
-                        .font(.title)
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(2)
-                        .frame(width: 300)
-                }
-                .offset(y: 75)
-                
-                Button(action: {
-                    navigateToPlayScreen = true
-                }) {
-                    Image("play")
+                VStack(spacing: 0) {
+                    Image("PM3DLogo")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 130, height: 130)
-                        .clipShape(Circle())
-                        .shadow(radius: 10)
-                }
-                .offset(y: 240)
-                .offset(x: -80)
-                .background(
-                    NavigationLink(destination: PlayScreen(), isActive: $navigateToPlayScreen) {
-                        EmptyView()
+                        .frame(width: 300, height: 300)
+                        .padding(.vertical, -0)
+
+                    Button(action: {
+                        navigateToPlayScreen = true
+                    }) {
+                        Image("PlayButton")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 300, height: 200)
+                            .shadow(radius: 10)
                     }
-                )
-                Button(action: {
-                    navigateToPlanScreen = true
-                }) {
-                    Image("plan")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 130, height: 130)
-                        .clipShape(Circle())
-                        .shadow(radius: 10)
-                }
-                .offset(y: 240)
-                .offset(x: 80)
-                .background(
-                    NavigationLink(destination: PersonalizedPlanView(), isActive: $navigateToPlanScreen) {
-                        EmptyView()
+                    .background(
+                        NavigationLink(destination: PlayScreen(), isActive: $navigateToPlayScreen) {
+                            EmptyView()
+                        }
+                    )
+                    .padding(.vertical, -70)
+
+                    
+                    Button(action: {
+                        navigateToPlanScreen = true
+                    }) {
+                        Image("YourPlan")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 300, height: 200)
+                            .shadow(radius: 10)
                     }
-                )
-                
-                Image("Sherpa")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 150, height: 150)
-                    .offset(y: -70)
-                
-                ZStack {
-                    Rectangle()
-                        .fill(Color.yellow.opacity(0.7))
-                        .frame(width: 150, height: 60)
-                        .cornerRadius(10)
-                        .shadow(radius: 10)
-                    Text("Current Peak: Anxiety")
-                        .font(.body)
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(2)
-                        .frame(width: 125)
+                    .background(
+                        NavigationLink(destination: PersonalizedPlanView(), isActive: $navigateToPlanScreen) {
+                            EmptyView()
+                        }
+                    )
+
+                    HStack(spacing: 20) {
+                                          Button(action: {
+                                              navigateToChatScreen = true
+                                          }) {
+                                              Image("ChatButton")
+                                                  .resizable()
+                                                  .scaledToFit()
+                                                  .frame(width: 60, height: 60)
+                                          }
+                                          .background(
+                                              NavigationLink(destination: ChatView(), isActive: $navigateToChatScreen) {
+                                                  EmptyView()
+                                              }
+                                          )
+
+                                          Button(action: {
+                                              navigateToJournalScreen = true
+                                          }) {
+                                              Image("JournalButton")
+                                                  .resizable()
+                                                  .scaledToFit()
+                                                  .frame(width: 60, height: 60)
+                                          }
+                                          .background(
+                                              NavigationLink(destination: JournalEntriesView(), isActive: $navigateToJournalScreen) {
+                                                  EmptyView()
+                                              }
+                                          )
+
+                                          Button(action: {
+                                              navigateToProfileScreen = true
+                                          }) {
+                                              Image("ProfileButton")
+                                                  .resizable()
+                                                  .scaledToFit()
+                                                  .frame(width: 60, height: 60)
+                                          }
+                                          .background(
+                                              NavigationLink(destination: AvatarScreen(), isActive: $navigateToProfileScreen) {
+                                                  EmptyView()
+                                              }
+                                          )
+                                      }
+                    .offset(x: 50)
+
                 }
-                .offset(y: -185)
+                .offset(y: -30)
+
+                .fixedSize(horizontal: true, vertical: true)
+
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)

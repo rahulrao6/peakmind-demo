@@ -16,7 +16,8 @@ struct PersonalizedPlanView: View {
     
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var tasks: [String] = []
-    @State private var section: [String] = ["1", "2", "3", "4"]
+    @State private var section: [String] = []
+    @State private var habits: [String] = ["Eat 3 meals today", "Go on a walk outside", "Drink a gallon of water today", "Sleep 8 hours tonight"]
     
 
     var body: some View {
@@ -31,7 +32,7 @@ struct PersonalizedPlanView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     taskListView(title: "Current Tasks", expanded: $currentTasksExpanded, category: "Testing Long Current Task Name Example", color: Color("Navy Blue"))
                     sectionView(title: "Goals", expanded: $goalsExpanded, category: "Extended Goal Name for Testing", color: Color("Medium Blue"))
-                    sectionView(title: "Habits", expanded: $habitsExpanded, category: "Habit with a Significantly Longer Name", color: Color("Ice Blue"))
+                    habitListView(title: "Habits", expanded: $habitsExpanded, category: "Habit with a Significantly Longer Name", color: Color("Ice Blue"))
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 25)
@@ -78,6 +79,22 @@ struct PersonalizedPlanView: View {
         DisclosureGroup(title, isExpanded: expanded) {
             VStack(alignment: .leading, spacing: 5) {
                 ForEach(Array(tasks.enumerated().prefix(5)), id: \.offset) { index, task in
+                    TaskCard(taskTitle: task, rank: index + 1)
+                        .padding(.leading, 0)
+                        .padding(.top, index + 1 == 1 ? 10 : 0)  // Adds more space before the first task
+                }
+            }
+        }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 10).fill(color))
+        .foregroundColor(.white)
+    }
+    
+    @ViewBuilder
+    private func habitListView(title: String, expanded: Binding<Bool>, category: String, color: Color) -> some View {
+        DisclosureGroup(title, isExpanded: expanded) {
+            VStack(alignment: .leading, spacing: 5) {
+                ForEach(Array(habits.enumerated().prefix(5)), id: \.offset) { index, task in
                     TaskCard(taskTitle: task, rank: index + 1)
                         .padding(.leading, 0)
                         .padding(.top, index + 1 == 1 ? 10 : 0)  // Adds more space before the first task

@@ -9,9 +9,9 @@ import SwiftUI
 import FirebaseFirestore
 
 struct AvatarSettingsView: View {
-    let avatarOptions = ["Asian", "Indian", "White"]
+    let avatarOptions = ["Mikey", "Raj", "Trevor"]
     let backgroundOptions = ["Pink Igloo", "Orange Igloo", "Blue Igloo", "Navy Igloo"]
-    @State private var selectedAvatar = "White"
+    @State private var selectedAvatar = "Mikey"
     @State private var selectedBackground = "Navy Igloo"
     @State private var showPicker = false
     @EnvironmentObject var viewModel: AuthViewModel

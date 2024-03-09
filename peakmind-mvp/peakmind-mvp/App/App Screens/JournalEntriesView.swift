@@ -18,11 +18,11 @@ struct JournalEntriesView: View {
                     .ignoresSafeArea()
 
                 VStack(spacing: 0) {
-                    Text("My Journal Entries")
+                    Text("My Journal")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .padding(.top)
+                        .padding()
 
                     if journalEntries.isEmpty {
                         EmptyStateView().padding(.top)
@@ -43,7 +43,6 @@ struct JournalEntriesView: View {
                 JournalView().environmentObject(dataManager)
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
 
     }
 
@@ -60,14 +59,13 @@ struct JournalEntriesView: View {
             .onDelete(perform: deleteItem)
         }
         .listStyle(PlainListStyle())
-        .sheet(item: $selectedEntry) { entry in
+        .sheet(item: $selectedEntry, onDismiss: fetchJournalEntries) { entry in
             JournalDetailView(entry: entry)
         }
     }
 
     private var addButton: some View {
         VStack {
-            Spacer()
             HStack {
                 Spacer()
                 Button(action: {
@@ -139,15 +137,9 @@ struct JournalEntriesView: View {
 struct EmptyStateView: View {
     var body: some View {
         VStack {
-            Image(systemName: "note.text")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-                .foregroundColor(.gray)
-                .opacity(0.5)
-            Text("No journal entries yet")
+            Text("No journal entries yet. Enter one below!")
                 .font(.title)
-                .foregroundColor(.gray)
+                .foregroundColor(.white)
         }
     }
 }
@@ -161,11 +153,11 @@ struct JournalEntryCard: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(entry.title)
                     .font(.headline)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.white)
                 
                 Text(entry.date, style: .date)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.white)
             }
             Spacer()
             moodIcon
@@ -173,7 +165,9 @@ struct JournalEntryCard: View {
                 .foregroundColor(.white) // Set arrow color to white
         }
         .padding()
-        .background(LinearGradient(gradient: Gradient(colors: [Color.white, Color(UIColor.secondarySystemBackground)]), startPoint: .top, endPoint: .bottom))
+        .background {
+            Color("SentMessage").ignoresSafeArea()
+        }
         .cornerRadius(12)
         .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 0, y: 2)
         .padding(.horizontal)

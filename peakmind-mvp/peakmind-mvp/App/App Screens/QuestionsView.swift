@@ -17,12 +17,12 @@ struct QuestionsView: View {
     //var onFinish: () -> ()
     
     @State var questions = [
-        Question(id: UUID(), question: "Rank your anxiety.", selectedNumber: 1, peak_tackled: "Anxiety"),
-        Question(id: UUID(), question: "Rank your current mental state.", selectedNumber: 1, peak_tackled: "Current Mental State"),
-        Question(id: UUID(), question: "Rank your self-care abilities.", selectedNumber: 1, peak_tackled: "Self Care abilities"),
-        Question(id: UUID(), question: "Rank your support systems.", selectedNumber: 1, peak_tackled: "Support Systems"),
-        Question(id: UUID(), question: "Rank your stress.", selectedNumber: 1, peak_tackled: "Stress"),
-        Question(id: UUID(), question: "Rank your eating habits.", selectedNumber: 1, peak_tackled: "Eating"),
+        Question(id: UUID(), question: "How often would you say you feel anxious?", selectedNumber: 1, peak_tackled: "Anxiety"),
+        Question(id: UUID(), question: "How would you describe your current mental health?", selectedNumber: 1, peak_tackled: "Current Mental State"),
+        Question(id: UUID(), question: "How often do you practice self-care activities? ex. exercise", selectedNumber: 1, peak_tackled: "Self Care abilities"),
+        Question(id: UUID(), question: "Do you feel like you have a strong support system?", selectedNumber: 1, peak_tackled: "Support Systems"),
+        Question(id: UUID(), question: "How many days do you feel stressed on a weekly basis?", selectedNumber: 1, peak_tackled: "Stress"),
+        Question(id: UUID(), question: "How would you describe your eating habits?", selectedNumber: 1, peak_tackled: "Eating"),
     ]
     
     @Environment(\.dismiss) private var dismiss
@@ -220,9 +220,9 @@ struct QuestionsView: View {
         questionnaireAnswersDocRef.setData(questionnaireAnswers) { error in
             if let error = error {
                 print("Error saving questionnaire answers: \(error.localizedDescription)")
-            } else {
-                print("Questionnaire answers saved successfully.")
-            }
+            } //else {
+                //print("Questionnaire answers saved successfully.")
+           // }
         }
         
         

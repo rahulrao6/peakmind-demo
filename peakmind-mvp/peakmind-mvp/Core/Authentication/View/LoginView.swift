@@ -87,28 +87,28 @@ struct LoginView: View {
                     
                     
                     
-                    Button {
-                        Task {
-                            do {
-                                //let googleAuth = GoogleAuthenticationStruct()
-                                try await viewModel.signinWithGoogle()
-                            } catch let e {
-                                print(e.localizedDescription)
-                            }
-                        }
-                    } label: {
-                        HStack {
-                            Image("google")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                            //Text("Sign in with Google")
-                        }
-                        .padding(8)
-                        .frame(width: 40, height: 40)
-                        .padding(.top, 24)
-
-                        
-                    }
+//                    Button {
+//                        Task {
+//                            do {
+//                                //let googleAuth = GoogleAuthenticationStruct()
+//                                try await viewModel.signinWithGoogle()
+//                            } catch let e {
+//                                print(e.localizedDescription)
+//                            }
+//                        }
+//                    } label: {
+//                        HStack {
+//                            Image("google")
+//                                .resizable()
+//                                .frame(width: 40, height: 40)
+//                            //Text("Sign in with Google")
+//                        }
+//                        .padding(8)
+//                        .frame(width: 40, height: 40)
+//                        .padding(.top, 24)
+//
+//                        
+//                    }
                     
                 }
                 

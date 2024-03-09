@@ -17,12 +17,15 @@ struct ContentView: View {
             // Main content conditionally displayed based on authentication status
             Group {
                 if viewModel.userSession != nil && viewModel.currentUser  != nil {
-                    if (viewModel.currentUser?.hasSetInitialAvatar == false) {
-                        AvatarSettingsView()
-                    } else if (viewModel.currentUser?.hasCompletedInitialQuiz == false && viewModel.currentUser?.hasSetInitialAvatar == true) {
-                        QuestionsView()
-                    } else {
+                    //logged in
+                    if (viewModel.currentUser?.hasCompletedInitialQuiz == true) {
                         HomeScreenView()
+                    } else {
+                        if (viewModel.currentUser?.hasSetInitialAvatar == false) {
+                            AvatarSettingsView()
+                        } else {
+                            HomeScreenView()
+                        }
                     }
                 } else {
                     LoginView()

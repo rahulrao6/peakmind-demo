@@ -77,7 +77,7 @@ struct PersonalizedPlanView: View {
     private func taskListView(title: String, expanded: Binding<Bool>, category: String, color: Color) -> some View {
         DisclosureGroup(title, isExpanded: expanded) {
             VStack(alignment: .leading, spacing: 5) {
-                ForEach(Array(tasks.enumerated()), id: \.offset) { index, task in
+                ForEach(Array(tasks.enumerated().prefix(5)), id: \.offset) { index, task in
                     TaskCard(taskTitle: task, rank: index + 1)
                         .padding(.leading, 0)
                         .padding(.top, index + 1 == 1 ? 10 : 0)  // Adds more space before the first task

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PlayScreen: View {
+struct PlayScreen2: View {
     @EnvironmentObject var viewModel : AuthViewModel
 
     @State private var animateImage = false
@@ -27,7 +27,7 @@ struct PlayScreen: View {
             }
 
             if showTopText {
-                Text("Welcome to Base Camp! I will be your Sherpa through your journey.")
+                Text("Welcome back to Base Camp!")
                     .font(.title)
                     .foregroundColor(.white)
                     .padding()
@@ -40,7 +40,7 @@ struct PlayScreen: View {
             }
 
             if showBottomText {
-                Text("Are you ready to conquer Mt. Anxiety? Take our following quiz.")
+                Text("Check your personalized plan for your AI suggested tasks.")
                     .font(.title)
                     .foregroundColor(.white)
                     .frame(width: 310, height: 130)
@@ -71,11 +71,6 @@ struct PlayScreen: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .padding()
                 .offset(x: 25, y: 20)
-            
-            
-            NavigationLink(destination: QuestionsView(), isActive: $navigateToQuestions) {
-                EmptyView()
-            }
         }
         .onAppear {
             animateImage = true
@@ -97,8 +92,8 @@ struct PlayScreen: View {
     }
 }
 
-struct PlayScreen_Previews: PreviewProvider {
+struct PlayScreen2_Previews: PreviewProvider {
     static var previews: some View {
-        PlayScreen()
+        PlayScreen2()
     }
 }

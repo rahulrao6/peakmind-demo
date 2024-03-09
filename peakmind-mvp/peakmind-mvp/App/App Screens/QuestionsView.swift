@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 struct QuestionsView: View {
     @EnvironmentObject var viewModel : AuthViewModel
+    @State private var navigateToHome = false
 
     //@State var questions: [Question]
     //var onFinish: () -> ()
@@ -89,7 +90,8 @@ struct QuestionsView: View {
                 if currentIndex == (questions.count - 1) {
                     //onFinish()
                     sendToFirebase()
-                    print(questions)
+                    callModel()
+                    navigateToHome = true
                     //showPersonalizedPlan = true
                 } else {
                     withAnimation(.easeInOut) {
@@ -103,6 +105,15 @@ struct QuestionsView: View {
         .background {
             Color("Pink").ignoresSafeArea()
         }
+        
+        .background(
+            NavigationLink(destination: HomeScreenView(), isActive: $navigateToHome) {
+                EmptyView()
+            }
+            .hidden()
+            .navigationBarBackButtonHidden(true) // Hide back button
+
+        )
         //.sheet(isPresented: $showPersonalizedPlan) {
         //    PersonalizedPlanView()
         //}
@@ -186,6 +197,8 @@ struct QuestionsView: View {
                 print("Error calling model: \(response?.description ?? "Unknown error")")
             }
         }.resume()
+        
+        
     }
     
     
@@ -225,7 +238,7 @@ struct QuestionsView: View {
             await viewModel.fetchUser()
         }
         
-        callModel()
+        //callModel()
         
     }
 }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeScreenView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+
     @State private var navigateToPlayScreen = false
     @State private var navigateToPlanScreen = false
     @State private var navigateToChatScreen = false
@@ -28,22 +30,43 @@ struct HomeScreenView: View {
                         .scaledToFit()
                         .frame(width: 300, height: 300)
                         .padding(.vertical, -0)
-
-                    Button(action: {
-                        navigateToPlayScreen = true
-                    }) {
-                        Image("PlayButton")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 300, height: 200)
-                            .shadow(radius: 10)
-                    }
-                    .background(
-                        NavigationLink(destination: PlayScreen(), isActive: $navigateToPlayScreen) {
-                            EmptyView()
+                    
+                    
+                    if (viewModel.currentUser?.hasCompletedInitialQuiz == false) {
+                        Button(action: {
+                            navigateToPlayScreen = true
+                        }) {
+                            Image("PlayButton")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 300, height: 200)
+                                .shadow(radius: 10)
                         }
-                    )
-                    .padding(.vertical, -70)
+                        .background(
+                            NavigationLink(destination: PlayScreen(), isActive: $navigateToPlayScreen) {
+                                EmptyView()
+                            }
+                        )
+                        .padding(.vertical, -70)
+                    } else {
+                        
+                        Button(action: {
+                            navigateToPlayScreen = true
+                        }) {
+                            Image("PlayButton")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 300, height: 200)
+                                .shadow(radius: 10)
+                        }
+                        .background(
+          
+                                NavigationLink(destination: PlayScreen2(), isActive: $navigateToPlayScreen) {
+                                    EmptyView()
+                                }
+                        )
+                        .padding(.vertical, -70)
+                    }
 
                     
                     Button(action: {

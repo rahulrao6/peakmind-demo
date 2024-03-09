@@ -22,7 +22,7 @@ struct ContentView: View {
                     } else if (viewModel.currentUser?.hasCompletedInitialQuiz == false && viewModel.currentUser?.hasSetInitialAvatar == true) {
                         QuestionsView()
                     } else {
-                        MainScreenView()
+                        HomeScreenView()
                     }
                 } else {
                     LoginView()

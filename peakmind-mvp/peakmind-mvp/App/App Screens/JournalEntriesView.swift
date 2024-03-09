@@ -6,46 +6,63 @@ struct JournalEntriesView: View {
     @EnvironmentObject var viewModel : AuthViewModel
     @State var journalEntries: [JournalEntry] = []
     @State private var showingAddJournalEntryView = false
+    @State private var selectedEntry: JournalEntry? = nil
+
 
     var body: some View {
         NavigationView {
             ZStack {
-                Color("UIColor.systemGroupedBackground").edgesIgnoringSafeArea(.all)
+                Image("ChatBG2")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
 
-                if journalEntries.isEmpty {
-                    EmptyStateView() // Assumes definition elsewhere
-                } else {
-                    entriesList
+                VStack(spacing: 0) {
+                    Text("My Journal Entries")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.top)
+
+                    if journalEntries.isEmpty {
+                        EmptyStateView().padding(.top)
+                    } else {
+                        entriesList
+ 
+                    }
+
+                    addButton.padding(.bottom)
                 }
-                
-                addButton
             }
-            .navigationTitle("Journal Entries")
-            .onAppear{
+            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarHidden(true)
+            .onAppear {
                 fetchJournalEntries()
             }
-            .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
-                fetchJournalEntries()
-            }
-            .sheet(isPresented: $showingAddJournalEntryView, onDismiss: {
-                fetchJournalEntries()
-            }) {
+            .sheet(isPresented: $showingAddJournalEntryView, onDismiss: fetchJournalEntries) {
                 JournalView().environmentObject(dataManager)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+
     }
 
     private var entriesList: some View {
         List {
-
             ForEach(journalEntries.sorted { $0.date > $1.date }, id: \.id) { entry in
-                NavigationLink(destination: JournalDetailView(entry: entry)) {
-                    JournalEntryCard(entry: entry) // Assumes definition elsewhere
+                Button(action: {
+                    self.selectedEntry = entry
+                }) {
+                    JournalEntryCard(entry: entry)
                 }
+                .listRowBackground(Color.clear)
             }
             .onDelete(perform: deleteItem)
         }
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(PlainListStyle())
+        .sheet(item: $selectedEntry) { entry in
+            JournalDetailView(entry: entry)
+        }
     }
 
     private var addButton: some View {
@@ -58,7 +75,7 @@ struct JournalEntriesView: View {
                 }) {
                     Image("AddButton")                         
                         .resizable()
-                        .frame(width: 60, height: 60)
+                        .frame(width: 100, height: 100)
                         .shadow(radius: 10)
                 }
                 .padding()
@@ -152,6 +169,8 @@ struct JournalEntryCard: View {
             }
             Spacer()
             moodIcon
+            Image(systemName: "chevron.right") // Custom arrow
+                .foregroundColor(.white) // Set arrow color to white
         }
         .padding()
         .background(LinearGradient(gradient: Gradient(colors: [Color.white, Color(UIColor.secondarySystemBackground)]), startPoint: .top, endPoint: .bottom))
@@ -169,4 +188,8 @@ struct JournalEntryCard: View {
             .background(Circle().fill(Color.white))
             .shadow(radius: 2)
     }
+}
+
+#Preview {
+    JournalEntriesView()
 }

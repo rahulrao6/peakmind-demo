@@ -15,28 +15,30 @@ struct JournalDetailView: View {
     }
 
     var body: some View {
-        ZStack {
-            Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
+        NavigationView { // Ensure NavigationView wraps the content
             
-            ScrollView {
-                VStack(alignment: .leading, spacing: 12) {
-                    editingTitle
-                    Divider()
-                    moodSection
-                    Divider()
-                    tagSection
-                    Divider()
-                    contentSection
+            ZStack {
+                Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 12) {
+                        editingTitle
+                        Divider()
+                        moodSection
+                        Divider()
+                        tagSection
+                        Divider()
+                        contentSection
+                    }
+                    .padding()
+                    .animation(.easeInOut, value: isEditing)
                 }
-                .padding()
-                .animation(.easeInOut, value: isEditing)
             }
-        }
-        .navigationTitle("Journal Entry")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) { backButton }
-            ToolbarItem(placement: .navigationBarTrailing) { editSaveButton }
+            .navigationTitle("Journal Entry")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) { editSaveButton }
+            }
         }
     }
     
@@ -80,25 +82,13 @@ struct JournalDetailView: View {
     
     private var editSaveButton: some View {
         Button(isEditing ? "Save" : "Edit") {
-            withAnimation {
-                isEditing.toggle()
-                if !isEditing {
-                    saveChanges()
-                }
+            isEditing.toggle()
+            if !isEditing {
+                saveChanges()
             }
         }
     }
     
-    private var backButton: some View {
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                HStack {
-                    Image(systemName: "chevron.left")
-                    Text("Back")
-                }
-            }
-        }
     
     private func saveChanges() {
         

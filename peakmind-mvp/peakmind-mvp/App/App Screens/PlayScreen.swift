@@ -5,6 +5,8 @@ struct PlayScreen: View {
     @State private var showTopText = false
     @State private var showBottomText = false
     @State private var tapToContinueOpacity = 0.0
+    @State private var tapCount = 0  // State variable to count taps
+    @State private var navigateToQuestions = false  // State variable to control navigation
 
     var body: some View {
         ZStack {
@@ -36,10 +38,10 @@ struct PlayScreen: View {
             }
 
             if showBottomText {
-                Text("Are you ready to conquer Mt. Anxiety?")
+                Text("Are you ready to conquer Mt. Anxiety? Take our following quiz.")
                     .font(.title)
                     .foregroundColor(.white)
-                    .frame(width: 300, height: 100)
+                    .frame(width: 310, height: 130)
 
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.black.opacity(0.5)))
@@ -67,6 +69,9 @@ struct PlayScreen: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .padding()
                 .offset(x: 25, y: 20)
+            NavigationLink(destination: QuestionsView(), isActive: $navigateToQuestions) {
+                EmptyView()
+            }
         }
         .onAppear {
             animateImage = true
@@ -75,10 +80,14 @@ struct PlayScreen: View {
              }
         }
         .onTapGesture {
+            tapCount += 1
+            
             if !showTopText {
                 showTopText = true
             } else if !showBottomText {
                 showBottomText = true
+            } else if tapCount == 3 {
+                navigateToQuestions = true  // Trigger navigation on the third tap
             }
         }
     }

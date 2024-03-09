@@ -1,0 +1,3 @@
+#PeakMind Readme - How the application works
+### PeakMind is an AI Mobile platform...
+

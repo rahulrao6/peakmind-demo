@@ -11,6 +11,8 @@ struct AvatarScreen: View {
     @State private var newUsername = ""
     @State private var isEditingUsername = false
     @State private var isNavigatingToProfileView = false
+
+
     @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
@@ -170,12 +172,11 @@ struct AvatarScreen: View {
                                     .background(Color.gray)
                                     .foregroundColor(Color.white)
                                     .cornerRadius(10)
+                                    .sheet(isPresented: $isNavigatingToProfileView) { // Present ProfileView as a sheet
+                                        ProfileView()
+                                    }
                                 }
                                 .frame(maxWidth: 300)
-
-                                NavigationLink(destination: ProfileView(), isActive: $isNavigatingToProfileView) {
-                                    EmptyView()
-                                }
                             }
                             .padding()
                         )

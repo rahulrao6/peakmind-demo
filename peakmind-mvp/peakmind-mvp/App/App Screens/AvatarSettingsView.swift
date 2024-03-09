@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct AvatarSettingsView: View {
     let avatarOptions = ["Asian", "Indian", "White"]
@@ -13,6 +14,7 @@ struct AvatarSettingsView: View {
     @State private var selectedAvatar = "White"
     @State private var selectedBackground = "Navy Igloo"
     @State private var showPicker = false
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         ZStack {
@@ -51,13 +53,41 @@ struct AvatarSettingsView: View {
                                 .frame(width: 280, height: 280)
                         }
 
-                        Button(action: {
-                            showPicker.toggle()
-                        }) {
-                            Text(showPicker ? "Confirm Choices" : "Change Avatar / Igloo")
+                        if showPicker {
+                            Button(action: {
+                                Task {
+                                    showPicker.toggle()
+                                    do {
+                                        try await updateBackgroundAvatar()
+                                    } catch {
+                                        print("Error updating background avatar: \(error)")
+                                    }
+                                }
+                            }) {
+                                Text("Confirm Choices")
+                            }
+                            .accentColor(.white)
+                            .padding()
+                        } else {
+                            Button(action: {
+                                showPicker.toggle()
+                            }) {
+                                Text("Change Avatar / Igloo")
+                            }
+                            .accentColor(.white)
+                            .padding()
                         }
-                        .accentColor(.white)
-                        .padding()
+                        
+//                        Button(action: {
+//                            showPicker.toggle()
+//                            Task {
+//                                try await updateBackgroundAvatar()
+//                            }
+//                        }) {
+//                            Text(showPicker ? "Confirm Choices" : "Change Avatar / Igloo")
+//                        }
+//                        .accentColor(.white)
+//                        .padding()
 
                         if showPicker {
                             HStack { // Pickers side by side within an HStack
@@ -87,6 +117,31 @@ struct AvatarSettingsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarHidden(true)
+    }
+    
+    func updateBackgroundAvatar() async throws {
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id)
+
+        do {
+            try await userRef.setData([
+                "selectedAvatar": selectedAvatar,
+                "selectedBackground": selectedBackground,
+                "hasSetInitialAvatar": true
+            ], merge: true)
+
+            print("User fields updated successfully.")
+
+            // Assuming fetchUser is also an asynchronous function
+            await viewModel.fetchUser()
+        } catch {
+            print("Error updating user fields: \(error)")
+        }
     }
 }
 

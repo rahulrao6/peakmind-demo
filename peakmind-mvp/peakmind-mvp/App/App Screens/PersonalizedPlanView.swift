@@ -6,11 +6,18 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
+
 
 struct PersonalizedPlanView: View {
     @State private var currentTasksExpanded = false
     @State private var goalsExpanded = false
     @State private var habitsExpanded = false
+    
+    @EnvironmentObject var viewModel: AuthViewModel
+    @State private var tasks: [String] = []
+    @State private var section: [String] = ["1", "2", "3", "4"]
+    
 
     var body: some View {
         ZStack {
@@ -22,7 +29,7 @@ struct PersonalizedPlanView: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    sectionView(title: "Current Tasks", expanded: $currentTasksExpanded, category: "Testing Long Current Task Name Example", color: Color("Navy Blue"))
+                    taskListView(title: "Current Tasks", expanded: $currentTasksExpanded, category: "Testing Long Current Task Name Example", color: Color("Navy Blue"))
                     sectionView(title: "Goals", expanded: $goalsExpanded, category: "Extended Goal Name for Testing", color: Color("Medium Blue"))
                     sectionView(title: "Habits", expanded: $habitsExpanded, category: "Habit with a Significantly Longer Name", color: Color("Ice Blue"))
                 }
@@ -45,16 +52,19 @@ struct PersonalizedPlanView: View {
                 .padding(.vertical, 5)
             }
         }
+        .onAppear {
+            fetchTasks()
+        }
     }
 
     @ViewBuilder
     private func sectionView(title: String, expanded: Binding<Bool>, category: String, color: Color) -> some View {
         DisclosureGroup(title, isExpanded: expanded) {
             VStack(alignment: .leading, spacing: 5) {
-                ForEach(1...5, id: \.self) { index in
-                    TaskCard(taskTitle: "\(category) \(index)")
+                ForEach(Array(section.enumerated()), id: \.offset) { index, section in
+                    TaskCard(taskTitle: section, rank: index + 1)
                         .padding(.leading, 0)
-                        .padding(.top, index == 1 ? 10 : 0)  // Adds more space before the first task
+                        .padding(.top, index + 1 == 1 ? 10 : 0)  // Adds more space before the first task
                 }
             }
         }
@@ -62,26 +72,71 @@ struct PersonalizedPlanView: View {
         .background(RoundedRectangle(cornerRadius: 10).fill(color))
         .foregroundColor(.white)
     }
+    
+    @ViewBuilder
+    private func taskListView(title: String, expanded: Binding<Bool>, category: String, color: Color) -> some View {
+        DisclosureGroup(title, isExpanded: expanded) {
+            VStack(alignment: .leading, spacing: 5) {
+                ForEach(Array(tasks.enumerated()), id: \.offset) { index, task in
+                    TaskCard(taskTitle: task, rank: index + 1)
+                        .padding(.leading, 0)
+                        .padding(.top, index + 1 == 1 ? 10 : 0)  // Adds more space before the first task
+                }
+            }
+        }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 10).fill(color))
+        .foregroundColor(.white)
+    }
+    
+    func fetchTasks() {
+        let db = Firestore.firestore()
+        guard let currentUser = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+        let userId = currentUser.id
+        db.collection("ai_tasks").document(userId).getDocument { document, error in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                if let document = document, document.exists {
+                    if let data = document.data() {
+                        let sortedTasks = data.sorted(by: { $0.key < $1.key }).map { $0.value as! String }
+                        self.tasks = sortedTasks
+                    }
+                } else {
+                    print("Document does not exist")
+                }
+            }
+        }
+    }
 
 }
 
 struct TaskCard: View {
     var taskTitle: String
+    var rank: Int
+
 
     var body: some View {
         NavigationLink(destination: TaskDetailView(taskTitle: taskTitle)) {
-            Text(truncatedTaskName(taskTitle))
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                .foregroundColor(.black)
+            HStack {
+                Text("\(rank).") // Display the rank
+                Text(truncatedTaskName(taskTitle))
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+            .foregroundColor(.black)
+
         }
         .buttonStyle(PlainButtonStyle())
     }
 
     // Function to truncate task names manually
     private func truncatedTaskName(_ name: String) -> String {
-        let maxLength = 20  // Set the max length you prefer
+        let maxLength = 25  // Set the max length you prefer
         return name.count > maxLength ? String(name.prefix(maxLength - 3)) + "..." : name
     }
 }

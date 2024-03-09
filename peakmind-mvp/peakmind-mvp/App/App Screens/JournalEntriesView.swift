@@ -1,7 +1,10 @@
 import SwiftUI
+import Firebase
 
 struct JournalEntriesView: View {
     @EnvironmentObject var dataManager: JournalDataManager
+    @EnvironmentObject var viewModel : AuthViewModel
+    @State var journalEntries: [JournalEntry] = []
     @State private var showingAddJournalEntryView = false
 
     var body: some View {
@@ -9,8 +12,8 @@ struct JournalEntriesView: View {
             ZStack {
                 Color("UIColor.systemGroupedBackground").edgesIgnoringSafeArea(.all)
 
-                if dataManager.journalEntries.isEmpty {
-                    EmptyStateView()
+                if journalEntries.isEmpty {
+                    EmptyStateView() // Assumes definition elsewhere
                 } else {
                     entriesList
                 }
@@ -18,7 +21,15 @@ struct JournalEntriesView: View {
                 addButton
             }
             .navigationTitle("Journal Entries")
-            .sheet(isPresented: $showingAddJournalEntryView) {
+            .onAppear{
+                fetchJournalEntries()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange)) { _ in
+                fetchJournalEntries()
+            }
+            .sheet(isPresented: $showingAddJournalEntryView, onDismiss: {
+                fetchJournalEntries()
+            }) {
                 JournalView().environmentObject(dataManager)
             }
         }
@@ -26,9 +37,10 @@ struct JournalEntriesView: View {
 
     private var entriesList: some View {
         List {
-            ForEach(dataManager.journalEntries.sorted { $0.date > $1.date }, id: \.id) { entry in
-                NavigationLink(destination: JournalDetailView(entry: entry).environmentObject(dataManager)) {
-                    JournalEntryCard(entry: entry)
+
+            ForEach(journalEntries.sorted { $0.date > $1.date }, id: \.id) { entry in
+                NavigationLink(destination: JournalDetailView(entry: entry)) {
+                    JournalEntryCard(entry: entry) // Assumes definition elsewhere
                 }
             }
             .onDelete(perform: deleteItem)
@@ -55,14 +67,55 @@ struct JournalEntriesView: View {
     }
     
     private func deleteItem(at offsets: IndexSet) {
+        guard let currentUser = viewModel.currentUser else {
+            print("Current user not found.")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        
         offsets.forEach { index in
-            let entry = dataManager.journalEntries.sorted { $0.date > $1.date }[index]
-            if let entryIndex = dataManager.journalEntries.firstIndex(where: { $0.id == entry.id }) {
-                dataManager.journalEntries.remove(at: entryIndex)
+            let entry = journalEntries.sorted { $0.date > $1.date }[index]
+            
+            let entryRef = db.collection("users").document(currentUser.id).collection("journal_entries").document(entry.id)
+            
+            entryRef.delete { error in
+                if let error = error {
+                    print("Error deleting document: \(error)")
+                } else {
+                    // Remove the entry from the local array
+                    if let entryIndex = journalEntries.firstIndex(where: { $0.id == entry.id }) {
+                        journalEntries.remove(at: entryIndex)
+                    }
+                }
             }
         }
     }
-}
+    
+    
+    private func fetchJournalEntries() {
+        guard let currentUser = viewModel.currentUser else {
+            print("Current user not found.")
+            return
+        }
+        let db = Firestore.firestore()
+        db.collection("users").document(currentUser.id).collection("journal_entries").getDocuments { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            self.journalEntries = documents.compactMap { document in
+                do {
+                    let entry = try document.data(as: JournalEntry.self)
+                    return entry
+                } catch {
+                    print("Error decoding journal entry: \(error.localizedDescription)")
+                    return nil
+                }
+            }
+        }
+    }}
 
 
 

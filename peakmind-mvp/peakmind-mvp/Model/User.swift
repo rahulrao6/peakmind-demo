@@ -19,6 +19,8 @@ struct User : Identifiable, Codable {
     let selectedAvatar: String
     let selectedBackground: String
     let hasCompletedInitialQuiz: Bool
+    let hasSetInitialAvatar: Bool
+
     
     var initials: String {
         let formatter = PersonNameComponentsFormatter()
@@ -32,5 +34,5 @@ struct User : Identifiable, Codable {
 }
 
 extension User {
-    static var MOCK_USER = User(id: NSUUID().uuidString, fullname: "Raj Jagirdar", email: "gmail@raj.com", location: "New York", color: "#000", firstPeak: "Depression", username: "slayer5540", selectedAvatar: "asian", selectedBackground: "blue", hasCompletedInitialQuiz: false)
+    static var MOCK_USER = User(id: NSUUID().uuidString, fullname: "Raj Jagirdar", email: "gmail@raj.com", location: "New York", color: "#000", firstPeak: "Depression", username: "slayer5540", selectedAvatar: "asian", selectedBackground: "blue", hasCompletedInitialQuiz: false, hasSetInitialAvatar: false)
 }

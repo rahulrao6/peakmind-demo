@@ -125,14 +125,24 @@ struct AvatarScreen: View {
 //                                    .textFieldStyle(RoundedBorderTextFieldStyle())
 //                                    .frame(maxWidth: 300)
 //                                    .disabled(!isEditingUsername)
+                                
 
-                                Text(isEditingUsername ? "Confirm" : "Change Username")
-                                    .font(.caption)
-                                    .foregroundColor(.white)
-                                    .onTapGesture {
+                                if (!isEditingUsername) {
+                                    Button(action: {
                                         isEditingUsername.toggle()
+                                    }) {
+                                        Text("Change your username")
                                     }
-                                    .padding(.bottom, 15)
+                                } else {
+                                    Button(action: {
+                                        Task {
+                                            try await updateUsername()
+                                        }
+                                        isEditingUsername.toggle()
+                                    }) {
+                                        Text("Confirm")
+                                    }
+                                }
 
                                 HStack(spacing: 10) {
                                     Button(action: {}) {
@@ -190,6 +200,29 @@ struct AvatarScreen: View {
             try await userRef.setData([
                 "selectedAvatar": selectedAvatar,
                 "selectedBackground": selectedBackground
+            ], merge: true)
+
+            print("User fields updated successfully.")
+
+            // Assuming fetchUser is also an asynchronous function
+            await viewModel.fetchUser()
+        } catch {
+            print("Error updating user fields: \(error)")
+        }
+    }
+    
+    func updateUsername() async throws {
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id)
+
+        do {
+            try await userRef.setData([
+                "username": username,
             ], merge: true)
 
             print("User fields updated successfully.")

@@ -16,6 +16,8 @@ struct RegistrationView: View {
     @State private var color_raw = Color.blue
     @State private var firstPeak = ""
     @State private var hasCompletedInitialQuiz = false
+    @State private var hasSetInitialAvatar = false
+
 
     let avatarOptions = ["Asian", "Indian", "White"]
     let backgroundOptions = ["Pink Igloo", "Orange Igloo", "Blue Igloo", "Navy Igloo"]
@@ -108,9 +110,9 @@ struct RegistrationView: View {
             VStack {
                 Button {
                     print("Sign User Up")
-                    showAvatarSelection = true;
+                    //showAvatarSelection = true;
                     Task {
-                        try await viewModel.createUser(withEmail: email, password: password, fullname: full_name, location: location, color: color_hex, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz)
+                        try await viewModel.createUser(withEmail: email, password: password, fullname: full_name, location: location, color: color_hex, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar)
                     }
                     
                 } label: {

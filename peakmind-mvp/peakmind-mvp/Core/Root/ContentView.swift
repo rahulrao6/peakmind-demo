@@ -9,15 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
-    @State private var showingSplash = true // State to control splash screen visibility
+    @State private var showingSplash = false // State to control splash screen visibility
 
     
     var body: some View {
         ZStack {
             // Main content conditionally displayed based on authentication status
             Group {
-                if viewModel.userSession != nil && viewModel.currentUser != nil {
-                    if (viewModel.currentUser?.hasCompletedInitialQuiz == false) {
+                if viewModel.userSession != nil && viewModel.currentUser  != nil {
+                    if (viewModel.currentUser?.hasSetInitialAvatar == false) {
+                        AvatarSettingsView()
+                    } else if (viewModel.currentUser?.hasCompletedInitialQuiz == false && viewModel.currentUser?.hasSetInitialAvatar == true) {
                         QuestionsView()
                     } else {
                         HomeScreenView()

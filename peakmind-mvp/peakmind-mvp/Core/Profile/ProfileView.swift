@@ -40,19 +40,6 @@ struct ProfileView: View {
                     
                 }
                 
-                Section("Peaks") {
-                    HStack {
-                        SettingsRowView(imageName: "person.fill.questionmark", title: user.firstPeak, tintColor: Color(.systemGray))
-                        
-                        Spacer()
-                        
-                        Text("100%")
-                    }
-                    
-                    
-                    
-                }
-                
                 Section("General") {
                     HStack {
                         SettingsRowView(imageName: "gear", title: "Version", tintColor: Color(.systemGray))

@@ -10,7 +10,7 @@ struct JournalEntriesView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
+                Color("UIColor.systemGroupedBackground").edgesIgnoringSafeArea(.all)
 
                 if journalEntries.isEmpty {
                     EmptyStateView() // Assumes definition elsewhere
@@ -37,6 +37,7 @@ struct JournalEntriesView: View {
 
     private var entriesList: some View {
         List {
+
             ForEach(journalEntries.sorted { $0.date > $1.date }, id: \.id) { entry in
                 NavigationLink(destination: JournalDetailView(entry: entry)) {
                     JournalEntryCard(entry: entry) // Assumes definition elsewhere
@@ -55,12 +56,9 @@ struct JournalEntriesView: View {
                 Button(action: {
                     showingAddJournalEntryView = true
                 }) {
-                    Image(systemName: "plus")
+                    Image("AddButton")                         
                         .resizable()
                         .frame(width: 60, height: 60)
-                        .foregroundColor(.white)
-                        .background(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.purple]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                        .clipShape(Circle())
                         .shadow(radius: 10)
                 }
                 .padding()
@@ -172,5 +170,3 @@ struct JournalEntryCard: View {
             .shadow(radius: 2)
     }
 }
-
-

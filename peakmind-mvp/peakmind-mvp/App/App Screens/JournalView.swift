@@ -41,6 +41,8 @@ struct JournalView: View {
                 MoodPickerView(selectedMood: $mood)
             }
         }
+        .environment(\.colorScheme, .light)
+
     }
 
     private var titleField: some View {

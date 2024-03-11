@@ -35,6 +35,7 @@ struct ChatView: View {
 
             if let user = viewModel.currentUser {
                 VStack {
+                    // Wrap the ScrollView in a VStack and add the onTapGesture to dismiss the keyboard
                     ScrollView {
                         ScrollViewReader { scrollViewProxy in
                             VStack(alignment: .leading, spacing: 10) {
@@ -55,8 +56,11 @@ struct ChatView: View {
                             }
                         }
                     }
-
                     .padding()
+                    .onTapGesture {
+                        // Dismiss the keyboard when the scroll view is tapped
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
 
                     Spacer()
                     // Sherpa image positioned at the bottom left, behind the message box

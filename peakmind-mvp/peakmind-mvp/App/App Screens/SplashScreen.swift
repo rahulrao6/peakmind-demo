@@ -25,8 +25,8 @@ struct SplashScreen: View {
                 .scaleEffect(scale) // Apply scaling
                 .shadow(color: Color.black.opacity(0.5), radius: 5, x: 0, y: 2)
                 .onAppear {
-                    withAnimation(.easeIn(duration: 2)) {
-                        self.scale = 4.5 // End scale for the logo, adjust as needed
+                    withAnimation(.easeIn(duration: 1.5)) {
+                        self.scale = 4 // End scale for the logo, adjust as needed
                     }
                 }
         }

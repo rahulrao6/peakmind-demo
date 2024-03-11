@@ -68,6 +68,8 @@ struct ProfileView: View {
                 }
                 
             }
+            .environment(\.colorScheme, .light) 
+
         }
     }
 }

@@ -20,7 +20,7 @@ struct CustomButton: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 15)
                 .foregroundColor(.white)
-                .background(Color("BG"))
+                .background(Color("Medium Blue"))
                 .cornerRadius(10)
         }
         .padding(.horizontal, 15)

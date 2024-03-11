@@ -40,6 +40,8 @@ struct JournalDetailView: View {
                 ToolbarItem(placement: .navigationBarTrailing) { editSaveButton }
             }
         }
+        .environment(\.colorScheme, .light)
+
     }
     
     private var editingTitle: some View {

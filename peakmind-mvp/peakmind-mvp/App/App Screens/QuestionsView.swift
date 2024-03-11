@@ -17,12 +17,49 @@ struct QuestionsView: View {
     //var onFinish: () -> ()
     
     @State var questions = [
-        Question(id: UUID(), question: "How often would you say you feel anxious?", selectedNumber: 1, peak_tackled: "Anxiety"),
-        Question(id: UUID(), question: "How would you describe your current mental health?", selectedNumber: 1, peak_tackled: "Current Mental State"),
-        Question(id: UUID(), question: "How often do you practice self-care activities? ex. exercise", selectedNumber: 1, peak_tackled: "Self Care abilities"),
-        Question(id: UUID(), question: "Do you feel like you have a strong support system?", selectedNumber: 1, peak_tackled: "Support Systems"),
-        Question(id: UUID(), question: "How many days do you feel stressed on a weekly basis?", selectedNumber: 1, peak_tackled: "Stress"),
-        Question(id: UUID(), question: "How would you describe your eating habits?", selectedNumber: 1, peak_tackled: "Eating"),
+        Question(id: UUID(), question: "How often would you say you feel anxious?", selectedNumber: 1, peak_tackled: "Anxiety", descriptors: [
+            "Severe anxiety very often",
+            "Frequent anxiety difficult to manage",
+            "Regular anxiety at a manageable level",
+            "Noticeable but non-problematic",
+            "Very minimal anxiety, if any"]),
+        Question(id: UUID(), question: "How would you describe your current mental health?", selectedNumber: 1, peak_tackled: "Current Mental State", descriptors: [
+            "Very negative",
+            "Somewhat negative baseline headspace",
+            "Neither positive nor negative headspace",
+            "Somewhat positive baseline headspace",
+            "Very positive"
+        ]),
+        Question(id: UUID(), question: "How often do you practice self-care activities?", selectedNumber: 1, peak_tackled: "Current Mental State", descriptors: [
+            "Poor, rare self care",
+            "Occasional self care (once in a while)",
+            "Mediocre, sporadic self care",
+            "Somewhat regular self care, a few times a week",
+            "Excellent, regular self care"
+        ]),
+        Question(id: UUID(), question: "Do you feel like you have a strong support system?", selectedNumber: 1, peak_tackled: "Support Systems", descriptors: [
+            "No, I don't feel like I have a strong support system",
+            "Not very effective, but there",
+            "Decent, sometimes there as expected",
+            "Good, usually there when needed",
+            "Yes, I have a strong support system"
+        ]),
+
+        Question(id: UUID(), question: "How many days do you feel stressed on a weekly basis?", selectedNumber: 1, peak_tackled: "Stress", descriptors: [
+            "One day or less",
+            "Two days",
+            "Three days",
+            "Four days",
+            "Over five days"
+        ]),
+
+        Question(id: UUID(), question: "How would you describe your eating habits?", selectedNumber: 1, peak_tackled: "Eating", descriptors: [
+            "Severe inconsistent eating",
+            "Regular struggles at meal times",
+            "Inconsistent eating tendencies on a daily basis",
+            "Occasional struggles with over/under eating",
+            "Perfectly normal"
+        ]),
     ]
     
     @Environment(\.dismiss) private var dismiss
@@ -55,7 +92,7 @@ struct QuestionsView: View {
                         .fill(.black.opacity(0.2))
                     
                     Rectangle()
-                        .fill(Color("Progress"))
+                        .fill(Color("Ice Blue"))
                         .frame(width: progress * size.width, alignment: .leading)
                 }
                 .clipShape(Capsule())
@@ -103,7 +140,7 @@ struct QuestionsView: View {
         }
         .padding(15)
         .background {
-            Color("Pink").ignoresSafeArea()
+            Color("SentMessage").ignoresSafeArea()
         }
         
         .background(
@@ -142,9 +179,9 @@ struct QuestionsView: View {
             )
             
             Slider(value: sliderBinding, in: 1...5, step: 1)
-                .accentColor(Color("Progress"))
+                .accentColor(Color("Ice Blue"))
             
-            Text("Selected: \(question.wrappedValue.selectedNumber)")
+            Text(question.wrappedValue.descriptors[question.wrappedValue.selectedNumber - 1]) // Modified line
                 .font(.title3)
                 .fontWeight(.semibold)
                 .foregroundColor(.black)
@@ -247,12 +284,49 @@ struct QuestionsView_Previews: PreviewProvider {
     static var previews: some View {
         // Example questions
         let exampleQuestions = [
-            Question(id: UUID(), question: "Rank your anxiety.", selectedNumber: 1, peak_tackled: "Anxiety"),
-            Question(id: UUID(), question: "Rank your current mental state.", selectedNumber: 1, peak_tackled: "Current Mental State"),
-            Question(id: UUID(), question: "Rank your self-care abilities.", selectedNumber: 1, peak_tackled: "Self Care abilites"),
-            Question(id: UUID(), question: "Rank your support systems.", selectedNumber: 1, peak_tackled: "Support System"),
-            Question(id: UUID(), question: "Rank your stress.", selectedNumber: 1, peak_tackled: "Stress"),
-            Question(id: UUID(), question: "Rank your eating habits.", selectedNumber: 1, peak_tackled: "Eating"),
+            Question(id: UUID(), question: "How often would you say you feel anxious?", selectedNumber: 1, peak_tackled: "Anxiety", descriptors: [
+                "Severe anxiety very often",
+                "Frequent anxiety difficult to manage",
+                "Regular anxiety at a manageable level",
+                "Noticeable but non problematic",
+                "Very minimal anxiety, if any"]),
+            Question(id: UUID(), question: "How would you describe your current mental health?", selectedNumber: 1, peak_tackled: "Current Mental State", descriptors: [
+                "Very negative",
+                "Somewhat negative baseline headspace",
+                "Neither positive nor negative headspace",
+                "Somewhat positive baseline headspace",
+                "Very positive"
+            ]),
+            Question(id: UUID(), question: "How often do you practice self-care activities?", selectedNumber: 1, peak_tackled: "Current Mental State", descriptors: [
+                "Poor, rare self care",
+                "Occasional self care (once in a while)",
+                "Mediocre, sporadic self care",
+                "Somewhat regular self care, a few times a weeke",
+                "Excellent, regular self care"
+            ]),
+            Question(id: UUID(), question: "Do you feel like you have a strong support system?", selectedNumber: 1, peak_tackled: "Support Systems", descriptors: [
+                "No, I don't feel like I have a strong support system",
+                "Not very effective, but there",
+                "Decent, sometimes there as expected",
+                "Good, usually there when needed",
+                "Yes, I have a strong support system"
+            ]),
+
+            Question(id: UUID(), question: "How many days do you feel stressed on a weekly basis?", selectedNumber: 1, peak_tackled: "Stress", descriptors: [
+                "One Day or Less",
+                "Two Days",
+                "Three Days",
+                "Four Days",
+                "Five+ Days"
+            ]),
+
+            Question(id: UUID(), question: "How would you describe your eating habits?", selectedNumber: 1, peak_tackled: "Eating", descriptors: [
+                "Severe Inconsistent Eating",
+                "Regular struggles at meal times",
+                "Inconsistent eating tendencies on a daily basis",
+                "Occasional struggles with over/under eating",
+                "Perfectly Normal"
+            ]),
         ]
         
         // Initializing QuestionsView with example questions and a dummy onFinish function

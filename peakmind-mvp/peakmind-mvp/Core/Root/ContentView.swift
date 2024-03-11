@@ -32,6 +32,8 @@ struct ContentView: View {
                 }
             }
             .zIndex(0) // Ensure main content is behind the splash screen in the ZStack
+            .environment(\.colorScheme, .light) // Force light mode for the entire app
+
 
             // Splash screen displayed on top when showingSplash is true
             if showingSplash {

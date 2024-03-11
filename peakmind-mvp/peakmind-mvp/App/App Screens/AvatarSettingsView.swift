@@ -14,6 +14,7 @@ struct AvatarSettingsView: View {
     @State private var selectedAvatar = "Mikey"
     @State private var selectedBackground = "Navy Igloo"
     @State private var showPicker = false
+    @State private var viewOpacity: Double = 1.0 // Add this line
     @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
@@ -115,6 +116,7 @@ struct AvatarSettingsView: View {
             }
             .padding() // Padding for the entire VStack content
         }
+        .opacity(viewOpacity) // Apply the opacity modifier here
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarHidden(true)
     }
@@ -134,6 +136,9 @@ struct AvatarSettingsView: View {
                 "selectedBackground": selectedBackground,
                 "hasSetInitialAvatar": true
             ], merge: true)
+            withAnimation(.easeOut(duration: 1.0)) {
+                viewOpacity = 0 // Fade out the view
+            }
 
             print("User fields updated successfully.")
 

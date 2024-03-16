@@ -58,6 +58,8 @@
 		1CF4C4422B7B1DD60028BC3C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4412B7B1DD60028BC3C /* FirebaseStorage */; };
 		1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4432B7B1DD60028BC3C /* FirebaseStorageCombine-Community */; };
 		791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreen.swift */; };
+		797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */; };
+		797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB792BA5335C00F24123 /* IglooMenuView.swift */; };
 		798EFB602B84374800E6027A /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB5F2B84374800E6027A /* MapScreen.swift */; };
 		798EFB622B84376200E6027A /* WorldScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB612B84376200E6027A /* WorldScreen.swift */; };
 		798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB632B84376F00E6027A /* ChecklistScreen.swift */; };
@@ -126,6 +128,8 @@
 		1CF4C3FC2B7B15E50028BC3C /* peakmind_mvpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITests.swift; sourceTree = "<group>"; };
 		1CF4C3FE2B7B15E50028BC3C /* peakmind_mvpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		791D1AA02B84344900E28162 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuView.swift; sourceTree = "<group>"; };
+		797AAB792BA5335C00F24123 /* IglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuView.swift; sourceTree = "<group>"; };
 		798EFB5F2B84374800E6027A /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
 		798EFB612B84376200E6027A /* WorldScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldScreen.swift; sourceTree = "<group>"; };
 		798EFB632B84376F00E6027A /* ChecklistScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistScreen.swift; sourceTree = "<group>"; };
@@ -415,6 +419,8 @@
 				E5511F562B92B22900FCC38D /* JournalDetailView.swift */,
 				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
 				79BFB5332B987D4400634262 /* AvatarSettingsView.swift */,
+				797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */,
+				797AAB792BA5335C00F24123 /* IglooMenuView.swift */,
 			);
 			path = "App Screens";
 			sourceTree = "<group>";
@@ -608,7 +614,9 @@
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
+				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
 				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
+				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
 				79BFB5242B8EAB2B00634262 /* PersonalizedPlanView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,

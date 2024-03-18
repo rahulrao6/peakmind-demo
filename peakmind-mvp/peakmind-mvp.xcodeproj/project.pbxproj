@@ -407,6 +407,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		791AC9042BA7DC830094A688 /* Level 1 - Mikey Screens */ = {
+			isa = PBXGroup;
+			children = (
+				79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */,
+				791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */,
+				791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */,
+				791AC9012BA7D7450094A688 /* SherpaFullMoonID.swift */,
+			);
+			path = "Level 1 - Mikey Screens";
+			sourceTree = "<group>";
+		};
 		79B3DAEF2B8456DE003C3B44 /* App Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,17 +434,14 @@
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
 				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
 				791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */,
-				79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */,
+				791AC9042BA7DC830094A688 /* Level 1 - Mikey Screens */,
 				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
 				79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */,
 				79BFB5252B8EAB4500634262 /* ProfileViewTest.swift */,
 				791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */,
-				791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */,
 				79BFB5272B8EAB5C00634262 /* QuestionsView.swift */,
-				791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */,
 				79BFB52D2B8EDA6E00634262 /* JournalView.swift */,
 				E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */,
-				791AC9012BA7D7450094A688 /* SherpaFullMoonID.swift */,
 				E5511F562B92B22900FCC38D /* JournalDetailView.swift */,
 				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
 				79BFB5332B987D4400634262 /* AvatarSettingsView.swift */,

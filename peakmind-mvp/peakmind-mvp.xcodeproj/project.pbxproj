@@ -57,6 +57,12 @@
 		1CF4C4402B7B1DD50028BC3C /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C43F2B7B1DD50028BC3C /* FirebaseRemoteConfigSwift */; };
 		1CF4C4422B7B1DD60028BC3C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4412B7B1DD60028BC3C /* FirebaseStorage */; };
 		1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4432B7B1DD60028BC3C /* FirebaseStorageCombine-Community */; };
+		791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */; };
+		791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F92BA7C5A00094A688 /* ConfettiView.swift */; };
+		791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */; };
+		791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */; };
+		791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */; };
+		791AC9022BA7D7450094A688 /* SherpaFullMoonID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC9012BA7D7450094A688 /* SherpaFullMoonID.swift */; };
 		791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreen.swift */; };
 		797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */; };
 		797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB792BA5335C00F24123 /* IglooMenuView.swift */; };
@@ -127,6 +133,12 @@
 		1CF4C3F82B7B15E50028BC3C /* peakmind-mvpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "peakmind-mvpUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF4C3FC2B7B15E50028BC3C /* peakmind_mvpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITests.swift; sourceTree = "<group>"; };
 		1CF4C3FE2B7B15E50028BC3C /* peakmind_mvpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedPlanNew.swift; sourceTree = "<group>"; };
+		791AC8F92BA7C5A00094A688 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
+		791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyModuleView.swift; sourceTree = "<group>"; };
+		791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallFlavorView.swift; sourceTree = "<group>"; };
+		791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangersOfNightfallView.swift; sourceTree = "<group>"; };
+		791AC9012BA7D7450094A688 /* SherpaFullMoonID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaFullMoonID.swift; sourceTree = "<group>"; };
 		791D1AA02B84344900E28162 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuView.swift; sourceTree = "<group>"; };
 		797AAB792BA5335C00F24123 /* IglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuView.swift; sourceTree = "<group>"; };
@@ -395,6 +407,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		791AC9042BA7DC830094A688 /* Level 1 - Mikey Screens */ = {
+			isa = PBXGroup;
+			children = (
+				79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */,
+				791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */,
+				791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */,
+				791AC9012BA7D7450094A688 /* SherpaFullMoonID.swift */,
+			);
+			path = "Level 1 - Mikey Screens";
+			sourceTree = "<group>";
+		};
 		79B3DAEF2B8456DE003C3B44 /* App Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,10 +432,13 @@
 				1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */,
 				798EFB6B2B8437A800E6027A /* PlanScreen.swift */,
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
-				79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */,
+				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
+				791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */,
+				791AC9042BA7DC830094A688 /* Level 1 - Mikey Screens */,
 				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
 				79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */,
 				79BFB5252B8EAB4500634262 /* ProfileViewTest.swift */,
+				791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */,
 				79BFB5272B8EAB5C00634262 /* QuestionsView.swift */,
 				79BFB52D2B8EDA6E00634262 /* JournalView.swift */,
 				E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */,
@@ -600,6 +626,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */,
+				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
@@ -615,18 +643,22 @@
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
+				791AC9022BA7D7450094A688 /* SherpaFullMoonID.swift in Sources */,
 				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
 				79BFB5242B8EAB2B00634262 /* PersonalizedPlanView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
+				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
 				E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */,
+				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
+				791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
 				798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */,

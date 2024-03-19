@@ -20,11 +20,15 @@ struct ContentView: View {
                     //logged in
                     if (viewModel.currentUser?.hasCompletedInitialQuiz == true) {
                         HomeScreenView()
+                        //StoreView()
+                        //TentPurchase()
                     } else {
                         if (viewModel.currentUser?.hasSetInitialAvatar == false) {
-                            AvatarSettingsView()
+                            AvatarMenuView()
                         } else {
                             HomeScreenView()
+                            //AnxietyQuiz()
+                            //TentPurchase()
                         }
                     }
                 } else {

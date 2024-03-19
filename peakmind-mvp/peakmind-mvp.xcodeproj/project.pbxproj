@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB52BA9501300628B79 /* TentPurchase.swift */; };
+		1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */; };
+		1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB92BA96B5300628B79 /* StoreView.swift */; };
+		1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */; };
+		1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */; };
 		1C9C63BC2B8131CB0066AF70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */; };
 		1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C52B8133360066AF70 /* LoginView.swift */; };
 		1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C72B81359A0066AF70 /* InputView.swift */; };
@@ -108,6 +113,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C6C0BB52BA9501300628B79 /* TentPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TentPurchase.swift; sourceTree = "<group>"; };
+		1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyQuiz.swift; sourceTree = "<group>"; };
+		1C6C0BB92BA96B5300628B79 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
+		1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
+		1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHabits.swift; sourceTree = "<group>"; };
 		1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C9C63C52B8133360066AF70 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		1C9C63C72B81359A0066AF70 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
@@ -221,6 +231,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C6C0BB42BA94D4300628B79 /* Level 1 - Raj Screens */ = {
+			isa = PBXGroup;
+			children = (
+				1C6C0BB52BA9501300628B79 /* TentPurchase.swift */,
+				1C6C0BB92BA96B5300628B79 /* StoreView.swift */,
+				1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */,
+				1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */,
+				1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */,
+			);
+			path = "Level 1 - Raj Screens";
+			sourceTree = "<group>";
+		};
 		1C9C63BD2B81324D0066AF70 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -433,6 +455,7 @@
 				798EFB6B2B8437A800E6027A /* PlanScreen.swift */,
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
 				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
+				1C6C0BB42BA94D4300628B79 /* Level 1 - Raj Screens */,
 				791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */,
 				791AC9042BA7DC830094A688 /* Level 1 - Mikey Screens */,
 				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
@@ -631,12 +654,14 @@
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
+				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
 				798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */,
 				1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				79BFB5342B987D4400634262 /* AvatarSettingsView.swift in Sources */,
+				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreen.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
@@ -647,9 +672,11 @@
 				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
 				79BFB5242B8EAB2B00634262 /* PersonalizedPlanView.swift in Sources */,
+				1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
 				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
+				1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */,
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
 				E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */,
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
@@ -664,6 +691,7 @@
 				798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */,
 				798EFB602B84374800E6027A /* MapScreen.swift in Sources */,
 				79BFB5262B8EAB4500634262 /* ProfileViewTest.swift in Sources */,
+				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,

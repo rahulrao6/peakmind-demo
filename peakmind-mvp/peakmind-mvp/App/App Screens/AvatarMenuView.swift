@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct AvatarMenuView: View {
     let avatarIcons = ["IndianIcon", "AsianIcon", "WhiteIcon"]
@@ -13,6 +14,8 @@ struct AvatarMenuView: View {
     @State private var selectedAvatarIndex = 0
     @Environment(\.presentationMode) var presentationMode
     @State private var navigateToIglooView = false
+    @EnvironmentObject var viewModel: AuthViewModel
+
 
     var body: some View {
         NavigationView {
@@ -100,6 +103,30 @@ struct AvatarMenuView: View {
             )
         }
     }
+    func updateBackgroundAvatar() async throws {
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id)
+
+        do {
+            try await userRef.setData([
+                "selectedAvatar": avatarIcons[selectedAvatarIndex],
+            ], merge: true)
+
+            print("User fields updated successfully.")
+
+            // Assuming fetchUser is also an asynchronous function
+            await viewModel.fetchUser()
+        } catch {
+            print("Error updating user fields: \(error)")
+        }
+    }
+
+    
 }
 
 // Preview

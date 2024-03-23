@@ -89,6 +89,9 @@
 		79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52D2B8EDA6E00634262 /* JournalView.swift */; };
 		79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52F2B914A5000634262 /* SplashScreen.swift */; };
 		79BFB5342B987D4400634262 /* AvatarSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5332B987D4400634262 /* AvatarSettingsView.swift */; };
+		E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245352BABD4C400FCF1C6 /* Module1.swift */; };
+		E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245372BABD6CC00FCF1C6 /* Module2.swift */; };
+		E542453C2BAF683A00FCF1C6 /* Mod3.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542453B2BAF683A00FCF1C6 /* Mod3.swift */; };
 		E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F502B92ADCB00FCC38D /* JournalEntry.swift */; };
 		E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F522B92ADE900FCC38D /* JournalDataManager.swift */; };
 		E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */; };
@@ -171,6 +174,9 @@
 		79BFB52F2B914A5000634262 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		79BFB5332B987D4400634262 /* AvatarSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarSettingsView.swift; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E54245352BABD4C400FCF1C6 /* Module1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module1.swift; sourceTree = "<group>"; };
+		E54245372BABD6CC00FCF1C6 /* Module2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module2.swift; sourceTree = "<group>"; };
+		E542453B2BAF683A00FCF1C6 /* Mod3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mod3.swift; sourceTree = "<group>"; };
 		E5511F502B92ADCB00FCC38D /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		E5511F522B92ADE900FCC38D /* JournalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDataManager.swift; sourceTree = "<group>"; };
 		E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntriesView.swift; sourceTree = "<group>"; };
@@ -443,6 +449,7 @@
 		79B3DAEF2B8456DE003C3B44 /* App Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E54245342BABD1D400FCF1C6 /* Level 1 - Rahul Screens */,
 				E5511F4D2B92AD6600FCC38D /* Journal */,
 				791D1AA02B84344900E28162 /* HomeScreen.swift */,
 				798EFB5F2B84374800E6027A /* MapScreen.swift */,
@@ -472,6 +479,16 @@
 				797AAB792BA5335C00F24123 /* IglooMenuView.swift */,
 			);
 			path = "App Screens";
+			sourceTree = "<group>";
+		};
+		E54245342BABD1D400FCF1C6 /* Level 1 - Rahul Screens */ = {
+			isa = PBXGroup;
+			children = (
+				E54245352BABD4C400FCF1C6 /* Module1.swift */,
+				E54245372BABD6CC00FCF1C6 /* Module2.swift */,
+				E542453B2BAF683A00FCF1C6 /* Mod3.swift */,
+			);
+			path = "Level 1 - Rahul Screens";
 			sourceTree = "<group>";
 		};
 		E5511F4D2B92AD6600FCC38D /* Journal */ = {
@@ -656,6 +673,8 @@
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
 				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
 				798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */,
+				E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */,
+				E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */,
 				1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
@@ -682,6 +701,7 @@
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
+				E542453C2BAF683A00FCF1C6 /* Mod3.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,

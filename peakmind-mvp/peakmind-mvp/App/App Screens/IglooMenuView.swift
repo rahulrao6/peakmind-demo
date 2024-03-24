@@ -77,6 +77,9 @@ struct IglooMenuView: View {
                                 
                                 Button("Confirm") {
                                     // Confirm action: FIREBASE CONNECTION PLZ and make it navigate to the avatar screen after selected
+                                    Task {
+                                        try await updateBackgroundAvatar()
+                                    }
                                 }
                                 .padding()
                                 .frame(maxWidth: 140)

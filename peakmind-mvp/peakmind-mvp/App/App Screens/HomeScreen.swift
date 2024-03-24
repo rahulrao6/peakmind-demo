@@ -79,7 +79,7 @@ struct HomeScreenView: View {
                             .shadow(radius: 10)
                     }
                     .background(
-                        NavigationLink(destination: PersonalizedPlanView(), isActive: $navigateToPlanScreen) {
+                        NavigationLink(destination: PersonalizedPlanNew(), isActive: $navigateToPlanScreen) {
                             EmptyView()
                         }
                     )

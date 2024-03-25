@@ -67,28 +67,28 @@
 		791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */; };
 		791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */; };
 		791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */; };
-		791AC9022BA7D7450094A688 /* SherpaFullMoonID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC9012BA7D7450094A688 /* SherpaFullMoonID.swift */; };
-		791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreen.swift */; };
+		791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */; };
+		791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreenView.swift */; };
+		793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */; };
+		793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B02BAF9039001062DB /* L2QuizResponseView.swift */; };
+		793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B22BAF9045001062DB /* L2SherpaChatView.swift */; };
+		793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B42BAF9051001062DB /* WindsLouderFlavorView.swift */; };
+		793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B62BAF9063001062DB /* ReducingAnxietyView.swift */; };
+		793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B82BAF906E001062DB /* Level2FlavorView.swift */; };
+		793B79BB2BB20423001062DB /* WellnessQ2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79BA2BB20423001062DB /* WellnessQ2View.swift */; };
+		793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79BC2BB20431001062DB /* WellnessQ3View.swift */; };
 		797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */; };
 		797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB792BA5335C00F24123 /* IglooMenuView.swift */; };
-		798EFB602B84374800E6027A /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB5F2B84374800E6027A /* MapScreen.swift */; };
-		798EFB622B84376200E6027A /* WorldScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB612B84376200E6027A /* WorldScreen.swift */; };
-		798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB632B84376F00E6027A /* ChecklistScreen.swift */; };
-		798EFB662B84377B00E6027A /* CartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB652B84377B00E6027A /* CartScreen.swift */; };
-		798EFB682B84378A00E6027A /* IglooScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB672B84378A00E6027A /* IglooScreen.swift */; };
-		798EFB6A2B84379D00E6027A /* PlayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* PlayScreen.swift */; };
-		798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB6B2B8437A800E6027A /* PlanScreen.swift */; };
+		798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* IntroPlayView.swift */; };
 		79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3DAED2B843CE0003C3B44 /* MainTabView.swift */; };
-		79BFB5202B8EAAB300634262 /* AvatarScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */; };
+		79BFB5202B8EAAB300634262 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarView.swift */; };
 		79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5212B8EAAE600634262 /* CustomButton.swift */; };
 		79BFB5242B8EAB2B00634262 /* PersonalizedPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */; };
-		79BFB5262B8EAB4500634262 /* ProfileViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5252B8EAB4500634262 /* ProfileViewTest.swift */; };
 		79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5272B8EAB5C00634262 /* QuestionsView.swift */; };
 		79BFB52A2B8EABBB00634262 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5292B8EABBB00634262 /* Question.swift */; };
 		79BFB52C2B8EABC500634262 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52B2B8EABC500634262 /* Info.swift */; };
 		79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52D2B8EDA6E00634262 /* JournalView.swift */; };
 		79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52F2B914A5000634262 /* SplashScreen.swift */; };
-		79BFB5342B987D4400634262 /* AvatarSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5332B987D4400634262 /* AvatarSettingsView.swift */; };
 		E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245352BABD4C400FCF1C6 /* Module1.swift */; };
 		E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245372BABD6CC00FCF1C6 /* Module2.swift */; };
 		E542453C2BAF683A00FCF1C6 /* Mod3.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542453B2BAF683A00FCF1C6 /* Mod3.swift */; };
@@ -151,28 +151,28 @@
 		791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyModuleView.swift; sourceTree = "<group>"; };
 		791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallFlavorView.swift; sourceTree = "<group>"; };
 		791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangersOfNightfallView.swift; sourceTree = "<group>"; };
-		791AC9012BA7D7450094A688 /* SherpaFullMoonID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaFullMoonID.swift; sourceTree = "<group>"; };
-		791D1AA02B84344900E28162 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaFullMoonView.swift; sourceTree = "<group>"; };
+		791D1AA02B84344900E28162 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysImpactsAnxietyView.swift; sourceTree = "<group>"; };
+		793B79B02BAF9039001062DB /* L2QuizResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2QuizResponseView.swift; sourceTree = "<group>"; };
+		793B79B22BAF9045001062DB /* L2SherpaChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2SherpaChatView.swift; sourceTree = "<group>"; };
+		793B79B42BAF9051001062DB /* WindsLouderFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsLouderFlavorView.swift; sourceTree = "<group>"; };
+		793B79B62BAF9063001062DB /* ReducingAnxietyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReducingAnxietyView.swift; sourceTree = "<group>"; };
+		793B79B82BAF906E001062DB /* Level2FlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2FlavorView.swift; sourceTree = "<group>"; };
+		793B79BA2BB20423001062DB /* WellnessQ2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessQ2View.swift; sourceTree = "<group>"; };
+		793B79BC2BB20431001062DB /* WellnessQ3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessQ3View.swift; sourceTree = "<group>"; };
 		797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuView.swift; sourceTree = "<group>"; };
 		797AAB792BA5335C00F24123 /* IglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuView.swift; sourceTree = "<group>"; };
-		798EFB5F2B84374800E6027A /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
-		798EFB612B84376200E6027A /* WorldScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldScreen.swift; sourceTree = "<group>"; };
-		798EFB632B84376F00E6027A /* ChecklistScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistScreen.swift; sourceTree = "<group>"; };
-		798EFB652B84377B00E6027A /* CartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartScreen.swift; sourceTree = "<group>"; };
-		798EFB672B84378A00E6027A /* IglooScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooScreen.swift; sourceTree = "<group>"; };
-		798EFB692B84379D00E6027A /* PlayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayScreen.swift; sourceTree = "<group>"; };
-		798EFB6B2B8437A800E6027A /* PlanScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanScreen.swift; sourceTree = "<group>"; };
+		798EFB692B84379D00E6027A /* IntroPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPlayView.swift; sourceTree = "<group>"; };
 		79B3DAED2B843CE0003C3B44 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
-		79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarScreen.swift; sourceTree = "<group>"; };
+		79BFB51F2B8EAAB300634262 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		79BFB5212B8EAAE600634262 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedPlanView.swift; sourceTree = "<group>"; };
-		79BFB5252B8EAB4500634262 /* ProfileViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTest.swift; sourceTree = "<group>"; };
 		79BFB5272B8EAB5C00634262 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
 		79BFB5292B8EABBB00634262 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		79BFB52B2B8EABC500634262 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		79BFB52D2B8EDA6E00634262 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
 		79BFB52F2B914A5000634262 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
-		79BFB5332B987D4400634262 /* AvatarSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarSettingsView.swift; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E54245352BABD4C400FCF1C6 /* Module1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module1.swift; sourceTree = "<group>"; };
 		E54245372BABD6CC00FCF1C6 /* Module2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module2.swift; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1C6C0BB42BA94D4300628B79 /* Level 1 - Raj Screens */ = {
+		1C6C0BB42BA94D4300628B79 /* Raj */ = {
 			isa = PBXGroup;
 			children = (
 				1C6C0BB52BA9501300628B79 /* TentPurchase.swift */,
@@ -246,38 +246,38 @@
 				1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */,
 				1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */,
 			);
-			path = "Level 1 - Raj Screens";
-			sourceTree = "<group>";
-		};
-		1C9C63BD2B81324D0066AF70 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				79B3DAEF2B8456DE003C3B44 /* App Screens */,
-				1CF4C3E12B7B15E10028BC3C /* peakmind_mvpApp.swift */,
-			);
-			path = App;
+			path = Raj;
 			sourceTree = "<group>";
 		};
 		1C9C63BF2B81326E0066AF70 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
 				1C9C63C72B81359A0066AF70 /* InputView.swift */,
 				1CF4A89D2B830BFF00051684 /* ViewExtension.swift */,
 				1C9C63CD2B81428B0066AF70 /* SettingsRowView.swift */,
 				1CF4A8932B82E9EA00051684 /* ColorConverter.swift */,
+				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
+				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
+				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		1C9C63C02B81327A0066AF70 /* Core */ = {
+		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E5511F4D2B92AD6600FCC38D /* Journal */,
+				793B79AB2BAF87F1001062DB /* Personalized Plan */,
+				793B79A42BAF7FB1001062DB /* Avatar */,
+				793B79AA2BAF86CD001062DB /* Home */,
+				793B79A92BAF8686001062DB /* Quiz */,
 				1CC1F5C62B89705200AC9B77 /* Chat */,
 				1C9C63C42B8132F50066AF70 /* Profile */,
 				1C9C63C32B8132DB0066AF70 /* Authentication */,
 				1C9C63C22B8132B00066AF70 /* Root */,
 			);
-			path = Core;
+			path = "Core Screens";
 			sourceTree = "<group>";
 		};
 		1C9C63C12B8132840066AF70 /* Model */ = {
@@ -336,7 +336,6 @@
 		1CC1F5C62B89705200AC9B77 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				1CE785FE2B8DA12A00962A40 /* ViewModel */,
 				1CE785FB2B8D9F1600962A40 /* Components */,
 				1CC1F5C72B89705E00AC9B77 /* View */,
 			);
@@ -357,13 +356,6 @@
 				1CE785FC2B8DA0DB00962A40 /* MessageBubble.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		1CE785FE2B8DA12A00962A40 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		1CF4C3D52B7B15E10028BC3C = {
@@ -393,10 +385,11 @@
 				1CF4A89C2B8309F100051684 /* Info.plist */,
 				1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */,
 				1C9C63C12B8132840066AF70 /* Model */,
-				1C9C63C02B81327A0066AF70 /* Core */,
+				1C9C63C02B81327A0066AF70 /* Core Screens */,
+				793B79A52BAF8453001062DB /* Game Level Screens */,
 				1C9C63BF2B81326E0066AF70 /* Components */,
-				1C9C63BD2B81324D0066AF70 /* App */,
 				1CF4C3E52B7B15E40028BC3C /* Assets.xcassets */,
+				1CF4C3E12B7B15E10028BC3C /* peakmind_mvpApp.swift */,
 				1CF4C3E72B7B15E40028BC3C /* Preview Content */,
 				B08AF59C2B92A544001A1253 /* README.md */,
 			);
@@ -435,66 +428,137 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		791AC9042BA7DC830094A688 /* Level 1 - Mikey Screens */ = {
+		791AC9042BA7DC830094A688 /* Mikey */ = {
 			isa = PBXGroup;
 			children = (
-				79BFB51F2B8EAAB300634262 /* AvatarScreen.swift */,
 				791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */,
 				791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */,
-				791AC9012BA7D7450094A688 /* SherpaFullMoonID.swift */,
+				791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */,
+				791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */,
 			);
-			path = "Level 1 - Mikey Screens";
+			path = Mikey;
 			sourceTree = "<group>";
 		};
-		79B3DAEF2B8456DE003C3B44 /* App Screens */ = {
+		793B79A32BAF7F50001062DB /* Level 1 */ = {
 			isa = PBXGroup;
 			children = (
-				E54245342BABD1D400FCF1C6 /* Level 1 - Rahul Screens */,
-				E5511F4D2B92AD6600FCC38D /* Journal */,
-				791D1AA02B84344900E28162 /* HomeScreen.swift */,
-				798EFB5F2B84374800E6027A /* MapScreen.swift */,
-				798EFB612B84376200E6027A /* WorldScreen.swift */,
-				798EFB632B84376F00E6027A /* ChecklistScreen.swift */,
-				798EFB652B84377B00E6027A /* CartScreen.swift */,
-				798EFB672B84378A00E6027A /* IglooScreen.swift */,
-				798EFB692B84379D00E6027A /* PlayScreen.swift */,
-				1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */,
-				798EFB6B2B8437A800E6027A /* PlanScreen.swift */,
-				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
-				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
-				1C6C0BB42BA94D4300628B79 /* Level 1 - Raj Screens */,
-				791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */,
-				791AC9042BA7DC830094A688 /* Level 1 - Mikey Screens */,
-				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
-				79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */,
-				79BFB5252B8EAB4500634262 /* ProfileViewTest.swift */,
-				791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */,
-				79BFB5272B8EAB5C00634262 /* QuestionsView.swift */,
-				79BFB52D2B8EDA6E00634262 /* JournalView.swift */,
-				E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */,
-				E5511F562B92B22900FCC38D /* JournalDetailView.swift */,
-				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
-				79BFB5332B987D4400634262 /* AvatarSettingsView.swift */,
+				791AC9042BA7DC830094A688 /* Mikey */,
+				1C6C0BB42BA94D4300628B79 /* Raj */,
+				E54245342BABD1D400FCF1C6 /* Rahul */,
+			);
+			path = "Level 1";
+			sourceTree = "<group>";
+		};
+		793B79A42BAF7FB1001062DB /* Avatar */ = {
+			isa = PBXGroup;
+			children = (
+				79BFB51F2B8EAAB300634262 /* AvatarView.swift */,
 				797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */,
 				797AAB792BA5335C00F24123 /* IglooMenuView.swift */,
 			);
-			path = "App Screens";
+			path = Avatar;
 			sourceTree = "<group>";
 		};
-		E54245342BABD1D400FCF1C6 /* Level 1 - Rahul Screens */ = {
+		793B79A52BAF8453001062DB /* Game Level Screens */ = {
+			isa = PBXGroup;
+			children = (
+				793B79AC2BAF8AEE001062DB /* Intro */,
+				793B79A32BAF7F50001062DB /* Level 1 */,
+				793B79A62BAF8466001062DB /* Level 2 */,
+				793B79A72BAF8473001062DB /* Level 3 */,
+				793B79A82BAF8479001062DB /* Level 4 */,
+			);
+			path = "Game Level Screens";
+			sourceTree = "<group>";
+		};
+		793B79A62BAF8466001062DB /* Level 2 */ = {
+			isa = PBXGroup;
+			children = (
+				793B79AD2BAF8D76001062DB /* Mikey */,
+			);
+			path = "Level 2";
+			sourceTree = "<group>";
+		};
+		793B79A72BAF8473001062DB /* Level 3 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Level 3";
+			sourceTree = "<group>";
+		};
+		793B79A82BAF8479001062DB /* Level 4 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Level 4";
+			sourceTree = "<group>";
+		};
+		793B79A92BAF8686001062DB /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				79BFB5272B8EAB5C00634262 /* QuestionsView.swift */,
+			);
+			path = Quiz;
+			sourceTree = "<group>";
+		};
+		793B79AA2BAF86CD001062DB /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				791D1AA02B84344900E28162 /* HomeScreenView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		793B79AB2BAF87F1001062DB /* Personalized Plan */ = {
+			isa = PBXGroup;
+			children = (
+				79BFB5232B8EAB2B00634262 /* PersonalizedPlanView.swift */,
+				791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */,
+			);
+			path = "Personalized Plan";
+			sourceTree = "<group>";
+		};
+		793B79AC2BAF8AEE001062DB /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				798EFB692B84379D00E6027A /* IntroPlayView.swift */,
+				1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */,
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
+		793B79AD2BAF8D76001062DB /* Mikey */ = {
+			isa = PBXGroup;
+			children = (
+				793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */,
+				793B79B02BAF9039001062DB /* L2QuizResponseView.swift */,
+				793B79B22BAF9045001062DB /* L2SherpaChatView.swift */,
+				793B79B42BAF9051001062DB /* WindsLouderFlavorView.swift */,
+				793B79B62BAF9063001062DB /* ReducingAnxietyView.swift */,
+				793B79B82BAF906E001062DB /* Level2FlavorView.swift */,
+				793B79BA2BB20423001062DB /* WellnessQ2View.swift */,
+				793B79BC2BB20431001062DB /* WellnessQ3View.swift */,
+			);
+			path = Mikey;
+			sourceTree = "<group>";
+		};
+		E54245342BABD1D400FCF1C6 /* Rahul */ = {
 			isa = PBXGroup;
 			children = (
 				E54245352BABD4C400FCF1C6 /* Module1.swift */,
 				E54245372BABD6CC00FCF1C6 /* Module2.swift */,
 				E542453B2BAF683A00FCF1C6 /* Mod3.swift */,
 			);
-			path = "Level 1 - Rahul Screens";
+			path = Rahul;
 			sourceTree = "<group>";
 		};
 		E5511F4D2B92AD6600FCC38D /* Journal */ = {
 			isa = PBXGroup;
 			children = (
 				E5511F502B92ADCB00FCC38D /* JournalEntry.swift */,
+				79BFB52D2B8EDA6E00634262 /* JournalView.swift */,
+				E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */,
+				E5511F562B92B22900FCC38D /* JournalDetailView.swift */,
 				E5511F522B92ADE900FCC38D /* JournalDataManager.swift */,
 			);
 			path = Journal;
@@ -670,25 +734,27 @@
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
+				793B79BB2BB20423001062DB /* WellnessQ2View.swift in Sources */,
+				793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
+				793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */,
 				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
-				798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */,
+				793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */,
 				E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */,
 				E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */,
 				1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
-				79BFB5342B987D4400634262 /* AvatarSettingsView.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
-				79BFB5202B8EAAB300634262 /* AvatarScreen.swift in Sources */,
+				79BFB5202B8EAAB300634262 /* AvatarView.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
-				791AC9022BA7D7450094A688 /* SherpaFullMoonID.swift in Sources */,
-				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
+				791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */,
+				791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */,
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
 				79BFB5242B8EAB2B00634262 /* PersonalizedPlanView.swift in Sources */,
 				1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */,
@@ -703,23 +769,21 @@
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				E542453C2BAF683A00FCF1C6 /* Mod3.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
+				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
+				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
+				793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
-				798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */,
-				798EFB602B84374800E6027A /* MapScreen.swift in Sources */,
-				79BFB5262B8EAB4500634262 /* ProfileViewTest.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
+				793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
-				798EFB662B84377B00E6027A /* CartScreen.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
-				798EFB682B84378A00E6027A /* IglooScreen.swift in Sources */,
-				798EFB6A2B84379D00E6027A /* PlayScreen.swift in Sources */,
-				798EFB622B84376200E6027A /* WorldScreen.swift in Sources */,
+				798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

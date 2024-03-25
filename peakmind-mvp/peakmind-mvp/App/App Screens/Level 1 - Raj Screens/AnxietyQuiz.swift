@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
-
+import FirebaseFirestore
+//SCREEN FOUR
 struct AnxietyQuiz: View {
+    @EnvironmentObject var viewModel: AuthViewModel
     let titleText = "Mt. Anxiety: Level One"
     let narrationText = "What are ways that you currently manage your anxiety?"
     @State private var animatedText = ""
@@ -18,6 +20,8 @@ struct AnxietyQuiz: View {
         "Option 4"
     ]
     @State private var selectedOption: Int? = nil
+    @State var navigateToNext = false
+
 
 
     var body: some View {
@@ -65,6 +69,12 @@ struct AnxietyQuiz: View {
                                 Button(action: {
                                     selectedOption = index
                                     
+                                    Task {
+                                        try await saveDataToFirebase()
+                                        navigateToNext = true
+                                    }
+                                    
+                                    
                                 }) {
                                     Text(options[index])
                                         .fontWeight(.semibold)
@@ -81,6 +91,11 @@ struct AnxietyQuiz: View {
                 .padding(.horizontal, 40)
                 .padding(.bottom, 20)
                 .padding(.top, 20)
+
+                
+                NavigationLink(destination: SetHabits().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                    EmptyView()
+                }
 
                 
                 Spacer()
@@ -102,6 +117,30 @@ struct AnxietyQuiz: View {
             }
         }
         timer.fire()
+    }
+    
+    func saveDataToFirebase() async throws{
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("anxiety_peak").document(user.id).collection("Level_One").document("Screen_Four")
+
+        let data: [String: Any] = [
+            "question": narrationText,
+            "userAnswer": options[selectedOption ?? 0],
+            "timeCompleted": FieldValue.serverTimestamp()
+        ]
+
+        userRef.setData(data) { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document added successfully")
+            }
+        }
     }
 }
 

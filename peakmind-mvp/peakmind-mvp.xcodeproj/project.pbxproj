@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C1F7FFE2BB0D82800204E71 /* AvatarIglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F7FFD2BB0D82800204E71 /* AvatarIglooMenuView.swift */; };
+		1C1F80002BB0DB3F00204E71 /* AvatarMenuSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F7FFF2BB0DB3F00204E71 /* AvatarMenuSheet.swift */; };
+		1C1F80022BB0E18800204E71 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F80012BB0E18800204E71 /* GameViewModel.swift */; };
+		1C1F80042BB13FF800204E71 /* FlashlightPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F80032BB13FF800204E71 /* FlashlightPurchase.swift */; };
+		1C1F80062BB1441300204E71 /* AnxietyGoalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F80052BB1441300204E71 /* AnxietyGoalSetting.swift */; };
+		1C1F80082BB1471900204E71 /* Level1Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F80072BB1471900204E71 /* Level1Complete.swift */; };
+		1C1F800B2BB149AC00204E71 /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F800A2BB149AC00204E71 /* Level2.swift */; };
 		1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB52BA9501300628B79 /* TentPurchase.swift */; };
 		1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */; };
 		1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB92BA96B5300628B79 /* StoreView.swift */; };
@@ -91,7 +98,7 @@
 		79BFB5342B987D4400634262 /* AvatarSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5332B987D4400634262 /* AvatarSettingsView.swift */; };
 		E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245352BABD4C400FCF1C6 /* Module1.swift */; };
 		E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245372BABD6CC00FCF1C6 /* Module2.swift */; };
-		E542453C2BAF683A00FCF1C6 /* Mod3.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542453B2BAF683A00FCF1C6 /* Mod3.swift */; };
+		E542453C2BAF683A00FCF1C6 /* Module3.swift in Sources */ = {isa = PBXBuildFile; fileRef = E542453B2BAF683A00FCF1C6 /* Module3.swift */; };
 		E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F502B92ADCB00FCC38D /* JournalEntry.swift */; };
 		E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F522B92ADE900FCC38D /* JournalDataManager.swift */; };
 		E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */; };
@@ -116,6 +123,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C1F7FFD2BB0D82800204E71 /* AvatarIglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarIglooMenuView.swift; sourceTree = "<group>"; };
+		1C1F7FFF2BB0DB3F00204E71 /* AvatarMenuSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuSheet.swift; sourceTree = "<group>"; };
+		1C1F80012BB0E18800204E71 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		1C1F80032BB13FF800204E71 /* FlashlightPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashlightPurchase.swift; sourceTree = "<group>"; };
+		1C1F80052BB1441300204E71 /* AnxietyGoalSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyGoalSetting.swift; sourceTree = "<group>"; };
+		1C1F80072BB1471900204E71 /* Level1Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level1Complete.swift; sourceTree = "<group>"; };
+		1C1F800A2BB149AC00204E71 /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		1C6C0BB52BA9501300628B79 /* TentPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TentPurchase.swift; sourceTree = "<group>"; };
 		1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyQuiz.swift; sourceTree = "<group>"; };
 		1C6C0BB92BA96B5300628B79 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
@@ -176,7 +190,7 @@
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E54245352BABD4C400FCF1C6 /* Module1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module1.swift; sourceTree = "<group>"; };
 		E54245372BABD6CC00FCF1C6 /* Module2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module2.swift; sourceTree = "<group>"; };
-		E542453B2BAF683A00FCF1C6 /* Mod3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mod3.swift; sourceTree = "<group>"; };
+		E542453B2BAF683A00FCF1C6 /* Module3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module3.swift; sourceTree = "<group>"; };
 		E5511F502B92ADCB00FCC38D /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		E5511F522B92ADE900FCC38D /* JournalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDataManager.swift; sourceTree = "<group>"; };
 		E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntriesView.swift; sourceTree = "<group>"; };
@@ -237,12 +251,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C1F80092BB149A000204E71 /* Level2 */ = {
+			isa = PBXGroup;
+			children = (
+				1C1F800A2BB149AC00204E71 /* Level2.swift */,
+			);
+			path = Level2;
+			sourceTree = "<group>";
+		};
 		1C6C0BB42BA94D4300628B79 /* Level 1 - Raj Screens */ = {
 			isa = PBXGroup;
 			children = (
 				1C6C0BB52BA9501300628B79 /* TentPurchase.swift */,
 				1C6C0BB92BA96B5300628B79 /* StoreView.swift */,
+				1C1F80072BB1471900204E71 /* Level1Complete.swift */,
+				1C1F80032BB13FF800204E71 /* FlashlightPurchase.swift */,
 				1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */,
+				1C1F80052BB1441300204E71 /* AnxietyGoalSetting.swift */,
 				1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */,
 				1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */,
 			);
@@ -459,9 +484,11 @@
 				798EFB672B84378A00E6027A /* IglooScreen.swift */,
 				798EFB692B84379D00E6027A /* PlayScreen.swift */,
 				1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */,
+				1C1F80012BB0E18800204E71 /* GameViewModel.swift */,
 				798EFB6B2B8437A800E6027A /* PlanScreen.swift */,
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
 				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
+				1C1F80092BB149A000204E71 /* Level2 */,
 				1C6C0BB42BA94D4300628B79 /* Level 1 - Raj Screens */,
 				791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */,
 				791AC9042BA7DC830094A688 /* Level 1 - Mikey Screens */,
@@ -476,7 +503,9 @@
 				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
 				79BFB5332B987D4400634262 /* AvatarSettingsView.swift */,
 				797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */,
+				1C1F7FFF2BB0DB3F00204E71 /* AvatarMenuSheet.swift */,
 				797AAB792BA5335C00F24123 /* IglooMenuView.swift */,
+				1C1F7FFD2BB0D82800204E71 /* AvatarIglooMenuView.swift */,
 			);
 			path = "App Screens";
 			sourceTree = "<group>";
@@ -486,7 +515,7 @@
 			children = (
 				E54245352BABD4C400FCF1C6 /* Module1.swift */,
 				E54245372BABD6CC00FCF1C6 /* Module2.swift */,
-				E542453B2BAF683A00FCF1C6 /* Mod3.swift */,
+				E542453B2BAF683A00FCF1C6 /* Module3.swift */,
 			);
 			path = "Level 1 - Rahul Screens";
 			sourceTree = "<group>";
@@ -669,23 +698,29 @@
 				791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */,
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
+				1C1F800B2BB149AC00204E71 /* Level2.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
 				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
 				798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */,
 				E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */,
+				1C1F80062BB1441300204E71 /* AnxietyGoalSetting.swift in Sources */,
 				E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */,
 				1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
+				1C1F80082BB1471900204E71 /* Level1Complete.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
+				1C1F80002BB0DB3F00204E71 /* AvatarMenuSheet.swift in Sources */,
 				79BFB5342B987D4400634262 /* AvatarSettingsView.swift in Sources */,
+				1C1F80022BB0E18800204E71 /* GameViewModel.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreen.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
+				1C1F80042BB13FF800204E71 /* FlashlightPurchase.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
 				791AC9022BA7D7450094A688 /* SherpaFullMoonID.swift in Sources */,
 				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
@@ -701,13 +736,14 @@
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
-				E542453C2BAF683A00FCF1C6 /* Mod3.swift in Sources */,
+				E542453C2BAF683A00FCF1C6 /* Module3.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
+				1C1F7FFE2BB0D82800204E71 /* AvatarIglooMenuView.swift in Sources */,
 				798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */,
 				798EFB602B84374800E6027A /* MapScreen.swift in Sources */,
 				79BFB5262B8EAB4500634262 /* ProfileViewTest.swift in Sources */,

@@ -1,12 +1,12 @@
 import SwiftUI
 import FirebaseFirestore
 
-struct SetHabits: View {
+struct AnxietyGoalSetting: View {
     @EnvironmentObject var viewModel: AuthViewModel
 
     let titleText = "Mt. Anxiety: Level One"
-    let narrationText = "Let's set your first habit. A habit is a task that you will do everything until it is second nature for you."
-    @State private var habitText = ""
+    let narrationText = "Let's set your first goal. A goal is a task that you will do everyday until it is second nature for you."
+    @State private var goalText = ""
     @State private var animatedText = ""
     @State private var showAlert = false
     @State private var isButtonVisible = false
@@ -70,13 +70,13 @@ struct SetHabits: View {
                     .padding(.horizontal, 40)
                     
                     VStack() {
-                        TextField("", text: $habitText, prompt: Text("Set your habit here!").foregroundColor(.gray))
+                        TextField("", text: $goalText, prompt: Text("Set your goal here!").foregroundColor(.gray))
                             .font(.headline)
                             .fontWeight(.medium)
                             .foregroundColor(.white)
                             //.multilineTextAlignment(.center)
                             .padding()
-                            .onChange(of: habitText) { newValue in
+                            .onChange(of: goalText) { newValue in
                                 withAnimation {
                                     isButtonVisible = !newValue.isEmpty
                                 }
@@ -90,7 +90,7 @@ struct SetHabits: View {
                     
                     
                     VStack {
-                        DatePicker("When do you want this habit?", selection: $selectedDate, displayedComponents: .date)
+                        DatePicker("When do you want this goal?", selection: $selectedDate, displayedComponents: .date)
                             .colorScheme(.dark) // or .light to get black text
                             .accentColor(.white) // Set accent color
                             .padding()
@@ -132,16 +132,16 @@ struct SetHabits: View {
             .sheet(isPresented: $showPopup) {
                 // Content of the popup
                 VStack {
-                    Text("Habit Pop Up")
+                    Text("Goal Pop Up")
                         .font(.title)
                         .padding()
-                    Text("Pop up to describe where to access habits, also tells user about habits being tracked for future use.")
+                    Text("Pop up to describe where to access goal, also tells user about goals being tracked for future use.")
                         .multilineTextAlignment(.center)
                         .padding()
                     Button {
                         showPopup = false
                         navigateToNext = true
-                        addCash(amount: 300)
+                        //addCash(amount: 100)
                     } label: {
                         Text("Close")
 
@@ -149,7 +149,7 @@ struct SetHabits: View {
                 }
             }
             .background(
-            NavigationLink(destination: FlashlightPurchase().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+            NavigationLink(destination: TentPurchase().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
                 EmptyView()
             })
         }
@@ -222,10 +222,10 @@ struct SetHabits: View {
         }
 
         let db = Firestore.firestore()
-        let userRef = db.collection("habits").document(user.id)
+        let userRef = db.collection("goals").document(user.id)
 
         let data: [String: Any] = [
-            "habitText": habitText,
+            "goalText": goalText,
             "expectedDate": selectedDate,
             "actualDateCompleted": "", // Set to nil initially, it will be updated when the habit is completed
             "isCompleted": false
@@ -242,8 +242,8 @@ struct SetHabits: View {
 
 }
 
-struct SetHabits_Previews: PreviewProvider {
+struct AnxietyGoalSetting_Previews: PreviewProvider {
     static var previews: some View {
-        SetHabits()
+        AnxietyGoalSetting()
     }
 }

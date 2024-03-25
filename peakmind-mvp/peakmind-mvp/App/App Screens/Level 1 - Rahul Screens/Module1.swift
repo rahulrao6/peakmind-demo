@@ -2,7 +2,9 @@ import SwiftUI
 
 struct Module1: View {
     @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var router: Router
     @State private var animateImage = false
+    @State private var navigateToNext = false
     @State private var currentDialogueIndex = 0
     @State private var tapToContinueOpacity = 0.0
     @State private var dialogueHistory: [String] = []
@@ -41,6 +43,9 @@ struct Module1: View {
                 Spacer()
 
                 tapToContinueText
+                NavigationLink(destination: Module2View().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                    EmptyView()
+                }
             }
 
             sherpaImage
@@ -93,6 +98,9 @@ struct Module1: View {
         if currentDialogueIndex < dialogues.count {
             dialogueHistory.append(dialogues[currentDialogueIndex])
             currentDialogueIndex += 1
+        }
+        if currentDialogueIndex == dialogues.count {
+            navigateToNext = true
         }
     }
 }

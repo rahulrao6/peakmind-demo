@@ -79,16 +79,6 @@ struct AvatarSettingsView: View {
                             .padding()
                         }
                         
-//                        Button(action: {
-//                            showPicker.toggle()
-//                            Task {
-//                                try await updateBackgroundAvatar()
-//                            }
-//                        }) {
-//                            Text(showPicker ? "Confirm Choices" : "Change Avatar / Igloo")
-//                        }
-//                        .accentColor(.white)
-//                        .padding()
 
                         if showPicker {
                             HStack { // Pickers side by side within an HStack

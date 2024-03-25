@@ -15,6 +15,9 @@ struct AvatarMenuView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var navigateToIglooView = false
     @EnvironmentObject var viewModel: AuthViewModel
+    @State var isUpdateSuccessful = false // Control the presentation of the sheet
+    
+
 
 
     var body: some View {
@@ -77,7 +80,9 @@ struct AvatarMenuView: View {
                                 .cornerRadius(10)
                                 
                                 Button("Confirm") {
-                                    navigateToIglooView = true // Set the state to trigger navigation
+                                    Task {
+                                        try await updateBackgroundAvatar()
+                                    }
                                 }
                                 .padding()
                                 .frame(maxWidth: 140)
@@ -102,6 +107,11 @@ struct AvatarMenuView: View {
                 }
             )
         }
+        .onReceive(viewModel.$currentUser) { currentUser in
+            if isUpdateSuccessful {
+                self.presentationMode.wrappedValue.dismiss() // Dismiss the sheet after successful update
+            }
+        }
     }
     func updateBackgroundAvatar() async throws {
         guard let user = viewModel.currentUser else {
@@ -114,13 +124,18 @@ struct AvatarMenuView: View {
 
         do {
             try await userRef.setData([
-                "selectedAvatar": avatarIcons[selectedAvatarIndex],
+                "selectedAvatar": avatarImages[selectedAvatarIndex],
             ], merge: true)
 
-            print("User fields updated successfully.")
+            print(avatarImages[selectedAvatarIndex])
+            print("User fields updated successfully. Avatar!!!!!!!")
+            isUpdateSuccessful = true // Set the update flag to true
 
             // Assuming fetchUser is also an asynchronous function
             await viewModel.fetchUser()
+            
+            navigateToIglooView = true // Set the state to trigger navigation
+
         } catch {
             print("Error updating user fields: \(error)")
         }

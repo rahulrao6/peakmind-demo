@@ -1,4 +1,6 @@
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
 // Ensure to have a VisualEffectBlur view defined or use a suitable alternative
 struct VisualEffectBlur: UIViewRepresentable {
@@ -16,6 +18,10 @@ struct VisualEffectBlur: UIViewRepresentable {
 struct Module2View: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var userAnswer: String = ""
+    @State private var reflectiveQuestion: String = "What does anxiety feel like for you?"
+    @State private var navigateToNext = false
+    @State private var showPopup = false
+
     @State private var showThankYou = false
 
     var body: some View {
@@ -36,12 +42,17 @@ struct Module2View: View {
 
                 if !showThankYou {
                     // Question Box
-                    ReflectiveQuestionBox(userAnswer: $userAnswer)
+                    ReflectiveQuestionBox(userAnswer: $userAnswer, question: $reflectiveQuestion)
                     
                     // Submit Button
                     SubmitButton {
                         withAnimation {
                             showThankYou.toggle()
+                            Task {
+                                try await saveDataToFirebase()
+                                showPopup.toggle()
+                            }
+
                         }
                     }
                 } else {
@@ -55,12 +66,105 @@ struct Module2View: View {
                 TruthfulPrompt()
             }
             .padding()
+            
+            .sheet(isPresented: $showPopup) {
+                // Content of the popup
+                VStack {
+                    Text("VC Pop Up")
+                        .font(.title)
+                        .padding()
+                    Text("This is how the virtual currency will work. We will give you 100 to start. ")
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    Button {
+                        showPopup = false
+                        navigateToNext = true
+                        addCash(amount: 100)
+                        
+                    } label: {
+                        Text("Close")
+
+                    }
+                }
+            }
+            
+            NavigationLink(destination: Module3View(selectedItem: .pen).navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                EmptyView()
+            }
         }
+    }
+    
+    func saveDataToFirebase() async throws{
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("anxiety_peak").document(user.id).collection("Level_One").document("Screen_Two")
+
+        let data: [String: Any] = [
+            "question": reflectiveQuestion,
+            "userAnswer": userAnswer,
+            "timeCompleted": FieldValue.serverTimestamp()
+        ]
+
+        userRef.setData(data) { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document added successfully")
+            }
+        }
+    }
+    
+    func addCash(amount: Double) {
+        guard let currentUser = viewModel.currentUser else {
+            print("User not logged in.")
+            return
+        }
+        
+        let userId = currentUser.id
+        let userRef = Firestore.firestore().collection("users").document(userId)
+
+        Firestore.firestore().document(userRef.path).getDocument { snapshot, error in
+            if let error = error {
+                return
+            }
+            
+            guard var userData = snapshot?.data() else {
+                return
+            }
+            
+            guard var balance = userData["currencyBalance"] as? Double else {
+                return
+            }
+            
+                balance += amount
+                
+                userData["currencyBalance"] = balance
+                
+                Firestore.firestore().document(userRef.path).setData(userData) { error in
+                    if let error = error {
+                        print("Error setting data: \(error)")
+                    } else {
+                        print("added successfully!")
+                        showAlert(message: "$100 added to your account!")
+                    }
+                }
+             
+        }
+    }
+    private func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Account Update!", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        UIApplication.shared.windows.first?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
 }
 
 struct ReflectiveQuestionBox: View {
     @Binding var userAnswer: String
+    @Binding var question: String
 
     var body: some View {
         VStack(spacing: 10) {
@@ -69,7 +173,7 @@ struct ReflectiveQuestionBox: View {
                 .modernTextStyle()
             
             // Question Text
-            Text("What does anxiety feel like for you?")
+            Text(question)
                 .font(.title2)
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)

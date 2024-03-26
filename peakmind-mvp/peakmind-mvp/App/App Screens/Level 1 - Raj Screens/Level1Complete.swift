@@ -113,6 +113,6 @@ struct Level1Complete: View {
 
 struct Level1Complete_Previews: PreviewProvider {
     static var previews: some View {
-        Level1Complete()
+        Level1Complete().environmentObject(AuthViewModel())
     }
 }

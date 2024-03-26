@@ -100,7 +100,7 @@ struct AvatarMenuView: View {
             .background(
                 // NavigationLink that triggers when navigateToIglooView is true
                 NavigationLink(
-                    destination: IglooMenuView(),
+                    destination: IglooMenuView().environmentObject(viewModel),
                     isActive: $navigateToIglooView
                 ) {
                     EmptyView()

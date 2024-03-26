@@ -28,8 +28,10 @@ struct ContentView: View {
                     } else {
                         if (viewModel.currentUser?.hasSetInitialAvatar == false) {
                             AvatarMenuView()
+                                .environmentObject(viewModel)
                         } else {
                             HomeScreenView()
+                                .environmentObject(viewModel)
                             //AnxietyQuiz()
                             //TentPurchase()
                         }

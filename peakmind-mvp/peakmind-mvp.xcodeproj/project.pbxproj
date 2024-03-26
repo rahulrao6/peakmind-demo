@@ -19,6 +19,8 @@
 		1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB92BA96B5300628B79 /* StoreView.swift */; };
 		1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */; };
 		1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */; };
+		1C8A50F12BB22F7F000BBDEC /* PhysicalAnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A50F02BB22F7F000BBDEC /* PhysicalAnxietyQuiz.swift */; };
+		1C8A50F32BB23938000BBDEC /* SMARTGoalSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A50F22BB23938000BBDEC /* SMARTGoalSettingView.swift */; };
 		1C9C63BC2B8131CB0066AF70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */; };
 		1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C52B8133360066AF70 /* LoginView.swift */; };
 		1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C72B81359A0066AF70 /* InputView.swift */; };
@@ -135,6 +137,8 @@
 		1C6C0BB92BA96B5300628B79 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHabits.swift; sourceTree = "<group>"; };
+		1C8A50F02BB22F7F000BBDEC /* PhysicalAnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalAnxietyQuiz.swift; sourceTree = "<group>"; };
+		1C8A50F22BB23938000BBDEC /* SMARTGoalSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMARTGoalSettingView.swift; sourceTree = "<group>"; };
 		1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C9C63C52B8133360066AF70 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		1C9C63C72B81359A0066AF70 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
@@ -251,12 +255,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1C1F80092BB149A000204E71 /* Level2 */ = {
+		1C1F80092BB149A000204E71 /* Level2 - Raj  */ = {
 			isa = PBXGroup;
 			children = (
 				1C1F800A2BB149AC00204E71 /* Level2.swift */,
+				1C8A50F02BB22F7F000BBDEC /* PhysicalAnxietyQuiz.swift */,
+				1C8A50F22BB23938000BBDEC /* SMARTGoalSettingView.swift */,
 			);
-			path = Level2;
+			path = "Level2 - Raj ";
 			sourceTree = "<group>";
 		};
 		1C6C0BB42BA94D4300628B79 /* Level 1 - Raj Screens */ = {
@@ -488,7 +494,7 @@
 				798EFB6B2B8437A800E6027A /* PlanScreen.swift */,
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
 				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
-				1C1F80092BB149A000204E71 /* Level2 */,
+				1C1F80092BB149A000204E71 /* Level2 - Raj  */,
 				1C6C0BB42BA94D4300628B79 /* Level 1 - Raj Screens */,
 				791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */,
 				791AC9042BA7DC830094A688 /* Level 1 - Mikey Screens */,
@@ -701,6 +707,7 @@
 				1C1F800B2BB149AC00204E71 /* Level2.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
+				1C8A50F32BB23938000BBDEC /* SMARTGoalSettingView.swift in Sources */,
 				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
 				798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */,
 				E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */,
@@ -755,6 +762,7 @@
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
 				798EFB682B84378A00E6027A /* IglooScreen.swift in Sources */,
 				798EFB6A2B84379D00E6027A /* PlayScreen.swift in Sources */,
+				1C8A50F12BB22F7F000BBDEC /* PhysicalAnxietyQuiz.swift in Sources */,
 				798EFB622B84376200E6027A /* WorldScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

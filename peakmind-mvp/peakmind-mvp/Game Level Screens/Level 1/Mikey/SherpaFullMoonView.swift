@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct SherpaFullMoonView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
     let sherpaText = "It seems there is a full moon. That must be why all of the werewolves are out. Times like these can be stressful but you will get through it. Take it one step at a time."
     @State private var animatedText = ""
+    @State var navigateToNext = false
+
 
     var body: some View {
         ZStack {
@@ -35,6 +38,14 @@ struct SherpaFullMoonView: View {
             SpeechBubble(text: $animatedText)
                 .onAppear { animateText() }
                 .offset(x: 90, y: 300)
+        }
+        .background(
+            NavigationLink(destination: AnxietyGoalSetting().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+            EmptyView()
+        })
+        .onTapGesture {
+            // When tapped, navigate to the next screen
+            navigateToNext = true
         }
     }
     

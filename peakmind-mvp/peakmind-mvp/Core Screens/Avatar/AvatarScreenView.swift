@@ -1,7 +1,7 @@
 import SwiftUI
 import FirebaseFirestore
 
-struct AvatarView: View {
+struct AvatarScreen: View {
     let avatarOptions = ["Mikey", "Raj", "Trevor"]
     let backgroundOptions = ["Pink Igloo", "Orange Igloo", "Blue Igloo", "Navy Igloo"]
     @State private var selectedAvatar = "Mikey"
@@ -11,8 +11,8 @@ struct AvatarView: View {
     @State private var newUsername = ""
     @State private var isEditingUsername = false
     @State private var isNavigatingToProfileView = false
-
-
+    @State private var isNavigatingToAvatarEdit = false
+    @State private var isIglooMenuPresented = false
     @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
@@ -27,7 +27,7 @@ struct AvatarView: View {
                     RoundedRectangle(cornerRadius: 25)
                         .fill(Color.black.opacity(0.5))
                         .padding(.horizontal, 20)
-                        .padding(.vertical, 20) 
+                        .padding(.vertical, 20)
                         .overlay(
                             VStack {
                                 Text("Your Profile")
@@ -37,19 +37,6 @@ struct AvatarView: View {
                                     .padding(.bottom, 20)
 
                                 ZStack {
-                                    if showPicker {
-                                        Image(selectedBackground)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 300, height: 300)
-                                            .cornerRadius(15)
-                                            .clipped()
-
-                                        Image(selectedAvatar)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 280, height: 280)
-                                    } else {
                                         Image(user.selectedBackground)
                                             .resizable()
                                             .scaledToFill()
@@ -61,55 +48,9 @@ struct AvatarView: View {
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 280, height: 280)
-                                    }
+                                    
                                 }
                                 .padding(.bottom, 20)
-
-                                if showPicker {
-                                    Button(action: {
-                                        Task {
-                                            showPicker.toggle()
-                                            do {
-                                                try await updateBackgroundAvatar()
-                                            } catch {
-                                                print("Error updating background avatar: \(error)")
-                                            }
-                                        }
-                                    }) {
-                                        Text("Confirm Choices")
-                                    }
-                                    .accentColor(.white)
-                                    .padding()
-                                } else {
-                                    Button(action: {
-                                        showPicker.toggle()
-                                    }) {
-                                        Text("Change Avatar / Igloo")
-                                    }
-                                    .accentColor(.white)
-                                    .padding()
-                                }
-
-                                if showPicker {
-                                    HStack {
-                                        Picker("Avatar", selection: $selectedAvatar) {
-                                            ForEach(avatarOptions, id: \.self) { option in
-                                                Text(option).tag(option)
-                                            }
-                                        }
-                                        .pickerStyle(MenuPickerStyle())
-                                        .accentColor(.white)
-
-                                        Picker("Background", selection: $selectedBackground) {
-                                            ForEach(backgroundOptions, id: \.self) { option in
-                                                Text(option).tag(option)
-                                            }
-                                        }
-                                        .pickerStyle(MenuPickerStyle())
-                                        .accentColor(.white)
-                                    }
-                                    .padding()
-                                }
                                 
                                 if (!isEditingUsername) {
                                     Text(user.username)
@@ -123,10 +64,6 @@ struct AvatarView: View {
                                         .frame(maxWidth: 300)
                                 }
 
-//                                TextField("Change your username", text: $username)
-//                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//                                    .frame(maxWidth: 300)
-//                                    .disabled(!isEditingUsername)
                                 
 
                                 if (!isEditingUsername) {
@@ -147,24 +84,24 @@ struct AvatarView: View {
                                 }
 
                                 HStack(spacing: 10) {
-                                    Button(action: {}) {
-                                        HStack {
-                                            Image(systemName: "chart.bar")
-                                            Text("Analytics")
-                                        }
-                                    }
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.blue)
-                                    .foregroundColor(Color.white)
-                                    .cornerRadius(10)
+//                                    Button(action: {}) {
+//                                        HStack {
+//                                            Image(systemName: "chart.bar")
+//                                            Text("Analytics")
+//                                        }
+//                                    }
+//                                    .padding()
+//                                    .frame(maxWidth: .infinity)
+//                                    .background(Color.blue)
+//                                    .foregroundColor(Color.white)
+//                                    .cornerRadius(10)
 
                                     Button(action: {
                                         isNavigatingToProfileView = true
                                     }) {
                                         HStack {
                                             Image(systemName: "gear")
-                                            Text("Settings")
+                                            Text("General")
                                         }
                                     }
                                     .padding()
@@ -175,6 +112,33 @@ struct AvatarView: View {
                                     .sheet(isPresented: $isNavigatingToProfileView) { // Present ProfileView as a sheet
                                         ProfileView()
                                     }
+                                    
+                                    Button(action: {
+                                        isNavigatingToAvatarEdit = true
+                                    }) {
+                                        HStack {
+                                            Image(systemName: "gear")
+                                            Text("Avatar")
+                                        }
+                                    }
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.gray)
+                                    .foregroundColor(Color.white)
+                                    .cornerRadius(10)
+                                    
+                                        .sheet(isPresented: $isNavigatingToAvatarEdit, onDismiss: {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                isIglooMenuPresented = true // Delayed presentation of IglooMenuView
+                                            }
+                                        }) {
+                                            AvatarMenuSheet()
+                                        }
+                                        .sheet(isPresented: $isIglooMenuPresented) {
+                                            IglooMenuView()
+                                        }
+                                    
+
                                 }
                                 .frame(maxWidth: 300)
                             }
@@ -237,8 +201,8 @@ struct AvatarView: View {
 }
 
 // Preview
-struct AvatarView_Previews: PreviewProvider {
+struct AvatarScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AvatarView().environmentObject(AuthViewModel())
+        AvatarScreen().environmentObject(AuthViewModel())
     }
 }

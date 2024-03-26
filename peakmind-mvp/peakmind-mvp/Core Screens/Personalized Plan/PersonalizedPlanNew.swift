@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct PersonalizedPlanNew: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    @State private var tasks: [TaskFirebase] = []
     @State private var currentTasksExpanded2 = false
     @State private var goalsExpanded2 = false
     @State private var habitsExpanded2 = false
@@ -17,6 +20,7 @@ struct PersonalizedPlanNew: View {
                                            Task2(name: "Go on a walk outside", isCompleted: false),
                                            Task2(name: "Drink a gallon of water today", isCompleted: false),
                                            Task2(name: "Sleep 8 hours tonight", isCompleted: false)]
+    
 
     var body: some View {
         ZStack {
@@ -39,6 +43,12 @@ struct PersonalizedPlanNew: View {
                 .padding(.vertical, 20)
             }
         }
+        .onAppear() {
+            //print("this")
+            Task{
+                try fetchTasks()
+            }
+        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -52,20 +62,22 @@ struct PersonalizedPlanNew: View {
             }
         }
     }
+    
 
     @ViewBuilder
     private func taskListView2(title: String, expanded: Binding<Bool>, color: Color) -> some View {
         DisclosureGroup(title, isExpanded: expanded) {
             VStack(alignment: .leading, spacing: 5) {
-                ForEach(tasks2.indices, id: \.self) { index in
-                    if !tasks2[index].isCompleted {
-                        TaskCard22(task: $tasks2[index])
+                ForEach(tasks.indices, id: \.self) { index in
+                    if !tasks[index].isCompleted {
+                        TaskCardFirebase(task: $tasks[index])
                             .padding(.leading, 0)
                             .padding(.top, index == 0 ? 10 : 0)
                     }
                 }
             }
         }
+
         .padding()
         .background(RoundedRectangle(cornerRadius: 10).fill(color))
         .foregroundColor(.white)
@@ -107,7 +119,91 @@ struct PersonalizedPlanNew: View {
         .foregroundColor(.white)
     }
     
+    func fetchTasks() {
+        let db = Firestore.firestore()
+        guard let currentUser = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+        let userId = currentUser.id
+        db.collection("ai_tasks").document(userId).getDocument { (document, error) in
+            if let error = error {
+                print("Error getting documents: \(error.localizedDescription)")
+                return
+            }
+
+            guard let document = document, document.exists else {
+                print("Document does not exist")
+                return
+            }
+
+            if let data = document.data() {
+                // Extract tasks from the document data
+                var tasks: [TaskFirebase] = []
+                for (key, taskData) in data {
+                    if let taskData = taskData as? [String: Any],
+                       let id = taskData["id"] as? String,
+                       let isCompleted = taskData["isCompleted"] as? Bool,
+                       let name = taskData["name"] as? String,
+                       let rank = taskData["rank"] as? Int,
+                       let timeCompleted = taskData["timeCompleted"] as? String {
+                        let task = TaskFirebase(id: id,
+                                        isCompleted: isCompleted,
+                                        name: name,
+                                        rank: rank,
+                                        timeCompleted: timeCompleted)
+                        tasks.append(task)
+                    }
+                }
+
+                // Sort tasks if needed
+                let sortedTasks = tasks.sorted { $0.rank < $1.rank }
+                self.tasks = sortedTasks
+                print(self.tasks)
+            } else {
+                print("No tasks data found")
+            }
+        }
+    }
+
+
+
+
+    
 }
+
+struct TaskFirebase: Identifiable{
+    var id: String
+    var isCompleted: Bool
+    var name: String
+    var rank: Int
+    var timeCompleted: String // You might want to convert this to Date type if needed
+}
+
+struct TaskCardFirebase: View {
+    @Binding var task: TaskFirebase
+    @State private var showConfetti = false
+
+    var body: some View {
+        ZStack {
+            if showConfetti {
+                ConfettiView(animate: showConfetti)
+            }
+
+
+            HStack {
+                Text(task.name)
+                Spacer()
+                CheckboxFirebase(rank: $task.rank, isCompleted: $task.isCompleted, taskId: $task.id, showConfetti: $showConfetti)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+            .foregroundColor(.black)
+        }
+    }
+}
+
 
 struct Task2: Identifiable {
     var id = UUID()
@@ -129,7 +225,7 @@ struct TaskCard22: View {
             HStack {
                 Text(task.name)
                 Spacer()
-                Checkbox2(isChecked: $task.isCompleted, showConfetti: $showConfetti)
+                Checkbox2(isCompleted: $task.isCompleted, showConfetti: $showConfetti)
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -138,26 +234,110 @@ struct TaskCard22: View {
         }
     }
 }
-
-
-
-
-struct Checkbox2: View {
-    @Binding var isChecked: Bool
+struct CheckboxFirebase: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    @Binding var rank: Int
+    @Binding var isCompleted: Bool
+    @Binding var taskId: String
     @Binding var showConfetti: Bool
 
     var body: some View {
-        Image(systemName: isChecked ? "checkmark.square.fill" : "square")
+        Image(systemName: isCompleted ? "checkmark.square.fill" : "square")
             .onTapGesture {
-                self.isChecked.toggle()
-                if self.isChecked {
+                self.isCompleted.toggle()
+                if self.isCompleted {
                     showConfetti = true
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         showConfetti = false
                     }
+                    // Call updateTask function to update Firestore
+                    updateTask()
                 }
             }
     }
+    
+    func updateTask() {
+        // Fetch userId from viewModel
+        guard let userId = viewModel.currentUser?.id else {
+            print("No current user")
+            return
+        }
+
+        // Access Firestore instance
+        let db = Firestore.firestore()
+
+        // Reference to the document in ai_tasks collection
+        let documentRef = db.collection("ai_tasks").document(userId)
+
+        // Update the specific fields in the document using the rank as key identifier
+        documentRef.getDocument { document, error in
+            if let error = error {
+                print("Error getting document: \(error.localizedDescription)")
+                return
+            }
+
+            guard let document = document, document.exists else {
+                print("Document does not exist")
+                return
+            }
+
+            var taskData = document.data() ?? [:]
+
+            // Update the task object with taskId
+            if let taskToUpdate = taskData[String(self.rank)] as? [String: Any] {
+                // Safely unwrap taskData[String(self.rank)]
+                if var taskToUpdate = taskToUpdate as? [String: Any] {
+                    // Update isCompleted and timeCompleted for the specific task
+                    taskToUpdate["isCompleted"] = self.isCompleted
+                    taskToUpdate["timeCompleted"] = self.isCompleted ? Timestamp(date: Date()) : FieldValue.delete()
+
+                    // Update the taskData with modified taskToUpdate
+                    taskData[String(self.rank)] = taskToUpdate
+
+                    // Update the document with the modified task data
+                    documentRef.setData(taskData) { error in
+                        if let error = error {
+                            print("Error updating task: \(error.localizedDescription)")
+                        } else {
+                            print("Task updated successfully")
+                        }
+                    }
+                } else {
+                    print("Task data is not of type [String: Any]")
+                }
+            } else {
+                print("Task not found with rank")
+            }
+        }
+    }
+
+
+
+}
+
+
+
+struct Checkbox2: View {
+    
+    @Binding var isCompleted: Bool
+    
+    @Binding var showConfetti: Bool
+
+    var body: some View {
+        Image(systemName: isCompleted ? "checkmark.square.fill" : "square")
+            .onTapGesture {
+                self.isCompleted.toggle()
+                if self.isCompleted {
+                    showConfetti = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        showConfetti = false
+                    }
+                    
+                }
+            }
+    }
+    
+
 }
 
 
@@ -181,6 +361,3 @@ struct PersonalizedPlanNew_Previews: PreviewProvider {
         }
     }
 }
-
-
-

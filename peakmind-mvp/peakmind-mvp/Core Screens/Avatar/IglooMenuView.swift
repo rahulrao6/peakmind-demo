@@ -15,6 +15,8 @@ struct IglooMenuView: View {
     @State private var isIglooSelection = true
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var viewModel: AuthViewModel
+    @State private var isUpdateSuccessful = false // Control the presentation of the sheet
+
 
 
     var body: some View {
@@ -72,11 +74,14 @@ struct IglooMenuView: View {
                                 .padding()
                                 .frame(maxWidth: 140)
                                 .foregroundColor(.white)
-                                .background(Color("Navy Blue"))
+                                .background(Color("Pink"))
                                 .cornerRadius(10)
                                 
                                 Button("Confirm") {
                                     // Confirm action: FIREBASE CONNECTION PLZ and make it navigate to the avatar screen after selected
+                                    Task {
+                                        try await updateBackgroundAvatar()
+                                    }
                                 }
                                 .padding()
                                 .frame(maxWidth: 140)
@@ -92,6 +97,11 @@ struct IglooMenuView: View {
             }
         }
         .navigationBarHidden(true)
+        .onReceive(viewModel.$currentUser) { currentUser in
+            if isUpdateSuccessful {
+                self.presentationMode.wrappedValue.dismiss() // Dismiss the sheet after successful update
+            }
+        }
     }
     func updateBackgroundAvatar() async throws {
         guard let user = viewModel.currentUser else {
@@ -109,6 +119,8 @@ struct IglooMenuView: View {
             ], merge: true)
 
             print("User fields updated successfully.")
+            isUpdateSuccessful = true // Set the update flag to true
+
 
             // Assuming fetchUser is also an asynchronous function
             await viewModel.fetchUser()

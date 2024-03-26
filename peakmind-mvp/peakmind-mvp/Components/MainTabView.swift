@@ -30,13 +30,13 @@ struct MainScreenView: View {
                     }
                     .tag(2)
                 
-                AvatarView()
+                AvatarScreen()
                     .tabItem {
                         Image(systemName: "globe")
                     }
                     .tag(3)
                 
-                AvatarView()
+                AvatarScreen()
                     .tabItem {
                         Image(systemName: "person.circle")
                     }

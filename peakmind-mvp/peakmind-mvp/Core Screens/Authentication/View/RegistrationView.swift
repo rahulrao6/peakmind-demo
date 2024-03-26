@@ -17,6 +17,8 @@ struct RegistrationView: View {
     @State private var firstPeak = ""
     @State private var hasCompletedInitialQuiz = false
     @State private var hasSetInitialAvatar = false
+    @State private var LevelOneCompleted = false
+
 
 
     let avatarOptions = ["Asian", "Indian", "White"]
@@ -112,7 +114,7 @@ struct RegistrationView: View {
                     print("Sign User Up")
                     //showAvatarSelection = true;
                     Task {
-                        try await viewModel.createUser(withEmail: email, password: password, fullname: full_name, location: location, color: color_hex, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar)
+                        try await viewModel.createUser(withEmail: email, password: password, fullname: full_name, location: location, color: color_hex, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, LevelOneCompleted: LevelOneCompleted)
                     }
                     
                 } label: {
@@ -129,6 +131,9 @@ struct RegistrationView: View {
                     .cornerRadius(10)
                     .padding(.top, 24)
             }
+            }
+            .sheet(isPresented: $showAvatarSelection) {
+                AvatarSettingsView()
             }
             
             //Spacer()

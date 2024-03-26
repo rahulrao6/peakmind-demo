@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct DangersOfNightfallView: View {
+    
+    @EnvironmentObject var viewModel: AuthViewModel
     let sherpaText = "Be careful of the dangers at night. In the mountains, there’s wolves, winds, and critters. Be wary of the limited visibility and always stay on a path."
     @State private var animatedText = ""
+    @State var navigateToNext = false
 
     var body: some View {
         ZStack {
@@ -33,7 +36,15 @@ struct DangersOfNightfallView: View {
 
             SpeechBubble(text: $animatedText)
                 .onAppear { animateText() }
-                .offset(x: 90, y: 300) 
+                .offset(x: 90, y: 300)
+        }
+        .background(
+            NavigationLink(destination: NightfallFlavorView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+            EmptyView()
+        })
+        .onTapGesture {
+            // When tapped, navigate to the next screen
+            navigateToNext = true
         }
     }
 
@@ -98,4 +109,3 @@ struct DangersOfNightfallView_Previews: PreviewProvider {
         DangersOfNightfallView()
     }
 }
-

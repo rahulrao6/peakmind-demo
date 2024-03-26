@@ -1,4 +1,3 @@
-
 //
 //  NightfallFlavorView.swift
 //  peakmind-mvp
@@ -9,10 +8,11 @@
 import SwiftUI
 import FirebaseFirestore
 
-struct TentPurchase: View {
+struct FlashlightPurchase: View {
     @EnvironmentObject var viewModel: AuthViewModel
+
     let titleText = "Mt. Anxiety: Level One"
-    let narrationText = "At this point, you can choose to buy a tent to better your night's rest."
+    let narrationText = "At this point, you can choose to buy a flashlight for better visibility!"
     @State private var animatedText = ""
     @State private var showAlert = false
     @State var navigateToNext = false
@@ -35,6 +35,7 @@ struct TentPurchase: View {
                 
                 Button {
                     showAlert = true
+                    
                 } label: {
                     HStack {
                         Text("-200 VC")
@@ -66,7 +67,7 @@ struct TentPurchase: View {
                         .foregroundColor(Color.blue.opacity(0.5))
                         .frame(width: 225, height: 225)
                     
-                    Image("BlueTent")
+                    Image("pen")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 200, height: 200)
@@ -90,14 +91,10 @@ struct TentPurchase: View {
                 Spacer()
             }
         }
-        .background(
-        NavigationLink(destination: Level1Complete().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
-            EmptyView()
-        })
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Confirm Purchase"),
-                message: Text("Are you sure you want to buy the tent for 200 VC?"),
+                message: Text("Are you sure you want to buy this flashlight for 200 VC?"),
                 primaryButton: .default(Text("Yes")) {
                     buyItem()
                     navigateToNext = true
@@ -105,6 +102,10 @@ struct TentPurchase: View {
                 secondaryButton: .cancel()
             )
         }
+        .background(
+        NavigationLink(destination: DangersOfNightfallView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+            EmptyView()
+        })
     }
     
     private func buyItem() {
@@ -141,7 +142,7 @@ struct TentPurchase: View {
             // Check if user has enough balance to buy the tent
             if balance >= price {
                 balance -= price
-                inventory.append("Tent")
+                inventory.append("Flashlight")
                 userData["currencyBalance"] = balance
                 userData["inventory"] = inventory
                 
@@ -152,8 +153,7 @@ struct TentPurchase: View {
                         print("Error setting data: \(error)")
                     } else {
                         // Show success alert
-                        showAlert(message: "Tent purchased successfully!")
-                        navigateToNext = true
+                        showAlert(message: "Flashlight purchased successfully!")
                         print("Tent purchased successfully!")
                     }
                 }
@@ -188,7 +188,7 @@ struct TentPurchase: View {
     }
 }
 
-struct TentPurchase_Previews: PreviewProvider {
+struct FlashPurchase_Previews: PreviewProvider {
     static var previews: some View {
         TentPurchase()
     }

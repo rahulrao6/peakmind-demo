@@ -1,3 +1,4 @@
+
 //
 //  NightfallFlavorView.swift
 //  peakmind-mvp
@@ -6,12 +7,13 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
-struct NightfallFlavorView: View {
+struct Level1Complete: View {
     @EnvironmentObject var viewModel: AuthViewModel
 
     let titleText = "Mt. Anxiety: Level One"
-    let narrationText = "You hear the howls of wolves in the distance. They seem to be getting louder and louder."
+    let narrationText = "Congratulations! You have completed the first level!"
     @State private var animatedText = ""
     @State var navigateToNext = false
 
@@ -57,11 +59,15 @@ struct NightfallFlavorView: View {
             }
         }
         .background(
-            NavigationLink(destination: SherpaFullMoonView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+            NavigationLink(destination: HomeScreenView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
             EmptyView()
         })
+        .onAppear() {
+            Task {
+                try await updateLevel1()
+            }
+        }
         .onTapGesture {
-            // When tapped, navigate to the next screen
             navigateToNext = true
         }
     }
@@ -81,10 +87,33 @@ struct NightfallFlavorView: View {
         }
         timer.fire()
     }
+    
+    func updateLevel1() async throws {
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id)
+
+        do {
+            try await userRef.setData([
+                "LevelOneCompleted": true,
+            ], merge: true)
+
+            print("User fields updated successfully.")
+
+            // Assuming fetchUser is also an asynchronous function
+            await viewModel.fetchUser()
+        } catch {
+            print("Error updating user fields: \(error)")
+        }
+    }
 }
 
-struct NightfallFlavorView_Previews: PreviewProvider {
+struct Level1Complete_Previews: PreviewProvider {
     static var previews: some View {
-        NightfallFlavorView()
+        Level1Complete().environmentObject(AuthViewModel())
     }
 }

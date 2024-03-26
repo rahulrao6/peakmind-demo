@@ -22,6 +22,7 @@ struct User : Identifiable, Codable {
     let hasSetInitialAvatar: Bool
     let currencyBalance: Double
     let inventory: Array<String>
+    let LevelOneCompleted: Bool
 
     
     var initials: String {
@@ -36,5 +37,5 @@ struct User : Identifiable, Codable {
 }
 
 extension User {
-    static var MOCK_USER = User(id: NSUUID().uuidString, fullname: "Raj Jagirdar", email: "gmail@raj.com", location: "New York", color: "#000", firstPeak: "Depression", username: "slayer5540", selectedAvatar: "asian", selectedBackground: "blue", hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, currencyBalance: 0.0, inventory: [])
+    static var MOCK_USER = User(id: NSUUID().uuidString, fullname: "Raj Jagirdar", email: "gmail@raj.com", location: "New York", color: "#000", firstPeak: "Depression", username: "slayer5540", selectedAvatar: "asian", selectedBackground: "blue", hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, currencyBalance: 0.0, inventory: [], LevelOneCompleted: true)
 }

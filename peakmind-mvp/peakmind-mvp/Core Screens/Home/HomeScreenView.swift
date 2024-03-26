@@ -1,5 +1,5 @@
 //
-//  HomeScreenView.swift
+//  HomeScreen.swift
 //  peakmind-mvp
 //
 //  Created by Mikey Halim on 2/19/24.
@@ -15,6 +15,15 @@ struct HomeScreenView: View {
     @State private var navigateToChatScreen = false
     @State private var navigateToJournalScreen = false
     @State private var navigateToProfileScreen = false
+    @State private var navigateToStoreScreen = false // State to control splash screen visibility
+    @State private var navigateToInventoryScreen = false // State to control splash screen visibility
+    
+    private let currencyFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
 
     var body: some View {
         NavigationView {
@@ -23,6 +32,57 @@ struct HomeScreenView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    HStack {
+                        Spacer()
+
+                        Button(action: {
+                            navigateToInventoryScreen = true
+                        }) {
+                            if let currentBalance = viewModel.currentUser?.currencyBalance {
+                                Text(currencyFormatter.string(from: NSNumber(value: currentBalance)) ?? "")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .padding(8)
+                                    .background(Color.darkBlue)
+                                    .cornerRadius(8)
+                            }
+                        }
+       
+                        .sheet(isPresented: $navigateToInventoryScreen) {
+                            InventoryView()
+                        }
+                         // Place button at the top of the screen
+                         // Adjust padding
+                        
+                        Button(action: {
+                            navigateToStoreScreen = true
+                        }) {
+                            Image(systemName: "cart.fill") // Marketplace icon
+                                .resizable()
+                                .frame(width: 24, height: 24) // Smaller size
+                                .padding(8) // Add padding
+                                .background(Color.darkBlue) // Dark blue background
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
+                        }
+                        // Adjust padding
+                        
+                        .shadow(radius: 5)
+                        .background(
+                            NavigationLink(destination: StoreView(), isActive: $navigateToStoreScreen) {
+                                EmptyView()
+                            }
+                        )
+                        
+                        
+                    }
+                    .padding(.trailing,8)
+                    Spacer()
+                }
+                
+                .padding()
                 
                 VStack(spacing: 0) {
                     Image("PM3DLogo")
@@ -61,7 +121,7 @@ struct HomeScreenView: View {
                         }
                         .background(
           
-                                NavigationLink(destination: PlayScreen2(), isActive: $navigateToPlayScreen) {
+                            NavigationLink(destination: PlayScreen2().navigationBarBackButtonHidden(true), isActive: $navigateToPlayScreen) {
                                     EmptyView()
                                 }
                         )
@@ -79,7 +139,7 @@ struct HomeScreenView: View {
                             .shadow(radius: 10)
                     }
                     .background(
-                        NavigationLink(destination: PersonalizedPlanView(), isActive: $navigateToPlanScreen) {
+                        NavigationLink(destination: PersonalizedPlanNew(), isActive: $navigateToPlanScreen) {
                             EmptyView()
                         }
                     )
@@ -122,7 +182,7 @@ struct HomeScreenView: View {
                                                   .frame(width: 60, height: 60)
                                           }
                                           .background(
-                                              NavigationLink(destination: AvatarView(), isActive: $navigateToProfileScreen) {
+                                              NavigationLink(destination: AvatarScreen(), isActive: $navigateToProfileScreen) {
                                                   EmptyView()
                                               }
                                           )
@@ -137,8 +197,8 @@ struct HomeScreenView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                 
             }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
+            
+
         }
     }
 }
@@ -148,4 +208,3 @@ struct HomeScreenView_Previews: PreviewProvider {
         HomeScreenView()
     }
 }
-

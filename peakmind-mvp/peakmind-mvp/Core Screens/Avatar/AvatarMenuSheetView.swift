@@ -1,14 +1,14 @@
 //
-//  AvatarMenuView.swift
+//  AvatarMenuSheetView.swift
 //  peakmind-mvp
 //
-//  Created by Mikey Halim on 3/15/24.
+//  Created by Mikey Halim on 3/26/24.
 //
 
 import SwiftUI
 import FirebaseFirestore
 
-struct AvatarMenuView: View {
+struct AvatarMenuSheet: View {
     let avatarIcons = ["IndianIcon", "AsianIcon", "WhiteIcon"]
     let avatarImages = ["Raj", "Mikey", "Trevor"]
     @State private var selectedAvatarIndex = 0
@@ -97,15 +97,6 @@ struct AvatarMenuView: View {
                 }
             }
             .navigationBarHidden(true)
-            .background(
-                // NavigationLink that triggers when navigateToIglooView is true
-                NavigationLink(
-                    destination: IglooMenuView().environmentObject(viewModel),
-                    isActive: $navigateToIglooView
-                ) {
-                    EmptyView()
-                }
-            )
         }
         .onReceive(viewModel.$currentUser) { currentUser in
             if isUpdateSuccessful {
@@ -145,8 +136,8 @@ struct AvatarMenuView: View {
 }
 
 // Preview
-struct AvatarMenuView_Previews: PreviewProvider {
+struct AvatarMenuSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        AvatarMenuView()
+        AvatarMenuSheet()
     }
 }

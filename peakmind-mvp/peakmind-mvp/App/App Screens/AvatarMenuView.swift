@@ -4,7 +4,6 @@
 //
 //  Created by Mikey Halim on 3/15/24.
 //
-
 import SwiftUI
 
 struct AvatarMenuView: View {

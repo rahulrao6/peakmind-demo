@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */; };
+		10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */; };
+		10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */; };
+		10FA686D2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */; };
+		10FA686E2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */; };
+		10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
+		10FA68812BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
+		10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB52BA9501300628B79 /* TentPurchase.swift */; };
 		1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */; };
 		1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB92BA96B5300628B79 /* StoreView.swift */; };
@@ -124,6 +132,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseView.swift; sourceTree = "<group>"; };
+		10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3IntroView.swift; sourceTree = "<group>"; };
+		10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitUIView.swift; sourceTree = "<group>"; };
+		10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdTriangleEncoded.mov; sourceTree = "<group>"; };
 		1C6C0BB52BA9501300628B79 /* TentPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TentPurchase.swift; sourceTree = "<group>"; };
 		1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyQuiz.swift; sourceTree = "<group>"; };
 		1C6C0BB92BA96B5300628B79 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
@@ -253,6 +265,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10FA68522BB3B191007CCBAC /* James */ = {
+			isa = PBXGroup;
+			children = (
+				10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */,
+				10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */,
+				10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */,
+				10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */,
+			);
+			path = James;
+			sourceTree = "<group>";
+		};
 		1C6C0BB42BA94D4300628B79 /* Raj */ = {
 			isa = PBXGroup;
 			children = (
@@ -504,6 +527,7 @@
 		793B79A72BAF8473001062DB /* Level 3 */ = {
 			isa = PBXGroup;
 			children = (
+				10FA68522BB3B191007CCBAC /* James */,
 			);
 			path = "Level 3";
 			sourceTree = "<group>";
@@ -738,6 +762,7 @@
 				1CF4C3E92B7B15E40028BC3C /* Preview Assets.xcassets in Resources */,
 				1C9C63BC2B8131CB0066AF70 /* GoogleService-Info.plist in Resources */,
 				1CF4C3E62B7B15E40028BC3C /* Assets.xcassets in Resources */,
+				10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +770,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10FA68812BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,6 +778,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,6 +824,7 @@
 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
+				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
 				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
 				1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */,
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
@@ -817,7 +845,9 @@
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
 				793B79C92BB3921D001062DB /* Level1Complete.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
+				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
+				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */,
@@ -831,6 +861,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10FA686D2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1CF4C3F32B7B15E40028BC3C /* peakmind_mvpTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -840,6 +871,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CF4C3FD2B7B15E50028BC3C /* peakmind_mvpUITests.swift in Sources */,
+				10FA686E2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1CF4C3FF2B7B15E50028BC3C /* peakmind_mvpUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

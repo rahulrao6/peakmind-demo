@@ -57,7 +57,34 @@
 		1CF4C4402B7B1DD50028BC3C /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C43F2B7B1DD50028BC3C /* FirebaseRemoteConfigSwift */; };
 		1CF4C4422B7B1DD60028BC3C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4412B7B1DD60028BC3C /* FirebaseStorage */; };
 		1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4432B7B1DD60028BC3C /* FirebaseStorageCombine-Community */; };
+<<<<<<< Updated upstream
 		791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreen.swift */; };
+=======
+		79159D292BB74F8200B805D8 /* VCPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79159D282BB74F8200B805D8 /* VCPopup.swift */; };
+		791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */; };
+		791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F92BA7C5A00094A688 /* ConfettiView.swift */; };
+		791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */; };
+		791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */; };
+		791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */; };
+		791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */; };
+		791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreenView.swift */; };
+		793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */; };
+		793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B02BAF9039001062DB /* L2QuizResponseView.swift */; };
+		793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B22BAF9045001062DB /* L2SherpaChatView.swift */; };
+		793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B42BAF9051001062DB /* WindsLouderFlavorView.swift */; };
+		793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B62BAF9063001062DB /* ReducingAnxietyView.swift */; };
+		793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B82BAF906E001062DB /* Level2FlavorView.swift */; };
+		793B79BB2BB20423001062DB /* WellnessQ2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79BA2BB20423001062DB /* WellnessQ2View.swift */; };
+		793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79BC2BB20431001062DB /* WellnessQ3View.swift */; };
+		793B79C12BB38E1C001062DB /* AvatarMenuSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79C02BB38E1C001062DB /* AvatarMenuSheetView.swift */; };
+		793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79C22BB390F7001062DB /* AvatarSettingsView.swift */; };
+		793B79C52BB391D7001062DB /* AnxietyGoalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79C42BB391D7001062DB /* AnxietyGoalSetting.swift */; };
+		793B79C72BB39205001062DB /* FlashlightPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79C62BB39205001062DB /* FlashlightPurchase.swift */; };
+		793B79C92BB3921D001062DB /* Level1Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79C82BB3921D001062DB /* Level1Complete.swift */; };
+		793B79CC2BB39260001062DB /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CB2BB39260001062DB /* Level2.swift */; };
+		793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */; };
+		793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */; };
+>>>>>>> Stashed changes
 		797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */; };
 		797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB792BA5335C00F24123 /* IglooMenuView.swift */; };
 		798EFB602B84374800E6027A /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB5F2B84374800E6027A /* MapScreen.swift */; };
@@ -127,7 +154,34 @@
 		1CF4C3F82B7B15E50028BC3C /* peakmind-mvpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "peakmind-mvpUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF4C3FC2B7B15E50028BC3C /* peakmind_mvpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITests.swift; sourceTree = "<group>"; };
 		1CF4C3FE2B7B15E50028BC3C /* peakmind_mvpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITestsLaunchTests.swift; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
 		791D1AA02B84344900E28162 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+=======
+		79159D282BB74F8200B805D8 /* VCPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCPopup.swift; sourceTree = "<group>"; };
+		791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedPlanNew.swift; sourceTree = "<group>"; };
+		791AC8F92BA7C5A00094A688 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
+		791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyModuleView.swift; sourceTree = "<group>"; };
+		791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallFlavorView.swift; sourceTree = "<group>"; };
+		791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangersOfNightfallView.swift; sourceTree = "<group>"; };
+		791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaFullMoonView.swift; sourceTree = "<group>"; };
+		791D1AA02B84344900E28162 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysImpactsAnxietyView.swift; sourceTree = "<group>"; };
+		793B79B02BAF9039001062DB /* L2QuizResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2QuizResponseView.swift; sourceTree = "<group>"; };
+		793B79B22BAF9045001062DB /* L2SherpaChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2SherpaChatView.swift; sourceTree = "<group>"; };
+		793B79B42BAF9051001062DB /* WindsLouderFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsLouderFlavorView.swift; sourceTree = "<group>"; };
+		793B79B62BAF9063001062DB /* ReducingAnxietyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReducingAnxietyView.swift; sourceTree = "<group>"; };
+		793B79B82BAF906E001062DB /* Level2FlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2FlavorView.swift; sourceTree = "<group>"; };
+		793B79BA2BB20423001062DB /* WellnessQ2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessQ2View.swift; sourceTree = "<group>"; };
+		793B79BC2BB20431001062DB /* WellnessQ3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessQ3View.swift; sourceTree = "<group>"; };
+		793B79C02BB38E1C001062DB /* AvatarMenuSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuSheetView.swift; sourceTree = "<group>"; };
+		793B79C22BB390F7001062DB /* AvatarSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarSettingsView.swift; sourceTree = "<group>"; };
+		793B79C42BB391D7001062DB /* AnxietyGoalSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyGoalSetting.swift; sourceTree = "<group>"; };
+		793B79C62BB39205001062DB /* FlashlightPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashlightPurchase.swift; sourceTree = "<group>"; };
+		793B79C82BB3921D001062DB /* Level1Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level1Complete.swift; sourceTree = "<group>"; };
+		793B79CB2BB39260001062DB /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
+		793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalAnxietyQuiz.swift; sourceTree = "<group>"; };
+		793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMARTGoalSettingView.swift; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 		797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuView.swift; sourceTree = "<group>"; };
 		797AAB792BA5335C00F24123 /* IglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuView.swift; sourceTree = "<group>"; };
 		798EFB5F2B84374800E6027A /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
@@ -225,6 +279,13 @@
 				1CF4A89D2B830BFF00051684 /* ViewExtension.swift */,
 				1C9C63CD2B81428B0066AF70 /* SettingsRowView.swift */,
 				1CF4A8932B82E9EA00051684 /* ColorConverter.swift */,
+<<<<<<< Updated upstream
+=======
+				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
+				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
+				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
+				79159D282BB74F8200B805D8 /* VCPopup.swift */,
+>>>>>>> Stashed changes
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -615,7 +676,13 @@
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
+<<<<<<< Updated upstream
 				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
+=======
+				79159D292BB74F8200B805D8 /* VCPopup.swift in Sources */,
+				791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */,
+				791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */,
+>>>>>>> Stashed changes
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
 				79BFB5242B8EAB2B00634262 /* PersonalizedPlanView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,

@@ -71,7 +71,6 @@ struct VCPopup: View {
                 .stroke(Color.black, lineWidth: 2)
         )
         .shadow(color: .yellow, radius: 7)
-        
     }
 }
 

@@ -68,6 +68,7 @@
 		791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */; };
 		791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */; };
 		791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreenView.swift */; };
+		793601E72BB752B9006B092F /* VCPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793601E62BB752B9006B092F /* VCPopup.swift */; };
 		793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */; };
 		793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B02BAF9039001062DB /* L2QuizResponseView.swift */; };
 		793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B22BAF9045001062DB /* L2SherpaChatView.swift */; };
@@ -165,6 +166,7 @@
 		791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangersOfNightfallView.swift; sourceTree = "<group>"; };
 		791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaFullMoonView.swift; sourceTree = "<group>"; };
 		791D1AA02B84344900E28162 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		793601E62BB752B9006B092F /* VCPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCPopup.swift; sourceTree = "<group>"; };
 		793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysImpactsAnxietyView.swift; sourceTree = "<group>"; };
 		793B79B02BAF9039001062DB /* L2QuizResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2QuizResponseView.swift; sourceTree = "<group>"; };
 		793B79B22BAF9045001062DB /* L2SherpaChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2SherpaChatView.swift; sourceTree = "<group>"; };
@@ -280,7 +282,11 @@
 				1C9C63CD2B81428B0066AF70 /* SettingsRowView.swift */,
 				1CF4A8932B82E9EA00051684 /* ColorConverter.swift */,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+				793601E62BB752B9006B092F /* VCPopup.swift */,
+>>>>>>> Stashed changes
 				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
 				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
@@ -677,9 +683,13 @@
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 				791D1AA12B84344900E28162 /* HomeScreen.swift in Sources */,
 =======
 				79159D292BB74F8200B805D8 /* VCPopup.swift in Sources */,
+=======
+				793601E72BB752B9006B092F /* VCPopup.swift in Sources */,
+>>>>>>> Stashed changes
 				791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */,
 				791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */,
 >>>>>>> Stashed changes

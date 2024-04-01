@@ -1,11 +1,12 @@
 import SwiftUI
 import FirebaseFirestore
 
+// screen nine - level 2 
 struct SMARTGoalSettingView: View {
     @EnvironmentObject var viewModel: AuthViewModel
 
-    let titleText = "Mt. Anxiety: Level One"
-    let narrationText = "Let's set your first goal. A goal is a task that you will do everyday until it is second nature for you."
+    let titleText = "Mt. Anxiety: Level Two"
+    let narrationText = "Smart goals are specific, measurable, achievable, relevant, and time bound. Give yourself a goal that follows the acronym of SMART!"
     @State private var goalText = ""
     @State private var animatedText = ""
     @State private var showAlert = false
@@ -111,7 +112,9 @@ struct SMARTGoalSettingView: View {
                             
                             Task {
                                 try await saveDataToFirebase()
-                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    navigateToNext.toggle()
+                                 }
                             }
                             
                             
@@ -126,6 +129,10 @@ struct SMARTGoalSettingView: View {
                     }
                     
                     Spacer()
+                        .background(
+                            NavigationLink(destination: Level2FlavorView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                                EmptyView()
+                            })
                     
                 }
             }
@@ -192,14 +199,14 @@ struct SMARTGoalSettingView: View {
         timer.fire()
     }
     
-    func saveDataToFirebase() async throws{
+    func saveDataToFirebase() async throws {
         guard let user = viewModel.currentUser else {
             print("No authenticated user found.")
             return
         }
 
         let db = Firestore.firestore()
-        let userRef = db.collection("goals").document(user.id)
+        let userRef = db.collection("goals").document(user.id).collection("user_goals").document()
 
         let data: [String: Any] = [
             "goalText": goalText,
@@ -216,6 +223,7 @@ struct SMARTGoalSettingView: View {
             }
         }
     }
+
 
 }
 

@@ -7,11 +7,14 @@
 
 import SwiftUI
 
+// Screen seven - level 2 
 struct WindsLouderFlavorView: View {
     let titleText = "Mt. Anxiety: Level Two"
     let narrationText = "The winds grow even louder than before, leading to increased anxiety. It begins to howl."
     @State private var animatedText = ""
-
+    @State var navigateToNext = false
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
         ZStack {
             Image("MainBG")
@@ -48,7 +51,17 @@ struct WindsLouderFlavorView: View {
                 .padding(.horizontal, 40) // Increase horizontal padding to prevent background from extending to the sides
 
                 Spacer()
+                
+                    .background(
+                        NavigationLink(destination: ReducingAnxietyView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                            EmptyView()
+                        })
+
             }
+        }
+        .onTapGesture {
+            // When tapped, navigate to the next screen
+            navigateToNext = true
         }
     }
     

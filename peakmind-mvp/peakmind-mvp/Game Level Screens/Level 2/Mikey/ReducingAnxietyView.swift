@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// Screen eight - level 2
+
 struct ReducingAnxietyView: View {
     @State private var selectedPage = 0
     let pageTexts = [
@@ -16,6 +18,9 @@ struct ReducingAnxietyView: View {
          "• Another way to reduce anxiety is through journaling and affirmations.\n• Journaling at your desired pace allows you to fully realize everything happening with you.",
          "• Affirmations are repeating positive statements to yourself regularly. This keeps you in life’s positives.\n• Lastly, food, water, and sleep are the basics. Without those, it's hard to control any anxiety."
      ]
+    @State var navigateToNext = false
+    @State var firstCycleCompleted = false
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         ZStack {
@@ -65,6 +70,11 @@ struct ReducingAnxietyView: View {
                     Button(action: {
                         withAnimation {
                             selectedPage = (selectedPage + 1) % pageTexts.count
+                            if selectedPage == 0 && firstCycleCompleted {
+                                navigateToNext.toggle()
+                            } else if selectedPage == pageTexts.count - 1 {
+                                firstCycleCompleted = true
+                            }
                         }
                     }) {
                         Image(systemName: "arrow.right")
@@ -76,6 +86,10 @@ struct ReducingAnxietyView: View {
                     .padding([.bottom, .trailing], 10)
                 }
                 Spacer()
+                    .background(
+                        NavigationLink(destination: SMARTGoalSettingView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                            EmptyView()
+                        })
             }
         }
     }

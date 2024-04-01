@@ -67,26 +67,37 @@ struct Module2View: View {
             }
             .padding()
             
-            .sheet(isPresented: $showPopup) {
-                // Content of the popup
-                VStack {
-                    Text("VC Pop Up")
-                        .font(.title)
-                        .padding()
-                    Text("This is how the virtual currency will work. We will give you 100 to start. ")
-                        .multilineTextAlignment(.center)
-                        .padding()
-                    Button {
-                        showPopup = false
-                        navigateToNext = true
-                        addCash(amount: 100)
-                        
-                    } label: {
-                        Text("Close")
+//            .sheet(isPresented: $showPopup) {
+//                // Content of the popup
+//                VStack {
+//                    Text("VC Pop Up")
+//                        .font(.title)
+//                        .padding()
+//                    Text("This is how the virtual currency will work. We will give you 100 to start. ")
+//                        .multilineTextAlignment(.center)
+//                        .padding()
+//                    Button {
+//                        showPopup = false
+//                        navigateToNext = true
+//                        addCash(amount: 100)
+//                        
+//                    } label: {
+//                        Text("Close")
+//
+//                    }
+//                }
+//            }
 
-                    }
+            if showPopup {
+                VCPopup(shown: $showPopup, storeShown: .constant(false), isSuccess: true, amount: 200, bonus: 50) {
+                    showPopup = false
+                    navigateToNext = true
+                    addCash(amount: 100)
                 }
+                .padding()
             }
+            
+            
             
             NavigationLink(destination: Module3View(selectedItem: .pen).navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
                 EmptyView()
@@ -149,7 +160,7 @@ struct Module2View: View {
                         print("Error setting data: \(error)")
                     } else {
                         print("added successfully!")
-                        showAlert(message: "$100 added to your account!")
+                        showAlert(message: "$\(amount) added to your account!")
                     }
                 }
              

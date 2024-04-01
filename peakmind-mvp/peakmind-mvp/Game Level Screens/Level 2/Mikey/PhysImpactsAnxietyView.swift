@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Screen 1 - Level 2 
 struct PhysImpactsAnxietyView: View {
     @State private var selectedPage = 0
    let pageTexts = [
@@ -16,6 +17,11 @@ struct PhysImpactsAnxietyView: View {
         "• During more severe windows of anxiety, it's regular to feel symptoms of nausea and increased heart rate.\n• In situations like this, it's important to be in tune with your surroundings, drink water, and breathe deep.",
         "• For physical anxiety response…\n• Breathe in for 4 seconds, hold for 4 seconds, and exhale for 4 seconds to effectively control breathing.\n• Flexing and unflexing muscles and reminding yourself you’re safe helps to control your emotions."
     ]
+    @State var navigateToNext = false
+    @State var firstCycleCompleted = false
+    @EnvironmentObject var viewModel: AuthViewModel
+
+    
 
     var body: some View {
         ZStack {
@@ -65,6 +71,11 @@ struct PhysImpactsAnxietyView: View {
                     Button(action: {
                         withAnimation {
                             selectedPage = (selectedPage + 1) % pageTexts.count
+                            if selectedPage == 0 && firstCycleCompleted {
+                                navigateToNext.toggle()
+                            } else if selectedPage == pageTexts.count - 1 {
+                                firstCycleCompleted = true
+                            }
                         }
                     }) {
                         Image(systemName: "arrow.right")
@@ -76,6 +87,10 @@ struct PhysImpactsAnxietyView: View {
                     .padding([.bottom, .trailing], 10)
                 }
                 Spacer()
+                    .background(
+                        NavigationLink(destination: PhysicalAnxietyQuiz().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                            EmptyView()
+                        })
             }
         }
     }

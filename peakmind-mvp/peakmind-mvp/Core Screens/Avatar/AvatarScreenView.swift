@@ -12,12 +12,14 @@ struct AvatarScreen: View {
     @State private var isEditingUsername = false
     @State private var isNavigatingToProfileView = false
     @State private var isNavigatingToAvatarEdit = false
+    @State private var isNavigatingToIglooEdit = false
+
     @State private var isIglooMenuPresented = false
     @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         if let user = viewModel.currentUser {
-            NavigationView {
+            //NavigationView {
                 ZStack {
                     Image("MainBG")
                         .resizable()
@@ -113,30 +115,57 @@ struct AvatarScreen: View {
                                         ProfileView()
                                     }
                                     
-                                    Button(action: {
-                                        isNavigatingToAvatarEdit = true
-                                    }) {
-                                        HStack {
-                                            Image(systemName: "gear")
-                                            Text("Avatar")
-                                        }
-                                    }
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.gray)
-                                    .foregroundColor(Color.white)
-                                    .cornerRadius(10)
-                                    
-                                        .sheet(isPresented: $isNavigatingToAvatarEdit, onDismiss: {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                isIglooMenuPresented = true // Delayed presentation of IglooMenuView
-                                            }
+                                    HStack {
+                                        
+                                        Button(action: {
+                                            isNavigatingToAvatarEdit = true
                                         }) {
+                                            HStack {
+                                                Image(systemName: "person.crop.circle")
+                                            }
+                                        }
+                                        .padding()
+                                        .frame(maxWidth: 60)
+                                        .background(Color.darkBlue)
+                                        .foregroundColor(Color.white)
+                                        .cornerRadius(10)
+
+                                       /// .background(
+////                                            NavigationLink(destination: AvatarMenuSheet().navigationBarBackButtonHidden(true), isActive: $isNavigatingToAvatarEdit) {
+////                                                    EmptyView()
+////                                                }
+//                                        )
+                                        
+                                        Button(action: {
+                                            isNavigatingToIglooEdit = true
+                                        }) {
+                                            HStack {
+                                                Image(systemName: "house.fill")
+                                            }
+                                        }
+                                        .padding()
+                                        .frame(maxWidth: 60)
+                                        .background(Color.darkBlue)
+                                        .foregroundColor(Color.white)
+                                        .cornerRadius(10)
+//                                        .background(
+////                                            NavigationLink(destination: IglooMenuView().navigationBarBackButtonHidden(true), isActive: $isNavigatingToIglooEdit) {
+////                                                    EmptyView()
+////                                                }
+//                                        )
+                                        
+                                    }
+                                    
+
+                                    
+                                        .sheet(isPresented: $isNavigatingToAvatarEdit) {
                                             AvatarMenuSheet()
                                         }
-                                        .sheet(isPresented: $isIglooMenuPresented) {
-                                            IglooMenuView()
+                                        .sheet(isPresented: $isNavigatingToIglooEdit) {
+                                            IglooMenuSheet()
                                         }
+                                    
+                                    
                                     
 
                                 }
@@ -147,8 +176,8 @@ struct AvatarScreen: View {
 
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .navigationBarHidden(true)
-            }
+                //.navigationBarHidden(true)
+            //}
         }
     }
 

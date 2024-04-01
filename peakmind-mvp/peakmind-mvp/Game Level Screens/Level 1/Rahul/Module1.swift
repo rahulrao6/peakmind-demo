@@ -31,6 +31,7 @@ struct Module1: View {
                         VStack(alignment: .leading, spacing: 8) {
                             ForEach(Array(dialogueHistory.enumerated()), id: \.element) { index, dialogue in
                                 dialogueText(dialogue, id: index)
+                                    .padding(.horizontal)
                             }
                         }
                     }

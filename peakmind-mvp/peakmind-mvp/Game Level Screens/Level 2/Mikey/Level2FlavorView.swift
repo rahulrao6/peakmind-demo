@@ -7,10 +7,13 @@
 
 import SwiftUI
 
+// screen ten - level two 
 struct Level2FlavorView: View {
     let titleText = "Mt. Anxiety: Level Two"
     let narrationText = "So far, you’ve learned so much about the physical effects of anxiety and how to reduce it. This is the beginning of your toolbox to be anxiety free!"
     @State private var animatedText = ""
+    @State var navigateToNext = false
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         ZStack {
@@ -48,7 +51,15 @@ struct Level2FlavorView: View {
                 .padding(.horizontal, 40) // Increase horizontal padding to prevent background from extending to the sides
 
                 Spacer()
+                    .background(
+                        NavigationLink(destination: WellnessQ3View().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                            EmptyView()
+                        })
             }
+        }
+        .onTapGesture {
+            // When tapped, navigate to the next screen
+            navigateToNext = true
         }
     }
     

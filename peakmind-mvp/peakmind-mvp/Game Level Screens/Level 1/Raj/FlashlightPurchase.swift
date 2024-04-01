@@ -67,7 +67,7 @@ struct FlashlightPurchase: View {
                         .foregroundColor(Color.blue.opacity(0.5))
                         .frame(width: 225, height: 225)
                     
-                    Image("pen")
+                    Image("Flashlight")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 200, height: 200)

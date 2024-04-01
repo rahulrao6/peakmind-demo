@@ -31,7 +31,9 @@ struct Module3View: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                    .padding(.top, 60)
+                    .padding(.top, 30)
+                    .padding(.bottom, 40)
+
 
                 CircleSelectionView(selectedItem: $selectedItem, showDetail: $showDetail)
 
@@ -68,14 +70,17 @@ struct CircleSelectionView: View {
                     withAnimation {
                         print("Selected item: \(item.rawValue)")
                         selectedItem = item
-                        showDetail = true
+                        DispatchQueue.main.async {
+                            showDetail = true
+                        }
                     }
                 }) {
                     Image(item.rawValue.lowercased())
                         .resizable()
                         .scaledToFit()
                         .frame(width: diameter / 3, height: diameter / 3)
-                        .background(selectedItem == item ? Color.blue.opacity(0.8) : Color.clear)
+                        .background(selectedItem == item ? Color("Ice Blue").opacity(0.8)
+ : Color.clear)
                         .clipShape(Circle())
                 }
                 .offset(x: self.offsetForItem(item, totalItems: ItemType.allCases.count, in: diameter).width,
@@ -253,8 +258,10 @@ struct AvatarAndSherpaView: View {
                 Image(user.selectedAvatar) // Ensure this image is in your asset catalog
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 120)
+                    .frame(width: 200)
                     .padding(.leading)
+                    .offset(x: -30) // Move Sherpa image 20 points down
+                    .offset(y: 10) // Move Sherpa image 20 points down
                 
                 Spacer()
                 
@@ -263,6 +270,7 @@ struct AvatarAndSherpaView: View {
                     .scaledToFit()
                     .frame(width: 120)
                     .padding(.trailing)
+                    .offset(x: -10) // Move Sherpa image 20 points down
             }
         }
     }

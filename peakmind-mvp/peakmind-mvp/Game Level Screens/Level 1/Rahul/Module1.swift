@@ -28,7 +28,7 @@ struct Module1: View {
                 
                 ScrollViewReader { scrollView in
                     ScrollView {
-                        VStack(alignment: .leading, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 15) {
                             ForEach(Array(dialogueHistory.enumerated()), id: \.element) { index, dialogue in
                                 dialogueText(dialogue, id: index)
                             }
@@ -58,7 +58,7 @@ struct Module1: View {
             .foregroundColor(.white)
             .opacity(tapToContinueOpacity)
             .animation(.easeInOut(duration: 1), value: tapToContinueOpacity)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+            .frame(maxWidth: .infinity, maxHeight: 200, alignment: .bottomTrailing)
             .padding()
             .offset(x: -55, y: -30)
     }
@@ -72,7 +72,7 @@ struct Module1: View {
             .animation(.easeInOut(duration: 1), value: animateImage)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
             .padding()
-            .offset(x: 25, y: -20)
+            .offset(x: 25, y: 20)
     }
 
     private func dialogueText(_ dialogue: String, id: Int) -> some View {
@@ -80,10 +80,10 @@ struct Module1: View {
             .id(id)
             .font(.title)
             .foregroundColor(.white)
-            .padding()
+            .padding(30) // Adjust the padding value as needed
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color.black.opacity(0.5)))
-            .padding(.horizontal)
+            .padding(.horizontal, 30) // Increased side padding for the dialogue box
     }
 
     private func setupView() {

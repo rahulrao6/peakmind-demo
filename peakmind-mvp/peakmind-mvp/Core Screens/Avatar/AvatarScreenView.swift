@@ -42,7 +42,6 @@ struct AvatarScreen: View {
                                             .scaledToFill()
                                             .frame(width: 300, height: 300)
                                             .cornerRadius(15)
-                                            .clipped()
 
                                         Image(user.selectedAvatar)
                                             .resizable()
@@ -117,13 +116,13 @@ struct AvatarScreen: View {
                                         isNavigatingToAvatarEdit = true
                                     }) {
                                         HStack {
-                                            Image(systemName: "gear")
+                                            Image(systemName: "person.crop.circle")
                                             Text("Avatar")
                                         }
                                     }
                                     .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color.gray)
+                                    .background(Color("Medium Blue"))
                                     .foregroundColor(Color.white)
                                     .cornerRadius(10)
                                     

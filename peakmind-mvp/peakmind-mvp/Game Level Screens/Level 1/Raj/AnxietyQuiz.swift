@@ -7,10 +7,10 @@ struct AnxietyQuiz: View {
     let narrationText = "What are ways that you currently manage your anxiety?"
     @State private var animatedText = ""
     let options = [
-        "Option 1",
-        "Option 2",
-        "Option 3",
-        "Option 4"
+        "Talk to a friend",
+        "Go for a walk",
+        "Go for a bike ride",
+        "Find a hobby"
     ]
     @State private var selectedOption: Int? = nil
     @State var navigateToNext = false

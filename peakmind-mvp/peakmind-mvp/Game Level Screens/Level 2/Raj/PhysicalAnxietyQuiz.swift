@@ -7,7 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestore
-//SCREEN FOUR
+//SCREEN Two - Level 2
 struct PhysicalAnxietyQuiz: View {
     @EnvironmentObject var viewModel: AuthViewModel
     let titleText = "Mt. Anxiety: Level Two"
@@ -19,6 +19,8 @@ struct PhysicalAnxietyQuiz: View {
         "Fevers",
         "Nausea"
     ]
+    @State var navigateToNext = false
+
     
     @State private var selectedOption: Int? = nil
     @State private var correctAnswerIndex = 2 // Index of the correct answer
@@ -123,7 +125,10 @@ struct PhysicalAnxietyQuiz: View {
                         }
                         Spacer()
                         Button(action: {
-                            // Move to the next screen
+                            Task {
+                                try await saveDataToFirebase()
+                            }
+                            navigateToNext.toggle()
                         }) {
                             Text("Next")
                                 .fontWeight(.semibold)
@@ -141,6 +146,36 @@ struct PhysicalAnxietyQuiz: View {
                 }
                 
                 Spacer()
+                .background(
+                    NavigationLink(destination: L2QuizResponseView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                        EmptyView()
+                    })
+
+            }
+        }
+    }
+    
+    func saveDataToFirebase() async throws {
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("anxiety_peak").document(user.id).collection("Level_Two").document("Screen_Two")
+
+        let data: [String: Any] = [
+            "question": narrationText,
+            "userAnswer": selectedOption != nil ? options[selectedOption!] : "Not answered",
+            "isCorrect": selectedOption == correctAnswerIndex,
+            "timeCompleted": FieldValue.serverTimestamp()
+        ]
+
+        userRef.setData(data) { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document added successfully")
             }
         }
     }

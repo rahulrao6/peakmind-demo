@@ -145,7 +145,7 @@ struct AvatarMenuView: View {
 }
 
 // Preview
-struct AvatarMenuView_Previews: PreviewProvider {
+struct AvatarMenuSheet_Previews: PreviewProvider {
     static var previews: some View {
         AvatarMenuView()
     }

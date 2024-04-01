@@ -97,11 +97,11 @@ struct IglooMenuView: View {
             }
         }
         .navigationBarHidden(true)
-        .onReceive(viewModel.$currentUser) { currentUser in
-            if isUpdateSuccessful {
-                self.presentationMode.wrappedValue.dismiss() // Dismiss the sheet after successful update
-            }
-        }
+//        .onReceive(viewModel.$currentUser) { currentUser in
+//            if isUpdateSuccessful {
+//                self.presentationMode.wrappedValue.dismiss() // Dismiss the sheet after successful update
+//            }
+//        }
     }
     func updateBackgroundAvatar() async throws {
         guard let user = viewModel.currentUser else {

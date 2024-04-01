@@ -7,9 +7,14 @@
 
 import SwiftUI
 
+// Screen three - Level 2
 struct L2QuizResponseView: View {
     let sherpaText = "Physical anxiety is very real, thank you for taking the time to understand how it works!"
     @State private var animatedText = ""
+    @State var navigateToNext = false
+    @EnvironmentObject var viewModel: AuthViewModel
+
+
 
     var body: some View {
         ZStack {
@@ -35,6 +40,14 @@ struct L2QuizResponseView: View {
             SpeechBubble(text: $animatedText)
                 .onAppear { animateText() }
                 .offset(x: 90, y: 300)
+        }
+        .background(
+            NavigationLink(destination: WindsFlavorView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                EmptyView()
+            })
+        .onTapGesture {
+            // When tapped, navigate to the next screen
+            navigateToNext = true
         }
     }
     

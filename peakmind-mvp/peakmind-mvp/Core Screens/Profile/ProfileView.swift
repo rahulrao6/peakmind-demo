@@ -20,6 +20,8 @@ struct ProfileView: View {
     @State private var isNightfallFlavorActive = false
     @State private var isDangersOfNightfallActive = false
     @State private var isSherpaFullMoonIDActive = false
+    @State private var isBreathingExerciseViewActive = false
+
 
     var body: some View {
         NavigationView {
@@ -176,6 +178,16 @@ struct ProfileView: View {
                             }
                         }
 
+                    }
+                    Section(header: Text("James")) {
+                        
+                        Button {
+                            isBreathingExerciseViewActive.toggle()
+                        } label : {
+                            NavigationLink(destination: BreathingExerciseView(), isActive: $isBreathingExerciseViewActive) {
+                                Text("Breathing Exercises")
+                            }
+                        }
                     }
                     
                 }

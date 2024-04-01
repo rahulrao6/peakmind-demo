@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-// Screen seven - level 2 
-struct WindsLouderFlavorView: View {
+// Screen four - Level 2
+struct WindsFlavorView: View {
     let titleText = "Mt. Anxiety: Level Two"
-    let narrationText = "The winds grow even louder than before, leading to increased anxiety. It begins to howl."
+    let narrationText = "The winds of the night pick up… It grows louder as you listen closer."
     @State private var animatedText = ""
     @State var navigateToNext = false
     @EnvironmentObject var viewModel: AuthViewModel
@@ -53,16 +53,16 @@ struct WindsLouderFlavorView: View {
                 Spacer()
                 
                     .background(
-                        NavigationLink(destination: ReducingAnxietyView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                        NavigationLink(destination: WellnessQ2View().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
                             EmptyView()
                         })
-
             }
         }
         .onTapGesture {
             // When tapped, navigate to the next screen
             navigateToNext = true
         }
+
     }
     
     private func animateText() {
@@ -82,8 +82,8 @@ struct WindsLouderFlavorView: View {
     }
 }
 
-struct WindsLouderFlavorView_Previews: PreviewProvider {
+struct WindsFlavorView_Previews: PreviewProvider {
     static var previews: some View {
-        WindsLouderFlavorView()
+        WindsFlavorView()
     }
 }

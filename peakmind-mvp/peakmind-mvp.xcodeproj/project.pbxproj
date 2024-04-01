@@ -30,6 +30,10 @@
 		1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */; };
 		1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */; };
 		1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1F5C82B89706900AC9B77 /* ChatView.swift */; };
+		1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */; };
+		1CD299C22BBA5E4E003A0592 /* Level2Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299C12BBA5E4E003A0592 /* Level2Complete.swift */; };
+		1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299C32BBA7584003A0592 /* VCPopup.swift */; };
+		1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299C52BBA8C42003A0592 /* IglooMenuSheet.swift */; };
 		1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE785FC2B8DA0DB00962A40 /* MessageBubble.swift */; };
 		1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A8932B82E9EA00051684 /* ColorConverter.swift */; };
 		1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A8952B82EE9900051684 /* ResetPasswordView.swift */; };
@@ -151,6 +155,10 @@
 		1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayScreen2.swift; sourceTree = "<group>"; };
 		1CC1F5C82B89706900AC9B77 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsFlavorView.swift; sourceTree = "<group>"; };
+		1CD299C12BBA5E4E003A0592 /* Level2Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2Complete.swift; sourceTree = "<group>"; };
+		1CD299C32BBA7584003A0592 /* VCPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCPopup.swift; sourceTree = "<group>"; };
+		1CD299C52BBA8C42003A0592 /* IglooMenuSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuSheet.swift; sourceTree = "<group>"; };
 		1CE785FC2B8DA0DB00962A40 /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
 		1CF4A8932B82E9EA00051684 /* ColorConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConverter.swift; sourceTree = "<group>"; };
 		1CF4A8952B82EE9900051684 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
@@ -297,6 +305,7 @@
 				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
 				1C9C63C72B81359A0066AF70 /* InputView.swift */,
 				1CF4A89D2B830BFF00051684 /* ViewExtension.swift */,
+				1CD299C32BBA7584003A0592 /* VCPopup.swift */,
 				1C9C63CD2B81428B0066AF70 /* SettingsRowView.swift */,
 				1CF4A8932B82E9EA00051684 /* ColorConverter.swift */,
 				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
@@ -498,6 +507,7 @@
 				797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */,
 				797AAB792BA5335C00F24123 /* IglooMenuView.swift */,
 				793B79C02BB38E1C001062DB /* AvatarMenuSheetView.swift */,
+				1CD299C52BBA8C42003A0592 /* IglooMenuSheet.swift */,
 				793B79C22BB390F7001062DB /* AvatarSettingsView.swift */,
 			);
 			path = Avatar;
@@ -593,7 +603,9 @@
 			children = (
 				793B79CB2BB39260001062DB /* Level2.swift */,
 				793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */,
+				1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */,
 				793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */,
+				1CD299C12BBA5E4E003A0592 /* Level2Complete.swift */,
 			);
 			path = Raj;
 			sourceTree = "<group>";
@@ -790,6 +802,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */,
+				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
@@ -835,14 +848,17 @@
 				E542453C2BAF683A00FCF1C6 /* Module3.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
+				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
 				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
 				793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */,
 				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
+				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
 				791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */,
 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
+				1CD299C22BBA5E4E003A0592 /* Level2Complete.swift in Sources */,
 				793B79C92BB3921D001062DB /* Level1Complete.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,

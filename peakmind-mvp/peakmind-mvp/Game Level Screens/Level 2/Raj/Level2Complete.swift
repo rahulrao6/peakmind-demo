@@ -1,20 +1,23 @@
+
 //
-//  WindsLouderFlavorView.swift
+//  NightfallFlavorView.swift
 //  peakmind-mvp
 //
-//  Created by Mikey Halim on 3/23/24.
+//  Created by Mikey Halim on 3/17/24.
 //
 
 import SwiftUI
+import FirebaseFirestore
 
-// Screen seven - level 2 
-struct WindsLouderFlavorView: View {
-    let titleText = "Mt. Anxiety: Level Two"
-    let narrationText = "The winds grow even louder than before, leading to increased anxiety. It begins to howl."
+struct Level2Complete: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+
+    let titleText = "Mt. Anxiety: Level One"
+    let narrationText = "Congratulations! You have completed the second level!"
     @State private var animatedText = ""
     @State var navigateToNext = false
-    @EnvironmentObject var viewModel: AuthViewModel
-    
+
+
     var body: some View {
         ZStack {
             Image("MainBG")
@@ -52,15 +55,19 @@ struct WindsLouderFlavorView: View {
 
                 Spacer()
                 
-                    .background(
-                        NavigationLink(destination: ReducingAnxietyView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
-                            EmptyView()
-                        })
-
+                
+            }
+        }
+        .background(
+            NavigationLink(destination: HomeScreenView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+            EmptyView()
+        })
+        .onAppear() {
+            Task {
+                try await updateLevel2()
             }
         }
         .onTapGesture {
-            // When tapped, navigate to the next screen
             navigateToNext = true
         }
     }
@@ -80,10 +87,33 @@ struct WindsLouderFlavorView: View {
         }
         timer.fire()
     }
+    
+    func updateLevel2() async throws {
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id)
+
+        do {
+            try await userRef.setData([
+                "LevelTwoCompleted": true,
+            ], merge: true)
+
+            print("User fields updated successfully.")
+
+            // Assuming fetchUser is also an asynchronous function
+            await viewModel.fetchUser()
+        } catch {
+            print("Error updating user fields: \(error)")
+        }
+    }
 }
 
-struct WindsLouderFlavorView_Previews: PreviewProvider {
+struct Level2Complete_Previews: PreviewProvider {
     static var previews: some View {
-        WindsLouderFlavorView()
+        Level2Complete().environmentObject(AuthViewModel())
     }
 }

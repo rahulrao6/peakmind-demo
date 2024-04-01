@@ -16,7 +16,7 @@ struct PlayScreen2: View {
                 if (!user.LevelOneCompleted) {
                     Module1().navigationBarBackButtonHidden(true).environmentObject(viewModel)
                 } else {
-                    Level2().navigationBarBackButtonHidden(false)
+                    PhysImpactsAnxietyView().navigationBarBackButtonHidden(false)
                 }
             }
         }

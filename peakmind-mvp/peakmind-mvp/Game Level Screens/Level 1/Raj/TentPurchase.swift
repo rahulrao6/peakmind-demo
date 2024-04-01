@@ -37,7 +37,7 @@ struct TentPurchase: View {
                     showAlert = true
                 } label: {
                     HStack {
-                        Text("-200 VC")
+                        Text("Buy for 200 VC")
                             .font(.title3)
                             .fontWeight(.semibold)
                             .frame(width: 100)
@@ -63,7 +63,7 @@ struct TentPurchase: View {
                 
                 ZStack {
                     Circle()
-                        .foregroundColor(Color.blue.opacity(0.5))
+                        .foregroundColor(Color("Ice Blue").opacity(0.8))
                         .frame(width: 225, height: 225)
                     
                     Image("BlueTent")

@@ -32,6 +32,10 @@ struct AnxietyGoalSetting: View {
                     .edgesIgnoringSafeArea(.all)
                     .aspectRatio(contentMode: .fill)
                 
+<<<<<<< HEAD
+                AvatarAndSherpaView()
+
+=======
                 HStack {
                     Image("Sherpa")
                         .resizable()
@@ -51,6 +55,7 @@ struct AnxietyGoalSetting: View {
                         .padding()
                     
                 }
+>>>>>>> main
                 .frame(/*maxWidth: .infinity,*/ maxHeight: .infinity, alignment: .bottom)
                 .padding(.top)
                 .padding(.horizontal)
@@ -126,7 +131,7 @@ struct AnxietyGoalSetting: View {
                             
                             
                         }) {
-                            Text("Set Habit")
+                            Text("Set Goal")
                                 .padding()
                                 .foregroundColor(.white)
                                 .background(Color.darkBlue)
@@ -211,7 +216,7 @@ struct AnxietyGoalSetting: View {
 
     private func animateText() {
         var charIndex = 0.0
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { timer in
             let roundedIndex = Int(charIndex)
             if roundedIndex < narrationText.count {
                 let index = narrationText.index(narrationText.startIndex, offsetBy: roundedIndex)

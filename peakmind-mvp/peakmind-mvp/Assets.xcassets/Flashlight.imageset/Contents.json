@@ -1,7 +1,11 @@
 {
   "images" : [
     {
+<<<<<<< HEAD
+      "filename" : "Flashlight.png",
+=======
       "filename" : "image 7.png",
+>>>>>>> main
       "idiom" : "universal",
       "scale" : "1x"
     },

@@ -98,30 +98,30 @@ struct ReflectiveQuestionBox3: View {
             Text("Reflective Question")
                 .modernTextStyle()
             
-            // Updated Question Text
+            // Question Text
             Text("What is typically the best support for calming your anxiety?")
-                .font(.title2)
+                .font(.title3)
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
-                .padding(.vertical, 10)
-            
-            // Answer TextField
-            TextField("Enter text here", text: $userAnswer)
-                .padding(.all, 20)
-                .frame(height: 150)
-                .background(Color.white.opacity(0.8))
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding()
+                        TextEditor(text: $userAnswer)
+                .padding(10)
+                .frame(height: 180)
+                .background(Color.white)
                 .cornerRadius(15)
                 .shadow(radius: 10)
-                .padding(.horizontal)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 25)
+
         }
-        .background(VisualEffectBlur(blurStyle: .systemMaterialDark))
+        .background(Color("SentMessage"))
         .cornerRadius(20)
         .shadow(radius: 10)
         .padding()
     }
 }
-
-// Other struct definitions (SubmitButton, ThankYouMessage, TruthfulPrompt, and Text extensions) remain unchanged...
 
 struct WellnessQ3View_Previews: PreviewProvider {
     static var previews: some View {

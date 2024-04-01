@@ -25,28 +25,8 @@ struct SetHabits: View {
                     .edgesIgnoringSafeArea(.all)
                     .aspectRatio(contentMode: .fill)
                 
-<<<<<<< HEAD
                 AvatarAndSherpaView()
-=======
-                HStack {
-                    Image("Sherpa")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 140)
-                        .padding()
-                    
-                    Spacer()
-                    
-                    Image(user.selectedAvatar)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 140, alignment: .bottomTrailing)
-                        .scaleEffect(2)
-                        //.frame(width: 220)
-                        .padding()
-                    
-                }
->>>>>>> main
+
                 .frame(/*maxWidth: .infinity,*/ maxHeight: .infinity, alignment: .bottom)
                 .padding(.top)
                 .padding(.horizontal)

@@ -51,7 +51,7 @@ struct SherpaFullMoonView: View {
     
     private func animateText() {
         var charIndex = 0.0
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { timer in
             let roundedIndex = Int(charIndex)
             if roundedIndex < sherpaText.count {
                 let index = sherpaText.index(sherpaText.startIndex, offsetBy: roundedIndex)

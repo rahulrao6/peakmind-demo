@@ -40,7 +40,7 @@ struct PhysImpactsAnxietyView: View {
                 Text("Mt. Anxiety: Level Two")
                     .font(.system(size: 30, weight: .bold, design: .default))
                     .foregroundColor(.white)
-                    .padding(.top, 40)
+                    .padding(.top, 20) // Reduced padding to position the title higher
                     .padding(.bottom, 40)
 
                 ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -58,7 +58,7 @@ struct PhysImpactsAnxietyView: View {
                                     .foregroundColor(.white)
                                     .padding()
                             }
-                            .frame(width: 300, height: 330)
+                            .frame(width: 340, height: 330) // Increased width for wider text background
                             .background(Color("Dark Blue").opacity(0.75))
                             .cornerRadius(15)
                             .shadow(radius: 5)
@@ -66,7 +66,7 @@ struct PhysImpactsAnxietyView: View {
                         }
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
-                    .frame(width: 320, height: 350)
+                    .frame(width: 360, height: 350) // Increased width for wider tab view
 
                     Button(action: {
                         withAnimation {

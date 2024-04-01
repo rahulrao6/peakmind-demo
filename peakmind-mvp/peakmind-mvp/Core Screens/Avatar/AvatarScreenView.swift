@@ -44,6 +44,7 @@ struct AvatarScreen: View {
                                             .scaledToFill()
                                             .frame(width: 300, height: 300)
                                             .cornerRadius(15)
+                                            .clipped()
 
                                         Image(user.selectedAvatar)
                                             .resizable()
@@ -114,14 +115,6 @@ struct AvatarScreen: View {
                                         ProfileView()
                                     }
                                     
-<<<<<<< HEAD
-                                    Button(action: {
-                                        isNavigatingToAvatarEdit = true
-                                    }) {
-                                        HStack {
-                                            Image(systemName: "person.crop.circle")
-                                            Text("Avatar")
-=======
                                     HStack {
                                         
                                         Button(action: {
@@ -130,7 +123,6 @@ struct AvatarScreen: View {
                                             HStack {
                                                 Image(systemName: "person.crop.circle")
                                             }
->>>>>>> main
                                         }
                                         .padding()
                                         .frame(maxWidth: 60)
@@ -163,14 +155,6 @@ struct AvatarScreen: View {
 //                                        )
                                         
                                     }
-<<<<<<< HEAD
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color("Medium Blue"))
-                                    .foregroundColor(Color.white)
-                                    .cornerRadius(10)
-=======
->>>>>>> main
                                     
 
                                     

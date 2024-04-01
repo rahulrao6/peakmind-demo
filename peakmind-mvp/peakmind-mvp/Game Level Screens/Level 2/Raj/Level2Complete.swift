@@ -74,7 +74,7 @@ struct Level2Complete: View {
     
     private func animateText() {
         var charIndex = 0.0
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { timer in
             let roundedIndex = Int(charIndex)
             if roundedIndex < narrationText.count {
                 let index = narrationText.index(narrationText.startIndex, offsetBy: roundedIndex)

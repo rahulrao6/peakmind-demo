@@ -6,7 +6,7 @@ struct SetHabits: View {
     @EnvironmentObject var viewModel: AuthViewModel
 
     let titleText = "Mt. Anxiety: Level One"
-    let narrationText = "Let's set your first habit. A habit is a task that you will do everything until it is second nature for you."
+    let narrationText = "Time to make you first habit. Habits are used to help improve your life style."
     @State private var habitText = ""
     @State private var animatedText = ""
     @State private var showAlert = false
@@ -25,7 +25,28 @@ struct SetHabits: View {
                     .edgesIgnoringSafeArea(.all)
                     .aspectRatio(contentMode: .fill)
                 
+<<<<<<< HEAD
                 AvatarAndSherpaView()
+=======
+                HStack {
+                    Image("Sherpa")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 140)
+                        .padding()
+                    
+                    Spacer()
+                    
+                    Image(user.selectedAvatar)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 140, alignment: .bottomTrailing)
+                        .scaleEffect(2)
+                        //.frame(width: 220)
+                        .padding()
+                    
+                }
+>>>>>>> main
                 .frame(/*maxWidth: .infinity,*/ maxHeight: .infinity, alignment: .bottom)
                 .padding(.top)
                 .padding(.horizontal)
@@ -207,7 +228,7 @@ struct SetHabits: View {
         }
 
         let db = Firestore.firestore()
-        let userRef = db.collection("habits").document(user.id)
+        let userRef = db.collection("habits").document(user.id).collection("user_habits").document()
 
         let data: [String: Any] = [
             "habitText": habitText,

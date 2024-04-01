@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */; };
+		10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */; };
+		10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */; };
+		10FA686D2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */; };
+		10FA686E2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */; };
+		10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
+		10FA68812BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
+		10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB52BA9501300628B79 /* TentPurchase.swift */; };
 		1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */; };
 		1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB92BA96B5300628B79 /* StoreView.swift */; };
@@ -22,6 +30,10 @@
 		1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */; };
 		1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */; };
 		1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1F5C82B89706900AC9B77 /* ChatView.swift */; };
+		1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */; };
+		1CD299C22BBA5E4E003A0592 /* Level2Complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299C12BBA5E4E003A0592 /* Level2Complete.swift */; };
+		1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299C32BBA7584003A0592 /* VCPopup.swift */; };
+		1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299C52BBA8C42003A0592 /* IglooMenuSheet.swift */; };
 		1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE785FC2B8DA0DB00962A40 /* MessageBubble.swift */; };
 		1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A8932B82E9EA00051684 /* ColorConverter.swift */; };
 		1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF4A8952B82EE9900051684 /* ResetPasswordView.swift */; };
@@ -125,6 +137,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseView.swift; sourceTree = "<group>"; };
+		10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3IntroView.swift; sourceTree = "<group>"; };
+		10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitUIView.swift; sourceTree = "<group>"; };
+		10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdTriangleEncoded.mov; sourceTree = "<group>"; };
 		1C6C0BB52BA9501300628B79 /* TentPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TentPurchase.swift; sourceTree = "<group>"; };
 		1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyQuiz.swift; sourceTree = "<group>"; };
 		1C6C0BB92BA96B5300628B79 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
@@ -140,6 +156,10 @@
 		1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayScreen2.swift; sourceTree = "<group>"; };
 		1CC1F5C82B89706900AC9B77 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsFlavorView.swift; sourceTree = "<group>"; };
+		1CD299C12BBA5E4E003A0592 /* Level2Complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2Complete.swift; sourceTree = "<group>"; };
+		1CD299C32BBA7584003A0592 /* VCPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCPopup.swift; sourceTree = "<group>"; };
+		1CD299C52BBA8C42003A0592 /* IglooMenuSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuSheet.swift; sourceTree = "<group>"; };
 		1CE785FC2B8DA0DB00962A40 /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
 		1CF4A8932B82E9EA00051684 /* ColorConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConverter.swift; sourceTree = "<group>"; };
 		1CF4A8952B82EE9900051684 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
@@ -255,6 +275,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10FA68522BB3B191007CCBAC /* James */ = {
+			isa = PBXGroup;
+			children = (
+				10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */,
+				10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */,
+				10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */,
+				10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */,
+			);
+			path = James;
+			sourceTree = "<group>";
+		};
 		1C6C0BB42BA94D4300628B79 /* Raj */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +307,7 @@
 				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
 				1C9C63C72B81359A0066AF70 /* InputView.swift */,
 				1CF4A89D2B830BFF00051684 /* ViewExtension.swift */,
+				1CD299C32BBA7584003A0592 /* VCPopup.swift */,
 				1C9C63CD2B81428B0066AF70 /* SettingsRowView.swift */,
 				1CF4A8932B82E9EA00051684 /* ColorConverter.swift */,
 				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
@@ -478,6 +510,7 @@
 				797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */,
 				797AAB792BA5335C00F24123 /* IglooMenuView.swift */,
 				793B79C02BB38E1C001062DB /* AvatarMenuSheetView.swift */,
+				1CD299C52BBA8C42003A0592 /* IglooMenuSheet.swift */,
 				793B79C22BB390F7001062DB /* AvatarSettingsView.swift */,
 			);
 			path = Avatar;
@@ -507,6 +540,7 @@
 		793B79A72BAF8473001062DB /* Level 3 */ = {
 			isa = PBXGroup;
 			children = (
+				10FA68522BB3B191007CCBAC /* James */,
 			);
 			path = "Level 3";
 			sourceTree = "<group>";
@@ -572,7 +606,9 @@
 			children = (
 				793B79CB2BB39260001062DB /* Level2.swift */,
 				793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */,
+				1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */,
 				793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */,
+				1CD299C12BBA5E4E003A0592 /* Level2Complete.swift */,
 			);
 			path = Raj;
 			sourceTree = "<group>";
@@ -741,6 +777,7 @@
 				1CF4C3E92B7B15E40028BC3C /* Preview Assets.xcassets in Resources */,
 				1C9C63BC2B8131CB0066AF70 /* GoogleService-Info.plist in Resources */,
 				1CF4C3E62B7B15E40028BC3C /* Assets.xcassets in Resources */,
+				10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,6 +785,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10FA68812BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -755,6 +793,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,6 +805,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */,
+				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
@@ -800,6 +840,7 @@
 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
+				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
 				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
 				1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */,
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
@@ -810,17 +851,22 @@
 				E542453C2BAF683A00FCF1C6 /* Module3.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
+				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
 				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
 				793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */,
 				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
+				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
 				791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */,
 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
+				1CD299C22BBA5E4E003A0592 /* Level2Complete.swift in Sources */,
 				793B79C92BB3921D001062DB /* Level1Complete.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
+				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
+				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */,
@@ -835,6 +881,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10FA686D2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1CF4C3F32B7B15E40028BC3C /* peakmind_mvpTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -844,6 +891,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CF4C3FD2B7B15E50028BC3C /* peakmind_mvpUITests.swift in Sources */,
+				10FA686E2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1CF4C3FF2B7B15E50028BC3C /* peakmind_mvpUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

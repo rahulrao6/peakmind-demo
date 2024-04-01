@@ -7,9 +7,12 @@
 
 import SwiftUI
 
+// Screen six - Level 2 
 struct L2SherpaChatView: View {
     let sherpaText = "Getting a deeper understanding of anxiety is the first step to improving it. First, it's important to understand where your anxiety is coming from. Step by step, you’ll learn how to handle and react to every source of anxiety you have."
     @State private var animatedText = ""
+    @State var navigateToNext = false
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         ZStack {
@@ -34,8 +37,16 @@ struct L2SherpaChatView: View {
 
             SpeechBubble(text: $animatedText)
                 .onAppear { animateText() }
-                .offset(x: 90, y: 300)
+                .offset(x: 110, y: 300)
         }
+        .onTapGesture {
+            // When tapped, navigate to the next screen
+            navigateToNext = true
+        }
+        .background(
+            NavigationLink(destination: WindsLouderFlavorView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                EmptyView()
+            })
     }
     
     private func animateText() {

@@ -13,7 +13,7 @@ struct AnxietyGoalSetting: View {
     @EnvironmentObject var viewModel: AuthViewModel
 
     let titleText = "Mt. Anxiety: Level One"
-    let narrationText = "Let's set your first goal. A goal is a task that you will do everyday until it is second nature for you."
+    let narrationText = "Time to make you first goal. Goals are used to help you see your improvement!"
     @State private var goalText = ""
     @State private var animatedText = ""
     @State private var showAlert = false
@@ -32,8 +32,30 @@ struct AnxietyGoalSetting: View {
                     .edgesIgnoringSafeArea(.all)
                     .aspectRatio(contentMode: .fill)
                 
+<<<<<<< HEAD
                 AvatarAndSherpaView()
 
+=======
+                HStack {
+                    Image("Sherpa")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 140)
+                        .padding()
+                    
+                    Spacer()
+                    
+                    Image(user.selectedAvatar)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 140, alignment: .bottomTrailing)
+                        .scaleEffect(2)
+
+                        //.frame(width: 220)
+                        .padding()
+                    
+                }
+>>>>>>> main
                 .frame(/*maxWidth: .infinity,*/ maxHeight: .infinity, alignment: .bottom)
                 .padding(.top)
                 .padding(.horizontal)
@@ -208,14 +230,14 @@ struct AnxietyGoalSetting: View {
         timer.fire()
     }
     
-    func saveDataToFirebase() async throws{
+    func saveDataToFirebase() async throws {
         guard let user = viewModel.currentUser else {
             print("No authenticated user found.")
             return
         }
 
         let db = Firestore.firestore()
-        let userRef = db.collection("goals").document(user.id)
+        let userRef = db.collection("goals").document(user.id).collection("user_goals").document()
 
         let data: [String: Any] = [
             "goalText": goalText,
@@ -232,6 +254,7 @@ struct AnxietyGoalSetting: View {
             }
         }
     }
+
 
 }
 

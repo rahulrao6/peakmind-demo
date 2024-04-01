@@ -1,8 +1,8 @@
 //
-//  AvatarMenuSheetView.swift
+//  AvatarMenuView.swift
 //  peakmind-mvp
 //
-//  Created by Mikey Halim on 3/26/24.
+//  Created by Mikey Halim on 3/15/24.
 //
 
 import SwiftUI
@@ -97,6 +97,15 @@ struct AvatarMenuSheet: View {
                 }
             }
             .navigationBarHidden(true)
+            .background(
+                // NavigationLink that triggers when navigateToIglooView is true
+                NavigationLink(
+                    destination: IglooMenuView().environmentObject(viewModel),
+                    isActive: $navigateToIglooView
+                ) {
+                    EmptyView()
+                }
+            )
         }
         .onReceive(viewModel.$currentUser) { currentUser in
             if isUpdateSuccessful {
@@ -136,8 +145,8 @@ struct AvatarMenuSheet: View {
 }
 
 // Preview
-struct AvatarMenuSheetView_Previews: PreviewProvider {
+struct AvatarMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        AvatarMenuSheet()
+        AvatarMenuView()
     }
 }

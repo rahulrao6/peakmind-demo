@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
+// screen eleven - level 10 
 struct WellnessQ3View: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var userAnswer: String = ""
     @State private var showThankYou = false
+    @State var navigateToNext = false
 
     var body: some View {
         ZStack {
@@ -23,7 +26,7 @@ struct WellnessQ3View: View {
             // Content
             VStack {
                 // Title
-                Text("Mt. Anxiety Level One")
+                Text("Mt. Anxiety Level Two")
                     .modernTitleStyle()
 
                 Spacer()
@@ -34,8 +37,14 @@ struct WellnessQ3View: View {
                     
                     // Submit Button
                     SubmitButton {
+                        Task {
+                            try await saveDataToFirebase()
+                        }
                         withAnimation {
                             showThankYou.toggle()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                navigateToNext.toggle()
+                             }
                         }
                     }
                 } else {
@@ -49,6 +58,33 @@ struct WellnessQ3View: View {
                 TruthfulPrompt()
             }
             .padding()
+            .background(
+                NavigationLink(destination: Level2Complete().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                    EmptyView()
+                })
+        }
+    }
+    func saveDataToFirebase() async throws {
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("anxiety_peak").document(user.id).collection("Level_Two").document("Screen_Eleven")
+
+        let data: [String: Any] = [
+            "question": "What is typically the best support for calming your anxiety?",
+            "userAnswer": userAnswer,
+            "timeCompleted": FieldValue.serverTimestamp()
+        ]
+
+        userRef.setData(data) { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document added successfully")
+            }
         }
     }
 }

@@ -57,7 +57,7 @@ struct ReducingAnxietyView: View {
                                     .foregroundColor(.white)
                                     .padding()
                             }
-                            .frame(width: 300, height: 330)
+                            .frame(width: 340, height: 330) // Increased width for wider text background
                             .background(Color("Dark Blue").opacity(0.75))
                             .cornerRadius(15)
                             .shadow(radius: 5)
@@ -65,7 +65,7 @@ struct ReducingAnxietyView: View {
                         }
                     }
                     .tabViewStyle(.page(indexDisplayMode: .never))
-                    .frame(width: 320, height: 350)
+                    .frame(width: 360, height: 350) // Increased width for wider tab view
 
                     Button(action: {
                         withAnimation {

@@ -65,28 +65,8 @@ struct Module2View: View {
                 // Sherpa Image and Prompt
                 TruthfulPrompt()
             }
-<<<<<<< HEAD
             .padding(.horizontal, 20) // Adds 20 points of padding to the leading and trailing sides
 
-            .sheet(isPresented: $showPopup) {
-                // Content of the popup
-                VStack {
-                    Text("VC Pop Up")
-                        .font(.title)
-                        .padding()
-                    Text("This is how the virtual currency will work. We will give you 100 to start. ")
-                        .multilineTextAlignment(.center)
-                        .padding()
-                    Button {
-                        showPopup = false
-                        navigateToNext = true
-                        addCash(amount: 100)
-                        
-                    } label: {
-                        Text("Close")
-=======
-            .padding()
-            
 //            .sheet(isPresented: $showPopup) {
 //                // Content of the popup
 //                VStack {
@@ -100,14 +80,13 @@ struct Module2View: View {
 //                        showPopup = false
 //                        navigateToNext = true
 //                        addCash(amount: 100)
-//                        
+//
 //                    } label: {
 //                        Text("Close")
 //
 //                    }
 //                }
 //            }
->>>>>>> main
 
             if showPopup {
                 VCPopup(shown: $showPopup, storeShown: .constant(false), isSuccess: true, amount: 200, bonus: 50) {
@@ -204,7 +183,7 @@ struct ReflectiveQuestionBox: View {
             Text("Reflective Question")
                 .modernTextStyle()
             
-            // Question Text
+            // Question Text 
             Text(question)
                 .font(.title2)
                 .foregroundColor(.white)

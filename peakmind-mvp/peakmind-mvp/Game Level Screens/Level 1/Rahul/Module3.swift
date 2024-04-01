@@ -31,15 +31,10 @@ struct Module3View: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-<<<<<<< HEAD
                     .padding(.top, 30)
                     .padding(.bottom, 40)
 
 
-=======
-                    .padding(.top, 60)
-                
->>>>>>> main
                 CircleSelectionView(selectedItem: $selectedItem, showDetail: $showDetail)
                 
                 Spacer()
@@ -244,15 +239,10 @@ struct AvatarAndSherpaView: View {
                     .scaledToFit()
                     .frame(width: 200)
                     .padding(.leading)
-<<<<<<< HEAD
                     .offset(x: -30) // Move Sherpa image 20 points down
                     .offset(y: 10) // Move Sherpa image 20 points down
                 
-=======
-
->>>>>>> main
                 Spacer()
-
                 Image("Sherpa")
                     .resizable()
                     .scaledToFit()

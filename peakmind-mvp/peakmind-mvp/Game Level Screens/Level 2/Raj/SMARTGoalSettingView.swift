@@ -104,7 +104,7 @@ struct SMARTGoalSettingView: View {
                             
                             
                         }) {
-                            Text("Set Habit")
+                            Text("Set Goal")
                                 .padding()
                                 .foregroundColor(.white)
                                 .background(Color.darkBlue)

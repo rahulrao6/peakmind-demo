@@ -43,8 +43,9 @@ struct L2SherpaChatView: View {
             // When tapped, navigate to the next screen
             navigateToNext = true
         }
+        // change to WindsLouderFlavorView later
         .background(
-            NavigationLink(destination: WindsLouderFlavorView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+            NavigationLink(destination: ReducingAnxietyView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
                 EmptyView()
             })
     }

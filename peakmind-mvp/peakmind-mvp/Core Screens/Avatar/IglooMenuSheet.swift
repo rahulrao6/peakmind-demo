@@ -113,7 +113,7 @@ struct IglooMenuSheet: View {
 
         do {
             try await userRef.setData([
-                "selectedBackground": iglooIcons[selectedIglooIndex],
+                "selectedBackground": iglooImages[selectedIglooIndex],
                 "hasSetInitialAvatar": true
             ], merge: true)
 

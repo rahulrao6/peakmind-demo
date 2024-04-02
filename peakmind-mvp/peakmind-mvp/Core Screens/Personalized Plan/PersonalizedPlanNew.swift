@@ -68,25 +68,25 @@ struct PersonalizedPlanNew: View {
         }
     }
     
+    var uncompletedTasks: [TaskFirebase] {
+        Array(tasks.filter { !$0.isCompleted }.prefix(5))
+    }
 
     @ViewBuilder
-    private func taskListView2(title: String, expanded: Binding<Bool>, color: Color) -> some View {
-        DisclosureGroup(title, isExpanded: expanded) {
-            VStack(alignment: .leading, spacing: 5) {
-                ForEach(tasks.indices, id: \.self) { index in
-                    if !tasks[index].isCompleted {
-                        TaskCardFirebase(task: $tasks[index])
+        private func taskListView2(title: String, expanded: Binding<Bool>, color: Color) -> some View {
+            DisclosureGroup(title, isExpanded: expanded) {
+                VStack(alignment: .leading, spacing: 5) {
+                    ForEach(uncompletedTasks.indices, id: \.self) { index in
+                        TaskCardFirebase(task: $tasks[$tasks.firstIndex(where: { $0.id == uncompletedTasks[index].id })!])
                             .padding(.leading, 0)
                             .padding(.top, index == 0 ? 10 : 0)
                     }
                 }
             }
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(color))
+            .foregroundColor(.white)
         }
-
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 10).fill(color))
-        .foregroundColor(.white)
-    }
 
     @ViewBuilder
     private func goalListView2(title: String, expanded: Binding<Bool>, color: Color) -> some View {

@@ -20,7 +20,7 @@ struct AvatarScreen: View {
     var body: some View {
         if let user = viewModel.currentUser {
             //NavigationView {
-                ZStack {
+            ZStack(alignment: .top) { // Align the ZStack content to the top
                     Image("MainBG")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -29,7 +29,7 @@ struct AvatarScreen: View {
                     RoundedRectangle(cornerRadius: 25)
                         .fill(Color.black.opacity(0.5))
                         .padding(.horizontal, 20)
-                        .padding(.vertical, 20)
+                        .frame(height: 575)
                         .overlay(
                             VStack {
                                 Text("Your Profile")
@@ -54,6 +54,7 @@ struct AvatarScreen: View {
                                 }
                                 .padding(.bottom, 20)
                                 
+                                /*
                                 if (!isEditingUsername) {
                                     Text(user.username)
                                         .font(.title3)
@@ -84,6 +85,7 @@ struct AvatarScreen: View {
                                         Text("Confirm")
                                     }
                                 }
+                                 */
 
                                 HStack(spacing: 10) {
 //                                    Button(action: {}) {
@@ -126,7 +128,7 @@ struct AvatarScreen: View {
                                         }
                                         .padding()
                                         .frame(maxWidth: 60)
-                                        .background(Color.darkBlue)
+                                        .background(Color("Medium Blue"))
                                         .foregroundColor(Color.white)
                                         .cornerRadius(10)
 
@@ -145,7 +147,7 @@ struct AvatarScreen: View {
                                         }
                                         .padding()
                                         .frame(maxWidth: 60)
-                                        .background(Color.darkBlue)
+                                        .background(Color("Ice Blue"))
                                         .foregroundColor(Color.white)
                                         .cornerRadius(10)
 //                                        .background(
@@ -173,6 +175,8 @@ struct AvatarScreen: View {
                             }
                             .padding()
                         )
+                        .padding(.top, 20) // Adjust top padding to move the box closer to the top
+
 
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

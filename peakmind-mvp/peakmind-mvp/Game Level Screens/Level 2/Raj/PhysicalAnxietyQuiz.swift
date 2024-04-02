@@ -146,8 +146,9 @@ struct PhysicalAnxietyQuiz: View {
                 }
                 
                 Spacer()
+                // change to L2QuizResponseView later
                 .background(
-                    NavigationLink(destination: L2QuizResponseView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+                    NavigationLink(destination: WellnessQ2View().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
                         EmptyView()
                     })
 

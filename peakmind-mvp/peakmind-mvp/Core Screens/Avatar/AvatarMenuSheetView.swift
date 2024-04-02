@@ -97,15 +97,7 @@ struct AvatarMenuSheet: View {
                 }
             }
             .navigationBarHidden(true)
-            .background(
-                // NavigationLink that triggers when navigateToIglooView is true
-                NavigationLink(
-                    destination: IglooMenuView().environmentObject(viewModel),
-                    isActive: $navigateToIglooView
-                ) {
-                    EmptyView()
-                }
-            )
+
         }
         .onReceive(viewModel.$currentUser) { currentUser in
             if isUpdateSuccessful {

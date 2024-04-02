@@ -101,11 +101,11 @@ struct BreathingExerciseView: View {
                         .scaledToFit()
                         .frame(width: 120, height: 150)
                     
-                    Text("Lets learn a breathing method!")
+                    Text("Let's learn a breathing method!")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color.blue.opacity(0.85))
+                        .background(Color("Medium Blue"))
                         .cornerRadius(10)
                         .shadow(radius: 5)
                 }

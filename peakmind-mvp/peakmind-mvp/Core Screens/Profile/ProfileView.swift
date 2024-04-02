@@ -180,15 +180,13 @@ struct ProfileView: View {
 
                     }
                     Section(header: Text("James")) {
-                        
-                        Button {
+                        Button(action: {
                             isBreathingExerciseViewActive.toggle()
-                        } label : {
-                            NavigationLink(destination: BreathingExerciseView(), isActive: $isBreathingExerciseViewActive) {
-                                Text("Breathing Exercises")
-                            }
+                        }) {
+                            Text("Breathing Exercises")
                         }
                     }
+                    .sheet(isPresented: $isBreathingExerciseViewActive) {    BreathingExerciseView() }
                     
                 }
                 //.navigationTitle("Profile")

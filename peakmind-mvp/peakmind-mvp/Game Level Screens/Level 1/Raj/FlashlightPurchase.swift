@@ -102,8 +102,9 @@ struct FlashlightPurchase: View {
                 secondaryButton: .cancel()
             )
         }
+        //change later to NightfallFlavorView
         .background(
-        NavigationLink(destination: DangersOfNightfallView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+        NavigationLink(destination: AnxietyGoalSetting().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
             EmptyView()
         })
     }

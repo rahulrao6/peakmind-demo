@@ -85,6 +85,15 @@
 		793B79CC2BB39260001062DB /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CB2BB39260001062DB /* Level2.swift */; };
 		793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */; };
 		793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */; };
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+		7975F1802BC1B04F006B439F /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F17F2BC1B04F006B439F /* CheckIn.swift */; };
+		7975F1822BC1B074006B439F /* CheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F1812BC1B074006B439F /* CheckInViewModel.swift */; };
+		7975F1842BC1B08F006B439F /* HabitTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F1832BC1B08F006B439F /* HabitTracker.swift */; };
+		7975F1862BC1B0A2006B439F /* HabitTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F1852BC1B0A2006B439F /* HabitTrackerViewModel.swift */; };
+		7975F1882BC1B0B4006B439F /* UserDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F1872BC1B0B4006B439F /* UserDashboard.swift */; };
+		7975F18A2BC1B0CA006B439F /* UserDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F1892BC1B0CA006B439F /* UserDashboardViewModel.swift */; };
 >>>>>>> Stashed changes
 		797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */; };
 		797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB792BA5335C00F24123 /* IglooMenuView.swift */; };
@@ -188,6 +197,15 @@
 		793B79CB2BB39260001062DB /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalAnxietyQuiz.swift; sourceTree = "<group>"; };
 		793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMARTGoalSettingView.swift; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+		7975F17F2BC1B04F006B439F /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
+		7975F1812BC1B074006B439F /* CheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewModel.swift; sourceTree = "<group>"; };
+		7975F1832BC1B08F006B439F /* HabitTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTracker.swift; sourceTree = "<group>"; };
+		7975F1852BC1B0A2006B439F /* HabitTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerViewModel.swift; sourceTree = "<group>"; };
+		7975F1872BC1B0B4006B439F /* UserDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboard.swift; sourceTree = "<group>"; };
+		7975F1892BC1B0CA006B439F /* UserDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardViewModel.swift; sourceTree = "<group>"; };
 >>>>>>> Stashed changes
 		797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuView.swift; sourceTree = "<group>"; };
 		797AAB792BA5335C00F24123 /* IglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuView.swift; sourceTree = "<group>"; };
@@ -309,6 +327,15 @@
 		1C9C63C02B81327A0066AF70 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
+=======
+				7975F17E2BC1AF52006B439F /* Check In */,
+				E5511F4D2B92AD6600FCC38D /* Journal */,
+				793B79AB2BAF87F1001062DB /* Personalized Plan */,
+				793B79A42BAF7FB1001062DB /* Avatar */,
+				793B79AA2BAF86CD001062DB /* Home */,
+				793B79A92BAF8686001062DB /* Quiz */,
+>>>>>>> Stashed changes
 				1CC1F5C62B89705200AC9B77 /* Chat */,
 				1C9C63C42B8132F50066AF70 /* Profile */,
 				1C9C63C32B8132DB0066AF70 /* Authentication */,
@@ -600,6 +627,19 @@
 			path = Raj;
 			sourceTree = "<group>";
 		};
+		7975F17E2BC1AF52006B439F /* Check In */ = {
+			isa = PBXGroup;
+			children = (
+				7975F17F2BC1B04F006B439F /* CheckIn.swift */,
+				7975F1812BC1B074006B439F /* CheckInViewModel.swift */,
+				7975F1832BC1B08F006B439F /* HabitTracker.swift */,
+				7975F1852BC1B0A2006B439F /* HabitTrackerViewModel.swift */,
+				7975F1872BC1B0B4006B439F /* UserDashboard.swift */,
+				7975F1892BC1B0CA006B439F /* UserDashboardViewModel.swift */,
+			);
+			path = "Check In";
+			sourceTree = "<group>";
+		};
 		E54245342BABD1D400FCF1C6 /* Rahul */ = {
 			isa = PBXGroup;
 			children = (
@@ -794,8 +834,14 @@
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
+<<<<<<< Updated upstream
 				79BFB5342B987D4400634262 /* AvatarSettingsView.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreen.swift in Sources */,
+=======
+				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
+				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
+				7975F1882BC1B0B4006B439F /* UserDashboard.swift in Sources */,
+>>>>>>> Stashed changes
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
@@ -816,23 +862,51 @@
 				79BFB5242B8EAB2B00634262 /* PersonalizedPlanView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
+<<<<<<< Updated upstream
+=======
+				7975F1862BC1B0A2006B439F /* HabitTrackerViewModel.swift in Sources */,
+				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
+				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
+				1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */,
+>>>>>>> Stashed changes
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
 				E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */,
 <<<<<<< Updated upstream
 =======
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
+<<<<<<< Updated upstream
 				79AEB3902BB7A7AE00A39B62 /* ConsistentMealsCheck.swift in Sources */,
+>>>>>>> Stashed changes
+=======
+				7975F18A2BC1B0CA006B439F /* UserDashboardViewModel.swift in Sources */,
 >>>>>>> Stashed changes
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
+<<<<<<< Updated upstream
+=======
+				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
+				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
+				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
+				793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */,
+				7975F1842BC1B08F006B439F /* HabitTracker.swift in Sources */,
+				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
+>>>>>>> Stashed changes
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
+<<<<<<< Updated upstream
 				798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */,
 				798EFB602B84374800E6027A /* MapScreen.swift in Sources */,
 				79BFB5262B8EAB4500634262 /* ProfileViewTest.swift in Sources */,
+=======
+				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
+				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
+				7975F1802BC1B04F006B439F /* CheckIn.swift in Sources */,
+				7975F1822BC1B074006B439F /* CheckInViewModel.swift in Sources */,
+				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
+>>>>>>> Stashed changes
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,

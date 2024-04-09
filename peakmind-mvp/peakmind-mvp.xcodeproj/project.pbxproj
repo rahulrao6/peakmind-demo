@@ -98,6 +98,7 @@
 		797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */; };
 		797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB792BA5335C00F24123 /* IglooMenuView.swift */; };
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		798EFB602B84374800E6027A /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB5F2B84374800E6027A /* MapScreen.swift */; };
 		798EFB622B84376200E6027A /* WorldScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB612B84376200E6027A /* WorldScreen.swift */; };
 		798EFB642B84376F00E6027A /* ChecklistScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB632B84376F00E6027A /* ChecklistScreen.swift */; };
@@ -106,6 +107,13 @@
 		798EFB6A2B84379D00E6027A /* PlayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* PlayScreen.swift */; };
 		798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB6B2B8437A800E6027A /* PlanScreen.swift */; };
 =======
+=======
+		798132B22BC397EE006531C3 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798132B12BC397EE006531C3 /* Background.swift */; };
+		798132B42BC3992B006531C3 /* AnimatedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798132B32BC3992B006531C3 /* AnimatedTextView.swift */; };
+		798132B62BC39E73006531C3 /* SherpaContinue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798132B52BC39E73006531C3 /* SherpaContinue.swift */; };
+		798132B82BC3A347006531C3 /* AnimatedSpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798132B72BC3A347006531C3 /* AnimatedSpeechBubble.swift */; };
+		798132BA2BC3A675006531C3 /* MultiSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798132B92BC3A675006531C3 /* MultiSectionView.swift */; };
+>>>>>>> Stashed changes
 		798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* IntroPlayView.swift */; };
 		79AEB3902BB7A7AE00A39B62 /* ConsistentMealsCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AEB38F2BB7A7AE00A39B62 /* ConsistentMealsCheck.swift */; };
 >>>>>>> Stashed changes
@@ -210,6 +218,7 @@
 		797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuView.swift; sourceTree = "<group>"; };
 		797AAB792BA5335C00F24123 /* IglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuView.swift; sourceTree = "<group>"; };
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		798EFB5F2B84374800E6027A /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
 		798EFB612B84376200E6027A /* WorldScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldScreen.swift; sourceTree = "<group>"; };
 		798EFB632B84376F00E6027A /* ChecklistScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistScreen.swift; sourceTree = "<group>"; };
@@ -218,6 +227,13 @@
 		798EFB692B84379D00E6027A /* PlayScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayScreen.swift; sourceTree = "<group>"; };
 		798EFB6B2B8437A800E6027A /* PlanScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanScreen.swift; sourceTree = "<group>"; };
 =======
+=======
+		798132B12BC397EE006531C3 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		798132B32BC3992B006531C3 /* AnimatedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedTextView.swift; sourceTree = "<group>"; };
+		798132B52BC39E73006531C3 /* SherpaContinue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaContinue.swift; sourceTree = "<group>"; };
+		798132B72BC3A347006531C3 /* AnimatedSpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSpeechBubble.swift; sourceTree = "<group>"; };
+		798132B92BC3A675006531C3 /* MultiSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSectionView.swift; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 		798EFB692B84379D00E6027A /* IntroPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPlayView.swift; sourceTree = "<group>"; };
 		79AEB38F2BB7A7AE00A39B62 /* ConsistentMealsCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConsistentMealsCheck.swift; path = "peakmind-mvp/Components/ConsistentMealsCheck.swift"; sourceTree = SOURCE_ROOT; };
 >>>>>>> Stashed changes
@@ -502,6 +518,7 @@
 		79B3DAEF2B8456DE003C3B44 /* App Screens */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				E5511F4D2B92AD6600FCC38D /* Journal */,
 				791D1AA02B84344900E28162 /* HomeScreen.swift */,
 				798EFB5F2B84374800E6027A /* MapScreen.swift */,
@@ -523,6 +540,31 @@
 				E5511F562B92B22900FCC38D /* JournalDetailView.swift */,
 				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
 				79BFB5332B987D4400634262 /* AvatarSettingsView.swift */,
+=======
+				791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */,
+				791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */,
+				791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */,
+				791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */,
+			);
+			path = Mikey;
+			sourceTree = "<group>";
+		};
+		793B79A32BAF7F50001062DB /* Level 1 */ = {
+			isa = PBXGroup;
+			children = (
+				798132B02BC397E1006531C3 /* Rina */,
+				791AC9042BA7DC830094A688 /* Mikey */,
+				1C6C0BB42BA94D4300628B79 /* Raj */,
+				E54245342BABD1D400FCF1C6 /* Rahul */,
+			);
+			path = "Level 1";
+			sourceTree = "<group>";
+		};
+		793B79A42BAF7FB1001062DB /* Avatar */ = {
+			isa = PBXGroup;
+			children = (
+				79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */,
+>>>>>>> Stashed changes
 				797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */,
 				797AAB792BA5335C00F24123 /* IglooMenuView.swift */,
 			);
@@ -627,6 +669,7 @@
 			path = Raj;
 			sourceTree = "<group>";
 		};
+<<<<<<< Updated upstream
 		7975F17E2BC1AF52006B439F /* Check In */ = {
 			isa = PBXGroup;
 			children = (
@@ -638,6 +681,18 @@
 				7975F1892BC1B0CA006B439F /* UserDashboardViewModel.swift */,
 			);
 			path = "Check In";
+=======
+		798132B02BC397E1006531C3 /* Rina */ = {
+			isa = PBXGroup;
+			children = (
+				798132B12BC397EE006531C3 /* Background.swift */,
+				798132B52BC39E73006531C3 /* SherpaContinue.swift */,
+				798132B32BC3992B006531C3 /* AnimatedTextView.swift */,
+				798132B72BC3A347006531C3 /* AnimatedSpeechBubble.swift */,
+				798132B92BC3A675006531C3 /* MultiSectionView.swift */,
+			);
+			path = Rina;
+>>>>>>> Stashed changes
 			sourceTree = "<group>";
 		};
 		E54245342BABD1D400FCF1C6 /* Rahul */ = {
@@ -840,10 +895,18 @@
 =======
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
+<<<<<<< Updated upstream
 				7975F1882BC1B0B4006B439F /* UserDashboard.swift in Sources */,
 >>>>>>> Stashed changes
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
+=======
+				798132B42BC3992B006531C3 /* AnimatedTextView.swift in Sources */,
+				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
+				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
+				798132BA2BC3A675006531C3 /* MultiSectionView.swift in Sources */,
+				793B79C72BB39205001062DB /* FlashlightPurchase.swift in Sources */,
+>>>>>>> Stashed changes
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
@@ -856,6 +919,7 @@
 				793601E72BB752B9006B092F /* VCPopup.swift in Sources */,
 >>>>>>> Stashed changes
 				791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */,
+				798132B22BC397EE006531C3 /* Background.swift in Sources */,
 				791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */,
 >>>>>>> Stashed changes
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
@@ -867,6 +931,7 @@
 				7975F1862BC1B0A2006B439F /* HabitTrackerViewModel.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
 				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
+				798132B82BC3A347006531C3 /* AnimatedSpeechBubble.swift in Sources */,
 				1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */,
 >>>>>>> Stashed changes
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
@@ -903,8 +968,12 @@
 =======
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
+<<<<<<< Updated upstream
 				7975F1802BC1B04F006B439F /* CheckIn.swift in Sources */,
 				7975F1822BC1B074006B439F /* CheckInViewModel.swift in Sources */,
+=======
+				798132B62BC39E73006531C3 /* SherpaContinue.swift in Sources */,
+>>>>>>> Stashed changes
 				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
 >>>>>>> Stashed changes
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,

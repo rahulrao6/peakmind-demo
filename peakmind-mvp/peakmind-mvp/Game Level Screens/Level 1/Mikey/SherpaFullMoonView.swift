@@ -15,54 +15,10 @@ struct SherpaFullMoonView: View {
 
 
     var body: some View {
-        ZStack {
-            Image("MainBG")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .edgesIgnoringSafeArea(.all)
-            
-            Text("Mt. Anxiety: Level One")
-                .font(.system(size: 34, weight: .bold, design: .default))
-                .foregroundColor(.white)
-                .padding(.top, -350)
-                .padding(.horizontal)
-
-            Image("Sherpa")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 140)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                .padding()
-                .offset(x: 25, y: 20)
-
-            SpeechBubble(text: $animatedText)
-                .onAppear { animateText() }
-                .offset(x: 90, y: 300)
-        }
-        .background(
-            NavigationLink(destination: AnxietyGoalSetting().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
-            EmptyView()
-        })
-        .onTapGesture {
-            // When tapped, navigate to the next screen
-            navigateToNext = true
-        }
-    }
-    
-    private func animateText() {
-        var charIndex = 0.0
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { timer in
-            let roundedIndex = Int(charIndex)
-            if roundedIndex < sherpaText.count {
-                let index = sherpaText.index(sherpaText.startIndex, offsetBy: roundedIndex)
-                animatedText.append(sherpaText[index])
-            }
-            charIndex += 1
-            if roundedIndex >= sherpaText.count {
-                timer.invalidate()
-            }
-        }
-        timer.fire()
+        AnimatedSpeechBubble(title: "Mt. Anxiety Level One",
+                             sherpaText: sherpaText,
+                             nextScreen: AnxietyGoalSetting(viewModel: _viewModel)
+                                            .navigationBarBackButtonHidden(true))
     }
 }
 

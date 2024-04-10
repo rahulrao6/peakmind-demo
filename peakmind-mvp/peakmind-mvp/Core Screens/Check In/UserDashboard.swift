@@ -136,10 +136,10 @@ struct UserDashboard: View {
             CheckIn()
         })
         .sheet(isPresented: $showChat, content: {
-            CheckInChat()
+            //CheckInChat()
         })
         .sheet(isPresented: $showSettings, content: {
-            CheckInSettings()
+            //CheckInSettings()
         })
         
     }

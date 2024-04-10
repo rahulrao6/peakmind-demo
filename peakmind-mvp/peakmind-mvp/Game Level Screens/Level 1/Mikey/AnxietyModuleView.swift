@@ -18,66 +18,11 @@ struct AnxietyModuleView: View {
     ]
 
     var body: some View {
-        ZStack {
-            Image("MainBG")
-                .resizable()
-                .edgesIgnoringSafeArea(.all)
-                .aspectRatio(contentMode: .fill)
-            Image("Sherpa")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 140)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                .padding()
-                .offset(x: 25, y: 20)
-            VStack(spacing: 0) {
-                Text("Mt. Anxiety: Level One")
-                    .font(.system(size: 30, weight: .bold, design: .default))
-                    .foregroundColor(.white)
-                    .padding(.top, 40)
-                    .padding(.bottom, 40)
-
-                ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                    TabView(selection: $selectedPage) {
-                        ForEach(0..<pageTexts.count, id: \.self) { index in
-                            VStack {
-                                Text("Understanding Anxiety")
-                                    .font(.system(size: 22, weight: .bold, design: .default))
-                                    .foregroundColor(.white)
-                                    .padding(.bottom, 5)
-
-                                Text(pageTexts[index])
-                                    .font(.body)
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(.white)
-                                    .padding()
-                            }
-                            .frame(width: 300, height: 330)
-                            .background(Color("Dark Blue").opacity(0.75))
-                            .cornerRadius(15)
-                            .shadow(radius: 5)
-                            .tag(index)
-                        }
-                    }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
-                    .frame(width: 320, height: 350) 
-
-                    Button(action: {
-                        withAnimation {
-                            selectedPage = (selectedPage + 1) % pageTexts.count
-                        }
-                    }) {
-                        Image(systemName: "arrow.right")
-                            .resizable()
-                            .frame(width: 25, height: 20)
-                            .foregroundColor(Color("Ice Blue"))
-                            .padding(10)
-                    }
-                    .padding([.bottom, .trailing], 10)
-                }
-                Spacer()
-            }
-        }
+        MultiSectionView(title: "Mt. Anxiety: Level One",
+                         sectionHeader: "Understanding Anxiety",
+                         pageTexts: pageTexts,
+                         nextScreen: AnxietyModuleView()
+                                        .navigationBarBackButtonHidden(true))
     }
 }
 

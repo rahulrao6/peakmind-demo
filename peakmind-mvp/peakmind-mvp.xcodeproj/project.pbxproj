@@ -110,6 +110,17 @@
 		79BFB52C2B8EABC500634262 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52B2B8EABC500634262 /* Info.swift */; };
 		79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52D2B8EDA6E00634262 /* JournalView.swift */; };
 		79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52F2B914A5000634262 /* SplashScreen.swift */; };
+		79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383DC2BC610F600A6779A /* CheckIn.swift */; };
+		79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383DE2BC6110400A6779A /* CheckInViewModel.swift */; };
+		79C383E12BC6110E00A6779A /* HabitTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E02BC6110E00A6779A /* HabitTracker.swift */; };
+		79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E22BC6111D00A6779A /* HabitTrackerViewModel.swift */; };
+		79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E42BC6112700A6779A /* UserDashboard.swift */; };
+		79C383E72BC6113200A6779A /* UserDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E62BC6113200A6779A /* UserDashboardViewModel.swift */; };
+		79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E92BC6122100A6779A /* AnimatedSpeechBubble.swift */; };
+		79C383EC2BC6122C00A6779A /* AnimatedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383EB2BC6122C00A6779A /* AnimatedTextView.swift */; };
+		79C383EE2BC6123300A6779A /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383ED2BC6123300A6779A /* Background.swift */; };
+		79C383F02BC6123F00A6779A /* MultiSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383EF2BC6123F00A6779A /* MultiSectionView.swift */; };
+		79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383F12BC6124B00A6779A /* SherpaContinue.swift */; };
 		79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */; };
 		E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245352BABD4C400FCF1C6 /* Module1.swift */; };
 		E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245372BABD6CC00FCF1C6 /* Module2.swift */; };
@@ -212,6 +223,17 @@
 		79BFB52B2B8EABC500634262 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		79BFB52D2B8EDA6E00634262 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
 		79BFB52F2B914A5000634262 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		79C383DC2BC610F600A6779A /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
+		79C383DE2BC6110400A6779A /* CheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewModel.swift; sourceTree = "<group>"; };
+		79C383E02BC6110E00A6779A /* HabitTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTracker.swift; sourceTree = "<group>"; };
+		79C383E22BC6111D00A6779A /* HabitTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerViewModel.swift; sourceTree = "<group>"; };
+		79C383E42BC6112700A6779A /* UserDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboard.swift; sourceTree = "<group>"; };
+		79C383E62BC6113200A6779A /* UserDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardViewModel.swift; sourceTree = "<group>"; };
+		79C383E92BC6122100A6779A /* AnimatedSpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSpeechBubble.swift; sourceTree = "<group>"; };
+		79C383EB2BC6122C00A6779A /* AnimatedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedTextView.swift; sourceTree = "<group>"; };
+		79C383ED2BC6123300A6779A /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		79C383EF2BC6123F00A6779A /* MultiSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSectionView.swift; sourceTree = "<group>"; };
+		79C383F12BC6124B00A6779A /* SherpaContinue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaContinue.swift; sourceTree = "<group>"; };
 		79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarAndSherpaView.swift; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E54245352BABD4C400FCF1C6 /* Module1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module1.swift; sourceTree = "<group>"; };
@@ -332,6 +354,7 @@
 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
+				79C383DB2BC610E800A6779A /* Check In */,
 				E5511F4D2B92AD6600FCC38D /* Journal */,
 				793B79AB2BAF87F1001062DB /* Personalized Plan */,
 				793B79A42BAF7FB1001062DB /* Avatar */,
@@ -507,6 +530,7 @@
 		793B79A32BAF7F50001062DB /* Level 1 */ = {
 			isa = PBXGroup;
 			children = (
+				79C383E82BC6121000A6779A /* Rina */,
 				791AC9042BA7DC830094A688 /* Mikey */,
 				1C6C0BB42BA94D4300628B79 /* Raj */,
 				E54245342BABD1D400FCF1C6 /* Rahul */,
@@ -622,6 +646,31 @@
 				1CD299C12BBA5E4E003A0592 /* Level2Complete.swift */,
 			);
 			path = Raj;
+			sourceTree = "<group>";
+		};
+		79C383DB2BC610E800A6779A /* Check In */ = {
+			isa = PBXGroup;
+			children = (
+				79C383DC2BC610F600A6779A /* CheckIn.swift */,
+				79C383DE2BC6110400A6779A /* CheckInViewModel.swift */,
+				79C383E02BC6110E00A6779A /* HabitTracker.swift */,
+				79C383E22BC6111D00A6779A /* HabitTrackerViewModel.swift */,
+				79C383E42BC6112700A6779A /* UserDashboard.swift */,
+				79C383E62BC6113200A6779A /* UserDashboardViewModel.swift */,
+			);
+			path = "Check In";
+			sourceTree = "<group>";
+		};
+		79C383E82BC6121000A6779A /* Rina */ = {
+			isa = PBXGroup;
+			children = (
+				79C383E92BC6122100A6779A /* AnimatedSpeechBubble.swift */,
+				79C383EB2BC6122C00A6779A /* AnimatedTextView.swift */,
+				79C383ED2BC6123300A6779A /* Background.swift */,
+				79C383EF2BC6123F00A6779A /* MultiSectionView.swift */,
+				79C383F12BC6124B00A6779A /* SherpaContinue.swift */,
+			);
+			path = Rina;
 			sourceTree = "<group>";
 		};
 		E54245342BABD1D400FCF1C6 /* Rahul */ = {
@@ -827,6 +876,7 @@
 				793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */,
 				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
 				793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */,
+				79C383EE2BC6123300A6779A /* Background.swift in Sources */,
 				E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */,
 				E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */,
 				1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */,
@@ -837,34 +887,42 @@
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
+				79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				793B79C72BB39205001062DB /* FlashlightPurchase.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
+				79C383EC2BC6122C00A6779A /* AnimatedTextView.swift in Sources */,
 				793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
 				791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */,
 				791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */,
+				79C383F02BC6123F00A6779A /* MultiSectionView.swift in Sources */,
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
 				1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */,
 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
+				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
+				79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
 				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
 				1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */,
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
 				E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */,
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
+				79C383E72BC6113200A6779A /* UserDashboardViewModel.swift in Sources */,
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				E542453C2BAF683A00FCF1C6 /* Module3.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
+				79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
 				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
 				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
 				793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */,
+				79C383E12BC6110E00A6779A /* HabitTracker.swift in Sources */,
 				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
@@ -877,6 +935,8 @@
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
+				79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */,
+				79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */,
 				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
 				10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,

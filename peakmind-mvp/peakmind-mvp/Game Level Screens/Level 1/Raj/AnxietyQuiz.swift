@@ -14,7 +14,7 @@ struct AnxietyQuiz: View {
     ]
     @State private var selectedOption: Int? = nil
     @State var navigateToNext = false
-
+    @State private var buttonOpacities = [0.0,0.0,0.0,0.0]
 
 
     var body: some View {
@@ -40,20 +40,22 @@ struct AnxietyQuiz: View {
                 VStack(alignment: .center) {
                     Text(animatedText)
                         .font(.title)
-                        .fontWeight(.medium)
+                        .fontWeight(.bold)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding()
+                        .animation(nil)
                         .onAppear {
                             animateText()
                         }
                     
                     
                 }
-                .background(Color("Dark Blue"))
+                .background(Color(hex: "#0f075a"))
                 .cornerRadius(15)
+                .animation(.easeInOut)
                 .padding(.horizontal, 40)
-
+                
                 VStack(spacing: 20) {
                     ForEach(0..<2, id: \.self) { row in
                         HStack(spacing: 20) {
@@ -70,12 +72,14 @@ struct AnxietyQuiz: View {
                                     
                                 }) {
                                     Text(options[index])
-                                        .fontWeight(.semibold)
-                                        .padding()
+                                        .fontWeight(.light)
+                                        .padding(.top, 30)
+                                        .padding(.bottom, 30)
                                         .frame(maxWidth: .infinity)
                                         .foregroundColor(.white)
-                                        .background(Color("Dark Blue"))
+                                        .background(Color(hex: "#080331"))
                                         .cornerRadius(15)
+                                        .opacity(buttonOpacities[index])
                                 }
                             }
                         }
@@ -84,7 +88,6 @@ struct AnxietyQuiz: View {
                 .padding(.horizontal, 40)
                 .padding(.bottom, 20)
                 .padding(.top, 20)
-
                 
                 NavigationLink(destination: SetHabits().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
                     EmptyView()
@@ -107,6 +110,26 @@ struct AnxietyQuiz: View {
             charIndex += 1
             if roundedIndex >= narrationText.count {
                 timer.invalidate()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        buttonOpacities[0] = 1
+                    }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        buttonOpacities[1] = 1
+                    }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        buttonOpacities[2] = 1
+                    }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
+                    withAnimation(.easeInOut(duration: 0.35)) {
+                        buttonOpacities[3] = 1
+                    }
+                }
             }
         }
         timer.fire()

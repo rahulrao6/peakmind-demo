@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D5593C2BC379C700CAC269 /* Minigame2View.swift */; };
+		10D5593F2BC44C0000CAC269 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 10D5593E2BC44C0000CAC269 /* words.txt */; };
 		10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */; };
 		10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */; };
 		10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */; };
@@ -136,6 +138,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		10D5593C2BC379C700CAC269 /* Minigame2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minigame2View.swift; sourceTree = "<group>"; };
+		10D5593E2BC44C0000CAC269 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
 		10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseView.swift; sourceTree = "<group>"; };
 		10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3IntroView.swift; sourceTree = "<group>"; };
 		10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitUIView.swift; sourceTree = "<group>"; };
@@ -273,6 +277,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10D5593B2BC379B200CAC269 /* Minigames */ = {
+			isa = PBXGroup;
+			children = (
+				10D5593E2BC44C0000CAC269 /* words.txt */,
+				10D5593C2BC379C700CAC269 /* Minigame2View.swift */,
+			);
+			path = Minigames;
+			sourceTree = "<group>";
+		};
 		10FA68522BB3B191007CCBAC /* James */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,6 +530,7 @@
 		793B79A52BAF8453001062DB /* Game Level Screens */ = {
 			isa = PBXGroup;
 			children = (
+				10D5593B2BC379B200CAC269 /* Minigames */,
 				793B79AC2BAF8AEE001062DB /* Intro */,
 				793B79A32BAF7F50001062DB /* Level 1 */,
 				793B79A62BAF8466001062DB /* Level 2 */,
@@ -774,6 +788,7 @@
 				1CF4C3E92B7B15E40028BC3C /* Preview Assets.xcassets in Resources */,
 				1C9C63BC2B8131CB0066AF70 /* GoogleService-Info.plist in Resources */,
 				1CF4C3E62B7B15E40028BC3C /* Assets.xcassets in Resources */,
+				10D5593F2BC44C0000CAC269 /* words.txt in Resources */,
 				10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -863,6 +878,7 @@
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
 				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
+				10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */,

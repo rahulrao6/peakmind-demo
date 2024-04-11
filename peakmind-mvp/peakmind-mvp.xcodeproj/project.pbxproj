@@ -68,7 +68,13 @@
 		791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */; };
 		791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */; };
 		791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreenView.swift */; };
+<<<<<<< Updated upstream
 		793601E72BB752B9006B092F /* VCPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793601E62BB752B9006B092F /* VCPopup.swift */; };
+=======
+		792131602BC6FA4800DA53A1 /* ScenarioTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921315F2BC6FA4800DA53A1 /* ScenarioTemplate.swift */; };
+		792131622BC6FAF500DA53A1 /* SherpaTalking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792131612BC6FAF500DA53A1 /* SherpaTalking.swift */; };
+		792131642BC7013300DA53A1 /* ScenarioQuizTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792131632BC7013300DA53A1 /* ScenarioQuizTemplate.swift */; };
+>>>>>>> Stashed changes
 		793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */; };
 		793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B02BAF9039001062DB /* L2QuizResponseView.swift */; };
 		793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B22BAF9045001062DB /* L2SherpaChatView.swift */; };
@@ -86,6 +92,7 @@
 		793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */; };
 		793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */; };
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
 		7975F1802BC1B04F006B439F /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F17F2BC1B04F006B439F /* CheckIn.swift */; };
@@ -94,6 +101,11 @@
 		7975F1862BC1B0A2006B439F /* HabitTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F1852BC1B0A2006B439F /* HabitTrackerViewModel.swift */; };
 		7975F1882BC1B0B4006B439F /* UserDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F1872BC1B0B4006B439F /* UserDashboard.swift */; };
 		7975F18A2BC1B0CA006B439F /* UserDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975F1892BC1B0CA006B439F /* UserDashboardViewModel.swift */; };
+>>>>>>> Stashed changes
+=======
+		793CAD4E2BC87FC500E0C571 /* SherpaAlone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CAD4D2BC87FC500E0C571 /* SherpaAlone.swift */; };
+		793CAD502BC882C800E0C571 /* L1ScenarioPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CAD4F2BC882C800E0C571 /* L1ScenarioPresentation.swift */; };
+		793CAD522BC882FB00E0C571 /* L1ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793CAD512BC882FB00E0C571 /* L1ScenarioQuiz.swift */; };
 >>>>>>> Stashed changes
 		797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */; };
 		797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB792BA5335C00F24123 /* IglooMenuView.swift */; };
@@ -188,7 +200,13 @@
 		791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangersOfNightfallView.swift; sourceTree = "<group>"; };
 		791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaFullMoonView.swift; sourceTree = "<group>"; };
 		791D1AA02B84344900E28162 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
 		793601E62BB752B9006B092F /* VCPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCPopup.swift; sourceTree = "<group>"; };
+=======
+		7921315F2BC6FA4800DA53A1 /* ScenarioTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioTemplate.swift; sourceTree = "<group>"; };
+		792131612BC6FAF500DA53A1 /* SherpaTalking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaTalking.swift; sourceTree = "<group>"; };
+		792131632BC7013300DA53A1 /* ScenarioQuizTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioQuizTemplate.swift; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 		793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysImpactsAnxietyView.swift; sourceTree = "<group>"; };
 		793B79B02BAF9039001062DB /* L2QuizResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2QuizResponseView.swift; sourceTree = "<group>"; };
 		793B79B22BAF9045001062DB /* L2SherpaChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2SherpaChatView.swift; sourceTree = "<group>"; };
@@ -206,6 +224,7 @@
 		793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalAnxietyQuiz.swift; sourceTree = "<group>"; };
 		793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMARTGoalSettingView.swift; sourceTree = "<group>"; };
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
 		7975F17F2BC1B04F006B439F /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
@@ -214,6 +233,11 @@
 		7975F1852BC1B0A2006B439F /* HabitTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerViewModel.swift; sourceTree = "<group>"; };
 		7975F1872BC1B0B4006B439F /* UserDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboard.swift; sourceTree = "<group>"; };
 		7975F1892BC1B0CA006B439F /* UserDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardViewModel.swift; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
+=======
+		793CAD4D2BC87FC500E0C571 /* SherpaAlone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaAlone.swift; sourceTree = "<group>"; };
+		793CAD4F2BC882C800E0C571 /* L1ScenarioPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1ScenarioPresentation.swift; sourceTree = "<group>"; };
+		793CAD512BC882FB00E0C571 /* L1ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1ScenarioQuiz.swift; sourceTree = "<group>"; };
 >>>>>>> Stashed changes
 		797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuView.swift; sourceTree = "<group>"; };
 		797AAB792BA5335C00F24123 /* IglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuView.swift; sourceTree = "<group>"; };
@@ -685,11 +709,25 @@
 		798132B02BC397E1006531C3 /* Rina */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				798132B12BC397EE006531C3 /* Background.swift */,
 				798132B52BC39E73006531C3 /* SherpaContinue.swift */,
 				798132B32BC3992B006531C3 /* AnimatedTextView.swift */,
 				798132B72BC3A347006531C3 /* AnimatedSpeechBubble.swift */,
 				798132B92BC3A675006531C3 /* MultiSectionView.swift */,
+=======
+				79C383E92BC6122100A6779A /* AnimatedSpeechBubble.swift */,
+				79C383EB2BC6122C00A6779A /* AnimatedTextView.swift */,
+				79C383ED2BC6123300A6779A /* Background.swift */,
+				79C383EF2BC6123F00A6779A /* MultiSectionView.swift */,
+				79C383F12BC6124B00A6779A /* SherpaContinue.swift */,
+				792131612BC6FAF500DA53A1 /* SherpaTalking.swift */,
+				793CAD4D2BC87FC500E0C571 /* SherpaAlone.swift */,
+				7921315F2BC6FA4800DA53A1 /* ScenarioTemplate.swift */,
+				792131632BC7013300DA53A1 /* ScenarioQuizTemplate.swift */,
+				793CAD4F2BC882C800E0C571 /* L1ScenarioPresentation.swift */,
+				793CAD512BC882FB00E0C571 /* L1ScenarioQuiz.swift */,
+>>>>>>> Stashed changes
 			);
 			path = Rina;
 >>>>>>> Stashed changes
@@ -881,10 +919,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< Updated upstream
+=======
+				791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */,
+				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
+				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
+				793CAD522BC882FB00E0C571 /* L1ScenarioQuiz.swift in Sources */,
+>>>>>>> Stashed changes
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
+				792131622BC6FAF500DA53A1 /* SherpaTalking.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
+<<<<<<< Updated upstream
 				798EFB6C2B8437A800E6027A /* PlanScreen.swift in Sources */,
+=======
+				793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */,
+				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
+				793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */,
+				79C383EE2BC6123300A6779A /* Background.swift in Sources */,
+				E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */,
+				792131642BC7013300DA53A1 /* ScenarioQuizTemplate.swift in Sources */,
+				E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */,
+>>>>>>> Stashed changes
 				1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
@@ -949,8 +1005,14 @@
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+				79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */,
+				792131602BC6FA4800DA53A1 /* ScenarioTemplate.swift in Sources */,
+>>>>>>> Stashed changes
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
+				793CAD4E2BC87FC500E0C571 /* SherpaAlone.swift in Sources */,
 				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
 				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
 				793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */,
@@ -981,9 +1043,14 @@
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				798EFB662B84377B00E6027A /* CartScreen.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
+<<<<<<< Updated upstream
 				798EFB682B84378A00E6027A /* IglooScreen.swift in Sources */,
 				798EFB6A2B84379D00E6027A /* PlayScreen.swift in Sources */,
 				798EFB622B84376200E6027A /* WorldScreen.swift in Sources */,
+=======
+				793CAD502BC882C800E0C571 /* L1ScenarioPresentation.swift in Sources */,
+				798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */,
+>>>>>>> Stashed changes
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

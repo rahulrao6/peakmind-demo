@@ -22,7 +22,7 @@ protocol AuthenticationFormProtocol {
 class AuthViewModel : ObservableObject {
     
     @Published var userSession: FirebaseAuth.User?
-    @Published var currentUser : User?
+    @Published var currentUser : UserData?
     //static let share = GoogleAuthenticationStruct()
 
     
@@ -48,11 +48,11 @@ class AuthViewModel : ObservableObject {
     }
     
     
-    func createUser(withEmail email: String, password: String, fullname: String, location: String, color: String, firstPeak: String, username: String, selectedAvatar: String, selectedBackground: String, hasCompletedInitialQuiz: Bool, hasSetInitialAvatar: Bool, LevelOneCompleted: Bool) async throws {
+    func createUser(withEmail email: String, password: String, username: String, selectedAvatar: String, selectedBackground: String, hasCompletedInitialQuiz: Bool, hasSetInitialAvatar: Bool, LevelOneCompleted: Bool, LevelTwoCompleted: Bool) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, fullname: fullname, email: email, location: location, color: color, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, currencyBalance: 0.0, inventory: [], LevelOneCompleted: LevelOneCompleted)
+            let user = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, inventory: [], LevelOneCompleted: LevelOneCompleted, LevelTwoCompleted: LevelTwoCompleted)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
             await fetchUser()
@@ -62,6 +62,19 @@ class AuthViewModel : ObservableObject {
             
         }
     }
+    
+//    func createUser2(withEmail email: String, password: String, username: String, avatar: String, background: String) async {
+//        do {
+//            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+//            self.userSession = result.user
+//            let newUser = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: avatar, selectedBackground: background, hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, inventory: [], LevelOneCompleted: false, LevelTwoCompleted: false)
+//            let encodedUser = try Firestore.Encoder().encode(newUser)
+//            try await Firestore.firestore().collection("users").document(newUser.id).setData(encodedUser)
+//            self.currentUser = newUser
+//        } catch {
+//            print("Debug failed to create user \(error.localizedDescription)")
+//        }
+//    }
     
     func signOut() {
         
@@ -75,33 +88,32 @@ class AuthViewModel : ObservableObject {
         
     }
     
-    func deleteAccount() {
-        let user = Auth.auth().currentUser
-
-        user?.delete { error in
-            if let error = error {
-                print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
-                return
+    func deleteAccount() async {
+        guard let user = Auth.auth().currentUser else {
+            print("DEBUG: No user is currently signed in.")
+            return
+        }
+        
+        do {
+            // Delete user data from Firestore first
+            let userId = user.uid
+            try await Firestore.firestore().collection("users").document(userId).delete()
+            
+            // Proceed with deleting the user account
+            try await user.delete()
+            
+            // Clear any related user data in the app
+            DispatchQueue.main.async { [weak self] in
+                self?.userSession = nil
+                self?.currentUser = nil
             }
             
-            // User deletion successful, now delete document from Firestore
-            if let userId = self.currentUser?.id {
-                Firestore.firestore().collection("users").document(userId).delete { error in
-                    if let error = error {
-                        print("Error removing document: \(error)")
-                        return
-                    }
-                    print("Document successfully removed!")
-                    
-                    // Reset user session and current user
-                    self.userSession = nil
-                    self.currentUser = nil
-                }
-            } else {
-                print("Error: User ID is nil")
-            }
+            print("User account and data successfully deleted.")
+        } catch let error {
+            print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
         }
     }
+
 
 
     
@@ -118,7 +130,7 @@ class AuthViewModel : ObservableObject {
         
         guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
     
-        self.currentUser = try? snapshot.data(as: User.self)
+        self.currentUser = try? snapshot.data(as: UserData.self)
         
         print("Debug current user is \(String(describing: self.currentUser))")
         
@@ -206,7 +218,7 @@ class AuthViewModel : ObservableObject {
               Task{
                   guard let snapshot = try? await Firestore.firestore().collection("users").document(firebaseUser.uid).getDocument() else {return}
                   
-                  self.currentUser = try? snapshot.data(as: User.self)
+                  self.currentUser = try? snapshot.data(as: UserData.self)
                   
                   print("Debug current user is \(String(describing: self.currentUser))")
               }

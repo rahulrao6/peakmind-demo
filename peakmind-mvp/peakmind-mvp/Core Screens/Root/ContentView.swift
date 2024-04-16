@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import HealthKit
+import Firebase
+
+
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var showingSplash = true // State to control splash screen visibility
     @State private var navigateToStoreScreen = false // State to control splash screen visibility
     @State private var navigateToInventoryScreen = false // State to control splash screen visibility
+    @EnvironmentObject var healthStore: HKHealthStore
 
     
     var body: some View {
@@ -111,6 +116,7 @@ struct ContentView: View {
         
         
         .onAppear {
+            readTotalStepCount()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Adjust delay time as needed
                 withAnimation {
                     showingSplash = false // Hide splash screen after delay
@@ -119,6 +125,71 @@ struct ContentView: View {
         }
 
     }
+    func readTotalStepCount() {
+        guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+            fatalError("*** Unable to get the step count type ***")
+        }
+        
+        let endDate = Date()
+        let startDate = Calendar.current.date(byAdding: .day, value: -14, to: endDate)!
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+
+        var interval = DateComponents()
+        interval.day = 1
+
+        let query = HKStatisticsCollectionQuery(quantityType: stepCountType,
+                                                quantitySamplePredicate: predicate,
+                                                options: [.cumulativeSum],
+                                                anchorDate: startDate,
+                                                intervalComponents: interval)
+        
+        query.initialResultsHandler = { query, results, error in
+            if let error = error {
+                print("Error fetching step counts: \(error.localizedDescription)")
+                return
+            }
+            guard let results = results else {
+                print("No results returned from HealthKit")
+                return
+            }
+            
+            var dayData = [String: Int]()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            
+            results.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
+                let dateKey = formatter.string(from: statistics.startDate)
+                if let quantity = statistics.sumQuantity() {
+                    let steps = Int(quantity.doubleValue(for: HKUnit.count()))
+                    dayData[dateKey] = steps
+                }
+            }
+
+            self.saveStepsToFirestore(dayData: dayData)
+        }
+        
+        healthStore.execute(query)
+    }
+    
+    
+    private func saveStepsToFirestore(dayData: [String: Int]) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not logged in")
+            return
+        }
+        
+        let stepsDocument = Firestore.firestore().collection("steps").document(userID)
+        stepsDocument.setData(dayData, merge: true) { error in
+            if let error = error {
+                print("Error writing steps to Firestore: \(error)")
+            } else {
+                print("Successfully updated steps data for the last two weeks.")
+            }
+        }
+    }
+
+
+
 }
 
     

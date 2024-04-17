@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */; };
+		102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */; };
+		102F1B8C2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */; };
+		102F1B8F2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */; };
+		102F1B902BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */; };
+		102F1B912BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */; };
+		102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */; };
 		10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D5593C2BC379C700CAC269 /* Minigame2View.swift */; };
 		10D5593F2BC44C0000CAC269 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 10D5593E2BC44C0000CAC269 /* words.txt */; };
 		10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */; };
@@ -154,6 +161,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuscleRelaxationExplanationView.swift; sourceTree = "<group>"; };
+		102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompleteView.swift; sourceTree = "<group>"; };
+		102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleRelaxationView.swift; sourceTree = "<group>"; };
+		102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdMuscleExerciseEncoded.mov; sourceTree = "<group>"; };
+		102F1B922BCDAB10008B8AC6 /* peakmind-mvp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "peakmind-mvp.entitlements"; sourceTree = "<group>"; };
+		102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsQuizView.swift; sourceTree = "<group>"; };
 		10D5593C2BC379C700CAC269 /* Minigame2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minigame2View.swift; sourceTree = "<group>"; };
 		10D5593E2BC44C0000CAC269 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
 		10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseView.swift; sourceTree = "<group>"; };
@@ -310,6 +323,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		102F1B862BCB7C13008B8AC6 /* James */ = {
+			isa = PBXGroup;
+			children = (
+				102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */,
+				102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */,
+				102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */,
+				102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */,
+			);
+			path = James;
+			sourceTree = "<group>";
+		};
+		102F1B932BCDAC35008B8AC6 /* James */ = {
+			isa = PBXGroup;
+			children = (
+				102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */,
+			);
+			path = James;
+			sourceTree = "<group>";
+		};
 		10D5593B2BC379B200CAC269 /* Minigames */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,7 +526,9 @@
 		1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */ = {
 			isa = PBXGroup;
 			children = (
+
 				1C9FA25A2BCE1992003C844C /* peakmind-mvp.entitlements */,
+
 				1CF4A89C2B8309F100051684 /* Info.plist */,
 				1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */,
 				1C9C63C12B8132840066AF70 /* Model */,
@@ -555,6 +589,7 @@
 		793B79A32BAF7F50001062DB /* Level 1 */ = {
 			isa = PBXGroup;
 			children = (
+				102F1B862BCB7C13008B8AC6 /* James */,
 				79C383E82BC6121000A6779A /* Rina */,
 				791AC9042BA7DC830094A688 /* Mikey */,
 				1C6C0BB42BA94D4300628B79 /* Raj */,
@@ -592,6 +627,7 @@
 		793B79A62BAF8466001062DB /* Level 2 */ = {
 			isa = PBXGroup;
 			children = (
+				102F1B932BCDAC35008B8AC6 /* James */,
 				793B79CA2BB39252001062DB /* Raj */,
 				793B79AD2BAF8D76001062DB /* Mikey */,
 			);
@@ -859,6 +895,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				102F1B8F2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */,
 				1CF4C3E92B7B15E40028BC3C /* Preview Assets.xcassets in Resources */,
 				1C9C63BC2B8131CB0066AF70 /* GoogleService-Info.plist in Resources */,
 				1CF4C3E62B7B15E40028BC3C /* Assets.xcassets in Resources */,
@@ -871,6 +908,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				102F1B902BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */,
 				10FA68812BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -879,6 +917,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				102F1B912BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */,
 				10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -898,6 +937,7 @@
 				793B79BB2BB20423001062DB /* WellnessQ2View.swift in Sources */,
 				793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
+				102F1B8C2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift in Sources */,
 				793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */,
 				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
 				793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */,
@@ -930,6 +970,7 @@
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
 				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
+				102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */,
 				79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */,
 				1C8DF97A2BC5B55F0016BFA8 /* RegisterView.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
@@ -944,6 +985,7 @@
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				E542453C2BAF683A00FCF1C6 /* Module3.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
+				102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */,
 				79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
 				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
@@ -952,6 +994,7 @@
 				79C383E12BC6110E00A6779A /* HabitTracker.swift in Sources */,
 				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
+				102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
 				1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */,
@@ -1143,7 +1186,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.08;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
-				DEVELOPMENT_TEAM = GKXPLMKRLP;
+
+				DEVELOPMENT_TEAM = 9UMCCFSYB9;
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
@@ -1160,7 +1205,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvpsfsd";
+
+				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp.test";
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1178,7 +1225,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.08;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
-				DEVELOPMENT_TEAM = GKXPLMKRLP;
+
+				DEVELOPMENT_TEAM = 9UMCCFSYB9;
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
@@ -1195,7 +1244,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvpsfsd";
+
+				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp.test";
+
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

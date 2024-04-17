@@ -34,18 +34,15 @@ struct ProfileView: View {
                                 .fontWeight(.semibold)
                                 .foregroundColor(.white)
                                 .frame(width: 72, height: 72)
-                                .background(Color.init(hex: user.color))
+                                .background(Color.blue)
                             //.background(Color(.systemGray3))
                                 .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                             
                             VStack (alignment: .leading, spacing: 4) {
-                                Text(user.fullname)
+                                Text(user.username)
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
                                     .padding(.top, 4)
-                                Text(user.location)
-                                    .font(.footnote)
-                                    .foregroundColor(.black)
                                 
                                 Text(user.email)
                                     .font(.footnote)
@@ -75,7 +72,9 @@ struct ProfileView: View {
                         }
                         
                         Button {
-                            viewModel.deleteAccount()
+                            Task {
+                               try await viewModel.deleteAccount()
+                            }
                         } label: {
                             SettingsRowView(imageName: "xmark.circle.fill", title: "Delete Account", tintColor: .red)
                         }

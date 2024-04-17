@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseCore
 import GoogleSignIn
+import HealthKit
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -33,8 +34,29 @@ struct peakmind_mvpApp: App {
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var viewModel = AuthViewModel()
+
     @StateObject var journalDataManager = JournalDataManager() // Instantiate JournalDataManager
 
+    private let healthStore: HKHealthStore
+    
+    init() {
+        guard HKHealthStore.isHealthDataAvailable() else {  fatalError("This app requires a device that supports HealthKit") }
+        healthStore = HKHealthStore()
+        requestHealthkitPermissions()
+    }
+    
+    private func requestHealthkitPermissions() {
+        
+        let sampleTypesToRead = Set([
+            HKObjectType.quantityType(forIdentifier: .heartRate)!,
+            HKObjectType.quantityType(forIdentifier: .stepCount)!,
+            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
+        ])
+        
+        healthStore.requestAuthorization(toShare: nil, read: sampleTypesToRead) { (success, error) in
+            print("Request Authorization -- Success: ", success, " Error: ", error ?? "nil")
+        }
+    }
     
     
   var body: some Scene {
@@ -43,8 +65,10 @@ struct peakmind_mvpApp: App {
           ContentView()
               .environmentObject(viewModel)
               .environmentObject(journalDataManager) // Provide JournalDataManager
+              .environmentObject(healthStore)
 
       }
     }
   }
 }
+extension HKHealthStore: ObservableObject{}

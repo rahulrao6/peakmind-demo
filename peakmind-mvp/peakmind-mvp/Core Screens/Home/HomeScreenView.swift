@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct HomeScreenView: View {
     @EnvironmentObject var viewModel: AuthViewModel
 
@@ -40,14 +41,14 @@ struct HomeScreenView: View {
                         Button(action: {
                             navigateToInventoryScreen = true
                         }) {
-                            if let currentBalance = viewModel.currentUser?.currencyBalance {
-                                Text(currencyFormatter.string(from: NSNumber(value: currentBalance)) ?? "")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding(8)
-                                    .background(Color.darkBlue)
-                                    .cornerRadius(8)
-                            }
+//                            if let currentBalance = viewModel.currentUser?.currencyBalance {
+//                                Text(currencyFormatter.string(from: NSNumber(value: currentBalance)) ?? "")
+//                                    .font(.headline)
+//                                    .foregroundColor(.white)
+//                                    .padding(8)
+//                                    .background(Color.darkBlue)
+//                                    .cornerRadius(8)
+//                            }
                         }
        
                         .sheet(isPresented: $navigateToInventoryScreen) {

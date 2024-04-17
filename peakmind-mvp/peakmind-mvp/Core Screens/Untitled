@@ -1,0 +1,1161 @@
+diff --git a/.DS_Store b/.DS_Store
+index b168b6c..00935ae 100644
+Binary files a/.DS_Store and b/.DS_Store differ
+diff --git a/peakmind-mvp/.DS_Store b/peakmind-mvp/.DS_Store
+index c64ae78..033d77b 100644
+Binary files a/peakmind-mvp/.DS_Store and b/peakmind-mvp/.DS_Store differ
+diff --git a/peakmind-mvp/peakmind-mvp.xcodeproj/project.pbxproj b/peakmind-mvp/peakmind-mvp.xcodeproj/project.pbxproj
+index e28bc88..05a6df9 100644
+--- a/peakmind-mvp/peakmind-mvp.xcodeproj/project.pbxproj
++++ b/peakmind-mvp/peakmind-mvp.xcodeproj/project.pbxproj
+@@ -20,6 +20,8 @@
+ 		1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB92BA96B5300628B79 /* StoreView.swift */; };
+ 		1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */; };
+ 		1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */; };
++		1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7F93EA2BC3B291000754E2 /* PacMan.swift */; };
++		1C8DF97A2BC5B55F0016BFA8 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8DF9792BC5B55F0016BFA8 /* RegisterView.swift */; };
+ 		1C9C63BC2B8131CB0066AF70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */; };
+ 		1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C52B8133360066AF70 /* LoginView.swift */; };
+ 		1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C72B81359A0066AF70 /* InputView.swift */; };
+@@ -28,6 +30,9 @@
+ 		1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63CD2B81428B0066AF70 /* SettingsRowView.swift */; };
+ 		1C9C63D02B8144C20066AF70 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63CF2B8144C20066AF70 /* User.swift */; };
+ 		1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */; };
++		1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA2562BCDB6EB003C844C /* UserData.swift */; };
++		1C9FA2592BCDBD0A003C844C /* AuthViewModel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA2582BCDBD0A003C844C /* AuthViewModel2.swift */; };
++		1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */; };
+ 		1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */; };
+ 		1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1F5C82B89706900AC9B77 /* ChatView.swift */; };
+ 		1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */; };
+@@ -145,6 +150,8 @@
+ 		1C6C0BB92BA96B5300628B79 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
+ 		1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
+ 		1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHabits.swift; sourceTree = "<group>"; };
++		1C7F93EA2BC3B291000754E2 /* PacMan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacMan.swift; sourceTree = "<group>"; };
++		1C8DF9792BC5B55F0016BFA8 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+ 		1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+ 		1C9C63C52B8133360066AF70 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+ 		1C9C63C72B81359A0066AF70 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+@@ -153,6 +160,10 @@
+ 		1C9C63CD2B81428B0066AF70 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
+ 		1C9C63CF2B8144C20066AF70 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+ 		1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
++		1C9FA2562BCDB6EB003C844C /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
++		1C9FA2582BCDBD0A003C844C /* AuthViewModel2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel2.swift; sourceTree = "<group>"; };
++		1C9FA25A2BCE1992003C844C /* peakmind-mvp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "peakmind-mvp.entitlements"; sourceTree = "<group>"; };
++		1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+ 		1CB9EC7D2B9BF95C00F8970D /* PlayScreen2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayScreen2.swift; sourceTree = "<group>"; };
+ 		1CC1F5C82B89706900AC9B77 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+ 		1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsFlavorView.swift; sourceTree = "<group>"; };
+@@ -312,6 +323,7 @@
+ 				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
+ 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
+ 				79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */,
++				1C7F93EA2BC3B291000754E2 /* PacMan.swift */,
+ 			);
+ 			path = Components;
+ 			sourceTree = "<group>";
+@@ -319,6 +331,7 @@
+ 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
+ 			isa = PBXGroup;
+ 			children = (
++				1C9FA25B2BCE1B11003C844C /* HealthKit */,
+ 				E5511F4D2B92AD6600FCC38D /* Journal */,
+ 				793B79AB2BAF87F1001062DB /* Personalized Plan */,
+ 				793B79A42BAF7FB1001062DB /* Avatar */,
+@@ -336,6 +349,7 @@
+ 			isa = PBXGroup;
+ 			children = (
+ 				1C9C63CF2B8144C20066AF70 /* User.swift */,
++				1C9FA2562BCDB6EB003C844C /* UserData.swift */,
+ 				79BFB5292B8EABBB00634262 /* Question.swift */,
+ 				79BFB52B2B8EABC500634262 /* Info.swift */,
+ 			);
+@@ -373,6 +387,7 @@
+ 				1C9C63C52B8133360066AF70 /* LoginView.swift */,
+ 				1CF4A8952B82EE9900051684 /* ResetPasswordView.swift */,
+ 				1C9C63C92B813BF70066AF70 /* RegistrationView.swift */,
++				1C8DF9792BC5B55F0016BFA8 /* RegisterView.swift */,
+ 			);
+ 			path = View;
+ 			sourceTree = "<group>";
+@@ -381,10 +396,19 @@
+ 			isa = PBXGroup;
+ 			children = (
+ 				1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */,
++				1C9FA2582BCDBD0A003C844C /* AuthViewModel2.swift */,
+ 			);
+ 			path = ViewModel;
+ 			sourceTree = "<group>";
+ 		};
++		1C9FA25B2BCE1B11003C844C /* HealthKit */ = {
++			isa = PBXGroup;
++			children = (
++				1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */,
++			);
++			path = HealthKit;
++			sourceTree = "<group>";
++		};
+ 		1CC1F5C62B89705200AC9B77 /* Chat */ = {
+ 			isa = PBXGroup;
+ 			children = (
+@@ -434,6 +458,7 @@
+ 		1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */ = {
+ 			isa = PBXGroup;
+ 			children = (
++				1C9FA25A2BCE1992003C844C /* peakmind-mvp.entitlements */,
+ 				1CF4A89C2B8309F100051684 /* Info.plist */,
+ 				1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */,
+ 				1C9C63C12B8132840066AF70 /* Model */,
+@@ -836,11 +861,13 @@
+ 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
+ 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
+ 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
++				1C8DF97A2BC5B55F0016BFA8 /* RegisterView.swift in Sources */,
+ 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
+ 				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
+ 				1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */,
+ 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
+ 				E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */,
++				1C9FA2592BCDBD0A003C844C /* AuthViewModel2.swift in Sources */,
+ 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
+ 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
+ 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
+@@ -854,6 +881,7 @@
+ 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
+ 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
+ 				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
++				1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */,
+ 				791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */,
+ 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
+ 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
+@@ -865,8 +893,10 @@
+ 				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
+ 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
+ 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
++				1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */,
+ 				793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */,
+ 				79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */,
++				1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */,
+ 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
+ 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
+ 				798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */,
+@@ -1033,15 +1063,17 @@
+ 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 2";
+ 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+ 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
++				CODE_SIGN_ENTITLEMENTS = "peakmind-mvp/peakmind-mvp.entitlements";
+ 				CODE_SIGN_STYLE = Automatic;
+ 				CURRENT_PROJECT_VERSION = 1.3.08;
+ 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
+-				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
++				DEVELOPMENT_TEAM = GKXPLMKRLP;
+ 				ENABLE_PREVIEWS = YES;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
+ 				INFOPLIST_KEY_CFBundleDisplayName = PeakMind;
+ 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
++				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please share your AppleHealthKit data with us so we can give you the best possible ideas. ";
+ 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+ 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+ 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+@@ -1052,7 +1084,7 @@
+ 					"@executable_path/Frameworks",
+ 				);
+ 				MARKETING_VERSION = 1.0;
+-				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp";
++				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvpsfsd";
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SWIFT_EMIT_LOC_STRINGS = YES;
+ 				SWIFT_VERSION = 5.0;
+@@ -1066,15 +1098,17 @@
+ 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 2";
+ 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+ 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
++				CODE_SIGN_ENTITLEMENTS = "peakmind-mvp/peakmind-mvp.entitlements";
+ 				CODE_SIGN_STYLE = Automatic;
+ 				CURRENT_PROJECT_VERSION = 1.3.08;
+ 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
+-				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
++				DEVELOPMENT_TEAM = GKXPLMKRLP;
+ 				ENABLE_PREVIEWS = YES;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
+ 				INFOPLIST_KEY_CFBundleDisplayName = PeakMind;
+ 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
++				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please share your AppleHealthKit data with us so we can give you the best possible ideas. ";
+ 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+ 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+ 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+@@ -1085,7 +1119,7 @@
+ 					"@executable_path/Frameworks",
+ 				);
+ 				MARKETING_VERSION = 1.0;
+-				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp";
++				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvpsfsd";
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SWIFT_EMIT_LOC_STRINGS = YES;
+ 				SWIFT_VERSION = 5.0;
+diff --git a/peakmind-mvp/peakmind-mvp.xcodeproj/project.xcworkspace/xcuserdata/rajdjagirdar.xcuserdatad/UserInterfaceState.xcuserstate b/peakmind-mvp/peakmind-mvp.xcodeproj/project.xcworkspace/xcuserdata/rajdjagirdar.xcuserdatad/UserInterfaceState.xcuserstate
+index b351fdf..01053d2 100644
+Binary files a/peakmind-mvp/peakmind-mvp.xcodeproj/project.xcworkspace/xcuserdata/rajdjagirdar.xcuserdatad/UserInterfaceState.xcuserstate and b/peakmind-mvp/peakmind-mvp.xcodeproj/project.xcworkspace/xcuserdata/rajdjagirdar.xcuserdatad/UserInterfaceState.xcuserstate differ
+diff --git a/peakmind-mvp/peakmind-mvp/.DS_Store b/peakmind-mvp/peakmind-mvp/.DS_Store
+index 323bf93..27f2701 100644
+Binary files a/peakmind-mvp/peakmind-mvp/.DS_Store and b/peakmind-mvp/peakmind-mvp/.DS_Store differ
+diff --git a/peakmind-mvp/peakmind-mvp/Components/PacMan.swift b/peakmind-mvp/peakmind-mvp/Components/PacMan.swift
+new file mode 100644
+index 0000000..4ca271a
+--- /dev/null
++++ b/peakmind-mvp/peakmind-mvp/Components/PacMan.swift
+@@ -0,0 +1,294 @@
++import SwiftUI
++import Foundation
++
++
++// Represents a position on the grid
++struct GridPosition: Hashable {
++    let row: Int
++    let column: Int
++}
++
++// Defines possible movement directions
++enum Direction {
++    case up, down, left, right, none
++}
++
++struct Maze {
++    static let easy: [[Int]] = [
++        [1, 1, 1, 1, 1],
++        [1, 0, 0, 0, 1],
++        [1, 0, 1, 0, 1],
++        [1, 0, 0, 0, 1],
++        [1, 1, 1, 1, 1]
++    ]
++    
++    static let medium: [[Int]] = [
++        [1, 1, 1, 1, 1, 1],
++        [1, 0, 0, 1, 0, 1],
++        [1, 0, 1, 0, 0, 1],
++        [1, 0, 0, 0, 1, 1],
++        [1, 1, 1, 1, 1, 1]
++    ]
++    
++    static let hard: [[Int]] = [
++        [1, 1, 1, 1, 1, 1, 1],
++        [1, 0, 0, 1, 0, 0, 1],
++        [1, 0, 1, 1, 1, 0, 1],
++        [1, 0, 1, 0, 1, 0, 1],
++        [1, 0, 0, 0, 0, 0, 1],
++        [1, 1, 1, 1, 1, 1, 1]
++    ]
++}
++
++enum Difficulty {
++    case easy, medium, hard
++}
++
++// The main game model managing the state
++class GameModel: ObservableObject {
++    @Published var pacManPosition = GridPosition(row: 1, column: 1)
++    @Published var dots: Set<GridPosition> = []
++    @Published var ghosts: [GridPosition] = []
++    @Published var isGameOver = false
++    var pacManDirection: Direction = .none
++    var rowCount: Int { maze.count }
++    var columnCount: Int { maze.first?.count ?? 0 }
++    var maze: [[Int]] = []
++    
++    init(difficulty: Difficulty = .hard) {
++        switch difficulty {
++        case .easy:
++            maze = Maze.easy
++        case .medium:
++            maze = Maze.medium
++        case .hard:
++            maze = Maze.hard
++        }
++        populateGridWithDots()
++        restartGame()
++        startMovement()
++    }
++
++    private var movementTimer: Timer?
++    
++    func populateGridWithDots() {
++        dots.removeAll()
++        for row in 0..<rowCount {
++            for column in 0..<columnCount {
++                if maze[row][column] == 0 {
++                    dots.insert(GridPosition(row: row, column: column))
++                }
++            }
++        }
++    }
++
++    func movePacMan() {
++        let newPosition = getNextPosition(for: pacManPosition, direction: pacManDirection)
++        if canMove(to: newPosition) {
++            DispatchQueue.main.async {
++                self.pacManPosition = newPosition
++                self.dots.remove(newPosition)
++            }
++        }
++    }
++
++    func moveGhosts() {
++        for index in ghosts.indices {
++            let directionOptions: [Direction] = [.up, .down, .left, .right]
++            let randomDirection = directionOptions.randomElement() ?? .none
++            let newPosition = getNextPosition(for: ghosts[index], direction: randomDirection)
++            if canMove(to: newPosition) {
++                DispatchQueue.main.async {
++                    self.ghosts[index] = newPosition
++                }
++            }
++        }
++    }
++
++    func getNextPosition(for position: GridPosition, direction: Direction) -> GridPosition {
++        switch direction {
++        case .up: return GridPosition(row: max(position.row - 1, 0), column: position.column)
++        case .down: return GridPosition(row: min(position.row + 1, rowCount - 1), column: position.column)
++        case .left: return GridPosition(row: position.row, column: max(position.column - 1, 0))
++        case .right: return GridPosition(row: position.row, column: min(position.column + 1, columnCount - 1))
++        case .none: return position
++        }
++    }
++
++    func canMove(to position: GridPosition) -> Bool {
++        guard position.row >= 0, position.row < rowCount, position.column >= 0, position.column < columnCount else {
++            return false
++        }
++        return maze[position.row][position.column] == 0
++    }
++
++    func startMovement() {
++        movementTimer?.invalidate()
++        movementTimer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
++            self?.movePacMan()
++            self?.moveGhosts()
++            self?.checkForCollisions()
++        }
++    }
++
++    func changePacManDirection(to newDirection: Direction) {
++        pacManDirection = newDirection
++    }
++
++    func checkForCollisions() {
++        if ghosts.contains(pacManPosition) {
++            DispatchQueue.main.async {
++                self.isGameOver = true
++                self.movementTimer?.invalidate()
++            }
++        }
++    }
++
++    func restartGame() {
++        isGameOver = false
++        pacManPosition = GridPosition(row: 1, column: 1)
++        pacManDirection = .none
++        ghosts = [
++            GridPosition(row: 2, column: 2),
++            GridPosition(row: 12, column: 8)
++        ]
++        populateGridWithDots()
++        startMovement()
++    }
++}
++
++
++struct PacManGameView: View {
++    @EnvironmentObject var gameModel: GameModel
++
++    var body: some View {
++        GeometryReader { geometry in
++            VStack {
++                ZStack {
++                    Color.black.edgesIgnoringSafeArea(.all)
++                    
++                    VStack(spacing: 0) {
++                        ForEach(0..<gameModel.rowCount, id: \.self) { row in
++                            HStack(spacing: 0) {
++                                ForEach(0..<gameModel.columnCount, id: \.self) { column in
++                                    CellView(position: GridPosition(row: row, column: column))
++                                        .environmentObject(gameModel)
++                                }
++                            }
++                        }
++                    }
++                    .frame(width: geometry.size.width, height: geometry.size.width * (CGFloat(gameModel.rowCount) / CGFloat(gameModel.columnCount)))
++                    .padding(.bottom, geometry.size.height - geometry.size.width * (CGFloat(gameModel.rowCount) / CGFloat(gameModel.columnCount)))
++                    
++                    if gameModel.isGameOver {
++                        GameOverView()
++                            .environmentObject(gameModel)
++                    }
++
++                    
++                    if !gameModel.isGameOver {
++                        ControlsView(gameModel: gameModel)
++                            .padding()
++                            .position(x: geometry.size.width / 2, y: geometry.size.height - 50) // Positioning controls at the bottom
++                    }
++                }
++            }
++        }
++        .gesture(DragGesture().onEnded(handleSwipe))
++        // Your existing swipe handling remains the same...
++    }
++    
++        private func handleSwipe(_ drag: DragGesture.Value) {
++            let horizontal = abs(drag.translation.width)
++            let vertical = abs(drag.translation.height)
++    
++            if horizontal > vertical {
++                gameModel.changePacManDirection(to: drag.translation.width < 0 ? .left : .right)
++            } else {
++                gameModel.changePacManDirection(to: drag.translation.height < 0 ? .up : .down)
++            }
++        }
++}
++
++struct CellView: View {
++    @EnvironmentObject var gameModel: GameModel
++    var position: GridPosition
++
++    var body: some View {
++        GeometryReader { geometry in
++            ZStack {
++                if gameModel.maze[position.row][position.column] == 1 {
++                    Color.gray
++                } else {
++                    Color.black // Background for paths
++                    if gameModel.pacManPosition == position {
++                        Circle().fill(Color.yellow)
++                    } else if gameModel.ghosts.contains(position) {
++                        Circle().fill(Color.red)
++                    } else if gameModel.dots.contains(position) {
++                        Circle().fill(Color.white)
++                            .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 0.3) // Adjust size to center dot
++                            .position(x: geometry.size.width / 2, y: geometry.size.height / 2) // Center the dot
++                    }
++                }
++            }
++        }
++        .aspectRatio(1, contentMode: .fit)
++    }
++}
++
++
++struct ControlsView: View {
++    @ObservedObject var gameModel: GameModel
++
++    var body: some View {
++        HStack {
++            ForEach([Direction.left, .up, .down, .right], id: \.self) { direction in
++                Button(action: {
++                    self.gameModel.changePacManDirection(to: direction)
++                }) {
++                    Image(systemName: iconName(for: direction))
++                        .foregroundColor(.white)
++                        .font(.largeTitle)
++                        .padding()
++                        .background(Circle().fill(Color.blue))
++                }
++            }
++        }
++    }
++
++    private func iconName(for direction: Direction) -> String {
++        switch direction {
++        case .up: return "arrow.up"
++        case .down: return "arrow.down"
++        case .left: return "arrow.left"
++        case .right: return "arrow.right"
++        default: return ""
++        }
++    }
++}
++
++
++struct GameOverView: View {
++    @EnvironmentObject var gameModel: GameModel
++
++    var body: some View {
++        VStack {
++            Text("Game Over").font(.largeTitle).foregroundColor(.white)
++            Button("Restart") {
++                gameModel.restartGame()
++            }
++            .padding().background(Color.green).foregroundColor(.white).clipShape(RoundedRectangle(cornerRadius: 10))
++        }
++        .frame(maxWidth: .infinity, maxHeight: .infinity)
++        .background(Color.black.opacity(0.8))
++    }
++}
++
++
++
++struct PacManGameView_Previews: PreviewProvider {
++    static var previews: some View {
++        PacManGameView().environmentObject(GameModel())
++    }
++}
+diff --git a/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/View/RegisterView.swift b/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/View/RegisterView.swift
+new file mode 100644
+index 0000000..b088793
+--- /dev/null
++++ b/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/View/RegisterView.swift	
+@@ -0,0 +1,66 @@
++//import SwiftUI
++//
++//struct Registration2View: View {
++//    @State private var email = ""
++//    @State private var username = ""
++//    @State private var password = ""
++//    @State private var confirm_password = ""
++//    @EnvironmentObject var viewModel: AuthViewModel
++//    
++//    var body: some View {
++//        VStack {
++//            Text("Sign Up For PeakMind")
++//                .font(.title)
++//                .bold()
++//                .padding()
++//            
++//            ScrollView {
++//                VStack(spacing: 24) {
++//                    TextField("Email Address", text: $email)
++//                        .autocapitalization(.none)
++//                    
++//                    TextField("Username", text: $username)
++//                    
++//                    SecureField("Password", text: $password)
++//                    
++//                    SecureField("Confirm Password", text: $confirm_password)
++//                }
++//                .padding(.horizontal)
++//                .padding(.top, 12)
++//            }
++//            
++//            Button {
++//                Task {
++//                    try await viewModel.createUser(withEmail: email, password: password, username: username, selectedAvatar: "", selectedBackground: "", hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, LevelOneCompleted: false, LevelTwoCompleted: false)
++//                } label: {
++//                    Text("Register")
++//                        .fontWeight(.semibold)
++//                        .foregroundColor(.white)
++//                        .frame(width: UIScreen.main.bounds.width - 32, height: 48)
++//                        .background(formIsValid ? Color.blue : Color.gray)
++//                        .cornerRadius(10)
++//                        .padding(.top, 24)
++//                }
++//                .disabled(!formIsValid)
++//            }
++//                Spacer()
++//                
++//                Button {
++//                    // Navigation logic to sign in view
++//                } label: {
++//                    Text("Already have an account? Sign In")
++//                        .fontWeight(.bold)
++//                }
++//                .font(.system(size: 16))
++//            
++//                
++//            
++//        }
++//    }
++//}
++//
++//extension Registration2View: AuthenticationFormProtocol {
++//    var formIsValid: Bool {
++//        !email.isEmpty && email.contains("@") && !password.isEmpty && password.count >= 6 && password == confirm_password && !username.isEmpty
++//    }
++//}
+diff --git a/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/View/RegistrationView.swift b/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/View/RegistrationView.swift
+index 128fed0..9aa2cea 100644
+--- a/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/View/RegistrationView.swift	
++++ b/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/View/RegistrationView.swift	
+@@ -65,10 +65,10 @@ struct RegistrationView: View {
+                     
+                     InputView(text: $username, title: "Username", placeholder: "Enter your username", isSecureField: false)
+                     
+-                    InputView(text: $full_name, title: "Full Name", placeholder: "Enter your name", isSecureField: false)
+-                    
+-                    InputView(text: $location, title: "City", placeholder: "Enter your city", isSecureField: false)
+-                    
++//                    InputView(text: $full_name, title: "Full Name", placeholder: "Enter your name", isSecureField: false)
++//                    
++//                    InputView(text: $location, title: "City", placeholder: "Enter your city", isSecureField: false)
++//                    
+ 
+ //                    ColorPicker("Choose a background color:", selection: $color_raw)
+ //                        .foregroundColor(Color(.black))
+@@ -114,7 +114,7 @@ struct RegistrationView: View {
+                     print("Sign User Up")
+                     //showAvatarSelection = true;
+                     Task {
+-                        try await viewModel.createUser(withEmail: email, password: password, fullname: full_name, location: location, color: color_hex, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, LevelOneCompleted: LevelOneCompleted)
++                        try await viewModel.createUser(withEmail: email, password: password, username: username, selectedAvatar: "", selectedBackground: "", hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, LevelOneCompleted: false, LevelTwoCompleted: false)
+                     }
+                     
+                 } label: {
+diff --git a/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/ViewModel/AuthViewModel.swift b/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/ViewModel/AuthViewModel.swift
+index e40a036..1fcbbde 100644
+--- a/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/ViewModel/AuthViewModel.swift	
++++ b/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/ViewModel/AuthViewModel.swift	
+@@ -22,7 +22,7 @@ protocol AuthenticationFormProtocol {
+ class AuthViewModel : ObservableObject {
+     
+     @Published var userSession: FirebaseAuth.User?
+-    @Published var currentUser : User?
++    @Published var currentUser : UserData?
+     //static let share = GoogleAuthenticationStruct()
+ 
+     
+@@ -48,11 +48,11 @@ class AuthViewModel : ObservableObject {
+     }
+     
+     
+-    func createUser(withEmail email: String, password: String, fullname: String, location: String, color: String, firstPeak: String, username: String, selectedAvatar: String, selectedBackground: String, hasCompletedInitialQuiz: Bool, hasSetInitialAvatar: Bool, LevelOneCompleted: Bool) async throws {
++    func createUser(withEmail email: String, password: String, username: String, selectedAvatar: String, selectedBackground: String, hasCompletedInitialQuiz: Bool, hasSetInitialAvatar: Bool, LevelOneCompleted: Bool, LevelTwoCompleted: Bool) async throws {
+         do {
+             let result = try await Auth.auth().createUser(withEmail: email, password: password)
+             self.userSession = result.user
+-            let user = User(id: result.user.uid, fullname: fullname, email: email, location: location, color: color, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, currencyBalance: 0.0, inventory: [], LevelOneCompleted: LevelOneCompleted)
++            let user = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, inventory: [], LevelOneCompleted: LevelOneCompleted, LevelTwoCompleted: LevelTwoCompleted)
+             let encodedUser = try Firestore.Encoder().encode(user)
+             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
+             await fetchUser()
+@@ -63,6 +63,19 @@ class AuthViewModel : ObservableObject {
+         }
+     }
+     
++//    func createUser2(withEmail email: String, password: String, username: String, avatar: String, background: String) async {
++//        do {
++//            let result = try await Auth.auth().createUser(withEmail: email, password: password)
++//            self.userSession = result.user
++//            let newUser = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: avatar, selectedBackground: background, hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, inventory: [], LevelOneCompleted: false, LevelTwoCompleted: false)
++//            let encodedUser = try Firestore.Encoder().encode(newUser)
++//            try await Firestore.firestore().collection("users").document(newUser.id).setData(encodedUser)
++//            self.currentUser = newUser
++//        } catch {
++//            print("Debug failed to create user \(error.localizedDescription)")
++//        }
++//    }
++    
+     func signOut() {
+         
+         do {
+@@ -75,35 +88,34 @@ class AuthViewModel : ObservableObject {
+         
+     }
+     
+-    func deleteAccount() {
+-        let user = Auth.auth().currentUser
+-
+-        user?.delete { error in
+-            if let error = error {
+-                print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
+-                return
+-            }
++    func deleteAccount() async {
++        guard let user = Auth.auth().currentUser else {
++            print("DEBUG: No user is currently signed in.")
++            return
++        }
++        
++        do {
++            // Delete user data from Firestore first
++            let userId = user.uid
++            try await Firestore.firestore().collection("users").document(userId).delete()
++            
++            // Proceed with deleting the user account
++            try await user.delete()
+             
+-            // User deletion successful, now delete document from Firestore
+-            if let userId = self.currentUser?.id {
+-                Firestore.firestore().collection("users").document(userId).delete { error in
+-                    if let error = error {
+-                        print("Error removing document: \(error)")
+-                        return
+-                    }
+-                    print("Document successfully removed!")
+-                    
+-                    // Reset user session and current user
+-                    self.userSession = nil
+-                    self.currentUser = nil
+-                }
+-            } else {
+-                print("Error: User ID is nil")
++            // Clear any related user data in the app
++            DispatchQueue.main.async { [weak self] in
++                self?.userSession = nil
++                self?.currentUser = nil
+             }
++            
++            print("User account and data successfully deleted.")
++        } catch let error {
++            print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
+         }
+     }
+ 
+ 
++
+     
+     func resetPassword(email : String) {
+         Auth.auth().sendPasswordReset(withEmail: email) { error in
+@@ -118,7 +130,7 @@ class AuthViewModel : ObservableObject {
+         
+         guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
+     
+-        self.currentUser = try? snapshot.data(as: User.self)
++        self.currentUser = try? snapshot.data(as: UserData.self)
+         
+         print("Debug current user is \(String(describing: self.currentUser))")
+         
+@@ -206,7 +218,7 @@ class AuthViewModel : ObservableObject {
+               Task{
+                   guard let snapshot = try? await Firestore.firestore().collection("users").document(firebaseUser.uid).getDocument() else {return}
+                   
+-                  self.currentUser = try? snapshot.data(as: User.self)
++                  self.currentUser = try? snapshot.data(as: UserData.self)
+                   
+                   print("Debug current user is \(String(describing: self.currentUser))")
+               }
+diff --git a/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/ViewModel/AuthViewModel2.swift b/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/ViewModel/AuthViewModel2.swift
+new file mode 100644
+index 0000000..66e5b4a
+--- /dev/null
++++ b/peakmind-mvp/peakmind-mvp/Core Screens/Authentication/ViewModel/AuthViewModel2.swift	
+@@ -0,0 +1,136 @@
++////
++////  AuthViewModel2.swift
++////  peakmind-mvp
++////
++////  Created by Raj Jagirdar on 4/15/24.
++////
++//
++//import Foundation
++//import Foundation
++//import Firebase
++//import FirebaseAuth
++//import FirebaseFirestoreSwift
++//import GoogleSignIn
++//
++//@MainActor
++//class AuthViewModel2: ObservableObject {
++//    @Published var userSession: FirebaseAuth.User?
++//    @Published var currentUser: UserData?  // Use UserData model for consistency
++//
++//    init() {
++//        self.userSession = Auth.auth().currentUser
++//        if userSession != nil {
++//            Task { await fetchUser() }
++//        }
++//    }
++//    
++//    func signIn(withEmail email: String, password: String) async {
++//        do {
++//            let result = try await Auth.auth().signIn(withEmail: email, password: password)
++//            self.userSession = result.user
++//            await fetchUser()
++//        } catch {
++//            print("Debug: failed to log in with error \(error.localizedDescription)")
++//            // Implement better error handling or user feedback mechanism
++//        }
++//    }
++//    
++//    func createUser(withEmail email: String, password: String, fullname: String, username: String, avatar: String, background: String) async {
++//        do {
++//            let result = try await Auth.auth().createUser(withEmail: email, password: password)
++//            self.userSession = result.user
++//            let newUser = UserData(id: result.user.uid, fullname: fullname, email: email, username: username, selectedAvatar: avatar, selectedBackground: background, hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, inventory: [], LevelOneCompleted: false, LevelTwoCompleted: false)
++//            let encodedUser = try Firestore.Encoder().encode(newUser)
++//            try await Firestore.firestore().collection("users").document(newUser.id).setData(encodedUser)
++//            self.currentUser = newUser
++//        } catch {
++//            print("Debug failed to create user \(error.localizedDescription)")
++//        }
++//    }
++//    
++//    func signOut() {
++//        do {
++//            try Auth.auth().signOut()
++//            self.userSession = nil
++//            self.currentUser = nil
++//        } catch {
++//            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
++//        }
++//    }
++//    
++//    func fetchUser() async {
++//        guard let uid = userSession?.uid else { return }
++//        do {
++//            let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
++//            self.currentUser = try snapshot.data(as: UserData.self)
++//        } catch {
++//            print("Failed to fetch user data: \(error)")
++//        }
++//    }
++//    
++//    func deleteAccount() async {
++//        guard let currentUser = self.currentUser else { return }
++//        do {
++//            try await Auth.auth().currentUser?.delete()
++//            try await Firestore.firestore().collection("users").document(currentUser.id).delete()
++//            self.userSession = nil
++//            self.currentUser = nil
++//        } catch {
++//            print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
++//        }
++//    }
++//
++//    func resetPassword(email: String) {
++//        Auth.auth().sendPasswordReset(withEmail: email) { error in
++//            if let error = error {
++//                print("Error resetting password: \(error.localizedDescription)")
++//            }
++//        }
++//    }
++//
++//    func signinWithGoogle() async -> Bool  {
++//        guard let clientID = FirebaseApp.app()?.options.clientID else {
++//          fatalError("No client ID found in Firebase configuration")
++//        }
++//        let config = GIDConfiguration(clientID: clientID)
++//        GIDSignIn.sharedInstance.configuration = config
++//
++//        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
++//              let window = windowScene.windows.first,
++//              let rootViewController = window.rootViewController else {
++//          print("There is no root view controller!")
++//          return false
++//        }
++//
++//          do {
++//            let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
++//
++//            let user = userAuthentication.user
++//              guard let idToken = user.idToken else { throw fatalError("ID token missing") }
++//            let accessToken = user.accessToken
++//
++//            let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
++//                                                           accessToken: accessToken.tokenString)
++//
++//            let result = try await Auth.auth().signIn(with: credential)
++//            let firebaseUser = result.user
++//            print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
++//              self.userSession = result.user
++//              
++//              Task{
++//                  guard let snapshot = try? await Firestore.firestore().collection("users").document(firebaseUser.uid).getDocument() else {return}
++//                  
++//                  self.currentUser = try? snapshot.data(as: User.self)
++//                  
++//                  print("Debug current user is \(String(describing: self.currentUser))")
++//              }
++//            return true
++//          }
++//          catch {
++//            print(error.localizedDescription)
++//            return false
++//          }
++//
++//
++//    }
++//}
+diff --git a/peakmind-mvp/peakmind-mvp/Core Screens/HealthKit/HealthKitManager.swift b/peakmind-mvp/peakmind-mvp/Core Screens/HealthKit/HealthKitManager.swift
+new file mode 100644
+index 0000000..8b13789
+--- /dev/null
++++ b/peakmind-mvp/peakmind-mvp/Core Screens/HealthKit/HealthKitManager.swift	
+@@ -0,0 +1 @@
++
+diff --git a/peakmind-mvp/peakmind-mvp/Core Screens/Home/HomeScreenView.swift b/peakmind-mvp/peakmind-mvp/Core Screens/Home/HomeScreenView.swift
+index 9e61354..031930e 100644
+--- a/peakmind-mvp/peakmind-mvp/Core Screens/Home/HomeScreenView.swift	
++++ b/peakmind-mvp/peakmind-mvp/Core Screens/Home/HomeScreenView.swift	
+@@ -7,6 +7,7 @@
+ 
+ import SwiftUI
+ 
++
+ struct HomeScreenView: View {
+     @EnvironmentObject var viewModel: AuthViewModel
+ 
+@@ -40,14 +41,14 @@ struct HomeScreenView: View {
+                         Button(action: {
+                             navigateToInventoryScreen = true
+                         }) {
+-                            if let currentBalance = viewModel.currentUser?.currencyBalance {
+-                                Text(currencyFormatter.string(from: NSNumber(value: currentBalance)) ?? "")
+-                                    .font(.headline)
+-                                    .foregroundColor(.white)
+-                                    .padding(8)
+-                                    .background(Color.darkBlue)
+-                                    .cornerRadius(8)
+-                            }
++//                            if let currentBalance = viewModel.currentUser?.currencyBalance {
++//                                Text(currencyFormatter.string(from: NSNumber(value: currentBalance)) ?? "")
++//                                    .font(.headline)
++//                                    .foregroundColor(.white)
++//                                    .padding(8)
++//                                    .background(Color.darkBlue)
++//                                    .cornerRadius(8)
++//                            }
+                         }
+        
+                         .sheet(isPresented: $navigateToInventoryScreen) {
+diff --git a/peakmind-mvp/peakmind-mvp/Core Screens/Profile/ProfileView.swift b/peakmind-mvp/peakmind-mvp/Core Screens/Profile/ProfileView.swift
+index be476c8..be3f0c8 100644
+--- a/peakmind-mvp/peakmind-mvp/Core Screens/Profile/ProfileView.swift	
++++ b/peakmind-mvp/peakmind-mvp/Core Screens/Profile/ProfileView.swift	
+@@ -34,18 +34,15 @@ struct ProfileView: View {
+                                 .fontWeight(.semibold)
+                                 .foregroundColor(.white)
+                                 .frame(width: 72, height: 72)
+-                                .background(Color.init(hex: user.color))
++                                .background(Color.blue)
+                             //.background(Color(.systemGray3))
+                                 .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                             
+                             VStack (alignment: .leading, spacing: 4) {
+-                                Text(user.fullname)
++                                Text(user.username)
+                                     .font(.subheadline)
+                                     .fontWeight(.semibold)
+                                     .padding(.top, 4)
+-                                Text(user.location)
+-                                    .font(.footnote)
+-                                    .foregroundColor(.black)
+                                 
+                                 Text(user.email)
+                                     .font(.footnote)
+@@ -75,7 +72,9 @@ struct ProfileView: View {
+                         }
+                         
+                         Button {
+-                            viewModel.deleteAccount()
++                            Task {
++                               try await viewModel.deleteAccount()
++                            }
+                         } label: {
+                             SettingsRowView(imageName: "xmark.circle.fill", title: "Delete Account", tintColor: .red)
+                         }
+diff --git a/peakmind-mvp/peakmind-mvp/Core Screens/Root/ContentView.swift b/peakmind-mvp/peakmind-mvp/Core Screens/Root/ContentView.swift
+index 5cd0b8d..b945157 100644
+--- a/peakmind-mvp/peakmind-mvp/Core Screens/Root/ContentView.swift	
++++ b/peakmind-mvp/peakmind-mvp/Core Screens/Root/ContentView.swift	
+@@ -6,12 +6,17 @@
+ //
+ 
+ import SwiftUI
++import HealthKit
++import Firebase
++
++
+ 
+ struct ContentView: View {
+     @EnvironmentObject var viewModel: AuthViewModel
+     @State private var showingSplash = true // State to control splash screen visibility
+     @State private var navigateToStoreScreen = false // State to control splash screen visibility
+     @State private var navigateToInventoryScreen = false // State to control splash screen visibility
++    @EnvironmentObject var healthStore: HKHealthStore
+ 
+     
+     var body: some View {
+@@ -111,6 +116,7 @@ struct ContentView: View {
+         
+         
+         .onAppear {
++            readTotalStepCount()
+             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Adjust delay time as needed
+                 withAnimation {
+                     showingSplash = false // Hide splash screen after delay
+@@ -119,6 +125,71 @@ struct ContentView: View {
+         }
+ 
+     }
++    func readTotalStepCount() {
++        guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
++            fatalError("*** Unable to get the step count type ***")
++        }
++        
++        let endDate = Date()
++        let startDate = Calendar.current.date(byAdding: .day, value: -14, to: endDate)!
++        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
++
++        var interval = DateComponents()
++        interval.day = 1
++
++        let query = HKStatisticsCollectionQuery(quantityType: stepCountType,
++                                                quantitySamplePredicate: predicate,
++                                                options: [.cumulativeSum],
++                                                anchorDate: startDate,
++                                                intervalComponents: interval)
++        
++        query.initialResultsHandler = { query, results, error in
++            if let error = error {
++                print("Error fetching step counts: \(error.localizedDescription)")
++                return
++            }
++            guard let results = results else {
++                print("No results returned from HealthKit")
++                return
++            }
++            
++            var dayData = [String: Int]()
++            let formatter = DateFormatter()
++            formatter.dateFormat = "yyyy-MM-dd"
++            
++            results.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
++                let dateKey = formatter.string(from: statistics.startDate)
++                if let quantity = statistics.sumQuantity() {
++                    let steps = Int(quantity.doubleValue(for: HKUnit.count()))
++                    dayData[dateKey] = steps
++                }
++            }
++
++            self.saveStepsToFirestore(dayData: dayData)
++        }
++        
++        healthStore.execute(query)
++    }
++    
++    
++    private func saveStepsToFirestore(dayData: [String: Int]) {
++        guard let userID = Auth.auth().currentUser?.uid else {
++            print("User not logged in")
++            return
++        }
++        
++        let stepsDocument = Firestore.firestore().collection("steps").document(userID)
++        stepsDocument.setData(dayData, merge: true) { error in
++            if let error = error {
++                print("Error writing steps to Firestore: \(error)")
++            } else {
++                print("Successfully updated steps data for the last two weeks.")
++            }
++        }
++    }
++
++
++
+ }
+ 
+     
+diff --git a/peakmind-mvp/peakmind-mvp/Model/UserData.swift b/peakmind-mvp/peakmind-mvp/Model/UserData.swift
+new file mode 100644
+index 0000000..61d108d
+--- /dev/null
++++ b/peakmind-mvp/peakmind-mvp/Model/UserData.swift
+@@ -0,0 +1,33 @@
++//
++//  UserData.swift
++//  peakmind-mvp
++//
++//  Created by Raj Jagirdar on 4/15/24.
++//
++
++import Foundation
++
++
++struct UserData : Identifiable, Codable {
++    let id: String
++    let email: String
++    let username: String
++    let selectedAvatar: String
++    let selectedBackground: String
++    let hasCompletedInitialQuiz: Bool
++    let hasSetInitialAvatar: Bool
++    let inventory: Array<String>
++    let LevelOneCompleted: Bool
++    let LevelTwoCompleted: Bool
++    
++    
++    var initials: String {
++        let formatter = PersonNameComponentsFormatter()
++        if let components = formatter.personNameComponents(from: username) {
++            formatter.style = .abbreviated
++            return formatter.string(from: components)
++        }
++        return ""
++            
++    }
++}
+diff --git a/peakmind-mvp/peakmind-mvp/peakmind-mvp.entitlements b/peakmind-mvp/peakmind-mvp/peakmind-mvp.entitlements
+new file mode 100644
+index 0000000..e3ba5ff
+--- /dev/null
++++ b/peakmind-mvp/peakmind-mvp/peakmind-mvp.entitlements
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>com.apple.developer.healthkit</key>
++	<true/>
++	<key>com.apple.developer.healthkit.access</key>
++	<array>
++		<string>health-records</string>
++	</array>
++	<key>com.apple.developer.healthkit.background-delivery</key>
++	<true/>
++</dict>
++</plist>
+diff --git a/peakmind-mvp/peakmind-mvp/peakmind_mvpApp.swift b/peakmind-mvp/peakmind-mvp/peakmind_mvpApp.swift
+index 8cc654e..69a0ebb 100644
+--- a/peakmind-mvp/peakmind-mvp/peakmind_mvpApp.swift
++++ b/peakmind-mvp/peakmind-mvp/peakmind_mvpApp.swift
+@@ -8,6 +8,7 @@
+ import SwiftUI
+ import FirebaseCore
+ import GoogleSignIn
++import HealthKit
+ 
+ 
+ class AppDelegate: NSObject, UIApplicationDelegate {
+@@ -33,8 +34,29 @@ struct peakmind_mvpApp: App {
+   // register app delegate for Firebase setup
+   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+     @StateObject var viewModel = AuthViewModel()
++
+     @StateObject var journalDataManager = JournalDataManager() // Instantiate JournalDataManager
+ 
++    private let healthStore: HKHealthStore
++    
++    init() {
++        guard HKHealthStore.isHealthDataAvailable() else {  fatalError("This app requires a device that supports HealthKit") }
++        healthStore = HKHealthStore()
++        requestHealthkitPermissions()
++    }
++    
++    private func requestHealthkitPermissions() {
++        
++        let sampleTypesToRead = Set([
++            HKObjectType.quantityType(forIdentifier: .heartRate)!,
++            HKObjectType.quantityType(forIdentifier: .stepCount)!,
++            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
++        ])
++        
++        healthStore.requestAuthorization(toShare: nil, read: sampleTypesToRead) { (success, error) in
++            print("Request Authorization -- Success: ", success, " Error: ", error ?? "nil")
++        }
++    }
+     
+     
+   var body: some Scene {
+@@ -43,8 +65,10 @@ struct peakmind_mvpApp: App {
+           ContentView()
+               .environmentObject(viewModel)
+               .environmentObject(journalDataManager) // Provide JournalDataManager
++              .environmentObject(healthStore)
+ 
+       }
+     }
+   }
+ }
++extension HKHealthStore: ObservableObject{}

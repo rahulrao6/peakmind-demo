@@ -65,10 +65,10 @@ struct RegistrationView: View {
                     
                     InputView(text: $username, title: "Username", placeholder: "Enter your username", isSecureField: false)
                     
-                    InputView(text: $full_name, title: "Full Name", placeholder: "Enter your name", isSecureField: false)
-                    
-                    InputView(text: $location, title: "City", placeholder: "Enter your city", isSecureField: false)
-                    
+//                    InputView(text: $full_name, title: "Full Name", placeholder: "Enter your name", isSecureField: false)
+//                    
+//                    InputView(text: $location, title: "City", placeholder: "Enter your city", isSecureField: false)
+//                    
 
 //                    ColorPicker("Choose a background color:", selection: $color_raw)
 //                        .foregroundColor(Color(.black))
@@ -114,7 +114,7 @@ struct RegistrationView: View {
                     print("Sign User Up")
                     //showAvatarSelection = true;
                     Task {
-                        try await viewModel.createUser(withEmail: email, password: password, fullname: full_name, location: location, color: color_hex, firstPeak: firstPeak, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, LevelOneCompleted: LevelOneCompleted)
+                        try await viewModel.createUser(withEmail: email, password: password, username: username, selectedAvatar: "", selectedBackground: "", hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, LevelOneCompleted: false, LevelTwoCompleted: false)
                     }
                     
                 } label: {

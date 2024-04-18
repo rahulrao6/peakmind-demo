@@ -9,11 +9,11 @@ struct Module1: View {
     @State private var dialogueHistory: [String] = []
 
     let dialogues = [
-        "Welcome to Base Camp! I will be your Sherpa through your journey.",
-        "Each step you take brings you closer to the peak of the mountain.",
-        "Remember to pace yourself and breathe.",
-        "It's about the journey, not just the destination.",
-        "Are you ready to take the next step?"
+        "I’m your sherpa and welcome to anxiety mountain. Here you’ll learn about everything anxiety.",
+        "Your mental health improves every leg up the mountain. Your journey will go across 10 different levels, each teaching you more and more about anxiety.",
+        "As your sherpa, I’ll serve as your guide every step of the way. Remember, your personal plan will have all of your current habits, tasks, and goals.",
+        "We’ll go through anxiety education, wellness questions, minigames, item collection, journaling, and more as you advance on your quest.",
+        "Take one big deep breath… you’re doing a great thing for your mental health. Let’s make it to the top."
     ]
 
     var body: some View {

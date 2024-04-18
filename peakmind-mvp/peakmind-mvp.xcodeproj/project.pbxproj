@@ -88,6 +88,10 @@
 		1CF4C4402B7B1DD50028BC3C /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C43F2B7B1DD50028BC3C /* FirebaseRemoteConfigSwift */; };
 		1CF4C4422B7B1DD60028BC3C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4412B7B1DD60028BC3C /* FirebaseStorage */; };
 		1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4432B7B1DD60028BC3C /* FirebaseStorageCombine-Community */; };
+		513FB6B82BCF4C5200D42CE0 /* Level1Eduacation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513FB6B72BCF4C5200D42CE0 /* Level1Eduacation.swift */; };
+		513FB6BA2BCF4D9200D42CE0 /* Level1Reflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513FB6B92BCF4D9200D42CE0 /* Level1Reflection.swift */; };
+		513FB6BE2BCF4FF200D42CE0 /* Level2ReflectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513FB6BD2BCF4FF200D42CE0 /* Level2ReflectionView.swift */; };
+		513FB6C02BCF500200D42CE0 /* Level3Reflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513FB6BF2BCF500200D42CE0 /* Level3Reflection.swift */; };
 		791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */; };
 		791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F92BA7C5A00094A688 /* ConfettiView.swift */; };
 		791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */; };
@@ -165,7 +169,6 @@
 		102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompleteView.swift; sourceTree = "<group>"; };
 		102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleRelaxationView.swift; sourceTree = "<group>"; };
 		102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdMuscleExerciseEncoded.mov; sourceTree = "<group>"; };
-		102F1B922BCDAB10008B8AC6 /* peakmind-mvp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "peakmind-mvp.entitlements"; sourceTree = "<group>"; };
 		102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsQuizView.swift; sourceTree = "<group>"; };
 		10D5593C2BC379C700CAC269 /* Minigame2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minigame2View.swift; sourceTree = "<group>"; };
 		10D5593E2BC44C0000CAC269 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
@@ -213,6 +216,10 @@
 		1CF4C3F82B7B15E50028BC3C /* peakmind-mvpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "peakmind-mvpUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF4C3FC2B7B15E50028BC3C /* peakmind_mvpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITests.swift; sourceTree = "<group>"; };
 		1CF4C3FE2B7B15E50028BC3C /* peakmind_mvpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		513FB6B72BCF4C5200D42CE0 /* Level1Eduacation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level1Eduacation.swift; sourceTree = "<group>"; };
+		513FB6B92BCF4D9200D42CE0 /* Level1Reflection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level1Reflection.swift; sourceTree = "<group>"; };
+		513FB6BD2BCF4FF200D42CE0 /* Level2ReflectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2ReflectionView.swift; sourceTree = "<group>"; };
+		513FB6BF2BCF500200D42CE0 /* Level3Reflection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3Reflection.swift; sourceTree = "<group>"; };
 		791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedPlanNew.swift; sourceTree = "<group>"; };
 		791AC8F92BA7C5A00094A688 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyModuleView.swift; sourceTree = "<group>"; };
@@ -526,9 +533,7 @@
 		1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */ = {
 			isa = PBXGroup;
 			children = (
-
 				1C9FA25A2BCE1992003C844C /* peakmind-mvp.entitlements */,
-
 				1CF4A89C2B8309F100051684 /* Info.plist */,
 				1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */,
 				1C9C63C12B8132840066AF70 /* Model */,
@@ -575,6 +580,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		513FB6B62BCF4C4100D42CE0 /* Mingwei */ = {
+			isa = PBXGroup;
+			children = (
+				513FB6B72BCF4C5200D42CE0 /* Level1Eduacation.swift */,
+				513FB6B92BCF4D9200D42CE0 /* Level1Reflection.swift */,
+			);
+			path = Mingwei;
+			sourceTree = "<group>";
+		};
+		513FB6BB2BCF4FD700D42CE0 /* Mingwei */ = {
+			isa = PBXGroup;
+			children = (
+				513FB6BD2BCF4FF200D42CE0 /* Level2ReflectionView.swift */,
+			);
+			path = Mingwei;
+			sourceTree = "<group>";
+		};
+		513FB6BC2BCF4FDE00D42CE0 /* Mingwei */ = {
+			isa = PBXGroup;
+			children = (
+				513FB6BF2BCF500200D42CE0 /* Level3Reflection.swift */,
+			);
+			path = Mingwei;
+			sourceTree = "<group>";
+		};
 		791AC9042BA7DC830094A688 /* Mikey */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,6 +619,7 @@
 		793B79A32BAF7F50001062DB /* Level 1 */ = {
 			isa = PBXGroup;
 			children = (
+				513FB6B62BCF4C4100D42CE0 /* Mingwei */,
 				102F1B862BCB7C13008B8AC6 /* James */,
 				79C383E82BC6121000A6779A /* Rina */,
 				791AC9042BA7DC830094A688 /* Mikey */,
@@ -627,6 +658,7 @@
 		793B79A62BAF8466001062DB /* Level 2 */ = {
 			isa = PBXGroup;
 			children = (
+				513FB6BB2BCF4FD700D42CE0 /* Mingwei */,
 				102F1B932BCDAC35008B8AC6 /* James */,
 				793B79CA2BB39252001062DB /* Raj */,
 				793B79AD2BAF8D76001062DB /* Mikey */,
@@ -637,6 +669,7 @@
 		793B79A72BAF8473001062DB /* Level 3 */ = {
 			isa = PBXGroup;
 			children = (
+				513FB6BC2BCF4FDE00D42CE0 /* Mingwei */,
 				10FA68522BB3B191007CCBAC /* James */,
 			);
 			path = "Level 3";
@@ -934,6 +967,7 @@
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
+				513FB6BA2BCF4D9200D42CE0 /* Level1Reflection.swift in Sources */,
 				793B79BB2BB20423001062DB /* WellnessQ2View.swift in Sources */,
 				793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
@@ -941,15 +975,18 @@
 				793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */,
 				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
 				793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */,
+				513FB6C02BCF500200D42CE0 /* Level3Reflection.swift in Sources */,
 				79C383EE2BC6123300A6779A /* Background.swift in Sources */,
 				E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */,
 				E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */,
 				1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
+				513FB6BE2BCF4FF200D42CE0 /* Level2ReflectionView.swift in Sources */,
 				793B79C12BB38E1C001062DB /* AvatarMenuSheetView.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				793B79C52BB391D7001062DB /* AnxietyGoalSetting.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
+				513FB6B82BCF4C5200D42CE0 /* Level1Eduacation.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
 				79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */,
@@ -1186,9 +1223,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.08;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
-
 				DEVELOPMENT_TEAM = 9UMCCFSYB9;
-
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
@@ -1205,9 +1240,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-
 				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp.test";
-
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1225,9 +1258,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.08;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
-
 				DEVELOPMENT_TEAM = 9UMCCFSYB9;
-
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
@@ -1244,9 +1275,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-
 				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp.test";
-
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

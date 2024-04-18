@@ -4,13 +4,13 @@ import FirebaseFirestore
 struct AnxietyQuiz: View {
     @EnvironmentObject var viewModel: AuthViewModel
     let titleText = "Mt. Anxiety: Level One"
-    let narrationText = "What are ways that you currently manage your anxiety?"
+    let narrationText = "Which of these coping mechanisms have you tried related to anxiety?"
     @State private var animatedText = ""
     let options = [
-        "Talk to a friend",
-        "Go for a walk",
-        "Go for a bike ride",
-        "Find a hobby"
+        "Deep breathing",
+        "Affirmations",
+        "Journaling",
+        "None of the above"
     ]
     @State private var selectedOption: Int? = nil
     @State var navigateToNext = false

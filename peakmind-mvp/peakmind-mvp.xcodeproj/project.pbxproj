@@ -121,6 +121,7 @@
 		79C383EE2BC6123300A6779A /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383ED2BC6123300A6779A /* Background.swift */; };
 		79C383F02BC6123F00A6779A /* MultiSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383EF2BC6123F00A6779A /* MultiSectionView.swift */; };
 		79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383F12BC6124B00A6779A /* SherpaContinue.swift */; };
+		79C383F52BC8749700A6779A /* LevelOneMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383F42BC8749700A6779A /* LevelOneMapView.swift */; };
 		79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */; };
 		E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245352BABD4C400FCF1C6 /* Module1.swift */; };
 		E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245372BABD6CC00FCF1C6 /* Module2.swift */; };
@@ -234,6 +235,7 @@
 		79C383ED2BC6123300A6779A /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		79C383EF2BC6123F00A6779A /* MultiSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSectionView.swift; sourceTree = "<group>"; };
 		79C383F12BC6124B00A6779A /* SherpaContinue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaContinue.swift; sourceTree = "<group>"; };
+		79C383F42BC8749700A6779A /* LevelOneMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelOneMapView.swift; sourceTree = "<group>"; };
 		79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarAndSherpaView.swift; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E54245352BABD4C400FCF1C6 /* Module1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module1.swift; sourceTree = "<group>"; };
@@ -554,6 +556,7 @@
 		793B79A52BAF8453001062DB /* Game Level Screens */ = {
 			isa = PBXGroup;
 			children = (
+				79C383F32BC8705C00A6779A /* Level Maps */,
 				10D5593B2BC379B200CAC269 /* Minigames */,
 				793B79AC2BAF8AEE001062DB /* Intro */,
 				793B79A32BAF7F50001062DB /* Level 1 */,
@@ -671,6 +674,14 @@
 				79C383F12BC6124B00A6779A /* SherpaContinue.swift */,
 			);
 			path = Rina;
+			sourceTree = "<group>";
+		};
+		79C383F32BC8705C00A6779A /* Level Maps */ = {
+			isa = PBXGroup;
+			children = (
+				79C383F42BC8749700A6779A /* LevelOneMapView.swift */,
+			);
+			path = "Level Maps";
 			sourceTree = "<group>";
 		};
 		E54245342BABD1D400FCF1C6 /* Rahul */ = {
@@ -892,6 +903,7 @@
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				793B79C72BB39205001062DB /* FlashlightPurchase.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
+				79C383F52BC8749700A6779A /* LevelOneMapView.swift in Sources */,
 				79C383EC2BC6122C00A6779A /* AnimatedTextView.swift in Sources */,
 				793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,

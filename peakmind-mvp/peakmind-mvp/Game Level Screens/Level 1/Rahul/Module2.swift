@@ -93,6 +93,7 @@ struct Module2View: View {
                     showPopup = false
                     navigateToNext = true
                     addCash(amount: 100)
+                    
                 }
                 .padding()
             }

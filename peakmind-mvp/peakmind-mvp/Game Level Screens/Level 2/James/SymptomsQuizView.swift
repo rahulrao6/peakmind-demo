@@ -164,6 +164,6 @@ struct SymptomsQuizView: View {
 
 struct SymptomsQuizView_Previews: PreviewProvider {
     static var previews: some View {
-        SymptomsQuizView()
+        SymptomsQuizView().environmentObject(AuthViewModel())
     }
 }

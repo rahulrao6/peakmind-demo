@@ -122,7 +122,7 @@ struct HomeScreenView: View {
                         }
                         .background(
           
-                            NavigationLink(destination: PlayScreen2().navigationBarBackButtonHidden(true), isActive: $navigateToPlayScreen) {
+                            NavigationLink(destination: LevelOneMapView().navigationBarBackButtonHidden(true), isActive: $navigateToPlayScreen) {
                                     EmptyView()
                                 }
                         )

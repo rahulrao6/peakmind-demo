@@ -1,14 +1,14 @@
 //
-//  CauseAndEffect.swift
+//  TriggerMap.swift
 //  peakmind-mvp
 //
-//  Created by Mingwei Li on 4/21/24.
+//  Created by Mingwei Li on 4/22/24.
 //
 
 import SwiftUI
 
-struct CauseAndEffect: View {
-    @EnvironmentObject var viewModel: AuthViewModel
+struct TriggerMap: View {
+    @EnvironmentObject var viewModel: InteractiveViewModel
     
     var body: some View {
         ZStack {
@@ -34,29 +34,28 @@ struct CauseAndEffect: View {
                         
                         Group {
                             VStack {
-                                Text("Scenario")
+                                Text("Trigger Map")
                                     .foregroundColor(.white)
                                     .padding()
                                     .background(
                                         Rectangle()
                                             .foregroundColor(Color(hex: "1E4E96"))
                                             .opacity(0.8)
-                                            .overlay(RoundedRectangle(cornerRadius: 8)
-                                                .stroke(Color.black, lineWidth: 3))
+                                            .overlay(RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color.black, lineWidth: 5))
+                                            .frame(width: 130, height: 30)
+                                            .cornerRadius(20)
                                     )
-                                    .cornerRadius(10)
-                                    .font(.title2)
-                                    .padding(.horizontal)
+                                    
                                 
-                                Text("Have you ever had something in your life like a big project or test that causes a lot of stress. That is what we call a trigger or stressor in the world of mental health.")
+                                Text("Have you ever had something in your \nlife like a big project or test that causes \na lot of stress. That is what we call a \ntrigger or stressor in the world of \nmental health.")
                                     .padding()
                                     .background(
                                         Rectangle()
-                                            .foregroundColor(Color(hex: "2A4D7C"))
-                                            .cornerRadius(10)
+                                            .foregroundColor(Color(hex: "366093"))
                                             .opacity(0.8)
-                                            .cornerRadius(3.0)
-                                            .overlay(RoundedRectangle(cornerRadius: 8)
+                                            .cornerRadius(30.0)
+                                            .overlay(RoundedRectangle(cornerRadius: 30)
                                                 .stroke(Color.black, lineWidth: 1))
                                     )
                                     .foregroundColor(.white)
@@ -67,41 +66,37 @@ struct CauseAndEffect: View {
                                 Rectangle()
                                     .foregroundColor(Color(hex: "3D79C2"))
                                     .cornerRadius(10)
-                                    .frame(width:380, height: 200)
+                                    .frame(width:347, height: 185)
                                     .opacity(0.8)
-                                    .overlay(RoundedRectangle(cornerRadius: 8)
+                                    .overlay(RoundedRectangle(cornerRadius: 30)
                                         .stroke(Color.black, lineWidth: 2))
+                                    .cornerRadius(30)
+                                    .offset(y: 6)
                             )
+                            .offset(y: -20)
                             .padding()
+                            
                             Spacer()
-                            ForEach(0..<2) { _ in
+                            
+                            ForEach($viewModel.causeEffectPairs.indices, id: \.self) { index in
                                 HStack {
-                                    Text("Cause")
-                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                    TextField("Cause", text: $viewModel.causeEffectPairs[index].cause)
                                         .foregroundColor(.white)
                                         .padding()
                                         .background(
-                                            Rectangle()
-                                                .foregroundColor(Color(hex: "62A7DD"))
-                                                .cornerRadius(10)
-                                                .overlay(RoundedRectangle(cornerRadius: 8)
-                                                    .stroke(Color.black, lineWidth: 2))
+                                            GlowingView(color: "62A7DD", frameWidth: 120, frameHeight: 50, cornerRadius: 20)
                                         )
                                     Text("→")
                                         .foregroundColor(.white)
-                                    Text("Effect")
-                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                    TextField("Effect", text: $viewModel.causeEffectPairs[index].effect)
                                         .foregroundColor(.white)
                                         .padding()
                                         .background(
-                                            Rectangle()
-                                                .foregroundColor(Color(hex: "62A7DD"))
-                                                .cornerRadius(10)
-                                                .overlay(RoundedRectangle(cornerRadius: 8)
-                                                    .stroke(Color.black, lineWidth: 2))
+                                            GlowingView(color: "62A7DD", frameWidth: 120, frameHeight: 50, cornerRadius: 20)
                                         )
                                 }
                                 .padding(.horizontal)
+                                .offset(x: offsetForIndex(index))
                             }
                             
                             HStack {
@@ -109,24 +104,20 @@ struct CauseAndEffect: View {
                                     Text("Let's trigger map\n\nSwipe through the \ninstructions")
                                         .foregroundColor(.white)
                                         .multilineTextAlignment(.center)
-                                        .padding()
                                         .background(
-                                            Rectangle()
-                                                .foregroundColor(Color(hex: "62A7DD"))
-                                                .cornerRadius(10)
-                                                .overlay(RoundedRectangle(cornerRadius: 8)
-                                                    .stroke(Color.black, lineWidth: 2))
+                                            GlowingView(color: "1E90FF", frameWidth: 190, frameHeight: 90, cornerRadius: 20)
                                         )
-                                        .font(.footnote)
-                                        .padding(.leading, 170)
-                                        .padding(.top, 70)
+                                        .frame(width: 190, height: 90)
+                                        .cornerRadius(20)
+                                        .offset(x: 70, y: 40)
                                     Text("Tap to Continue")
                                         .foregroundColor(.white)
                                         .opacity(0.5)
                                         .font(.title3)
                                         .alignmentGuide(.bottom) { d in d[.bottom] }
                                         .padding(.leading, 200)
-                                        .padding(.top, 90)
+                                        .padding(.top, 70)
+                                        .offset(y: 80)
                                 }
                                 .padding()
                             }
@@ -137,10 +128,22 @@ struct CauseAndEffect: View {
             }
         }
     }
-    
-    struct CauseAndEffect_Previews: PreviewProvider {
-        static var previews: some View {
-            CauseAndEffect()
+    private func offsetForIndex(_ index: Int) -> CGFloat {
+        switch index {
+        case 0:
+            return -30
+        case 1:
+            return 0
+        case 2:
+            return 30
+        default:
+            return 0
         }
+    }
+}
+
+struct TriggerMap_Previews: PreviewProvider {
+    static var previews: some View {
+        TriggerMap().environmentObject(InteractiveViewModel())
     }
 }

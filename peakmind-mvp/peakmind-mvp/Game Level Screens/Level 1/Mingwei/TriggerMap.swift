@@ -85,7 +85,9 @@ struct TriggerMap: View {
                                         .padding()
                                         .background(
                                             GlowingView(color: "62A7DD", frameWidth: 120, frameHeight: 50, cornerRadius: 20)
+                                                .offset(x: -40)
                                         )
+                                        .offset(x: 50)
                                     Text("→")
                                         .foregroundColor(.white)
                                     TextField("Effect", text: $viewModel.causeEffectPairs[index].effect)
@@ -93,7 +95,9 @@ struct TriggerMap: View {
                                         .padding()
                                         .background(
                                             GlowingView(color: "62A7DD", frameWidth: 120, frameHeight: 50, cornerRadius: 20)
+                                                .offset(x: -40)
                                         )
+                                        .offset(x: 40)
                                 }
                                 .padding(.horizontal)
                                 .offset(x: offsetForIndex(index))

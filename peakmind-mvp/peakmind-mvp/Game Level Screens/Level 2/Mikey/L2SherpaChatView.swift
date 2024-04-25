@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Screen six - Level 2 
+// Screen six - Level 2
 struct L2SherpaChatView: View {
     let sherpaText = "Getting a deeper understanding of anxiety is the first step to improving it. First, it's important to understand where your anxiety is coming from. Step by step, you’ll learn how to handle and react to every source of anxiety you have."
     @State private var animatedText = ""
@@ -35,7 +35,7 @@ struct L2SherpaChatView: View {
                 .padding()
                 .offset(x: 25, y: 20)
 
-            SpeechBubble(text: $animatedText)
+            SpeechBubble(text: $animatedText, width: 300.0)
                 .onAppear { animateText() }
                 .offset(x: 110, y: 300)
         }

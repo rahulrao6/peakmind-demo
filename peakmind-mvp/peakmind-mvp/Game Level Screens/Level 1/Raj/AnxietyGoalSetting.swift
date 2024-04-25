@@ -12,8 +12,8 @@ import FirebaseFirestore
 struct AnxietyGoalSetting: View {
     @EnvironmentObject var viewModel: AuthViewModel
 
-    let titleText = "Mt. Anxiety: Level One"
-    let narrationText = "Time to make you first goal. Goals are used to help you see your improvement!"
+    let titleText = "Mt. Anxiety: Phase Two"
+    let narrationText = "These different anxiety igniting factors are so important to recognize within yourself to identify what you experience."
     @State private var goalText = ""
     @State private var animatedText = ""
     @State private var showAlert = false

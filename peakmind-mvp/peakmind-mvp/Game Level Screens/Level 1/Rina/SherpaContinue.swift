@@ -25,7 +25,7 @@ struct SherpaContinue<nextView: View>: View {
                 Text("Tap to continue")
                     .foregroundStyle(.white)
                     .padding()
-                    .background(.blue)
+                    .background(Color("Dark Blue"))
                     .cornerRadius(10)
                     .frame(height: 250)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)

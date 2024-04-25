@@ -1,10 +1,3 @@
-//
-//  ProfileView.swift
-//  peakmind-mvp
-//
-//  Created by Raj Jagirdar on 2/17/24.
-//
-
 import SwiftUI
 
 struct ProfileView: View {
@@ -21,7 +14,7 @@ struct ProfileView: View {
     @State private var isDangersOfNightfallActive = false
     @State private var isSherpaFullMoonIDActive = false
     @State private var isBreathingExerciseViewActive = false
-
+    @State private var isFeedbackFormPresented = false
 
     var body: some View {
         NavigationView {
@@ -35,10 +28,9 @@ struct ProfileView: View {
                                 .foregroundColor(.white)
                                 .frame(width: 72, height: 72)
                                 .background(Color.blue)
-                            //.background(Color(.systemGray3))
-                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                                .clipShape(Circle())
                             
-                            VStack (alignment: .leading, spacing: 4) {
+                            VStack(alignment: .leading, spacing: 4) {
                                 Text(user.username)
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
@@ -49,7 +41,6 @@ struct ProfileView: View {
                                     .foregroundColor(.gray)
                             }
                         }
-                        
                     }
                     
                     Section("General") {
@@ -60,11 +51,9 @@ struct ProfileView: View {
                             
                             Text("1.0.0")
                         }
-                        
                     }
                     
                     Section("Account") {
-                        
                         Button {
                             viewModel.signOut()
                         } label: {
@@ -78,120 +67,43 @@ struct ProfileView: View {
                         } label: {
                             SettingsRowView(imageName: "xmark.circle.fill", title: "Delete Account", tintColor: .red)
                         }
-                        
                     }
                     
-                    Section(header: Text("Rahul")) {
-                        
-                        Button {
-                            print(isModule1Active)
-                            isModule1Active.toggle()
-                            print(isModule1Active)
-                        } label : {
-                            NavigationLink(destination: Module1(), isActive: $isModule1Active) {
-                                Text("Module 1")
-                            }
+                    Section("Feedback Form") {
+                        Button("Provide Feedback") {
+                            isFeedbackFormPresented.toggle()
                         }
-                        Button {
-                            isModule2Active.toggle()
-                        } label : {
-                            NavigationLink(destination: Module2View(), isActive: $isModule2Active) {
-                                Text("Module 2")
-                            }
-                        }
-                        Button {
-                            isModule3Active.toggle()
-                        } label : {
-                            NavigationLink(destination: Module3View(selectedItem: .boots), isActive: $isModule3Active) {
-                                Text("Module 3")
-                            }
+                        .sheet(isPresented: $isFeedbackFormPresented) {
+                            FeedbackFormView()
                         }
                     }
-                    
-                    Section(header: Text("Raj")) {
-                        
-                        Button {
-                            print(isTentPurchaseActive)
-                            isTentPurchaseActive.toggle()
-                            print(isModule1Active)
-                        } label : {
-                            NavigationLink(destination: TentPurchase(), isActive: $isTentPurchaseActive) {
-                                Text("Tent Purchase")
-                            }
-                        }
-                        Button {
-                            isStoreViewActive.toggle()
-                        } label : {
-                            NavigationLink(destination: StoreView(), isActive: $isStoreViewActive) {
-                                Text("Store")
-                            }
-                        }
-                        Button {
-                            isAnxietyQuizActive.toggle()
-                        } label : {
-                            NavigationLink(destination: AnxietyQuiz(), isActive: $isAnxietyQuizActive) {
-                                Text("Anxiety Quiz")
-                            }
-                        }
-                        Button {
-                            isSetHabitsActive.toggle()
-                        } label : {
-                            NavigationLink(destination: SetHabits(), isActive: $isSetHabitsActive) {
-                                Text("Set Habits")
-                            }
-                        }
-
-                    }
-                    
-                    Section(header: Text("Mikey")) {
-                        
-                        Button {
-                            print(isAvatarScreenActive)
-                            isAvatarScreenActive.toggle()
-                            print(isAvatarScreenActive)
-                        } label : {
-                            NavigationLink(destination: AvatarScreen(), isActive: $isAvatarScreenActive) {
-                                Text("Avatar Screen")
-                            }
-                        }
-                        Button {
-                            isNightfallFlavorActive.toggle()
-                        } label : {
-                            NavigationLink(destination: NightfallFlavorView(), isActive: $isNightfallFlavorActive) {
-                                Text("Nightfall Flavor")
-                            }
-                        }
-                        Button {
-                            isDangersOfNightfallActive.toggle()
-                        } label : {
-                            NavigationLink(destination: DangersOfNightfallView(), isActive: $isDangersOfNightfallActive) {
-                                Text("Dangers of Nightfall")
-                            }
-                        }
-                        
-                        Button {
-                            isSherpaFullMoonIDActive.toggle()
-                        } label : {
-                            NavigationLink(destination: SherpaFullMoonView(), isActive: $isSherpaFullMoonIDActive) {
-                                Text("Sherpa Full Moon")
-                            }
-                        }
-
-                    }
-                    Section(header: Text("James")) {
-                        Button(action: {
-                            isBreathingExerciseViewActive.toggle()
-                        }) {
-                            Text("Breathing Exercises")
-                        }
-                    }
-                    .sheet(isPresented: $isBreathingExerciseViewActive) {    BreathingExerciseView() }
-                    
                 }
-                //.navigationTitle("Profile")
                 .environment(\.colorScheme, .light)
-                
             }
         }
+    }
+}
+
+struct FeedbackFormView: View {
+    @State private var feedbackText = ""
+    
+    var body: some View {
+        VStack {
+            Text("Enter your feedback below!")
+                .font(.headline)
+                .padding()
+            
+            TextEditor(text: $feedbackText)
+                .frame(height: 200)
+                .border(Color.gray, width: 1)
+                .padding()
+            
+            Button("Submit") {
+                // Implement the submit action here
+                print("Feedback submitted")
+            }
+            .padding()
+        }
+        .padding()
     }
 }

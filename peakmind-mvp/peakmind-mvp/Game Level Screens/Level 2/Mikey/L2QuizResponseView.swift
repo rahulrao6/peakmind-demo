@@ -37,7 +37,7 @@ struct L2QuizResponseView: View {
                 .padding()
                 .offset(x: 25, y: 20)
 
-            SpeechBubble(text: $animatedText)
+            SpeechBubble(text: $animatedText, width:300.0)
                 .onAppear { animateText() }
                 .offset(x: 90, y: 300)
         }

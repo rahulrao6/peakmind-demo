@@ -9,8 +9,8 @@ import SwiftUI
 import FirebaseFirestore
 
 struct AvatarMenuView: View {
-    let avatarIcons = ["IndianIcon", "AsianIcon", "WhiteIcon"]
-    let avatarImages = ["Raj", "Mikey", "Trevor"]
+    let avatarIcons = ["IndianIcon", "AsianIcon", "WhiteIcon", "Girl1Icon", "Girl2Icon", "Girl3Icon"]
+    let avatarImages = ["Raj", "Mikey", "Trevor", "Girl1", "Girl2", "Girl3"]
     @State private var selectedAvatarIndex = 0
     @Environment(\.presentationMode) var presentationMode
     @State private var navigateToIglooView = false
@@ -43,28 +43,34 @@ struct AvatarMenuView: View {
                             .padding(.vertical, 40)
                         
                         VStack(spacing: 10) {
-                            HStack {
-                                ForEach(0..<avatarIcons.count, id: \.self) { index in
-                                    Button(action: {
-                                        selectedAvatarIndex = index
-                                    }) {
-                                        Image(avatarIcons[index])
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 95, height: 85)
-                                            .clipShape(Circle())
-                                            .overlay(
-                                                Circle().stroke(Color.white, lineWidth: selectedAvatarIndex == index ? 3 : 0)
-                                            )
+                            // Display avatar icons in rows of 3
+                            ForEach(0..<avatarIcons.count/3 + (avatarIcons.count % 3 > 0 ? 1 : 0), id: \.self) { rowIndex in
+                                HStack {
+                                    ForEach(0..<3) { colIndex in
+                                        let index = rowIndex * 3 + colIndex
+                                        if index < avatarIcons.count {
+                                            Button(action: {
+                                                selectedAvatarIndex = index
+                                            }) {
+                                                Image(avatarIcons[index])
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 95, height: 85)
+                                                    .clipShape(Circle())
+                                                    .overlay(
+                                                        Circle().stroke(Color.white, lineWidth: selectedAvatarIndex == index ? 3 : 0)
+                                                    )
+                                            }
+                                        }
                                     }
                                 }
+                                .padding(.top, rowIndex == 0 ? 20 : 0)
                             }
-                            .padding(.top, 20)
                             
                             Image(avatarImages[selectedAvatarIndex])
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 300, height: 300)
+                                .frame(width: 200, height: 200)
                                 .clipShape(Circle())
                                 .padding(.top, 20)
                                 .padding(.bottom, 30)

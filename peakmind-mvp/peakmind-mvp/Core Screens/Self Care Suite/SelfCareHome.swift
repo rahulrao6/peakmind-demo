@@ -797,6 +797,10 @@ struct CheckInView: View {
             } else {
                 print("Check-in saved successfully")
                 updateLastCheckIn(timestamp: today)
+                Task{
+                    await viewModel.fetchUser()
+
+                }
             }
         }
     }

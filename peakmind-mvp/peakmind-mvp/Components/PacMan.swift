@@ -55,18 +55,38 @@ class GameModel: ObservableObject {
     var columnCount: Int { maze.first?.count ?? 0 }
     var maze: [[Int]] = []
     
+    
     init(difficulty: Difficulty = .hard) {
-        switch difficulty {
-        case .easy:
-            maze = Maze.easy
-        case .medium:
-            maze = Maze.medium
-        case .hard:
-            maze = Maze.hard
-        }
+        let (rows, cols) = getDimensions(for: difficulty)
+        maze = MazeGenerator(rows: rows, cols: cols).maze
         populateGridWithDots()
         restartGame()
         startMovement()
+    }
+    
+//    init(difficulty: Difficulty = .hard) {
+//        switch difficulty {
+//        case .easy:
+//            maze = Maze.easy
+//        case .medium:
+//            maze = Maze.medium
+//        case .hard:
+//            maze = Maze.hard
+//        }
+//        populateGridWithDots()
+//        restartGame()
+//        startMovement()
+//    }
+    
+    private func getDimensions(for difficulty: Difficulty) -> (Int, Int) {
+        switch difficulty {
+        case .easy:
+            return (9, 9)
+        case .medium:
+            return (15, 15)
+        case .hard:
+            return (21, 21)
+        }
     }
 
     private var movementTimer: Timer?
@@ -213,12 +233,12 @@ struct PacManGameView: View {
 struct CellView: View {
     @EnvironmentObject var gameModel: GameModel
     var position: GridPosition
-
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 if gameModel.maze[position.row][position.column] == 1 {
-                    Color.gray
+                    Color.blue // Wall color
                 } else {
                     Color.black // Background for paths
                     if gameModel.pacManPosition == position {
@@ -229,11 +249,29 @@ struct CellView: View {
                         Circle().fill(Color.white)
                             .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 0.3) // Adjust size to center dot
                             .position(x: geometry.size.width / 2, y: geometry.size.height / 2) // Center the dot
+                    } else if isPowerPellet(position: position) {
+                        Circle().fill(Color.white)
+                            .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.5) // Adjust size for power pellet
+                            .position(x: geometry.size.width / 2, y: geometry.size.height / 2) // Center the power pellet
+                    } else if isGhostHouse(position: position) {
+                        // Add ghost house visual here
                     }
                 }
             }
         }
         .aspectRatio(1, contentMode: .fit)
+    }
+    
+    private func isPowerPellet(position: GridPosition) -> Bool {
+        // Implement logic to determine if the position is a power pellet
+        // For example, check if the position is near the four corners
+        return false
+    }
+    
+    private func isGhostHouse(position: GridPosition) -> Bool {
+        // Implement logic to determine if the position is the ghost house
+        // For example, check if the position is in the center
+        return false
     }
 }
 
@@ -285,6 +323,103 @@ struct GameOverView: View {
     }
 }
 
+struct Cell: Hashable {
+    let row: Int
+    let col: Int
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(row)
+        hasher.combine(col)
+    }
+    
+    static func == (lhs: Cell, rhs: Cell) -> Bool {
+        return lhs.row == rhs.row && lhs.col == rhs.col
+    }
+}
+
+class MazeGenerator {
+    let rows: Int
+        let cols: Int
+        var maze: [[Int]]
+        
+        init(rows: Int, cols: Int) {
+            self.rows = rows
+            self.cols = cols
+            maze = Array(repeating: Array(repeating: 1, count: cols), count: rows)
+            generateMaze()
+            addTunnels()
+            addGhostHouse()
+        }
+        
+        private func generateMaze() {
+            let startRow = 0
+            let startCol = 0
+            
+            maze[startRow][startCol] = 0
+            
+            var stack = [Cell(row: startRow, col: startCol)]
+            var visitedCells = Set<Cell>()
+            
+            while !stack.isEmpty {
+                let currentCell = stack.removeLast()
+                visitedCells.insert(currentCell)
+                
+                var neighbors = [Cell]()
+                if currentCell.row > 1, !visitedCells.contains(Cell(row: currentCell.row - 2, col: currentCell.col)) { neighbors.append(Cell(row: currentCell.row - 2, col: currentCell.col)) }
+                if currentCell.row < rows - 2, !visitedCells.contains(Cell(row: currentCell.row + 2, col: currentCell.col)) { neighbors.append(Cell(row: currentCell.row + 2, col: currentCell.col)) }
+                if currentCell.col > 1, !visitedCells.contains(Cell(row: currentCell.row, col: currentCell.col - 2)) { neighbors.append(Cell(row: currentCell.row, col: currentCell.col - 2)) }
+                if currentCell.col < cols - 2, !visitedCells.contains(Cell(row: currentCell.row, col: currentCell.col + 2)) { neighbors.append(Cell(row: currentCell.row, col: currentCell.col + 2)) }
+                
+                neighbors.shuffle()
+                
+                for neighbor in neighbors {
+                    let betweenRow = (currentCell.row + neighbor.row) / 2
+                    let betweenCol = (currentCell.col + neighbor.col) / 2
+                    stack.append(neighbor)
+                    maze[neighbor.row][neighbor.col] = 0
+                    maze[betweenRow][betweenCol] = 0
+                }
+            }
+        }
+    
+    private func addTunnels() {
+        let halfRows = rows / 2
+        let halfCols = cols / 2
+        
+        // Left tunnel
+        for col in 0..<cols {
+            if maze[halfRows][col] == 0 {
+                maze[halfRows - 1][col] = 0
+                maze[halfRows + 1][col] = 0
+                break
+            }
+        }
+        
+        // Right tunnel
+        for col in (0..<cols).reversed() {
+            if maze[halfRows][col] == 0 {
+                maze[halfRows - 1][col] = 0
+                maze[halfRows + 1][col] = 0
+                break
+            }
+        }
+    }
+    
+    private func addGhostHouse() {
+        let centerRow = rows / 2
+        let centerCol = cols / 2
+        
+        maze[centerRow - 1][centerCol - 1] = 1
+        maze[centerRow - 1][centerCol] = 1
+        maze[centerRow - 1][centerCol + 1] = 1
+        maze[centerRow][centerCol - 1] = 1
+        maze[centerRow][centerCol] = 0
+        maze[centerRow][centerCol + 1] = 1
+        maze[centerRow + 1][centerCol - 1] = 1
+        maze[centerRow + 1][centerCol] = 1
+        maze[centerRow + 1][centerCol + 1] = 1
+    }
+}
 
 
 struct PacManGameView_Previews: PreviewProvider {

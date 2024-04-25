@@ -328,10 +328,10 @@ struct CheckboxFirebase: View {
             .onTapGesture {
                 self.isCompleted.toggle()
                 if self.isCompleted {
-                    showConfetti = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        showConfetti = false
-                    }
+                    //showConfetti = true
+                    //DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                      //  showConfetti = false
+                    //}
                     // Call updateTask function to update Firestore
                     updateTask()
                 }

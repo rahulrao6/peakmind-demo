@@ -88,6 +88,10 @@
 		1CF4C4402B7B1DD50028BC3C /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C43F2B7B1DD50028BC3C /* FirebaseRemoteConfigSwift */; };
 		1CF4C4422B7B1DD60028BC3C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4412B7B1DD60028BC3C /* FirebaseStorage */; };
 		1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4432B7B1DD60028BC3C /* FirebaseStorageCombine-Community */; };
+		79069CF02BDA0D9100AB52DC /* CauseEffectPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CEF2BDA0D9100AB52DC /* CauseEffectPair.swift */; };
+		79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CF12BDA0E9000AB52DC /* InteractiveVIewModel.swift */; };
+		79069CF42BDA0EF300AB52DC /* GlowingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CF32BDA0EF300AB52DC /* GlowingBackground.swift */; };
+		79069D002BDA38BA00AB52DC /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CFF2BDA38BA00AB52DC /* Widget.swift */; };
 		791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */; };
 		791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F92BA7C5A00094A688 /* ConfettiView.swift */; };
 		791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */; };
@@ -95,6 +99,14 @@
 		791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */; };
 		791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */; };
 		791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreenView.swift */; };
+		792617802BD70BD900AAAC81 /* L1ScenarioPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7926177F2BD70BD900AAAC81 /* L1ScenarioPresentation.swift */; };
+		792617822BD70BF400AAAC81 /* L1ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617812BD70BF400AAAC81 /* L1ScenarioQuiz.swift */; };
+		792617842BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617832BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift */; };
+		792617862BD70C2000AAAC81 /* ScenarioTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617852BD70C2000AAAC81 /* ScenarioTemplate.swift */; };
+		792617882BD70C5200AAAC81 /* SherpaTalking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617872BD70C5200AAAC81 /* SherpaTalking.swift */; };
+		7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617892BD70C6900AAAC81 /* SherpaAlone.swift */; };
+		7926178F2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7926178E2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift */; };
+		792617922BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617912BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift */; };
 		793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */; };
 		793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B02BAF9039001062DB /* L2QuizResponseView.swift */; };
 		793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B22BAF9045001062DB /* L2SherpaChatView.swift */; };
@@ -111,8 +123,12 @@
 		793B79CC2BB39260001062DB /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CB2BB39260001062DB /* Level2.swift */; };
 		793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */; };
 		793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */; };
+		7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6632BD73793006C3726 /* TabViewMain.swift */; };
+		7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6652BD73862006C3726 /* SelfCareMainView.swift */; };
+		7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */; };
 		797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */; };
 		797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB792BA5335C00F24123 /* IglooMenuView.swift */; };
+		797B4C412BDAE86700A3A25D /* HomeDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C402BDAE86700A3A25D /* HomeDashboard.swift */; };
 		798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* IntroPlayView.swift */; };
 		79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3DAED2B843CE0003C3B44 /* MainTabView.swift */; };
 		79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */; };
@@ -134,6 +150,34 @@
 		79C383F02BC6123F00A6779A /* MultiSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383EF2BC6123F00A6779A /* MultiSectionView.swift */; };
 		79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383F12BC6124B00A6779A /* SherpaContinue.swift */; };
 		79C383F52BC8749700A6779A /* LevelOneMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383F42BC8749700A6779A /* LevelOneMapView.swift */; };
+		79C383FA2BD60E0000A6779A /* P1-1_Intro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383F92BD60E0000A6779A /* P1-1_Intro.swift */; };
+		79C383FC2BD60E1300A6779A /* P1-2_MentalHealthMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383FB2BD60E1300A6779A /* P1-2_MentalHealthMod.swift */; };
+		79C383FE2BD60E4200A6779A /* P1-3_EmotionsScenario.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383FD2BD60E4200A6779A /* P1-3_EmotionsScenario.swift */; };
+		79C384002BD60E5900A6779A /* P1-4_StressModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383FF2BD60E5900A6779A /* P1-4_StressModule.swift */; };
+		79C384022BD60E6B00A6779A /* P1-6_PersonalQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384012BD60E6B00A6779A /* P1-6_PersonalQuestion.swift */; };
+		79C384042BD60E8500A6779A /* P1-7_MindfulnessModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384032BD60E8500A6779A /* P1-7_MindfulnessModule.swift */; };
+		79C384062BD60EAC00A6779A /* P1-5_StressTriggerMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384052BD60EAC00A6779A /* P1-5_StressTriggerMap.swift */; };
+		79C384082BD60EBC00A6779A /* P1-8_ResourcesAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384072BD60EBC00A6779A /* P1-8_ResourcesAnimation.swift */; };
+		79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384092BD60ED300A6779A /* P1-9_BoxBreathing.swift */; };
+		79C3840C2BD60EE200A6779A /* P1-10_LifestyleModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C3840B2BD60EE200A6779A /* P1-10_LifestyleModule.swift */; };
+		79C3840E2BD60EF400A6779A /* P1-11_CauseEffectMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C3840D2BD60EF400A6779A /* P1-11_CauseEffectMap.swift */; };
+		79C384102BD60F0100A6779A /* P1-12_LifestyleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C3840F2BD60F0100A6779A /* P1-12_LifestyleQuestion.swift */; };
+		79C384122BD60F0D00A6779A /* P1-13_BodyScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384112BD60F0D00A6779A /* P1-13_BodyScan.swift */; };
+		79C384142BD60F2300A6779A /* P1-14_Reflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384132BD60F2300A6779A /* P1-14_Reflection.swift */; };
+		79C384182BD60F5300A6779A /* P2-1_Intro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384172BD60F5300A6779A /* P2-1_Intro.swift */; };
+		79C3841A2BD60F5F00A6779A /* P2-1_AnxietyModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384192BD60F5F00A6779A /* P2-1_AnxietyModule.swift */; };
+		79C3841C2BD60F7300A6779A /* P2-3_DefiningAnxietyScenario.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C3841B2BD60F7300A6779A /* P2-3_DefiningAnxietyScenario.swift */; };
+		79C3841E2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C3841D2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift */; };
+		79C384202BD60F9100A6779A /* P2-5_AnxietyWellnessQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C3841F2BD60F9100A6779A /* P2-5_AnxietyWellnessQ.swift */; };
+		79C384222BD60FA100A6779A /* P2-6_AnxietyModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384212BD60FA100A6779A /* P2-6_AnxietyModule.swift */; };
+		79C384242BD60FC800A6779A /* P2-7_ExperienceQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384232BD60FC800A6779A /* P2-7_ExperienceQ.swift */; };
+		79C384262BD60FD400A6779A /* P2-8_4Sliders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384252BD60FD400A6779A /* P2-8_4Sliders.swift */; };
+		79C384282BD60FDE00A6779A /* P2-9_GoalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384272BD60FDE00A6779A /* P2-9_GoalSetting.swift */; };
+		79C3842A2BD60FEC00A6779A /* P2-10_5Factors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384292BD60FEC00A6779A /* P2-10_5Factors.swift */; };
+		79C3842C2BD60FF800A6779A /* P2-11_FeelingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C3842B2BD60FF800A6779A /* P2-11_FeelingTimer.swift */; };
+		79C3842E2BD6100300A6779A /* P2-12_CopingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C3842D2BD6100300A6779A /* P2-12_CopingModule.swift */; };
+		79C384322BD6101F00A6779A /* P2-14_Reflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384312BD6101F00A6779A /* P2-14_Reflection.swift */; };
+		79C384342BD6102800A6779A /* P2-15_MiniGame2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384332BD6102800A6779A /* P2-15_MiniGame2.swift */; };
 		79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */; };
 		E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245352BABD4C400FCF1C6 /* Module1.swift */; };
 		E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245372BABD6CC00FCF1C6 /* Module2.swift */; };
@@ -164,9 +208,8 @@
 /* Begin PBXFileReference section */
 		102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuscleRelaxationExplanationView.swift; sourceTree = "<group>"; };
 		102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompleteView.swift; sourceTree = "<group>"; };
-		102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleRelaxationView.swift; sourceTree = "<group>"; };
+		102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MuscleRelaxationView.swift; path = "../../../Game Level Screens/Level 1/James/MuscleRelaxationView.swift"; sourceTree = "<group>"; };
 		102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdMuscleExerciseEncoded.mov; sourceTree = "<group>"; };
-		102F1B922BCDAB10008B8AC6 /* peakmind-mvp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "peakmind-mvp.entitlements"; sourceTree = "<group>"; };
 		102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsQuizView.swift; sourceTree = "<group>"; };
 		10D5593C2BC379C700CAC269 /* Minigame2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minigame2View.swift; sourceTree = "<group>"; };
 		10D5593E2BC44C0000CAC269 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
@@ -214,6 +257,11 @@
 		1CF4C3F82B7B15E50028BC3C /* peakmind-mvpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "peakmind-mvpUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF4C3FC2B7B15E50028BC3C /* peakmind_mvpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITests.swift; sourceTree = "<group>"; };
 		1CF4C3FE2B7B15E50028BC3C /* peakmind_mvpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		79069CEF2BDA0D9100AB52DC /* CauseEffectPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseEffectPair.swift; sourceTree = "<group>"; };
+		79069CF12BDA0E9000AB52DC /* InteractiveVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveVIewModel.swift; sourceTree = "<group>"; };
+		79069CF32BDA0EF300AB52DC /* GlowingBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowingBackground.swift; sourceTree = "<group>"; };
+		79069CFA2BDA152A00AB52DC /* pkmdBoxBreathingEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdBoxBreathingEncoded.mov; sourceTree = "<group>"; };
+		79069CFF2BDA38BA00AB52DC /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedPlanNew.swift; sourceTree = "<group>"; };
 		791AC8F92BA7C5A00094A688 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		791AC8FB2BA7C97C0094A688 /* AnxietyModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyModuleView.swift; sourceTree = "<group>"; };
@@ -221,6 +269,14 @@
 		791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangersOfNightfallView.swift; sourceTree = "<group>"; };
 		791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaFullMoonView.swift; sourceTree = "<group>"; };
 		791D1AA02B84344900E28162 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		7926177F2BD70BD900AAAC81 /* L1ScenarioPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1ScenarioPresentation.swift; sourceTree = "<group>"; };
+		792617812BD70BF400AAAC81 /* L1ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1ScenarioQuiz.swift; sourceTree = "<group>"; };
+		792617832BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioQuizTemplate.swift; sourceTree = "<group>"; };
+		792617852BD70C2000AAAC81 /* ScenarioTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioTemplate.swift; sourceTree = "<group>"; };
+		792617872BD70C5200AAAC81 /* SherpaTalking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaTalking.swift; sourceTree = "<group>"; };
+		792617892BD70C6900AAAC81 /* SherpaAlone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaAlone.swift; sourceTree = "<group>"; };
+		7926178E2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-3_ScenarioQuiz.swift"; sourceTree = "<group>"; };
+		792617912BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-3_ScenarioQuiz.swift"; sourceTree = "<group>"; };
 		793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysImpactsAnxietyView.swift; sourceTree = "<group>"; };
 		793B79B02BAF9039001062DB /* L2QuizResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2QuizResponseView.swift; sourceTree = "<group>"; };
 		793B79B22BAF9045001062DB /* L2SherpaChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2SherpaChatView.swift; sourceTree = "<group>"; };
@@ -237,8 +293,12 @@
 		793B79CB2BB39260001062DB /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalAnxietyQuiz.swift; sourceTree = "<group>"; };
 		793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMARTGoalSettingView.swift; sourceTree = "<group>"; };
+		7976E6632BD73793006C3726 /* TabViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewMain.swift; sourceTree = "<group>"; };
+		7976E6652BD73862006C3726 /* SelfCareMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCareMainView.swift; sourceTree = "<group>"; };
+		7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesMainView.swift; sourceTree = "<group>"; };
 		797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuView.swift; sourceTree = "<group>"; };
 		797AAB792BA5335C00F24123 /* IglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuView.swift; sourceTree = "<group>"; };
+		797B4C402BDAE86700A3A25D /* HomeDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboard.swift; sourceTree = "<group>"; };
 		798EFB692B84379D00E6027A /* IntroPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPlayView.swift; sourceTree = "<group>"; };
 		79B3DAED2B843CE0003C3B44 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarScreenView.swift; sourceTree = "<group>"; };
@@ -260,6 +320,34 @@
 		79C383EF2BC6123F00A6779A /* MultiSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSectionView.swift; sourceTree = "<group>"; };
 		79C383F12BC6124B00A6779A /* SherpaContinue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaContinue.swift; sourceTree = "<group>"; };
 		79C383F42BC8749700A6779A /* LevelOneMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelOneMapView.swift; sourceTree = "<group>"; };
+		79C383F92BD60E0000A6779A /* P1-1_Intro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-1_Intro.swift"; sourceTree = "<group>"; };
+		79C383FB2BD60E1300A6779A /* P1-2_MentalHealthMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-2_MentalHealthMod.swift"; sourceTree = "<group>"; };
+		79C383FD2BD60E4200A6779A /* P1-3_EmotionsScenario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-3_EmotionsScenario.swift"; sourceTree = "<group>"; };
+		79C383FF2BD60E5900A6779A /* P1-4_StressModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-4_StressModule.swift"; sourceTree = "<group>"; };
+		79C384012BD60E6B00A6779A /* P1-6_PersonalQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-6_PersonalQuestion.swift"; sourceTree = "<group>"; };
+		79C384032BD60E8500A6779A /* P1-7_MindfulnessModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-7_MindfulnessModule.swift"; sourceTree = "<group>"; };
+		79C384052BD60EAC00A6779A /* P1-5_StressTriggerMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-5_StressTriggerMap.swift"; sourceTree = "<group>"; };
+		79C384072BD60EBC00A6779A /* P1-8_ResourcesAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-8_ResourcesAnimation.swift"; sourceTree = "<group>"; };
+		79C384092BD60ED300A6779A /* P1-9_BoxBreathing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-9_BoxBreathing.swift"; sourceTree = "<group>"; };
+		79C3840B2BD60EE200A6779A /* P1-10_LifestyleModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-10_LifestyleModule.swift"; sourceTree = "<group>"; };
+		79C3840D2BD60EF400A6779A /* P1-11_CauseEffectMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-11_CauseEffectMap.swift"; sourceTree = "<group>"; };
+		79C3840F2BD60F0100A6779A /* P1-12_LifestyleQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-12_LifestyleQuestion.swift"; sourceTree = "<group>"; };
+		79C384112BD60F0D00A6779A /* P1-13_BodyScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-13_BodyScan.swift"; sourceTree = "<group>"; };
+		79C384132BD60F2300A6779A /* P1-14_Reflection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-14_Reflection.swift"; sourceTree = "<group>"; };
+		79C384172BD60F5300A6779A /* P2-1_Intro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-1_Intro.swift"; sourceTree = "<group>"; };
+		79C384192BD60F5F00A6779A /* P2-1_AnxietyModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-1_AnxietyModule.swift"; sourceTree = "<group>"; };
+		79C3841B2BD60F7300A6779A /* P2-3_DefiningAnxietyScenario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-3_DefiningAnxietyScenario.swift"; sourceTree = "<group>"; };
+		79C3841D2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-4_AnxietyTriggerMap.swift"; sourceTree = "<group>"; };
+		79C3841F2BD60F9100A6779A /* P2-5_AnxietyWellnessQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-5_AnxietyWellnessQ.swift"; sourceTree = "<group>"; };
+		79C384212BD60FA100A6779A /* P2-6_AnxietyModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-6_AnxietyModule.swift"; sourceTree = "<group>"; };
+		79C384232BD60FC800A6779A /* P2-7_ExperienceQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-7_ExperienceQ.swift"; sourceTree = "<group>"; };
+		79C384252BD60FD400A6779A /* P2-8_4Sliders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-8_4Sliders.swift"; sourceTree = "<group>"; };
+		79C384272BD60FDE00A6779A /* P2-9_GoalSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-9_GoalSetting.swift"; sourceTree = "<group>"; };
+		79C384292BD60FEC00A6779A /* P2-10_5Factors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-10_5Factors.swift"; sourceTree = "<group>"; };
+		79C3842B2BD60FF800A6779A /* P2-11_FeelingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-11_FeelingTimer.swift"; sourceTree = "<group>"; };
+		79C3842D2BD6100300A6779A /* P2-12_CopingModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-12_CopingModule.swift"; sourceTree = "<group>"; };
+		79C384312BD6101F00A6779A /* P2-14_Reflection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-14_Reflection.swift"; sourceTree = "<group>"; };
+		79C384332BD6102800A6779A /* P2-15_MiniGame2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-15_MiniGame2.swift"; sourceTree = "<group>"; };
 		79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarAndSherpaView.swift; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E54245352BABD4C400FCF1C6 /* Module1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module1.swift; sourceTree = "<group>"; };
@@ -328,10 +416,8 @@
 		102F1B862BCB7C13008B8AC6 /* James */ = {
 			isa = PBXGroup;
 			children = (
+				79069CFA2BDA152A00AB52DC /* pkmdBoxBreathingEncoded.mov */,
 				102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */,
-				102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */,
-				102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */,
-				102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */,
 			);
 			path = James;
 			sourceTree = "<group>";
@@ -347,8 +433,6 @@
 		10D5593B2BC379B200CAC269 /* Minigames */ = {
 			isa = PBXGroup;
 			children = (
-				10D5593E2BC44C0000CAC269 /* words.txt */,
-				10D5593C2BC379C700CAC269 /* Minigame2View.swift */,
 			);
 			path = Minigames;
 			sourceTree = "<group>";
@@ -392,7 +476,6 @@
 				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
 				79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */,
-				1C7F93EA2BC3B291000754E2 /* PacMan.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -400,6 +483,7 @@
 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
+				79069D012BDA39E900AB52DC /* New Group */,
 				1C9FA25B2BCE1B11003C844C /* HealthKit */,
 				79C383DB2BC610E800A6779A /* Check In */,
 				E5511F4D2B92AD6600FCC38D /* Journal */,
@@ -411,6 +495,8 @@
 				1C9C63C42B8132F50066AF70 /* Profile */,
 				1C9C63C32B8132DB0066AF70 /* Authentication */,
 				1C9C63C22B8132B00066AF70 /* Root */,
+				7976E66A2BD73877006C3726 /* Self Care Suite */,
+				7976E6692BD73871006C3726 /* Communities */,
 			);
 			path = "Core Screens";
 			sourceTree = "<group>";
@@ -422,6 +508,10 @@
 				1C9FA2562BCDB6EB003C844C /* UserData.swift */,
 				79BFB5292B8EABBB00634262 /* Question.swift */,
 				79BFB52B2B8EABC500634262 /* Info.swift */,
+				79069CEF2BDA0D9100AB52DC /* CauseEffectPair.swift */,
+				79069CF12BDA0E9000AB52DC /* InteractiveVIewModel.swift */,
+				79069CF32BDA0EF300AB52DC /* GlowingBackground.swift */,
+				79069CFF2BDA38BA00AB52DC /* Widget.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -528,13 +618,12 @@
 		1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */ = {
 			isa = PBXGroup;
 			children = (
-
 				1C9FA25A2BCE1992003C844C /* peakmind-mvp.entitlements */,
-
 				1CF4A89C2B8309F100051684 /* Info.plist */,
 				1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */,
 				1C9C63C12B8132840066AF70 /* Model */,
 				1C9C63C02B81327A0066AF70 /* Core Screens */,
+				79C383F62BD60DA000A6779A /* UPDATED GAME PHASES */,
 				793B79A52BAF8453001062DB /* Game Level Screens */,
 				1C9C63BF2B81326E0066AF70 /* Components */,
 				1CF4C3E52B7B15E40028BC3C /* Assets.xcassets */,
@@ -577,6 +666,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		79069CF92BDA151700AB52DC /* P1-9_BoxBreathing */ = {
+			isa = PBXGroup;
+			children = (
+				79C384092BD60ED300A6779A /* P1-9_BoxBreathing.swift */,
+			);
+			path = "P1-9_BoxBreathing";
+			sourceTree = "<group>";
+		};
+		79069CFC2BDA15BB00AB52DC /* P1-13_MuscleRelaxation */ = {
+			isa = PBXGroup;
+			children = (
+				102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */,
+				102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */,
+				102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */,
+			);
+			path = "P1-13_MuscleRelaxation";
+			sourceTree = "<group>";
+		};
+		79069D012BDA39E900AB52DC /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		791AC9042BA7DC830094A688 /* Mikey */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +700,54 @@
 				791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */,
 			);
 			path = Mikey;
+			sourceTree = "<group>";
+		};
+		7926177D2BD6234A00AAAC81 /* P1-15_MiniGame */ = {
+			isa = PBXGroup;
+			children = (
+				10D5593E2BC44C0000CAC269 /* words.txt */,
+				10D5593C2BC379C700CAC269 /* Minigame2View.swift */,
+			);
+			path = "P1-15_MiniGame";
+			sourceTree = "<group>";
+		};
+		7926177E2BD70BC800AAAC81 /* Scenario Template */ = {
+			isa = PBXGroup;
+			children = (
+				7926177F2BD70BD900AAAC81 /* L1ScenarioPresentation.swift */,
+				792617812BD70BF400AAAC81 /* L1ScenarioQuiz.swift */,
+				792617832BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift */,
+				792617852BD70C2000AAAC81 /* ScenarioTemplate.swift */,
+				792617872BD70C5200AAAC81 /* SherpaTalking.swift */,
+				792617892BD70C6900AAAC81 /* SherpaAlone.swift */,
+			);
+			path = "Scenario Template";
+			sourceTree = "<group>";
+		};
+		7926178D2BD70E4800AAAC81 /* P1-3_EmotionsScenario */ = {
+			isa = PBXGroup;
+			children = (
+				79C383FD2BD60E4200A6779A /* P1-3_EmotionsScenario.swift */,
+				7926178E2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift */,
+			);
+			path = "P1-3_EmotionsScenario";
+			sourceTree = "<group>";
+		};
+		792617902BD70F1C00AAAC81 /* P2-3_DefiningAnxietyScenario */ = {
+			isa = PBXGroup;
+			children = (
+				79C3841B2BD60F7300A6779A /* P2-3_DefiningAnxietyScenario.swift */,
+				792617912BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift */,
+			);
+			path = "P2-3_DefiningAnxietyScenario";
+			sourceTree = "<group>";
+		};
+		792617932BD71B3900AAAC81 /* P2-13_478Breathing */ = {
+			isa = PBXGroup;
+			children = (
+				10FA68522BB3B191007CCBAC /* James */,
+			);
+			path = "P2-13_478Breathing";
 			sourceTree = "<group>";
 		};
 		793B79A32BAF7F50001062DB /* Level 1 */ = {
@@ -616,6 +778,7 @@
 		793B79A52BAF8453001062DB /* Game Level Screens */ = {
 			isa = PBXGroup;
 			children = (
+				7926177E2BD70BC800AAAC81 /* Scenario Template */,
 				79C383F32BC8705C00A6779A /* Level Maps */,
 				10D5593B2BC379B200CAC269 /* Minigames */,
 				793B79AC2BAF8AEE001062DB /* Intro */,
@@ -640,7 +803,6 @@
 		793B79A72BAF8473001062DB /* Level 3 */ = {
 			isa = PBXGroup;
 			children = (
-				10FA68522BB3B191007CCBAC /* James */,
 			);
 			path = "Level 3";
 			sourceTree = "<group>";
@@ -664,6 +826,8 @@
 			isa = PBXGroup;
 			children = (
 				791D1AA02B84344900E28162 /* HomeScreenView.swift */,
+				7976E6632BD73793006C3726 /* TabViewMain.swift */,
+				797B4C402BDAE86700A3A25D /* HomeDashboard.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -712,6 +876,22 @@
 			path = Raj;
 			sourceTree = "<group>";
 		};
+		7976E6692BD73871006C3726 /* Communities */ = {
+			isa = PBXGroup;
+			children = (
+				7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */,
+			);
+			path = Communities;
+			sourceTree = "<group>";
+		};
+		7976E66A2BD73877006C3726 /* Self Care Suite */ = {
+			isa = PBXGroup;
+			children = (
+				7976E6652BD73862006C3726 /* SelfCareMainView.swift */,
+			);
+			path = "Self Care Suite";
+			sourceTree = "<group>";
+		};
 		79C383DB2BC610E800A6779A /* Check In */ = {
 			isa = PBXGroup;
 			children = (
@@ -743,6 +923,61 @@
 				79C383F42BC8749700A6779A /* LevelOneMapView.swift */,
 			);
 			path = "Level Maps";
+			sourceTree = "<group>";
+		};
+		79C383F62BD60DA000A6779A /* UPDATED GAME PHASES */ = {
+			isa = PBXGroup;
+			children = (
+				79C383F72BD60DBA00A6779A /* PHASE 1 */,
+				79C383F82BD60DC700A6779A /* PHASE 2 */,
+			);
+			path = "UPDATED GAME PHASES";
+			sourceTree = "<group>";
+		};
+		79C383F72BD60DBA00A6779A /* PHASE 1 */ = {
+			isa = PBXGroup;
+			children = (
+				79C383F92BD60E0000A6779A /* P1-1_Intro.swift */,
+				79C383FB2BD60E1300A6779A /* P1-2_MentalHealthMod.swift */,
+				7926178D2BD70E4800AAAC81 /* P1-3_EmotionsScenario */,
+				79C383FF2BD60E5900A6779A /* P1-4_StressModule.swift */,
+				79C384052BD60EAC00A6779A /* P1-5_StressTriggerMap.swift */,
+				79C384012BD60E6B00A6779A /* P1-6_PersonalQuestion.swift */,
+				79C384032BD60E8500A6779A /* P1-7_MindfulnessModule.swift */,
+				79C384072BD60EBC00A6779A /* P1-8_ResourcesAnimation.swift */,
+				79069CF92BDA151700AB52DC /* P1-9_BoxBreathing */,
+				79C3840B2BD60EE200A6779A /* P1-10_LifestyleModule.swift */,
+				79C3840D2BD60EF400A6779A /* P1-11_CauseEffectMap.swift */,
+				79C3840F2BD60F0100A6779A /* P1-12_LifestyleQuestion.swift */,
+				79C384112BD60F0D00A6779A /* P1-13_BodyScan.swift */,
+				79069CFC2BDA15BB00AB52DC /* P1-13_MuscleRelaxation */,
+				79C384132BD60F2300A6779A /* P1-14_Reflection.swift */,
+				7926177D2BD6234A00AAAC81 /* P1-15_MiniGame */,
+			);
+			path = "PHASE 1";
+			sourceTree = "<group>";
+		};
+		79C383F82BD60DC700A6779A /* PHASE 2 */ = {
+			isa = PBXGroup;
+			children = (
+				79C384172BD60F5300A6779A /* P2-1_Intro.swift */,
+				79C384192BD60F5F00A6779A /* P2-1_AnxietyModule.swift */,
+				792617902BD70F1C00AAAC81 /* P2-3_DefiningAnxietyScenario */,
+				79C3841D2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift */,
+				79C3841F2BD60F9100A6779A /* P2-5_AnxietyWellnessQ.swift */,
+				79C384212BD60FA100A6779A /* P2-6_AnxietyModule.swift */,
+				79C384232BD60FC800A6779A /* P2-7_ExperienceQ.swift */,
+				79C384252BD60FD400A6779A /* P2-8_4Sliders.swift */,
+				79C384272BD60FDE00A6779A /* P2-9_GoalSetting.swift */,
+				79C384292BD60FEC00A6779A /* P2-10_5Factors.swift */,
+				79C3842B2BD60FF800A6779A /* P2-11_FeelingTimer.swift */,
+				79C3842D2BD6100300A6779A /* P2-12_CopingModule.swift */,
+				792617932BD71B3900AAAC81 /* P2-13_478Breathing */,
+				79C384312BD6101F00A6779A /* P2-14_Reflection.swift */,
+				1C7F93EA2BC3B291000754E2 /* PacMan.swift */,
+				79C384332BD6102800A6779A /* P2-15_MiniGame2.swift */,
+			);
+			path = "PHASE 2";
 			sourceTree = "<group>";
 		};
 		E54245342BABD1D400FCF1C6 /* Rahul */ = {
@@ -941,24 +1176,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */,
+				79C383FA2BD60E0000A6779A /* P1-1_Intro.swift in Sources */,
 				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				793B79BB2BB20423001062DB /* WellnessQ2View.swift in Sources */,
+				79C3840C2BD60EE200A6779A /* P1-10_LifestyleModule.swift in Sources */,
 				793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */,
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
 				102F1B8C2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift in Sources */,
 				793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */,
 				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
 				793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */,
+				792617802BD70BD900AAAC81 /* L1ScenarioPresentation.swift in Sources */,
 				79C383EE2BC6123300A6779A /* Background.swift in Sources */,
+				792617922BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift in Sources */,
 				E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */,
+				79C3840E2BD60EF400A6779A /* P1-11_CauseEffectMap.swift in Sources */,
+				79C384002BD60E5900A6779A /* P1-4_StressModule.swift in Sources */,
 				E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */,
 				1CB9EC7E2B9BF95C00F8970D /* PlayScreen2.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				793B79C12BB38E1C001062DB /* AvatarMenuSheetView.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
+				79C384082BD60EBC00A6779A /* P1-8_ResourcesAnimation.swift in Sources */,
 				793B79C52BB391D7001062DB /* AnxietyGoalSetting.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
@@ -966,24 +1208,40 @@
 				79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
+				79C384322BD6101F00A6779A /* P2-14_Reflection.swift in Sources */,
+				79069CF42BDA0EF300AB52DC /* GlowingBackground.swift in Sources */,
+				79C3842C2BD60FF800A6779A /* P2-11_FeelingTimer.swift in Sources */,
+				7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */,
+				79C384042BD60E8500A6779A /* P1-7_MindfulnessModule.swift in Sources */,
+				79C384202BD60F9100A6779A /* P2-5_AnxietyWellnessQ.swift in Sources */,
 				793B79C72BB39205001062DB /* FlashlightPurchase.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
+				7926178F2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift in Sources */,
 				79C383F52BC8749700A6779A /* LevelOneMapView.swift in Sources */,
 				79C383EC2BC6122C00A6779A /* AnimatedTextView.swift in Sources */,
 				793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */,
+				79C383FC2BD60E1300A6779A /* P1-2_MentalHealthMod.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
+				792617882BD70C5200AAAC81 /* SherpaTalking.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
 				791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */,
 				791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */,
 				79C383F02BC6123F00A6779A /* MultiSectionView.swift in Sources */,
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
+				79069D002BDA38BA00AB52DC /* Widget.swift in Sources */,
+				797B4C412BDAE86700A3A25D /* HomeDashboard.swift in Sources */,
 				1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */,
+				79C384342BD6102800A6779A /* P2-15_MiniGame2.swift in Sources */,
+				79C384142BD60F2300A6779A /* P1-14_Reflection.swift in Sources */,
+				79069CF02BDA0D9100AB52DC /* CauseEffectPair.swift in Sources */,
 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
+				7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */,
 				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
 				102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */,
 				79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */,
+				79C3842A2BD60FEC00A6779A /* P2-10_5Factors.swift in Sources */,
 				1C8DF97A2BC5B55F0016BFA8 /* RegisterView.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
 				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
@@ -994,32 +1252,49 @@
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
 				79C383E72BC6113200A6779A /* UserDashboardViewModel.swift in Sources */,
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
+				7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */,
+				79C3841A2BD60F5F00A6779A /* P2-1_AnxietyModule.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				E542453C2BAF683A00FCF1C6 /* Module3.swift in Sources */,
+				79C384282BD60FDE00A6779A /* P2-9_GoalSetting.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */,
 				79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */,
+				79C384182BD60F5300A6779A /* P2-1_Intro.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
 				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
 				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
+				79C383FE2BD60E4200A6779A /* P1-3_EmotionsScenario.swift in Sources */,
+				79C384262BD60FD400A6779A /* P2-8_4Sliders.swift in Sources */,
 				793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */,
+				792617822BD70BF400AAAC81 /* L1ScenarioQuiz.swift in Sources */,
 				79C383E12BC6110E00A6779A /* HabitTracker.swift in Sources */,
 				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */,
+				79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
 				1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */,
+				79C3841E2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift in Sources */,
 				791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */,
 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
 				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
+				792617842BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift in Sources */,
+				79C384062BD60EAC00A6779A /* P1-5_StressTriggerMap.swift in Sources */,
 				1CD299C22BBA5E4E003A0592 /* Level2Complete.swift in Sources */,
+				79C3841C2BD60F7300A6779A /* P2-3_DefiningAnxietyScenario.swift in Sources */,
 				793B79C92BB3921D001062DB /* Level1Complete.swift in Sources */,
+				792617862BD70C2000AAAC81 /* ScenarioTemplate.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
+				79C384242BD60FC800A6779A /* P2-7_ExperienceQ.swift in Sources */,
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
 				79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */,
 				79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */,
+				79C3842E2BD6100300A6779A /* P2-12_CopingModule.swift in Sources */,
+				79C384022BD60E6B00A6779A /* P1-6_PersonalQuestion.swift in Sources */,
+				79C384122BD60F0D00A6779A /* P1-13_BodyScan.swift in Sources */,
 				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
 				10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
@@ -1027,10 +1302,14 @@
 				1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */,
 				793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */,
 				79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */,
+				79C384102BD60F0100A6779A /* P1-12_LifestyleQuestion.swift in Sources */,
+				7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */,
 				1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
 				798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */,
+				79C384222BD60FA100A6779A /* P2-6_AnxietyModule.swift in Sources */,
+				79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,9 +1477,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.08;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
-
-				DEVELOPMENT_TEAM = 9UMCCFSYB9;
-
+				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
@@ -1217,9 +1494,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-
-				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp.test";
-
+				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1237,9 +1512,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.08;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
-
-				DEVELOPMENT_TEAM = 9UMCCFSYB9;
-
+				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
@@ -1256,9 +1529,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-
-				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp.test";
-
+				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

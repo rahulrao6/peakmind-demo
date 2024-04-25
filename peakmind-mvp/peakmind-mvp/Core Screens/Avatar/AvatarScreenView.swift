@@ -2,7 +2,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct AvatarScreen: View {
-    let avatarOptions = ["Mikey", "Raj", "Trevor"]
+    let avatarOptions = ["Mikey", "Raj", "Trevor", "Girl1", "Girl2", "Girl3"]
     let backgroundOptions = ["Pink Igloo", "Orange Igloo", "Blue Igloo", "Navy Igloo"]
     @State private var selectedAvatar = "Mikey"
     @State private var selectedBackground = "Navy Igloo"

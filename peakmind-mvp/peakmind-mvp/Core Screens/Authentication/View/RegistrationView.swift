@@ -66,9 +66,9 @@ struct RegistrationView: View {
                     InputView(text: $username, title: "Username", placeholder: "Enter your username", isSecureField: false)
                     
 //                    InputView(text: $full_name, title: "Full Name", placeholder: "Enter your name", isSecureField: false)
-//                    
+//
 //                    InputView(text: $location, title: "City", placeholder: "Enter your city", isSecureField: false)
-//                    
+//
 
 //                    ColorPicker("Choose a background color:", selection: $color_raw)
 //                        .foregroundColor(Color(.black))
@@ -159,7 +159,7 @@ struct RegistrationView: View {
 
 extension RegistrationView: AuthenticationFormProtocol {
     var formIsValid: Bool {
-        return !email.isEmpty && email.contains("@") && !password.isEmpty && password.count > 5 && password == confirm_password && !full_name.isEmpty
+        return !email.isEmpty && email.contains("@") && !password.isEmpty && password.count > 5 && password == confirm_password
     }
     
     

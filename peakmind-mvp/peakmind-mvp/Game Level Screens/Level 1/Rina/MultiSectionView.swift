@@ -17,10 +17,10 @@ struct MultiSectionView<nextView: View>: View {
     var body: some View {
         VStack {
             Text(title)
-                .font(.system(size: 34, weight: .bold, design: .default))
+                .font(.system(size: 30, weight: .bold, design: .default))
                 .foregroundColor(.white)
-                .padding(.top, 50)
-                .padding(.horizontal)
+                .padding(.top, 40)
+                .padding(.bottom, 40)
                 
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
                 TabView(selection: $selectedPage) {
@@ -30,14 +30,13 @@ struct MultiSectionView<nextView: View>: View {
                                 .font(.system(size: 22, weight: .bold, design: .default))
                                 .foregroundColor(.white)
                                 .padding(.bottom, 5)
-                            
                             Text(pageTexts[index])
                                 .font(.body)
                                 .multilineTextAlignment(.leading)
                                 .foregroundColor(.white)
                                 .padding()
                         }
-                        .frame(width: 300, height: 330)
+                        .frame(width: 320, height: 330)
                         .background(Color("Dark Blue").opacity(0.75))
                         .cornerRadius(15)
                         .shadow(radius: 5)

@@ -11,20 +11,20 @@ struct LevelOneMapView: View {
     @State private var showAlert = false
 
     // Background image name
-    let backgroundName = "Level1Map"
+    let backgroundName = "Mughees"
 
     // List of node screen names in the correct order along with their positions
     let nodeScreens = [
-        ("Module2", CGPoint(x: 300, y: 680)),
-        ("AnxietyModuleView", CGPoint(x: 170, y: 600)),
-        ("AnxietyQuiz", CGPoint(x: 260, y: 485)),
-        ("HabitExplanation", CGPoint(x: 340, y: 360)),
-        ("SetHabits", CGPoint(x: 220, y: 300)),
-        ("Reflection", CGPoint(x: 170, y: 230)),
-        ("SMARTGoalSettingView", CGPoint(x: 220, y: 150)),
-        ("ScenarioPres", CGPoint(x: 315, y: 120)),
-        ("ScenarioQuiz", CGPoint(x: 325, y: 50)),
-        ("WellnessQ", CGPoint(x: 200, y: 10)) // This is the final node
+        ("P1_Intro", CGPoint(x: 285, y: 680)),
+        ("P1_MentalHealthMod", CGPoint(x: 170, y: 600)),
+        ("P1_3_EmotionsScenario", CGPoint(x: 120, y: 530)),
+        ("P1_4_StressModule", CGPoint(x: 340, y: 400)),
+        ("P1_5_StressTriggerMap", CGPoint(x: 230, y: 280)),
+        ("P1_6_PersonalQuestion", CGPoint(x: 170, y: 235)),
+        ("BoxBreathingView", CGPoint(x: 110, y: 130)),
+        ("MuscleRelaxationView", CGPoint(x: 200, y: 100)),
+        ("P1_14_Reflection", CGPoint(x: 300, y: 70)),
+        ("Minigame2View", CGPoint(x: 340, y: 10)) // This is the final node
     ]
 
     var body: some View {
@@ -51,7 +51,7 @@ struct LevelOneMapView: View {
                     }) {
                         Image(completedLevels.contains(screenName) ? "StoneComplete" : (isUnlocked ? "Stone" : "LockedStone"))
                             .resizable()
-                            .frame(width: 69, height: 69)
+                            .frame(width: 57, height: 57)
                     }
                     .alert(isPresented: $showAlert) {
                         Alert(title: Text("Locked"), message: Text("You must complete 6 of the 9 previous modules to unlock this."), dismissButton: .default(Text("OK")))
@@ -79,18 +79,26 @@ struct LevelOneMapView: View {
     @ViewBuilder
     private func destinationView(for screenName: String) -> some View {
         switch screenName {
-        case "Module2":
-            Module2View()
-        case "AnxietyModuleView":
-            AnxietyModuleView()
-        case "AnxietyQuiz":
-            AnxietyQuiz()
-        case "SetHabits":
-            SetHabits()
-        case "SMARTGoalSettingView":
-            SMARTGoalSettingView()
-        case "Level1Complete":
-            Level1Complete()
+        case "P1_Intro":
+            PacManGameView()
+        case "P1_MentalHealthMod":
+            P1_MentalHealthMod()
+        case "P1_3_EmotionsScenario":
+            P1_3_EmotionsScenario()
+        case "P1_4_StressModule":
+            P1_4_StressModule()
+        case "P1_5_StressTriggerMap":
+            P1_10_LifestyleModule()
+        case "P1_6_PersonalQuestion":
+            P1_6_PersonalQuestion()
+        case "BoxBreathingView":
+            BoxBreathingView()
+        case "MuscleRelaxationView":
+            MuscleRelaxationView()
+        case "P1_14_Reflection":
+            P1_14_Reflection()
+        case "Minigame2View":
+            Minigame2View()
         default:
             Text("Unknown View")
         }

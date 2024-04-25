@@ -26,7 +26,7 @@ struct ContentView: View {
                 if $viewModel.userSession != nil && viewModel.currentUser  != nil {
                     //logged in
                     if (viewModel.currentUser?.hasCompletedInitialQuiz == true) {
-                        HomeScreenView()
+                        TabViewMain()
                             .environmentObject(viewModel)
                         //StoreView()
                         //TentPurchase()
@@ -35,7 +35,7 @@ struct ContentView: View {
                             AvatarMenuView()
                                 .environmentObject(viewModel)
                         } else {
-                            HomeScreenView()
+                            TabViewMain()
                                 .environmentObject(viewModel)
                             //AnxietyQuiz()
                             //TentPurchase()

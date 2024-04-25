@@ -23,7 +23,7 @@ struct AnimatedSpeechBubble<nextView: View>: View {
                 
             Spacer()
             
-            SpeechBubble(text: $animatedText)
+            SpeechBubble(text: $animatedText, width: 300.0)
                 .onAppear { animateText() }
                 .offset(x: 90, y: 520)
             
@@ -51,6 +51,7 @@ struct AnimatedSpeechBubble<nextView: View>: View {
 
 struct SpeechBubble: View {
     @Binding var text: String
+    var width: Double
 
     var body: some View {
         Text(text)
@@ -59,7 +60,7 @@ struct SpeechBubble: View {
             .foregroundColor(.white)
             .lineLimit(7)
             .padding()
-            .frame(width: 300, height: 150, alignment: .topLeading)
+            .frame(width: width, alignment: .topLeading)
             .background(Color("Dark Blue"))
             .cornerRadius(10)
             .overlay(

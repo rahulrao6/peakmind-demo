@@ -72,7 +72,7 @@ struct HomeScreenView: View {
                         
                         .shadow(radius: 5)
                         .background(
-                            NavigationLink(destination: StoreView(), isActive: $navigateToStoreScreen) {
+                            NavigationLink(destination: SelfCareHome(), isActive: $navigateToStoreScreen) {
                                 EmptyView()
                             }
                         )

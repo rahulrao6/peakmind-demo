@@ -19,6 +19,7 @@ struct UserData : Identifiable, Codable {
     let inventory: Array<String>
     let LevelOneCompleted: Bool
     let LevelTwoCompleted: Bool
+    let selectedWidgets: Array<String>
     
     
     var initials: String {

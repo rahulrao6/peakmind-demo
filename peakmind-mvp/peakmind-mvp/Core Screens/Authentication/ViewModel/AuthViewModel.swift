@@ -52,7 +52,7 @@ class AuthViewModel : ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, inventory: [], LevelOneCompleted: LevelOneCompleted, LevelTwoCompleted: LevelTwoCompleted)
+            let user = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, inventory: [], LevelOneCompleted: LevelOneCompleted, LevelTwoCompleted: LevelTwoCompleted, selectedWidgets: [])
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
             await fetchUser()
@@ -101,7 +101,7 @@ class AuthViewModel : ObservableObject {
             
             // Proceed with deleting the user account
             try await user.delete()
-            
+            signOut()
             // Clear any related user data in the app
             DispatchQueue.main.async { [weak self] in
                 self?.userSession = nil
@@ -124,6 +124,28 @@ class AuthViewModel : ObservableObject {
             }
         }
     }
+    
+    func saveSelectedWidgets(selected: [String]) async {
+        guard let user = currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id)
+        
+        do {
+            try await userRef.setData(["selectedWidgets": selected], merge: true)
+            // Update local user data and refresh
+            Task{
+                await fetchUser()
+
+            }
+            print("Widget selection updated successfully.")
+        } catch {
+            print("Error updating widget selection: \(error)")
+        }
+    }
+
     
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else { return }

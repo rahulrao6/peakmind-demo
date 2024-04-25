@@ -116,6 +116,7 @@ struct ContentView: View {
         
         
         .onAppear {
+            
             readTotalStepCount()
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Adjust delay time as needed
                 withAnimation {

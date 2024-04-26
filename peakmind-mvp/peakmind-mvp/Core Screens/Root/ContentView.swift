@@ -125,6 +125,7 @@ struct ContentView: View {
         }
 
     }
+    
     func readTotalStepCount() {
         guard let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
             fatalError("*** Unable to get the step count type ***")
@@ -132,13 +133,13 @@ struct ContentView: View {
         
         let endDate = Date()
         let startDate = Calendar.current.date(byAdding: .day, value: -14, to: endDate)!
-        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [.strictStartDate, .strictEndDate])
 
         var interval = DateComponents()
         interval.day = 1
 
         let query = HKStatisticsCollectionQuery(quantityType: stepCountType,
-                                                quantitySamplePredicate: predicate,
+                                                quantitySamplePredicate: nil,
                                                 options: [.cumulativeSum],
                                                 anchorDate: startDate,
                                                 intervalComponents: interval)
@@ -153,14 +154,14 @@ struct ContentView: View {
                 return
             }
             
-            var dayData = [String: Int]()
+            var dayData = [String: Double]()
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             
             results.enumerateStatistics(from: startDate, to: endDate) { statistics, stop in
                 let dateKey = formatter.string(from: statistics.startDate)
                 if let quantity = statistics.sumQuantity() {
-                    let steps = Int(quantity.doubleValue(for: HKUnit.count()))
+                    let steps = quantity.doubleValue(for: HKUnit.count())
                     dayData[dateKey] = steps
                 }
             }
@@ -172,7 +173,7 @@ struct ContentView: View {
     }
     
     
-    private func saveStepsToFirestore(dayData: [String: Int]) {
+    private func saveStepsToFirestore(dayData: [String: Double]) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not logged in")
             return

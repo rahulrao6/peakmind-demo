@@ -129,6 +129,8 @@
 		797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */; };
 		797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AAB792BA5335C00F24123 /* IglooMenuView.swift */; };
 		797B4C412BDAE86700A3A25D /* HomeDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C402BDAE86700A3A25D /* HomeDashboard.swift */; };
+		797B4C432BDC06BC00A3A25D /* Level2MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C422BDC06BC00A3A25D /* Level2MapView.swift */; };
+		797B4C452BDC094C00A3A25D /* SherpaTutorialBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */; };
 		798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* IntroPlayView.swift */; };
 		79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3DAED2B843CE0003C3B44 /* MainTabView.swift */; };
 		79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */; };
@@ -299,6 +301,8 @@
 		797AAB772BA52DEF00F24123 /* AvatarMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuView.swift; sourceTree = "<group>"; };
 		797AAB792BA5335C00F24123 /* IglooMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IglooMenuView.swift; sourceTree = "<group>"; };
 		797B4C402BDAE86700A3A25D /* HomeDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboard.swift; sourceTree = "<group>"; };
+		797B4C422BDC06BC00A3A25D /* Level2MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2MapView.swift; sourceTree = "<group>"; };
+		797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaTutorialBox.swift; sourceTree = "<group>"; };
 		798EFB692B84379D00E6027A /* IntroPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPlayView.swift; sourceTree = "<group>"; };
 		79B3DAED2B843CE0003C3B44 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarScreenView.swift; sourceTree = "<group>"; };
@@ -476,6 +480,7 @@
 				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
 				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
 				79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */,
+				797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -921,6 +926,7 @@
 			isa = PBXGroup;
 			children = (
 				79C383F42BC8749700A6779A /* LevelOneMapView.swift */,
+				797B4C422BDC06BC00A3A25D /* Level2MapView.swift */,
 			);
 			path = "Level Maps";
 			sourceTree = "<group>";
@@ -1201,6 +1207,7 @@
 				793B79C12BB38E1C001062DB /* AvatarMenuSheetView.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				79C384082BD60EBC00A6779A /* P1-8_ResourcesAnimation.swift in Sources */,
+				797B4C452BDC094C00A3A25D /* SherpaTutorialBox.swift in Sources */,
 				793B79C52BB391D7001062DB /* AnxietyGoalSetting.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
@@ -1304,6 +1311,7 @@
 				79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */,
 				79C384102BD60F0100A6779A /* P1-12_LifestyleQuestion.swift in Sources */,
 				7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */,
+				797B4C432BDC06BC00A3A25D /* Level2MapView.swift in Sources */,
 				1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,

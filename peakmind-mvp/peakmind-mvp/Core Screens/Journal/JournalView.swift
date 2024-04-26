@@ -1,11 +1,13 @@
 import SwiftUI
 import Firebase
-
+import JournalingSuggestions
 
 struct JournalView: View {
     @EnvironmentObject var dataManager: JournalDataManager
     @EnvironmentObject var viewModel : AuthViewModel
-
+    
+    @Binding var suggestion: JournalingSuggestion?
+    
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var mood: String = "Neutral"
@@ -15,8 +17,8 @@ struct JournalView: View {
     @State private var tagInput: String = ""
     
     @Environment(\.presentationMode) var presentationMode
-
-
+    
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
@@ -42,15 +44,20 @@ struct JournalView: View {
             }
         }
         .environment(\.colorScheme, .light)
-
+        
     }
-
+    
     private var titleField: some View {
         TextField("Title", text: $title)
             .padding()
             .background(Color.white)
             .cornerRadius(10)
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+            .onAppear {
+                if (suggestion != nil) {
+                    title = suggestion!.title
+                }
+            }
     }
     
     private var datePicker: some View {
@@ -91,13 +98,13 @@ struct JournalView: View {
                 }
             }
             .padding()
-
+            
             WrapView(tags: $tags, onDelete: { tag in
                 self.removeTag(tag)
             })
         }
     }
-
+    
     private func addTag() {
         let cleanedTag = tagInput.trimmingCharacters(in: .whitespacesAndNewlines)
         if !cleanedTag.isEmpty && !tags.contains(cleanedTag) {
@@ -105,11 +112,11 @@ struct JournalView: View {
             tagInput = ""
         }
     }
-
+    
     private func removeTag(_ tag: String) {
         tags.removeAll(where: { $0 == tag })
     }
-
+    
     private var contentEditor: some View {
         TextEditor(text: $content)
             .frame(height: 200)

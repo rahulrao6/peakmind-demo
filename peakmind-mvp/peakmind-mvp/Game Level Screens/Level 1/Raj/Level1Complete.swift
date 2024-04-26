@@ -59,7 +59,7 @@ struct Level1Complete: View {
             }
         }
         .background(
-            NavigationLink(destination: HomeScreenView().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+            NavigationLink(destination: TabViewMain().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
             EmptyView()
         })
         .onAppear() {

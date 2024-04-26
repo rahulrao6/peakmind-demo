@@ -80,7 +80,7 @@ struct LevelOneMapView: View {
     private func destinationView(for screenName: String) -> some View {
         switch screenName {
         case "P1_Intro":
-            PacManGameView()
+            P1_Intro()
         case "P1_MentalHealthMod":
             P1_MentalHealthMod()
         case "P1_3_EmotionsScenario":

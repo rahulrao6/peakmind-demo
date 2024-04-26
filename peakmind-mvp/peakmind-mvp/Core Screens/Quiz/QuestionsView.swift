@@ -144,7 +144,7 @@ struct QuestionsView: View {
         }
         
         .background(
-            NavigationLink(destination: HomeScreenView(), isActive: $navigateToHome) {
+            NavigationLink(destination: TabViewMain(), isActive: $navigateToHome) {
                 EmptyView()
             }
             .hidden()

@@ -26,6 +26,8 @@ struct LevelOneMapView: View {
         ("P1_14_Reflection", CGPoint(x: 300, y: 70)),
         ("Minigame2View", CGPoint(x: 340, y: 10)) // This is the final node
     ]
+    
+    
 
     var body: some View {
         NavigationView {
@@ -80,7 +82,7 @@ struct LevelOneMapView: View {
     private func destinationView(for screenName: String) -> some View {
         switch screenName {
         case "P1_Intro":
-            PacManGameView()
+            PacManGameView().environmentObject(GameModel())
         case "P1_MentalHealthMod":
             P1_MentalHealthMod()
         case "P1_3_EmotionsScenario":

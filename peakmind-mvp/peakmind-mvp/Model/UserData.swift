@@ -22,6 +22,7 @@ struct UserData : Identifiable, Codable {
     let selectedWidgets: Array<String>
     let lastCheck: Date?
     let weeklyStatus: [Int]
+    let hasCompletedTutorial: Bool
     
     var initials: String {
         let formatter = PersonNameComponentsFormatter()

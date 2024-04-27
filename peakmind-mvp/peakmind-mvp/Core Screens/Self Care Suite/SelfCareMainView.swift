@@ -898,6 +898,9 @@ struct CheckInView: View {
                 } else {
                     print("Check-in data updated successfully")
                 }
+                Task{
+                    await viewModel.fetchUser()
+                }
             }
         }
     }

@@ -46,9 +46,9 @@ struct HomeDashboard: View {
                                     Spacer() // Pushes the dots to the bottom
                                     
                                     HStack(spacing: 5) {
-                                        ForEach(0..<user.weeklyCheck.count, id: \.self) { index in
+                                        ForEach(0..<user.weeklyStatus.count, id: \.self) { index in
                                             Circle()
-                                                .fill(user.weeklyCheck[index] == 1 ? Color("Ice Blue") : Color.gray)
+                                                .fill(user.weeklyStatus[index] == 1 ? Color("Ice Blue") : Color.gray)
                                                 .frame(width: 25, height: 25)
                                                 .overlay(
                                                     Text(abbreviationForDay(index: index))

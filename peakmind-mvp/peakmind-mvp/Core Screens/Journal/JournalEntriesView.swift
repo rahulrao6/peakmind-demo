@@ -1,11 +1,13 @@
 import SwiftUI
 import Firebase
+import JournalingSuggestions
 
 struct JournalEntriesView: View {
     @EnvironmentObject var dataManager: JournalDataManager
     @EnvironmentObject var viewModel : AuthViewModel
     @State var journalEntries: [JournalEntry] = []
     @State private var showingAddJournalEntryView = false
+    @State private var journalSuggestion: JournalingSuggestion?
     @State private var selectedEntry: JournalEntry? = nil
 
 
@@ -30,8 +32,22 @@ struct JournalEntriesView: View {
                         entriesList
  
                     }
+                    
+                    JournalingSuggestionsPicker {
+                        Image("AddButton")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .shadow(radius: 10)
+                    }
+                    onCompletion: { suggestion in
+                        journalSuggestion = suggestion
+                        showingAddJournalEntryView = true
+                    }
+                    .padding(.top, 75)
+                    
+                    Spacer()
 
-                    addButton.padding(.bottom)
+                    //addButton.padding(.bottom)
                 }
             }
             .navigationBarTitle("", displayMode: .inline)
@@ -40,7 +56,7 @@ struct JournalEntriesView: View {
                 fetchJournalEntries()
             }
             .sheet(isPresented: $showingAddJournalEntryView, onDismiss: fetchJournalEntries) {
-                JournalView().environmentObject(dataManager)
+                JournalView(suggestion: $journalSuggestion).environmentObject(dataManager)
             }
         }
 
@@ -71,7 +87,7 @@ struct JournalEntriesView: View {
                 Button(action: {
                     showingAddJournalEntryView = true
                 }) {
-                    Image("AddButton")                         
+                    Image("AddButton")
                         .resizable()
                         .frame(width: 100, height: 100)
                         .shadow(radius: 10)

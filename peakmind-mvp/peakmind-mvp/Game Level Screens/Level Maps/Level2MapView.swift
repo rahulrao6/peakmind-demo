@@ -1,6 +1,13 @@
+//
+//  Level2MapView.swift
+//  peakmind-mvp
+//
+//  Created by Mikey Halim on 4/26/24.
+//
+
 import SwiftUI
 
-struct LevelOneMapView: View {
+struct Level2MapView: View {
     // Tracks completed levels
     @State private var completedLevels: Set<String> = []
 
@@ -26,8 +33,6 @@ struct LevelOneMapView: View {
         ("P1_14_Reflection", CGPoint(x: 300, y: 70)),
         ("Minigame2View", CGPoint(x: 340, y: 10)) // This is the final node
     ]
-    
-    
 
     var body: some View {
         NavigationView {
@@ -82,25 +87,25 @@ struct LevelOneMapView: View {
     private func destinationView(for screenName: String) -> some View {
         switch screenName {
         case "P1_Intro":
-            P1_Intro()
+            P2_1_Intro()
         case "P1_MentalHealthMod":
-            P1_MentalHealthMod()
+            P2_1_AnxietyModule()
         case "P1_3_EmotionsScenario":
-            P1_3_EmotionsScenario()
+            P2_3_DefiningAnxietyScenario()
         case "P1_4_StressModule":
-            P1_4_StressModule()
+            P2_5_AnxietyWellnessQ()
         case "P1_5_StressTriggerMap":
-            P1_10_LifestyleModule()
+            P2_6_AnxietyModule()
         case "P1_6_PersonalQuestion":
-            P1_6_PersonalQuestion()
+            P2_9_GoalSetting()
         case "BoxBreathingView":
-            BoxBreathingView()
+            P2_12_CopingModule()
         case "MuscleRelaxationView":
-            MuscleRelaxationView()
+            BreathingExerciseView()
         case "P1_14_Reflection":
-            P1_14_Reflection()
+            P2_14_Reflection()
         case "Minigame2View":
-            Minigame2View()
+            PacManGameView()
         default:
             Text("Unknown View")
         }
@@ -108,8 +113,8 @@ struct LevelOneMapView: View {
 }
 
 // Preview
-struct LevelOneMapView_Previews: PreviewProvider {
+struct Level2MapView_Previews: PreviewProvider {
     static var previews: some View {
-        LevelOneMapView()
+        Level2MapView()
     }
 }

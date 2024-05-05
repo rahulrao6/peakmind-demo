@@ -13,6 +13,7 @@ struct SelfCareHome: View {
     @State private var tasks: [TaskFirebase] = []
     @State private var showingWidgetSelection = false
     @State private var currentTasksExpanded2 = false
+    @State private var showingQuestionsSheet = false
     @State private var showingAnalyticsSheet = false
     @State private var moodEntries: [MoodEntry] = []
 
@@ -88,6 +89,9 @@ struct SelfCareHome: View {
                                 HStack{
                                     CustomButton(title: "Check In", onClick: {
                                         checkAndAllowCheckIn()
+                                        Task{
+                                            await viewModel.fetchUser()
+                                        }
                                     })
                                     CustomButton(title: "Pick Widgets", onClick: {
                                         showingWidgetSelection = true
@@ -132,8 +136,23 @@ struct SelfCareHome: View {
                 Analytics(isPresented: $showingAnalyticsSheet)
                     .environmentObject(viewModel)  // Ensure the view model is passed if needed
             }
+            .sheet(isPresented: $showingQuestionsSheet) {  // Sheet is presented based on the state
+                QuestionsView()
+                    .environmentObject(viewModel)  // Ensure the view model is passed if needed
+            }
+            
+
+            
             .navigationBarTitle("Self Care Suite", displayMode: .inline)
             .foregroundColor(.white)
+        }
+
+        
+    }
+    
+    func checkQuiz() {
+        if (!(viewModel.currentUser?.hasCompletedInitialQuiz ?? true)) {
+            showingQuestionsSheet = true
         }
     }
     @ViewBuilder
@@ -190,6 +209,7 @@ struct SelfCareHome: View {
         .foregroundColor(.white)
         .frame(maxWidth: .infinity, alignment: .leading)
         .onAppear {
+            checkQuiz()
             fetchMoodData() // Ensure this is called to load data
         }
     }
@@ -840,16 +860,51 @@ struct CheckInView: View {
     func updateLastCheckIn(timestamp: Date) {
         guard let userID = viewModel.currentUser?.id else { return }
         let db = Firestore.firestore()
-        db.collection("users").document(userID).updateData([
-            "lastCheck": timestamp
-        ]) { error in
-            if let error = error {
-                print("Error updating last check-in timestamp: \(error)")
+        let userRef = db.collection("users").document(userID)
+
+        userRef.getDocument { document, error in
+            guard let document = document, error == nil else {
+                print("Error fetching user data: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            // Initialize or update the weeklyStatus array
+            var weeklyStatus = document.get("weeklyStatus") as? [Int] ?? [0, 0, 0, 0, 0, 0, 0]
+            let lastCheck = document.get("lastCheck") as? Timestamp
+
+            let calendar = Calendar.current
+            let currentWeekOfYear = calendar.component(.weekOfYear, from: timestamp)
+            let currentDayOfWeek = calendar.component(.weekday, from: timestamp)
+
+            // Calculate index (0-based, Monday as first day)
+            let index = (currentDayOfWeek + 5) % 7  // Adjusting index since Sunday is 1 in Gregorian calendar
+
+            // Check if the last check-in was in the current week
+            if let lastCheckDate = lastCheck?.dateValue(), calendar.component(.weekOfYear, from: lastCheckDate) == currentWeekOfYear {
+                weeklyStatus[index] = 1  // Update only the current day
             } else {
-                print("Last check-in timestamp updated successfully")
+                // Reset and update for the new week
+                weeklyStatus = [0, 0, 0, 0, 0, 0, 0]
+                weeklyStatus[index] = 1
+            }
+
+            // Update Firestore
+            userRef.updateData([
+                "lastCheck": timestamp,
+                "weeklyStatus": weeklyStatus
+            ]) { error in
+                if let error = error {
+                    print("Error updating check-in data: \(error)")
+                } else {
+                    print("Check-in data updated successfully")
+                }
+                Task{
+                    await viewModel.fetchUser()
+                }
             }
         }
     }
+
 }
 
 struct MoodEntry: Identifiable {

@@ -26,6 +26,8 @@ struct LevelOneMapView: View {
         ("P1_14_Reflection", CGPoint(x: 300, y: 70)),
         ("Minigame2View", CGPoint(x: 340, y: 10)) // This is the final node
     ]
+    
+    
 
     var body: some View {
         NavigationView {

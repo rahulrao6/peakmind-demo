@@ -19,7 +19,7 @@ struct MainScreenView: View {
                     }
                     .tag(0)
                 
-                JournalEntriesView()
+                //JournalEntriesView()
                     .tabItem {
                         Label("Journal", systemImage: "note.text")
                     }

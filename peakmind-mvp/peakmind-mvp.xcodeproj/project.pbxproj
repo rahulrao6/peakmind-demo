@@ -109,6 +109,8 @@
 		7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617892BD70C6900AAAC81 /* SherpaAlone.swift */; };
 		7926178F2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7926178E2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift */; };
 		792617922BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617912BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift */; };
+		7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7930831B2BE8527E002A2E0B /* FeedbackFormView.swift */; };
+		7930831E2BE85713002A2E0B /* ResourcesToUtilize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7930831D2BE85713002A2E0B /* ResourcesToUtilize.swift */; };
 		793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */; };
 		793B79B12BAF9039001062DB /* L2QuizResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B02BAF9039001062DB /* L2QuizResponseView.swift */; };
 		793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79B22BAF9045001062DB /* L2SherpaChatView.swift */; };
@@ -282,6 +284,8 @@
 		792617892BD70C6900AAAC81 /* SherpaAlone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaAlone.swift; sourceTree = "<group>"; };
 		7926178E2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-3_ScenarioQuiz.swift"; sourceTree = "<group>"; };
 		792617912BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-3_ScenarioQuiz.swift"; sourceTree = "<group>"; };
+		7930831B2BE8527E002A2E0B /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
+		7930831D2BE85713002A2E0B /* ResourcesToUtilize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesToUtilize.swift; sourceTree = "<group>"; };
 		793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysImpactsAnxietyView.swift; sourceTree = "<group>"; };
 		793B79B02BAF9039001062DB /* L2QuizResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2QuizResponseView.swift; sourceTree = "<group>"; };
 		793B79B22BAF9045001062DB /* L2SherpaChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L2SherpaChatView.swift; sourceTree = "<group>"; };
@@ -492,7 +496,7 @@
 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
-				79069D012BDA39E900AB52DC /* New Group */,
+				79069D012BDA39E900AB52DC /* Resources */,
 				1C9FA25B2BCE1B11003C844C /* HealthKit */,
 				79C383DB2BC610E800A6779A /* Check In */,
 				E5511F4D2B92AD6600FCC38D /* Journal */,
@@ -546,6 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				1C9C63CB2B8141630066AF70 /* ProfileView.swift */,
+				7930831B2BE8527E002A2E0B /* FeedbackFormView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -693,11 +698,12 @@
 			path = "P1-13_MuscleRelaxation";
 			sourceTree = "<group>";
 		};
-		79069D012BDA39E900AB52DC /* New Group */ = {
+		79069D012BDA39E900AB52DC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7930831D2BE85713002A2E0B /* ResourcesToUtilize.swift */,
 			);
-			path = "New Group";
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		791AC9042BA7DC830094A688 /* Mikey */ = {
@@ -1287,6 +1293,7 @@
 				102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */,
 				79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
+				7930831E2BE85713002A2E0B /* ResourcesToUtilize.swift in Sources */,
 				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
 				1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */,
 				79C3841E2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift in Sources */,
@@ -1303,6 +1310,7 @@
 				79C384242BD60FC800A6779A /* P2-7_ExperienceQ.swift in Sources */,
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
+				7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */,
 				79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */,
 				79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */,
 				79C3842E2BD6100300A6779A /* P2-12_CopingModule.swift in Sources */,

@@ -107,7 +107,7 @@ struct HomeDashboard: View {
                                     .aspectRatio(contentMode: .fit)
                             }
                             
-                            NavigationLink(destination: ResourcesButtonView()) {
+                            NavigationLink(destination: ResourcesToUtilize()) {
                                 Image("ResourcesButton")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

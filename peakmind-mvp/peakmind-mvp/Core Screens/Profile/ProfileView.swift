@@ -84,26 +84,9 @@ struct ProfileView: View {
     }
 }
 
-struct FeedbackFormView: View {
-    @State private var feedbackText = ""
-    
-    var body: some View {
-        VStack {
-            Text("Enter your feedback below!")
-                .font(.headline)
-                .padding()
-            
-            TextEditor(text: $feedbackText)
-                .frame(height: 200)
-                .border(Color.gray, width: 1)
-                .padding()
-            
-            Button("Submit") {
-                // Implement the submit action here
-                print("Feedback submitted")
-            }
-            .padding()
-        }
-        .padding()
+
+struct SettingsPreview: PreviewProvider {
+    static var previews: some View {
+        ProfileView()
     }
 }

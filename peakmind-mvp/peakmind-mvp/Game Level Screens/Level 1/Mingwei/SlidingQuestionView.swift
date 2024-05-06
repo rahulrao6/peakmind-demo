@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SlidingQuestionView: View {
-    @State private var sliderValues: [Double] = [0, 0, 0, 0]
+    @State private var sliderValues: [Double] = [0.5, 0.5, 0.5, 0.5]
     @State private var activeSlider = 0
     
     let questions: [String] = [

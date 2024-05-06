@@ -162,6 +162,6 @@ struct AnxietyQuiz: View {
 
 struct AnxietyQuiz_Previews: PreviewProvider {
     static var previews: some View {
-        AnxietyQuiz()
+        AnxietyQuiz().environmentObject(AuthViewModel())
     }
 }

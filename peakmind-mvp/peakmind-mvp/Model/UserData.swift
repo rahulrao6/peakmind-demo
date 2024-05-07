@@ -23,8 +23,7 @@ struct UserData : Identifiable, Codable {
     let lastCheck: Date?
     let weeklyStatus: [Int]
     let hasCompletedTutorial: Bool
-    var completedLevels: [String] = []  // New field to store completed levels
-
+    var completedLevels: [String]
     
     var initials: String {
         let formatter = PersonNameComponentsFormatter()

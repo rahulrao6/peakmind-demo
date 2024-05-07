@@ -33,18 +33,18 @@ struct LevelOneMapView: View {
     
 
     var body: some View {
-        NavigationView {
+        if let user = viewModel.currentUser { NavigationView {
             ZStack {
                 // Set the background
                 Image(backgroundName)
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
-
+                
                 // Layout for level buttons
                 ForEach(Array(nodeScreens.enumerated()), id: \.element.0) { index, node in
                     let (screenName, position) = node
-                    let isUnlocked = index < nodeScreens.count - 1 || viewModel.completedLevels.count >= 6
-
+                    let isUnlocked = index < nodeScreens.count - 1 || user.completedLevels.count ?? 0 >= 6
+                    
                     Button(action: {
                         if index == nodeScreens.count - 1 && !isUnlocked {
                             // Show alert if the last node is locked and the condition isn't met
@@ -54,7 +54,7 @@ struct LevelOneMapView: View {
                             activeLink = screenName
                         }
                     }) {
-                        Image(viewModel.completedLevels.contains(screenName) ? "StoneComplete" : (isUnlocked ? "Stone" : "LockedStone"))
+                        Image(user.completedLevels.contains(screenName) ? "StoneComplete" : (isUnlocked ? "Stone" : "LockedStone"))
                             .resizable()
                             .frame(width: 57, height: 57)
                     }
@@ -62,7 +62,7 @@ struct LevelOneMapView: View {
                         Alert(title: Text("Locked"), message: Text("You must complete 6 of the 9 previous modules to unlock this."), dismissButton: .default(Text("OK")))
                     }
                     .position(position)
-
+                    
                     // Hidden NavigationLink to manage navigation
                     NavigationLink(
                         destination: destinationView(for: screenName).onDisappear {
@@ -75,7 +75,7 @@ struct LevelOneMapView: View {
                         selection: $activeLink
                     ) {
                         EmptyView()
-
+                        
                     }
                     .hidden()
                     // Hide the navigation link as it is only used for triggering navigation
@@ -84,9 +84,10 @@ struct LevelOneMapView: View {
             .navigationBarTitle("", displayMode: .inline)
             .onAppear {
                 Task {
-                    await viewModel.fetchCompletedLevels()
+                    // await viewModel.fetchCompletedLevels()
                 }
             }
+        }
         }
     }
 

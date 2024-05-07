@@ -83,8 +83,10 @@ struct IglooMenuView: View {
                                     // Confirm action: FIREBASE CONNECTION PLZ and make it navigate to the avatar screen after selected
                                     Task {
                                         try await updateBackgroundAvatar()
+                                        try await viewModel.fetchUser()
+                                        navigateToTabView = true
                                     }
-                                    navigateToTabView = true
+                                    
                                 }
                                 .padding()
                                 .frame(maxWidth: 140)

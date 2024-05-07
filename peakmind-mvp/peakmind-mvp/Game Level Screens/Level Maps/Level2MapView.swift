@@ -77,6 +77,8 @@ struct Level2MapView: View {
                     }
                     .hidden() // Hide the navigation link as it is only used for triggering navigation
                 }
+                Text("Level Two")
+
             }
             .navigationBarTitle("", displayMode: .inline)
         }

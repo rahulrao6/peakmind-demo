@@ -90,7 +90,7 @@ struct LoginView: View {
                     Button {
                         Task {
                             do {
-                                //try await viewModel.signinWithGoogle()
+                                try await viewModel.signinWithGoogle()
                             } catch let e {
                                 print(e.localizedDescription)
                             }

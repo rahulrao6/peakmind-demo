@@ -46,6 +46,7 @@ struct ContentView: View {
                         AvatarMenuView()
                             .environmentObject(viewModel)
                     } else {
+    
                         TabViewMain()
                             .environmentObject(viewModel)
                     }
@@ -203,5 +204,7 @@ struct ContentView: View {
 
 
 }
+
+
 
     

@@ -70,12 +70,13 @@ struct peakmind_mvpApp: App {
     @StateObject var viewModel = AuthViewModel()
 
     @StateObject var journalDataManager = JournalDataManager() // Instantiate JournalDataManager
+    @StateObject var healthStore = HKHealthStore() // Assuming you have proper initialization elsewhere
 
-    private let healthStore: HKHealthStore
+    //private let healthStore: HKHealthStore
     
     init() {
         guard HKHealthStore.isHealthDataAvailable() else {  fatalError("This app requires a device that supports HealthKit") }
-        healthStore = HKHealthStore()
+        //healthStore = HKHealthStore()
         requestHealthkitPermissions()
     }
     

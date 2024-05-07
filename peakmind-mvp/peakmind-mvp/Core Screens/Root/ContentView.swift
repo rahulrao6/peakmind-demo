@@ -17,6 +17,7 @@ struct ContentView: View {
     @State private var navigateToStoreScreen = false // State to control splash screen visibility
     @State private var navigateToInventoryScreen = false // State to control splash screen visibility
     @EnvironmentObject var healthStore: HKHealthStore
+    @EnvironmentObject var healthKitManager: HealthKitManager
 
     
     var body: some View {
@@ -25,22 +26,32 @@ struct ContentView: View {
             Group {
                 if $viewModel.userSession != nil && viewModel.currentUser  != nil {
                     //logged in
-                    if (viewModel.currentUser?.hasCompletedInitialQuiz == true) {
+                    //                    if (viewModel.currentUser?.hasCompletedInitialQuiz == true) {
+                    //                        TabViewMain()
+                    //                            .environmentObject(viewModel)
+                    //
+                    //                    } else {
+                    //                        if (viewModel.currentUser?.hasSetInitialAvatar == false) {
+                    //                            AvatarMenuView()
+                    //                                .environmentObject(viewModel)
+                    //                        } else {
+                    //                            TabViewMain()
+                    //                                .environmentObject(viewModel)
+                    //                        }
+                    //                        TabViewMain()
+                    //                            .environmentObject(viewModel)
+                    //                    }
+                    
+                    if (viewModel.currentUser?.hasSetInitialAvatar == false) {
+                        AvatarMenuView()
+                            .environmentObject(viewModel)
+                    } else {
+    
                         TabViewMain()
                             .environmentObject(viewModel)
-                        //StoreView()
-                        //TentPurchase()
-                    } else {
-                        if (viewModel.currentUser?.hasSetInitialAvatar == false) {
-                            AvatarMenuView()
-                                .environmentObject(viewModel)
-                        } else {
-                            TabViewMain()
-                                .environmentObject(viewModel)
-                            //AnxietyQuiz()
-                            //TentPurchase()
-                        }
                     }
+                
+                    
                 } else {
                     LoginView()
                 }
@@ -57,6 +68,7 @@ struct ContentView: View {
                 
                 
             }
+
 
 
                   // Button to display current balance - Show only when the user is logged in
@@ -192,5 +204,7 @@ struct ContentView: View {
 
 
 }
+
+
 
     

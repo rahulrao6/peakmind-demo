@@ -13,6 +13,8 @@ struct IglooMenuView: View {
     let iglooImages = ["Blue Igloo", "Pink Igloo", "Orange Igloo"]
     @State private var selectedIglooIndex = 0
     @State private var isIglooSelection = true
+    @State private var navigateToTabView = false
+
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var isUpdateSuccessful = false // Control the presentation of the sheet
@@ -81,7 +83,10 @@ struct IglooMenuView: View {
                                     // Confirm action: FIREBASE CONNECTION PLZ and make it navigate to the avatar screen after selected
                                     Task {
                                         try await updateBackgroundAvatar()
+                                        try await viewModel.fetchUser()
+                                        navigateToTabView = true
                                     }
+                                    
                                 }
                                 .padding()
                                 .frame(maxWidth: 140)
@@ -97,6 +102,15 @@ struct IglooMenuView: View {
             }
         }
         .navigationBarHidden(true)
+        .background(
+            // NavigationLink that triggers when navigateToIglooView is true
+            NavigationLink(
+                destination: TabViewMain().environmentObject(viewModel),
+                isActive: $navigateToTabView
+            ) {
+                EmptyView()
+            }
+        )
 //        .onReceive(viewModel.$currentUser) { currentUser in
 //            if isUpdateSuccessful {
 //                self.presentationMode.wrappedValue.dismiss() // Dismiss the sheet after successful update

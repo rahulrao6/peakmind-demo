@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SherpaTutorialBox: View {
     var tutorialText: String
+    var continueAction: () -> Void
 
     var body: some View {
         VStack(spacing: 10) {
@@ -18,9 +19,7 @@ struct SherpaTutorialBox: View {
                         .font(.title3)
                         .fontWeight(.bold)
 
-                    Button(action: {
-                        print("Continue button tapped")
-                    }) {
+                    Button (action: continueAction) {
                         Text("Continue")
                             .bold()
                             .padding(.vertical, 10)
@@ -39,10 +38,10 @@ struct SherpaTutorialBox: View {
     }
 }
 
-// Preview Provider
-struct SherpaTutorialBox_Previews: PreviewProvider {
-    static var previews: some View {
-        SherpaTutorialBox(tutorialText: "Welcome to the tutorial! Learn how to use our app effectively by following the steps.")
-            .previewLayout(.sizeThatFits)
-    }
-}
+//// Preview Provider
+//struct SherpaTutorialBox_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SherpaTutorialBox(tutorialText: "Welcome to the tutorial! Learn how to use our app effectively by following the steps.")
+//            .previewLayout(.sizeThatFits)
+//    }
+//}

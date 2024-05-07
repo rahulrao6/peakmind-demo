@@ -74,7 +74,7 @@ struct ProfileView: View {
                             isFeedbackFormPresented.toggle()
                         }
                         .sheet(isPresented: $isFeedbackFormPresented) {
-                            FeedbackFormView()
+                            FeedbackFormView().environmentObject(viewModel)
                         }
                     }
                 }

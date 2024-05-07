@@ -80,6 +80,7 @@ struct HomeDashboard: View {
                                         .overlay(
                                             Image(user.selectedAvatar)
                                                 .resizable()
+                                                .scaleEffect(0.9)
                                                 .aspectRatio(contentMode: .fit)
                                                 .offset(x: -110, y: 50) // Adjust the X and Y position as needed
                                         )

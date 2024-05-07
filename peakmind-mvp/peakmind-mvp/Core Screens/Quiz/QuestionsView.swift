@@ -130,6 +130,7 @@ struct QuestionsView: View {
                     callModel()
                     navigateToHome = true
                     //showPersonalizedPlan = true
+                    dismiss()
                 } else {
                     withAnimation(.easeInOut) {
                         currentIndex += 1

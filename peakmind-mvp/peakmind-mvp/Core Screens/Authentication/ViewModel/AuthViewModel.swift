@@ -23,6 +23,8 @@ class AuthViewModel : ObservableObject {
     
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser : UserData?
+    @Published var completedLevels: Set<String> = []
+
     //static let share = GoogleAuthenticationStruct()
 
     
@@ -52,10 +54,11 @@ class AuthViewModel : ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, inventory: [], LevelOneCompleted: LevelOneCompleted, LevelTwoCompleted: LevelTwoCompleted, selectedWidgets: [], lastCheck: nil, weeklyStatus: [0,0,0,0,0,0,0], hasCompletedTutorial: false)
+            let user = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, inventory: [], LevelOneCompleted: LevelOneCompleted, LevelTwoCompleted: LevelTwoCompleted, selectedWidgets: [], lastCheck: nil, weeklyStatus: [0,0,0,0,0,0,0], hasCompletedTutorial: false, completedLevels: [])
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
-            await fetchUser()
+            //await fetchUser()
+            try await signIn(withEmail: email, password: password)
             
         } catch {
             print("Debug failed to create user \(error.localizedDescription)")
@@ -207,52 +210,93 @@ class AuthViewModel : ObservableObject {
 //        }
 //    }
 
-
-    
-    func signinWithGoogle() async -> Bool  {
-        guard let clientID = FirebaseApp.app()?.options.clientID else {
-          fatalError("No client ID found in Firebase configuration")
+    func markLevelCompleted(levelID: String) async {
+        guard var user = currentUser else {
+            print("No authenticated user found.")
+            return
         }
-        let config = GIDConfiguration(clientID: clientID)
-        GIDSignIn.sharedInstance.configuration = config
-
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first,
-              let rootViewController = window.rootViewController else {
-          print("There is no root view controller!")
-          return false
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id)
+        
+        // Append the new level ID to the existing list of completed levels
+        if !user.completedLevels.contains(levelID) {
+            user.completedLevels.append(levelID)
         }
-
-          do {
-            let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
-
-            let user = userAuthentication.user
-              guard let idToken = user.idToken else { throw fatalError("ID token missing") }
-            let accessToken = user.accessToken
-
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
-                                                           accessToken: accessToken.tokenString)
-
-            let result = try await Auth.auth().signIn(with: credential)
-            let firebaseUser = result.user
-            print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
-              self.userSession = result.user
-              Task{
-                  guard let snapshot = try? await Firestore.firestore().collection("users").document(firebaseUser.uid).getDocument() else {return}
-                  
-                  self.currentUser = try? snapshot.data(as: UserData.self)
-                  
-                  print("Debug current user is \(String(describing: self.currentUser))")
-              }
-            return true
-          }
-          catch {
-            print(error.localizedDescription)
-            return false
-          }
-
-
+        
+        do {
+            try await userRef.setData(["completedLevels": user.completedLevels], merge: true)
+            // Update local user data
+            currentUser = user
+            print("Level \(levelID) marked as completed.")
+            await fetchCompletedLevels()
+        } catch {
+            print("Error updating completed levels: \(error)")
+        }
     }
+
+    func fetchCompletedLevels() async {
+        guard let user = currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id)
+
+        do {
+            let snapshot = try await userRef.getDocument()
+            let userData = try snapshot.data(as: UserData.self)
+            DispatchQueue.main.async {
+                self.completedLevels = Set(userData.completedLevels)
+            }
+        } catch {
+            print("Error fetching user data: \(error)")
+        }
+    }
+    
+//    func signinWithGoogle() async -> Bool  {
+//        guard let clientID = FirebaseApp.app()?.options.clientID else {
+//          fatalError("No client ID found in Firebase configuration")
+//        }
+//        let config = GIDConfiguration(clientID: clientID)
+//        GIDSignIn.sharedInstance.configuration = config
+//
+//        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//              let window = windowScene.windows.first,
+//              let rootViewController = window.rootViewController else {
+//          print("There is no root view controller!")
+//          return false
+//        }
+//
+//          do {
+//            let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
+//
+//            let user = userAuthentication.user
+//              guard let idToken = user.idToken else { throw fatalError("ID token missing") }
+//            let accessToken = user.accessToken
+//
+//            let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
+//                                                           accessToken: accessToken.tokenString)
+//
+//            let result = try await Auth.auth().signIn(with: credential)
+//            let firebaseUser = result.user
+//            print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
+//              self.userSession = result.user
+//              Task{
+//                  guard let snapshot = try? await Firestore.firestore().collection("users").document(firebaseUser.uid).getDocument() else {return}
+//                  
+//                  self.currentUser = try? snapshot.data(as: UserData.self)
+//                  
+//                  print("Debug current user is \(String(describing: self.currentUser))")
+//              }
+//            return true
+//          }
+//          catch {
+//            print(error.localizedDescription)
+//            return false
+//          }
+//
+//
+//    }
 
     
 }

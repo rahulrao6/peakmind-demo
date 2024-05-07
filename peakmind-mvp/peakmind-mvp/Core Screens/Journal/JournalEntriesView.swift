@@ -2,6 +2,7 @@ import SwiftUI
 import Firebase
 import JournalingSuggestions
 
+
 struct JournalEntriesView: View {
     @EnvironmentObject var dataManager: JournalDataManager
     @EnvironmentObject var viewModel : AuthViewModel

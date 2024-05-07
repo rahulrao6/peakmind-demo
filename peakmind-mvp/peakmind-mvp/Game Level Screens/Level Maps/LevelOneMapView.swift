@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct LevelOneMapView: View {
+
     // Tracks completed levels
     @State private var completedLevels: Set<String> = []
 
@@ -12,6 +13,8 @@ struct LevelOneMapView: View {
 
     // Background image name
     let backgroundName = "Mughees"
+    @EnvironmentObject var viewModel: AuthViewModel
+
 
     // List of node screen names in the correct order along with their positions
     let nodeScreens = [
@@ -40,7 +43,7 @@ struct LevelOneMapView: View {
                 // Layout for level buttons
                 ForEach(Array(nodeScreens.enumerated()), id: \.element.0) { index, node in
                     let (screenName, position) = node
-                    let isUnlocked = index < nodeScreens.count - 1 || completedLevels.count >= 6
+                    let isUnlocked = index < nodeScreens.count - 1 || viewModel.completedLevels.count >= 6
 
                     Button(action: {
                         if index == nodeScreens.count - 1 && !isUnlocked {
@@ -51,7 +54,7 @@ struct LevelOneMapView: View {
                             activeLink = screenName
                         }
                     }) {
-                        Image(completedLevels.contains(screenName) ? "StoneComplete" : (isUnlocked ? "Stone" : "LockedStone"))
+                        Image(viewModel.completedLevels.contains(screenName) ? "StoneComplete" : (isUnlocked ? "Stone" : "LockedStone"))
                             .resizable()
                             .frame(width: 57, height: 57)
                     }
@@ -63,17 +66,27 @@ struct LevelOneMapView: View {
                     // Hidden NavigationLink to manage navigation
                     NavigationLink(
                         destination: destinationView(for: screenName).onDisappear {
+                            Task{
+                                try await viewModel.markLevelCompleted(levelID: screenName)
+                            }
                             completedLevels.insert(screenName) // Mark as complete when view disappears
                         },
                         tag: screenName,
                         selection: $activeLink
                     ) {
                         EmptyView()
+
                     }
-                    .hidden() // Hide the navigation link as it is only used for triggering navigation
+                    .hidden()
+                    // Hide the navigation link as it is only used for triggering navigation
                 }
             }
             .navigationBarTitle("", displayMode: .inline)
+            .onAppear {
+                Task {
+                    await viewModel.fetchCompletedLevels()
+                }
+            }
         }
     }
 

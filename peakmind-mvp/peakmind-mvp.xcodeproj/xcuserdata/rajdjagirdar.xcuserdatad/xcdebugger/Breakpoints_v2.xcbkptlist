@@ -20,5 +20,51 @@
             landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D42F7A9C-4013-4661-8EE3-5937E624A692"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "peakmind-mvp/Core Screens/Authentication/ViewModel/AuthViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "fetchUser()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D42F7A9C-4013-4661-8EE3-5937E624A692 - b2a16dd72a6da348"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "peakmind_mvp.AuthViewModel.fetchUser() async -&gt; ()"
+                  moduleName = "peakmind-mvp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rajdjagirdar/Documents/new/peakmind-demo/peakmind-mvp/peakmind-mvp/Core%20Screens/Authentication/ViewModel/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153">
+               </Location>
+               <Location
+                  uuid = "D42F7A9C-4013-4661-8EE3-5937E624A692 - 5bbfb3ad5d0115e1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for peakmind_mvp.AuthViewModel.fetchUser() async -&gt; ()"
+                  moduleName = "peakmind-mvp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rajdjagirdar/Documents/new/peakmind-demo/peakmind-mvp/peakmind-mvp/Core%20Screens/Authentication/ViewModel/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

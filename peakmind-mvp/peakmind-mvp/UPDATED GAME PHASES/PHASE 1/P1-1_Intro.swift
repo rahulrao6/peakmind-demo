@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct P1_Intro: View {
+
     var body: some View {
         ZStack {
             Image("MainBG")
@@ -80,6 +81,7 @@ struct P1_Intro: View {
                 .padding()
                 .offset(x: 180, y: 30)
         }
+
     }
 }
 

@@ -9,6 +9,7 @@ struct TabViewMain: View {
             ZStack {
                 TabView(selection: $selectedTab) {
                     LevelOneMapView()
+                        .environmentObject(viewModel)
                         .tabItem {
                             Image(systemName: "map.fill")
                         }

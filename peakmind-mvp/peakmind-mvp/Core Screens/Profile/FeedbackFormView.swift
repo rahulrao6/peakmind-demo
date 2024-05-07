@@ -1,9 +1,11 @@
 import SwiftUI
+import Firebase
 
 struct FeedbackFormView: View {
     @State private var userAnswer: String = ""
     @State private var showThankYou = false
-    @State var navigateToNext = false
+    @State private var navigateToNext = false
+    @EnvironmentObject var viewModel: AuthViewModel // Assuming you have a view model handling the user's session
 
     var body: some View {
         ZStack {
@@ -27,15 +29,7 @@ struct FeedbackFormView: View {
                     
                     // Submit Button
                     SubmitButton {
-                        Task {
-
-                        }
-                        withAnimation {
-                            showThankYou.toggle()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                navigateToNext.toggle()
-                             }
-                        }
+                        submitFeedback()
                     }
 
                 } else {
@@ -45,15 +39,44 @@ struct FeedbackFormView: View {
 
                 Spacer()
 
-                // Sherpa Image and Prompt
-                TruthfulPrompt()
-            }
-            .padding()
-            .background(
+                // Navigation link hidden
                 NavigationLink(destination: L2SherpaChatView().navigationBarBackButtonHidden(true), isActive: $navigateToNext) {
                     EmptyView()
-                })
+                }
+            }
+            .padding()
         }
+    }
+    
+    private func submitFeedback() {
+        Task {
+            do {
+                try await saveFeedbackToFirebase()
+                withAnimation {
+                    showThankYou.toggle()
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    navigateToNext.toggle()
+                }
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+    }
+
+    private func saveFeedbackToFirebase() async throws {
+        guard let user = viewModel.currentUser else {
+            throw NSError(domain: "FeedbackFormView", code: 0, userInfo: [NSLocalizedDescriptionKey: "No authenticated user found"])
+        }
+
+        let db = Firestore.firestore()
+        let feedbackRef = db.collection("feedback").document(user.id)
+        let feedbackData: [String: Any] = [
+            "feedback": userAnswer,
+            "timeSubmitted": FieldValue.serverTimestamp()
+        ]
+
+        try await feedbackRef.setData(feedbackData)
     }
 }
 

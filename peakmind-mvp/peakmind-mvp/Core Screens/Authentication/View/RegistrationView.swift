@@ -18,6 +18,8 @@ struct RegistrationView: View {
     @State private var hasCompletedInitialQuiz = false
     @State private var hasSetInitialAvatar = false
     @State private var LevelOneCompleted = false
+    @State private var navigateToAvatarView = false
+
 
 
 
@@ -115,6 +117,7 @@ struct RegistrationView: View {
                     //showAvatarSelection = true;
                     Task {
                         try await viewModel.createUser(withEmail: email, password: password, username: username, selectedAvatar: "", selectedBackground: "", hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, LevelOneCompleted: false, LevelTwoCompleted: false)
+                        navigateToAvatarView = true
                     }
                     
                 } label: {
@@ -153,6 +156,16 @@ struct RegistrationView: View {
             }
         }
         //.background(Color("Ice Blue")) // Set background color using selectedBackground
+        .background(
+            // NavigationLink that triggers when navigateToIglooView is true
+            NavigationLink(
+                destination: AvatarMenuView().environmentObject(viewModel),
+                isActive: $navigateToAvatarView
+            ) {
+                EmptyView()
+            }
+        )
+
 
     }
 }

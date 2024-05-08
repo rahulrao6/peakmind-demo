@@ -102,7 +102,10 @@ struct HomeDashboard: View {
                                     .aspectRatio(contentMode: .fit)
                             }
                             
-                            NavigationLink(destination: JournalView2()) {
+                            NavigationLink(destination:
+                                            JournalEntriesView()
+                                                .environmentObject(viewModel)
+                                                .environmentObject(JournalDataManager())){
                                 Image("Journal")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

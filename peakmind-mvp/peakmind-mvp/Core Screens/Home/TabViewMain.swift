@@ -131,13 +131,13 @@ struct TabViewMain: View {
                 // Main content with tabs
                 TabView(selection: $selectedTab) {
                     if user.completedLevels.contains("Minigame2View") {
-                        Level2MapView()
+                        Level2MapView().environmentObject(viewModel)
                             .tabItem {
                                 Label("Level 2", systemImage: "map.fill")
                             }
                             .tag(0)
                     } else {
-                        LevelOneMapView()
+                        LevelOneMapView().environmentObject(viewModel)
                             .tabItem {
                                 Label("Level 1", systemImage: "map.fill")
                             }

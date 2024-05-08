@@ -33,12 +33,13 @@ struct SelfCareHome: View {
                             VStack(alignment: .leading) {
                                 Text("Welcome, \(user.username)!")
                                     .fontWeight(.bold)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.black)
                                     .font(.system(size: 500))
                                     .minimumScaleFactor(0.01)
                                 
-                                Text("This is your self care suite where you can find your personal plan, analytics and much more")
-                                    .foregroundColor(.white)
+                                Text("This is your self care suite where you can find your personal plan, analytics and much more!")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.black)
                                     .font(.system(size: 500))
                                     .minimumScaleFactor(0.01)
                             }
@@ -47,18 +48,24 @@ struct SelfCareHome: View {
                             
                             Spacer()
                             
-                            VStack {
-                                Image("Sherpa")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 60)
-                            }
-                            .frame(width: geometry.size.width * 0.35)
+                            Image("Sherpa")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 60)
+                            Spacer()
+                            
+                            //.frame(width: geometry.size.width * 0.35)
                         }
                         .frame(height: geometry.size.height * 0.2)
                     }
                     .frame(maxWidth: .infinity)
-                    .background(Color.mediumBlue)
+                    .background(
+                        Image("SelfCare")
+                            .resizable() // Allows the image to be resized
+                            .aspectRatio(contentMode: .fill) // Keeps the aspect ratio and fills the frame
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top) // Sets frame size and aligns image to top
+                            .clipped() // Clips the overflowing parts of the image outside the frame
+                    )
                     
                     // Sheet-Like View
                     
@@ -82,29 +89,33 @@ struct SelfCareHome: View {
                                 VStack{
                                     taskListView2(title: "Personal Plan", color: Color("Navy Blue"))
                                 }
-                                .frame(width: geometry.size.width)
+                                .frame(width: geometry.size.width - 30)
 
 
                                 
-                                HStack{
-                                    CustomButton(title: "Check In", onClick: {
+                                HStack(spacing: -15){
+                                    CustomButton2(title: "Check In", onClick: {
                                         checkAndAllowCheckIn()
                                         Task{
                                             await viewModel.fetchUser()
                                         }
                                     })
-                                    CustomButton(title: "Pick Widgets", onClick: {
+                                    .frame(maxWidth: .infinity)
+                                    CustomButton2(title: "Pick Widgets", onClick: {
                                         showingWidgetSelection = true
                                     })
+                                    .frame(maxWidth: .infinity)
 
                                 }
+                                .frame(width: geometry.size.width) // Adjusted width here by including horizontal padding in calculation
+                                //.padding(.horizontal, 30)
 
                             }
 
                             Spacer(minLength: geometry.size.height * 0.2)
                         }
                         .frame(maxWidth: .infinity)
-                        .padding()
+                        .padding(.horizontal, 15) // Adjusted horizontal padding for the entire stack if needed
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.darkBlue)
@@ -112,7 +123,7 @@ struct SelfCareHome: View {
                     .shadow(color: .black.opacity(0.5), radius: 5, x: 0, y: -5)
                     .offset(y: geometry.size.height * 0.2)
                 }
-                .background(Color.mediumBlue)
+                .background(Color.iceBlue)
                 .onAppear() {
                     //print("this")
                     Task{
@@ -128,9 +139,13 @@ struct SelfCareHome: View {
             .sheet(isPresented: $showingWidgetSelection) {
                 WidgetSelectionView(isPresented: $showingWidgetSelection)
             }
-            .sheet(isPresented: $showingCheckInSheet) {  // Sheet is presented based on the state
+            .sheet(isPresented: $showingCheckInSheet, onDismiss: {
+                Task {
+                    try await viewModel.fetchUser()
+                }
+            }) {
                 CheckInView(isPresented: $showingCheckInSheet)
-                    .environmentObject(viewModel)  // Ensure the view model is passed if needed
+                    .environmentObject(viewModel)
             }
             .sheet(isPresented: $showingAnalyticsSheet) {  // Sheet is presented based on the state
                 Analytics(isPresented: $showingAnalyticsSheet)
@@ -202,7 +217,7 @@ struct SelfCareHome: View {
             }
             .padding([.horizontal])
 
-            CustomButton(title: "Analytics", onClick: navigateToAnalytics)
+            CustomButton2(title: "Analytics", onClick: navigateToAnalytics)
                 .padding()
         }
         .background(RoundedRectangle(cornerRadius: 10).fill(color))
@@ -456,7 +471,9 @@ struct WidgetSelectionView: View {
                 loadSelectedWidgets()
             }
         }
+        .environment(\.colorScheme, .light)
     }
+
 
     private func loadSelectedWidgets() {
         selectedWidgets = viewModel.currentUser?.selectedWidgets ?? []
@@ -657,6 +674,7 @@ struct Analytics: View {
                 fetchData()
             }
         }
+        .environment(\.colorScheme, .light)
     }
 
     private func fetchData() {
@@ -777,6 +795,8 @@ struct CheckInView: View {
             })
             .navigationBarTitle("Daily Check-In", displayMode: .inline)
         }
+        .environment(\.colorScheme, .light)
+
     }
     
     func fetchSteps() {

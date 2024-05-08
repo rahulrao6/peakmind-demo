@@ -15,10 +15,10 @@ class TutorialViewModel: ObservableObject {
     // Array of TutorialPages
     let tutorialPages: [TutorialPage] = [
         TutorialPage(view: AnyView(ChatView()), text: "Welcome to our app! This is the chat view."),
-        TutorialPage(view: AnyView(AvatarScreen()), text: "This is the self care home!."),
+        TutorialPage(view: AnyView(SelfCareHome()), text: "This is the self care home!."),
         TutorialPage(view: AnyView(HomeDashboard()), text: "This is the home dashboard!"),
         TutorialPage(view: AnyView(CommunitiesMainView()), text: "Talk to people here!"),
-        TutorialPage(view: AnyView(JournalView2()), text: "Change yourself here!")
+        //TutorialPage(view: AnyView(JournalEntriesView()), text: "Change yourself here!")
     ]
     
     var totalTutorialPages: Int {

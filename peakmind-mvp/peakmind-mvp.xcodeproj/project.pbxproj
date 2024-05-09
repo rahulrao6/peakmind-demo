@@ -479,6 +479,7 @@
 		1C9C63BF2B81326E0066AF70 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */,
 				79BFB52F2B914A5000634262 /* SplashScreen.swift */,
 				1C9C63C72B81359A0066AF70 /* InputView.swift */,
 				1CF4A89D2B830BFF00051684 /* ViewExtension.swift */,
@@ -701,7 +702,6 @@
 		79069CFC2BDA15BB00AB52DC /* P1-13_MuscleRelaxation */ = {
 			isa = PBXGroup;
 			children = (
-				102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */,
 				102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */,
 				102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */,
 			);

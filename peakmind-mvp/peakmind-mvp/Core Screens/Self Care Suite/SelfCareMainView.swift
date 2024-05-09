@@ -166,7 +166,7 @@ struct SelfCareHome: View {
     }
     
     func checkQuiz() {
-        if (!(viewModel.currentUser?.hasCompletedInitialQuiz ?? true)) {
+        if (!(viewModel.currentUser?.hasCompletedInitialQuiz ?? true) && viewModel.currentUser?.hasCompletedTutorial ?? true) {
             showingQuestionsSheet = true
         }
     }
@@ -193,7 +193,6 @@ struct SelfCareHome: View {
         .foregroundColor(.white)
     }
     
-
     @ViewBuilder
     private func MoodPreview(title: String, color: Color, navigateToAnalytics: @escaping () -> Void) -> some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -203,17 +202,23 @@ struct SelfCareHome: View {
                 .padding()
 
             VStack {
-                Chart{
-                    ForEach(moodEntries) { entry in
-                        LineMark(
-                            x: .value("Date", entry.formattedDate),
-                            y: .value("Mood", entry.mood)
-                        )
-                        .interpolationMethod(.catmullRom) // This makes the line smooth
-
+                // Check the count of moodEntries
+                if moodEntries.count < 2 {
+                    Text("Check back tomorrow for your mood chart.")
+                        .foregroundColor(.white)
+                        .padding()
+                } else {
+                    Chart{
+                        ForEach(moodEntries) { entry in
+                            LineMark(
+                                x: .value("Date", entry.formattedDate),
+                                y: .value("Mood", entry.mood)
+                            )
+                            .interpolationMethod(.catmullRom) // This makes the line smooth
+                        }
                     }
+                    .frame(height: 150)
                 }
-                .frame(height: 150)
             }
             .padding([.horizontal])
 
@@ -228,6 +233,7 @@ struct SelfCareHome: View {
             fetchMoodData() // Ensure this is called to load data
         }
     }
+
 
     
     private func fetchLastCheckInDate() {
@@ -877,6 +883,53 @@ struct CheckInView: View {
 //        }
 //    }
 
+//    func updateLastCheckIn(timestamp: Date) {
+//        guard let userID = viewModel.currentUser?.id else { return }
+//        let db = Firestore.firestore()
+//        let userRef = db.collection("users").document(userID)
+//
+//        userRef.getDocument { document, error in
+//            guard let document = document, error == nil else {
+//                print("Error fetching user data: \(error?.localizedDescription ?? "Unknown error")")
+//                return
+//            }
+//
+//            // Initialize or update the weeklyStatus array
+//            var weeklyStatus = document.get("weeklyStatus") as? [Int] ?? [0, 0, 0, 0, 0, 0, 0]
+//            let lastCheck = document.get("lastCheck") as? Timestamp
+//
+//            let calendar = Calendar.current
+//            let currentWeekOfYear = calendar.component(.weekOfYear, from: timestamp)
+//            let currentDayOfWeek = calendar.component(.weekday, from: timestamp)
+//
+//            // Calculate index (0-based, Monday as first day)
+//            let index = (currentDayOfWeek + 5) % 7  // Adjusting index since Sunday is 1 in Gregorian calendar
+//
+//            // Check if the last check-in was in the current week
+//            if let lastCheckDate = lastCheck?.dateValue(), calendar.component(.weekOfYear, from: lastCheckDate) == currentWeekOfYear {
+//                weeklyStatus[index] = 1  // Update only the current day
+//            } else {
+//                // Reset and update for the new week
+//                weeklyStatus = [0, 0, 0, 0, 0, 0, 0]
+//                weeklyStatus[index] = 1
+//            }
+//
+//            // Update Firestore
+//            userRef.updateData([
+//                "lastCheck": timestamp,
+//                "weeklyStatus": weeklyStatus
+//            ]) { error in
+//                if let error = error {
+//                    print("Error updating check-in data: \(error)")
+//                } else {
+//                    print("Check-in data updated successfully")
+//                }
+//                Task{
+//                    await viewModel.fetchUser()
+//                }
+//            }
+//        }
+//    }
     func updateLastCheckIn(timestamp: Date) {
         guard let userID = viewModel.currentUser?.id else { return }
         let db = Firestore.firestore()
@@ -891,15 +944,24 @@ struct CheckInView: View {
             // Initialize or update the weeklyStatus array
             var weeklyStatus = document.get("weeklyStatus") as? [Int] ?? [0, 0, 0, 0, 0, 0, 0]
             let lastCheck = document.get("lastCheck") as? Timestamp
+            var dailyCheckInStreak = document.get("dailyCheckInStreak") as? Int ?? 0
 
             let calendar = Calendar.current
             let currentWeekOfYear = calendar.component(.weekOfYear, from: timestamp)
             let currentDayOfWeek = calendar.component(.weekday, from: timestamp)
+            let yesterday = calendar.date(byAdding: .day, value: -1, to: calendar.startOfDay(for: timestamp))
 
             // Calculate index (0-based, Monday as first day)
             let index = (currentDayOfWeek + 5) % 7  // Adjusting index since Sunday is 1 in Gregorian calendar
 
-            // Check if the last check-in was in the current week
+            // Check if the last check-in was yesterday for the streak
+            if let lastCheckDate = lastCheck?.dateValue(), calendar.isDate(lastCheckDate, inSameDayAs: yesterday!) {
+                dailyCheckInStreak += 1 // Increment the streak
+            } else {
+                dailyCheckInStreak = 1 // Reset the streak
+            }
+
+            // Check if the last check-in was in the current week for the weekly status
             if let lastCheckDate = lastCheck?.dateValue(), calendar.component(.weekOfYear, from: lastCheckDate) == currentWeekOfYear {
                 weeklyStatus[index] = 1  // Update only the current day
             } else {
@@ -908,22 +970,24 @@ struct CheckInView: View {
                 weeklyStatus[index] = 1
             }
 
-            // Update Firestore
+            // Update Firestore with new streak and weekly status
             userRef.updateData([
-                "lastCheck": timestamp,
-                "weeklyStatus": weeklyStatus
+                "lastCheck": FieldValue.serverTimestamp(),
+                "weeklyStatus": weeklyStatus,
+                "dailyCheckInStreak": dailyCheckInStreak
             ]) { error in
                 if let error = error {
                     print("Error updating check-in data: \(error)")
                 } else {
-                    print("Check-in data updated successfully")
+                    print("Check-in data and streak updated successfully")
                 }
-                Task{
+                Task {
                     await viewModel.fetchUser()
                 }
             }
         }
     }
+
 
 }
 

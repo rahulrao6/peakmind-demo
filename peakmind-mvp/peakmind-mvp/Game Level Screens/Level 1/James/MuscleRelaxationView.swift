@@ -42,6 +42,8 @@ final class BreathingExerciseScene: SKScene {
 }
 
 struct MuscleRelaxationView: View {
+    var closeAction: () -> Void
+
     var body: some View {
         ZStack {
             Image("MainBG")
@@ -78,7 +80,7 @@ struct MuscleRelaxationView: View {
                             .frame(width: 300, height: 300)
                             .background(Color.clear)
                         
-                        Button(action: {}) {
+                        Button(action: {closeAction()}) {
                             Text("Continue")
                         }
                     }
@@ -94,8 +96,8 @@ struct MuscleRelaxationView: View {
     }
 }
 
-struct MuscleRelaxationView_Previews: PreviewProvider {
-    static var previews: some View {
-        MuscleRelaxationView()
-    }
-}
+//struct MuscleRelaxationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MuscleRelaxationView()
+//    }
+//}

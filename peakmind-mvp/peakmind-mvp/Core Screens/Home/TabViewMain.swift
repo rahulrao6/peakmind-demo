@@ -155,7 +155,7 @@ struct TabViewMain: View {
                         }
                         .tag(1)
                     
-                    HomeDashboard()
+                    HomeDashboard(selectedTab: $selectedTab)
                         .tabItem {
                             Label("Home", systemImage: "house")
                         }

@@ -91,6 +91,7 @@
 		1CF4C4402B7B1DD50028BC3C /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C43F2B7B1DD50028BC3C /* FirebaseRemoteConfigSwift */; };
 		1CF4C4422B7B1DD60028BC3C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4412B7B1DD60028BC3C /* FirebaseStorage */; };
 		1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1CF4C4432B7B1DD60028BC3C /* FirebaseStorageCombine-Community */; };
+		1CF554432BED641100EFC3C8 /* HomeDashboardStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF554422BED641100EFC3C8 /* HomeDashboardStatic.swift */; };
 		79069CF02BDA0D9100AB52DC /* CauseEffectPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CEF2BDA0D9100AB52DC /* CauseEffectPair.swift */; };
 		79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CF12BDA0E9000AB52DC /* InteractiveVIewModel.swift */; };
 		79069CF42BDA0EF300AB52DC /* GlowingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CF32BDA0EF300AB52DC /* GlowingBackground.swift */; };
@@ -266,6 +267,7 @@
 		1CF4C3F82B7B15E50028BC3C /* peakmind-mvpUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "peakmind-mvpUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CF4C3FC2B7B15E50028BC3C /* peakmind_mvpUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITests.swift; sourceTree = "<group>"; };
 		1CF4C3FE2B7B15E50028BC3C /* peakmind_mvpUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peakmind_mvpUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1CF554422BED641100EFC3C8 /* HomeDashboardStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboardStatic.swift; sourceTree = "<group>"; };
 		79069CEF2BDA0D9100AB52DC /* CauseEffectPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CauseEffectPair.swift; sourceTree = "<group>"; };
 		79069CF12BDA0E9000AB52DC /* InteractiveVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveVIewModel.swift; sourceTree = "<group>"; };
 		79069CF32BDA0EF300AB52DC /* GlowingBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowingBackground.swift; sourceTree = "<group>"; };
@@ -852,6 +854,7 @@
 			children = (
 				7976E6632BD73793006C3726 /* TabViewMain.swift */,
 				797B4C402BDAE86700A3A25D /* HomeDashboard.swift */,
+				1CF554422BED641100EFC3C8 /* HomeDashboardStatic.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1234,6 +1237,7 @@
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
+				1CF554432BED641100EFC3C8 /* HomeDashboardStatic.swift in Sources */,
 				79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,

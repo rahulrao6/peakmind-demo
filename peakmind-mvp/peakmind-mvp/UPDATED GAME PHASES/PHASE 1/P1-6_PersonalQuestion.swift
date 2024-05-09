@@ -14,6 +14,7 @@ struct P1_6_PersonalQuestion: View {
     @State private var userAnswer: String = ""
     @State private var showThankYou = false
     @State var navigateToNext = false
+    var closeAction: () -> Void
 
     var body: some View {
         ZStack {
@@ -43,7 +44,8 @@ struct P1_6_PersonalQuestion: View {
                         withAnimation {
                             showThankYou.toggle()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                navigateToNext.toggle()
+                                //navigateToNext.toggle()
+                                closeAction()
                              }
                         }
                     }
@@ -124,10 +126,10 @@ struct ReflectiveQuestionBox4: View {
     }
 }
 
-
-struct P1_6_PersonalQuestion_Preview: PreviewProvider {
-    static var previews: some View {
-        P1_6_PersonalQuestion().environmentObject(AuthViewModel())
-    }
-}
+//
+//struct P1_6_PersonalQuestion_Preview: PreviewProvider {
+//    static var previews: some View {
+//        P1_6_PersonalQuestion().environmentObject(AuthViewModel())
+//    }
+//}
 

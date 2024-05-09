@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct P1_MentalHealthMod: View {
+    var closeAction: () -> Void
     @State private var selectedPage = 0
     let pageTexts = [
         "• Mental health involves our emotional, psychological, and social well-being. It shapes how we perceive the world and think about ourselves.\n• Every decision we make is influenced by our mental health, making it so important to learn coping strategies and how to manage it correctly!",
@@ -19,13 +20,14 @@ struct P1_MentalHealthMod: View {
         MultiSectionView(title: "Mt. Anxiety: Phase One",
                          sectionHeader: "What is Mental Health?",
                          pageTexts: pageTexts,
-                         nextScreen: P1_MentalHealthMod()
-                                        .navigationBarBackButtonHidden(true))
+                         nextScreen: LevelOneMapView()
+            .navigationBarBackButtonHidden(true), closeAction: closeAction)
+
     }
 }
 
-struct P1_MentalHealthMod_Previews: PreviewProvider {
-    static var previews: some View {
-        P1_MentalHealthMod()
-    }
-}
+//struct P1_MentalHealthMod_Previews: PreviewProvider {
+//    static var previews: some View {
+//        P1_MentalHealthMod(closeAction: print(""))
+//    }
+//}

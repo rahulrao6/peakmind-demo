@@ -34,6 +34,52 @@
             endingLineNumber = "6"
             landmarkName = "LevelOneMapView"
             landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "A6A26C80-4033-4471-A225-4C0FA272B0D2 - c7f1440e0013ab02"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of peakmind_mvp.LevelOneMapView.completedLevels : Swift.Set&lt;Swift.String&gt;"
+                  moduleName = "peakmind-mvp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mikeyhalim/Downloads/peakmind-demo/peakmind-mvp/peakmind-mvp/Game%20Level%20Screens/Level%20Maps/LevelOneMapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "A6A26C80-4033-4471-A225-4C0FA272B0D2 - 9b8624f8b2e42f70"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "peakmind_mvp.LevelOneMapView.init(viewModel: SwiftUI.EnvironmentObject&lt;peakmind_mvp.AuthViewModel&gt;) -&gt; peakmind_mvp.LevelOneMapView"
+                  moduleName = "peakmind-mvp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mikeyhalim/Downloads/peakmind-demo/peakmind-mvp/peakmind-mvp/Game%20Level%20Screens/Level%20Maps/LevelOneMapView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "6"
+                  endingLineNumber = "6">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2F4D8BA5-E094-43B3-835A-CDEA0B445BF1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "peakmind-mvp/Core Screens/Self Care Suite/SelfCareMainView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -18,21 +18,23 @@ struct Level2MapView: View {
     @State private var showAlert = false
 
     // Background image name
-    let backgroundName = "Mughees"
+    let backgroundName = "Phase2"
 
     // List of node screen names in the correct order along with their positions
     let nodeScreens = [
-        ("P1_Intro", CGPoint(x: 285, y: 680)),
-        ("P1_MentalHealthMod", CGPoint(x: 170, y: 600)),
-        ("P1_3_EmotionsScenario", CGPoint(x: 120, y: 530)),
-        ("P1_4_StressModule", CGPoint(x: 340, y: 400)),
-        ("P1_5_StressTriggerMap", CGPoint(x: 230, y: 280)),
-        ("P1_6_PersonalQuestion", CGPoint(x: 170, y: 235)),
-        ("BoxBreathingView", CGPoint(x: 110, y: 130)),
-        ("MuscleRelaxationView", CGPoint(x: 200, y: 100)),
-        ("P1_14_Reflection", CGPoint(x: 300, y: 70)),
-        ("Minigame2View", CGPoint(x: 340, y: 10)) // This is the final node
+        ("P1_Intro", CGPoint(x: 215, y: 660)),
+        ("P1_MentalHealthMod", CGPoint(x: 270, y: 580)),
+        ("P1_3_EmotionsScenario", CGPoint(x: 180, y: 530)),
+        ("P1_4_StressModule", CGPoint(x: 105, y: 460)),
+        ("P1_5_StressTriggerMap", CGPoint(x: 190, y: 390)),
+        ("BoxBreathingView", CGPoint(x: 320, y: 330)),
+        ("P1_6_PersonalQuestion", CGPoint(x: 200, y: 200)),
+        ("MuscleRelaxationView", CGPoint(x: 105, y: 140)),
+        ("P1_14_Reflection", CGPoint(x: 160, y: 60)),
+        ("Minigame2View", CGPoint(x: 300, y: 15)) // This is the final node
     ]
+    
+    
 
     var body: some View {
         NavigationView {
@@ -77,7 +79,6 @@ struct Level2MapView: View {
                     }
                     .hidden() // Hide the navigation link as it is only used for triggering navigation
                 }
-                Text("Level Two")
 
             }
             .navigationBarTitle("", displayMode: .inline)
@@ -107,7 +108,7 @@ struct Level2MapView: View {
         case "P1_14_Reflection":
             P2_14_Reflection()
         case "Minigame2View":
-            PacManGameView()
+            PacManGameView().environmentObject(GameModel())
         default:
             Text("Unknown View")
         }

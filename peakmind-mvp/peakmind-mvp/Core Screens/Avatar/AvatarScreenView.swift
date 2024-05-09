@@ -20,7 +20,7 @@ struct AvatarScreen: View {
     var body: some View {
         if let user = viewModel.currentUser {
             //NavigationView {
-            ZStack(alignment: .top) { // Align the ZStack content to the top
+            ZStack(alignment: .center) { // Align the ZStack content to the top
                     Image("MainBG")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -29,7 +29,7 @@ struct AvatarScreen: View {
                     RoundedRectangle(cornerRadius: 25)
                         .fill(Color.black.opacity(0.5))
                         .padding(.horizontal, 20)
-                        .frame(height: 575)
+                        .frame(height: 650)
                         .overlay(
                             VStack {
                                 Text("Your Profile")

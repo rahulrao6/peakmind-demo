@@ -101,7 +101,6 @@
 		791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */; };
 		791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */; };
 		791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */; };
-		791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791D1AA02B84344900E28162 /* HomeScreenView.swift */; };
 		792617802BD70BD900AAAC81 /* L1ScenarioPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7926177F2BD70BD900AAAC81 /* L1ScenarioPresentation.swift */; };
 		792617822BD70BF400AAAC81 /* L1ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617812BD70BF400AAAC81 /* L1ScenarioQuiz.swift */; };
 		792617842BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617832BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift */; };
@@ -128,6 +127,8 @@
 		793B79CC2BB39260001062DB /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CB2BB39260001062DB /* Level2.swift */; };
 		793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */; };
 		793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */; };
+		794B8A5B2BEB62EF00A000A9 /* LevelOneMapViewStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B8A5A2BEB62EF00A000A9 /* LevelOneMapViewStatic.swift */; };
+		794B8A5D2BEB6F6F00A000A9 /* SelfCareHomeStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794B8A5C2BEB6F6F00A000A9 /* SelfCareHomeStatic.swift */; };
 		7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6632BD73793006C3726 /* TabViewMain.swift */; };
 		7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6652BD73862006C3726 /* SelfCareMainView.swift */; };
 		7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */; };
@@ -137,7 +138,6 @@
 		797B4C432BDC06BC00A3A25D /* Level2MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C422BDC06BC00A3A25D /* Level2MapView.swift */; };
 		797B4C452BDC094C00A3A25D /* SherpaTutorialBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */; };
 		798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798EFB692B84379D00E6027A /* IntroPlayView.swift */; };
-		79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B3DAED2B843CE0003C3B44 /* MainTabView.swift */; };
 		79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */; };
 		79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5212B8EAAE600634262 /* CustomButton.swift */; };
 		79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5272B8EAB5C00634262 /* QuestionsView.swift */; };
@@ -277,7 +277,6 @@
 		791AC8FD2BA7CF6D0094A688 /* NightfallFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallFlavorView.swift; sourceTree = "<group>"; };
 		791AC8FF2BA7D1180094A688 /* DangersOfNightfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangersOfNightfallView.swift; sourceTree = "<group>"; };
 		791AC9012BA7D7450094A688 /* SherpaFullMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaFullMoonView.swift; sourceTree = "<group>"; };
-		791D1AA02B84344900E28162 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
 		7926177F2BD70BD900AAAC81 /* L1ScenarioPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1ScenarioPresentation.swift; sourceTree = "<group>"; };
 		792617812BD70BF400AAAC81 /* L1ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1ScenarioQuiz.swift; sourceTree = "<group>"; };
 		792617832BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioQuizTemplate.swift; sourceTree = "<group>"; };
@@ -304,6 +303,8 @@
 		793B79CB2BB39260001062DB /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalAnxietyQuiz.swift; sourceTree = "<group>"; };
 		793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMARTGoalSettingView.swift; sourceTree = "<group>"; };
+		794B8A5A2BEB62EF00A000A9 /* LevelOneMapViewStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelOneMapViewStatic.swift; sourceTree = "<group>"; };
+		794B8A5C2BEB6F6F00A000A9 /* SelfCareHomeStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCareHomeStatic.swift; sourceTree = "<group>"; };
 		7976E6632BD73793006C3726 /* TabViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewMain.swift; sourceTree = "<group>"; };
 		7976E6652BD73862006C3726 /* SelfCareMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCareMainView.swift; sourceTree = "<group>"; };
 		7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesMainView.swift; sourceTree = "<group>"; };
@@ -313,7 +314,6 @@
 		797B4C422BDC06BC00A3A25D /* Level2MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2MapView.swift; sourceTree = "<group>"; };
 		797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaTutorialBox.swift; sourceTree = "<group>"; };
 		798EFB692B84379D00E6027A /* IntroPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPlayView.swift; sourceTree = "<group>"; };
-		79B3DAED2B843CE0003C3B44 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarScreenView.swift; sourceTree = "<group>"; };
 		79BFB5212B8EAAE600634262 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		79BFB5272B8EAB5C00634262 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
@@ -488,7 +488,6 @@
 				1CF4A8932B82E9EA00051684 /* ColorConverter.swift */,
 				791AC8F92BA7C5A00094A688 /* ConfettiView.swift */,
 				79BFB5212B8EAAE600634262 /* CustomButton.swift */,
-				79B3DAED2B843CE0003C3B44 /* MainTabView.swift */,
 				79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */,
 				797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */,
 			);
@@ -851,7 +850,6 @@
 		793B79AA2BAF86CD001062DB /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				791D1AA02B84344900E28162 /* HomeScreenView.swift */,
 				7976E6632BD73793006C3726 /* TabViewMain.swift */,
 				797B4C402BDAE86700A3A25D /* HomeDashboard.swift */,
 			);
@@ -914,6 +912,7 @@
 			isa = PBXGroup;
 			children = (
 				7976E6652BD73862006C3726 /* SelfCareMainView.swift */,
+				794B8A5C2BEB6F6F00A000A9 /* SelfCareHomeStatic.swift */,
 			);
 			path = "Self Care Suite";
 			sourceTree = "<group>";
@@ -947,6 +946,7 @@
 			isa = PBXGroup;
 			children = (
 				79C383F42BC8749700A6779A /* LevelOneMapView.swift */,
+				794B8A5A2BEB62EF00A000A9 /* LevelOneMapViewStatic.swift */,
 				797B4C422BDC06BC00A3A25D /* Level2MapView.swift */,
 			);
 			path = "Level Maps";
@@ -1254,7 +1254,6 @@
 				792617882BD70C5200AAAC81 /* SherpaTalking.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
 				791AC9022BA7D7450094A688 /* SherpaFullMoonView.swift in Sources */,
-				791D1AA12B84344900E28162 /* HomeScreenView.swift in Sources */,
 				79C383F02BC6123F00A6779A /* MultiSectionView.swift in Sources */,
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
 				79069D002BDA38BA00AB52DC /* Widget.swift in Sources */,
@@ -1276,6 +1275,7 @@
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
 				791AC8FC2BA7C97C0094A688 /* AnxietyModuleView.swift in Sources */,
 				1C6C0BB62BA9501300628B79 /* TentPurchase.swift in Sources */,
+				794B8A5D2BEB6F6F00A000A9 /* SelfCareHomeStatic.swift in Sources */,
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
 				E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */,
 				1C9FA2592BCDBD0A003C844C /* AuthViewModel2.swift in Sources */,
@@ -1285,6 +1285,7 @@
 				7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */,
 				79C3841A2BD60F5F00A6779A /* P2-1_AnxietyModule.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
+				794B8A5B2BEB62EF00A000A9 /* LevelOneMapViewStatic.swift in Sources */,
 				E542453C2BAF683A00FCF1C6 /* Module3.swift in Sources */,
 				79C384282BD60FDE00A6779A /* P2-9_GoalSetting.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
@@ -1310,7 +1311,6 @@
 				79C3841E2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift in Sources */,
 				791AC8FE2BA7CF6D0094A688 /* NightfallFlavorView.swift in Sources */,
 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
-				79B3DAEE2B843CE0003C3B44 /* MainTabView.swift in Sources */,
 				792617842BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift in Sources */,
 				79C384062BD60EAC00A6779A /* P1-5_StressTriggerMap.swift in Sources */,
 				1CD299C22BBA5E4E003A0592 /* Level2Complete.swift in Sources */,

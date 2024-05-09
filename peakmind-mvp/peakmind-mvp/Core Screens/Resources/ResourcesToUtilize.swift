@@ -20,14 +20,14 @@ struct ResourcesToUtilize: View {
                 // Resource Box
                 VStack(spacing: 20) {
                     // Placeholder Buttons
-                    LinkButton(title: "Resource 1", urlPlaceholder: "Link 1")
-                    LinkButton(title: "Resource 2", urlPlaceholder: "Link 2")
-                    LinkButton(title: "Resource 3", urlPlaceholder: "Link 3")
-                    LinkButton(title: "Resource 4", urlPlaceholder: "Link 4")
-                    LinkButton(title: "Resource 5", urlPlaceholder: "Link 5")
-                    LinkButton(title: "Resource 6", urlPlaceholder: "Link 6")
-                    LinkButton(title: "Resource 7", urlPlaceholder: "Link 7")
-                    LinkButton(title: "Resource 8", urlPlaceholder: "Link 8")
+                    LinkButton(title: "SAMSHA Helpline", urlPlaceholder: "https://www.samhsa.gov/find-help/national-helpline")
+                    LinkButton(title: "988 Suicide and Crisis Hotline", urlPlaceholder: "https://988lifeline.org/")
+                    LinkButton(title: "Crisis Text Line", urlPlaceholder: "https://www.crisistextline.org/")
+                    LinkButton(title: "Veteran Crisis Hotline", urlPlaceholder: "https://www.veteranscrisisline.net/")
+                    LinkButton(title: "National Domestic Violence Hotline", urlPlaceholder: "https://www.thehotline.org/")
+                    LinkButton(title: "Disaster Distress Hotline", urlPlaceholder: "https://www.cdc.gov/disasters/psa/disasterdistresshotline.html#:~:text=The%20Disaster%20Distress%20Helpline%20(1,%2D800%2D985%2D5990.")
+                    LinkButton(title: "NEDA", urlPlaceholder: "https://www.nationaleatingdisorders.org/get-help/")
+                    LinkButton(title: "Mental Health America Helpline", urlPlaceholder: "https://www.mhanational.org/")
                 }
                 .frame(width: 350, height: 600) // Increased width and height
                 .background(Color("Dark Blue").opacity(0.75))
@@ -35,6 +35,12 @@ struct ResourcesToUtilize: View {
                 .shadow(radius: 5)
                 .padding(.bottom, 20)
                 
+                // Emergency Text
+                Text("If you have a genuine emergency, call 911")
+                    .foregroundColor(.white)
+                    .fontWeight(.medium)
+                    .padding(.bottom, 20) // Adds space below the text
+
                 Spacer()
             }
         }

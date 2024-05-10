@@ -14,6 +14,9 @@
 		102F1B902BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */; };
 		102F1B912BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */; };
 		102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */; };
+		10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95442BEDCEA80092EE29 /* TimerView.swift */; };
+		10CE95472BEDCF9E0092EE29 /* ScenarioQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95462BEDCF9E0092EE29 /* ScenarioQuizView.swift */; };
+		10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95482BEDD9380092EE29 /* CurrentToNewHabits.swift */; };
 		10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D5593C2BC379C700CAC269 /* Minigame2View.swift */; };
 		10D5593F2BC44C0000CAC269 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 10D5593E2BC44C0000CAC269 /* words.txt */; };
 		10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */; };
@@ -218,6 +221,9 @@
 		102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MuscleRelaxationView.swift; path = "../../../Game Level Screens/Level 1/James/MuscleRelaxationView.swift"; sourceTree = "<group>"; };
 		102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdMuscleExerciseEncoded.mov; sourceTree = "<group>"; };
 		102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsQuizView.swift; sourceTree = "<group>"; };
+		10CE95442BEDCEA80092EE29 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		10CE95462BEDCF9E0092EE29 /* ScenarioQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioQuizView.swift; sourceTree = "<group>"; };
+		10CE95482BEDD9380092EE29 /* CurrentToNewHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentToNewHabits.swift; sourceTree = "<group>"; };
 		10D5593C2BC379C700CAC269 /* Minigame2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minigame2View.swift; sourceTree = "<group>"; };
 		10D5593E2BC44C0000CAC269 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
 		10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseView.swift; sourceTree = "<group>"; };
@@ -439,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */,
+				10CE95442BEDCEA80092EE29 /* TimerView.swift */,
 			);
 			path = James;
 			sourceTree = "<group>";
@@ -828,6 +835,8 @@
 		793B79A72BAF8473001062DB /* Level 3 */ = {
 			isa = PBXGroup;
 			children = (
+				10CE95462BEDCF9E0092EE29 /* ScenarioQuizView.swift */,
+				10CE95482BEDD9380092EE29 /* CurrentToNewHabits.swift */,
 			);
 			path = "Level 3";
 			sourceTree = "<group>";
@@ -1203,6 +1212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */,
 				791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */,
 				79C383FA2BD60E0000A6779A /* P1-1_Intro.swift in Sources */,
 				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
@@ -1334,6 +1344,7 @@
 				1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */,
 				793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */,
 				79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */,
+				10CE95472BEDCF9E0092EE29 /* ScenarioQuizView.swift in Sources */,
 				79C384102BD60F0100A6779A /* P1-12_LifestyleQuestion.swift in Sources */,
 				7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */,
 				797B4C432BDC06BC00A3A25D /* Level2MapView.swift in Sources */,
@@ -1343,6 +1354,7 @@
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
 				798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */,
 				79C384222BD60FA100A6779A /* P2-6_AnxietyModule.swift in Sources */,
+				10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */,
 				79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

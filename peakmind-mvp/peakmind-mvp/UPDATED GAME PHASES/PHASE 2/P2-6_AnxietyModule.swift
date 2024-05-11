@@ -9,6 +9,8 @@ import SwiftUI
 
 struct P2_6_AnxietyModule: View {
     @State private var selectedPage = 0
+    var closeAction: () -> Void
+
     let pageTexts = [
         "• There are various different factors that are likely to ignite anxious thoughts. Let’s walk through the different types that are most prevalent.\n• The first of these factors is pessimism, which is where you tend to expect bad outcomes to happen.",
         "• Another factor is catastrophizing, which is when we take a small problem and perceive it as much larger than it really is.\n• Guilt and shame are another influencing factor, it is when you believe others will perceive you negatively.",
@@ -20,11 +22,11 @@ struct P2_6_AnxietyModule: View {
         MultiSectionView(title: "Mt. Anxiety: Phase Two",
                          sectionHeader: "Anxiety Igniting Thoughts",
                          pageTexts: pageTexts,
-                         nextScreen: P2_1_AnxietyModule()
-                                        .navigationBarBackButtonHidden(true))
+                         nextScreen: P2_1_AnxietyModule(closeAction: closeAction)
+            .navigationBarBackButtonHidden(true), closeAction: closeAction)
     }
 }
 
-#Preview {
-    P2_6_AnxietyModule()
-}
+//#Preview {
+//    P2_6_AnxietyModule()
+//}

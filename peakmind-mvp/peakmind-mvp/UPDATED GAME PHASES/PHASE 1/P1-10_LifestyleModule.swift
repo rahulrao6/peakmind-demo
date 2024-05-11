@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct P1_10_LifestyleModule: View {
+    var closeAction: () -> Void
     @State private var selectedPage = 0
     let pageTexts = [
         "• Making changes to manage anxiety involves cognitive, behavioral, and relaxation strategies that can significantly improve your quality of life.\n• We’re often concerned with taking care of others with anxiety, but its important to remember to care for yourself too.",
@@ -19,11 +20,11 @@ struct P1_10_LifestyleModule: View {
         MultiSectionView(title: "Mt. Anxiety: Phase One",
                          sectionHeader: "Your Lifestyle",
                          pageTexts: pageTexts,
-                         nextScreen: P1_MentalHealthMod()
-                                        .navigationBarBackButtonHidden(true))
+                         nextScreen: P1_MentalHealthMod(closeAction: closeAction)
+            .navigationBarBackButtonHidden(true), closeAction: closeAction)
     }
 }
-
-#Preview {
-    P1_10_LifestyleModule()
-}
+//
+//#Preview {
+//    P1_10_LifestyleModule()
+//}

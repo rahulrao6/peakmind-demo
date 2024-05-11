@@ -9,6 +9,8 @@ import SwiftUI
 
 struct P1_4_StressModule: View {
     @State private var selectedPage = 0
+    var closeAction: () -> Void
+
     let pageTexts = [
         "• Stress is a natural physical and mental reaction to life experiences. Everyone expresses stress from time to time.\n• Recognizing what triggers your stress is crucial; common triggers include work or school related pressures, financial strain, and big life changes.",
         "•  Stress can be shown physically or emotionally, with symptoms such as headaches, muscle tension, and anxiety as a result.\n• Managing your stress involves mindfulness techniques, regular rest, and acknowledging the emotions you’re feeling.",
@@ -19,11 +21,12 @@ struct P1_4_StressModule: View {
         MultiSectionView(title: "Mt. Anxiety: Phase One",
                          sectionHeader: "Stress & Triggers",
                          pageTexts: pageTexts,
-                         nextScreen: P1_MentalHealthMod()
-                                        .navigationBarBackButtonHidden(true))
+                         nextScreen: P1_MentalHealthMod(closeAction: closeAction)
+                                        .navigationBarBackButtonHidden(true),
+        closeAction: closeAction)
     }
 }
-
-#Preview {
-    P1_4_StressModule()
-}
+//
+//#Preview {
+//    P1_4_StressModule(closeAction: print(""))
+//}

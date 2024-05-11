@@ -12,7 +12,8 @@ struct AnimatedSpeechBubble<nextView: View>: View {
     let sherpaText: String
     @State private var animatedText = ""
     var nextScreen: nextView
-    
+    var closeAction: () -> Void
+
     var body: some View {
         VStack {
             Text(title)
@@ -27,7 +28,7 @@ struct AnimatedSpeechBubble<nextView: View>: View {
                 .onAppear { animateText() }
                 .offset(x: 90, y: 520)
             
-            SherpaContinue(nextScreen: nextScreen)
+            SherpaContinue(nextScreen: nextScreen, closeAction: closeAction)
                 
         }
         .background(Background())
@@ -88,8 +89,8 @@ struct Triangle: Shape {
     }
 }
 
-#Preview {
-    AnimatedSpeechBubble(title:"Mt. Anxiety Level One",
-                         sherpaText:"isfdhgfaoi",
-                        nextScreen: NightfallFlavorView())
-}
+//#Preview {
+//    AnimatedSpeechBubble(title:"Mt. Anxiety Level One",
+//                         sherpaText:"isfdhgfaoi",
+//                        nextScreen: NightfallFlavorView())
+//}

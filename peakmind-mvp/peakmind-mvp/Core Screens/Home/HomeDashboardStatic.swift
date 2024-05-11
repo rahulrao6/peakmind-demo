@@ -1,14 +1,11 @@
 import SwiftUI
 
-struct HomeDashboard: View {
+struct HomeDashboardStatic: View {
     @State var isCheckedIn: Bool = false
     @State var weekCheckIns: [Int] = [1, 0, 1, 0, 0, 1, 0] // 0 for not checked in, 1 for checked in
     @EnvironmentObject var viewModel: AuthViewModel
-    @Binding var selectedTab: Int
+    @State var selectedTab = 2
 
-    init(selectedTab: Binding<Int>? = nil) {
-        _selectedTab = selectedTab ?? .constant(2) // Default to tab index 2 if no binding is provided
-    }
     
     var body: some View {
         if let user = viewModel.currentUser {
@@ -37,9 +34,7 @@ struct HomeDashboard: View {
                                 VStack(alignment: .leading) {
                                     
                                     Button(action: {
-                                        if (!isCheckedIn) {
-                                            self.selectedTab = 1
-                                        }
+                                        self.isCheckedIn.toggle()
                                     }) {
                                         Image(isCheckedIn ? "Thanks" : "CheckInText")
                                             .resizable()
@@ -145,42 +140,6 @@ struct HomeDashboard: View {
     }
 }
 
-
-struct DailyQuestView: View {
-    var body: some View {
-        Text("DailyQuest Screen")
-    }
-}
-
-struct ChatSherpaView: View {
-    var body: some View {
-        Text("ChatSherpa Screen")
-    }
-}
-
-struct JournalView2: View {
-    var body: some View {
-        Text("Journal Screen")
-    }
-}
-
-struct ResourcesButtonView: View {
-    var body: some View {
-        Text("Resources Screen")
-    }
-}
-func abbreviationForDay(index: Int) -> String {
-    switch index {
-    case 0: return "M"
-    case 1: return "T"
-    case 2: return "W"
-    case 3: return "TH"
-    case 4: return "F"
-    case 5: return "S"
-    case 6: return "SU"
-    default: return ""
-    }
-}
 //
 //
 //struct HomeDashboard_Previews: PreviewProvider {

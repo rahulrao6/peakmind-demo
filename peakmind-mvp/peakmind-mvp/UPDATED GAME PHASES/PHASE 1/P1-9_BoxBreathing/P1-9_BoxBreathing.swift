@@ -81,6 +81,8 @@ final class BoxBreathingExerciseScene: SKScene {
 
 
 struct BoxBreathingView: View {
+    var closeAction: () -> Void
+
     var body: some View {
         ZStack {
             Image("MainBG")
@@ -117,7 +119,7 @@ struct BoxBreathingView: View {
                             .frame(width: 250, height: 250)
                             .background(Color.clear)
                         
-                        Button(action: {}) {
+                        Button(action: {closeAction()}) {
                             Text("Continue")
                         }
                     }
@@ -133,8 +135,8 @@ struct BoxBreathingView: View {
     }
 }
 
-struct BoxBreathingView_Previews: PreviewProvider {
-    static var previews: some View {
-        BoxBreathingView()
-    }
-}
+//struct BoxBreathingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BoxBreathingView()
+//    }
+//}

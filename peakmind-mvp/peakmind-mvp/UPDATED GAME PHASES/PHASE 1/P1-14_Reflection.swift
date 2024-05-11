@@ -10,6 +10,8 @@ import SwiftUI
 
 struct P1_14_Reflection: View {
     let reflectionTexts: [String] = ["In this phase, we learned about anxiety as a concept and how it can affect us.", "We worked through some scenarios to better understand anxiety as well as learned some new ways to help our anxiety such as trigger mapping and 4/7/8 breathing."]
+    var closeAction: () -> Void
+
     var body: some View {
         VStack {
             Text("Mt. Anxiety: Phase One")
@@ -50,7 +52,9 @@ struct P1_14_Reflection: View {
                 }
                 .tabViewStyle(PageTabViewStyle())
                 .frame(height: 200)
-                
+                Button(action: {closeAction()}) {
+                    Text("Continue")
+                }
                // Spacer()
                 
             }
@@ -76,8 +80,8 @@ struct P1_14_Reflection: View {
     }
 }
 
-struct P1_14_Reflection_Previews: PreviewProvider {
-    static var previews: some View {
-        P1_14_Reflection()
-    }
-}
+//struct P1_14_Reflection_Previews: PreviewProvider {
+//    static var previews: some View {
+//        P1_14_Reflection()
+//    }
+//}

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SherpaContinue<nextView: View>: View {
     var nextScreen: nextView
-    
+    var closeAction: () -> Void
+
     var body: some View {
         HStack {
             Image("Sherpa")
@@ -19,8 +20,8 @@ struct SherpaContinue<nextView: View>: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .padding()
             
-            NavigationLink{
-                nextScreen
+            Button{
+                closeAction()
             } label: {
                 Text("Tap to continue")
                     .foregroundStyle(.white)

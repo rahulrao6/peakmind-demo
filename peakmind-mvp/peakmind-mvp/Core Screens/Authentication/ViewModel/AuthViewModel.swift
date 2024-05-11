@@ -52,7 +52,7 @@ class AuthViewModel : ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, inventory: [], LevelOneCompleted: LevelOneCompleted, LevelTwoCompleted: LevelTwoCompleted, selectedWidgets: [], lastCheck: nil, weeklyStatus: [0,0,0,0,0,0,0], hasCompletedTutorial: false, completedLevels: [])
+            let user = UserData(id: result.user.uid, email: email, username: username, selectedAvatar: selectedAvatar, selectedBackground: selectedBackground, hasCompletedInitialQuiz: hasCompletedInitialQuiz, hasSetInitialAvatar: hasSetInitialAvatar, inventory: [], LevelOneCompleted: LevelOneCompleted, LevelTwoCompleted: LevelTwoCompleted, selectedWidgets: [], lastCheck: nil, weeklyStatus: [0,0,0,0,0,0,0], hasCompletedTutorial: false, completedLevels: [], completedLevels2: [], dailyCheckInStreak: 0)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
             await fetchUser()
@@ -144,6 +144,37 @@ class AuthViewModel : ObservableObject {
         // Refresh user data to ensure UI is updated
         await fetchUser()
     }
+    
+    func markLevelCompleted2(levelID: String) async throws {
+        guard let currentUserID = userSession?.uid else {
+            throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(currentUserID)
+
+        // Update the local model first
+        if let index = currentUser?.completedLevels.firstIndex(where: { $0 == levelID }) {
+            print("Level already marked as completed.")
+        } else {
+            currentUser?.completedLevels2.append(levelID)
+        }
+
+        // Synchronize with Firestore
+        try await userRef.updateData([
+            "completedLevels2": FieldValue.arrayUnion([levelID])
+        ]) { error in
+            if let error = error {
+                print("Error updating completed levels: \(error.localizedDescription)")
+            } else {
+                print("Level marked as completed successfully.")
+            }
+        }
+
+        // Refresh user data to ensure UI is updated
+        await fetchUser()
+    }
+
 
     
     func resetPassword(email : String) {

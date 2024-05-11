@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AnxietyModuleView: View {
     @State private var selectedPage = 0
+    var closeAction: () -> Void
+
     let pageTexts = [
         "• Anxiety is your body's natural response to stress.\n• Historically, anxiety played a role in triggering life-saving reactions for our ancestors.\n• Anxiety can be temporary or become recurring over long periods of time.",
         "• Anxiety can cause a variety of effects on your mental health.\n• You deserve to live with your anxiety at a manageable level.\n• Each age experiences anxiety differently, with different brain chemicals formulating at different points within your life.",
@@ -21,13 +23,13 @@ struct AnxietyModuleView: View {
         MultiSectionView(title: "Mt. Anxiety: Level One",
                          sectionHeader: "Understanding Anxiety",
                          pageTexts: pageTexts,
-                         nextScreen: AnxietyModuleView()
-                                        .navigationBarBackButtonHidden(true))
+                         nextScreen: AnxietyModuleView(closeAction: closeAction)
+            .navigationBarBackButtonHidden(true), closeAction: closeAction)
     }
 }
-
-struct AnxietyModuleView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnxietyModuleView()
-    }
-}
+//
+//struct AnxietyModuleView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AnxietyModuleView()
+//    }
+//}

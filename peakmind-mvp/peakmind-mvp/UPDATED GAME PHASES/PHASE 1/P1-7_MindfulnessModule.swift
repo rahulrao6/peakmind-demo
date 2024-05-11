@@ -9,6 +9,8 @@ import SwiftUI
 
 struct P1_7_MindfulnessModule: View {
     @State private var selectedPage = 0
+    var closeAction: () -> Void
+
     let pageTexts = [
         "• Mindfulness is the practice of being consciously aware of yourself and present in the moment.\n• Regular mindfulness practice helps reduce stress, improve emotional reactivity, and increase overall mental well-being.",
         "• Techniques include meditation, mindful breathing, and body scans, each helping to anchor the present moment.\n• Integrating mindfulness into daily activities, like eating or walking, can enhance consistency and effectiveness.",
@@ -19,11 +21,11 @@ struct P1_7_MindfulnessModule: View {
         MultiSectionView(title: "Mt. Anxiety: Phase One",
                          sectionHeader: "Mindfulness",
                          pageTexts: pageTexts,
-                         nextScreen: P1_MentalHealthMod()
-                                        .navigationBarBackButtonHidden(true))
+                         nextScreen: P1_MentalHealthMod(closeAction: closeAction)
+            .navigationBarBackButtonHidden(true), closeAction: closeAction)
     }
 }
 
-#Preview {
-    P1_7_MindfulnessModule()
-}
+//#Preview {
+//    P1_7_MindfulnessModule()
+//}

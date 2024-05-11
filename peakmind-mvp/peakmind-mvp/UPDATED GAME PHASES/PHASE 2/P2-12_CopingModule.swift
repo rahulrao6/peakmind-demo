@@ -9,8 +9,6 @@ import SwiftUI
 
 struct P2_12_CopingModule: View {
     @State private var selectedPage = 0
-    var closeAction: () -> Void
-
     let pageTexts = [
         "• Learning to recognize and change negative thought patterns that contribute to anxiety. This approach helps you think about anxiety-inducing situations in a more positive and realistic way.",
         "• Progressive Muscle Relaxation: Reduce physical tension linked to anxiety by tensing and then relaxing different muscle groups. This method improves physical relaxation and mental calmness.",
@@ -24,11 +22,11 @@ struct P2_12_CopingModule: View {
         MultiSectionView(title: "Mt. Anxiety: Phase Two",
                          sectionHeader: "Anxiety Coping Strategies",
                          pageTexts: pageTexts,
-                         nextScreen: P2_12_CopingModule(closeAction: closeAction)
-            .navigationBarBackButtonHidden(true), closeAction: closeAction)
+                         nextScreen: P2_12_CopingModule()
+                                        .navigationBarBackButtonHidden(true))
     }
 }
 
-//#Preview {
-//    P2_12_CopingModule()
-//}
+#Preview {
+    P2_12_CopingModule()
+}

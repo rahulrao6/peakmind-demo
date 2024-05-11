@@ -23,7 +23,6 @@ struct Minigame2View: View {
     
     @State var wonAlertText = "Wow u won"
     @State var lostAlertText = "Wow u LOST! the word was hello"
-    var closeAction: () -> Void
 
     var body: some View {
         ZStack {
@@ -59,17 +58,8 @@ struct Minigame2View: View {
             }
         }
         .alert(isPresented: $showsWonAlert) {
-            Alert(
-                title: Text(wonAlertText),
-                message: nil, // Optional: you can add a message if needed
-                primaryButton: .default(Text("Back to Map"), action: {
-                    // This code will be executed when the "Perform Action" button is tapped
-                    closeAction()
-                }),
-                secondaryButton: .cancel(Text("Close")) // This button will simply dismiss the alert
-            )
+            Alert(title: Text(wonAlertText))
         }
-
     }
     
     func arrToStr (wordArray: [String]) -> String {
@@ -297,7 +287,7 @@ struct CustomKeyboardView: View {
         keyColors[key] = color
     }
 }
-//
-//#Preview {
-//    Minigame2View()
-//}
+
+#Preview {
+    Minigame2View()
+}

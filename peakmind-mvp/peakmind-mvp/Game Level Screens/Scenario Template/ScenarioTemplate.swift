@@ -5,8 +5,6 @@ struct ScenarioTemplate<nextView: View>: View {
     let titleText: String
     let scenarioTexts: [String]
     var nextScreen: nextView
-    var closeAction: () -> Void
-
     
     var body: some View {
         VStack {
@@ -54,8 +52,8 @@ struct ScenarioTemplate<nextView: View>: View {
                 
                // Spacer()
                 
-                Button {
-                    closeAction()
+                NavigationLink {
+                    nextScreen
                 } label: {
                     Text("Proceed to quiz")
                         .foregroundStyle(.black)
@@ -90,11 +88,11 @@ struct ScenarioTemplate<nextView: View>: View {
     }
 }
 
-//// Preview
-//struct ScenarioTemplate_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ScenarioTemplate(titleText: "Mt. Anxiety: Phase One",
-//                         scenarioTexts: ["Now let’s work through a scenario. These help you with decision making related to mental health choices.", "Let's work through a scenario to help you in the future.", "You’ve had a very stressful day at work. You are getting home late and aren’t happy. How would you most handle the situation?"],
-//                         nextScreen: VStack{})
-//    }
-//}
+// Preview
+struct ScenarioTemplate_Previews: PreviewProvider {
+    static var previews: some View {
+        ScenarioTemplate(titleText: "Mt. Anxiety: Phase One",
+                         scenarioTexts: ["Now let’s work through a scenario. These help you with decision making related to mental health choices.", "Let's work through a scenario to help you in the future.", "You’ve had a very stressful day at work. You are getting home late and aren’t happy. How would you most handle the situation?"],
+                         nextScreen: VStack{})
+    }
+}

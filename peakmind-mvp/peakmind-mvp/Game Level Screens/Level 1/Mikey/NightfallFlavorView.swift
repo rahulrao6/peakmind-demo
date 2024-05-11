@@ -14,19 +14,18 @@ struct NightfallFlavorView: View {
     let narrationText = "You hear the howls of wolves in the distance. They seem to be getting louder and louder."
     @State private var animatedText = ""
     @State var navigateToNext = false
-    var closeAction: () -> Void
 
 
     var body: some View {
         AnimatedTextView(title: titleText,
                          narration: narrationText,
-                         nextScreen: SherpaFullMoonView(viewModel: _viewModel, closeAction: closeAction)
-            .navigationBarBackButtonHidden(true), closeAction: closeAction)
+                         nextScreen: SherpaFullMoonView(viewModel: _viewModel)
+                                        .navigationBarBackButtonHidden(true))
     }
 }
-//
-//struct NightfallFlavorView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NightfallFlavorView(, closeAction: <#() -> Void#>)
-//    }
-//}
+
+struct NightfallFlavorView_Previews: PreviewProvider {
+    static var previews: some View {
+        NightfallFlavorView()
+    }
+}

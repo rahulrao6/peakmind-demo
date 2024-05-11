@@ -4,12 +4,7 @@ struct HomeDashboard: View {
     @State var isCheckedIn: Bool = false
     @State var weekCheckIns: [Int] = [1, 0, 1, 0, 0, 1, 0] // 0 for not checked in, 1 for checked in
     @EnvironmentObject var viewModel: AuthViewModel
-    @Binding var selectedTab: Int
 
-    init(selectedTab: Binding<Int>? = nil) {
-        _selectedTab = selectedTab ?? .constant(2) // Default to tab index 2 if no binding is provided
-    }
-    
     var body: some View {
         if let user = viewModel.currentUser {
             ZStack {
@@ -37,9 +32,7 @@ struct HomeDashboard: View {
                                 VStack(alignment: .leading) {
                                     
                                     Button(action: {
-                                        if (!isCheckedIn) {
-                                            self.selectedTab = 1
-                                        }
+                                        self.isCheckedIn.toggle()
                                     }) {
                                         Image(isCheckedIn ? "Thanks" : "CheckInText")
                                             .resizable()
@@ -70,7 +63,7 @@ struct HomeDashboard: View {
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading) // Ensures alignment
                                 
-                                Text(String(user.dailyCheckInStreak))
+                                Text("3")
                                     .font(.largeTitle) // Customize the font size as needed
                                     .fontWeight(.bold)
                                     .foregroundColor(.black) // Ensure the text color contrasts with the background
@@ -79,7 +72,7 @@ struct HomeDashboard: View {
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                             }
                             
-                            //NavigationLink(destination: LevelOneMapView().environmentObject(viewModel)) {
+                            NavigationLink(destination: LevelOneMapView()) {
                                 ZStack{
                                     Image("DailyQuest")
                                         .resizable()
@@ -100,10 +93,8 @@ struct HomeDashboard: View {
                                         .padding(.trailing, 80)
                                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                                     
-                                }.onTapGesture {
-                                    self.selectedTab = 0 // Switch to the LevelOneMapView tab
                                 }
-                            //}
+                            }
                             
                             NavigationLink(destination: ChatView().environmentObject(viewModel)) {
                                 Image("ChatSherpa")
@@ -130,17 +121,6 @@ struct HomeDashboard: View {
                     }
                 }
             }
-            .onAppear {
-                checkTodayCheckIn()
-            }
-        }
-    }
-    private func checkTodayCheckIn() {
-        if let lastCheckDate = viewModel.currentUser?.lastCheck,
-           Calendar.current.isDateInToday(lastCheckDate) {
-            isCheckedIn = true
-        } else {
-            isCheckedIn = false
         }
     }
 }
@@ -181,12 +161,12 @@ func abbreviationForDay(index: Int) -> String {
     default: return ""
     }
 }
-//
-//
-//struct HomeDashboard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            HomeDashboard( selectedTab: 2)
-//        }
-//    }
-//}
+
+
+struct HomeDashboard_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            HomeDashboard()
+        }
+    }
+}

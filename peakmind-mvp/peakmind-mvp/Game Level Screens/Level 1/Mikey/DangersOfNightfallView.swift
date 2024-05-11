@@ -13,19 +13,18 @@ struct DangersOfNightfallView: View {
     let sherpaText = "Be careful of the dangers at night. In the mountains, there’s wolves, winds, and critters. Be wary of the limited visibility and always stay on a path."
     @State private var animatedText = ""
     @State var navigateToNext = false
-    var closeAction: () -> Void
 
     var body: some View {
         AnimatedSpeechBubble(title:"Mt. Anxiety Level One",
                              sherpaText: sherpaText,
-                             nextScreen: NightfallFlavorView(viewModel: _viewModel, closeAction: closeAction).navigationBarBackButtonHidden(true), closeAction: closeAction)
+                            nextScreen: NightfallFlavorView(viewModel: _viewModel).navigationBarBackButtonHidden(true))
     }
 }
 
 
 
-//struct DangersOfNightfallView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DangersOfNightfallView()
-//    }
-//}
+struct DangersOfNightfallView_Previews: PreviewProvider {
+    static var previews: some View {
+        DangersOfNightfallView()
+    }
+}

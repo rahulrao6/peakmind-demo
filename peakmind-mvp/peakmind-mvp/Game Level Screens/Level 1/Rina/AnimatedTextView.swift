@@ -12,8 +12,7 @@ struct AnimatedTextView<nextView: View>: View {
     let narration: String
     @State private var animatedText = ""
     var nextScreen: nextView
-    var closeAction: () -> Void
-
+    
     var body: some View {
         VStack {
             VStack(spacing: 20) {
@@ -41,7 +40,7 @@ struct AnimatedTextView<nextView: View>: View {
                 
                 Spacer()
                 
-                SherpaContinue(nextScreen: nextScreen, closeAction: closeAction)
+                SherpaContinue(nextScreen: nextScreen)
                 
             }
         }
@@ -64,9 +63,9 @@ struct AnimatedTextView<nextView: View>: View {
     }
         
 }
-//
-//#Preview {
-//    AnimatedTextView<SherpaFullMoonView>(title: "Mt. Anxiety: Level One",
-//                                         narration: "You hear the howls of wolves in the distance. They seem to be getting louder and louder.",
-//                                         nextScreen: SherpaFullMoonView())
-//}
+
+#Preview {
+    AnimatedTextView<SherpaFullMoonView>(title: "Mt. Anxiety: Level One",
+                                         narration: "You hear the howls of wolves in the distance. They seem to be getting louder and louder.",
+                                         nextScreen: SherpaFullMoonView())
+}

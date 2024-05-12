@@ -189,6 +189,8 @@
 		79C3842E2BD6100300A6779A /* P2-12_CopingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C3842D2BD6100300A6779A /* P2-12_CopingModule.swift */; };
 		79C384322BD6101F00A6779A /* P2-14_Reflection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384312BD6101F00A6779A /* P2-14_Reflection.swift */; };
 		79C384342BD6102800A6779A /* P2-15_MiniGame2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384332BD6102800A6779A /* P2-15_MiniGame2.swift */; };
+		79C8543B2BF036C0003C918E /* AnxietyCommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C8543A2BF036C0003C918E /* AnxietyCommunityView.swift */; };
+		79C8543D2BF03D18003C918E /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C8543C2BF03D18003C918E /* UserProfileView.swift */; };
 		79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */; };
 		E54245362BABD4C400FCF1C6 /* Module1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245352BABD4C400FCF1C6 /* Module1.swift */; };
 		E54245382BABD6CC00FCF1C6 /* Module2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54245372BABD6CC00FCF1C6 /* Module2.swift */; };
@@ -369,6 +371,8 @@
 		79C3842D2BD6100300A6779A /* P2-12_CopingModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-12_CopingModule.swift"; sourceTree = "<group>"; };
 		79C384312BD6101F00A6779A /* P2-14_Reflection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-14_Reflection.swift"; sourceTree = "<group>"; };
 		79C384332BD6102800A6779A /* P2-15_MiniGame2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-15_MiniGame2.swift"; sourceTree = "<group>"; };
+		79C8543A2BF036C0003C918E /* AnxietyCommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyCommunityView.swift; sourceTree = "<group>"; };
+		79C8543C2BF03D18003C918E /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarAndSherpaView.swift; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E54245352BABD4C400FCF1C6 /* Module1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module1.swift; sourceTree = "<group>"; };
@@ -916,6 +920,8 @@
 			isa = PBXGroup;
 			children = (
 				7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */,
+				79C8543A2BF036C0003C918E /* AnxietyCommunityView.swift */,
+				79C8543C2BF03D18003C918E /* UserProfileView.swift */,
 			);
 			path = Communities;
 			sourceTree = "<group>";
@@ -1307,6 +1313,7 @@
 				79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */,
 				79C384182BD60F5300A6779A /* P2-1_Intro.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
+				79C8543D2BF03D18003C918E /* UserProfileView.swift in Sources */,
 				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
 				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
 				79C383FE2BD60E4200A6779A /* P1-3_EmotionsScenario.swift in Sources */,
@@ -1315,6 +1322,7 @@
 				792617822BD70BF400AAAC81 /* L1ScenarioQuiz.swift in Sources */,
 				79C383E12BC6110E00A6779A /* HabitTracker.swift in Sources */,
 				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
+				79C8543B2BF036C0003C918E /* AnxietyCommunityView.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */,
 				79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */,

@@ -204,3 +204,4 @@ struct JournalEntryCard: View {
 #Preview {
     JournalEntriesView()
 }
+

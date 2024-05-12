@@ -199,6 +199,17 @@
 		E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F522B92ADE900FCC38D /* JournalDataManager.swift */; };
 		E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */; };
 		E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F562B92B22900FCC38D /* JournalDetailView.swift */; };
+		E5E84DE92BF16A47002C9CDD /* Compilation_T1_Master_Preprocessed.csv in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DD72BF16A45002C9CDD /* Compilation_T1_Master_Preprocessed.csv */; };
+		E5E84DEA2BF16A47002C9CDD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DD82BF16A45002C9CDD /* README.md */; };
+		E5E84DEB2BF16A47002C9CDD /* SherpaV5.ipynb in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DD92BF16A45002C9CDD /* SherpaV5.ipynb */; };
+		E5E84DEC2BF16A47002C9CDD /* package-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DDB2BF16A45002C9CDD /* package-lock.json */; };
+		E5E84DED2BF16A47002C9CDD /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DDC2BF16A45002C9CDD /* package.json */; };
+		E5E84DEE2BF16A47002C9CDD /* server.js in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DDD2BF16A45002C9CDD /* server.js */; };
+		E5E84DEF2BF16A47002C9CDD /* app.py in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DDF2BF16A45002C9CDD /* app.py */; };
+		E5E84DF02BF16A47002C9CDD /* pyenv.cfg in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DE02BF16A45002C9CDD /* pyenv.cfg */; };
+		E5E84DF12BF16A47002C9CDD /* cleaned_mental_data.csv in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DE42BF16A45002C9CDD /* cleaned_mental_data.csv */; };
+		E5E84DF22BF16A47002C9CDD /* mental_data.csv in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DE52BF16A45002C9CDD /* mental_data.csv */; };
+		E5E84DF32BF16A47002C9CDD /* ml_quiz_final.py in Resources */ = {isa = PBXBuildFile; fileRef = E5E84DE62BF16A45002C9CDD /* ml_quiz_final.py */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -382,6 +393,17 @@
 		E5511F522B92ADE900FCC38D /* JournalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDataManager.swift; sourceTree = "<group>"; };
 		E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntriesView.swift; sourceTree = "<group>"; };
 		E5511F562B92B22900FCC38D /* JournalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDetailView.swift; sourceTree = "<group>"; };
+		E5E84DD72BF16A45002C9CDD /* Compilation_T1_Master_Preprocessed.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Compilation_T1_Master_Preprocessed.csv; sourceTree = "<group>"; };
+		E5E84DD82BF16A45002C9CDD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E5E84DD92BF16A45002C9CDD /* SherpaV5.ipynb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SherpaV5.ipynb; sourceTree = "<group>"; };
+		E5E84DDB2BF16A45002C9CDD /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
+		E5E84DDC2BF16A45002C9CDD /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		E5E84DDD2BF16A45002C9CDD /* server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = server.js; sourceTree = "<group>"; };
+		E5E84DDF2BF16A45002C9CDD /* app.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = app.py; sourceTree = "<group>"; };
+		E5E84DE02BF16A45002C9CDD /* pyenv.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pyenv.cfg; sourceTree = "<group>"; };
+		E5E84DE42BF16A45002C9CDD /* cleaned_mental_data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cleaned_mental_data.csv; sourceTree = "<group>"; };
+		E5E84DE52BF16A45002C9CDD /* mental_data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mental_data.csv; sourceTree = "<group>"; };
+		E5E84DE62BF16A45002C9CDD /* ml_quiz_final.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ml_quiz_final.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -656,6 +678,7 @@
 		1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */ = {
 			isa = PBXGroup;
 			children = (
+				E5E84DE82BF16A45002C9CDD /* ai-ml-services */,
 				1C9FA25A2BCE1992003C844C /* peakmind-mvp.entitlements */,
 				1CF4A89C2B8309F100051684 /* Info.plist */,
 				1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */,
@@ -1047,6 +1070,72 @@
 			path = Journal;
 			sourceTree = "<group>";
 		};
+		E5E84DDA2BF16A45002C9CDD /* ai_chatbot_coach */ = {
+			isa = PBXGroup;
+			children = (
+				E5E84DD72BF16A45002C9CDD /* Compilation_T1_Master_Preprocessed.csv */,
+				E5E84DD82BF16A45002C9CDD /* README.md */,
+				E5E84DD92BF16A45002C9CDD /* SherpaV5.ipynb */,
+			);
+			path = ai_chatbot_coach;
+			sourceTree = "<group>";
+		};
+		E5E84DDE2BF16A45002C9CDD /* javascript_express */ = {
+			isa = PBXGroup;
+			children = (
+				E5E84DDB2BF16A45002C9CDD /* package-lock.json */,
+				E5E84DDC2BF16A45002C9CDD /* package.json */,
+				E5E84DDD2BF16A45002C9CDD /* server.js */,
+			);
+			path = javascript_express;
+			sourceTree = "<group>";
+		};
+		E5E84DE12BF16A45002C9CDD /* python-flask */ = {
+			isa = PBXGroup;
+			children = (
+				E5E84DDF2BF16A45002C9CDD /* app.py */,
+				E5E84DE02BF16A45002C9CDD /* pyenv.cfg */,
+			);
+			path = "python-flask";
+			sourceTree = "<group>";
+		};
+		E5E84DE22BF16A45002C9CDD /* peakmind-middleware_server_main */ = {
+			isa = PBXGroup;
+			children = (
+				E5E84DDE2BF16A45002C9CDD /* javascript_express */,
+				E5E84DE12BF16A45002C9CDD /* python-flask */,
+			);
+			path = "peakmind-middleware_server_main";
+			sourceTree = "<group>";
+		};
+		E5E84DE32BF16A45002C9CDD /* back-end */ = {
+			isa = PBXGroup;
+			children = (
+				E5E84DE22BF16A45002C9CDD /* peakmind-middleware_server_main */,
+			);
+			path = "back-end";
+			sourceTree = "<group>";
+		};
+		E5E84DE72BF16A45002C9CDD /* personalized_plan */ = {
+			isa = PBXGroup;
+			children = (
+				E5E84DE42BF16A45002C9CDD /* cleaned_mental_data.csv */,
+				E5E84DE52BF16A45002C9CDD /* mental_data.csv */,
+				E5E84DE62BF16A45002C9CDD /* ml_quiz_final.py */,
+			);
+			path = personalized_plan;
+			sourceTree = "<group>";
+		};
+		E5E84DE82BF16A45002C9CDD /* ai-ml-services */ = {
+			isa = PBXGroup;
+			children = (
+				E5E84DDA2BF16A45002C9CDD /* ai_chatbot_coach */,
+				E5E84DE32BF16A45002C9CDD /* back-end */,
+				E5E84DE72BF16A45002C9CDD /* personalized_plan */,
+			);
+			path = "ai-ml-services";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1190,9 +1279,20 @@
 				102F1B8F2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */,
 				1CF4C3E92B7B15E40028BC3C /* Preview Assets.xcassets in Resources */,
 				1C9C63BC2B8131CB0066AF70 /* GoogleService-Info.plist in Resources */,
+				E5E84DEF2BF16A47002C9CDD /* app.py in Resources */,
+				E5E84DEC2BF16A47002C9CDD /* package-lock.json in Resources */,
+				E5E84DF12BF16A47002C9CDD /* cleaned_mental_data.csv in Resources */,
+				E5E84DEB2BF16A47002C9CDD /* SherpaV5.ipynb in Resources */,
+				E5E84DE92BF16A47002C9CDD /* Compilation_T1_Master_Preprocessed.csv in Resources */,
 				1CF4C3E62B7B15E40028BC3C /* Assets.xcassets in Resources */,
+				E5E84DF22BF16A47002C9CDD /* mental_data.csv in Resources */,
+				E5E84DED2BF16A47002C9CDD /* package.json in Resources */,
+				E5E84DEE2BF16A47002C9CDD /* server.js in Resources */,
+				E5E84DEA2BF16A47002C9CDD /* README.md in Resources */,
 				10D5593F2BC44C0000CAC269 /* words.txt in Resources */,
+				E5E84DF02BF16A47002C9CDD /* pyenv.cfg in Resources */,
 				10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
+				E5E84DF32BF16A47002C9CDD /* ml_quiz_final.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

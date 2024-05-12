@@ -17,6 +17,8 @@ struct JournalView: View {
     @State private var showingMoodPicker = false
     @State private var tagInput: String = ""
     
+    @State private var suggestionPhotos: [JournalingSuggestion.Photo] = []
+    
     @Environment(\.presentationMode) var presentationMode
     
     
@@ -35,6 +37,26 @@ struct JournalView: View {
                         moodPicker
                         tagsView
                         contentEditor
+                        
+                        ScrollView(.horizontal) {
+                            HStack {
+                                if let suggestion = suggestion {
+                                    ForEach(suggestionPhotos, id: \.photo) { item in
+                                        AsyncImage(url: item.photo) { image in
+                                            image.image?
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                        }
+                                        .frame(maxHeight: 200)
+                                    }
+                                } else {
+                                    Text("No suggestion available")
+                                }
+                            }
+                        }.onAppear {
+                            loadPhotos()
+                        }
+                        
                     }
                     .padding(.horizontal)
                 }
@@ -48,6 +70,16 @@ struct JournalView: View {
         
     }
     
+    private func loadPhotos() {
+        if let suggestion = suggestion {
+            Task {
+                suggestionPhotos = await suggestion.content(forType: JournalingSuggestion.Photo.self)
+                print("suggestion loaded")
+            }
+        }
+    }
+                    
+    
     private var titleField: some View {
         TextField("Title", text: $title)
             .padding()
@@ -57,6 +89,7 @@ struct JournalView: View {
             .onAppear {
                 if (suggestion != nil) {
                     title = suggestion!.title
+                    
                 }
             }
     }

@@ -106,14 +106,14 @@ struct HomeDashboardStatic: View {
                                     .aspectRatio(contentMode: .fit)
                             }
                             
-                            NavigationLink(destination:
+                            /*NavigationLink(destination:
                                             JournalEntriesView()
                                                 .environmentObject(viewModel)
                                                 .environmentObject(JournalDataManager())){
                                 Image("Journal")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                            }
+                            }*/
                             
                             NavigationLink(destination: ResourcesToUtilize()) {
                                 Image("ResourcesButton")

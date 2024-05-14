@@ -44,6 +44,8 @@ final class SpriteKitScene: SKScene {
 
 
 struct BreathingExerciseView: View {
+    var closeAction: () -> Void
+
     var body: some View {
         ZStack {
             // Background
@@ -88,11 +90,15 @@ struct BreathingExerciseView: View {
                 
                 // Instruction Text
                 
-                Text("Tap to Continue")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                    .padding()
-                    .offset(x: -120, y: 200)
+                Button(action: {
+                    closeAction()
+                }) {
+                    Text("Tap to Continue")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                        .padding()
+                        .offset(x: -120, y: 200)
+                }
                 
                 // Sherpa Image and Prompt
                 HStack {
@@ -119,9 +125,9 @@ struct BreathingExerciseView: View {
 
 // Other struct definitions (SubmitButton, ThankYouMessage, TruthfulPrompt, and Text extensions) remain unchanged...
 
-struct BreathingExerciseView_Previews: PreviewProvider {
+/*struct BreathingExerciseView_Previews: PreviewProvider {
     static var previews: some View {
         BreathingExerciseView().environmentObject(AuthViewModel())
     }
 }
-
+*/

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Minigame2View: View {
-    @State private var word: String = "Hello"
+    @State private var word: String = "Peace"
     @State private var targetWord: [String] = Array("Hello".uppercased()).map(String.init)
     
     @State private var customKeyColors: [String: Color] = [:]
@@ -240,7 +240,7 @@ struct WordGameLineView: View {
 struct CustomKeyboardView: View {
     let row1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
     let row2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
-    let row3 = ["🔙", "Z", "X", "C", "V", "B", "N", "M", "✅"]
+    let row3 = ["❌", "Z", "X", "C", "V", "B", "N", "M", "✅"]
         
     var checkAnswer : () -> ()
 

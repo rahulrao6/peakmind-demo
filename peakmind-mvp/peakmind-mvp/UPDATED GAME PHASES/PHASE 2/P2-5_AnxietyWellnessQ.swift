@@ -13,6 +13,8 @@ struct P2_5_AnxietyWellnessQ: View {
     @State private var userAnswer: String = ""
     @State private var showThankYou = false
     @State var navigateToNext = false
+    var closeAction: () -> Void
+
 
     var body: some View {
         ZStack {
@@ -42,7 +44,8 @@ struct P2_5_AnxietyWellnessQ: View {
                         withAnimation {
                             showThankYou.toggle()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                navigateToNext.toggle()
+                                //navigateToNext.toggle()
+                                closeAction()
                              }
                         }
                     }
@@ -124,9 +127,10 @@ struct ReflectiveQuestionBox6: View {
 }
 
 
-struct P2_5_AnxietyWellnessQ_Preview: PreviewProvider {
+/*struct P2_5_AnxietyWellnessQ_Preview: PreviewProvider {
     static var previews: some View {
         P2_5_AnxietyWellnessQ().environmentObject(AuthViewModel())
     }
 }
 
+*/

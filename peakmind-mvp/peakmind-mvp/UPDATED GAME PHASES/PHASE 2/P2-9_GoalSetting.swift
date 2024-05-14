@@ -20,6 +20,7 @@ struct P2_9_GoalSetting: View {
     @State private var selectedDate = Date()
     @State var navigateToNext = false
     @State var showPopup = false
+    var closeAction: () -> Void
 
 
 
@@ -103,7 +104,7 @@ struct P2_9_GoalSetting: View {
                             
                             Task {
                                 try await saveDataToFirebase()
-                                
+                                closeAction()
                             }
                             
                             
@@ -216,8 +217,9 @@ struct P2_9_GoalSetting: View {
 
 }
 
-struct P2_9_GoalSetting_Previews: PreviewProvider {
+/*struct P2_9_GoalSetting_Previews: PreviewProvider {
     static var previews: some View {
         P2_9_GoalSetting()
     }
 }
+*/

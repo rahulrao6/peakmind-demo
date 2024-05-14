@@ -19,16 +19,16 @@ struct Level2MapView: View {
 
     // List of node screen names in the correct order along with their positions
     let nodeScreens = [
-        ("P1_Intro", CGPoint(x: 215, y: 660)),
-        ("P1_MentalHealthMod", CGPoint(x: 270, y: 580)),
-        ("P1_3_EmotionsScenario", CGPoint(x: 180, y: 530)),
-        ("P1_4_StressModule", CGPoint(x: 105, y: 460)),
-        ("P1_5_StressTriggerMap", CGPoint(x: 190, y: 390)),
-        ("BoxBreathingView", CGPoint(x: 320, y: 330)),
-        ("P1_6_PersonalQuestion", CGPoint(x: 200, y: 200)),
-        ("MuscleRelaxationView", CGPoint(x: 105, y: 140)),
-        ("P1_14_Reflection", CGPoint(x: 160, y: 60)),
-        ("Minigame2View", CGPoint(x: 300, y: 15)) // This is the final node
+        ("1", CGPoint(x: 215, y: 660)),
+        ("2", CGPoint(x: 270, y: 580)),
+        ("3", CGPoint(x: 180, y: 530)),
+        ("4", CGPoint(x: 105, y: 460)),
+        ("5", CGPoint(x: 190, y: 390)),
+        ("6", CGPoint(x: 320, y: 330)),
+        ("7", CGPoint(x: 200, y: 200)),
+        ("8", CGPoint(x: 105, y: 140)),
+        ("9", CGPoint(x: 160, y: 60)),
+        ("10", CGPoint(x: 300, y: 15)) // This is the final node
     ]
 
 //    var body: some View {
@@ -133,26 +133,26 @@ struct Level2MapView: View {
     @ViewBuilder
     private func destinationView(for screenName: String, close: @escaping () -> Void) -> some View {
         switch screenName {
-        case "P1_Intro":
-            P1_Intro(closeAction: close)
-        case "P1_MentalHealthMod":
-            P1_MentalHealthMod(closeAction: close)
-        case "P1_3_EmotionsScenario":
-            P1_3_EmotionsScenario(closeAction: close)
-        case "P1_4_StressModule":
-            P1_4_StressModule(closeAction: close)
-        case "P1_5_StressTriggerMap":
-            P1_10_LifestyleModule(closeAction: close)
-        case "P1_6_PersonalQuestion":
-            P1_6_PersonalQuestion(closeAction: close)
-        case "BoxBreathingView":
-            BoxBreathingView(closeAction: close)
-        case "MuscleRelaxationView":
-            MuscleRelaxationView(closeAction: close)
-        case "P1_14_Reflection":
-            P1_14_Reflection(closeAction: close)
-        case "Minigame2View":
-            Minigame2View(closeAction: close)
+        case "1":
+            P2_1_Intro(closeAction: close)
+        case "2":
+            P2_1_AnxietyModule(closeAction: close)
+        case "3":
+            P2_3_DefiningAnxietyScenario(closeAction: close)
+        case "4":
+            P2_5_AnxietyWellnessQ(closeAction: close)
+        case "5":
+            P2_6_AnxietyModule(closeAction: close)
+        case "6":
+            P2_9_GoalSetting(closeAction: close)
+        case "7":
+            P2_12_CopingModule(closeAction: close)
+        case "8":
+            BreathingExerciseView(closeAction: close)
+        case "9":
+            P2_14_Reflection(closeAction: close)
+        case "10":
+            PacManGameView().environmentObject(GameModel())
         default:
             Text("Unknown View").onTapGesture {
                 close()

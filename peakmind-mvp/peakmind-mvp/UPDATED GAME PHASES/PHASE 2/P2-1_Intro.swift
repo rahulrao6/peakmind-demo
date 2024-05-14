@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct P2_1_Intro: View {
+    var closeAction: () -> Void
+
     var body: some View {
         ZStack {
             Image("MainBG")
@@ -61,7 +63,9 @@ struct P2_1_Intro: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
                 .padding()
                 .offset(x: -140, y: -245)
-            
+                .onTapGesture {
+                    closeAction()
+                }
             // Sherpa & Avatar
             
             Image("Sherpa")
@@ -83,8 +87,9 @@ struct P2_1_Intro: View {
     }
 }
 
-struct P2_1_Intro_Previews: PreviewProvider {
+/*struct P2_1_Intro_Previews: PreviewProvider {
     static var previews: some View {
         P2_1_Intro()
     }
 }
+*/

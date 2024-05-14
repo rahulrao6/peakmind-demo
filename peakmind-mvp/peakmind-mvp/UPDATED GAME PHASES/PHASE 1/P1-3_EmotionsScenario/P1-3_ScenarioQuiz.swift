@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct P1_3_ScenarioQuiz: View {
+    var closeAction: () -> Void
+
     var body: some View {
         ScenarioQuizTemplate(titleText: "Mt. Anxiety: Phase One",
                              questionText: "How would you handle the situation?",
@@ -17,10 +19,10 @@ struct P1_3_ScenarioQuiz: View {
                                 "Complete mindfulness activities",
                                 "Ignore the stress, hoping it goes away"
                             ],
-                             nextScreen: VStack{})
+                             nextScreen: VStack{}, closeAction: closeAction)
     }
 }
 
-#Preview {
-    P1_3_ScenarioQuiz()
-}
+//#Preview {
+//    P1_3_ScenarioQuiz()
+//}

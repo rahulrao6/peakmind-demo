@@ -20,6 +20,8 @@ struct SelfCareHome: View {
 
     @State private var lastCheckDate: Date?
     @State private var showAlert = false
+    @State private var showWidgetAlert = false
+
     var uncompletedTasks: [TaskFirebase] {
         Array(tasks.filter { !$0.isCompleted }.prefix(5))
     }
@@ -122,18 +124,41 @@ struct SelfCareHome: View {
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.5), radius: 5, x: 0, y: -5)
                     .offset(y: geometry.size.height * 0.2)
+                    
+                    if (showWidgetAlert) {
+                        SherpaTutorialBox(tutorialText: "Please select your daily widgets and complete your first check-in.") {
+                            showWidgetAlert = false
+                            showingWidgetSelection = true
+                        }
+                    }
                 }
                 .background(Color.iceBlue)
                 .onAppear() {
                     //print("this")
+                    if (viewModel.currentUser?.lastCheck == nil && viewModel.currentUser?.hasCompletedTutorial == true && (viewModel.currentUser?.selectedWidgets.isEmpty == true)) {
+                        showWidgetAlert = true
+                    }
                     Task{
                         fetchTasks()
                         fetchLastCheckInDate()
+
                     }
                 }
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Check-In Complete"), message: Text("You have already completed your check-in for today."), dismissButton: .default(Text("OK")))
                 }
+//                .alert(isPresented: $showWidgetAlert) {
+//                    Alert(
+//                        title: Text("No Mood Entries"),
+//                        message: Text("Please select your daily widgets."),
+//                        primaryButton: .default(Text("Select Widgets")) {
+//                            showWidgetAlert = false
+//                            showingWidgetSelection = true
+//                        },
+//                        secondaryButton: .cancel(Text("Close"))
+//                    )
+//                }
+
                 
             }
             .sheet(isPresented: $showingWidgetSelection) {
@@ -141,17 +166,28 @@ struct SelfCareHome: View {
             }
             .sheet(isPresented: $showingCheckInSheet, onDismiss: {
                 Task {
+                    fetchLastCheckInDate()
                     try await viewModel.fetchUser()
                 }
             }) {
                 CheckInView(isPresented: $showingCheckInSheet)
                     .environmentObject(viewModel)
             }
-            .sheet(isPresented: $showingAnalyticsSheet) {  // Sheet is presented based on the state
+            .sheet(isPresented: $showingAnalyticsSheet, onDismiss: {
+                Task{
+                    try await viewModel.fetchUser()
+                }
+
+            }) {  // Sheet is presented based on the state
                 Analytics(isPresented: $showingAnalyticsSheet)
                     .environmentObject(viewModel)  // Ensure the view model is passed if needed
             }
-            .sheet(isPresented: $showingQuestionsSheet) {  // Sheet is presented based on the state
+            .sheet(isPresented: $showingQuestionsSheet, onDismiss: {
+                Task{
+                    try await viewModel.fetchUser()
+                }
+
+            }) {  // Sheet is presented based on the state
                 QuestionsView()
                     .environmentObject(viewModel)  // Ensure the view model is passed if needed
             }

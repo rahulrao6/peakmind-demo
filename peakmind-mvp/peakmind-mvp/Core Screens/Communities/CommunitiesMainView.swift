@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct CommunitiesMainView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    HeaderView()
+                    HeaderView().environmentObject(viewModel)
                     MyCommunitiesSection()
                     TopCommunitiesSection()
                         .padding(.top, 0)
@@ -24,37 +25,40 @@ struct CommunitiesMainView: View {
 }
 
 struct HeaderView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
-        HStack {
-            NavigationLink(destination: UserProfileView()) {
-                Image("Girl1Icon")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle())
+        if let user = viewModel.currentUser {
+            HStack {
+                NavigationLink(destination: UserProfileView().environmentObject(viewModel)) {
+                    Image(user.selectedAvatar)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
+                }
+                
+                Spacer()
+                
+                SearchBar()
+                    .frame(height: 40)
+                
+                Spacer()
+                
+                Button(action: {
+                    // Action for notification
+                }) {
+                    Image(systemName: "bell.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.white)
+                }
             }
-
-            Spacer()
-
-            SearchBar()
-                .frame(height: 40)
-
-            Spacer()
-
-            Button(action: {
-                // Action for notification
-            }) {
-                Image(systemName: "bell.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
-                    .foregroundColor(.white)
-            }
+            .padding()
         }
-        .padding()
     }
 }
-
 struct MyCommunitiesSection: View {
     var body: some View {
         VStack(spacing: 5) {

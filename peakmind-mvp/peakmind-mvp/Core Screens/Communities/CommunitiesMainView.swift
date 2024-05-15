@@ -9,7 +9,7 @@ struct CommunitiesMainView: View {
             ScrollView {
                 VStack {
                     HeaderView(avatarIcons: avatarIcons).environmentObject(viewModel)
-                    Text("The communities hub is currently under construction. What is currently displayed to you is a sneak peek of how it will be once completed!")
+                    Text("The communities hub is currently under construction. What is currently displayed to you is a sneak peek of how it will be once completed! Click the anxiety community for a preview.")
                         .font(.system(size: 16, weight: .bold, design: .default))
                         .foregroundColor(.white)
                         .padding(.horizontal)
@@ -48,6 +48,7 @@ struct HeaderView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 50, height: 50)
                         .clipShape(Circle())
+                        .padding(.leading, 20)  // Add padding to the left of the icon
                 }
             } else {
                 NavigationLink(destination: UserProfileView().environmentObject(viewModel)) { // Ensure environmentObject is provided
@@ -63,6 +64,7 @@ struct HeaderView: View {
 
             SearchBar()
                 .frame(height: 40)
+                .padding(.horizontal, 10)
 
             Spacer()
 
@@ -75,7 +77,7 @@ struct HeaderView: View {
                     .frame(width: 30, height: 30)
                     .foregroundColor(.white)
             }
-            .padding()
+            .padding(.trailing, 20)  
         }
     }
 }

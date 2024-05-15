@@ -17,7 +17,7 @@ struct P1_3_ScenarioQuiz: View {
                                 "Engage in physical activity",
                                 "Call a friend or family member",
                                 "Complete mindfulness activities",
-                                "Ignore the stress, hoping it goes away"
+                                "Ignore the stress."
                             ],
                              nextScreen: VStack{}, closeAction: closeAction)
     }

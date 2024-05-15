@@ -437,13 +437,13 @@ struct LevelOneMapView: View {
         case "3":
             P1_3_EmotionsScenario(closeAction: close)
         case "4":
-            P1_4_StressModule(closeAction: close)
+            BoxBreathingView(closeAction: close)
         case "5":
             P1_10_LifestyleModule(closeAction: close)
         case "6":
-            BoxBreathingView(closeAction: close)
-        case "7":
             P1_6_PersonalQuestion(closeAction: close)
+        case "7":
+            P1_4_StressModule(closeAction: close)
         case "8":
             MuscleRelaxationView(closeAction: close)
         case "9":

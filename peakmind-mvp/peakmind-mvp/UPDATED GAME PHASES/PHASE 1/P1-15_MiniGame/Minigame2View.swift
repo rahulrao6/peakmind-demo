@@ -139,7 +139,7 @@ struct Minigame2View: View {
                 
                 if guessResult.allSatisfy({ $0 == "Correct" }) {
                     print("Guessed correctly!")
-                    wonAlertText = "Nice! You guessed the answer in " + String(allRows.count + 1) + " guesses!"
+                    wonAlertText = "Nice! You guessed the answer in " + String(allRows.count) + " guesses!"
                     showsWonAlert = true
                     return
                 }

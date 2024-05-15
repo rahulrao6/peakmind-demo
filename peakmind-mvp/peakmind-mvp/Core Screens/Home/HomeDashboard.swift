@@ -5,6 +5,8 @@ struct HomeDashboard: View {
     @State var weekCheckIns: [Int] = [1, 0, 1, 0, 0, 1, 0] // 0 for not checked in, 1 for checked in
     @EnvironmentObject var viewModel: AuthViewModel
     @Binding var selectedTab: Int
+    @State private var showResourcesSheet = false // State variable to control sheet presentation
+
 
     init(selectedTab: Binding<Int>? = nil) {
         _selectedTab = selectedTab ?? .constant(2) // Default to tab index 2 if no binding is provided
@@ -120,10 +122,15 @@ struct HomeDashboard: View {
                                     .aspectRatio(contentMode: .fit)
                             }
                             
-                            NavigationLink(destination: ResourcesToUtilize()) {
+                            Button(action: {
+                                showResourcesSheet.toggle()
+                            }) {
                                 Image("ResourcesButton")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
+                            }
+                            .sheet(isPresented: $showResourcesSheet) {
+                                ResourcesToUtilize()
                             }
                         }
                         .padding()

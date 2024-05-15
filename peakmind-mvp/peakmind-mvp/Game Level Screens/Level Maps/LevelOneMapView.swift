@@ -397,12 +397,12 @@ struct LevelOneMapView: View {
                             .frame(width: 70, height: 70)
                     }
                     .alert(isPresented: $showLockedAlert) {
-                        Alert(title: Text("Locked"), message: Text("You must complete 6 of the 9 previous modules to unlock this."), dismissButton: .default(Text("OK")))
+                        Alert(title: Text("Locked"), message: Text("You must complete 6 of the 9 modules to unlock this."), dismissButton: .default(Text("OK")))
                     }
                     .position(position)
                 }
                 if (showNoLevelsAlert) {
-                    SherpaTutorialBox(tutorialText: "You must complete 6 of the 9 previous modules to unlock the next one.") {
+                    SherpaTutorialBox(tutorialText: "Complete 6 of the 9 modules to unlock the locked one and go to the next level.") {
                         showNoLevelsAlert.toggle();
                     }
                 }

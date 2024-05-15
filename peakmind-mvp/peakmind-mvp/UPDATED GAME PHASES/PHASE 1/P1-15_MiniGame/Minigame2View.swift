@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Minigame2View: View {
     @State private var word: String = "Peace"
-    @State private var targetWord: [String] = Array("Hello".uppercased()).map(String.init)
+    @State private var targetWord: [String] = Array("Peace".uppercased()).map(String.init)
     
     @State private var customKeyColors: [String: Color] = [:]
     @State private var boxColors: [[Color]] = Array(repeating: Array(repeating: Color.gray.opacity(0.3), count: 5), count: 6)
@@ -21,8 +21,8 @@ struct Minigame2View: View {
     @State var showsWonAlert = false
     @State var showsLostAlert = false
     
-    @State var wonAlertText = "Wow u won"
-    @State var lostAlertText = "Wow u LOST! the word was hello"
+    @State var wonAlertText = "Congrats, you WON!"
+    @State var lostAlertText = "YOU LOST! The word was peace."
     var closeAction: () -> Void
 
     var body: some View {
@@ -270,7 +270,7 @@ struct CustomKeyboardView: View {
                 Button(action: {
                     if key == "✅" {
                         self.checkAnswer()
-                    } else if key == "🔙" {
+                    } else if key == "❌" {
                         if currentLetters.count > 0 {
                             currentLetters.removeLast()
                         }

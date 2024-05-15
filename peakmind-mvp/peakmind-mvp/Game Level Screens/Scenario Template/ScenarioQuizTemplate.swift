@@ -18,6 +18,8 @@ struct ScenarioQuizTemplate<nextView: View>: View {
     @State private var isCorrect = false // Flag to check if the selected option is correct
     @State var sherpaSpeech: String = ""
     var nextScreen: nextView
+    var closeAction: () -> Void
+
     
     var body: some View {
         VStack {
@@ -93,9 +95,12 @@ struct ScenarioQuizTemplate<nextView: View>: View {
             
             if isAnswered {
                 if isCorrect {
-                    SherpaTalking(speech: "You got it right!")
+                    SherpaTalking(speech: "You got it right!", closeAction: closeAction)
+                   
                 } else {
-                    SherpaTalking(speech: "You got it wrong!")
+                    SherpaTalking(speech: "You got it wrong!", closeAction: closeAction)
+                    
+
                 }
             } else {
                 SherpaAlone()
@@ -106,14 +111,14 @@ struct ScenarioQuizTemplate<nextView: View>: View {
     }
 }
 
-#Preview {
-    ScenarioQuizTemplate(titleText: "Mt. Anxiety Level One",
-                         questionText: "How can Alex best manage his stress?",
-                         options: [
-                            "Overwork",
-                            "Meditate",
-                            "Avoid",
-                            "Isolate"
-                        ],
-                         nextScreen: VStack{})
-}
+//#Preview {
+//    ScenarioQuizTemplate(titleText: "Mt. Anxiety Level One",
+//                         questionText: "How can Alex best manage his stress?",
+//                         options: [
+//                            "Overwork",
+//                            "Meditate",
+//                            "Avoid",
+//                            "Isolate"
+//                        ],
+//                         nextScreen: VStack{})
+//}

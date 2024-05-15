@@ -5,7 +5,6 @@ struct UserProfileView: View {
 
     @State private var bioText = "This is a sample bio. Click here to edit and share more about yourself."
     @State private var isEditing = false
-
     let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
 
     var body: some View {

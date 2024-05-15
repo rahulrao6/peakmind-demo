@@ -1,72 +1,56 @@
 import SwiftUI
 import Foundation
 
-
-// Represents a position on the grid
 struct GridPosition: Hashable {
     let row: Int
     let column: Int
 }
 
-// Defines possible movement directions
 enum Direction {
     case up, down, left, right, none
 }
 
 struct Maze {
-    static let easy: [[Int]] = [
-        [1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 1],
-        [1, 0, 1, 0, 1],
-        [1, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1]
-    ]
-    
-    static let medium: [[Int]] = [
-        [1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 1, 0, 1],
-        [1, 0, 1, 0, 0, 1],
-        [1, 0, 0, 0, 1, 1],
-        [1, 1, 1, 1, 1, 1]
-    ]
-    
-    static let hard: [[Int]] = [
-        [1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 1, 0, 0, 1],
-        [1, 0, 1, 1, 1, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1],
-        [1, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1]
+    static let pacMan: [[Int]] = [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+        [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+        [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     ]
 }
 
-enum Difficulty {
-    case easy, medium, hard
-}
-
-// The main game model managing the state
 class GameModel: ObservableObject {
     @Published var pacManPosition = GridPosition(row: 1, column: 1)
     @Published var dots: Set<GridPosition> = []
     @Published var ghosts: [GridPosition] = []
     @Published var isGameOver = false
+    @Published var isGameWon = false
     var pacManDirection: Direction = .none
     var rowCount: Int { maze.count }
     var columnCount: Int { maze.first?.count ?? 0 }
-    var maze: [[Int]] = []
+    var maze: [[Int]] = Maze.pacMan
     
-    init(difficulty: Difficulty = .hard) {
-        switch difficulty {
-        case .easy:
-            maze = Maze.easy
-        case .medium:
-            maze = Maze.medium
-        case .hard:
-            maze = Maze.hard
-        }
+    init() {
         populateGridWithDots()
         restartGame()
         startMovement()
+    }
+
+    deinit {
+        movementTimer?.invalidate()
     }
 
     private var movementTimer: Timer?
@@ -85,21 +69,20 @@ class GameModel: ObservableObject {
     func movePacMan() {
         let newPosition = getNextPosition(for: pacManPosition, direction: pacManDirection)
         if canMove(to: newPosition) {
-            DispatchQueue.main.async {
-                self.pacManPosition = newPosition
-                self.dots.remove(newPosition)
+            DispatchQueue.main.async { [weak self] in
+                self?.pacManPosition = newPosition
+                self?.dots.remove(newPosition)
+                self?.checkForWin()
             }
         }
     }
 
     func moveGhosts() {
         for index in ghosts.indices {
-            let directionOptions: [Direction] = [.up, .down, .left, .right]
-            let randomDirection = directionOptions.randomElement() ?? .none
-            let newPosition = getNextPosition(for: ghosts[index], direction: randomDirection)
+            let newPosition = getNextGhostPosition(for: ghosts[index])
             if canMove(to: newPosition) {
-                DispatchQueue.main.async {
-                    self.ghosts[index] = newPosition
+                DispatchQueue.main.async { [weak self] in
+                    self?.ghosts[index] = newPosition
                 }
             }
         }
@@ -113,6 +96,12 @@ class GameModel: ObservableObject {
         case .right: return GridPosition(row: position.row, column: min(position.column + 1, columnCount - 1))
         case .none: return position
         }
+    }
+
+    func getNextGhostPosition(for position: GridPosition) -> GridPosition {
+        let directionOptions: [Direction] = [.up, .down, .left, .right]
+        let randomDirection = directionOptions.randomElement() ?? .none
+        return getNextPosition(for: position, direction: randomDirection)
     }
 
     func canMove(to position: GridPosition) -> Bool {
@@ -137,29 +126,39 @@ class GameModel: ObservableObject {
 
     func checkForCollisions() {
         if ghosts.contains(pacManPosition) {
-            DispatchQueue.main.async {
-                self.isGameOver = true
-                self.movementTimer?.invalidate()
+            DispatchQueue.main.async { [weak self] in
+                self?.isGameOver = true
+                self?.movementTimer?.invalidate()
+            }
+        }
+    }
+
+    func checkForWin() {
+        if dots.isEmpty {
+            DispatchQueue.main.async { [weak self] in
+                self?.isGameWon = true
+                self?.movementTimer?.invalidate()
             }
         }
     }
 
     func restartGame() {
         isGameOver = false
+        isGameWon = false
         pacManPosition = GridPosition(row: 1, column: 1)
         pacManDirection = .none
         ghosts = [
-            GridPosition(row: 2, column: 2),
-            GridPosition(row: 12, column: 8)
+            GridPosition(row: 4, column: 4),
+            GridPosition(row: 6, column: 6)
         ]
         populateGridWithDots()
         startMovement()
     }
 }
 
-
 struct PacManGameView: View {
     @EnvironmentObject var gameModel: GameModel
+    var closeAction: () -> Void
 
     var body: some View {
         GeometryReader { geometry in
@@ -181,12 +180,16 @@ struct PacManGameView: View {
                     .padding(.bottom, geometry.size.height - geometry.size.width * (CGFloat(gameModel.rowCount) / CGFloat(gameModel.columnCount)))
                     
                     if gameModel.isGameOver {
-                        GameOverView()
+                        GameOverView(closeAction: closeAction)
                             .environmentObject(gameModel)
                     }
 
-                    
-                    if !gameModel.isGameOver {
+                    if gameModel.isGameWon {
+                        GameWonView(closeAction: closeAction)
+                            .environmentObject(gameModel)
+                    }
+
+                    if !gameModel.isGameOver && !gameModel.isGameWon {
                         ControlsView(gameModel: gameModel)
                             .padding()
                             .position(x: geometry.size.width / 2, y: geometry.size.height - 50) // Positioning controls at the bottom
@@ -195,19 +198,18 @@ struct PacManGameView: View {
             }
         }
         .gesture(DragGesture().onEnded(handleSwipe))
-        // Your existing swipe handling remains the same...
     }
     
-        private func handleSwipe(_ drag: DragGesture.Value) {
-            let horizontal = abs(drag.translation.width)
-            let vertical = abs(drag.translation.height)
-    
-            if horizontal > vertical {
-                gameModel.changePacManDirection(to: drag.translation.width < 0 ? .left : .right)
-            } else {
-                gameModel.changePacManDirection(to: drag.translation.height < 0 ? .up : .down)
-            }
+    private func handleSwipe(_ drag: DragGesture.Value) {
+        let horizontal = abs(drag.translation.width)
+        let vertical = abs(drag.translation.height)
+
+        if horizontal > vertical {
+            gameModel.changePacManDirection(to: drag.translation.width < 0 ? .left : .right)
+        } else {
+            gameModel.changePacManDirection(to: drag.translation.height < 0 ? .up : .down)
         }
+    }
 }
 
 struct CellView: View {
@@ -236,7 +238,6 @@ struct CellView: View {
         .aspectRatio(1, contentMode: .fit)
     }
 }
-
 
 struct ControlsView: View {
     @ObservedObject var gameModel: GameModel
@@ -268,9 +269,9 @@ struct ControlsView: View {
     }
 }
 
-
 struct GameOverView: View {
     @EnvironmentObject var gameModel: GameModel
+    var closeAction: () -> Void
 
     var body: some View {
         VStack {
@@ -279,16 +280,33 @@ struct GameOverView: View {
                 gameModel.restartGame()
             }
             .padding().background(Color.green).foregroundColor(.white).clipShape(RoundedRectangle(cornerRadius: 10))
+            Button("Exit") {
+                closeAction()
+            }
+            .padding().background(Color.green).foregroundColor(.white).clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.8))
     }
 }
 
+struct GameWonView: View {
+    @EnvironmentObject var gameModel: GameModel
+    var closeAction: () -> Void
 
-
-struct PacManGameView_Previews: PreviewProvider {
-    static var previews: some View {
-        PacManGameView().environmentObject(GameModel())
+    var body: some View {
+        VStack {
+            Text("You Win!").font(.largeTitle).foregroundColor(.white)
+            Button("Restart") {
+                gameModel.restartGame()
+            }
+            .padding().background(Color.green).foregroundColor(.white).clipShape(RoundedRectangle(cornerRadius: 10))
+            Button("Exit") {
+                closeAction()
+            }
+            .padding().background(Color.green).foregroundColor(.white).clipShape(RoundedRectangle(cornerRadius: 10))
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.opacity(0.8))
     }
 }

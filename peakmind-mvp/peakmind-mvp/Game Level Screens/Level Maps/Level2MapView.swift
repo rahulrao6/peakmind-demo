@@ -152,7 +152,7 @@ struct Level2MapView: View {
         case "9":
             P2_14_Reflection(closeAction: close)
         case "10":
-            PacManGameView().environmentObject(GameModel())
+            PacManGameView(closeAction: close).environmentObject(GameModel())
         default:
             Text("Unknown View").onTapGesture {
                 close()

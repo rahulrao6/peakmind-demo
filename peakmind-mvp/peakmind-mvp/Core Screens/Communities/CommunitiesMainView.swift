@@ -2,14 +2,13 @@ import SwiftUI
 
 struct CommunitiesMainView: View {
     @EnvironmentObject var viewModel: AuthViewModel
-    
     let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
 
-    var body: some View {
+  var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    HeaderView(avatarIcons: avatarIcons)
+                    HeaderView(avatarIcons: avatarIcons).environmentObject(viewModel)
                     Text("The communities hub is currently under construction. What is currently displayed to you is a sneak peek of how it will be once completed!")
                         .font(.system(size: 16, weight: .bold, design: .default))
                         .foregroundColor(.white)
@@ -76,11 +75,10 @@ struct HeaderView: View {
                     .frame(width: 30, height: 30)
                     .foregroundColor(.white)
             }
+            .padding()
         }
-        .padding()
     }
 }
-
 struct MyCommunitiesSection: View {
     var body: some View {
         VStack(spacing: 5) {

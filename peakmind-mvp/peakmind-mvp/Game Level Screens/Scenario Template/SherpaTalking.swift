@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SherpaTalking: View {
     @State var speech: String
-    
+    var closeAction: () -> Void
+
     var body: some View {
         HStack {
             Image("Sherpa")
@@ -25,6 +26,6 @@ struct SherpaTalking: View {
     }
 }
 
-#Preview {
-    SherpaTalking(speech: "blah blah blah")
-}
+//#Preview {
+//    SherpaTalking(speech: "blah blah blah")
+//}

@@ -84,7 +84,7 @@ struct ScenarioTemplate<nextView: View>: View {
             .shadow(color: .black.opacity(0.5), radius: 5, x: 3, y: 3)  // Added drop shadow here
             .padding(.horizontal, 20)
             
-            SherpaTalking(speech: "Let's look at this scenario and see what you should do!")
+            SherpaTalking(speech: "Let's look at this scenario and see what you should do!", closeAction: closeAction)
         }
         .background(Background())
     }

@@ -53,7 +53,6 @@ struct ScenarioTemplate<nextView: View>: View {
                 .frame(height: 200)
                 
                // Spacer()
-                
                 Button {
                     closeAction()
                 } label: {
@@ -67,6 +66,20 @@ struct ScenarioTemplate<nextView: View>: View {
                                 .stroke(.black, lineWidth: 2)
                         )
                 }
+//                Button {
+//
+//                    
+//                } label: {
+//                    Text("Proceed to quiz")
+//                        .foregroundStyle(.black)
+//                        .padding()
+//                        .background(Color("Ice Blue"))
+//                        .cornerRadius(16)
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 16)
+//                                .stroke(.black, lineWidth: 2)
+//                        )
+//                }
             }
             .padding([.horizontal, .bottom], 30)
             .background(

@@ -52,6 +52,9 @@ struct P2_14_Reflection: View {
                 }
                 .tabViewStyle(PageTabViewStyle())
                 .frame(height: 200)
+                Button(action: {closeAction()}) {
+                    Text("Continue")
+                }
                 
                // Spacer()
                 
@@ -77,9 +80,3 @@ struct P2_14_Reflection: View {
         .background(Background())
     }
 }
-
-//struct P2_14_Reflection_Previews: PreviewProvider {
-//    static var previews: some View {
-//        P2_14_Reflection()
-//    }
-//}

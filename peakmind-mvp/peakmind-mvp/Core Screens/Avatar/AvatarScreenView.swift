@@ -19,169 +19,106 @@ struct AvatarScreen: View {
 
     var body: some View {
         if let user = viewModel.currentUser {
-            //NavigationView {
             ZStack(alignment: .center) { // Align the ZStack content to the top
-                    Image("MainBG")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .edgesIgnoringSafeArea(.all)
+                Image("MainBG")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .edgesIgnoringSafeArea(.all)
 
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(Color.black.opacity(0.5))
-                        .padding(.horizontal, 20)
-                        .frame(height: 650)
-                        .overlay(
-                            VStack {
-                                Text("Your Profile")
-                                    .font(.largeTitle)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding(.bottom, 20)
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color.black.opacity(0.5))
+                    .padding(.horizontal, 20)
+                    .frame(height: 650)
+                    .overlay(
+                        VStack {
+                            Text("Your Profile")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.bottom, 20)
 
-                                ZStack {
-                                        Image(user.selectedBackground)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 300, height: 300)
-                                            .cornerRadius(15)
-                                            .clipped()
+                            ZStack {
+                                Image(user.selectedBackground)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 300, height: 300)
+                                    .cornerRadius(15)
+                                    .clipped()
 
-                                        Image(user.selectedAvatar)
+                                Image(user.selectedAvatar)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 280, height: 280)
+                            }
+                            .padding(.bottom, 20)
+
+                            HStack(spacing: 10) {
+                                Button(action: {
+                                    isNavigatingToProfileView = true
+                                }) {
+                                    VStack {
+                                        Image(systemName: "gear")
+                                            .frame(width: 24, height: 24) // Set to same size as other icons
+                                        Text("General")
+                                            .font(.system(size: 12)) // Adjust font size
+                                    }
+                                }
+                                .padding()
+                                .frame(width: 80, height: 60)
+                                .background(Color.gray)
+                                .foregroundColor(Color.white)
+                                .cornerRadius(10)
+                                .sheet(isPresented: $isNavigatingToProfileView) { // Present ProfileView as a sheet
+                                    ProfileView()
+                                }
+
+                                Button(action: {
+                                    isNavigatingToAvatarEdit = true
+                                }) {
+                                    VStack {
+                                        Image(systemName: "person.crop.circle")
+                                            .frame(width: 24, height: 24) // Set to same size as other icons
+                                        Text("Avatar")
+                                            .font(.system(size: 12)) // Adjust font size
+                                    }
+                                }
+                                .padding()
+                                .frame(width: 80, height: 60)
+                                .background(Color("Medium Blue"))
+                                .foregroundColor(Color.white)
+                                .cornerRadius(10)
+                                .sheet(isPresented: $isNavigatingToAvatarEdit) {
+                                    AvatarMenuSheet()
+                                }
+
+                                Button(action: {
+                                    isNavigatingToIglooEdit = true
+                                }) {
+                                    VStack {
+                                        Image("iglooIcon") // Use your igloo icon image name
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: 280, height: 280)
-                                    
-                                }
-                                .padding(.bottom, 20)
-                                
-                                /*
-                                if (!isEditingUsername) {
-                                    Text(user.username)
-                                        .font(.title3)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.white)
-                                    
-                                } else {
-                                    TextField("Change your username", text: $username)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .frame(maxWidth: 300)
-                                }
-
-                                
-
-                                if (!isEditingUsername) {
-                                    Button(action: {
-                                        isEditingUsername.toggle()
-                                    }) {
-                                        Text("Change your username")
-                                    }
-                                } else {
-                                    Button(action: {
-                                        Task {
-                                            try await updateUsername()
-                                        }
-                                        isEditingUsername.toggle()
-                                    }) {
-                                        Text("Confirm")
+                                            .frame(width: 24, height: 24) // Set to same size as system image
+                                        Text("Igloo")
+                                            .font(.system(size: 12)) // Adjust font size
                                     }
                                 }
-                                 */
-
-                                HStack(spacing: 10) {
-//                                    Button(action: {}) {
-//                                        HStack {
-//                                            Image(systemName: "chart.bar")
-//                                            Text("Analytics")
-//                                        }
-//                                    }
-//                                    .padding()
-//                                    .frame(maxWidth: .infinity)
-//                                    .background(Color.blue)
-//                                    .foregroundColor(Color.white)
-//                                    .cornerRadius(10)
-
-                                    Button(action: {
-                                        isNavigatingToProfileView = true
-                                    }) {
-                                        HStack {
-                                            Image(systemName: "gear")
-                                            Text("General")
-                                        }
-                                    }
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.gray)
-                                    .foregroundColor(Color.white)
-                                    .cornerRadius(10)
-                                    .sheet(isPresented: $isNavigatingToProfileView) { // Present ProfileView as a sheet
-                                        ProfileView()
-                                    }
-                                    
-                                    HStack {
-                                        
-                                        Button(action: {
-                                            isNavigatingToAvatarEdit = true
-                                        }) {
-                                            HStack {
-                                                Image(systemName: "person.crop.circle")
-                                            }
-                                        }
-                                        .padding()
-                                        .frame(maxWidth: 60)
-                                        .background(Color("Medium Blue"))
-                                        .foregroundColor(Color.white)
-                                        .cornerRadius(10)
-
-                                       /// .background(
-////                                            NavigationLink(destination: AvatarMenuSheet().navigationBarBackButtonHidden(true), isActive: $isNavigatingToAvatarEdit) {
-////                                                    EmptyView()
-////                                                }
-//                                        )
-                                        
-                                        Button(action: {
-                                            isNavigatingToIglooEdit = true
-                                        }) {
-                                            HStack {
-                                                Image(systemName: "house.fill")
-                                            }
-                                        }
-                                        .padding()
-                                        .frame(maxWidth: 60)
-                                        .background(Color("Ice Blue"))
-                                        .foregroundColor(Color.white)
-                                        .cornerRadius(10)
-//                                        .background(
-////                                            NavigationLink(destination: IglooMenuView().navigationBarBackButtonHidden(true), isActive: $isNavigatingToIglooEdit) {
-////                                                    EmptyView()
-////                                                }
-//                                        )
-                                        
-                                    }
-                                    
-
-                                    
-                                        .sheet(isPresented: $isNavigatingToAvatarEdit) {
-                                            AvatarMenuSheet()
-                                        }
-                                        .sheet(isPresented: $isNavigatingToIglooEdit) {
-                                            IglooMenuSheet()
-                                        }
-                                    
-                                    
-                                    
-
+                                .padding()
+                                .frame(width: 80, height: 60)
+                                .background(Color("Ice Blue"))
+                                .foregroundColor(Color.white)
+                                .cornerRadius(10)
+                                .sheet(isPresented: $isNavigatingToIglooEdit) {
+                                    IglooMenuSheet()
                                 }
-                                .frame(maxWidth: 300)
                             }
-                            .padding()
-                        )
-                        .padding(.top, 20) // Adjust top padding to move the box closer to the top
-
-
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                //.navigationBarHidden(true)
-            //}
+                            .frame(maxWidth: 300)
+                        }
+                        .padding()
+                    )
+                    .padding(.top, 20) // Adjust top padding to move the box closer to the top
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
     }
 
@@ -208,7 +145,7 @@ struct AvatarScreen: View {
             print("Error updating user fields: \(error)")
         }
     }
-    
+
     func updateUsername() async throws {
         guard let user = viewModel.currentUser else {
             print("No authenticated user found.")

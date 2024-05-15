@@ -1,16 +1,20 @@
 import SwiftUI
 
 struct UserProfileView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+
     @State private var bioText = "This is a sample bio. Click here to edit and share more about yourself."
     @State private var isEditing = false
-    @EnvironmentObject var viewModel: AuthViewModel
-    
+    let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
+
     var body: some View {
         if let user = viewModel.currentUser {
+            let avatarIcon = avatarIcons[user.selectedAvatar] ?? "DefaultIcon"
+
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     HStack {
-                        Image(user.selectedAvatar) // Profile picture
+                        Image(avatarIcon) // Profile picture
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 100, height: 100)
@@ -18,7 +22,7 @@ struct UserProfileView: View {
                             .padding(.leading, 20)
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("PeakMindPro") // Username
+                            Text(user.username) // Username
                                 .font(.title)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -32,7 +36,7 @@ struct UserProfileView: View {
                             }
                             .foregroundColor(.blue)
                             .sheet(isPresented: $isEditing) {
-                                BioEditView(bioText: $bioText)
+                                BioEditView(bioText: $bioText, isEditing: $isEditing)
                             }
                         }
                         .padding(.top, 30)
@@ -107,6 +111,7 @@ struct UserProfileView: View {
 
 struct BioEditView: View {
     @Binding var bioText: String
+    @Binding var isEditing: Bool
 
     var body: some View {
         VStack {
@@ -114,6 +119,7 @@ struct BioEditView: View {
                 .padding()
             Button("Done") {
                 UIApplication.shared.endEditing() // Hide keyboard
+                isEditing = false // Dismiss the sheet
             }
         }
         .padding()
@@ -129,5 +135,6 @@ extension UIApplication {
 struct UserProfileView_Previews: PreviewProvider {
     static var previews: some View {
         UserProfileView()
+            .environmentObject(AuthViewModel())
     }
 }

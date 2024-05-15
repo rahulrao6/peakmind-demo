@@ -140,6 +140,7 @@ struct TutorialView: View {
             TutorialPage(view: AnyView(SelfCareHome().environmentObject(viewModel)), text: "This is the self care home!"),
             TutorialPage(view: AnyView(HomeDashboard(selectedTab: .constant(2)).environmentObject(viewModel)), text: "This is the home dashboard!"),
             TutorialPage(view: AnyView(AnxietyCommunityView()), text: "Talk to people here!"),
+
             // Add more pages as necessary
         ]
     }

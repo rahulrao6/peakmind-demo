@@ -2,11 +2,20 @@ import SwiftUI
 
 struct CommunitiesMainView: View {
     @EnvironmentObject var viewModel: AuthViewModel
-    var body: some View {
+    let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
+
+  var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    HeaderView().environmentObject(viewModel)
+                    HeaderView(avatarIcons: avatarIcons).environmentObject(viewModel)
+                    Text("The communities hub is currently under construction. What is currently displayed to you is a sneak peek of how it will be once completed!")
+                        .font(.system(size: 16, weight: .bold, design: .default))
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                        .padding(.top, -5)
+                        .padding(.bottom, 5)
+                        .multilineTextAlignment(.center)
                     MyCommunitiesSection()
                     TopCommunitiesSection()
                         .padding(.top, 0)
@@ -26,34 +35,45 @@ struct CommunitiesMainView: View {
 
 struct HeaderView: View {
     @EnvironmentObject var viewModel: AuthViewModel
+    let avatarIcons: [String: String]
     
     var body: some View {
-        if let user = viewModel.currentUser {
-            HStack {
-                NavigationLink(destination: UserProfileView().environmentObject(viewModel)) {
-                    Image(user.selectedAvatar)
+        HStack {
+            if let user = viewModel.currentUser {
+                let avatarIcon = avatarIcons[user.selectedAvatar] ?? "DefaultIcon"
+                
+                NavigationLink(destination: UserProfileView().environmentObject(viewModel)) { // Ensure environmentObject is provided
+                    Image(avatarIcon)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 50, height: 50)
                         .clipShape(Circle())
                 }
-                
-                Spacer()
-                
-                SearchBar()
-                    .frame(height: 40)
-                
-                Spacer()
-                
-                Button(action: {
-                    // Action for notification
-                }) {
-                    Image(systemName: "bell.fill")
+            } else {
+                NavigationLink(destination: UserProfileView().environmentObject(viewModel)) { // Ensure environmentObject is provided
+                    Image("DefaultIcon")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.white)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
                 }
+            }
+
+            Spacer()
+
+            SearchBar()
+                .frame(height: 40)
+
+            Spacer()
+
+            Button(action: {
+                // Action for notification
+            }) {
+                Image(systemName: "bell.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(.white)
             }
             .padding()
         }
@@ -65,10 +85,8 @@ struct MyCommunitiesSection: View {
             SectionTitle(title: "My Communities")
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: [GridItem(.fixed(100)), GridItem(.fixed(100))], spacing: 10) {
-                    // Iterating over community icons
                     ForEach(["anxiety", "gaming", "gardening", "sports", "ptsd", "art", "wellness", "movies"], id: \.self) { imageName in
                         if imageName == "anxiety" {
-                            // Navigation Link for the Anxiety community
                             NavigationLink(destination: AnxietyCommunityView()) {
                                 communityButton(imageName: imageName)
                             }
@@ -106,9 +124,7 @@ struct TopCommunitiesSection: View {
                     ButtonView(buttonImage: "family")
                     ButtonView(buttonImage: "movies")
                     ButtonView(buttonImage: "GYM")
-
                 }
-                
             }
             .padding()
         }
@@ -160,25 +176,6 @@ struct SearchBar: View {
     }
 }
 
-struct GridButtonsView: View {
-    var buttonImages: [String]
-    var body: some View {
-        LazyVGrid(columns: [GridItem(spacing: 5), GridItem(), GridItem(spacing: 5)], spacing: 15) {
-            ForEach(buttonImages, id: \.self) { imageName in
-                Button(action: {
-                    // Action for button
-                }) {
-                    Image(imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 100, height: 100)
-                }
-                .padding(.horizontal, 50) // Adjust padding to move buttons closer
-            }
-        }
-    }
-}
-
 struct ButtonView: View {
     var buttonImage: String
     var body: some View {
@@ -197,5 +194,6 @@ struct ButtonView: View {
 struct CommunitiesMainView_Previews: PreviewProvider {
     static var previews: some View {
         CommunitiesMainView()
+            .environmentObject(AuthViewModel()) // Ensure environmentObject is provided for preview
     }
 }

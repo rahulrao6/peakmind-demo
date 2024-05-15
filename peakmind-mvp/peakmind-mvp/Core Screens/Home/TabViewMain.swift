@@ -124,13 +124,14 @@ struct TabViewMain: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var showingTutorial = false  // Manage the tutorial display based on user state
     @State private var showingQuizPrompt = false // State to manage quiz prompt overlay
+    @State private var level2 = false // State to manage quiz prompt overlay
 
     var body: some View {
         if let user = viewModel.currentUser {
             ZStack {
                 // Main content with tabs
                 TabView(selection: $selectedTab) {
-                    if user.completedLevels.contains("10") {
+                    if level2 {
                         Level2MapView().environmentObject(viewModel)
                             .tabItem {
                                 Label("Level 2", systemImage: "map.fill")
@@ -178,6 +179,9 @@ struct TabViewMain: View {
                     setupTabBarAppearance()
                     // Show tutorial if it hasn't been completed
                     showingTutorial = !user.hasCompletedTutorial
+                    if (user.completedLevels.contains("10")){
+                        level2 = true
+                    }
                 }
 
                 // Overlay Tutorial View

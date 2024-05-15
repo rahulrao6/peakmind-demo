@@ -75,7 +75,7 @@ struct P1_14_Reflection: View {
                 .shadow(color: .black.opacity(0.5), radius: 5, x: 3, y: 3)  // Added drop shadow here
                 .padding(.horizontal, 20)
                 
-                SherpaTalking(speech: "Let's review what you have learned!", closeAction: closeAction)
+                SherpaTalking(speech: "Let's review what you have learned!", closeAction: closeAction, showBack: false)
             }
             .background(Background())
         

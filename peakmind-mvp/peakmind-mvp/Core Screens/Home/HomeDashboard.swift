@@ -94,7 +94,8 @@ struct HomeDashboard: View {
                                                 .offset(x: -110, y: 50) // Adjust the X and Y position as needed
                                         )
                                         .clipShape(Rectangle()) // Ensures the overlay image is clipped exactly to the parent image
-                                    Text("Finish 3\nLevels")
+                                    
+                                    Text(user.completedLevels.count >= 3 ? "Quest\nComplete" : "Finish 3\nLevels")
                                         .font(.system(size: 24)) // Custom font size
                                         .fontWeight(.bold)
                                         .foregroundColor(.white)

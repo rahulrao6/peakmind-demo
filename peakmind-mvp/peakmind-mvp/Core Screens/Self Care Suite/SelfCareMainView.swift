@@ -231,17 +231,31 @@ struct SelfCareHome: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding()
-            
-            VStack(alignment: .leading, spacing: 5) {
-                ForEach(uncompletedTasks.prefix(3).indices, id: \.self) { index in
-                    if let taskIndex = tasks.firstIndex(where: { $0.id == uncompletedTasks[index].id }) {
-                        TaskCardFirebase(task: $tasks[taskIndex])
-                            .padding(.leading, 0)
-                            .padding(.top, index == 0 ? 5 : 0)
+            if uncompletedTasks.isEmpty {
+                VStack {
+                    HStack {
+                        Text("Looks like all of your tasks are completed!")
+                        Spacer()
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                    .foregroundColor(.black)
+                }
+                .padding([.horizontal, .bottom])
+ 
+            } else {
+                VStack(alignment: .leading, spacing: 5) {
+                    ForEach(uncompletedTasks.prefix(3).indices, id: \.self) { index in
+                        if let taskIndex = tasks.firstIndex(where: { $0.id == uncompletedTasks[index].id }) {
+                            TaskCardFirebase(task: $tasks[taskIndex])
+                                .padding(.leading, 0)
+                                .padding(.top, index == 0 ? 5 : 0)
+                        }
                     }
                 }
+                .padding([.horizontal, .bottom])
             }
-            .padding([.horizontal, .bottom])
         }
         .background(RoundedRectangle(cornerRadius: 10).fill(color))
         .foregroundColor(.white)

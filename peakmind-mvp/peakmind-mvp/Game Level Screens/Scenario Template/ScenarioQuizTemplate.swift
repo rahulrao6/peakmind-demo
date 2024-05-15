@@ -95,10 +95,15 @@ struct ScenarioQuizTemplate<nextView: View>: View {
             
             if isAnswered {
                 if isCorrect {
-                    SherpaTalking(speech: "You got it right!", closeAction: closeAction)
+                    VStack {
+                        SherpaTalking(speech: "You got it right!", closeAction: closeAction, showBack: true)
+
+                    }
                    
                 } else {
-                    SherpaTalking(speech: "You got it wrong!", closeAction: closeAction)
+                    VStack{
+                        SherpaTalking(speech: "You got it wrong!", closeAction: closeAction, showBack: true)
+                    }
                     
 
                 }

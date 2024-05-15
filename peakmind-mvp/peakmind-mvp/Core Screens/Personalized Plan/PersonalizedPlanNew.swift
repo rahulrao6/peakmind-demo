@@ -377,7 +377,7 @@ struct CheckboxFirebase: View {
                     taskData[String(self.rank)] = taskToUpdate
 
                     // Update the document with the modified task data
-                    documentRef.setData(taskData) { error in
+                    documentRef.setData(taskData, merge: true) { error in
                         if let error = error {
                             print("Error updating task: \(error.localizedDescription)")
                         } else {
@@ -452,7 +452,7 @@ struct CheckboxGoalFirebase: View {
                 goalToUpdate["timeCompleted"] = self.isCompleted ? Timestamp(date: Date()) : FieldValue.delete()
 
                 // Update the document with the modified goal data
-                documentRef.setData(goalToUpdate) { error in
+                documentRef.setData(goalToUpdate, merge: true) { error in
                     if let error = error {
                         print("Error updating goal: \(error.localizedDescription)")
                     } else {

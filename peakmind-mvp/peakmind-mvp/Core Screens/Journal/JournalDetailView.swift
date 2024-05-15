@@ -68,9 +68,13 @@ struct JournalDetailView: View {
     }
     
     private var tagSection: some View {
-        
-        TagEditor(tags: $editedEntry.tags)
-            .opacity(isEditing ? 1 : 0)
+        if isEditing {
+            AnyView(TagEditor(tags: $editedEntry.tags))
+
+        } else {
+            AnyView(Tag(tags: $editedEntry.tags))
+        }
+            //.opacity(isEditing ? 1 : 0)
     }
     
     private var contentSection: some View {
@@ -130,6 +134,24 @@ struct MoodPicker: View {
         }
         .pickerStyle(SegmentedPickerStyle())
     }
+}
+
+struct Tag: View {
+    @Binding var tags: [String]
+
+    var body: some View {
+        VStack {
+            ForEach(tags, id: \.self) { tag in
+                Text(tag)
+                    .padding(.all, 5)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(5)
+            }
+
+        }
+    }
+
 }
 
 struct TagEditor: View {

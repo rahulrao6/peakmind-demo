@@ -24,6 +24,7 @@ class AuthViewModel : ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser : UserData?
     //static let share = GoogleAuthenticationStruct()
+    @Published var authErrorMessage: String? // New property for error messages
 
     
     init() {
@@ -43,7 +44,7 @@ class AuthViewModel : ObservableObject {
                 await fetchUser()
             }
         } catch {
-            print("Debug: failed to log in with error \(error.localizedDescription)")
+            self.authErrorMessage = "Failed to log in: \(error.localizedDescription)"
         }
     }
     
@@ -58,8 +59,8 @@ class AuthViewModel : ObservableObject {
             await fetchUser()
             
         } catch {
-            print("Debug failed to create user \(error.localizedDescription)")
-            
+            self.authErrorMessage = "Failed to create user: \(error.localizedDescription)"
+
         }
     }
     
@@ -83,9 +84,13 @@ class AuthViewModel : ObservableObject {
             self.userSession = nil
             self.currentUser = nil
         } catch {
-            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+            self.authErrorMessage = "Failed to sign out: \(error.localizedDescription)"
         }
         
+    }
+    
+    func clearError() {
+        self.authErrorMessage = nil
     }
     
     func deleteAccount() async {

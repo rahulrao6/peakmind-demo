@@ -9,19 +9,20 @@ import Charts
 struct SelfCareHome: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var showingCheckInSheet = false  // State to manage the sheet presentation
-
+    
     @State private var tasks: [TaskFirebase] = []
     @State private var showingWidgetSelection = false
     @State private var currentTasksExpanded2 = false
     @State private var showingQuestionsSheet = false
     @State private var showingAnalyticsSheet = false
     @State private var moodEntries: [MoodEntry] = []
-
-
+    
+    
     @State private var lastCheckDate: Date?
     @State private var showAlert = false
     @State private var showWidgetAlert = false
-
+    @State private var taskPollingTimer: Timer?
+    
     var uncompletedTasks: [TaskFirebase] {
         Array(tasks.filter { !$0.isCompleted }.prefix(5))
     }
@@ -78,22 +79,22 @@ struct SelfCareHome: View {
                             VStack{
                                 
                                 VStack{
-                                   
+                                    
                                     MoodPreview(title: "Weekly Moods", color: Color("Navy Blue"), navigateToAnalytics: {
                                         showingAnalyticsSheet = true
                                     })
-                                        .frame(width: geometry.size.width - 30)
-
+                                    .frame(width: geometry.size.width - 30)
+                                    
                                     
                                 }
-
+                                
                                 
                                 VStack{
                                     taskListView2(title: "Personal Plan", color: Color("Navy Blue"))
                                 }
                                 .frame(width: geometry.size.width - 30)
-
-
+                                
+                                
                                 
                                 HStack(spacing: -15){
                                     CustomButton2(title: "Check In", onClick: {
@@ -107,13 +108,13 @@ struct SelfCareHome: View {
                                         showingWidgetSelection = true
                                     })
                                     .frame(maxWidth: .infinity)
-
+                                    
                                 }
                                 .frame(width: geometry.size.width) // Adjusted width here by including horizontal padding in calculation
                                 //.padding(.horizontal, 30)
-
+                                
                             }
-
+                            
                             Spacer(minLength: geometry.size.height * 0.2)
                         }
                         .frame(maxWidth: .infinity)
@@ -138,27 +139,32 @@ struct SelfCareHome: View {
                     if (viewModel.currentUser?.lastCheck == nil && viewModel.currentUser?.hasCompletedTutorial == true && (viewModel.currentUser?.selectedWidgets.isEmpty == true)) {
                         showWidgetAlert = true
                     }
+                    startTaskPolling()
+                    
                     Task{
                         fetchTasks()
                         fetchLastCheckInDate()
-
+                        
                     }
+                }
+                .onDisappear {
+                    stopTaskPolling()
                 }
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Check-In Complete"), message: Text("You have already completed your check-in for today."), dismissButton: .default(Text("OK")))
                 }
-//                .alert(isPresented: $showWidgetAlert) {
-//                    Alert(
-//                        title: Text("No Mood Entries"),
-//                        message: Text("Please select your daily widgets."),
-//                        primaryButton: .default(Text("Select Widgets")) {
-//                            showWidgetAlert = false
-//                            showingWidgetSelection = true
-//                        },
-//                        secondaryButton: .cancel(Text("Close"))
-//                    )
-//                }
-
+                //                .alert(isPresented: $showWidgetAlert) {
+                //                    Alert(
+                //                        title: Text("No Mood Entries"),
+                //                        message: Text("Please select your daily widgets."),
+                //                        primaryButton: .default(Text("Select Widgets")) {
+                //                            showWidgetAlert = false
+                //                            showingWidgetSelection = true
+                //                        },
+                //                        secondaryButton: .cancel(Text("Close"))
+                //                    )
+                //                }
+                
                 
             }
             .sheet(isPresented: $showingWidgetSelection) {
@@ -177,7 +183,7 @@ struct SelfCareHome: View {
                 Task{
                     try await viewModel.fetchUser()
                 }
-
+                
             }) {  // Sheet is presented based on the state
                 Analytics(isPresented: $showingAnalyticsSheet)
                     .environmentObject(viewModel)  // Ensure the view model is passed if needed
@@ -186,18 +192,18 @@ struct SelfCareHome: View {
                 Task{
                     try await viewModel.fetchUser()
                 }
-
+                
             }) {  // Sheet is presented based on the state
                 QuestionsView()
                     .environmentObject(viewModel)  // Ensure the view model is passed if needed
             }
             
-
+            
             
             .navigationBarTitle("Self Care Suite", displayMode: .inline)
             .foregroundColor(.white)
         }
-
+        
         
     }
     
@@ -206,6 +212,20 @@ struct SelfCareHome: View {
             showingQuestionsSheet = true
         }
     }
+    private func startTaskPolling() {
+        taskPollingTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
+            fetchTasks() {
+                if ((tasks.isEmpty ?? true)) {
+                    stopTaskPolling()
+                }
+            }
+        }
+    }
+    
+    private func stopTaskPolling() {
+        taskPollingTimer?.invalidate()
+        taskPollingTimer = nil
+    }
     @ViewBuilder
     private func taskListView2(title: String, color: Color) -> some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -213,7 +233,7 @@ struct SelfCareHome: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding()
-
+            
             VStack(alignment: .leading, spacing: 5) {
                 ForEach(uncompletedTasks.prefix(3).indices, id: \.self) { index in
                     if let taskIndex = tasks.firstIndex(where: { $0.id == uncompletedTasks[index].id }) {
@@ -236,7 +256,7 @@ struct SelfCareHome: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding()
-
+            
             VStack {
                 // Check the count of moodEntries
                 if moodEntries.count < 2 {
@@ -257,7 +277,7 @@ struct SelfCareHome: View {
                 }
             }
             .padding([.horizontal])
-
+            
             CustomButton2(title: "Analytics", onClick: navigateToAnalytics)
                 .padding()
         }
@@ -269,8 +289,8 @@ struct SelfCareHome: View {
             fetchMoodData() // Ensure this is called to load data
         }
     }
-
-
+    
+    
     
     private func fetchLastCheckInDate() {
         guard let userId = viewModel.currentUser?.id else { return }
@@ -290,30 +310,30 @@ struct SelfCareHome: View {
         }
         let db = Firestore.firestore()
         db.collection("users").document(userId)
-          .collection("daily_check_in")
-          .order(by: "timestamp", descending: true)
-          .limit(to: 5)
-          .getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error fetching documents: \(error)")
-                return
-            }
-            guard let documents = snapshot?.documents, !documents.isEmpty else {
-                print("No documents or empty documents")
-                return
-            }
-            self.moodEntries = documents.compactMap { doc -> MoodEntry? in
-                let data = doc.data()
-                guard let timestamp = data["timestamp"] as? Timestamp, let mood = data["moodRating"] as? Int else {
-                    return nil
+            .collection("daily_check_in")
+            .order(by: "timestamp", descending: true)
+            .limit(to: 5)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching documents: \(error)")
+                    return
                 }
-                return MoodEntry(date: timestamp.dateValue(), mood: mood)
+                guard let documents = snapshot?.documents, !documents.isEmpty else {
+                    print("No documents or empty documents")
+                    return
+                }
+                self.moodEntries = documents.compactMap { doc -> MoodEntry? in
+                    let data = doc.data()
+                    guard let timestamp = data["timestamp"] as? Timestamp, let mood = data["moodRating"] as? Int else {
+                        return nil
+                    }
+                    return MoodEntry(date: timestamp.dateValue(), mood: mood)
+                }
+                print("Mood Entries: \(self.moodEntries)") // Debugging output
             }
-            print("Mood Entries: \(self.moodEntries)") // Debugging output
-        }
     }
-
-
+    
+    
     func checkAndAllowCheckIn() {
         let today = Calendar.current.startOfDay(for: Date())
         if let lastCheckDate = lastCheckDate, Calendar.current.isDate(lastCheckDate, inSameDayAs: today) {
@@ -337,12 +357,12 @@ struct SelfCareHome: View {
                 print("Error getting documents: \(error.localizedDescription)")
                 return
             }
-
+            
             guard let document = document, document.exists else {
                 print("Document does not exist")
                 return
             }
-
+            
             if let data = document.data() {
                 // Extract tasks from the document data
                 var tasks: [TaskFirebase] = []
@@ -354,14 +374,14 @@ struct SelfCareHome: View {
                        let rank = taskData["rank"] as? Int,
                        let timeCompleted = taskData["timeCompleted"] as? String {
                         let task = TaskFirebase(id: id,
-                                        isCompleted: isCompleted,
-                                        name: name,
-                                        rank: rank,
-                                        timeCompleted: timeCompleted)
+                                                isCompleted: isCompleted,
+                                                name: name,
+                                                rank: rank,
+                                                timeCompleted: timeCompleted)
                         tasks.append(task)
                     }
                 }
-
+                
                 // Sort tasks if needed
                 let sortedTasks = tasks.sorted { $0.rank < $1.rank }
                 self.tasks = sortedTasks
@@ -371,8 +391,55 @@ struct SelfCareHome: View {
             }
         }
     }
-    
-    
+    func fetchTasks(completion: (() -> Void)? = nil) {
+        let db = Firestore.firestore()
+        guard let currentUser = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+        let userId = currentUser.id
+        db.collection("ai_tasks").document(userId).getDocument { (document, error) in
+            if let error = error {
+                print("Error getting documents: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = document, document.exists else {
+                print("Document does not exist")
+                return
+            }
+            
+            if let data = document.data() {
+                // Extract tasks from the document data
+                var tasks: [TaskFirebase] = []
+                for (key, taskData) in data {
+                    if let taskData = taskData as? [String: Any],
+                       let id = taskData["id"] as? String,
+                       let isCompleted = taskData["isCompleted"] as? Bool,
+                       let name = taskData["name"] as? String,
+                       let rank = taskData["rank"] as? Int,
+                       let timeCompleted = taskData["timeCompleted"] as? String {
+                        let task = TaskFirebase(id: id,
+                                                isCompleted: isCompleted,
+                                                name: name,
+                                                rank: rank,
+                                                timeCompleted: timeCompleted)
+                        tasks.append(task)
+                    }
+                }
+                
+                // Sort tasks if needed
+                let sortedTasks = tasks.sorted { $0.rank < $1.rank }
+                self.tasks = sortedTasks
+                print(self.tasks)
+            } else {
+                print("No tasks data found")
+            }
+            completion?()
+        }
+        
+        
+    }
 }
 
 struct WidgetView: View {

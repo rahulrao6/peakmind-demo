@@ -12,6 +12,7 @@ struct SherpaTalking: View {
     var closeAction: () -> Void
 
     var body: some View {
+        
         HStack {
             Image("Sherpa")
                 .resizable()
@@ -19,9 +20,12 @@ struct SherpaTalking: View {
                 .frame(height: 200)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .padding()
-            
-            SpeechBubble(text: $speech, width: 200.0)
-                .offset(CGSize(width: 50, height: 200))
+            Button {
+                closeAction()
+            } label: {
+                SpeechBubble(text: $speech, width: 200.0)
+                    .offset(CGSize(width: 50, height: 200))
+            }
         }
     }
 }

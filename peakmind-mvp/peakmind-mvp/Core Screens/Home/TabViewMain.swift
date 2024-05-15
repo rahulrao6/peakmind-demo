@@ -130,7 +130,7 @@ struct TabViewMain: View {
             ZStack {
                 // Main content with tabs
                 TabView(selection: $selectedTab) {
-                    if user.completedLevels.contains("Minigame2View") {
+                    if user.completedLevels.contains("10") {
                         Level2MapView().environmentObject(viewModel)
                             .tabItem {
                                 Label("Level 2", systemImage: "map.fill")

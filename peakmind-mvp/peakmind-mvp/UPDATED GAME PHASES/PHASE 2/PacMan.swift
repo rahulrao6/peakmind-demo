@@ -190,7 +190,7 @@ struct PacManGameView: View {
                     }
 
                     if !gameModel.isGameOver && !gameModel.isGameWon {
-                        ControlsView(gameModel: gameModel)
+                        ControlsView(gameModel: gameModel, closeAction: closeAction)
                             .padding()
                             .position(x: geometry.size.width / 2, y: geometry.size.height - 50) // Positioning controls at the bottom
                     }
@@ -241,6 +241,7 @@ struct CellView: View {
 
 struct ControlsView: View {
     @ObservedObject var gameModel: GameModel
+    var closeAction: () -> Void
 
     var body: some View {
         HStack {
@@ -254,6 +255,15 @@ struct ControlsView: View {
                         .padding()
                         .background(Circle().fill(Color.blue))
                 }
+            }
+            Button(action: {
+                closeAction()
+            }) {
+                Image(systemName: "xmark")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+                    .padding()
+                    .background(Circle().fill(Color.red))
             }
         }
     }

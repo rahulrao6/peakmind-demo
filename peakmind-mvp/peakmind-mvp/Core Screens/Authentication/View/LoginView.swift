@@ -63,11 +63,19 @@ struct LoginView: View {
                 .padding(.horizontal)
                 .padding(.top, 12)
                 
+                if let errorMessage = viewModel.authErrorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }
                 
                 //sign in button
                 
                 HStack(alignment: .center) {
                     Button {
+                        viewModel.clearError()
+
                         Task {
                             try await viewModel.signIn(withEmail: email, password: password)
                         }
@@ -89,6 +97,7 @@ struct LoginView: View {
                     
                     Button {
                         Task {
+                            viewModel.clearError()
                             do {
                                 try await viewModel.signinWithGoogle()
                             } catch let e {
@@ -133,6 +142,9 @@ struct LoginView: View {
                      .aspectRatio(contentMode: .fill)
                      .ignoresSafeArea()
              )
+            .onAppear(){
+                viewModel.clearError()
+            }
         }
     }
 }

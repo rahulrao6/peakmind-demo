@@ -1,10 +1,3 @@
-//
-//  P2-5_AnxietyWellnessQ.swift
-//  peakmind-mvp
-//
-//  Created by Mikey Halim on 4/21/24.
-//
-
 import SwiftUI
 import FirebaseFirestore
 
@@ -12,9 +5,10 @@ struct P2_5_AnxietyWellnessQ: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var userAnswer: String = ""
     @State private var showThankYou = false
+    @State private var showErrorMessage = false
+    @State private var errorMessage: String = ""
     @State var navigateToNext = false
     var closeAction: () -> Void
-
 
     var body: some View {
         ZStack {
@@ -36,17 +30,37 @@ struct P2_5_AnxietyWellnessQ: View {
                     // Question Box
                     ReflectiveQuestionBox6(userAnswer: $userAnswer)
                     
+                    // Error Message
+                    if showErrorMessage {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                            .padding()
+                    }
+
                     // Submit Button
                     SubmitButton {
-                        Task {
-                            try await saveDataToFirebase()
-                        }
-                        withAnimation {
-                            showThankYou.toggle()
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                //navigateToNext.toggle()
-                                closeAction()
-                             }
+                        if userAnswer.isEmpty {
+                            withAnimation {
+                                showErrorMessage = true
+                                errorMessage = "Please provide an answer to the question."
+                            }
+                        } else {
+                            Task {
+                                do {
+                                    try await saveDataToFirebase()
+                                    withAnimation {
+                                        showThankYou.toggle()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            closeAction()
+                                        }
+                                    }
+                                } catch {
+                                    withAnimation {
+                                        showErrorMessage = true
+                                        errorMessage = "Failed to save data. Please try again."
+                                    }
+                                }
+                            }
                         }
                     }
                 } else {
@@ -82,13 +96,7 @@ struct P2_5_AnxietyWellnessQ: View {
             "timeCompleted": FieldValue.serverTimestamp()
         ]
 
-        userRef.setData(data) { error in
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                print("Document added successfully")
-            }
-        }
+        try await userRef.setData(data)
     }
 }
 
@@ -109,7 +117,9 @@ struct ReflectiveQuestionBox6: View {
                 .lineLimit(nil)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding()
-                        TextEditor(text: $userAnswer)
+            
+            // Text Editor
+            TextEditor(text: $userAnswer)
                 .padding(10)
                 .frame(height: 180)
                 .background(Color.white)
@@ -117,7 +127,6 @@ struct ReflectiveQuestionBox6: View {
                 .shadow(radius: 10)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 25)
-
         }
         .background(Color("SentMessage"))
         .cornerRadius(20)
@@ -125,12 +134,3 @@ struct ReflectiveQuestionBox6: View {
         .padding()
     }
 }
-
-
-/*struct P2_5_AnxietyWellnessQ_Preview: PreviewProvider {
-    static var previews: some View {
-        P2_5_AnxietyWellnessQ().environmentObject(AuthViewModel())
-    }
-}
-
-*/

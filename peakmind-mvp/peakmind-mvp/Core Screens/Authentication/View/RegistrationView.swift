@@ -109,13 +109,20 @@ struct RegistrationView: View {
                 .padding(.top, 12)
             }
             
-            
+            if let errorMessage = viewModel.authErrorMessage {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .multilineTextAlignment(.center)
+                    .padding()
+            }
             
             VStack {
                 Button {
                     print("Sign User Up")
                     //showAvatarSelection = true;
                     Task {
+                        viewModel.clearError()
+
                         try await viewModel.createUser(withEmail: email, password: password, username: username, selectedAvatar: "", selectedBackground: "", hasCompletedInitialQuiz: false, hasSetInitialAvatar: false, LevelOneCompleted: false, LevelTwoCompleted: false)
                         navigateToAvatarView = true
                     }
@@ -165,6 +172,9 @@ struct RegistrationView: View {
                 EmptyView()
             }
         )
+        .onAppear(){
+            viewModel.clearError()
+        }
 
 
     }

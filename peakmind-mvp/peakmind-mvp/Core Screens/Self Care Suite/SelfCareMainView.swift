@@ -93,9 +93,7 @@ struct SelfCareHome: View {
                                     taskListView2(title: "Personal Plan", color: Color("Navy Blue"))
                                 }
                                 .frame(width: geometry.size.width - 30)
-                                
-                                
-                                
+                                                                
                                 HStack(spacing: -15){
                                     CustomButton2(title: "Check In", onClick: {
                                         checkAndAllowCheckIn()
@@ -889,9 +887,6 @@ struct CheckInView: View {
                 if viewModel.currentUser?.selectedWidgets.contains("Step Counter") == true {
                     Section(header: Text("Steps Taken")) {
                         Text("\(steps) steps")
-                        Button("Fetch Steps from Firestore") {
-                            fetchSteps()
-                        }
                     }
                 }
             }

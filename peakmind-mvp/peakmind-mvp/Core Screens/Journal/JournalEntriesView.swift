@@ -44,8 +44,8 @@ struct JournalEntriesView: View {
                         journalSuggestion = suggestion
                         showingAddJournalEntryView = true
                     }
-                    .padding(.top, 75)
-                    
+                    .padding([.trailing, .bottom], 20)
+
                     Spacer()
 
                     //addButton.padding(.bottom)

@@ -146,9 +146,9 @@ struct Level2MapView: View {
         case "6":
             P2_9_GoalSetting(closeAction: close)
         case "7":
-            P2_12_CopingModule(closeAction: close)
-        case "8":
             BreathingExerciseView(closeAction: close)
+        case "8":
+            P2_12_CopingModule(closeAction: close)
         case "9":
             P2_14_Reflection(closeAction: close)
         case "10":

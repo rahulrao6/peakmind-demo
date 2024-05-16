@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct P2_14_Reflection: View {
-    let reflectionTexts: [String] = ["In this phase, we learned so much about how mental health works and influences our lives. We tried our first coping mechanisms, relieving our stress one step at a time.", "This phase allowed us to understand the various factors in our life. Feel free to go back and review any of this content through the map!", "You have now unlocked mini game 1."]
+    let reflectionTexts: [String] = ["In this phase, we learned so much about how mental health works and influences our lives. We tried our first coping mechanisms, relieving our stress one step at a time.", "This phase allowed us to understand the various factors in our life. Feel free to go back and review any of this content through the map!"]
     var closeAction: () -> Void
 
     var body: some View {

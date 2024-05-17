@@ -113,7 +113,7 @@ struct Level2MapView: View {
                             .frame(width: 70, height: 70)
                     }
                     .alert(isPresented: $showAlert) {
-                        Alert(title: Text("Locked"), message: Text("You must complete 6 of the 9 previous modules to unlock this."), dismissButton: .default(Text("OK")))
+                        Alert(title: Text("Locked"), message: Text("You must complete 6 of the 9 prior levels to unlock this."), dismissButton: .default(Text("OK")))
                     }
                     .position(position)
                 }

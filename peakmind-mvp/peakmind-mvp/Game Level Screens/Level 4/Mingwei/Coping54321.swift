@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct Coping54321: View {
-    @State private var isShowingPage = true;
+    @State private var isShowingPage = false;
     @State private var responses = Array(repeating: "", count: 15)
-    @State private var index = 0
+    @State private var currentStep = 1
     
     let sColor: Color = Color(hex: "012649") ?? .white;
     let eColor: Color = Color(hex: "004FAC") ?? .white;
@@ -19,7 +19,7 @@ struct Coping54321: View {
     let sColor5: Color = Color(hex: "B3DEF7") ?? .white;
     let eColor6: Color = Color(hex: "4CB9F8") ?? .white;
     
-
+    @State private var answers: [Int: [String]] = [:];
     
     var body: some View {
         ZStack{
@@ -42,64 +42,115 @@ struct Coping54321: View {
                 
                 
                 VStack{
-//                    if index == 0 {
-//                        PromptScreen(numberOfBoxes: 5, curPage: 0, responses: $responses)
-//                            .onContinue{
-//                            index += 1;
-//                        }
-//                    }
-                    
-                    Text("Physical impacts of anxiety")
-                        .glowBorder(color: .black, lineWidth: 3)
+                    ZStack{
+                        Text(promptText)
+                            .glowBorder(color: .black, lineWidth: 3)
+                            .background(
+                                Rectangle()
+                                    .foregroundColor(Color(hex: "677072"))
+                                    .opacity(0.33)
+                                    .cornerRadius(20)
+                                    .overlay(RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.black, lineWidth: 2))
+                                    .frame(width: 253, height: 59)
+                                    .shadow(radius: 10, y: 10)
+                            )
+                            .background(
+                                LinearGradient(colors: [sColor3, eColor4], startPoint: .top, endPoint: .bottom)
+                                    .cornerRadius(30)
+                                    .overlay(RoundedRectangle(cornerRadius: 30)
+                                        .stroke(Color.black, lineWidth: 1))
+                                    .frame(width: 320, height: 82)
+                                    .opacity(0.7)
+                            )
+                            .foregroundColor(.white)
+                            .font(currentStep == 5 ? .system(size: 12):.system(size: 16))
+                            .offset(y: -140)
+                            .multilineTextAlignment(.center)
+                        
+                        VStack{
+                            ForEach(0..<boxesCount, id: \.self) { index in
+                                HStack{
+                                    Text("\(index + 1).")
+                                        .foregroundStyle(.white)
+                                        .background(
+                                            RadialGradient(colors: [sColor, eColor4], center: .center, startRadius: 1, endRadius: 15)
+                                                .cornerRadius(15)
+                                                .overlay(RoundedRectangle(cornerRadius: 15)
+                                                    .stroke(Color.black, lineWidth: 2))
+                                                .frame(width: 36, height: 38)
+                                                .opacity(0.5)
+                                        )
+                                    .bold()
+                                    .padding(.trailing, 9)
+                                    .padding(.leading, 6)
+                                    
+                                    TextField("Enter text here", text: Binding(
+                                        get: {
+                                            answers[currentStep, default: Array(repeating: "", count: boxesCount)][index]
+                                        },
+                                        set: { newValue in
+                                            var stepAnswers = answers[currentStep, default: Array(repeating: "", count: boxesCount)]
+                                            stepAnswers[index] = newValue
+                                            answers[currentStep] = stepAnswers
+                                        }
+                                    ))
+                                    .foregroundStyle()
+                                    .bold()
+                                    .textFieldStyle(.plain)
+                                    .padding(.bottom, 20)
+                                    .background(
+                                        Rectangle()
+                                            .foregroundColor(Color(hex: "677072"))
+                                            .opacity(0.33)
+                                            .cornerRadius(20)
+                                            .overlay(RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color.black, lineWidth: 2))
+                                            .frame(width: 253, height: 45)
+                                            .shadow(radius: 10, y: 10)
+                                            .offset(x: -13, y: -10)
+                                    )
+                                    .offset(x: 10, y: 10)
+                                }
+                            }
+                            .offset(y: (-53 - 21.40 * (5 - CGFloat(boxesCount))))
+                        }
                         .background(
-                            Rectangle()
-                                .foregroundColor(Color(hex: "2D6AB4"))
+                            LinearGradient(colors: [sColor3, eColor4], startPoint: .top, endPoint: .bottom)
+                                .cornerRadius(30)
+                                .overlay(RoundedRectangle(cornerRadius: 30)
+                                    .stroke(Color.black, lineWidth: 1))
+                                .frame(width: 333, height: 387)
                                 .opacity(0.8)
-                                .cornerRadius(15.0)
-                                .overlay(RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color.black, lineWidth: 2))
-                                .frame(width: 273, height: 48)
-                                .shadow(radius: 10, y: 10)
                         )
-                        .foregroundColor(.white)
-                        .font(.system(size: 20))
-                    
-                    Text("")
-                    .background(
-                        Rectangle()
-                            .foregroundColor(Color(hex: "677072"))
-                            .opacity(0.33)
-                            .cornerRadius(20.0)
-                            .overlay(RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.black, lineWidth: 2))
-                            .frame(width: 271, height: 284)
-                            .shadow(radius: 10, y: 10)
-                    )
-                    .frame(width: 300, height: 300)
-                    .tabViewStyle(.page)
-                    .indexViewStyle(.page(backgroundDisplayMode: .interactive))
-                    
+                        .frame(width: 300, height: 300)
+                        .offset(y: 100)
+                        
+                        Button(action: {
+                            if currentStep < 5 {
+                                currentStep += 1
+                            }
+                        }) {
+                            Text("Continue")
+                                .glowBorder(color: .black, lineWidth: 2)
+                                .background(
+                                    EllipticalGradient(colors: [sColor5, eColor6], center: .center)
+                                        .cornerRadius(15.0)
+                                        .overlay(RoundedRectangle(cornerRadius: 15)
+                                            .stroke(Color.black, lineWidth: 1))
+                                        .frame(width: 203.7, height: 44.37)
+                                )
+                                .font(.title2)
+                                .bold()
+                                .foregroundColor(.white)
+                        }
+                        .offset(y: 250)
+                    }
                 }
-                .background(
-                    LinearGradient(colors: [sColor, eColor], startPoint: .top, endPoint: .bottom)
-                        .cornerRadius(20)
-                        .overlay(RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.black, lineWidth: 1))
-                        .frame(width: 320, height: 386)
-                        .opacity(0.8)
-                )
-                .padding(.bottom, 70)
                 
                 
                 Spacer()
             }
-            Image("Sherpa")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 115)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-                .padding()
-                .offset(x: 40, y: -20)
             
             if isShowingPage {
                 ZStack{
@@ -135,6 +186,7 @@ struct Coping54321: View {
                             )
                             .padding(.bottom, 40)
                             .bold()
+                            .font(.system(size: 15))
                         
                         Button("Continue"){
                             withAnimation{
@@ -172,44 +224,35 @@ struct Coping54321: View {
                         .frame(width: 90)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                         .padding()
-                        .offset(x: 18, y: -180)
+                        .offset(x: 18, y: -130)
                 }
             }
         }
     }
-}
-
-struct PromptScreen: View {
-    let numberOfBoxes: Int
-    let curPage: Int
-    @Binding var responses: [String]
     
-    var body: some View {
-        VStack {
-            Text("Please enter \(numberOfBoxes) things you can see")
-                .font(.title)
-                .padding()
-                .background(Color.gray.opacity(0.3))
-                .cornerRadius(10)
-            
-            ForEach(0..<numberOfBoxes, id: \.self) { index in
-                TextField("Enter something you see", text: $responses[index])
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-            }
-            
-            Button(action: {}) {
-                Text("Continue")
-                    .font(.title)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+    private var boxesCount: Int {
+            switch currentStep {
+            case 1: return 5
+            case 2: return 4
+            case 3: return 3
+            case 4: return 2
+            case 5: return 1
+            default: return 5
             }
         }
-        .padding()
-    }
+
+        private var promptText: String {
+            switch currentStep {
+            case 1: return "- Let's begin! What are five\nthings you can see in your\nsurroundings?"
+            case 2: return "Next, what are four things\nyou can touch around you?"
+            case 3: return "Now, what are three things\nyou can hear?"
+            case 4: return "Great job, what are two\nthings you can smell?"
+            case 5: return "Lastly, what is one thing you can taste?\nYou should feel more grounded and in\ntune with your surroundings now."
+            default: return "- Let's begin! What are five\nthings you can see in your\nsurroundings?"
+            }
+        }
 }
+
 
 struct Coping54321_Previews: PreviewProvider {
     static var previews: some View {

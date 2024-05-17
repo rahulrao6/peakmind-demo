@@ -327,7 +327,7 @@ struct MapOfBig3: View {
                             .font(.system(size: 20))
                             .foregroundColor(.white)
                             .bold()
-                            .glowBorder(color: .black, lineWidth: 1)
+                            .glowBorder(color: .black, lineWidth: 2)
                             .multilineTextAlignment(.center)
                             .background(
                                 EllipticalGradient(colors: [sColor3, eColor4], center: .center)

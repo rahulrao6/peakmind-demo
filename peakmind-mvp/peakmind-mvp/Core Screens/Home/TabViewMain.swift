@@ -131,7 +131,7 @@ struct TabViewMain: View {
             ZStack {
                 // Main content with tabs
                 TabView(selection: $selectedTab) {
-                    if level2 {
+                    if user.completedLevels.contains("10") {
                         Level2MapView().environmentObject(viewModel)
                             .tabItem {
                                 Label("Phase 2", systemImage: "map.fill")
@@ -179,9 +179,6 @@ struct TabViewMain: View {
                     setupTabBarAppearance()
                     // Show tutorial if it hasn't been completed
                     showingTutorial = !user.hasCompletedTutorial
-                    if (user.completedLevels.contains("10")){
-                        level2 = true
-                    }
                 }
 
                 // Overlay Tutorial View

@@ -134,13 +134,13 @@ struct TabViewMain: View {
                     if level2 {
                         Level2MapView().environmentObject(viewModel)
                             .tabItem {
-                                Label("Level 2", systemImage: "map.fill")
+                                Label("Phase 2", systemImage: "map.fill")
                             }
                             .tag(0)
                     } else {
                         LevelOneMapView().environmentObject(viewModel)
                             .tabItem {
-                                Label("Level 1", systemImage: "map.fill")
+                                Label("Phase 1", systemImage: "map.fill")
                             }
                             .tag(0)
                                                     .overlay {

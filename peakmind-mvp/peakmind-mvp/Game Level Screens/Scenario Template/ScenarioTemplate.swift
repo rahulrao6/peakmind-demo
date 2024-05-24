@@ -66,20 +66,6 @@ struct ScenarioTemplate<nextView: View>: View {
                                 .stroke(.black, lineWidth: 2)
                         )
                 }
-//                Button {
-//
-//                    
-//                } label: {
-//                    Text("Proceed to quiz")
-//                        .foregroundStyle(.black)
-//                        .padding()
-//                        .background(Color("Ice Blue"))
-//                        .cornerRadius(16)
-//                        .overlay(
-//                            RoundedRectangle(cornerRadius: 16)
-//                                .stroke(.black, lineWidth: 2)
-//                        )
-//                }
             }
             .padding([.horizontal, .bottom], 30)
             .background(
@@ -102,12 +88,3 @@ struct ScenarioTemplate<nextView: View>: View {
         .background(Background())
     }
 }
-
-//// Preview
-//struct ScenarioTemplate_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ScenarioTemplate(titleText: "Mt. Anxiety: Phase One",
-//                         scenarioTexts: ["Now let’s work through a scenario. These help you with decision making related to mental health choices.", "Let's work through a scenario to help you in the future.", "You’ve had a very stressful day at work. You are getting home late and aren’t happy. How would you most handle the situation?"],
-//                         nextScreen: VStack{})
-//    }
-//}

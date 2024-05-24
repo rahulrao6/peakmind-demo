@@ -11,36 +11,6 @@ import AVKit
 import SpriteKit
 import SpriteKit
 
-//final class BoxBreathingExerciseScene: SKScene {
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    override init(size: CGSize) {
-//        super.init(size: size)
-//        let player = AVPlayer(url: Bundle.main.url(forResource: "pkmdBoxBreathingEncoded", withExtension: "mov")!)
-//        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
-//            player.seek(to: CMTime.zero)
-//            player.play()
-//        }
-//        // make sure aspect ratio is right
-//        if let track = player.currentItem?.asset.tracks(withMediaType: .video).first {
-//            let videoSize = track.naturalSize.applying(track.preferredTransform)
-//            let videoAspectRatio = abs(videoSize.width / videoSize.height)
-//
-//            let video = SKVideoNode(avPlayer: player)
-//            video.size = CGSize(width: size.width, height: size.width / videoAspectRatio)
-//            video.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-//            addChild(video)
-//            player.play()
-//            
-//            scaleMode = .aspectFill
-//            backgroundColor = .clear
-//        } else {
-//            fatalError("Could not retrieve video tracks")
-//        }
-//    }
-//}
 final class BoxBreathingExerciseScene: SKScene {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

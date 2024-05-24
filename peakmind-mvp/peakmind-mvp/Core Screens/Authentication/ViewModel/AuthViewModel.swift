@@ -60,6 +60,7 @@ class AuthViewModel : ObservableObject {
             
         } catch {
             self.authErrorMessage = "Failed to create user: \(error.localizedDescription)"
+            throw error
 
         }
     }

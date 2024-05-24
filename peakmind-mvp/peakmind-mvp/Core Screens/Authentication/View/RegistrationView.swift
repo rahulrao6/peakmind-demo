@@ -59,28 +59,28 @@ struct RegistrationView: View {
                     InputView(text: $password, title: "Password", placeholder: "Enter your password", isSecureField: true)
                         .onChange(of: password) { _ in validateForm() }
                     
-                    ZStack(alignment: .bottomTrailing) {
-                        InputView(text: $confirm_password, title: "Confirm Password", placeholder: "Confirm your password", isSecureField: true)
-                            .onChange(of: confirm_password) { _ in validateForm() }
-                        
-                        if !password.isEmpty && !confirm_password.isEmpty {
-                            if password == confirm_password {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .imageScale(.large)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color(.systemGreen))
-                                    .padding(.bottom, 4)
-                                    .padding(.trailing, 4)
-                            } else {
-                                Image(systemName: "xmark.circle.fill")
-                                    .imageScale(.large)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color(.systemRed))
-                                    .padding(.bottom, 4)
-                                    .padding(.trailing, 4)
-                            }
-                        }
-                    }
+//                    ZStack(alignment: .bottomTrailing) {
+//                        InputView(text: $confirm_password, title: "Confirm Password", placeholder: "Confirm your password", isSecureField: true)
+//                            .onChange(of: confirm_password) { _ in validateForm() }
+//                        
+//                        if !password.isEmpty && !confirm_password.isEmpty {
+//                            if password == confirm_password {
+//                                Image(systemName: "checkmark.circle.fill")
+//                                    .imageScale(.large)
+//                                    .fontWeight(.bold)
+//                                    .foregroundColor(Color(.systemGreen))
+//                                    .padding(.bottom, 4)
+//                                    .padding(.trailing, 4)
+//                            } else {
+//                                Image(systemName: "xmark.circle.fill")
+//                                    .imageScale(.large)
+//                                    .fontWeight(.bold)
+//                                    .foregroundColor(Color(.systemRed))
+//                                    .padding(.bottom, 4)
+//                                    .padding(.trailing, 4)
+//                            }
+//                        }
+//                    }
                 }
                 .padding(.horizontal)
                 .padding(.top, 12)
@@ -92,30 +92,29 @@ struct RegistrationView: View {
                     .multilineTextAlignment(.center)
                     .padding()
             }
-            
-            VStack {
-                Button {
-                    Task {
-                        await registerUser()
+            if formIsValid {
+                VStack {
+                    Button {
+                        Task {
+                            await registerUser()
+                        }
+                    } label: {
+                        HStack {
+                            Text("Next")
+                                .fontWeight(.semibold)
+                            Image(systemName: "arrow.right")
+                        }
+                        .foregroundColor(.white)
+                        .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                        .background(Color.black)
+                        .disabled(!formIsValid)
+                        .opacity(formIsValid ? 1 : 0.5)
+                        .cornerRadius(10)
+                        .padding(.top, 24)
                     }
-                } label: {
-                    HStack {
-                        Text("Next")
-                            .fontWeight(.semibold)
-                        Image(systemName: "arrow.right")
-                    }
-                    .foregroundColor(.white)
-                    .frame(width: UIScreen.main.bounds.width - 32, height: 48)
-                    .background(Color.black)
-                    .disabled(!formIsValid)
-                    .opacity(formIsValid ? 1 : 0.5)
-                    .cornerRadius(10)
-                    .padding(.top, 24)
                 }
             }
-            .sheet(isPresented: $showAvatarSelection) {
-                AvatarSettingsView()
-            }
+
             
             Button {
                 dismiss()
@@ -140,6 +139,9 @@ struct RegistrationView: View {
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text(errorMessage ?? "Unknown error"), dismissButton: .default(Text("OK")))
         }
+        .sheet(isPresented: $showAvatarSelection) {
+            AvatarSettingsView()
+        }
         .onAppear {
             viewModel.clearError()
         }
@@ -152,8 +154,6 @@ struct RegistrationView: View {
             errorMessage = "Username cannot be empty."
         } else if password.isEmpty || password.count < 6 {
             errorMessage = "Password must be at least 6 characters long."
-        } else if password != confirm_password {
-            errorMessage = "Passwords do not match."
         } else {
             errorMessage = nil
         }

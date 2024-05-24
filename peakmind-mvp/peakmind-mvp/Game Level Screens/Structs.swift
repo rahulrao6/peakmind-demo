@@ -116,3 +116,27 @@ extension Text {
             .padding()
     }
 }
+
+struct AvatarAndSherpaView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    var body: some View {
+        if let user = viewModel.currentUser {
+            HStack {
+                Image(user.selectedAvatar)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200)
+                    .padding(.leading)
+                    .offset(x: -30) // Move Sherpa image 20 points down
+                    .offset(y: 10) // Move Sherpa image 20 points down
+                Spacer()
+                Image("Sherpa")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 120)
+                    .padding(.trailing)
+                    .offset(x: -10) // Move Sherpa image 20 points down
+            }
+        }
+    }
+}

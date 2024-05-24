@@ -90,9 +90,9 @@ struct SymptomsQuizView: View {
                 .padding(.top, 20)
                 
                 
-                NavigationLink(destination: SetHabits().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
-                    EmptyView()
-                }
+//                NavigationLink(destination: SetHabits().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+//                    EmptyView()
+//                }
                  
                 
                 Spacer()

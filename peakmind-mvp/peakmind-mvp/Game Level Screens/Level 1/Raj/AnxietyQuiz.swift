@@ -89,9 +89,9 @@ struct AnxietyQuiz: View {
                 .padding(.bottom, 20)
                 .padding(.top, 20)
                 
-                NavigationLink(destination: SetHabits().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
-                    EmptyView()
-                }
+//                NavigationLink(destination: SetHabits().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
+//                    EmptyView()
+//                }
 
                 
                 Spacer()

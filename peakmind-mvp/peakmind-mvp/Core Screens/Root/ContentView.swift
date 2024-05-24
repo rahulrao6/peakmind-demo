@@ -25,23 +25,7 @@ struct ContentView: View {
             // Main content conditionally displayed based on authentication status
             Group {
                 if $viewModel.userSession != nil && viewModel.currentUser  != nil {
-                    //logged in
-                    //                    if (viewModel.currentUser?.hasCompletedInitialQuiz == true) {
-                    //                        TabViewMain()
-                    //                            .environmentObject(viewModel)
-                    //
-                    //                    } else {
-                    //                        if (viewModel.currentUser?.hasSetInitialAvatar == false) {
-                    //                            AvatarMenuView()
-                    //                                .environmentObject(viewModel)
-                    //                        } else {
-                    //                            TabViewMain()
-                    //                                .environmentObject(viewModel)
-                    //                        }
-                    //                        TabViewMain()
-                    //                            .environmentObject(viewModel)
-                    //                    }
-                    
+
                     if (viewModel.currentUser?.hasSetInitialAvatar == false) {
                         AvatarMenuView()
                             .environmentObject(viewModel)
@@ -65,67 +49,8 @@ struct ContentView: View {
                 SplashScreen()
                     .transition(.opacity) // Optional: add a transition effect when splash screen disappears
                     .zIndex(1) // Ensure splash screen is on top in the ZStack
-                
-                
             }
-
-
-
-                  // Button to display current balance - Show only when the user is logged in
-//            if viewModel.userSession != nil && viewModel.currentUser != nil {
-//                VStack {
-//                    HStack {
-//                        Spacer()
-//
-//                        Button(action: {
-//                            navigateToInventoryScreen = true
-//                        }) {
-//                            if let currentBalance = viewModel.currentUser?.currencyBalance {
-//                                Text("$\(currentBalance)")
-//                                    .font(.headline)
-//                                    .foregroundColor(.white)
-//                                    .padding(8)
-//                                    .background(Color.blue)
-//                                    .cornerRadius(8)
-//                            }
-//                        }
-//
-//                        .sheet(isPresented: $navigateToInventoryScreen) {
-//                            InventoryView()
-//                        }
-//                         // Place button at the top of the screen
-//                         // Adjust padding
-//
-//                        Button(action: {
-//                            navigateToStoreScreen = true
-//                        }) {
-//                            Image(systemName: "cart.fill") // Marketplace icon
-//                                .resizable()
-//                                .frame(width: 24, height: 24) // Smaller size
-//                                .padding(8) // Add padding
-//                                .background(Color.darkBlue) // Dark blue background
-//                                .foregroundColor(.white)
-//                                .clipShape(Circle())
-//                        }
-//                        // Adjust padding
-//                        .shadow(radius: 5)
-//                        .background(
-//                            NavigationLink(destination: StoreView(), isActive: $navigateToStoreScreen) {
-//                                EmptyView()
-//                            }
-//                        )
-//
-//
-//                    }
-//                    Spacer()
-//                }
-//                .padding()
-//            }
-            
-
-            
         }
-        
         
         .onAppear {
             readTotalStepCount()
@@ -200,11 +125,4 @@ struct ContentView: View {
             }
         }
     }
-
-
-
 }
-
-
-
-    

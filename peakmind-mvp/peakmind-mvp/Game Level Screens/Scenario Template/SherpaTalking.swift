@@ -51,7 +51,3 @@ struct SherpaTalking: View {
         }
     }
 }
-
-//#Preview {
-//    SherpaTalking(speech: "blah blah blah")
-//}

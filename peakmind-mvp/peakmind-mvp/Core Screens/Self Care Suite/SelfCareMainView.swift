@@ -622,131 +622,6 @@ struct MultipleSelectionRow: View {
     }
 }
 
-//struct Analytics: View {
-//    @Binding var isPresented: Bool
-//    @EnvironmentObject var viewModel: AuthViewModel
-//    @State private var checkInData: [CheckInData] = []
-//    @State private var checkInDataArray: [CheckInDataArray] = []
-//
-//    @State private var viewMode: ViewMode = .byDate
-//
-//    enum ViewMode {
-//        case byDate, byWidget
-//    }
-//
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                Picker("View Mode", selection: $viewMode) {
-//                    Text("By Date").tag(ViewMode.byDate)
-//                    Text("By Widget").tag(ViewMode.byWidget)
-//                }
-//                .pickerStyle(SegmentedPickerStyle())
-//                .padding()
-//
-//                List {
-//                    if viewMode == .byDate {
-//                        dateView
-//                    } else {
-//                        widgetView
-//                    }
-//                }
-//            }
-//            .foregroundColor(.black)
-//            .navigationTitle("Check-In Analytics")
-//            .navigationBarItems(trailing: Button("Close") { isPresented = false })
-//            .onAppear {
-//                fetchCheckInData()
-//                fetchCheckInDataArray()
-//            }
-//        }
-//    }
-//
-//    private var dateView: some View {
-//        ForEach(checkInData, id: \.date) { data in
-//            VStack(alignment: .leading) {
-//                Text("Date: \(data.date.formatted(date: .abbreviated, time: .omitted))")
-//                Text("Mood Rating: \(data.moodRating)")
-//                Text("Water Intake: \(data.waterIntake) liters")
-//                Text("Hours of Sleep: \(data.hoursOfSleep)")
-//                Text("Steps: \(data.steps)")
-//            }
-//        }
-//    }
-//
-//    private var widgetView: some View {
-//        let widgets = Dictionary(grouping: checkInData, by: { $0.date })
-//        return ForEach(Array(widgets.keys).sorted(), id: \.self) { date in
-//            Section(header: Text(date.formatted(date: .abbreviated, time: .omitted))) {
-//                ForEach(widgets[date] ?? [], id: \.moodRating) { data in
-//                    VStack(alignment: .leading) {
-//                        Text("Mood Rating: \(data.moodRating)")
-//                        Text("Water Intake: \(data.waterIntake) liters")
-//                        Text("Hours of Sleep: \(data.hoursOfSleep)")
-//                        Text("Steps: \(data.steps)")
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    private func fetchCheckInData() {
-//        guard let userId = viewModel.currentUser?.id else { return }
-//        let db = Firestore.firestore()
-//        db.collection("users").document(userId).collection("daily_check_in")
-//            .getDocuments { (querySnapshot, error) in
-//                if let error = error {
-//                    print("Error getting documents: \(error)")
-//                } else if let querySnapshot = querySnapshot {
-//                    self.checkInData = querySnapshot.documents.compactMap { document -> CheckInData? in
-//                        let data = document.data()
-//                        guard let timestamp = data["timestamp"] as? Timestamp else { return nil }
-//                        let date = timestamp.dateValue()
-//                        let moodRating = data["moodRating"] as? Int ?? 0
-//                        let waterIntake = data["waterIntake"] as? Int ?? 0
-//                        let hoursOfSleep = data["hoursOfSleep"] as? Int ?? 0
-//                        let steps = data["steps"] as? Int ?? 0
-//                        return CheckInData(date: date, moodRating: moodRating, waterIntake: waterIntake, hoursOfSleep: hoursOfSleep, steps: steps)
-//                    }
-//                }
-//            }
-//    }
-//
-//    func fetchCheckInDataArray() {
-//        guard let userId = viewModel.currentUser?.id else { return }
-//        let db = Firestore.firestore()
-//        db.collection("users").document(userId).collection("daily_check_in")
-//            .order(by: "timestamp", descending: false)
-//            .getDocuments { (querySnapshot, error) in
-//                if let error = error {
-//                    print("Error getting documents: \(error)")
-//                } else if let querySnapshot = querySnapshot {
-//                    var checkInData = CheckInDataArray(date: Date())
-//                    for document in querySnapshot.documents {
-//                        let data = document.data()
-//                        if let timestamp = data["timestamp"] as? Timestamp {
-//                            let date = timestamp.dateValue()
-//                            if let mood = data["moodRating"] as? Int {
-//                                checkInData.moodRating[date] = mood
-//                            }
-//                            if let water = data["waterIntake"] as? Int {
-//                                checkInData.waterIntake[date] = water
-//                            }
-//                            if let sleep = data["hoursOfSleep"] as? Int {
-//                                checkInData.hoursOfSleep[date] = sleep
-//                            }
-//                            if let steps = data["steps"] as? Int {
-//                                checkInData.steps[date] = steps
-//                            }
-//                        }
-//                    }
-//                    // Update your state here with new data
-//                    self.checkInDataArray = checkInDataArray
-//                }
-//            }
-//    }
-//
-//}
 
 struct Analytics: View {
     @Binding var isPresented: Bool
@@ -905,15 +780,21 @@ struct CheckInView: View {
                 }
             }
             .foregroundColor(.darkBlue)  // Set the dark blue color for all text inside the form
-            .navigationBarItems(leading: Button("Cancel") {
-                isPresented = false
-            }, trailing: Button("Save") {
-                saveCheckInData()
-                isPresented = false
-            })
+            .navigationBarItems(
+                leading: Button("Cancel") {
+                    isPresented = false
+                }
+                .foregroundColor(.black), // Set the color to black
+                trailing: Button("Save") {
+                    saveCheckInData()
+                    isPresented = false
+                }
+                .foregroundColor(.black) // Set the color to black
+            )
             .navigationBarTitle("Daily Check-In", displayMode: .inline)
-        }
-        .environment(\.colorScheme, .light)
+            }
+            .environment(\.colorScheme, .light)
+
 
     }
     
@@ -962,86 +843,7 @@ struct CheckInView: View {
             }
         }
     }
-//    func saveCheckInData() {
-//        guard let userID = viewModel.currentUser?.id else { return }
-//        let db = Firestore.firestore()
-//        let today = Date()
-//        let userRef = db.collection("users").document(userID)
-//
-//        db.runTransaction({ (transaction, errorPointer) -> Any? in
-//            let userDocument: DocumentSnapshot
-//            do {
-//                try userDocument = transaction.getDocument(userRef)
-//            } catch let fetchError as NSError {
-//                errorPointer?.pointee = fetchError
-//                return nil
-//            }
-//
-//            var checkInDates = userDocument.data()?["checkInDates"] as? [Timestamp] ?? []
-//            // Add today's date if not already included
-//            if !checkInDates.contains(where: { Calendar.current.isDate($0.dateValue(), inSameDayAs: today) }) {
-//                checkInDates.append(Timestamp(date: today))
-//            }
-//
-//            transaction.updateData(["checkInDates": checkInDates], forDocument: userRef)
-//            return nil
-//        }) { (object, error) in
-//            if let error = error {
-//                print("Transaction failed: \(error)")
-//            } else {
-//                print("Transaction successfully committed!")
-//                self.lastCheckInDates.append(today)
-//            }
-//        }
-//    }
-
-//    func updateLastCheckIn(timestamp: Date) {
-//        guard let userID = viewModel.currentUser?.id else { return }
-//        let db = Firestore.firestore()
-//        let userRef = db.collection("users").document(userID)
-//
-//        userRef.getDocument { document, error in
-//            guard let document = document, error == nil else {
-//                print("Error fetching user data: \(error?.localizedDescription ?? "Unknown error")")
-//                return
-//            }
-//
-//            // Initialize or update the weeklyStatus array
-//            var weeklyStatus = document.get("weeklyStatus") as? [Int] ?? [0, 0, 0, 0, 0, 0, 0]
-//            let lastCheck = document.get("lastCheck") as? Timestamp
-//
-//            let calendar = Calendar.current
-//            let currentWeekOfYear = calendar.component(.weekOfYear, from: timestamp)
-//            let currentDayOfWeek = calendar.component(.weekday, from: timestamp)
-//
-//            // Calculate index (0-based, Monday as first day)
-//            let index = (currentDayOfWeek + 5) % 7  // Adjusting index since Sunday is 1 in Gregorian calendar
-//
-//            // Check if the last check-in was in the current week
-//            if let lastCheckDate = lastCheck?.dateValue(), calendar.component(.weekOfYear, from: lastCheckDate) == currentWeekOfYear {
-//                weeklyStatus[index] = 1  // Update only the current day
-//            } else {
-//                // Reset and update for the new week
-//                weeklyStatus = [0, 0, 0, 0, 0, 0, 0]
-//                weeklyStatus[index] = 1
-//            }
-//
-//            // Update Firestore
-//            userRef.updateData([
-//                "lastCheck": timestamp,
-//                "weeklyStatus": weeklyStatus
-//            ]) { error in
-//                if let error = error {
-//                    print("Error updating check-in data: \(error)")
-//                } else {
-//                    print("Check-in data updated successfully")
-//                }
-//                Task{
-//                    await viewModel.fetchUser()
-//                }
-//            }
-//        }
-//    }
+    
     func updateLastCheckIn(timestamp: Date) {
         guard let userID = viewModel.currentUser?.id else { return }
         let db = Firestore.firestore()

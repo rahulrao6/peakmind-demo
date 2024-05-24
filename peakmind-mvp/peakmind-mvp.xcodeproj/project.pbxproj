@@ -119,6 +119,7 @@
 		793B79CC2BB39260001062DB /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CB2BB39260001062DB /* Level2.swift */; };
 		793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */; };
 		793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */; };
+		7953387F2C0144C100A42D4C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953387E2C0144C100A42D4C /* Structs.swift */; };
 		7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6632BD73793006C3726 /* TabViewMain.swift */; };
 		7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6652BD73862006C3726 /* SelfCareMainView.swift */; };
 		7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */; };
@@ -282,6 +283,7 @@
 		793B79CB2BB39260001062DB /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalAnxietyQuiz.swift; sourceTree = "<group>"; };
 		793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMARTGoalSettingView.swift; sourceTree = "<group>"; };
+		7953387E2C0144C100A42D4C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		7976E6632BD73793006C3726 /* TabViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewMain.swift; sourceTree = "<group>"; };
 		7976E6652BD73862006C3726 /* SelfCareMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCareMainView.swift; sourceTree = "<group>"; };
 		7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesMainView.swift; sourceTree = "<group>"; };
@@ -750,6 +752,7 @@
 				793B79A62BAF8466001062DB /* Level 2 */,
 				793B79A72BAF8473001062DB /* Level 3 */,
 				793B79A82BAF8479001062DB /* Level 4 */,
+				7953387E2C0144C100A42D4C /* Structs.swift */,
 			);
 			path = "Game Level Screens";
 			sourceTree = "<group>";
@@ -1229,6 +1232,7 @@
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
 				7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */,
+				7953387F2C0144C100A42D4C /* Structs.swift in Sources */,
 				79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */,
 				79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */,
 				79C3842E2BD6100300A6779A /* P2-12_CopingModule.swift in Sources */,

@@ -122,10 +122,7 @@ struct P2_9_GoalSetting: View {
                     
                 }
             }
-            .background(
-            NavigationLink(destination: TentPurchase().navigationBarBackButtonHidden(true).environmentObject(viewModel), isActive: $navigateToNext) {
-                EmptyView()
-            })
+
         }
     }
         

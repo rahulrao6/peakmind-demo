@@ -353,25 +353,27 @@ struct RegistrationView: View {
     }
 
     private func registerUser() async {
-        do {
-            viewModel.clearError()
-            try await viewModel.createUser(
-                withEmail: email,
-                password: password,
-                username: username,
-                selectedAvatar: "",
-                selectedBackground: "",
-                hasCompletedInitialQuiz: false,
-                hasSetInitialAvatar: false,
-                LevelOneCompleted: false,
-                LevelTwoCompleted: false
-            )
-        } catch {
-            errorMessage = "Failed to create user: \(error.localizedDescription)"
-            showAlert = true
-
+        Task{
+           do {
+                viewModel.clearError()
+                try await viewModel.createUser(
+                    withEmail: email,
+                    password: password,
+                    username: username,
+                    selectedAvatar: "",
+                    selectedBackground: "",
+                    hasCompletedInitialQuiz: false,
+                    hasSetInitialAvatar: false,
+                    LevelOneCompleted: false,
+                    LevelTwoCompleted: false
+                )
+               navigateToAvatarView = true
+            } catch {
+                errorMessage = "Failed to create user: \(error.localizedDescription)"
+                showAlert = true
+                
+            }
         }
-        navigateToAvatarView = true
     }
 }
 

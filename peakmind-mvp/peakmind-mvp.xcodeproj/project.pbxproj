@@ -30,7 +30,6 @@
 		1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */; };
 		1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB92BA96B5300628B79 /* StoreView.swift */; };
 		1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */; };
-		1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */; };
 		1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7F93EA2BC3B291000754E2 /* PacMan.swift */; };
 		1C9C63BC2B8131CB0066AF70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */; };
 		1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C52B8133360066AF70 /* LoginView.swift */; };
@@ -115,10 +114,10 @@
 		793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79BC2BB20431001062DB /* WellnessQ3View.swift */; };
 		793B79C12BB38E1C001062DB /* AvatarMenuSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79C02BB38E1C001062DB /* AvatarMenuSheetView.swift */; };
 		793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79C22BB390F7001062DB /* AvatarSettingsView.swift */; };
-		793B79C52BB391D7001062DB /* AnxietyGoalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79C42BB391D7001062DB /* AnxietyGoalSetting.swift */; };
 		793B79CC2BB39260001062DB /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CB2BB39260001062DB /* Level2.swift */; };
 		793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */; };
 		793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */; };
+		7953387F2C0144C100A42D4C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953387E2C0144C100A42D4C /* Structs.swift */; };
 		7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6632BD73793006C3726 /* TabViewMain.swift */; };
 		7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6652BD73862006C3726 /* SelfCareMainView.swift */; };
 		7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */; };
@@ -217,7 +216,6 @@
 		1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyQuiz.swift; sourceTree = "<group>"; };
 		1C6C0BB92BA96B5300628B79 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
-		1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHabits.swift; sourceTree = "<group>"; };
 		1C7F93EA2BC3B291000754E2 /* PacMan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacMan.swift; sourceTree = "<group>"; };
 		1C9C63BB2B8131CB0066AF70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C9C63C52B8133360066AF70 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -278,10 +276,10 @@
 		793B79BC2BB20431001062DB /* WellnessQ3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessQ3View.swift; sourceTree = "<group>"; };
 		793B79C02BB38E1C001062DB /* AvatarMenuSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarMenuSheetView.swift; sourceTree = "<group>"; };
 		793B79C22BB390F7001062DB /* AvatarSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarSettingsView.swift; sourceTree = "<group>"; };
-		793B79C42BB391D7001062DB /* AnxietyGoalSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyGoalSetting.swift; sourceTree = "<group>"; };
 		793B79CB2BB39260001062DB /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		793B79CD2BB3927E001062DB /* PhysicalAnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalAnxietyQuiz.swift; sourceTree = "<group>"; };
 		793B79CF2BB3929F001062DB /* SMARTGoalSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMARTGoalSettingView.swift; sourceTree = "<group>"; };
+		7953387E2C0144C100A42D4C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		7976E6632BD73793006C3726 /* TabViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewMain.swift; sourceTree = "<group>"; };
 		7976E6652BD73862006C3726 /* SelfCareMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCareMainView.swift; sourceTree = "<group>"; };
 		7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesMainView.swift; sourceTree = "<group>"; };
@@ -426,8 +424,6 @@
 				1C6C0BB92BA96B5300628B79 /* StoreView.swift */,
 				1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */,
 				1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */,
-				1C6C0BBD2BA9EF9E00628B79 /* SetHabits.swift */,
-				793B79C42BB391D7001062DB /* AnxietyGoalSetting.swift */,
 			);
 			path = Raj;
 			sourceTree = "<group>";
@@ -750,6 +746,7 @@
 				793B79A62BAF8466001062DB /* Level 2 */,
 				793B79A72BAF8473001062DB /* Level 3 */,
 				793B79A82BAF8479001062DB /* Level 4 */,
+				7953387E2C0144C100A42D4C /* Structs.swift */,
 			);
 			path = "Game Level Screens";
 			sourceTree = "<group>";
@@ -1136,7 +1133,6 @@
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
 				102F1B8C2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift in Sources */,
 				793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */,
-				1C6C0BBE2BA9EF9E00628B79 /* SetHabits.swift in Sources */,
 				793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */,
 				79C383EE2BC6123300A6779A /* Background.swift in Sources */,
 				792617922BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift in Sources */,
@@ -1147,7 +1143,6 @@
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				79C384082BD60EBC00A6779A /* P1-8_ResourcesAnimation.swift in Sources */,
 				797B4C452BDC094C00A3A25D /* SherpaTutorialBox.swift in Sources */,
-				793B79C52BB391D7001062DB /* AnxietyGoalSetting.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
@@ -1229,6 +1224,7 @@
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
 				7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */,
+				7953387F2C0144C100A42D4C /* Structs.swift in Sources */,
 				79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */,
 				79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */,
 				79C3842E2BD6100300A6779A /* P2-12_CopingModule.swift in Sources */,

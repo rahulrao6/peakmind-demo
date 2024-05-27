@@ -107,6 +107,12 @@
 		5144ED002BE8676B001EF930 /* ConnectingStressors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5144ECFF2BE8676B001EF930 /* ConnectingStressors.swift */; };
 		5144ED022BE8677F001EF930 /* ReflectionL3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5144ED012BE8677F001EF930 /* ReflectionL3.swift */; };
 		5144ED082BE8758A001EF930 /* GlowBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5144ED072BE8758A001EF930 /* GlowBorder.swift */; };
+		515F79A22BF9BE5300EF2865 /* IntroL5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515F79A12BF9BE5300EF2865 /* IntroL5.swift */; };
+		515F79A42BF9BF9800EF2865 /* EduaSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515F79A32BF9BF9800EF2865 /* EduaSupport.swift */; };
+		515F79A62BF9C58C00EF2865 /* WellnessQ1L5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515F79A52BF9C58C00EF2865 /* WellnessQ1L5.swift */; };
+		515F79A82BF9C7EF00EF2865 /* EduaFindCom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515F79A72BF9C7EF00EF2865 /* EduaFindCom.swift */; };
+		515F79AA2BF9C93900EF2865 /* EduaChoosingRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515F79A92BF9C93900EF2865 /* EduaChoosingRight.swift */; };
+		515F79AC2BF9CD5100EF2865 /* ReflectionL5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515F79AB2BF9CD5100EF2865 /* ReflectionL5.swift */; };
 		51FE846E2BF3877F0031BBC7 /* EduaRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE84672BF3877E0031BBC7 /* EduaRoutine.swift */; };
 		51FE846F2BF3877F0031BBC7 /* Coping54321.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE84682BF3877E0031BBC7 /* Coping54321.swift */; };
 		51FE84702BF3877F0031BBC7 /* WellnessQ1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE84692BF3877E0031BBC7 /* WellnessQ1.swift */; };
@@ -257,6 +263,12 @@
 		5144ECFF2BE8676B001EF930 /* ConnectingStressors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingStressors.swift; sourceTree = "<group>"; };
 		5144ED012BE8677F001EF930 /* ReflectionL3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionL3.swift; sourceTree = "<group>"; };
 		5144ED072BE8758A001EF930 /* GlowBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowBorder.swift; sourceTree = "<group>"; };
+		515F79A12BF9BE5300EF2865 /* IntroL5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroL5.swift; sourceTree = "<group>"; };
+		515F79A32BF9BF9800EF2865 /* EduaSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EduaSupport.swift; sourceTree = "<group>"; };
+		515F79A52BF9C58C00EF2865 /* WellnessQ1L5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessQ1L5.swift; sourceTree = "<group>"; };
+		515F79A72BF9C7EF00EF2865 /* EduaFindCom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EduaFindCom.swift; sourceTree = "<group>"; };
+		515F79A92BF9C93900EF2865 /* EduaChoosingRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EduaChoosingRight.swift; sourceTree = "<group>"; };
+		515F79AB2BF9CD5100EF2865 /* ReflectionL5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionL5.swift; sourceTree = "<group>"; };
 		51FE84672BF3877E0031BBC7 /* EduaRoutine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EduaRoutine.swift; sourceTree = "<group>"; };
 		51FE84682BF3877E0031BBC7 /* Coping54321.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coping54321.swift; sourceTree = "<group>"; };
 		51FE84692BF3877E0031BBC7 /* WellnessQ1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WellnessQ1.swift; sourceTree = "<group>"; };
@@ -664,6 +676,27 @@
 			path = Mingwei;
 			sourceTree = "<group>";
 		};
+		515F799F2BF9B6BD00EF2865 /* Level5 */ = {
+			isa = PBXGroup;
+			children = (
+				515F79A02BF9B6D600EF2865 /* Mingwei */,
+			);
+			path = Level5;
+			sourceTree = "<group>";
+		};
+		515F79A02BF9B6D600EF2865 /* Mingwei */ = {
+			isa = PBXGroup;
+			children = (
+				515F79A12BF9BE5300EF2865 /* IntroL5.swift */,
+				515F79A32BF9BF9800EF2865 /* EduaSupport.swift */,
+				515F79A52BF9C58C00EF2865 /* WellnessQ1L5.swift */,
+				515F79A72BF9C7EF00EF2865 /* EduaFindCom.swift */,
+				515F79A92BF9C93900EF2865 /* EduaChoosingRight.swift */,
+				515F79AB2BF9CD5100EF2865 /* ReflectionL5.swift */,
+			);
+			path = Mingwei;
+			sourceTree = "<group>";
+		};
 		51FE84662BF3873C0031BBC7 /* Mingwei */ = {
 			isa = PBXGroup;
 			children = (
@@ -724,6 +757,7 @@
 				793B79A62BAF8466001062DB /* Level 2 */,
 				793B79A72BAF8473001062DB /* Level 3 */,
 				793B79A82BAF8479001062DB /* Level 4 */,
+				515F799F2BF9B6BD00EF2865 /* Level5 */,
 			);
 			path = "Game Level Screens";
 			sourceTree = "<group>";
@@ -1036,6 +1070,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				515F79A42BF9BF9800EF2865 /* EduaSupport.swift in Sources */,
 				791AC9002BA7D1180094A688 /* DangersOfNightfallView.swift in Sources */,
 				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
 				512D6DBE2BE85FF7008C3E23 /* IntroL4.swift in Sources */,
@@ -1068,11 +1103,13 @@
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				513FB6B82BCF4C5200D42CE0 /* Level1Eduacation.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
+				515F79A22BF9BE5300EF2865 /* IntroL5.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
 				79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */,
 				5144ECFA2BE866C3001EF930 /* EmotionalImpacts.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				51FE846F2BF3877F0031BBC7 /* Coping54321.swift in Sources */,
+				515F79A62BF9C58C00EF2865 /* WellnessQ1L5.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				514495272BD76F3500FC08F9 /* CauseEffectPair.swift in Sources */,
 				793B79C72BB39205001062DB /* FlashlightPurchase.swift in Sources */,
@@ -1092,6 +1129,8 @@
 				51FE846E2BF3877F0031BBC7 /* EduaRoutine.swift in Sources */,
 				5144952B2BD771C500FC08F9 /* TriggerMap.swift in Sources */,
 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
+				515F79AC2BF9CD5100EF2865 /* ReflectionL5.swift in Sources */,
+				515F79A82BF9C7EF00EF2865 /* EduaFindCom.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
 				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
@@ -1150,6 +1189,7 @@
 				79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */,
 				1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
+				515F79AA2BF9C93900EF2865 /* EduaChoosingRight.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
 				798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */,
 			);

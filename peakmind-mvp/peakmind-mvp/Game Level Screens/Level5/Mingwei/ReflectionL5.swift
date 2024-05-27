@@ -1,21 +1,20 @@
 //
-//  ReflectionL3.swift
+//  ReflectionL5.swift
 //  peakmind-mvp
 //
-//  Created by Mingwei Li on 5/5/24.
+//  Created by Mingwei Li on 5/18/24.
 //
 
 import SwiftUI
 
-struct ReflectionL3: View {
+struct ReflectionL5: View {
     let sColor: Color = Color(hex: "005D92") ?? .white;
     let eColor: Color = Color(hex: "B6E0F8") ?? .white;
     let sColor3: Color = Color(hex: "6EADF0") ?? .white;
     let eColor4: Color = Color(hex: "044F9E") ?? .white;
     let sColor5: Color = Color(hex: "0771A7") ?? .white;
     let sColor6: Color = Color(hex: "5DBCEF") ?? .white;
-    private let texts = ["In this phase, you learned so much\nabout the physical and emotional\nimpacts of anxiety. You also\nexplored the different ways you\ncan adjust your thinking and\nimprove upon your coping\nmechanisms.",
-        "We worked through scenarios,\ncoping strategies, progressive\nmuscle relaxation, and more! In\nthe next phase you’ll learn about\nbuilding routines and resilience."]
+    private let texts = ["In this phase you learned so much about building support systems, finding communities, and choosing the right coping mechanisms in your life. You’ve identified your top supporters and how they can best help you in stressful situations. You’ve successfully worked through many different activities to build and find your support network. Throughout mount anxiety, we went through plenty of coping mechanisms, educational modules, and other activities. You did an amazing job and now have a tool box to better handle your anxiety!"]
     
     var body: some View {
         ZStack{
@@ -37,7 +36,7 @@ struct ReflectionL3: View {
                     .foregroundColor(.white)
                     .glowBorder(color: .black, lineWidth: 2)
                 
-                Text("Level Three")
+                Text("Level Five")
                     .glowBorder(color: .black, lineWidth: 2)
                     .font(.system(size: 26, weight: .bold, design: .default))
                     .foregroundColor(.white)
@@ -79,13 +78,13 @@ struct ReflectionL3: View {
                             .cornerRadius(20.0)
                             .overlay(RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.black, lineWidth: 2))
-                            .frame(width: 253, height: 187)
+                            .frame(width: 320, height: 280)
                             .shadow(radius: 10, y: 10)
                     )
                     .frame(width: 300, height: 300)
                     .tabViewStyle(.page)
                     .indexViewStyle(.page(backgroundDisplayMode: .interactive))
-                    .offset(y: -50)
+                    .offset(y: -0)
                     
                     Button("Proceed to Quiz"){
                         
@@ -100,16 +99,16 @@ struct ReflectionL3: View {
                     )
                     .font(.title2)
                     .foregroundColor(.white)
-                    .offset(y: -50)
+                    .offset(y: 20)
                 }
                 .background(
                     LinearGradient(colors: [sColor3, eColor4], startPoint: .top, endPoint: .bottom)
                         .cornerRadius(20)
                         .overlay(RoundedRectangle(cornerRadius: 20)
                             .stroke(Color.black, lineWidth: 1))
-                        .frame(width: 320, height: 357)
+                        .frame(width: 340, height: 457)
                         .opacity(0.8)
-                        .offset(y: -20)
+                        .offset(y: 0)
                 )
                 .padding(.bottom, 70)
                 
@@ -133,8 +132,8 @@ struct ReflectionL3: View {
     }
 }
 
-struct ReflectionL3_Previews: PreviewProvider {
+struct ReflectionL5_Previews: PreviewProvider {
     static var previews: some View {
-        ReflectionL3()
+        ReflectionL5()
     }
 }

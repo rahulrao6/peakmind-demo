@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Coping54321: View {
-    @State private var isShowingPage = false;
+    @State private var isShowingPage = true;
     @State private var responses = Array(repeating: "", count: 15)
     @State private var currentStep = 1
     
@@ -95,7 +95,6 @@ struct Coping54321: View {
                                             answers[currentStep] = stepAnswers
                                         }
                                     ))
-                                    .foregroundStyle()
                                     .bold()
                                     .textFieldStyle(.plain)
                                     .padding(.bottom, 20)
@@ -113,7 +112,7 @@ struct Coping54321: View {
                                     .offset(x: 10, y: 10)
                                 }
                             }
-                            .offset(y: (-53 - 21.40 * (5 - CGFloat(boxesCount))))
+                            .offset(y: (-53 - 26.30 * (5 - CGFloat(boxesCount))))
                         }
                         .background(
                             LinearGradient(colors: [sColor3, eColor4], startPoint: .top, endPoint: .bottom)
@@ -252,6 +251,8 @@ struct Coping54321: View {
             }
         }
 }
+
+
 
 
 struct Coping54321_Previews: PreviewProvider {

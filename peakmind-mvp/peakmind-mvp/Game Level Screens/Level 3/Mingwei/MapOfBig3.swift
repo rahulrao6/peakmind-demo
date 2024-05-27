@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MapOfBig3: View {
-    @State private var isShowing = true;
+    @State private var isShowing = false;
     
     let sColor: Color = Color(hex: "6EADF0") ?? .white;
     let eColor: Color = Color(hex: "044F9E") ?? .white;
@@ -23,7 +23,7 @@ struct MapOfBig3: View {
     @State private var eff2: String = ""
     @State private var eff3: String = ""
     
-    let texts = ["Understanding what causes and effects\nof physical anxiety symptoms helps\nus immediately respond when any\nstressors comes up.", "First, let’s write out the cause or\n trigger of three physical symptoms of\n anxiety that you experience. Click the\n arrow when you finish!"]
+    let texts = ["Understanding what causes and effects\nof physical anxiety symptoms helps\nus immediately respond when any\nstressors comes up.", "First, let’s write out the cause or\ntrigger of three physical symptoms of\nanxiety that you experience. Click the\narrow when you finish!"]
     
     var body: some View {
         ZStack{
@@ -61,7 +61,7 @@ struct MapOfBig3: View {
                         .font(.system(size: 20))
                         .padding(.bottom, 20)
                         .offset(y: -20)
-                    
+                        .bold()
                     TabView{
                         ForEach(0..<texts.count, id: \.self) { index in
                             VStack {
@@ -71,6 +71,7 @@ struct MapOfBig3: View {
                                     .foregroundColor(.white)
                                     .lineSpacing(8)
                                     .transition(.identity)
+                                    .bold()
                             }
                         }
                     }
@@ -90,8 +91,8 @@ struct MapOfBig3: View {
                 }
                 .background(
                     LinearGradient(colors: [sColor, eColor], startPoint: .top, endPoint: .bottom)
-                        .cornerRadius(30.0)
-                        .overlay(RoundedRectangle(cornerRadius: 30)
+                        .cornerRadius(15)
+                        .overlay(RoundedRectangle(cornerRadius: 15)
                             .stroke(Color.black, lineWidth: 1))
                         .frame(width: 320, height: 194)
                         .opacity(0.8)
@@ -102,7 +103,7 @@ struct MapOfBig3: View {
                 
 
                 
-                if isShowing{
+                if !isShowing{
                     ZStack{
                         VStack{
                             HStack{
@@ -119,7 +120,7 @@ struct MapOfBig3: View {
                                         .frame(width: 119, height: 74)
                                 )
                                 .padding()
-                                .offset(x:30)
+                                .offset(x:35)
                                 
                                 TextField("Trigger", text: $tri2)
                                 .font(.system(size: 15))
@@ -134,7 +135,7 @@ struct MapOfBig3: View {
                                         .frame(width: 119, height: 74)
                                 )
                                 .padding()
-                                .offset(x:-30)
+                                .offset(x:-35)
                             }
                             .padding(.bottom, 40)
                             
@@ -151,9 +152,12 @@ struct MapOfBig3: View {
                                     .frame(width: 119, height: 74)
                             )
                             .padding(.bottom, 30)
+                            .offset(y:10)
                             
                             Button("Continue"){
-                                isShowing.toggle()
+                                withAnimation{
+                                    isShowing.toggle()
+                                }
                             }
                             .font(.system(size: 20))
                             .foregroundColor(.white)
@@ -167,6 +171,7 @@ struct MapOfBig3: View {
                                         .stroke(Color.black, lineWidth: 1))
                                     .frame(width: 204, height: 44)
                             )
+                            .offset(y:10)
                             .padding()
                         }
                         .background(
@@ -196,7 +201,7 @@ struct MapOfBig3: View {
                             .lineSpacing(10.0)
                     }
                     .transition(.slide)
-                    .offset(y: 40)
+                    .offset(y: 45)
                     Image("Sherpa")
                         .resizable()
                         .scaledToFit()
@@ -281,7 +286,7 @@ struct MapOfBig3: View {
                                         .offset(x: -35)
                                 }
                             }
-                            .offset(x: 125)
+                            .offset(x: 125, y: 8)
                             .padding(.bottom, 60)
                             HStack{
                                 ZStack{
@@ -319,10 +324,13 @@ struct MapOfBig3: View {
                                         .offset(x: -35)
                                 }
                             }
-                            .offset(x: 150)
+                            .offset(x: 150, y: 15)
                             .padding(.bottom, 60)
+                            
                             Button("Continue"){
-                                isShowing.toggle()
+                                withAnimation{
+                                    isShowing.toggle()
+                                }
                             }
                             .font(.system(size: 20))
                             .foregroundColor(.white)
@@ -331,23 +339,24 @@ struct MapOfBig3: View {
                             .multilineTextAlignment(.center)
                             .background(
                                 EllipticalGradient(colors: [sColor3, eColor4], center: .center)
-                                    .cornerRadius(13.58)
-                                    .overlay(RoundedRectangle(cornerRadius: 13.58)
+                                    .cornerRadius(15)
+                                    .overlay(RoundedRectangle(cornerRadius: 15)
                                         .stroke(Color.black, lineWidth: 1))
                                     .frame(width: 204, height: 44)
                             )
+                            .offset(y: -10)
                             .padding()
                             Spacer()
                         }
                     }
                     .background(
                         LinearGradient(colors: [sColor, eColor], startPoint: .top, endPoint: .bottom)
-                            .cornerRadius(12.64)
-                            .overlay(RoundedRectangle(cornerRadius: 12.64)
+                            .cornerRadius(15)
+                            .overlay(RoundedRectangle(cornerRadius: 15)
                                 .stroke(Color.black, lineWidth: 1))
                             .frame(width: 367, height: 360)
                             .opacity(0.8)
-                            .offset(y: -30)
+                            .offset(y: -20)
                     )
                     .padding(.bottom, 100)
                     Spacer()

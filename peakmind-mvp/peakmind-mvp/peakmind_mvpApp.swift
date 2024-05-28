@@ -30,6 +30,39 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 import HealthKit
 import Combine
 
+//class HealthKitManager: ObservableObject {
+//    static let shared = HealthKitManager()
+//    let healthStore: HKHealthStore?
+//
+//    init() {
+//        guard HKHealthStore.isHealthDataAvailable() else {
+//            self.healthStore = nil
+//            return
+//        }
+//        self.healthStore = HKHealthStore()
+//    }
+//
+//    func requestAuthorization(completion: @escaping (Bool, Error?) -> Void) {
+//        guard let healthStore = healthStore else {
+//            completion(false, NSError(domain: "HealthKit", code: 0, userInfo: [NSLocalizedDescriptionKey: "HealthKit is not available on this device."]))
+//            return
+//        }
+//
+//        let readTypes = Set([
+//            HKObjectType.quantityType(forIdentifier: .heartRate)!,
+//            HKObjectType.quantityType(forIdentifier: .stepCount)!,
+//            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
+//        ])
+//
+//        healthStore.requestAuthorization(toShare: [], read: readTypes) { success, error in
+//            DispatchQueue.main.async {
+//                completion(success, error)
+//            }
+//        }
+//    }
+//}
+
+
 class HealthKitManager: ObservableObject {
     static let shared = HealthKitManager()
     let healthStore: HKHealthStore?
@@ -62,22 +95,22 @@ class HealthKitManager: ObservableObject {
     }
 }
 
-
 @main
 struct peakmind_mvpApp: App {
   // register app delegate for Firebase setup
-  @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var viewModel = AuthViewModel()
 
     @StateObject var journalDataManager = JournalDataManager() // Instantiate JournalDataManager
-    @StateObject var healthStore = HKHealthStore() // Assuming you have proper initialization elsewhere
+    //@StateObject var healthStore = HKHealthStore() // Assuming you have proper initialization elsewhere
+    @StateObject var healthKitManager = HealthKitManager.shared
 
     //private let healthStore: HKHealthStore
     
     init() {
-        guard HKHealthStore.isHealthDataAvailable() else {  fatalError("This app requires a device that supports HealthKit") }
+        //guard HKHealthStore.isHealthDataAvailable() else {  fatalError("This app requires a device that supports HealthKit") }
         //healthStore = HKHealthStore()
-        requestHealthkitPermissions()
+        //requestHealthkitPermissions()
     }
     
     private func requestHealthkitPermissions() {
@@ -88,7 +121,7 @@ struct peakmind_mvpApp: App {
             HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
         ])
         
-        healthStore.requestAuthorization(toShare: nil, read: sampleTypesToRead) { (success, error) in
+        healthKitManager.requestAuthorization { success, error in
             print("Request Authorization -- Success: ", success, " Error: ", error ?? "nil")
         }
     }
@@ -100,7 +133,9 @@ struct peakmind_mvpApp: App {
           ContentView()
               .environmentObject(viewModel)
               .environmentObject(journalDataManager) // Provide JournalDataManager
-              .environmentObject(healthStore)
+              .environmentObject(healthKitManager)  // Provide HealthKitManager
+
+              //.environmentObject(healthStore)
 
       }
     }

@@ -25,6 +25,8 @@ class AuthViewModel : ObservableObject {
     @Published var currentUser : UserData?
     //static let share = GoogleAuthenticationStruct()
     @Published var authErrorMessage: String? // New property for error messages
+    @Published var chatRooms: [ChatRoom] = []
+    @Published var communitiesViewModel = CommunitiesViewModel() // Add this line
 
     
     init() {
@@ -221,7 +223,8 @@ class AuthViewModel : ObservableObject {
         self.currentUser = try? snapshot.data(as: UserData.self)
         
         print("Debug current user is \(String(describing: self.currentUser))")
-        
+        communitiesViewModel.loadCommunities()
+
         
     }
     
@@ -319,6 +322,8 @@ class AuthViewModel : ObservableObject {
 
 
     }
+    
+
  
 
     

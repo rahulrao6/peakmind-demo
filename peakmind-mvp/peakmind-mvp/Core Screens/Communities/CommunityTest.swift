@@ -1,4 +1,3 @@
-
 import Foundation
 import FirebaseFirestoreSwift
 import FirebaseFirestore
@@ -19,11 +18,23 @@ struct Post: Identifiable, Codable {
     var communityId: String
     var content: String
     var timestamp: Timestamp
+    var upvotes: Int = 0
+    var downvotes: Int = 0
+}
+
+struct Comment: Identifiable, Codable {
+    @DocumentID var id: String?
+    var userId: String
+    var userName: String
+    var postId: String
+    var content: String
+    var timestamp: Timestamp
 }
 
 class CommunitiesViewModel: ObservableObject {
     @Published var communities: [Community] = []
     @Published var posts: [Post] = []
+    @Published var comments: [Comment] = []
 
     private var db = Firestore.firestore()
     private var postsListener: ListenerRegistration?
@@ -39,9 +50,7 @@ class CommunitiesViewModel: ObservableObject {
     }
 
     func loadPosts(for communityId: String) {
-        // Remove existing listener if any
         postsListener?.remove()
-
         postsListener = db.collection("posts")
             .whereField("communityId", isEqualTo: communityId)
             .order(by: "timestamp", descending: true)
@@ -59,6 +68,37 @@ class CommunitiesViewModel: ObservableObject {
             let _ = try db.collection("posts").addDocument(from: post)
         } catch {
             print("Error adding post: \(error)")
+        }
+    }
+
+    func upvotePost(_ post: Post) {
+        guard let postId = post.id else { return }
+        db.collection("posts").document(postId).updateData(["upvotes": post.upvotes + 1])
+    }
+
+    func downvotePost(_ post: Post) {
+        guard let postId = post.id else { return }
+        db.collection("posts").document(postId).updateData(["downvotes": post.downvotes + 1])
+    }
+
+    func loadComments(for postId: String) {
+        db.collection("comments")
+            .whereField("postId", isEqualTo: postId)
+            .order(by: "timestamp", descending: true)
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    self?.comments = []
+                    return
+                }
+                self?.comments = documents.compactMap { try? $0.data(as: Comment.self) }
+            }
+    }
+
+    func addComment(_ comment: Comment) {
+        do {
+            let _ = try db.collection("comments").addDocument(from: comment)
+        } catch {
+            print("Error adding comment: \(error)")
         }
     }
 }
@@ -135,7 +175,8 @@ struct CommunityDetailView: View {
 
     var community: Community
     
-    @State private var newPostContent = ""
+    @State private var showCreatePostModal = false
+    @State private var showTextPostModal = true
 
     var body: some View {
         VStack {
@@ -162,35 +203,51 @@ struct CommunityDetailView: View {
             ScrollView {
                 VStack {
                     ForEach(viewModel.posts) { post in
-                        VStack(alignment: .leading) {
-                            Text("\(post.content) by \(post.userName)")
+                        NavigationLink(destination: FullPostView(post: post).environmentObject(viewModel)) {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(post.content.components(separatedBy: "\n").first ?? "")
+                                            .font(.headline)
+                                            .bold()
+                                        Text(post.content.components(separatedBy: "\n").dropFirst().joined(separator: "\n"))
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                            .lineLimit(2)
+                                    }
+                                    Spacer()
+                                    Text(post.userName)
+                                        .font(.footnote)
+                                        .foregroundColor(.gray)
+                                }
                                 .padding()
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .shadow(radius: 1)
+                                Divider()
+                            }
                         }
-                        .padding(.horizontal)
                     }
                 }
+                .padding(.horizontal)
+                .background(Color.black.opacity(0.5))
             }
 
-            HStack {
-                TextField("Write a post...", text: $newPostContent)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .frame(height: 44)
-                Button(action: {
-                    let post = Post(userId: AuthviewModel.userSession?.uid ?? "", userName: AuthviewModel.currentUser?.username ?? "", communityId: community.id!, content: newPostContent, timestamp: Timestamp())
-                    viewModel.addPost(post)
-                    newPostContent = ""
-                }) {
-                    Text("Post")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
+            Button(action: {
+                showCreatePostModal = true
+            }) {
+                Text("Create a Post")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .padding(.horizontal)
             }
-            .padding()
+            .padding(.bottom, 10)
+            .sheet(isPresented: $showCreatePostModal) {
+                CreatePostModal(showTextPostModal: $showTextPostModal, communityId: community.id!)
+                    .environmentObject(viewModel)
+                    .environmentObject(AuthviewModel)
+            }
         }
         .background(
             Image("MainBGDark")
@@ -204,3 +261,178 @@ struct CommunityDetailView: View {
     }
 }
 
+struct CreatePostModal: View {
+    @Binding var showTextPostModal: Bool
+    var communityId: String
+
+    var body: some View {
+        VStack {
+            Text("Choose Post Type")
+                .font(.headline)
+                .padding()
+            HStack {
+                Button(action: {
+                    showTextPostModal = true
+                }) {
+                    VStack {
+                        Image(systemName: "text.bubble")
+                        Text("Text")
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                Button(action: {}) {
+                    VStack {
+                        Image(systemName: "photo")
+                        Text("Image")
+                    }
+                    .padding()
+                    .background(Color.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                Button(action: {}) {
+                    VStack {
+                        Image(systemName: "video")
+                        Text("Video")
+                    }
+                    .padding()
+                    .background(Color.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                Button(action: {}) {
+                    VStack {
+                        Image(systemName: "chart.bar")
+                        Text("Poll")
+                    }
+                    .padding()
+                    .background(Color.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+            }
+            .padding()
+
+            if showTextPostModal {
+                TextPostModal(communityId: communityId, showTextPostModal: $showTextPostModal)
+            }
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+struct TextPostModal: View {
+    @EnvironmentObject var viewModel: CommunitiesViewModel
+    @EnvironmentObject var AuthviewModel: AuthViewModel
+
+    var communityId: String
+    @Binding var showTextPostModal: Bool
+
+    @State private var titleText: String = ""
+    @State private var bodyText: String = ""
+
+    var body: some View {
+        VStack {
+            Text("New Text Post")
+                .font(.headline)
+                .padding()
+            TextField("Title", text: $titleText)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            TextField("Body", text: $bodyText)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            Button(action: {
+                let post = Post(userId: AuthviewModel.userSession?.uid ?? "", userName: AuthviewModel.currentUser?.username ?? "", communityId: communityId, content: "\(titleText)\n\(bodyText)", timestamp: Timestamp())
+                viewModel.addPost(post)
+                showTextPostModal = false // Close the modal
+            }) {
+                Text("Post")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding()
+            Spacer()
+        }
+        .padding()
+        .onChange(of: showTextPostModal) { value in
+            if !value {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    viewModel.loadPosts(for: communityId)
+                }
+            }
+        }
+    }
+}
+
+struct FullPostView: View {
+    @EnvironmentObject var viewModel: CommunitiesViewModel
+
+    var post: Post
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 15) {
+            Text(post.content.components(separatedBy: "\n").first ?? "")
+                .font(.title)
+                .bold()
+                .foregroundColor(.white)
+            Text(post.content.components(separatedBy: "\n").dropFirst().joined(separator: "\n"))
+                .font(.body)
+                .foregroundColor(.white)
+                .padding(.top, 2)
+            HStack {
+                Button(action: {
+                    viewModel.upvotePost(post)
+                }) {
+                    Image(systemName: "arrow.up")
+                        .foregroundColor(.white)
+                }
+                Text("\(post.upvotes)")
+                    .foregroundColor(.white)
+                Button(action: {
+                    viewModel.downvotePost(post)
+                }) {
+                    Image(systemName: "arrow.down")
+                        .foregroundColor(.white)
+                }
+                Text("\(post.downvotes)")
+                    .foregroundColor(.white)
+            }
+            .padding(.top)
+            Divider()
+                .background(Color.white)
+            Text("Comments")
+                .font(.headline)
+                .foregroundColor(.white)
+            ForEach(viewModel.comments) { comment in
+                VStack(alignment: .leading) {
+                    Text(comment.userName)
+                        .font(.subheadline)
+                        .bold()
+                        .foregroundColor(.white)
+                    Text(comment.content)
+                        .font(.body)
+                        .foregroundColor(.white)
+                        .padding(.top, 2)
+                }
+                .padding(.vertical, 5)
+                Divider()
+                    .background(Color.white)
+            }
+            Spacer()
+        }
+        .padding()
+        .background(Image("MainBGDark")
+            .resizable()
+            .edgesIgnoringSafeArea(.all))
+        .onAppear {
+            viewModel.loadComments(for: post.id ?? "")
+        }
+    }
+}

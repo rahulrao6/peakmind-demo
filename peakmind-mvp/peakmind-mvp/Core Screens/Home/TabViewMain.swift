@@ -43,7 +43,7 @@ struct TabViewMain: View {
                         }
                         .tag(2)
                     
-                    CommunitiesMainView().environmentObject(viewModel)
+                    CommunitiesMainView2().environmentObject(viewModel)
                         .tabItem {
                             Label("Communities", systemImage: "globe")
                         }

@@ -41,6 +41,8 @@
 		1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */; };
 		1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA2562BCDB6EB003C844C /* UserData.swift */; };
 		1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */; };
+		1CA25E322BFFEF6A004B0AD2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA25E312BFFEF6A004B0AD2 /* Message.swift */; };
+		1CA25E342C05381E004B0AD2 /* CommunityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA25E332C05381E004B0AD2 /* CommunityTest.swift */; };
 		1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1F5C82B89706900AC9B77 /* ChatView.swift */; };
 		1CD029F72BE9E7200047951D /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD029F62BE9E7200047951D /* Tutorial.swift */; };
 		1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */; };
@@ -228,6 +230,8 @@
 		1C9FA2562BCDB6EB003C844C /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		1C9FA25A2BCE1992003C844C /* peakmind-mvp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "peakmind-mvp.entitlements"; sourceTree = "<group>"; };
 		1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		1CA25E312BFFEF6A004B0AD2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		1CA25E332C05381E004B0AD2 /* CommunityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTest.swift; sourceTree = "<group>"; };
 		1CC1F5C82B89706900AC9B77 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		1CD029F62BE9E7200047951D /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsFlavorView.swift; sourceTree = "<group>"; };
@@ -473,6 +477,7 @@
 			isa = PBXGroup;
 			children = (
 				1C9C63CF2B8144C20066AF70 /* User.swift */,
+				1CA25E312BFFEF6A004B0AD2 /* Message.swift */,
 				1C9FA2562BCDB6EB003C844C /* UserData.swift */,
 				79BFB5292B8EABBB00634262 /* Question.swift */,
 				79BFB52B2B8EABC500634262 /* Info.swift */,
@@ -835,6 +840,7 @@
 				7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */,
 				79C8543A2BF036C0003C918E /* AnxietyCommunityView.swift */,
 				79C8543C2BF03D18003C918E /* UserProfileView.swift */,
+				1CA25E332C05381E004B0AD2 /* CommunityTest.swift */,
 			);
 			path = Communities;
 			sourceTree = "<group>";
@@ -1164,8 +1170,10 @@
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				792617882BD70C5200AAAC81 /* SherpaTalking.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
+				1CA25E342C05381E004B0AD2 /* CommunityTest.swift in Sources */,
 				79C383F02BC6123F00A6779A /* MultiSectionView.swift in Sources */,
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
+				1CA25E322BFFEF6A004B0AD2 /* Message.swift in Sources */,
 				79069D002BDA38BA00AB52DC /* Widget.swift in Sources */,
 				797B4C412BDAE86700A3A25D /* HomeDashboard.swift in Sources */,
 				1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */,

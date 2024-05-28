@@ -117,6 +117,8 @@ struct MyCommunitiesSection: View {
 }
 
 struct TopCommunitiesSection: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+
     var body: some View {
         VStack(spacing: 5) {
             SectionTitle(title: "Top Communities")

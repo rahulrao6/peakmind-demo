@@ -16,7 +16,7 @@ struct ContentView: View {
     @State private var showingSplash = true // State to control splash screen visibility
     @State private var navigateToStoreScreen = false // State to control splash screen visibility
     @State private var navigateToInventoryScreen = false // State to control splash screen visibility
-    @EnvironmentObject var healthStore: HKHealthStore
+    //@EnvironmentObject var healthStore: HKHealthStore
     @EnvironmentObject var healthKitManager: HealthKitManager
 
     
@@ -106,7 +106,7 @@ struct ContentView: View {
             self.saveStepsToFirestore(dayData: dayData)
         }
         
-        healthStore.execute(query)
+        healthKitManager.healthStore?.execute(query)
     }
     
     

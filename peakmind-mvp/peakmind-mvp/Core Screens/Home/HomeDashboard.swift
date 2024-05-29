@@ -114,14 +114,14 @@ struct HomeDashboard: View {
                                     .aspectRatio(contentMode: .fit)
                             }
                             
-                            /*NavigationLink(destination:
+                            NavigationLink(destination:
                                             JournalEntriesView()
                                                 .environmentObject(viewModel)
                                                 .environmentObject(JournalDataManager())){
                                 Image("Journal")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                            }*/
+                            }
                             
                             Button(action: {
                                 showResourcesSheet.toggle()

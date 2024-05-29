@@ -1,4 +1,4 @@
-/*import SwiftUI
+import SwiftUI
 import Firebase
 import JournalingSuggestions
 
@@ -204,4 +204,3 @@ struct JournalEntryCard: View {
 #Preview {
     JournalEntriesView()
 }
-*/

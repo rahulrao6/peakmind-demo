@@ -20,6 +20,10 @@ struct Post: Identifiable, Codable {
     var timestamp: Timestamp
     var upvotes: Int = 0
     var downvotes: Int = 0
+    
+    var netVotes: Int {
+        return upvotes - downvotes
+    }
 }
 
 struct Comment: Identifiable, Codable {
@@ -101,6 +105,22 @@ class CommunitiesViewModel: ObservableObject {
             print("Error adding comment: \(error)")
         }
     }
+
+    func timeElapsedSince(_ timestamp: Timestamp) -> String {
+        let now = Date()
+        let elapsed = now.timeIntervalSince(timestamp.dateValue())
+        let minutes = Int(elapsed / 60)
+        let hours = minutes / 60
+        let days = hours / 24
+
+        if days > 0 {
+            return "\(days)d"
+        } else if hours > 0 {
+            return "\(hours)h"
+        } else {
+            return "\(minutes)m"
+        }
+    }
 }
 
 struct CommunitiesMainView2: View {
@@ -176,7 +196,7 @@ struct CommunityDetailView: View {
     var community: Community
     
     @State private var showCreatePostModal = false
-    @State private var showTextPostModal = true
+    @State private var showTextPostModal = false
 
     var body: some View {
         VStack {
@@ -203,7 +223,7 @@ struct CommunityDetailView: View {
             ScrollView {
                 VStack {
                     ForEach(viewModel.posts) { post in
-                        NavigationLink(destination: FullPostView(post: post).environmentObject(viewModel)) {
+                        NavigationLink(destination: FullPostView(post: post).environmentObject(viewModel).environmentObject(AuthviewModel)) {
                             VStack(alignment: .leading) {
                                 HStack {
                                     VStack(alignment: .leading) {
@@ -216,17 +236,28 @@ struct CommunityDetailView: View {
                                             .lineLimit(2)
                                     }
                                     Spacer()
-                                    Text(post.userName)
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
+                                    VStack(alignment: .trailing) {
+                                        Image(viewModel.getAvatarIcon(for: post.userId))
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .clipShape(Circle())
+                                        Text(post.userName)
+                                            .font(.footnote)
+                                            .foregroundColor(.gray)
+                                        Text(viewModel.timeElapsedSince(post.timestamp))
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                    }
                                 }
-                                .padding()
+                                .padding(.vertical, 5)
                                 Divider()
+                                    .background(Color.white)
+                                    .frame(height: 2)
                             }
                         }
+                        .padding(.horizontal)
                     }
                 }
-                .padding(.horizontal)
                 .background(Color.black.opacity(0.5))
             }
 
@@ -237,7 +268,7 @@ struct CommunityDetailView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.iceBlue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     .padding(.horizontal)
@@ -254,15 +285,22 @@ struct CommunityDetailView: View {
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
         )
-        .navigationBarTitle("Community", displayMode: .inline)
         .onAppear {
             viewModel.loadPosts(for: community.id!)
         }
     }
 }
 
+extension CommunitiesViewModel {
+    func getAvatarIcon(for userId: String) -> String {
+        // RAJ plz fix this and make it so it uses the right icon
+        return "Girl1Icon"
+    }
+}
+
 struct CreatePostModal: View {
     @Binding var showTextPostModal: Bool
+    @Environment(\.presentationMode) var presentationMode // To dismiss the CreatePostModal
     var communityId: String
 
     var body: some View {
@@ -279,7 +317,7 @@ struct CreatePostModal: View {
                         Text("Text")
                     }
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.iceBlue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
@@ -317,11 +355,16 @@ struct CreatePostModal: View {
             .padding()
 
             if showTextPostModal {
-                TextPostModal(communityId: communityId, showTextPostModal: $showTextPostModal)
+                TextPostModal(communityId: communityId, onPost: {
+                    self.presentationMode.wrappedValue.dismiss()
+                })
             }
             Spacer()
         }
         .padding()
+        .onAppear {
+            showTextPostModal = true // Automatically select the Text option
+        }
     }
 }
 
@@ -330,7 +373,7 @@ struct TextPostModal: View {
     @EnvironmentObject var AuthviewModel: AuthViewModel
 
     var communityId: String
-    @Binding var showTextPostModal: Bool
+    var onPost: () -> Void // Callback to dismiss the CreatePostModal
 
     @State private var titleText: String = ""
     @State private var bodyText: String = ""
@@ -349,11 +392,14 @@ struct TextPostModal: View {
             Button(action: {
                 let post = Post(userId: AuthviewModel.userSession?.uid ?? "", userName: AuthviewModel.currentUser?.username ?? "", communityId: communityId, content: "\(titleText)\n\(bodyText)", timestamp: Timestamp())
                 viewModel.addPost(post)
-                showTextPostModal = false // Close the modal
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    viewModel.loadPosts(for: communityId)
+                    onPost() // Call the callback to dismiss the CreatePostModal
+                }
             }) {
                 Text("Post")
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.mediumBlue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
@@ -361,31 +407,44 @@ struct TextPostModal: View {
             Spacer()
         }
         .padding()
-        .onChange(of: showTextPostModal) { value in
-            if !value {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    viewModel.loadPosts(for: communityId)
-                }
-            }
-        }
     }
 }
 
 struct FullPostView: View {
     @EnvironmentObject var viewModel: CommunitiesViewModel
+    @EnvironmentObject var AuthviewModel: AuthViewModel
 
     var post: Post
+    
+    @State private var commentText: String = ""
 
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Text(post.content.components(separatedBy: "\n").first ?? "")
-                .font(.title)
-                .bold()
-                .foregroundColor(.white)
-            Text(post.content.components(separatedBy: "\n").dropFirst().joined(separator: "\n"))
-                .font(.body)
-                .foregroundColor(.white)
-                .padding(.top, 2)
+            HStack(alignment: .top) {
+                VStack(alignment: .leading) {
+                    Text(post.content.components(separatedBy: "\n").first ?? "")
+                        .font(.title)
+                        .bold()
+                        .foregroundColor(.white)
+                    Text(post.content.components(separatedBy: "\n").dropFirst().joined(separator: "\n"))
+                        .font(.body)
+                        .foregroundColor(.white)
+                        .padding(.top, 2)
+                }
+                Spacer()
+                VStack(alignment: .trailing) {
+                    Image(viewModel.getAvatarIcon(for: post.userId))
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle())
+                    Text(post.userName)
+                        .font(.footnote)
+                        .foregroundColor(.white)
+                    Text(viewModel.timeElapsedSince(post.timestamp))
+                        .font(.caption)
+                        .foregroundColor(.white)
+                }
+            }
             HStack {
                 Button(action: {
                     viewModel.upvotePost(post)
@@ -393,7 +452,7 @@ struct FullPostView: View {
                     Image(systemName: "arrow.up")
                         .foregroundColor(.white)
                 }
-                Text("\(post.upvotes)")
+                Text("\(post.netVotes)")
                     .foregroundColor(.white)
                 Button(action: {
                     viewModel.downvotePost(post)
@@ -401,31 +460,62 @@ struct FullPostView: View {
                     Image(systemName: "arrow.down")
                         .foregroundColor(.white)
                 }
-                Text("\(post.downvotes)")
-                    .foregroundColor(.white)
             }
             .padding(.top)
             Divider()
                 .background(Color.white)
+                .frame(height: 2)
             Text("Comments")
                 .font(.headline)
                 .foregroundColor(.white)
             ForEach(viewModel.comments) { comment in
                 VStack(alignment: .leading) {
-                    Text(comment.userName)
-                        .font(.subheadline)
-                        .bold()
-                        .foregroundColor(.white)
-                    Text(comment.content)
-                        .font(.body)
-                        .foregroundColor(.white)
-                        .padding(.top, 2)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(comment.content)
+                                .font(.body)
+                                .foregroundColor(.white)
+                                .padding(.top, 2)
+                        }
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            Image(viewModel.getAvatarIcon(for: comment.userId))
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .clipShape(Circle())
+                            Text(comment.userName)
+                                .font(.subheadline)
+                                .bold()
+                                .foregroundColor(.white)
+                            Text(viewModel.timeElapsedSince(comment.timestamp))
+                                .font(.caption)
+                                .foregroundColor(.white)
+                        }
+                    }
                 }
                 .padding(.vertical, 5)
                 Divider()
                     .background(Color.white)
+                    .frame(height: 2)
             }
             Spacer()
+            HStack {
+                TextField("Add a comment...", text: $commentText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.vertical)
+                Button(action: {
+                    let comment = Comment(userId: AuthviewModel.userSession?.uid ?? "", userName: AuthviewModel.currentUser?.username ?? "", postId: post.id ?? "", content: commentText, timestamp: Timestamp())
+                    viewModel.addComment(comment)
+                    commentText = ""
+                }) {
+                    Text("Post")
+                        .padding()
+                        .background(Color.mediumBlue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+            }
+            .padding(.horizontal)
         }
         .padding()
         .background(Image("MainBGDark")

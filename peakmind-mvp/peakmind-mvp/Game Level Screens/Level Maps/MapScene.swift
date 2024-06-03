@@ -2,10 +2,10 @@ import SpriteKit
 
 
 class MapScene: SKScene, ObservableObject {
-    @Published var currentPhase = -1
+    @Published var currentLevel = -1
     
     var imagePositions: [CGPoint] = []
-    var phases: [Phase] = []
+    var levels: [LevelNode] = []
     var imageNodes: [SKSpriteNode] = []
     var cameraNode: SKCameraNode!
     var levelInfoBG: SKSpriteNode!
@@ -14,10 +14,11 @@ class MapScene: SKScene, ObservableObject {
 
     override func didMove(to view: SKView) {
         setupBackground()
-        setupImages()
+        setupProps()
+        setupNewImages()
         setupCamera()
         setupLevelBox()
-        self.backgroundColor = UIColor(red: 193/255, green: 243/255, blue: 255/255, alpha: 1)
+        self.backgroundColor = UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1)
     }
 
     private func setupBackground() {
@@ -72,6 +73,36 @@ class MapScene: SKScene, ObservableObject {
         addChild(levelInfoText)
     }
     
+    private func setupProps() {
+        var imageNode = SKSpriteNode(imageNamed: "Rocks")
+        imageNode.position = CGPointMake(320, 565)
+        imageNode.size = CGSize(width: 110, height: 110)
+        addChild(imageNode)
+        var imageNode2 = SKSpriteNode(imageNamed: "Rocks")
+        imageNode2.position = CGPointMake(80, 250)
+        imageNode2.xScale = -1.0
+        imageNode2.size = CGSize(width: 80, height: 80)
+        addChild(imageNode2)
+    }
+    
+    private func setupNewImages() {
+        for level in levels {
+            let position = getPositionForLevel(level: level)
+            let imageNode = SKSpriteNode(imageNamed: "pkmd_level")
+            imageNode.position = position
+            imageNode.size = CGSize(width: 100, height: 100)
+            imageNode.name = "imageNode"  // Add a name to each node for identification.
+            imageNodes.append(imageNode)
+            addChild(imageNode)
+            let text = SKLabelNode(text: String(level.uid + 1))
+            text.position = CGPoint(x: position.x, y: position.y - 10)
+            text.fontColor = UIColor.black
+            text.fontName = "AvenirNext-Bold"
+            text.fontSize = 40
+            addChild(text)
+        }
+    }
+    
     private func setupImages() {
         for position in imagePositions {
             let imageNode = SKSpriteNode(imageNamed: "pkmd_level")
@@ -105,7 +136,7 @@ class MapScene: SKScene, ObservableObject {
                 return
             }
             if node.name == "LevelInfoBox" {
-                currentPhase = selectedPhase
+                currentLevel = selectedPhase
             }
         }
         zoomOut()
@@ -156,7 +187,7 @@ class MapScene: SKScene, ObservableObject {
         cameraNode.run(zoomAction)
                 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            self.levelInfoText.text = self.phases[self.selectedPhase].title
+            self.levelInfoText.text = self.levels[self.selectedPhase].title
             
             self.levelInfoBG.position = CGPoint(x: node.position.x - 140, y: node.position.y)
             self.levelInfoText.position = CGPoint(x: node.position.x - 210, y: node.position.y + 47)
@@ -167,5 +198,14 @@ class MapScene: SKScene, ObservableObject {
             let alphaActionSecondary = SKAction.fadeAlpha(to: 1, duration: 0.25)
             self.levelInfoText.run(alphaActionSecondary)
         }
+    }
+    
+    private func getPositionForLevel(level: LevelNode) -> CGPoint {
+        let basePos = imagePositions[level.uid]
+        let height = UIScreen.main.bounds.height
+        let yPos = CGFloat((level.phase - 1) * Int(height)) + basePos.y
+        let xPos = basePos.x
+        
+        return CGPoint(x: xPos, y: yPos)
     }
 }

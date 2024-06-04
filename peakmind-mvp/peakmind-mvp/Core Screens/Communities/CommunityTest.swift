@@ -125,6 +125,8 @@ class CommunitiesViewModel: ObservableObject {
 
 struct CommunitiesMainView2: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var CommunitiesViewModel: CommunitiesViewModel
+
     let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
 
     var body: some View {
@@ -139,10 +141,10 @@ struct CommunitiesMainView2: View {
                         .padding(.top, -5)
                         .padding(.bottom, 5)
                         .multilineTextAlignment(.center)
-                    MyCommunitiesSection2().environmentObject(authViewModel.communitiesViewModel).environmentObject(authViewModel)
-                    TopCommunitiesSection().environmentObject(authViewModel.communitiesViewModel).environmentObject(authViewModel)
+                    MyCommunitiesSection2().environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
+                    TopCommunitiesSection().environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
                         .padding(.top, 0)
-                    RecommendedCommunitiesSection().environmentObject(authViewModel.communitiesViewModel)
+                    RecommendedCommunitiesSection().environmentObject(CommunitiesViewModel)
                 }
             }
             .background(
@@ -154,7 +156,7 @@ struct CommunitiesMainView2: View {
             .navigationBarHidden(true)
         }
         .onAppear {
-            authViewModel.communitiesViewModel.loadCommunities()
+            CommunitiesViewModel.loadCommunities()
         }
     }
 }

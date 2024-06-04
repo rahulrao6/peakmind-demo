@@ -89,7 +89,7 @@ struct P1_6_PersonalQuestion: View {
         }
 
         let db = Firestore.firestore()
-        let userRef = db.collection("anxiety_peak").document(user.id).collection("Level_Two").document("Screen_Five")
+        let userRef = db.collection("anxiety_peak").document(user.id ?? "").collection("Level_Two").document("Screen_Five")
 
         let data: [String: Any] = [
             "question": "What do you like to do in your free time?",

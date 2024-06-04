@@ -86,18 +86,17 @@ struct RegistrationView: View {
                 .padding(.top, 12)
             }
             
-            if let errorMessage = errorMessage {
+            if let errorMessage = viewModel.authErrorMessage {
                 Text(errorMessage)
                     .foregroundColor(.red)
                     .multilineTextAlignment(.center)
                     .padding()
             }
+
             if formIsValid {
                 VStack {
                     Button {
-                        Task {
-                            await registerUser()
-                        }
+                        viewModel.signUpWithEmail(email: email, password: password, username: username)
                     } label: {
                         HStack {
                             Text("Next")
@@ -142,9 +141,9 @@ struct RegistrationView: View {
         .sheet(isPresented: $showAvatarSelection) {
             AvatarSettingsView()
         }
-        .onAppear {
-            viewModel.clearError()
-        }
+//        .onAppear {
+//            $viewModel.clearError
+//        }
     }
 
     private func validateForm() {
@@ -159,29 +158,7 @@ struct RegistrationView: View {
         }
     }
 
-    private func registerUser() async {
-        Task{
-           do {
-                viewModel.clearError()
-                try await viewModel.createUser(
-                    withEmail: email,
-                    password: password,
-                    username: username,
-                    selectedAvatar: "",
-                    selectedBackground: "",
-                    hasCompletedInitialQuiz: false,
-                    hasSetInitialAvatar: false,
-                    LevelOneCompleted: false,
-                    LevelTwoCompleted: false
-                )
-               navigateToAvatarView = true
-            } catch {
-                errorMessage = "Failed to create user: \(error.localizedDescription)"
-                showAlert = true
-                
-            }
-        }
-    }
+
 }
 
 extension RegistrationView: AuthenticationFormProtocol {

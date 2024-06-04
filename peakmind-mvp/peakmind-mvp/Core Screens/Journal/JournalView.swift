@@ -4,9 +4,9 @@ import Firebase
 import JournalingSuggestions
 
 struct JournalView: View {
-    @EnvironmentObject var dataManager: JournalDataManager
     @EnvironmentObject var viewModel : AuthViewModel
-    
+    @StateObject var journalDataManager = JournalDataManager()
+
     @Binding var suggestion: JournalingSuggestion?
     
     @State private var title: String = ""

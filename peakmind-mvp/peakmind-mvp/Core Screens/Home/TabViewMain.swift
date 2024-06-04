@@ -6,6 +6,7 @@ struct TabViewMain: View {
     @State private var showingTutorial = false  // Manage the tutorial display based on user state
     @State private var showingQuizPrompt = false // State to manage quiz prompt overlay
     @State private var level2 = false // State to manage quiz prompt overlay
+    @EnvironmentObject var CommunitiesViewModel : CommunitiesViewModel
 
     var body: some View {
         if let user = viewModel.currentUser {
@@ -43,7 +44,7 @@ struct TabViewMain: View {
                         }
                         .tag(2)
                     
-                    CommunitiesMainView2().environmentObject(viewModel)
+                    CommunitiesMainView2().environmentObject(viewModel).environmentObject(CommunitiesViewModel)
                         .tabItem {
                             Label("Communities", systemImage: "globe")
                         }

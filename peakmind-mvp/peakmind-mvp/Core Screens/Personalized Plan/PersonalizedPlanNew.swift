@@ -465,11 +465,6 @@ struct CheckboxGoalFirebase: View {
         }
     }
 
-
-
-
-
-
 }
 
 

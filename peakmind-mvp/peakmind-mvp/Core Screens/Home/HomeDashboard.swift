@@ -6,7 +6,8 @@ struct HomeDashboard: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @Binding var selectedTab: Int
     @State private var showResourcesSheet = false // State variable to control sheet presentation
-
+    @State private var showAvatarMenuSheet = false // State variable for AvatarMenuView sheet
+    @State private var showIglooMenuSheet = false 
 
     init(selectedTab: Binding<Int>? = nil) {
         _selectedTab = selectedTab ?? .constant(2) // Default to tab index 2 if no binding is provided
@@ -140,6 +141,21 @@ struct HomeDashboard: View {
             }
             .onAppear {
                 checkTodayCheckIn()
+                if !user.hasSetInitialAvatar && !user.hasCompletedTutorial {
+                    showAvatarMenuSheet = true
+                }
+            }
+            .sheet(isPresented: $showAvatarMenuSheet) {
+                AvatarMenuView()
+                    .environmentObject(viewModel)
+                    .onDisappear {
+                            showIglooMenuSheet = true
+                        
+                    }
+            }
+            .sheet(isPresented: $showIglooMenuSheet) {
+                IglooMenuView()
+                    .environmentObject(viewModel)
             }
         }
     }

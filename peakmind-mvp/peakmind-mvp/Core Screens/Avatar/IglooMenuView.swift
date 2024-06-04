@@ -80,14 +80,22 @@ struct IglooMenuView: View {
                                 .cornerRadius(10)
                                 
                                 Button("Confirm") {
-                                    // Confirm action: FIREBASE CONNECTION PLZ and make it navigate to the avatar screen after selected
-                                    Task {
-                                        try await updateBackgroundAvatar()
-                                        try await viewModel.fetchUser()
-                                        navigateToTabView = true
-                                    }
-                                    
-                                }
+                                     Task {
+                                         do {
+                                             DispatchQueue.main.async {
+                                                 Task {
+                                                     try await updateBackgroundAvatar()
+                                                     await viewModel.fetchUser()
+                                                     //navigateToTabView = true
+                                                     self.presentationMode.wrappedValue.dismiss() // Dismiss the sheet after successful update
+
+                                                 }
+                                             }
+                                         } catch {
+                                             print("Error updating avatar: \(error.localizedDescription)")
+                                         }
+                                     }
+                                 }
                                 .padding()
                                 .frame(maxWidth: 140)
                                 .foregroundColor(.white)
@@ -102,15 +110,15 @@ struct IglooMenuView: View {
             }
         }
         .navigationBarHidden(true)
-        .background(
-            // NavigationLink that triggers when navigateToIglooView is true
-            NavigationLink(
-                destination: TabViewMain().environmentObject(viewModel),
-                isActive: $navigateToTabView
-            ) {
-                EmptyView()
-            }
-        )
+//        .background(
+//            // NavigationLink that triggers when navigateToIglooView is true
+//            NavigationLink(
+//                destination: TabViewMain().environmentObject(viewModel),
+//                isActive: $navigateToTabView
+//            ) {
+//                EmptyView()
+//            }
+//        )
 //        .onReceive(viewModel.$currentUser) { currentUser in
 //            if isUpdateSuccessful {
 //                self.presentationMode.wrappedValue.dismiss() // Dismiss the sheet after successful update

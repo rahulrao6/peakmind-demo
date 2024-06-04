@@ -99,7 +99,7 @@ struct LoginView: View {
                 }
                 
                 GoogleSignInButton(action: viewModel.signInWithGoogle)
-                SignInWithAppleButtonView()
+                //SignInWithAppleButtonView()
                 
                 Spacer()
                 

@@ -92,7 +92,7 @@ struct P1_6_PersonalQuestion: View {
         let userRef = db.collection("anxiety_peak").document(user.id ?? "").collection("Level_Two").document("Screen_Five")
 
         let data: [String: Any] = [
-            "question": "What do you like to do in your free time?",
+            "question": "What do you most enjoy when you have a day to yourself?",
             "userAnswer": userAnswer,
             "timeCompleted": FieldValue.serverTimestamp()
         ]
@@ -111,7 +111,7 @@ struct ReflectiveQuestionBox4: View {
                 .modernTextStyle()
             
             // Question Text
-            Text("What do you like to do in your free time?")
+            Text("What do you most enjoy when you have a day to yourself?")
                 .font(.title3)
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)

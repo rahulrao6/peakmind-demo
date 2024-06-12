@@ -12,7 +12,7 @@ struct P2_9_GoalSetting: View {
     @EnvironmentObject var viewModel: AuthViewModel
 
     let titleText = "Mt. Anxiety: Phase Two"
-    let narrationText = "These different anxiety igniting factors are so important to recognize within yourself to identify what you experience."
+    let narrationText = "Let’s set our first goal. This will keep you on track and accountable so you hit all of your mental health expectations."
     @State private var goalText = ""
     @State private var animatedText = ""
     @State private var showAlert = false

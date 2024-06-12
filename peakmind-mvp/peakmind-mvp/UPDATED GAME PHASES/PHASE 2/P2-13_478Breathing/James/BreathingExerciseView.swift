@@ -57,7 +57,7 @@ struct BreathingExerciseView: View {
             // Content
             VStack {
                 // Title
-                Text("Mt. Anxiety: Level Three")
+                Text("Mt. Anxiety: Phase Two")
                     .font(.system(size: 30, weight: .bold, design: .default))
                     .foregroundColor(.white)
                     .padding(.bottom, 40)
@@ -68,7 +68,7 @@ struct BreathingExerciseView: View {
                         .font(.system(size: 28, weight: .bold, design: .default))
                         .foregroundColor(.white)
                         .padding()
-                    Text("The 4 second inhale, 7 second hold, and 8 second exhale is a prime therapeutic technique for stress relief.")
+                    Text("Let’s practice the 4/7/8 breathing mechanism. This helps to relax your body and allows you to disconnect from stressful situations.")
                         .font(.system(size: 18, weight: .medium, design: .default))
                         .foregroundColor(.white)
                         .padding(.leading, 40)
@@ -107,7 +107,7 @@ struct BreathingExerciseView: View {
                         .scaledToFit()
                         .frame(width: 120, height: 150)
                     
-                    Text("Let's learn a breathing method!")
+                    Text("It’s time for a breathing exercise!")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()

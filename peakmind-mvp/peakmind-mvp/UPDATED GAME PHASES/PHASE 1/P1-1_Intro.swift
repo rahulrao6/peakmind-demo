@@ -41,7 +41,7 @@ struct P1_Intro: View {
                 
                 // Next Steps
                 HStack {
-                    Text("Welcome to the first phase of your journey at PeakMind! This level is designed to help you understand mental health and stress. We will go through different activities to enhance your understanding of anxiety and discover strategies to manage it in everyday life.")
+                    Text("Ready to unlock your inner calm? PeakMind's first level dives into the world of mental health and stress. Through interactive activities, you'll gain a deeper understanding of anxiety and discover powerful tools to manage it in your daily life. Let's get started!")
                         .font(.system(size: 19, weight: .medium, design: .default))
                         .foregroundColor(.white)
                         .padding(.bottom)

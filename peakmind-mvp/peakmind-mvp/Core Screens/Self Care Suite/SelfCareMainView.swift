@@ -736,67 +736,169 @@ struct CheckInDataArray {
 import SwiftUI
 import FirebaseFirestore
 
+
 struct CheckInView: View {
     @Binding var isPresented: Bool
     @EnvironmentObject var viewModel: AuthViewModel
-    @State var moodRating: Int = 3
+    @State var moodRating: Int = 5
     @State var waterIntake: Int = 0
-    @State var hoursOfSleep: Int = 8
+    @State var hoursOfSleep: Int = 0
     @State var steps: Int = 0
     @State var lastCheckInDates: [Date] = []
-
+    
+    let moodDescriptions = [
+        1: "Terrible",
+        2: "Very Bad",
+        3: "Bad",
+        4: "Somewhat Bad",
+        5: "Neutral",
+        6: "Somewhat Good",
+        7: "Good",
+        8: "Very Good",
+        9: "Great",
+        10: "Amazing"
+    ]
 
     var body: some View {
         NavigationView {
-            Form {
-                if viewModel.currentUser?.selectedWidgets.contains("Mood") == true {
-                    Section(header: Text("Mood Rating")) {
-                        Slider(value: Binding<Double>(get: {
-                            Double(moodRating)
-                        }, set: { (newValue) in
-                            moodRating = Int(newValue)
-                        }), in: 1...5, step: 1)
-                        Text("Current mood: \(moodRating)")
+            ScrollView {
+                VStack(spacing: 20) {
+                    Text("Answer these questions to complete your daily check-in!")
+                               .font(.title2)
+                               .fontWeight(.bold)
+                               .multilineTextAlignment(.center)
+                               .padding()
+                               .foregroundColor(.white)
+
+                    
+                    
+                    if viewModel.currentUser?.selectedWidgets.contains("Mood") == true {
+                        moodSection
+                    }
+                    if viewModel.currentUser?.selectedWidgets.contains("Water") == true {
+                        waterSection
+                    }
+                    if viewModel.currentUser?.selectedWidgets.contains("Sleep Tracker") == true {
+                        sleepSection
+                    }
+                    if viewModel.currentUser?.selectedWidgets.contains("Step Counter") == true {
+                        stepSection
                     }
                 }
-                if viewModel.currentUser?.selectedWidgets.contains("Water") == true {
-                    Section(header: Text("Water Intake (in liters)")) {
-                        Stepper(value: $waterIntake, in: 0...10) {
-                            Text("\(waterIntake) L")
-                        }
-                    }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Sleep Tracker") == true {
-                    Section(header: Text("Hours of Sleep")) {
-                        Stepper(value: $hoursOfSleep, in: 0...24) {
-                            Text("\(hoursOfSleep) hours")
-                        }
-                    }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Step Counter") == true {
-                    Section(header: Text("Steps Taken")) {
-                        Text("\(steps) steps")
-                    }
-                }
+                .padding(.horizontal, 20)
             }
-            .foregroundColor(.darkBlue)  // Set the dark blue color for all text inside the form
+            .background(Color("SentMessage")) // Background color for the ScrollView
             .navigationBarItems(
                 leading: Button("Cancel") {
                     isPresented = false
-                }
-                .foregroundColor(.black), // Set the color to black
+                }.foregroundColor(.white),
                 trailing: Button("Save") {
                     saveCheckInData()
                     isPresented = false
-                }
-                .foregroundColor(.black) // Set the color to black
+                }.foregroundColor(.white)
             )
-            .navigationBarTitle("Daily Check-In", displayMode: .inline)
-            }
-            .environment(\.colorScheme, .light)
-
-
+            .navigationBarBackButtonHidden(true)
+        }
+        .background(Color("SentMessage")) // Background color for the Navigation View
     }
+
+    var moodSection: some View {
+        Section {
+            VStack(alignment: .center, spacing: 8) {
+                Text("How would you rate your mood today?")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Slider(value: Binding<Double>(
+                    get: { Double(moodRating) },
+                    set: { newValue in moodRating = Int(newValue) }
+                ), in: 1...10, step: 1)
+                .accentColor(.white)
+                Text("Current mood: \(moodDescriptions[moodRating] ?? "")")
+            }
+            .frame(maxWidth: .infinity) // Ensure the width is consistent
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color("Navy Blue")))
+            .foregroundColor(.white)
+        }
+    }
+
+    var waterSection: some View {
+        Section {
+            VStack(alignment: .center, spacing: 8) {
+                Text("How much water did you drink today?")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                HStack(spacing: 20) {
+                    decrementButton(for: $waterIntake)
+                    VStack {
+                        Image(systemName: "drop.fill").font(.largeTitle)
+                        Text("\(waterIntake) L").font(.title)
+                    }
+                    incrementButton(for: $waterIntake)
+                }
+            }
+            .frame(maxWidth: .infinity) // Ensure the width is consistent
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color("Navy Blue")))
+            .foregroundColor(.white)
+        }
+    }
+
+    var sleepSection: some View {
+        Section {
+            VStack(alignment: .center, spacing: 8) {
+                Text("How much sleep did you get last night?")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                HStack(spacing: 20) {
+                    decrementButton(for: $hoursOfSleep)
+                    VStack {
+                        Image(systemName: "moon.zzz.fill").font(.largeTitle)
+                        Text("\(hoursOfSleep) hrs").font(.title)
+                    }
+                    incrementButton(for: $hoursOfSleep)
+                }
+            }
+            .frame(maxWidth: .infinity) // Ensure the width is consistent
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color("Navy Blue")))
+            .foregroundColor(.white)
+        }
+    }
+
+    var stepSection: some View {
+        Section {
+            VStack(alignment: .center, spacing: 8) {
+                Text("Steps Taken")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Text("\(steps) steps")
+                    .font(.title)
+            }
+            .frame(maxWidth: .infinity) // Ensure the width is consistent
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color("Navy Blue")))
+            .foregroundColor(.white)
+        }
+    }
+
+
+    func decrementButton(for binding: Binding<Int>) -> some View {
+        Button(action: {
+            if binding.wrappedValue > 0 { binding.wrappedValue -= 1 }
+        }) {
+            Image(systemName: "minus.circle").font(.largeTitle).foregroundColor(.iceBlue)
+        }
+    }
+
+    func incrementButton(for binding: Binding<Int>) -> some View {
+        Button(action: {
+            binding.wrappedValue += 1
+        }) {
+            Image(systemName: "plus.circle").font(.largeTitle).foregroundColor(.iceBlue)
+        }
+    }
+
     
     func fetchSteps() {
         guard let userID = viewModel.currentUser?.id else {

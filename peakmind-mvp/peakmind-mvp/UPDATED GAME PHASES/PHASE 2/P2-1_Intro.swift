@@ -41,8 +41,8 @@ struct P2_1_Intro: View {
                 
                 // Next Steps
                 HStack {
-                    Text("Welcome to the second phase of your journey at PeakMind! In this phase, we'll dive into understanding different types of anxiety and how they influence our decisions and behaviors.")
-                        .font(.system(size: 19, weight: .medium, design: .default))
+                    Text("Get ready to conquer anxiety at PeakMind! Phase two is all about becoming an anxiety-fighting pro. We'll explore different types of anxiety and how they can impact your choices and actions. By understanding them, you'll gain the power to manage them and live your best life! Are you ready to unlock your inner PeakMind?")
+                        .font(.system(size: 17, weight: .medium, design: .default))
                         .foregroundColor(.white)
                         .padding(.bottom)
                         .multilineTextAlignment(.center)

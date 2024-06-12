@@ -1,8 +1,11 @@
 import Foundation
 import FirebaseFirestoreSwift
 import FirebaseFirestore
+import FirebaseStorage
 import Combine
 import SwiftUI
+import FirebaseStorage
+import AVFoundation
 
 struct Community: Identifiable, Codable {
     @DocumentID var id: String?
@@ -18,6 +21,8 @@ struct Post: Identifiable, Codable {
     var communityId: String
     var content: String
     var timestamp: Timestamp
+    var fileUrl: String? // New field for file URL
+    var fileType: String? // New field for file type
     var upvotes: Int = 0
     var downvotes: Int = 0
     
@@ -41,6 +46,8 @@ class CommunitiesViewModel: ObservableObject {
     @Published var comments: [Comment] = []
 
     private var db = Firestore.firestore()
+    private var storage = Storage.storage()
+
     private var postsListener: ListenerRegistration?
 
     func loadCommunities() {
@@ -53,6 +60,26 @@ class CommunitiesViewModel: ObservableObject {
         }
     }
 
+    
+    func uploadFile(data: Data, fileName: String, fileType: String, completion: @escaping (URL?) -> Void) {
+        let storageRef = storage.reference().child("files/\(fileName)")
+        storageRef.putData(data, metadata: nil) { (metadata, error) in
+            if let error = error {
+                print("Error uploading file: \(error)")
+                completion(nil)
+                return
+            }
+            storageRef.downloadURL { (url, error) in
+                if let error = error {
+                    print("Error getting download URL: \(error)")
+                    completion(nil)
+                    return
+                }
+                completion(url)
+            }
+        }
+    }
+    
     func loadPosts(for communityId: String) {
         postsListener?.remove()
         postsListener = db.collection("posts")
@@ -119,6 +146,65 @@ class CommunitiesViewModel: ObservableObject {
             return "\(hours)h"
         } else {
             return "\(minutes)m"
+        }
+    }
+    
+    func uploadToFireBaseVideo(url: URL,
+                               success: @escaping (String) -> Void,
+                               failure: @escaping (Error) -> Void) {
+
+        let name = "\(Int(Date().timeIntervalSince1970)).mp4"
+        let path = NSTemporaryDirectory() + name
+
+        let dispatchGroup = DispatchGroup()
+
+        dispatchGroup.enter()
+
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let outputURL = documentsURL.appendingPathComponent(name)
+        var ur = outputURL
+        convertVideo(toMPEG4FormatForVideo: url, outputURL: outputURL) { (session) in
+            ur = session.outputURL!
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.wait()
+
+        guard let data = NSData(contentsOf: ur) else {
+            return
+        }
+
+        do {
+            try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+        } catch {
+            print(error)
+            return
+        }
+
+        let storageRef = Storage.storage().reference().child("Videos").child(name)
+        storageRef.putData(data as Data, metadata: nil) { (metadata, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                storageRef.downloadURL { (url, error) in
+                    if let error = error {
+                        failure(error)
+                    } else if let downloadURL = url {
+                        success(downloadURL.absoluteString)
+                    }
+                }
+            }
+        }
+    }
+
+    func convertVideo(toMPEG4FormatForVideo inputURL: URL, outputURL: URL, handler: @escaping (AVAssetExportSession) -> Void) {
+        try? FileManager.default.removeItem(at: outputURL)
+        let asset = AVURLAsset(url: inputURL, options: nil)
+        let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality)!
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = .mp4
+        exportSession.exportAsynchronously {
+            handler(exportSession)
         }
     }
 }
@@ -199,6 +285,9 @@ struct CommunityDetailView: View {
     
     @State private var showCreatePostModal = false
     @State private var showTextPostModal = false
+    @State private var showImagePostModal = false
+    @State private var showVideoPostModal = false
+    @State private var showPdfPostModal = false
 
     var body: some View {
         VStack {
@@ -277,7 +366,11 @@ struct CommunityDetailView: View {
             }
             .padding(.bottom, 10)
             .sheet(isPresented: $showCreatePostModal) {
-                CreatePostModal(showTextPostModal: $showTextPostModal, communityId: community.id!)
+                CreatePostModal(showTextPostModal: $showTextPostModal,
+                                                    showImagePostModal: $showImagePostModal,
+                                                    showVideoPostModal: $showVideoPostModal,
+                                                    showPdfPostModal: $showPdfPostModal,
+                                                    communityId: community.id!)
                     .environmentObject(viewModel)
                     .environmentObject(AuthviewModel)
             }
@@ -302,6 +395,9 @@ extension CommunitiesViewModel {
 
 struct CreatePostModal: View {
     @Binding var showTextPostModal: Bool
+    @Binding var showImagePostModal: Bool
+    @Binding var showVideoPostModal: Bool
+    @Binding var showPdfPostModal: Bool
     @Environment(\.presentationMode) var presentationMode // To dismiss the CreatePostModal
     var communityId: String
 
@@ -312,6 +408,7 @@ struct CreatePostModal: View {
                 .padding()
             HStack {
                 Button(action: {
+                    resetModals()
                     showTextPostModal = true
                 }) {
                     VStack {
@@ -319,37 +416,46 @@ struct CreatePostModal: View {
                         Text("Text")
                     }
                     .padding()
-                    .background(Color.iceBlue)
+                    .background(showTextPostModal ? Color.iceBlue : Color.gray)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                Button(action: {}) {
+                Button(action: {
+                    resetModals()
+                    showImagePostModal = true
+                }) {
                     VStack {
                         Image(systemName: "photo")
                         Text("Image")
                     }
                     .padding()
-                    .background(Color.gray)
+                    .background(showImagePostModal ? Color.iceBlue : Color.gray)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                Button(action: {}) {
+                Button(action: {
+                    resetModals()
+                    showVideoPostModal = true
+                }) {
                     VStack {
                         Image(systemName: "video")
                         Text("Video")
                     }
                     .padding()
-                    .background(Color.gray)
+                    .background(showVideoPostModal ? Color.iceBlue : Color.gray)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
-                Button(action: {}) {
+                Button(action: {
+                    resetModals()
+                    showPdfPostModal = true
+                }) {
                     VStack {
-                        Image(systemName: "chart.bar")
-                        Text("Poll")
+                        Image(systemName: "doc.text")
+                        Text("PDF")
                     }
                     .padding()
-                    .background(Color.gray)
+                    .background(showPdfPostModal ? Color.iceBlue : Color.gray)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
@@ -360,15 +466,33 @@ struct CreatePostModal: View {
                 TextPostModal(communityId: communityId, onPost: {
                     self.presentationMode.wrappedValue.dismiss()
                 })
+            } else if showImagePostModal {
+                FilePostModal(communityId: communityId, fileType: "image", onPost: {
+                    self.presentationMode.wrappedValue.dismiss()
+                })
+            } else if showVideoPostModal {
+                FilePostModal(communityId: communityId, fileType: "video", onPost: {
+                    self.presentationMode.wrappedValue.dismiss()
+                })
+            } else if showPdfPostModal {
+                FilePostModal(communityId: communityId, fileType: "pdf", onPost: {
+                    self.presentationMode.wrappedValue.dismiss()
+                })
             }
             Spacer()
         }
         .padding()
-        .onAppear {
-            showTextPostModal = true // Automatically select the Text option
-        }
+    }
+
+    private func resetModals() {
+        showTextPostModal = false
+        showImagePostModal = false
+        showVideoPostModal = false
+        showPdfPostModal = false
     }
 }
+
+
 
 struct TextPostModal: View {
     @EnvironmentObject var viewModel: CommunitiesViewModel
@@ -412,6 +536,203 @@ struct TextPostModal: View {
     }
 }
 
+import SwiftUI
+import UIKit
+import FirebaseStorage
+
+import SwiftUI
+import UIKit
+import AVFoundation
+import FirebaseStorage
+
+import SwiftUI
+import UIKit
+import AVFoundation
+import FirebaseStorage
+
+struct FilePostModal: View {
+    @EnvironmentObject var viewModel: CommunitiesViewModel
+    @EnvironmentObject var AuthviewModel: AuthViewModel
+
+    var communityId: String
+    var fileType: String // "image", "video", or "pdf"
+    var onPost: () -> Void // Callback to dismiss the CreatePostModal
+
+    @State private var selectedFile: Data? = nil
+    @State private var selectedVideoURL: URL? = nil
+    @State private var contentText: String = ""
+    @State private var showFilePicker = false
+    @State private var filePickerType: UIImagePickerController.SourceType = .photoLibrary
+
+    var body: some View {
+        VStack {
+            Text("New \(fileType.capitalized) Post")
+                .font(.headline)
+                .padding()
+            TextField("Description", text: $contentText)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            Button(action: {
+                selectFile()
+            }) {
+                Text("Select \(fileType.capitalized)")
+                    .padding()
+                    .background(Color.gray)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding()
+
+            if selectedFile != nil || selectedVideoURL != nil {
+                Text("\(fileType.capitalized) selected")
+                    .foregroundColor(.green)
+                    .padding()
+            }
+
+            Button(action: {
+                uploadFile()
+            }) {
+                Text("Post")
+                    .padding()
+                    .background(Color.mediumBlue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            .padding()
+            Spacer()
+        }
+        .padding()
+        .sheet(isPresented: $showFilePicker) {
+            ImagePicker(sourceType: self.filePickerType, selectedFile: self.$selectedFile, selectedVideoURL: self.$selectedVideoURL, fileType: self.fileType)
+        }
+    }
+
+    private func selectFile() {
+        if fileType == "pdf" {
+            self.showFilePicker = true
+        } else {
+            self.filePickerType = .photoLibrary
+            self.showFilePicker = true
+        }
+    }
+
+    private func uploadFile() {
+        if let fileData = selectedFile {
+            let fileName = UUID().uuidString + "." + fileType
+            viewModel.uploadFile(data: fileData, fileName: fileName, fileType: fileType) { url in
+                guard let url = url else { return }
+                let post = Post(
+                    userId: AuthviewModel.userSession?.uid ?? "",
+                    userName: AuthviewModel.currentUser?.username ?? "",
+                    communityId: communityId,
+                    content: contentText,
+                    timestamp: Timestamp(), fileUrl: url.absoluteString,
+                    fileType: fileType
+                )
+                viewModel.addPost(post)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    viewModel.loadPosts(for: communityId)
+                    onPost() // Call the callback to dismiss the CreatePostModal
+                }
+            }
+        } else if let videoURL = selectedVideoURL {
+            viewModel.uploadToFireBaseVideo(url: videoURL, success: { url in
+                let post = Post(
+                    userId: AuthviewModel.userSession?.uid ?? "",
+                    userName: AuthviewModel.currentUser?.username ?? "",
+                    communityId: communityId,
+                    content: contentText,
+                    timestamp: Timestamp(), fileUrl: url,
+                    fileType: fileType
+                )
+                viewModel.addPost(post)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    viewModel.loadPosts(for: communityId)
+                    onPost() // Call the callback to dismiss the CreatePostModal
+                }
+            }, failure: { error in
+                print("Failed to upload video: \(error)")
+            })
+        }
+    }
+}
+
+
+import SwiftUI
+import UIKit
+
+struct ImagePicker: UIViewControllerRepresentable {
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentPickerDelegate {
+        let parent: ImagePicker
+
+        init(parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if parent.fileType == "image", let image = info[.originalImage] as? UIImage {
+                parent.selectedFile = image.jpegData(compressionQuality: 1.0)
+            } else if parent.fileType == "video", let videoUrl = info[.mediaURL] as? URL {
+                parent.selectedVideoURL = videoUrl
+            }
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+
+        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+            guard let selectedFileURL = urls.first else { return }
+            if parent.fileType == "pdf" {
+                do {
+                    let data = try Data(contentsOf: selectedFileURL)
+                    parent.selectedFile = data
+                } catch {
+                    print("Unable to load data: \(error)")
+                }
+            }
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+
+        func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+    }
+
+    var sourceType: UIImagePickerController.SourceType
+    @Binding var selectedFile: Data?
+    @Binding var selectedVideoURL: URL?
+    var fileType: String
+    @Environment(\.presentationMode) var presentationMode
+
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(parent: self)
+    }
+
+    func makeUIViewController(context: Context) -> UIViewController {
+        if fileType == "pdf" {
+            let documentPicker = UIDocumentPickerViewController(documentTypes: ["com.adobe.pdf"], in: .import)
+            documentPicker.delegate = context.coordinator
+            return documentPicker
+        } else {
+            let picker = UIImagePickerController()
+            picker.delegate = context.coordinator
+            picker.sourceType = sourceType
+            picker.mediaTypes = fileType == "video" ? ["public.movie"] : ["public.image"]
+            return picker
+        }
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+}
+
+
+
+import SwiftUI
+import PDFKit
+import AVKit
+
 struct FullPostView: View {
     @EnvironmentObject var viewModel: CommunitiesViewModel
     @EnvironmentObject var AuthviewModel: AuthViewModel
@@ -447,6 +768,26 @@ struct FullPostView: View {
                         .foregroundColor(.white)
                 }
             }
+
+            if let fileType = post.fileType, let fileUrlString = post.fileUrl, let fileUrl = URL(string: fileUrlString) {
+                if fileType == "image" {
+                    AsyncImage(url: fileUrl) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: .infinity)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                } else if fileType == "pdf" {
+                    PDFKitView(url: fileUrl)
+                        .frame(height: 300)
+                } else if fileType == "video" {
+                    VideoPlayerView(url: fileUrl)
+                        .frame(height: 300)
+                }
+            }
+
             HStack {
                 Button(action: {
                     viewModel.upvotePost(post)
@@ -526,5 +867,38 @@ struct FullPostView: View {
         .onAppear {
             viewModel.loadComments(for: post.id ?? "")
         }
+    }
+}
+
+struct PDFKitView: UIViewRepresentable {
+    let url: URL
+
+    func makeUIView(context: Context) -> PDFView {
+        let pdfView = PDFView()
+        pdfView.autoScales = true
+        return pdfView
+    }
+
+    func updateUIView(_ uiView: PDFView, context: Context) {
+        if let document = PDFDocument(url: url) {
+            uiView.document = document
+        } else {
+            print("Failed to load PDF document")
+        }
+    }
+}
+
+struct VideoPlayerView: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: Context) -> AVPlayerViewController {
+        let controller = AVPlayerViewController()
+        let player = AVPlayer(url: url)
+        controller.player = player
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {
+        uiViewController.player?.play()
     }
 }

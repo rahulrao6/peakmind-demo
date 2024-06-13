@@ -25,6 +25,7 @@ struct Post: Identifiable, Codable {
     var fileType: String? // New field for file type
     var upvotes: Int = 0
     var downvotes: Int = 0
+    var userProfilePic: String?
     
     var netVotes: Int {
         return upvotes - downvotes
@@ -38,6 +39,8 @@ struct Comment: Identifiable, Codable {
     var postId: String
     var content: String
     var timestamp: Timestamp
+    var userProfilePic: String?
+
 }
 
 class CommunitiesViewModel: ObservableObject {
@@ -328,7 +331,7 @@ struct CommunityDetailView: View {
                                     }
                                     Spacer()
                                     VStack(alignment: .trailing) {
-                                        Image(viewModel.getAvatarIcon(for: post.userId))
+                                        Image("\(post.userProfilePic ?? "")Icon")
                                             .resizable()
                                             .frame(width: 30, height: 30)
                                             .clipShape(Circle())
@@ -516,7 +519,7 @@ struct TextPostModal: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             Button(action: {
-                let post = Post(userId: AuthviewModel.userSession?.uid ?? "", userName: AuthviewModel.currentUser?.username ?? "", communityId: communityId, content: "\(titleText)\n\(bodyText)", timestamp: Timestamp())
+                let post = Post(userId: AuthviewModel.userSession?.uid ?? "", userName: AuthviewModel.currentUser?.username ?? "", communityId: communityId, content: "\(titleText)\n\(bodyText)", timestamp: Timestamp(),  userProfilePic: AuthviewModel.currentUser?.selectedAvatar)
                 viewModel.addPost(post)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     viewModel.loadPosts(for: communityId)
@@ -627,7 +630,7 @@ struct FilePostModal: View {
                     communityId: communityId,
                     content: contentText,
                     timestamp: Timestamp(), fileUrl: url.absoluteString,
-                    fileType: fileType
+                    fileType: fileType, userProfilePic: AuthviewModel.currentUser?.selectedAvatar
                 )
                 viewModel.addPost(post)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -756,7 +759,7 @@ struct FullPostView: View {
                 }
                 Spacer()
                 VStack(alignment: .trailing) {
-                    Image(viewModel.getAvatarIcon(for: post.userId))
+                    Image("\(post.userProfilePic ?? "")Icon")
                         .resizable()
                         .frame(width: 50, height: 50)
                         .clipShape(Circle())
@@ -808,38 +811,40 @@ struct FullPostView: View {
             Divider()
                 .background(Color.white)
                 .frame(height: 2)
-            Text("Comments")
-                .font(.headline)
-                .foregroundColor(.white)
-            ForEach(viewModel.comments) { comment in
-                VStack(alignment: .leading) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(comment.content)
-                                .font(.body)
-                                .foregroundColor(.white)
-                                .padding(.top, 2)
-                        }
-                        Spacer()
-                        VStack(alignment: .trailing) {
-                            Image(viewModel.getAvatarIcon(for: comment.userId))
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .clipShape(Circle())
-                            Text(comment.userName)
-                                .font(.subheadline)
-                                .bold()
-                                .foregroundColor(.white)
-                            Text(viewModel.timeElapsedSince(comment.timestamp))
-                                .font(.caption)
-                                .foregroundColor(.white)
+            ScrollView {
+                Text("Comments")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                ForEach(viewModel.comments) { comment in
+                    VStack(alignment: .leading) {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(comment.content)
+                                    .font(.body)
+                                    .foregroundColor(.white)
+                                    .padding(.top, 2)
+                            }
+                            Spacer()
+                            VStack(alignment: .trailing) {
+                                Image("\(comment.userProfilePic ?? "")Icon")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .clipShape(Circle())
+                                Text(comment.userName)
+                                    .font(.subheadline)
+                                    .bold()
+                                    .foregroundColor(.white)
+                                Text(viewModel.timeElapsedSince(comment.timestamp))
+                                    .font(.caption)
+                                    .foregroundColor(.white)
+                            }
                         }
                     }
+                    .padding(.vertical, 5)
+                    Divider()
+                        .background(Color.white)
+                        .frame(height: 2)
                 }
-                .padding(.vertical, 5)
-                Divider()
-                    .background(Color.white)
-                    .frame(height: 2)
             }
             Spacer()
             HStack {
@@ -847,7 +852,7 @@ struct FullPostView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.vertical)
                 Button(action: {
-                    let comment = Comment(userId: AuthviewModel.userSession?.uid ?? "", userName: AuthviewModel.currentUser?.username ?? "", postId: post.id ?? "", content: commentText, timestamp: Timestamp())
+                    let comment = Comment(userId: AuthviewModel.userSession?.uid ?? "", userName: AuthviewModel.currentUser?.username ?? "", postId: post.id ?? "", content: commentText, timestamp: Timestamp(), userProfilePic: AuthviewModel.currentUser?.selectedAvatar)
                     viewModel.addComment(comment)
                     commentText = ""
                 }) {

@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct AvatarMenuSheet: View {
-    let avatarIcons = ["IndianIcon", "AsianIcon", "WhiteIcon", "Girl1Icon", "Girl2Icon", "Girl3Icon"]
+    let avatarIcons = ["RajIcon", "MikeyIcon", "TrevorIcon", "Girl1Icon", "Girl2Icon", "Girl3Icon"]
     let avatarImages = ["Raj", "Mikey", "Trevor", "Girl1", "Girl2", "Girl3"]
     @State private var selectedAvatarIndex = 0
     @Environment(\.presentationMode) var presentationMode

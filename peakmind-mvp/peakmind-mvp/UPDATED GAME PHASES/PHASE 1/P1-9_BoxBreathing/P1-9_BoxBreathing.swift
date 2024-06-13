@@ -68,12 +68,12 @@ struct BoxBreathingView: View {
                 .padding()
                 .offset(x: 25, y: 20)
             
-            Text("We should understand coping mechanisms and how they work.")
+            Text("Let’s try our first coping mechanism! This is a breathing exercise to assist with calming different emotions.")
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding()
                 .background(Color("Medium Blue"))
-                .frame(width: 150)
+                .frame(width: 200)
                 .offset(x: 90, y: 250)
             
             VStack(spacing: 0) {

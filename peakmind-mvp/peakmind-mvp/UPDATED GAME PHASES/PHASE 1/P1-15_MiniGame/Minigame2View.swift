@@ -36,7 +36,7 @@ struct Minigame2View: View {
             // Content
             VStack {
                 // Title
-                Text("PeakMind WORDLE")
+                Text("PeakMind Wordle")
                     .font(.system(size: 30, weight: .bold, design: .default))
                     .foregroundColor(.white)
                 VStack {

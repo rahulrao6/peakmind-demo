@@ -21,7 +21,7 @@ struct P2_5_AnxietyWellnessQ: View {
             // Content
             VStack {
                 // Title
-                Text("Mt. Anxiety: Phase One")
+                Text("Mt. Anxiety: Phase Two")
                     .modernTitleStyle()
 
                 Spacer()
@@ -91,7 +91,7 @@ struct P2_5_AnxietyWellnessQ: View {
         let userRef = db.collection("anxiety_peak").document(user.id).collection("Level_Two").document("Screen_Five")
 
         let data: [String: Any] = [
-            "question": "How do you usually respond to anxiety?",
+            "question": "What is your typical response to anxiety?",
             "userAnswer": userAnswer,
             "timeCompleted": FieldValue.serverTimestamp()
         ]
@@ -110,7 +110,7 @@ struct ReflectiveQuestionBox6: View {
                 .modernTextStyle()
             
             // Question Text
-            Text("How do you usually respond to anxiety?")
+            Text("What is your typical response to anxiety?")
                 .font(.title3)
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)

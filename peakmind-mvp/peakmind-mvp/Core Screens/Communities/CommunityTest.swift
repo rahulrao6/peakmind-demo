@@ -216,7 +216,7 @@ struct CommunitiesMainView2: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var CommunitiesViewModel: CommunitiesViewModel
 
-    let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
+    let avatarIcons = ["Raj": "RajIcon", "Mikey": "MikeyIcon", "Trevor": "TrevorIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
 
     var body: some View {
         NavigationView {

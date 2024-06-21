@@ -1,17 +1,24 @@
 import FirebaseFirestoreSwift
+import FirebaseFirestore
 import Foundation
 
-struct ChatRoom: Identifiable, Codable {
+struct Message: Identifiable, Codable {
     @DocumentID var id: String?
-    var name: String
-    var createdBy: String
-    var createdAt: Date
+    var userId: String
+    var content: String
+    var timestamp: Timestamp
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case userId
+        case content
+        case timestamp
+    }
 }
 
-struct ChatMessages: Identifiable, Codable {
+struct Chat: Identifiable, Codable {
     @DocumentID var id: String?
-    var content: String
-    var senderId: String
-    var senderName: String
-    var timestamp: Date
+    var participants: [String]
+    var lastMessage: String?
+    var timestamp: Timestamp
 }

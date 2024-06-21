@@ -47,6 +47,7 @@ struct UserData: Identifiable, Codable {
     var hasCompletedInitialQuiz: Bool
     var hasSetInitialAvatar: Bool
     var inventory: [String]
+    var friends: [String]
     var LevelOneCompleted: Bool
     var LevelTwoCompleted: Bool
     var selectedWidgets: [String]

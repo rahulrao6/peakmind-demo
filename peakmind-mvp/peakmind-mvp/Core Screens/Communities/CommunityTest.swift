@@ -47,12 +47,15 @@ class CommunitiesViewModel: ObservableObject {
     @Published var communities: [Community] = []
     @Published var posts: [Post] = []
     @Published var comments: [Comment] = []
-
+    @Published var userPosts: [Post] = []  // Add this property to store user's posts
+    @Published var searchText: String = ""
+    
+    
     private var db = Firestore.firestore()
     private var storage = Storage.storage()
-
+    
     private var postsListener: ListenerRegistration?
-
+    
     func loadCommunities() {
         db.collection("communities").getDocuments { [weak self] snapshot, error in
             guard let documents = snapshot?.documents else {
@@ -62,7 +65,14 @@ class CommunitiesViewModel: ObservableObject {
             self?.communities = documents.compactMap { try? $0.data(as: Community.self) }
         }
     }
-
+    
+    var filteredCommunities: [Community] {
+        if searchText.isEmpty {
+            return communities
+        } else {
+            return communities.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+        }
+    }
     
     func uploadFile(data: Data, fileName: String, fileType: String, completion: @escaping (URL?) -> Void) {
         let storageRef = storage.reference().child("files/\(fileName)")
@@ -96,7 +106,7 @@ class CommunitiesViewModel: ObservableObject {
                 self?.posts = documents.compactMap { try? $0.data(as: Post.self) }
             }
     }
-
+    
     func addPost(_ post: Post) {
         do {
             let _ = try db.collection("posts").addDocument(from: post)
@@ -104,17 +114,17 @@ class CommunitiesViewModel: ObservableObject {
             print("Error adding post: \(error)")
         }
     }
-
+    
     func upvotePost(_ post: Post) {
         guard let postId = post.id else { return }
         db.collection("posts").document(postId).updateData(["upvotes": post.upvotes + 1])
     }
-
+    
     func downvotePost(_ post: Post) {
         guard let postId = post.id else { return }
         db.collection("posts").document(postId).updateData(["downvotes": post.downvotes + 1])
     }
-
+    
     func loadComments(for postId: String) {
         db.collection("comments")
             .whereField("postId", isEqualTo: postId)
@@ -127,7 +137,7 @@ class CommunitiesViewModel: ObservableObject {
                 self?.comments = documents.compactMap { try? $0.data(as: Comment.self) }
             }
     }
-
+    
     func addComment(_ comment: Comment) {
         do {
             let _ = try db.collection("comments").addDocument(from: comment)
@@ -135,14 +145,14 @@ class CommunitiesViewModel: ObservableObject {
             print("Error adding comment: \(error)")
         }
     }
-
+    
     func timeElapsedSince(_ timestamp: Timestamp) -> String {
         let now = Date()
         let elapsed = now.timeIntervalSince(timestamp.dateValue())
         let minutes = Int(elapsed / 60)
         let hours = minutes / 60
         let days = hours / 24
-
+        
         if days > 0 {
             return "\(days)d"
         } else if hours > 0 {
@@ -155,14 +165,14 @@ class CommunitiesViewModel: ObservableObject {
     func uploadToFireBaseVideo(url: URL,
                                success: @escaping (String) -> Void,
                                failure: @escaping (Error) -> Void) {
-
+        
         let name = "\(Int(Date().timeIntervalSince1970)).mp4"
         let path = NSTemporaryDirectory() + name
-
+        
         let dispatchGroup = DispatchGroup()
-
+        
         dispatchGroup.enter()
-
+        
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let outputURL = documentsURL.appendingPathComponent(name)
         var ur = outputURL
@@ -170,20 +180,20 @@ class CommunitiesViewModel: ObservableObject {
             ur = session.outputURL!
             dispatchGroup.leave()
         }
-
+        
         dispatchGroup.wait()
-
+        
         guard let data = NSData(contentsOf: ur) else {
             return
         }
-
+        
         do {
             try data.write(to: URL(fileURLWithPath: path), options: .atomic)
         } catch {
             print(error)
             return
         }
-
+        
         let storageRef = Storage.storage().reference().child("Videos").child(name)
         storageRef.putData(data as Data, metadata: nil) { (metadata, error) in
             if let error = error {
@@ -199,7 +209,7 @@ class CommunitiesViewModel: ObservableObject {
             }
         }
     }
-
+    
     func convertVideo(toMPEG4FormatForVideo inputURL: URL, outputURL: URL, handler: @escaping (AVAssetExportSession) -> Void) {
         try? FileManager.default.removeItem(at: outputURL)
         let asset = AVURLAsset(url: inputURL, options: nil)
@@ -209,6 +219,31 @@ class CommunitiesViewModel: ObservableObject {
         exportSession.exportAsynchronously {
             handler(exportSession)
         }
+    }
+    
+    
+    func loadUserPosts(userId: String) {
+        print("Fetching posts...")
+        db.collection("posts")
+            .whereField("userId", isEqualTo: userId)
+            .order(by: "timestamp", descending: true)
+            .getDocuments { [weak self] snapshot, error in
+                if let error = error {
+                    print("Error fetching posts: \(error.localizedDescription)")
+                    self?.userPosts = []
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    print("No documents found.")
+                    self?.userPosts = []
+                    return
+                }
+                
+                self?.userPosts = documents.compactMap { try? $0.data(as: Post.self) }
+                print("Fetched posts successfully.")
+                print(self?.userPosts)
+            }
     }
 }
 
@@ -222,7 +257,7 @@ struct CommunitiesMainView2: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    HeaderView(avatarIcons: avatarIcons).environmentObject(authViewModel)
+                    HeaderView(avatarIcons: avatarIcons, search: $CommunitiesViewModel.searchText).environmentObject(authViewModel).environmentObject(CommunitiesViewModel)
                     Text("The communities hub is currently under construction. What is currently displayed to you is a sneak peek of how it will be once completed! Click the anxiety community for a preview.")
                         .font(.system(size: 16, weight: .bold, design: .default))
                         .foregroundColor(.white)
@@ -246,6 +281,8 @@ struct CommunitiesMainView2: View {
         }
         .onAppear {
             CommunitiesViewModel.loadCommunities()
+            CommunitiesViewModel.loadUserPosts(userId: authViewModel.currentUser?.id ?? "")
+
         }
     }
 }
@@ -259,7 +296,7 @@ struct MyCommunitiesSection2: View {
             SectionTitle(title: "My Communities")
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: [GridItem(.fixed(100)), GridItem(.fixed(100))], spacing: 10) {
-                    ForEach(viewModel.communities) { community in
+                    ForEach(viewModel.filteredCommunities) { community in
                         NavigationLink(destination: CommunityDetailView(community: community).environmentObject(viewModel).environmentObject(AuthviewModel)) {
                             communityButton(imageName: community.image)
                         }
@@ -519,7 +556,7 @@ struct TextPostModal: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             Button(action: {
-                let post = Post(userId: AuthviewModel.userSession?.uid ?? "", userName: AuthviewModel.currentUser?.username ?? "", communityId: communityId, content: "\(titleText)\n\(bodyText)", timestamp: Timestamp(),  userProfilePic: AuthviewModel.currentUser?.selectedAvatar)
+                let post = Post(userId: AuthviewModel.currentUser?.id ?? "", userName: AuthviewModel.currentUser?.username ?? "", communityId: communityId, content: "\(titleText)\n\(bodyText)", timestamp: Timestamp(),  userProfilePic: AuthviewModel.currentUser?.selectedAvatar)
                 viewModel.addPost(post)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     viewModel.loadPosts(for: communityId)
@@ -625,7 +662,7 @@ struct FilePostModal: View {
             viewModel.uploadFile(data: fileData, fileName: fileName, fileType: fileType) { url in
                 guard let url = url else { return }
                 let post = Post(
-                    userId: AuthviewModel.userSession?.uid ?? "",
+                    userId: AuthviewModel.currentUser?.id ?? "",
                     userName: AuthviewModel.currentUser?.username ?? "",
                     communityId: communityId,
                     content: contentText,
@@ -641,7 +678,7 @@ struct FilePostModal: View {
         } else if let videoURL = selectedVideoURL {
             viewModel.uploadToFireBaseVideo(url: videoURL, success: { url in
                 let post = Post(
-                    userId: AuthviewModel.userSession?.uid ?? "",
+                    userId: AuthviewModel.currentUser?.id ?? "",
                     userName: AuthviewModel.currentUser?.username ?? "",
                     communityId: communityId,
                     content: contentText,

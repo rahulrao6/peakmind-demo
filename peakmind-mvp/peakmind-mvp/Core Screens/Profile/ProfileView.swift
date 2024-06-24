@@ -2,8 +2,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var viewModel : AuthViewModel
-    @State private var isModule1Active = false
-    @State private var isModule2Active = false
+    @State private var isMessageListViewPresented = false
+    @State private var isFriendListViewPresented = false
     @State private var isModule3Active = false
     @State private var isTentPurchaseActive = false
     @State private var isStoreViewActive = false
@@ -75,6 +75,20 @@ struct ProfileView: View {
                         }
                         .sheet(isPresented: $isFeedbackFormPresented) {
                             FeedbackFormView().environmentObject(viewModel)
+                        }
+                    }
+                    
+                    Section("Messaging") {
+                        Button("Friend List") {
+                            isFriendListViewPresented.toggle()
+                        }
+                        .sheet(isPresented: $isFriendListViewPresented) {
+                            FriendListView().environmentObject(viewModel)
+                        }
+                        NavigationLink(destination: MessageListView().environmentObject(viewModel)) {
+                            Button("Message List") {
+                    
+                            }
                         }
                     }
                 }

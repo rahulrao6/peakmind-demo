@@ -27,6 +27,18 @@
 		10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		10FA68812BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
+		1C480FDA2C2135C9002B19A0 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */; };
+		1C480FDB2C2135C9002B19A0 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */; };
+		1C480FDE2C2135C9002B19A0 /* CheckInBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FDD2C2135C9002B19A0 /* CheckInBundle.swift */; };
+		1C480FE02C2135C9002B19A0 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FDF2C2135C9002B19A0 /* CheckIn.swift */; };
+		1C480FE22C2135C9002B19A0 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FE12C2135C9002B19A0 /* AppIntent.swift */; };
+		1C480FE42C2135CB002B19A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C480FE32C2135CB002B19A0 /* Assets.xcassets */; };
+		1C480FE92C2135CB002B19A0 /* CheckInExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */; };
+		1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */; };
+		1C53A42B2C254E9F00B27C23 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A42A2C254E9F00B27C23 /* MessageView.swift */; };
+		1C53A42D2C254F6600B27C23 /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A42C2C254F6600B27C23 /* MessageListView.swift */; };
+		1C53A42F2C254F9200B27C23 /* FriendListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A42E2C254F9200B27C23 /* FriendListView.swift */; };
 		1C65A6252C0E419F00C04DFF /* NewLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C65A6242C0E419F00C04DFF /* NewLoginView.swift */; };
 		1C65A7222C0EA2D200C04DFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C65A7212C0EA2D200C04DFF /* GoogleService-Info.plist */; };
 		1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */; };
@@ -185,6 +197,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1C480FE72C2135CB002B19A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1CF4C3D62B7B15E10028BC3C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C480FD82C2135C8002B19A0;
+			remoteInfo = CheckInExtension;
+		};
 		1CF4C3EF2B7B15E40028BC3C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1CF4C3D62B7B15E10028BC3C /* Project object */;
@@ -201,6 +220,30 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1C480FCF2C20B5AE002B19A0 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1C480FE92C2135CB002B19A0 /* CheckInExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		1C480FD42C20C628002B19A0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuscleRelaxationExplanationView.swift; sourceTree = "<group>"; };
 		102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompleteView.swift; sourceTree = "<group>"; };
@@ -216,6 +259,20 @@
 		10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3IntroView.swift; sourceTree = "<group>"; };
 		10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitUIView.swift; sourceTree = "<group>"; };
 		10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdTriangleEncoded.mov; sourceTree = "<group>"; };
+		1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CheckInExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C480FDD2C2135C9002B19A0 /* CheckInBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInBundle.swift; sourceTree = "<group>"; };
+		1C480FDF2C2135C9002B19A0 /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
+		1C480FE12C2135C9002B19A0 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		1C480FE32C2135CB002B19A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1C480FE52C2135CB002B19A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C480FE62C2135CB002B19A0 /* CheckIn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheckIn.entitlements; sourceTree = "<group>"; };
+		1C480FEE2C21387F002B19A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
+		1C53A42A2C254E9F00B27C23 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		1C53A42C2C254F6600B27C23 /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
+		1C53A42E2C254F9200B27C23 /* FriendListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListView.swift; sourceTree = "<group>"; };
 		1C65A6242C0E419F00C04DFF /* NewLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLoginView.swift; sourceTree = "<group>"; };
 		1C65A7212C0EA2D200C04DFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyQuiz.swift; sourceTree = "<group>"; };
@@ -351,6 +408,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1C480FD62C2135C8002B19A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C480FDB2C2135C9002B19A0 /* SwiftUI.framework in Frameworks */,
+				1C480FDA2C2135C9002B19A0 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CF4C3DB2B7B15E10028BC3C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -424,6 +490,37 @@
 			path = James;
 			sourceTree = "<group>";
 		};
+		1C480FB32C20B567002B19A0 /* WidgetKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WidgetKit;
+			sourceTree = "<group>";
+		};
+		1C480FDC2C2135C9002B19A0 /* CheckIn */ = {
+			isa = PBXGroup;
+			children = (
+				1C480FDD2C2135C9002B19A0 /* CheckInBundle.swift */,
+				1C480FDF2C2135C9002B19A0 /* CheckIn.swift */,
+				1C480FE12C2135C9002B19A0 /* AppIntent.swift */,
+				1C480FE32C2135CB002B19A0 /* Assets.xcassets */,
+				1C480FE52C2135CB002B19A0 /* Info.plist */,
+				1C480FE62C2135CB002B19A0 /* CheckIn.entitlements */,
+			);
+			path = CheckIn;
+			sourceTree = "<group>";
+		};
+		1C53A4272C254CD100B27C23 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */,
+				1C53A42A2C254E9F00B27C23 /* MessageView.swift */,
+				1C53A42C2C254F6600B27C23 /* MessageListView.swift */,
+				1C53A42E2C254F9200B27C23 /* FriendListView.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
 		1C6C0BB42BA94D4300628B79 /* Raj */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,6 +553,7 @@
 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
+				1C480FB32C20B567002B19A0 /* WidgetKit */,
 				1CD029F52BE9E7140047951D /* Tutorial */,
 				79069D012BDA39E900AB52DC /* Resources */,
 				1C9FA25B2BCE1B11003C844C /* HealthKit */,
@@ -583,6 +681,7 @@
 				1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */,
 				1CF4C3F12B7B15E40028BC3C /* peakmind-mvpTests */,
 				1CF4C3FB2B7B15E50028BC3C /* peakmind-mvpUITests */,
+				1C480FDC2C2135C9002B19A0 /* CheckIn */,
 				1CF4C3DF2B7B15E10028BC3C /* Products */,
 				1CF4C40E2B7B1DD50028BC3C /* Frameworks */,
 			);
@@ -594,6 +693,7 @@
 				1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */,
 				1CF4C3EE2B7B15E40028BC3C /* peakmind-mvpTests.xctest */,
 				1CF4C3F82B7B15E50028BC3C /* peakmind-mvpUITests.xctest */,
+				1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -601,6 +701,7 @@
 		1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */ = {
 			isa = PBXGroup;
 			children = (
+				1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */,
 				1C9FA25A2BCE1992003C844C /* peakmind-mvp.entitlements */,
 				1CF4A89C2B8309F100051684 /* Info.plist */,
 				1C65A7212C0EA2D200C04DFF /* GoogleService-Info.plist */,
@@ -645,6 +746,8 @@
 		1CF4C40E2B7B1DD50028BC3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */,
+				1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -844,6 +947,7 @@
 				79C8543A2BF036C0003C918E /* AnxietyCommunityView.swift */,
 				79C8543C2BF03D18003C918E /* UserProfileView.swift */,
 				1CA25E332C05381E004B0AD2 /* CommunityTest.swift */,
+				1C53A4272C254CD100B27C23 /* Messages */,
 			);
 			path = Communities;
 			sourceTree = "<group>";
@@ -959,6 +1063,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1C480FD82C2135C8002B19A0 /* CheckInExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C480FEA2C2135CB002B19A0 /* Build configuration list for PBXNativeTarget "CheckInExtension" */;
+			buildPhases = (
+				1C480FD52C2135C8002B19A0 /* Sources */,
+				1C480FD62C2135C8002B19A0 /* Frameworks */,
+				1C480FD72C2135C8002B19A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CheckInExtension;
+			productName = CheckInExtension;
+			productReference = 1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1CF4C3DD2B7B15E10028BC3C /* peakmind-mvp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1CF4C4022B7B15E50028BC3C /* Build configuration list for PBXNativeTarget "peakmind-mvp" */;
@@ -966,10 +1087,13 @@
 				1CF4C3DA2B7B15E10028BC3C /* Sources */,
 				1CF4C3DB2B7B15E10028BC3C /* Frameworks */,
 				1CF4C3DC2B7B15E10028BC3C /* Resources */,
+				1C480FCF2C20B5AE002B19A0 /* Embed Foundation Extensions */,
+				1C480FD42C20C628002B19A0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1C480FE82C2135CB002B19A0 /* PBXTargetDependency */,
 			);
 			name = "peakmind-mvp";
 			packageProductDependencies = (
@@ -1050,9 +1174,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					1C480FD82C2135C8002B19A0 = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					1CF4C3DD2B7B15E10028BC3C = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -1084,6 +1211,7 @@
 			projectRoot = "";
 			targets = (
 				1CF4C3DD2B7B15E10028BC3C /* peakmind-mvp */,
+				1C480FD82C2135C8002B19A0 /* CheckInExtension */,
 				1CF4C3ED2B7B15E40028BC3C /* peakmind-mvpTests */,
 				1CF4C3F72B7B15E50028BC3C /* peakmind-mvpUITests */,
 			);
@@ -1091,6 +1219,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1C480FD72C2135C8002B19A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C480FE42C2135CB002B19A0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CF4C3DC2B7B15E10028BC3C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1126,6 +1262,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1C480FD52C2135C8002B19A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C480FDE2C2135C9002B19A0 /* CheckInBundle.swift in Sources */,
+				1C480FE02C2135C9002B19A0 /* CheckIn.swift in Sources */,
+				1C480FE22C2135C9002B19A0 /* AppIntent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CF4C3DA2B7B15E10028BC3C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1188,6 +1334,7 @@
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
 				7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */,
+				1C53A42D2C254F6600B27C23 /* MessageListView.swift in Sources */,
 				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
 				102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */,
 				79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */,
@@ -1196,6 +1343,7 @@
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
 				E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */,
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
+				1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */,
 				79C383E72BC6113200A6779A /* UserDashboardViewModel.swift in Sources */,
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */,
@@ -1217,6 +1365,7 @@
 				79C383E12BC6110E00A6779A /* HabitTracker.swift in Sources */,
 				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
 				79C8543B2BF036C0003C918E /* AnxietyCommunityView.swift in Sources */,
+				1C53A42F2C254F9200B27C23 /* FriendListView.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
 				102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */,
 				79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */,
@@ -1224,6 +1373,7 @@
 				7930831E2BE85713002A2E0B /* ResourcesToUtilize.swift in Sources */,
 				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
 				1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */,
+				1C53A42B2C254E9F00B27C23 /* MessageView.swift in Sources */,
 				79C3841E2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift in Sources */,
 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
 				792617842BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift in Sources */,
@@ -1235,6 +1385,7 @@
 				79C384242BD60FC800A6779A /* P2-7_ExperienceQ.swift in Sources */,
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
+				1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */,
 				7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */,
 				7953387F2C0144C100A42D4C /* Structs.swift in Sources */,
 				79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */,
@@ -1285,6 +1436,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1C480FE82C2135CB002B19A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C480FD82C2135C8002B19A0 /* CheckInExtension */;
+			targetProxy = 1C480FE72C2135CB002B19A0 /* PBXContainerItemProxy */;
+		};
 		1CF4C3F02B7B15E40028BC3C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1CF4C3DD2B7B15E10028BC3C /* peakmind-mvp */;
@@ -1298,6 +1454,90 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1C480FEB2C2135CB002B19A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CheckIn/CheckIn.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CheckIn/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CheckIn;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.googleusercontent.apps.84784545087-eae20phpcgkv089tst1qdkicqcictusi------First-throw-call-stack-.CheckIn";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		1C480FEC2C2135CB002B19A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CheckIn/CheckIn.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CheckIn/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CheckIn;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.googleusercontent.apps.84784545087-eae20phpcgkv089tst1qdkicqcictusi------First-throw-call-stack-.CheckIn";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		1CF4C4002B7B15E50028BC3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1420,6 +1660,7 @@
 		1CF4C4032B7B15E50028BC3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 2";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -1461,6 +1702,7 @@
 		1CF4C4042B7B15E50028BC3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 2";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -1574,6 +1816,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1C480FEA2C2135CB002B19A0 /* Build configuration list for PBXNativeTarget "CheckInExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C480FEB2C2135CB002B19A0 /* Debug */,
+				1C480FEC2C2135CB002B19A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1CF4C3D92B7B15E10028BC3C /* Build configuration list for PBXProject "peakmind-mvp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1778,6 +2029,19 @@
 			productName = "FirebaseStorageCombine-Community";
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1C480FEE2C21387F002B19A0 /* Model.xcdatamodel */,
+			);
+			currentVersion = 1C480FEE2C21387F002B19A0 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1CF4C3D62B7B15E10028BC3C /* Project object */;
 }

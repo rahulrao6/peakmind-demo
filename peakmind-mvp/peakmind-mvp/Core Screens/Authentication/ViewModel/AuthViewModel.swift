@@ -410,7 +410,7 @@ class AuthViewModel: ObservableObject {
                     selectedBackground: "",
                     hasCompletedInitialQuiz: false,
                     hasSetInitialAvatar: false,
-                    inventory: [],
+                    inventory: [], friends: [],
                     LevelOneCompleted: false,
                     LevelTwoCompleted: false,
                     selectedWidgets: [],
@@ -508,7 +508,8 @@ class AuthViewModel: ObservableObject {
                     selectedBackground: "",
                     hasCompletedInitialQuiz: false,
                     hasSetInitialAvatar: false,
-                    inventory: [],
+                    inventory: [], 
+                    friends: [],
                     LevelOneCompleted: false,
                     LevelTwoCompleted: false,
                     selectedWidgets: [],
@@ -702,6 +703,36 @@ class AuthViewModel: ObservableObject {
     func clearError() {
         self.authErrorMessage = nil
     }
+    
+
+    func addFriend(friendId: String) {
+        guard let currentUser = currentUser else { return }
+        db.collection("users").document(currentUser.id ?? "").updateData([
+            "friends": FieldValue.arrayUnion([friendId])
+        ]) { error in
+            if let error = error {
+                print("Error adding friend: \(error.localizedDescription)")
+            } else {
+                self.fetchUserData(userId: currentUser.id ?? "")
+            }
+        }
+    }
+    
+    func fetchFriends(completion: @escaping ([UserData]) -> Void) {
+        guard let currentUser = currentUser else { return }
+        db.collection("users").whereField("id", in: currentUser.friends).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching friends: \(error.localizedDescription)")
+                completion([])
+            } else {
+                let friends = snapshot?.documents.compactMap { try? $0.data(as: UserData.self) } ?? []
+                completion(friends)
+            }
+        }
+    }
+ 
+
+
 }
 
 // UserData model

@@ -626,36 +626,41 @@ struct MultipleSelectionRow: View {
 struct Analytics: View {
     @Binding var isPresented: Bool
     @EnvironmentObject var viewModel: AuthViewModel // Assuming your view model holds the user's selected widget preferences
-
+    
     @State private var moodData: [Date: Int] = [:]
     @State private var waterData: [Date: Int] = [:]
     @State private var sleepData: [Date: Int] = [:]
     @State private var stepData: [Date: Int] = [:]
-
+    //create a dynamic data object to track stuff
+    @State private var pieChartData: [String: Double] = [:]
+    @State private var lineChartData: [String: [Double]] = [:]
+    @State private var barChartData: [String: [Int]] = [:]
+    @State private var summary: String = ""
+    
+    
     var body: some View {
         NavigationView {
-            List {
-                if viewModel.currentUser?.selectedWidgets.contains("Mood") == true {
-                    Section(header: Text("Mood Tracking").foregroundColor(.black)) {
+            ScrollView {
+                VStack(spacing: 20) {
+                    
+                    Text(summary)
+                    
+                    if viewModel.currentUser?.selectedWidgets.contains("Mood") == true {
                         MoodWidget(data: moodData)
                     }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Water") == true {
-                    Section(header: Text("Water Intake").foregroundColor(.black)) {
+                    if viewModel.currentUser?.selectedWidgets.contains("Water") == true {
                         WaterWidget(data: waterData)
                     }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Sleep Tracker") == true {
-                    Section(header: Text("Sleep Tracking").foregroundColor(.black)) {
+                    if viewModel.currentUser?.selectedWidgets.contains("Sleep Tracker") == true {
                         SleepWidget(data: sleepData)
                     }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Step Counter") == true {
-                    Section(header: Text("Step Count").foregroundColor(.black)) {
+                    if viewModel.currentUser?.selectedWidgets.contains("Step Counter") == true {
                         StepWidget(data: stepData)
                     }
                 }
+                .padding(.horizontal, 20)
             }
+            .background(Color("SentMessage")) // Background color for the ScrollView
             .navigationTitle("Health Analytics")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -670,46 +675,120 @@ struct Analytics: View {
                 fetchData()
             }
         }
-        .environment(\.colorScheme, .light)
+        .background(Color("SentMessage")) // Background color for the Navigation View
     }
-
+    
+    //    private func fetchData() {
+    //        let userID = viewModel.currentUser?.id ?? ""
+    //        fetchData(for: userID, metric: "moodRating") { data in
+    //            moodData = data
+    //        }
+    //        fetchData(for: userID, metric: "waterIntake") { data in
+    //            waterData = data
+    //        }
+    //        fetchData(for: userID, metric: "hoursOfSleep") { data in
+    //            sleepData = data
+    //        }
+    //        fetchData(for: userID, metric: "steps") { data in
+    //            stepData = data
+    //        }
+    //    }
+    //
+    //    func fetchData(for userID: String, metric: String, completion: @escaping ([Date: Int]) -> Void) {
+    //        let db = Firestore.firestore()
+    //        db.collection("users").document(userID).collection("daily_check_in")
+    //          .order(by: "timestamp", descending: false)
+    //          .getDocuments { snapshot, error in
+    //            guard let documents = snapshot?.documents else {
+    //                print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+    //                return
+    //            }
+    //
+    //            var data: [Date: Int] = [:]
+    //            for document in documents {
+    //                if let timestamp = document.get("timestamp") as? Timestamp,
+    //                   let value = document.get(metric) as? Int {
+    //                    data[timestamp.dateValue()] = value
+    //                }
+    //            }
+    //            DispatchQueue.main.async {
+    //                completion(data)
+    //            }
+    //        }
+    //    }
     private func fetchData() {
-        let userID = viewModel.currentUser?.id ?? ""
-        fetchData(for: userID, metric: "moodRating") { data in
-            moodData = data
+        guard let userID = viewModel.currentUser?.id else {
+            print("User ID not found")
+            return
         }
-        fetchData(for: userID, metric: "waterIntake") { data in
-            waterData = data
+        
+        let urlString = "http://35.188.88.124/api/health_summary/\(userID)"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
         }
-        fetchData(for: userID, metric: "hoursOfSleep") { data in
-            sleepData = data
-        }
-        fetchData(for: userID, metric: "steps") { data in
-            stepData = data
-        }
-    }
-
-    func fetchData(for userID: String, metric: String, completion: @escaping ([Date: Int]) -> Void) {
-        let db = Firestore.firestore()
-        db.collection("users").document(userID).collection("daily_check_in")
-          .order(by: "timestamp", descending: false)
-          .getDocuments { snapshot, error in
-            guard let documents = snapshot?.documents else {
-                print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error fetching data: \(error.localizedDescription)")
                 return
             }
             
-            var data: [Date: Int] = [:]
-            for document in documents {
-                if let timestamp = document.get("timestamp") as? Timestamp,
-                   let value = document.get(metric) as? Int {
-                    data[timestamp.dateValue()] = value
-                }
+            guard let data = data else {
+                print("No data returned")
+                return
             }
-            DispatchQueue.main.async {
-                completion(data)
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    if let chartData = json["chartData"] as? [String: Any],
+                       let pieData = chartData["pieChart"] as? [String: Any],
+                       let lineData = chartData["lineChart"] as? [String: [Double]],
+                       let barData = chartData["barChart"] as? [String: [Int]] {
+                        
+                        DispatchQueue.main.async {
+                            self.pieChartData = self.processPieChartData(pieData)
+                            self.lineChartData = lineData
+                            self.barChartData = barData
+                            
+                            self.moodData = self.processBarChartData(barData, for: "moodRating")
+                            self.waterData = self.processBarChartData(barData, for: "waterIntake")
+                            self.sleepData = self.processBarChartData(barData, for: "hoursOfSleep")
+                            self.stepData = self.processBarChartData(barData, for: "steps")
+                        }
+                    }
+                    
+                    if let summaryText = json["summary"] as? String {
+                        DispatchQueue.main.async {
+                            self.summary = summaryText
+                        }
+                    }
+                }
+            } catch {
+                print("Error parsing JSON: \(error.localizedDescription)")
+            }
+        }.resume()
+    }
+    
+    private func processPieChartData(_ data: [String: Any]) -> [String: Double] {
+        var result: [String: Double] = [:]
+        if let labels = data["labels"] as? [String], let values = data["values"] as? [Double] {
+            for (index, label) in labels.enumerated() {
+                result[label] = values[index]
             }
         }
+        return result
+    }
+    
+    private func processBarChartData(_ data: [String: [Int]], for metric: String) -> [Date: Int] {
+        var result: [Date: Int] = [:]
+        if let values = data[metric] {
+            for (index, value) in values.enumerated() {
+                let date = Date(timeIntervalSince1970: TimeInterval(index)) // Example date processing
+                result[date] = value
+            }
+        }
+        return result
     }
 }
 

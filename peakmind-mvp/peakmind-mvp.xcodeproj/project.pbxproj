@@ -29,10 +29,6 @@
 		10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		1C480FDA2C2135C9002B19A0 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */; };
 		1C480FDB2C2135C9002B19A0 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */; };
-		1C480FDE2C2135C9002B19A0 /* CheckInBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FDD2C2135C9002B19A0 /* CheckInBundle.swift */; };
-		1C480FE02C2135C9002B19A0 /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FDF2C2135C9002B19A0 /* CheckIn.swift */; };
-		1C480FE22C2135C9002B19A0 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FE12C2135C9002B19A0 /* AppIntent.swift */; };
-		1C480FE42C2135CB002B19A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C480FE32C2135CB002B19A0 /* Assets.xcassets */; };
 		1C480FE92C2135CB002B19A0 /* CheckInExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */; };
 		1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */; };
@@ -262,12 +258,6 @@
 		1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CheckInExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1C480FDD2C2135C9002B19A0 /* CheckInBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInBundle.swift; sourceTree = "<group>"; };
-		1C480FDF2C2135C9002B19A0 /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
-		1C480FE12C2135C9002B19A0 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
-		1C480FE32C2135CB002B19A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1C480FE52C2135CB002B19A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1C480FE62C2135CB002B19A0 /* CheckIn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheckIn.entitlements; sourceTree = "<group>"; };
 		1C480FEE2C21387F002B19A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
 		1C53A42A2C254E9F00B27C23 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
@@ -497,19 +487,6 @@
 			path = WidgetKit;
 			sourceTree = "<group>";
 		};
-		1C480FDC2C2135C9002B19A0 /* CheckIn */ = {
-			isa = PBXGroup;
-			children = (
-				1C480FDD2C2135C9002B19A0 /* CheckInBundle.swift */,
-				1C480FDF2C2135C9002B19A0 /* CheckIn.swift */,
-				1C480FE12C2135C9002B19A0 /* AppIntent.swift */,
-				1C480FE32C2135CB002B19A0 /* Assets.xcassets */,
-				1C480FE52C2135CB002B19A0 /* Info.plist */,
-				1C480FE62C2135CB002B19A0 /* CheckIn.entitlements */,
-			);
-			path = CheckIn;
-			sourceTree = "<group>";
-		};
 		1C53A4272C254CD100B27C23 /* Messages */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,7 +658,6 @@
 				1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */,
 				1CF4C3F12B7B15E40028BC3C /* peakmind-mvpTests */,
 				1CF4C3FB2B7B15E50028BC3C /* peakmind-mvpUITests */,
-				1C480FDC2C2135C9002B19A0 /* CheckIn */,
 				1CF4C3DF2B7B15E10028BC3C /* Products */,
 				1CF4C40E2B7B1DD50028BC3C /* Frameworks */,
 			);
@@ -1223,7 +1199,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C480FE42C2135CB002B19A0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,9 +1241,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C480FDE2C2135C9002B19A0 /* CheckInBundle.swift in Sources */,
-				1C480FE02C2135C9002B19A0 /* CheckIn.swift in Sources */,
-				1C480FE22C2135C9002B19A0 /* AppIntent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1660,7 +1632,6 @@
 		1CF4C4032B7B15E50028BC3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 2";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -1702,7 +1673,6 @@
 		1CF4C4042B7B15E50028BC3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon 2";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;

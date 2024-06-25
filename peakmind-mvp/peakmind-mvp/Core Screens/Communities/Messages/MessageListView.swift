@@ -20,7 +20,9 @@ struct MessageListView: View {
                 
                 Button(action: {
                     guard let userId = authViewModel.currentUser?.id else { return }
-                    messagesViewModel.createChat(with: [userId, selectedUserId])
+                    messagesViewModel.createChat(with: [userId, selectedUserId]) { chatId in
+                        // Handle chat creation if needed
+                    }
                 }) {
                     Text("Create Chat")
                 }
@@ -40,8 +42,11 @@ struct MessageListView: View {
         if let existingChat = messagesViewModel.chats.first(where: { $0.participants.contains(friendId) }) {
             return existingChat.id ?? ""
         } else {
-            messagesViewModel.createChat(with: [authViewModel.currentUser?.id ?? "", friendId])
-            return messagesViewModel.chats.first(where: { $0.participants.contains(friendId) })?.id ?? ""
+            var chatId: String = ""
+            messagesViewModel.createChat(with: [authViewModel.currentUser?.id ?? "", friendId]) { createdChatId in
+                chatId = createdChatId ?? ""
+            }
+            return chatId
         }
     }
 }

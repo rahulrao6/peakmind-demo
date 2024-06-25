@@ -71,6 +71,8 @@ class MessagesViewModel: ObservableObject {
         }
     }
     
+    
+    
     deinit {
         listener?.remove()
     }

@@ -34,13 +34,38 @@ class MessagesViewModel: ObservableObject {
             }
     }
     
-    func createChat(with participants: [String]) {
-        let chat = Chat(participants: participants, lastMessage: nil, timestamp: Timestamp())
-        do {
-            let _ = try db.collection("chats").addDocument(from: chat)
-        } catch {
-            print("Error creating chat: \(error.localizedDescription)")
+    func createChat(with participants: [String], completion: @escaping (String?) -> Void) {
+        checkChatExists(with: participants) { [weak self] chatId in
+            if let chatId = chatId {
+                completion(chatId)
+            } else {
+                let chat = Chat(participants: participants, lastMessage: nil, timestamp: Timestamp())
+                do {
+                    let documentRef = try self?.db.collection("chats").addDocument(from: chat)
+                    completion(documentRef?.documentID)
+                } catch {
+                    print("Error creating chat: \(error.localizedDescription)")
+                    completion(nil)
+                }
+            }
         }
+    }
+    
+    private func checkChatExists(with participants: [String], completion: @escaping (String?) -> Void) {
+        db.collection("chats")
+            .whereField("participants", arrayContainsAny: participants)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error checking existing chats: \(error.localizedDescription)")
+                    completion(nil)
+                } else {
+                    let existingChat = querySnapshot?.documents.first { document in
+                        let chat = try? document.data(as: Chat.self)
+                        return chat?.participants.sorted() == participants.sorted()
+                    }
+                    completion(existingChat?.documentID)
+                }
+            }
     }
 
     func fetchChats(for userId: String) {
@@ -70,6 +95,8 @@ class MessagesViewModel: ObservableObject {
             }
         }
     }
+    
+    
     
     deinit {
         listener?.remove()

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConfettiView: View {
+struct ConfettiView2: View {
     let colors: [Color] = [.red, .blue, .green, .yellow, .pink, .purple, .orange]
     var confettiCount: Int = 100
     var animate: Bool 

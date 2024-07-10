@@ -85,11 +85,6 @@ struct ProfileView: View {
                         .sheet(isPresented: $isFriendListViewPresented) {
                             FriendListView().environmentObject(viewModel)
                         }
-                        NavigationLink(destination: MessageListView().environmentObject(viewModel)) {
-                            Button("Message List") {
-                    
-                            }
-                        }
                     }
                 }
                 .environment(\.colorScheme, .light)

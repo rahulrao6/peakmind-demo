@@ -27,9 +27,6 @@
 		10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		10FA68812BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
-		1C480FDA2C2135C9002B19A0 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */; };
-		1C480FDB2C2135C9002B19A0 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */; };
-		1C480FE92C2135CB002B19A0 /* CheckInExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */; };
 		1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */; };
 		1C53A42B2C254E9F00B27C23 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A42A2C254E9F00B27C23 /* MessageView.swift */; };
@@ -193,13 +190,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1C480FE72C2135CB002B19A0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1CF4C3D62B7B15E10028BC3C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1C480FD82C2135C8002B19A0;
-			remoteInfo = CheckInExtension;
-		};
 		1CF4C3EF2B7B15E40028BC3C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1CF4C3D62B7B15E10028BC3C /* Project object */;
@@ -223,7 +213,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				1C480FE92C2135CB002B19A0 /* CheckInExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 1;
@@ -257,7 +246,6 @@
 		10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdTriangleEncoded.mov; sourceTree = "<group>"; };
 		1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CheckInExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C480FEE2C21387F002B19A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
 		1C53A42A2C254E9F00B27C23 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
@@ -398,15 +386,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1C480FD62C2135C8002B19A0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1C480FDB2C2135C9002B19A0 /* SwiftUI.framework in Frameworks */,
-				1C480FDA2C2135C9002B19A0 /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1CF4C3DB2B7B15E10028BC3C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -669,7 +648,6 @@
 				1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */,
 				1CF4C3EE2B7B15E40028BC3C /* peakmind-mvpTests.xctest */,
 				1CF4C3F82B7B15E50028BC3C /* peakmind-mvpUITests.xctest */,
-				1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1039,23 +1017,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1C480FD82C2135C8002B19A0 /* CheckInExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1C480FEA2C2135CB002B19A0 /* Build configuration list for PBXNativeTarget "CheckInExtension" */;
-			buildPhases = (
-				1C480FD52C2135C8002B19A0 /* Sources */,
-				1C480FD62C2135C8002B19A0 /* Frameworks */,
-				1C480FD72C2135C8002B19A0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = CheckInExtension;
-			productName = CheckInExtension;
-			productReference = 1C480FD92C2135C8002B19A0 /* CheckInExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		1CF4C3DD2B7B15E10028BC3C /* peakmind-mvp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1CF4C4022B7B15E50028BC3C /* Build configuration list for PBXNativeTarget "peakmind-mvp" */;
@@ -1069,7 +1030,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				1C480FE82C2135CB002B19A0 /* PBXTargetDependency */,
 			);
 			name = "peakmind-mvp";
 			packageProductDependencies = (
@@ -1153,9 +1113,6 @@
 				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
-					1C480FD82C2135C8002B19A0 = {
-						CreatedOnToolsVersion = 15.4;
-					};
 					1CF4C3DD2B7B15E10028BC3C = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -1187,7 +1144,6 @@
 			projectRoot = "";
 			targets = (
 				1CF4C3DD2B7B15E10028BC3C /* peakmind-mvp */,
-				1C480FD82C2135C8002B19A0 /* CheckInExtension */,
 				1CF4C3ED2B7B15E40028BC3C /* peakmind-mvpTests */,
 				1CF4C3F72B7B15E50028BC3C /* peakmind-mvpUITests */,
 			);
@@ -1195,13 +1151,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1C480FD72C2135C8002B19A0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1CF4C3DC2B7B15E10028BC3C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1237,13 +1186,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1C480FD52C2135C8002B19A0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1CF4C3DA2B7B15E10028BC3C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1408,11 +1350,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1C480FE82C2135CB002B19A0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1C480FD82C2135C8002B19A0 /* CheckInExtension */;
-			targetProxy = 1C480FE72C2135CB002B19A0 /* PBXContainerItemProxy */;
-		};
 		1CF4C3F02B7B15E40028BC3C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1CF4C3DD2B7B15E10028BC3C /* peakmind-mvp */;
@@ -1426,90 +1363,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1C480FEB2C2135CB002B19A0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = CheckIn/CheckIn.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CheckIn/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = CheckIn;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.googleusercontent.apps.84784545087-eae20phpcgkv089tst1qdkicqcictusi------First-throw-call-stack-.CheckIn";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		1C480FEC2C2135CB002B19A0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = CheckIn/CheckIn.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CheckIn/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = CheckIn;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.googleusercontent.apps.84784545087-eae20phpcgkv089tst1qdkicqcictusi------First-throw-call-stack-.CheckIn";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 		1CF4C4002B7B15E50028BC3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1786,15 +1639,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1C480FEA2C2135CB002B19A0 /* Build configuration list for PBXNativeTarget "CheckInExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1C480FEB2C2135CB002B19A0 /* Debug */,
-				1C480FEC2C2135CB002B19A0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1CF4C3D92B7B15E10028BC3C /* Build configuration list for PBXProject "peakmind-mvp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

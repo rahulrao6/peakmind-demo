@@ -25,7 +25,6 @@ struct ResourcesToUtilize: View {
                     LinkButton(title: "Crisis Text Line", url: "https://www.crisistextline.org/")
                     LinkButton(title: "Veteran Crisis Hotline", url: "https://www.veteranscrisisline.net/")
                     LinkButton(title: "National Domestic Violence Hotline", url: "https://www.thehotline.org/")
-                    LinkButton(title: "Disaster Distress Hotline", url: "https://www.cdc.gov/disasters/psa/disasterdistresshotline.html")
                     LinkButton(title: "NEDA", url: "https://www.nationaleatingdisorders.org/get-help/")
                     LinkButton(title: "Mental Health America Helpline", url: "https://www.mhanational.org/")
                 }

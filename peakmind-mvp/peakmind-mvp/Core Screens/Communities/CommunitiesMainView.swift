@@ -5,7 +5,7 @@ struct CommunitiesMainView: View {
     let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
     @Binding var search: String
 
-  var body: some View {
+    var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
@@ -46,16 +46,16 @@ struct HeaderView: View {
             if let user = viewModel.currentUser {
                 let avatarIcon = avatarIcons[user.selectedAvatar] ?? "DefaultIcon"
                 
-                NavigationLink(destination: UserProfileView().environmentObject(viewModel).environmentObject(communitiesViewModel)) { // Ensure environmentObject is provided
+                NavigationLink(destination: UserProfileView().environmentObject(viewModel).environmentObject(communitiesViewModel)) {
                     Image(avatarIcon)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 50, height: 50)
                         .clipShape(Circle())
-                        .padding(.leading, 20)  // Add padding to the left of the icon
+                        .padding(.leading, 20)
                 }
             } else {
-                NavigationLink(destination: UserProfileView().environmentObject(viewModel).environmentObject(communitiesViewModel)) { // Ensure environmentObject is provided
+                NavigationLink(destination: UserProfileView().environmentObject(viewModel).environmentObject(communitiesViewModel)) {
                     Image("DefaultIcon")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -72,19 +72,18 @@ struct HeaderView: View {
 
             Spacer()
 
-            Button(action: {
-                // Action for notification
-            }) {
-                Image(systemName: "bell.fill")
+            NavigationLink(destination: MessageListView().environmentObject(viewModel)) {
+                Image(systemName: "envelope.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
                     .foregroundColor(.white)
             }
-            .padding(.trailing, 20)  
+            .padding(.trailing, 20)
         }
     }
 }
+
 struct MyCommunitiesSection: View {
     var body: some View {
         VStack(spacing: 5) {
@@ -198,11 +197,3 @@ struct ButtonView: View {
         }
     }
 }
-//
-//// Preview for the CommunitiesMainView
-//struct CommunitiesMainView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CommunitiesMainView(, search: <#Binding<String>#>)
-//            .environmentObject(AuthViewModel()) // Ensure environmentObject is provided for preview
-//    }
-//}

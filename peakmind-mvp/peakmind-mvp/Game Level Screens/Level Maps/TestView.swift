@@ -38,6 +38,7 @@ struct TestView: View {
     
     @State private var activeModal: LevelNode?
     @State private var confetti = 0
+    @State private var currentPhase = 1
     
     @StateObject private var scene: MapScene = {
         let scene = MapScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -82,28 +83,73 @@ struct TestView: View {
                     }
                     .onAppear {
                         scene.levels = [
-                            LevelNode(uid: 0, internalName: "P1_5_StressTriggerMap", title: "Intro", viewFactory: { AnyView(P1_Intro(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
-
-                            LevelNode(uid: 1, internalName: "P1_MentalHealthMod", title: "Mental Health", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
+                            LevelNode(uid: 0, internalName: "P1_5_StressTriggerMap", title: "Mental Health", viewFactory: { AnyView(P1_Intro(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
+                            LevelNode(uid: 1, internalName: "P1_MentalHealthMod", title: "Wellness Question", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
+                            LevelNode(uid: 2, internalName: "P1_3_EmotionsScenario", title: "Stress Triggers", viewFactory: { AnyView(P1_3_EmotionsScenario(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
+                            LevelNode(uid: 3, internalName: "P1_4_StressModule", title: "Stress Triggers pt. 2", viewFactory: { AnyView(P1_4_StressModule(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
+                            LevelNode(uid: 4, internalName: "P1_5_StressTriggerMap", title: "Box Breathing", viewFactory: { AnyView(P1_5_StressTriggerMap()) }, phase: 1),
+                            LevelNode(uid: 5, internalName: "P1_5_StressTriggerMap", title: "Muscle Relaxation", viewFactory: { AnyView(P1_5_StressTriggerMap()) }, phase: 1),
+                            LevelNode(uid: 6, internalName: "P1_MentalHealthMod", title: "Lifestyle", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 1),
+                            LevelNode(uid: 7, internalName: "P1_MentalHealthMod", title: "Lifestyle Changes", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 1),
+                            LevelNode(uid: 8, internalName: "P1_MentalHealthMod", title: "Wellness Question", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 1),
+                            LevelNode(uid: 9, internalName: "P1_MentalHealthMod", title: "Minigame", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 1),
                             
-                            LevelNode(uid: 2, internalName: "P1_3_EmotionsScenario", title: "Emotions", viewFactory: { AnyView(P1_3_EmotionsScenario(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
+                            LevelNode(uid: 0, internalName: "P1_MentalHealthMod", title: "Anxiety", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 1, internalName: "P1_MentalHealthMod", title: "Defining Anxiety", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 2, internalName: "P1_MentalHealthMod", title: "Anxiety Triggers", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 3, internalName: "P1_MentalHealthMod", title: "Wellness Question", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 4, internalName: "P1_MentalHealthMod", title: "Anxiety Thoughts", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 5, internalName: "P1_MentalHealthMod", title: "Set a Goal", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 6, internalName: "P1_MentalHealthMod", title: "Anxiety Interactive", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 7, internalName: "P1_MentalHealthMod", title: "External Factors", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 8, internalName: "P1_MentalHealthMod", title: "4/7/8 Breathing", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 9, internalName: "P1_MentalHealthMod", title: "Minigame", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
                             
-                            LevelNode(uid: 3, internalName: "P1_4_StressModule", title: "Stress", viewFactory: { AnyView(P1_4_StressModule(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
+                            LevelNode(uid: 0, internalName: "P1_MentalHealthMod", title: "Physical Impacts", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
+                            LevelNode(uid: 1, internalName: "P1_MentalHealthMod", title: "Body Scan", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
+                            LevelNode(uid: 2, internalName: "P1_MentalHealthMod", title: "Anxiety Physical", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
+                            LevelNode(uid: 3, internalName: "P1_MentalHealthMod", title: "Anxiety Emotional", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
+                            LevelNode(uid: 4, internalName: "P1_MentalHealthMod", title: "Wellness Question", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
+                            LevelNode(uid: 5, internalName: "P1_MentalHealthMod", title: "Scenario", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
+                            LevelNode(uid: 6, internalName: "P1_MentalHealthMod", title: "Managing Anxiety", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
+                            LevelNode(uid: 7, internalName: "P1_MentalHealthMod", title: "Self Care", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
+                            LevelNode(uid: 8, internalName: "P1_MentalHealthMod", title: "Emotions Checklist", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
+                            LevelNode(uid: 9, internalName: "P1_MentalHealthMod", title: "Minigame", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 3),
                             
-                            LevelNode(uid: 4, internalName: "P1_5_StressTriggerMap", title: "Stress Triggers", viewFactory: { AnyView(P1_5_StressTriggerMap()) }, phase: 1),
+                            LevelNode(uid: 0, internalName: "P1_MentalHealthMod", title: "Resilience Checklist", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
+                            LevelNode(uid: 1, internalName: "P1_MentalHealthMod", title: "Resilience", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
+                            LevelNode(uid: 2, internalName: "P1_MentalHealthMod", title: "5/4/3/2/1 Coping", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
+                            LevelNode(uid: 3, internalName: "P1_MentalHealthMod", title: "Wellness Question", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
+                            LevelNode(uid: 4, internalName: "P1_MentalHealthMod", title: "Sherpa Chat", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
+                            LevelNode(uid: 5, internalName: "P1_MentalHealthMod", title: "Routine", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
+                            LevelNode(uid: 6, internalName: "P1_MentalHealthMod", title: "Routine Coping", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
+                            LevelNode(uid: 7, internalName: "P1_MentalHealthMod", title: "Scenario", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
+                            LevelNode(uid: 8, internalName: "P1_MentalHealthMod", title: "Wellness Question", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
+                            LevelNode(uid: 9, internalName: "P1_MentalHealthMod", title: "Minigame", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 4),
                             
-                            LevelNode(uid: 5, internalName: "P1_5_StressTriggerMap", title: "Personal Question", viewFactory: { AnyView(P1_5_StressTriggerMap()) }, phase: 1),
-                            
-                            LevelNode(uid: 6, internalName: "P1_MentalHealthMod", title: "Level 7", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 1),
-                            
-                            LevelNode(uid: 7, internalName: "P1_MentalHealthMod", title: "Level 8", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 1),
-                            
-                            LevelNode(uid: 8, internalName: "P1_MentalHealthMod", title: "Level 9", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 1),
-                            
-                            LevelNode(uid: 9, internalName: "P1_MentalHealthMod", title: "Level 10", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 1),
-                            
-                            LevelNode(uid: 0, internalName: "P1_MentalHealthMod", title: "Level 11", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 2),
+                            LevelNode(uid: 0, internalName: "P1_MentalHealthMod", title: "Support Systems", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
+                            LevelNode(uid: 1, internalName: "P1_MentalHealthMod", title: "Wellness Question", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
+                            LevelNode(uid: 2, internalName: "P1_MentalHealthMod", title: "Support Mapping", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
+                            LevelNode(uid: 3, internalName: "P1_MentalHealthMod", title: "Event Connections", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
+                            LevelNode(uid: 4, internalName: "P1_MentalHealthMod", title: "Finding a Community", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
+                            LevelNode(uid: 5, internalName: "P1_MentalHealthMod", title: "Choosing a Community", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
+                            LevelNode(uid: 6, internalName: "P1_MentalHealthMod", title: "Mini Quiz", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
+                            LevelNode(uid: 7, internalName: "P1_MentalHealthMod", title: "Anxiety-Free Spaces", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
+                            LevelNode(uid: 8, internalName: "P1_MentalHealthMod", title: "Stability Checklist", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
+                            LevelNode(uid: 9, internalName: "P1_MentalHealthMod", title: "Minigame", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
                         ]
+                        
+                        if (user.LevelOneCompleted) {
+                            scene.completedPhases = 1
+                            currentPhase = 2
+                        }
+                        
+                        if (user.LevelTwoCompleted) {
+                            scene.completedPhases = 2
+                            currentPhase = 3
+                        }
+                        
+                        scene.reloadGates()
                         
                          for levelName in user.completedLevels {
                              let level = getNodeFromInternalLevelName(internalName: levelName)
@@ -121,7 +167,7 @@ struct TestView: View {
                                 .font(.system(size: 30, weight: .heavy, design: .default))
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                             
-                            Text("Phase 1")
+                            Text("Phase "+String(currentPhase))
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                             
                         }
@@ -162,9 +208,9 @@ struct TestView: View {
             .overlay(alignment: .bottom) {
                 GeometryReader { geom in
                     VariableBlurView(maxBlurRadius: 2, direction: .blurredBottomClearTop)
-                        .frame(height: 100)
+                        .frame(height: 200)
                         .ignoresSafeArea()
-                        .padding(.top, 750)
+                        .padding(.top, 700)
                 }
             }
             .fullScreenCover(item: $activeModal) { phase in

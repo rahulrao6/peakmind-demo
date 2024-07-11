@@ -144,12 +144,12 @@ class MapScene: SKScene, ObservableObject {
         addChild(n1bg)
         phaseGates.append(n1bg)
         let n1 = SKShapeNode(rectOf: CGSize(width: 2000, height: 100))
-        n1.position = CGPointMake(UIScreen.main.bounds.width/2, UIScreen.main.bounds.height * CGFloat(maxY * 1.135))
+        n1.position = CGPointMake(UIScreen.main.bounds.width/2, UIScreen.main.bounds.height * CGFloat(maxY) + 400)
         n1.fillColor = .white
         addChild(n1)
         phaseGates.append(n1bg)
         let n1textup = SKLabelNode(text: "Phase "+String(completedPhases+2))
-        n1textup.position = CGPointMake(UIScreen.main.bounds.width/2, (UIScreen.main.bounds.height * CGFloat(maxY * 1.135))+15)
+        n1textup.position = CGPointMake(UIScreen.main.bounds.width/2, (UIScreen.main.bounds.height * CGFloat(maxY))+415)
         n1textup.fontName = "AvenirNext-Bold"
         n1textup.fontColor = .black
         n1textup.horizontalAlignmentMode = .center
@@ -157,7 +157,7 @@ class MapScene: SKScene, ObservableObject {
         addChild(n1textup)
         phaseGatesText.append(n1textup)
         let n2textup = SKLabelNode(text: "Complete 5 more levels to unlock")
-        n2textup.position = CGPointMake(UIScreen.main.bounds.width/2, (UIScreen.main.bounds.height * CGFloat(maxY * 1.135))-25)
+        n2textup.position = CGPointMake(UIScreen.main.bounds.width/2, (UIScreen.main.bounds.height * CGFloat(maxY))+400-25)
         n2textup.fontName = "AvenirNext"
         n2textup.fontColor = .black
         n2textup.horizontalAlignmentMode = .center

@@ -3,12 +3,13 @@ import SwiftUI
 struct CommunitiesMainView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
+    @Binding var search: String
 
-  var body: some View {
+    var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    HeaderView(avatarIcons: avatarIcons).environmentObject(viewModel)
+                    HeaderView(avatarIcons: avatarIcons, search: $search).environmentObject(viewModel)
                     Text("The communities hub is currently under construction. What is currently displayed to you is a sneak peek of how it will be once completed! Click the anxiety community for a preview.")
                         .font(.system(size: 16, weight: .bold, design: .default))
                         .foregroundColor(.white)
@@ -35,23 +36,26 @@ struct CommunitiesMainView: View {
 
 struct HeaderView: View {
     @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var communitiesViewModel: CommunitiesViewModel
+
     let avatarIcons: [String: String]
-    
+    @Binding var search: String
+
     var body: some View {
         HStack {
             if let user = viewModel.currentUser {
                 let avatarIcon = avatarIcons[user.selectedAvatar] ?? "DefaultIcon"
                 
-                NavigationLink(destination: UserProfileView().environmentObject(viewModel)) { // Ensure environmentObject is provided
+                NavigationLink(destination: UserProfileView().environmentObject(viewModel).environmentObject(communitiesViewModel)) {
                     Image(avatarIcon)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 50, height: 50)
                         .clipShape(Circle())
-                        .padding(.leading, 20)  // Add padding to the left of the icon
+                        .padding(.leading, 20)
                 }
             } else {
-                NavigationLink(destination: UserProfileView().environmentObject(viewModel)) { // Ensure environmentObject is provided
+                NavigationLink(destination: UserProfileView().environmentObject(viewModel).environmentObject(communitiesViewModel)) {
                     Image("DefaultIcon")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -62,25 +66,24 @@ struct HeaderView: View {
 
             Spacer()
 
-            SearchBar()
+            SearchBar(searchText: $search)
                 .frame(height: 40)
                 .padding(.horizontal, 10)
 
             Spacer()
 
-            Button(action: {
-                // Action for notification
-            }) {
-                Image(systemName: "bell.fill")
+            NavigationLink(destination: MessageListView().environmentObject(viewModel)) {
+                Image(systemName: "envelope.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
                     .foregroundColor(.white)
             }
-            .padding(.trailing, 20)  
+            .padding(.trailing, 20)
         }
     }
 }
+
 struct MyCommunitiesSection: View {
     var body: some View {
         VStack(spacing: 5) {
@@ -117,6 +120,8 @@ struct MyCommunitiesSection: View {
 }
 
 struct TopCommunitiesSection: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+
     var body: some View {
         VStack(spacing: 5) {
             SectionTitle(title: "Top Communities")
@@ -165,7 +170,8 @@ struct SectionTitle: View {
 }
 
 struct SearchBar: View {
-    @State private var searchText = ""
+    @Binding var searchText: String
+
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
@@ -189,13 +195,5 @@ struct ButtonView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)
         }
-    }
-}
-
-// Preview for the CommunitiesMainView
-struct CommunitiesMainView_Previews: PreviewProvider {
-    static var previews: some View {
-        CommunitiesMainView()
-            .environmentObject(AuthViewModel()) // Ensure environmentObject is provided for preview
     }
 }

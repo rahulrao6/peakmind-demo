@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleSignInSwift
 
 struct LoginView: View {
     @State private var email = ""
@@ -77,7 +78,7 @@ struct LoginView: View {
                         viewModel.clearError()
 
                         Task {
-                            try await viewModel.signIn(withEmail: email, password: password)
+                            try await viewModel.signInWithEmail(email:email, password:password)
                         }
                     } label: {
                         HStack {
@@ -95,30 +96,10 @@ struct LoginView: View {
                     
                     
                     
-                    Button {
-                        Task {
-                            viewModel.clearError()
-                            do {
-                                try await viewModel.signinWithGoogle()
-                            } catch let e {
-                                print(e.localizedDescription)
-                            }
-                        }
-                    } label: {
-                        HStack {
-                            Image("google")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                            //Text("Sign in with Google")
-                        }
-                        .padding(8)
-                        .frame(width: 40, height: 40)
-                        .padding(.top, 24)
-
-                        
-                    }
-                    
                 }
+                
+                GoogleSignInButton(action: viewModel.signInWithGoogle)
+                //SignInWithAppleButtonView()
                 
                 Spacer()
                 

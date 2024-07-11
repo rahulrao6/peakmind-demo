@@ -30,65 +30,6 @@ struct Level2MapView: View {
         ("9", CGPoint(x: 160, y: 60)),
         ("10", CGPoint(x: 300, y: 15)) // This is the final node
     ]
-
-//    var body: some View {
-//        if let user = viewModel.currentUser { NavigationView {
-//            ZStack {
-//                // Set the background
-//                Image(backgroundName)
-//                    .resizable()
-//                    .edgesIgnoringSafeArea(.all)
-//
-//                // Layout for level buttons
-//                ForEach(Array(nodeScreens.enumerated()), id: \.element.0) { index, node in
-//                    let (screenName, position) = node
-//                    let isUnlocked = index < nodeScreens.count - 1 || user.completedLevels.count ?? 0 >= 6
-//
-//                    Button(action: {
-//                        if index == nodeScreens.count - 1 && !isUnlocked {
-//                            // Show alert if the last node is locked and the condition isn't met
-//                            showAlert = true
-//                        } else {
-//                            // Navigate if the node is unlocked
-//                            activeLink = screenName
-//                        }
-//                    }) {
-//                        Image(user.completedLevels.contains(screenName) ? "StoneComplete" : (isUnlocked ? "Stone" : "LockedStone"))
-//                            .resizable()
-//                            .frame(width: 70, height: 70)
-//                    }
-//                    .alert(isPresented: $showAlert) {
-//                        Alert(title: Text("Locked"), message: Text("You must complete 6 of the 9 previous modules to unlock this."), dismissButton: .default(Text("OK")))
-//                    }
-//                    .position(position)
-//
-//                    // Hidden NavigationLink to manage navigation
-//                    NavigationLink(
-//                        destination: destinationView(for: screenName).onDisappear {
-//                            Task{
-//                                try await viewModel.markLevelCompleted(levelID: screenName)
-//                            }
-//                            //completedLevels.insert(screenName) // Mark as complete when view disappears
-//                        },
-//                        tag: screenName,
-//                        selection: $activeLink
-//                    ) {
-//                        EmptyView()
-//
-//                    }
-//                    .hidden()
-//                    // Hide the navigation link as it is only used for triggering navigation
-//                }
-//            }
-//            .navigationBarTitle("", displayMode: .inline)
-//            .onAppear {
-//                Task {
-//                    // await viewModel.fetchCompletedLevels()
-//                }
-//            }
-//        }
-//        }
-//    }
     
     var body: some View {
         if let user = viewModel.currentUser {
@@ -113,7 +54,7 @@ struct Level2MapView: View {
                             .frame(width: 70, height: 70)
                     }
                     .alert(isPresented: $showAlert) {
-                        Alert(title: Text("Locked"), message: Text("You must complete 6 of the 9 previous modules to unlock this."), dismissButton: .default(Text("OK")))
+                        Alert(title: Text("Locked"), message: Text("You must complete 6 of the 9 prior levels to unlock this."), dismissButton: .default(Text("OK")))
                     }
                     .position(position)
                 }

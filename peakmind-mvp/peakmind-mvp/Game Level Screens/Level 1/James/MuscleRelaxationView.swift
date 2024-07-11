@@ -59,12 +59,12 @@ struct MuscleRelaxationView: View {
                 .padding()
                 .offset(x: 25, y: 20)
             
-            Text("We should understand coping mechanisms and how they work.")
+            Text("Let’s learn progressive muscle relaxation, a powerful technique easing the physical tension driven by anxiety.")
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding()
                 .background(Color("Medium Blue"))
-                .frame(width: 150)
+                .frame(width: 200)
                 .offset(x: 90, y: 250)
             
             VStack(spacing: 0) {

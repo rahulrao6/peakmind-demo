@@ -71,10 +71,10 @@ struct P1_12_LifestyleQuestion: View {
         }
 
         let db = Firestore.firestore()
-        let userRef = db.collection("anxiety_peak").document(user.id).collection("Level_Two").document("Screen_Five")
+        let userRef = db.collection("anxiety_peak").document(user.id ?? "").collection("Level_Two").document("Screen_Five")
 
         let data: [String: Any] = [
-            "question": "What is a lifestyle change you might make and what could be the result?",
+            "question": "Ready to experiment? Pick one area of your life - sleep, exercise, social connection, etc. What's a simple tweak you could try this week? What positive effects might you experience?",
             "userAnswer": userAnswer,
             "timeCompleted": FieldValue.serverTimestamp()
         ]
@@ -99,7 +99,7 @@ struct ReflectiveQuestionBox5: View {
                 .modernTextStyle()
             
             // Question Text
-            Text("What is a lifestyle change you might make and what could be the result?")
+            Text("Ready to experiment? Pick one area of your life - sleep, exercise, social connection, etc. What's a simple tweak you could try this week? What positive effects might you experience?")
                 .font(.title3)
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)

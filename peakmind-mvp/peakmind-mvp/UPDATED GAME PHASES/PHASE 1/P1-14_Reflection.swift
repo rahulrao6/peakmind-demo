@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct P1_14_Reflection: View {
-    let reflectionTexts: [String] = ["In this phase, we learned about anxiety as a concept and how it can affect us.", "We worked through some scenarios to better understand anxiety as well as learned some new ways to help our anxiety such as trigger mapping and 4/7/8 breathing."]
+    let reflectionTexts: [String] = ["In this phase, we learned about anxiety as a concept and how it can affect us.", "We worked through some scenarios to better understand anxiety as well as learned some new ways to help our anxiety such as box breathing."]
     var closeAction: () -> Void
 
     var body: some View {

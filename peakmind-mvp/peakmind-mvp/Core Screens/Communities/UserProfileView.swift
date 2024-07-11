@@ -2,10 +2,11 @@ import SwiftUI
 
 struct UserProfileView: View {
     @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var communitiesViewModel: CommunitiesViewModel
 
     @State private var bioText = "This is a sample bio. Click here to edit and share more about yourself."
     @State private var isEditing = false
-    let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
+    let avatarIcons = ["Raj": "RajIcon", "Mikey": "MikeyIcon", "Trevor": "TrevorIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
 
     var body: some View {
         if let user = viewModel.currentUser {
@@ -72,24 +73,65 @@ struct UserProfileView: View {
                         .padding([.trailing, .top, .bottom], 20)
                     }
                     .background(Color.blue.opacity(0.5))
-                    
+
+
                     Text("Your Posts")
                         .font(.title2)
                         .bold()
                         .padding(.leading, 20)
                         .foregroundColor(.white)
                     
+//                    ScrollView(.horizontal, showsIndicators: false) {
+//                        LazyHGrid(rows: Array(repeating: .init(.fixed(160)), count: 2), spacing: 10) {
+//                        ForEach(communitiesViewModel.userPosts, id: \.self) { post in
+//                                VStack {
+//                                    if let imageUrl = post.fileUrl {
+//                                        AsyncImage(url: URL(string: imageUrl)) { image in
+//                                            image.resizable()
+//                                        } placeholder: {
+//                                            ProgressView()
+//                                        }
+//                                        .aspectRatio(contentMode: .fit)
+//                                        .frame(width: 120, height: 120)
+//                                        .clipped()
+//                                    } else {
+//                                        Image("defaultPostImage")
+//                                            .resizable()
+//                                            .aspectRatio(contentMode: .fit)
+//                                            .frame(width: 120, height: 120)
+//                                            .clipped()
+//                                    }
+//                                    
+//                                    Text(post.title)
+//                                        .font(.caption)
+//                                        .foregroundColor(.white)
+//                                }
+//                                .frame(width: 120, height: 160)
+//                                .background(Color.gray.opacity(0.5))
+//                                .cornerRadius(8)
+//                            }
+//                        }
+//                        .frame(height: 340) // Adjust height to contain two rows
+//                        .padding(.horizontal, 20)
+//                    }
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHGrid(rows: Array(repeating: .init(.fixed(160)), count: 2), spacing: 10) {
-                            ForEach(0..<40) { index in
+                            ForEach(communitiesViewModel.userPosts) { post in
                                 VStack {
-                                    Image("post\(index % 10)")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 120, height: 120)
-                                        .clipped()
+                                    if let fileType = post.fileType, let fileUrlString = post.fileUrl, let fileUrl = URL(string: fileUrlString) {
+                                        AsyncImage(url: fileUrl) { image in
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                                .frame(width: 120, height: 120)
+                                                .clipped()
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                    }
+
                                     
-                                    Text("Post #\(index + 1)")
+                                    Text(post.content ?? "")
                                         .font(.caption)
                                         .foregroundColor(.white)
                                 }
@@ -101,11 +143,16 @@ struct UserProfileView: View {
                         .frame(height: 340) // Adjust height to contain two rows
                         .padding(.horizontal, 20)
                     }
+                    
                 }
             }
             .background(Image("MainBGDark")) // Adjust according to actual asset name if it's different
             .navigationBarTitle("Profile", displayMode: .inline)
+            .onAppear {
+                communitiesViewModel.loadUserPosts(userId: user.id) // Load the user's posts on appear
+            }
         }
+        
     }
 }
 

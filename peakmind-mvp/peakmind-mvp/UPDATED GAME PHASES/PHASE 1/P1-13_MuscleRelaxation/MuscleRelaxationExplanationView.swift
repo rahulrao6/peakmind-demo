@@ -23,12 +23,12 @@ struct MuscleRelaxationExplanationView: View {
                 .padding()
                 .offset(x: 25, y: 20)
             
-            Text("We should understand coping mechanisms and how they work.")
+            Text("Let’s learn progressive muscle relaxation, a powerful technique easing the physical tension driven by anxiety.")
                 .font(.headline)
                 .foregroundColor(.white)
                 .padding()
                 .background(Color("Medium Blue"))
-                .frame(width: 150)
+                .frame(width: 200)
                 .offset(x: 90, y: 250)
             
             VStack(spacing: 0) {
@@ -45,7 +45,7 @@ struct MuscleRelaxationExplanationView: View {
                             .foregroundColor(.white)
                             .padding(.bottom, 5)
 
-                        Text("Progressive muscle relaxation involves tensing each muscle group for about five seconds and then releasing the tension, moving from your feet up to your face. This practice helps relieve the physical tension associated with your anxiety.")
+                        Text("Tense and relax each muscle group intensely one by one. Take a few seconds to flex, and a few seconds to release the tension. Let’s start with your right arm!")
                             .font(.body)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(.white)

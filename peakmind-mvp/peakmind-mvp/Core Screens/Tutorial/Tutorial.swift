@@ -193,7 +193,7 @@ struct TutorialView: View {
         }
         
         let db = Firestore.firestore()
-        let userRef = db.collection("users").document(user.id)
+        let userRef = db.collection("users").document(user.id ?? "")
         userRef.updateData(["hasCompletedTutorial": true]) { error in
             if let error = error {
                 print("Error updating tutorial completion flag: \(error)")

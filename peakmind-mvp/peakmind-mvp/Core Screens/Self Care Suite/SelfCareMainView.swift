@@ -622,165 +622,45 @@ struct MultipleSelectionRow: View {
     }
 }
 
-//struct Analytics: View {
-//    @Binding var isPresented: Bool
-//    @EnvironmentObject var viewModel: AuthViewModel
-//    @State private var checkInData: [CheckInData] = []
-//    @State private var checkInDataArray: [CheckInDataArray] = []
-//
-//    @State private var viewMode: ViewMode = .byDate
-//
-//    enum ViewMode {
-//        case byDate, byWidget
-//    }
-//
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                Picker("View Mode", selection: $viewMode) {
-//                    Text("By Date").tag(ViewMode.byDate)
-//                    Text("By Widget").tag(ViewMode.byWidget)
-//                }
-//                .pickerStyle(SegmentedPickerStyle())
-//                .padding()
-//
-//                List {
-//                    if viewMode == .byDate {
-//                        dateView
-//                    } else {
-//                        widgetView
-//                    }
-//                }
-//            }
-//            .foregroundColor(.black)
-//            .navigationTitle("Check-In Analytics")
-//            .navigationBarItems(trailing: Button("Close") { isPresented = false })
-//            .onAppear {
-//                fetchCheckInData()
-//                fetchCheckInDataArray()
-//            }
-//        }
-//    }
-//
-//    private var dateView: some View {
-//        ForEach(checkInData, id: \.date) { data in
-//            VStack(alignment: .leading) {
-//                Text("Date: \(data.date.formatted(date: .abbreviated, time: .omitted))")
-//                Text("Mood Rating: \(data.moodRating)")
-//                Text("Water Intake: \(data.waterIntake) liters")
-//                Text("Hours of Sleep: \(data.hoursOfSleep)")
-//                Text("Steps: \(data.steps)")
-//            }
-//        }
-//    }
-//
-//    private var widgetView: some View {
-//        let widgets = Dictionary(grouping: checkInData, by: { $0.date })
-//        return ForEach(Array(widgets.keys).sorted(), id: \.self) { date in
-//            Section(header: Text(date.formatted(date: .abbreviated, time: .omitted))) {
-//                ForEach(widgets[date] ?? [], id: \.moodRating) { data in
-//                    VStack(alignment: .leading) {
-//                        Text("Mood Rating: \(data.moodRating)")
-//                        Text("Water Intake: \(data.waterIntake) liters")
-//                        Text("Hours of Sleep: \(data.hoursOfSleep)")
-//                        Text("Steps: \(data.steps)")
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    private func fetchCheckInData() {
-//        guard let userId = viewModel.currentUser?.id else { return }
-//        let db = Firestore.firestore()
-//        db.collection("users").document(userId).collection("daily_check_in")
-//            .getDocuments { (querySnapshot, error) in
-//                if let error = error {
-//                    print("Error getting documents: \(error)")
-//                } else if let querySnapshot = querySnapshot {
-//                    self.checkInData = querySnapshot.documents.compactMap { document -> CheckInData? in
-//                        let data = document.data()
-//                        guard let timestamp = data["timestamp"] as? Timestamp else { return nil }
-//                        let date = timestamp.dateValue()
-//                        let moodRating = data["moodRating"] as? Int ?? 0
-//                        let waterIntake = data["waterIntake"] as? Int ?? 0
-//                        let hoursOfSleep = data["hoursOfSleep"] as? Int ?? 0
-//                        let steps = data["steps"] as? Int ?? 0
-//                        return CheckInData(date: date, moodRating: moodRating, waterIntake: waterIntake, hoursOfSleep: hoursOfSleep, steps: steps)
-//                    }
-//                }
-//            }
-//    }
-//
-//    func fetchCheckInDataArray() {
-//        guard let userId = viewModel.currentUser?.id else { return }
-//        let db = Firestore.firestore()
-//        db.collection("users").document(userId).collection("daily_check_in")
-//            .order(by: "timestamp", descending: false)
-//            .getDocuments { (querySnapshot, error) in
-//                if let error = error {
-//                    print("Error getting documents: \(error)")
-//                } else if let querySnapshot = querySnapshot {
-//                    var checkInData = CheckInDataArray(date: Date())
-//                    for document in querySnapshot.documents {
-//                        let data = document.data()
-//                        if let timestamp = data["timestamp"] as? Timestamp {
-//                            let date = timestamp.dateValue()
-//                            if let mood = data["moodRating"] as? Int {
-//                                checkInData.moodRating[date] = mood
-//                            }
-//                            if let water = data["waterIntake"] as? Int {
-//                                checkInData.waterIntake[date] = water
-//                            }
-//                            if let sleep = data["hoursOfSleep"] as? Int {
-//                                checkInData.hoursOfSleep[date] = sleep
-//                            }
-//                            if let steps = data["steps"] as? Int {
-//                                checkInData.steps[date] = steps
-//                            }
-//                        }
-//                    }
-//                    // Update your state here with new data
-//                    self.checkInDataArray = checkInDataArray
-//                }
-//            }
-//    }
-//
-//}
 
 struct Analytics: View {
     @Binding var isPresented: Bool
     @EnvironmentObject var viewModel: AuthViewModel // Assuming your view model holds the user's selected widget preferences
-
+    
     @State private var moodData: [Date: Int] = [:]
     @State private var waterData: [Date: Int] = [:]
     @State private var sleepData: [Date: Int] = [:]
     @State private var stepData: [Date: Int] = [:]
-
+    //create a dynamic data object to track stuff
+    @State private var pieChartData: [String: Double] = [:]
+    @State private var lineChartData: [String: [Double]] = [:]
+    @State private var barChartData: [String: [Int]] = [:]
+    @State private var summary: String = ""
+    
+    
     var body: some View {
         NavigationView {
-            List {
-                if viewModel.currentUser?.selectedWidgets.contains("Mood") == true {
-                    Section(header: Text("Mood Tracking").foregroundColor(.black)) {
+            ScrollView {
+                VStack(spacing: 20) {
+                    
+                    Text(summary)
+                    
+                    if viewModel.currentUser?.selectedWidgets.contains("Mood") == true {
                         MoodWidget(data: moodData)
                     }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Water") == true {
-                    Section(header: Text("Water Intake").foregroundColor(.black)) {
+                    if viewModel.currentUser?.selectedWidgets.contains("Water") == true {
                         WaterWidget(data: waterData)
                     }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Sleep Tracker") == true {
-                    Section(header: Text("Sleep Tracking").foregroundColor(.black)) {
+                    if viewModel.currentUser?.selectedWidgets.contains("Sleep Tracker") == true {
                         SleepWidget(data: sleepData)
                     }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Step Counter") == true {
-                    Section(header: Text("Step Count").foregroundColor(.black)) {
+                    if viewModel.currentUser?.selectedWidgets.contains("Step Counter") == true {
                         StepWidget(data: stepData)
                     }
                 }
+                .padding(.horizontal, 20)
             }
+            .background(Color("SentMessage")) // Background color for the ScrollView
             .navigationTitle("Health Analytics")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -795,46 +675,120 @@ struct Analytics: View {
                 fetchData()
             }
         }
-        .environment(\.colorScheme, .light)
+        .background(Color("SentMessage")) // Background color for the Navigation View
     }
-
+    
+    //    private func fetchData() {
+    //        let userID = viewModel.currentUser?.id ?? ""
+    //        fetchData(for: userID, metric: "moodRating") { data in
+    //            moodData = data
+    //        }
+    //        fetchData(for: userID, metric: "waterIntake") { data in
+    //            waterData = data
+    //        }
+    //        fetchData(for: userID, metric: "hoursOfSleep") { data in
+    //            sleepData = data
+    //        }
+    //        fetchData(for: userID, metric: "steps") { data in
+    //            stepData = data
+    //        }
+    //    }
+    //
+    //    func fetchData(for userID: String, metric: String, completion: @escaping ([Date: Int]) -> Void) {
+    //        let db = Firestore.firestore()
+    //        db.collection("users").document(userID).collection("daily_check_in")
+    //          .order(by: "timestamp", descending: false)
+    //          .getDocuments { snapshot, error in
+    //            guard let documents = snapshot?.documents else {
+    //                print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+    //                return
+    //            }
+    //
+    //            var data: [Date: Int] = [:]
+    //            for document in documents {
+    //                if let timestamp = document.get("timestamp") as? Timestamp,
+    //                   let value = document.get(metric) as? Int {
+    //                    data[timestamp.dateValue()] = value
+    //                }
+    //            }
+    //            DispatchQueue.main.async {
+    //                completion(data)
+    //            }
+    //        }
+    //    }
     private func fetchData() {
-        let userID = viewModel.currentUser?.id ?? ""
-        fetchData(for: userID, metric: "moodRating") { data in
-            moodData = data
+        guard let userID = viewModel.currentUser?.id else {
+            print("User ID not found")
+            return
         }
-        fetchData(for: userID, metric: "waterIntake") { data in
-            waterData = data
+        
+        let urlString = "http://35.188.88.124/api/health_summary/\(userID)"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
         }
-        fetchData(for: userID, metric: "hoursOfSleep") { data in
-            sleepData = data
-        }
-        fetchData(for: userID, metric: "steps") { data in
-            stepData = data
-        }
-    }
-
-    func fetchData(for userID: String, metric: String, completion: @escaping ([Date: Int]) -> Void) {
-        let db = Firestore.firestore()
-        db.collection("users").document(userID).collection("daily_check_in")
-          .order(by: "timestamp", descending: false)
-          .getDocuments { snapshot, error in
-            guard let documents = snapshot?.documents else {
-                print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error fetching data: \(error.localizedDescription)")
                 return
             }
             
-            var data: [Date: Int] = [:]
-            for document in documents {
-                if let timestamp = document.get("timestamp") as? Timestamp,
-                   let value = document.get(metric) as? Int {
-                    data[timestamp.dateValue()] = value
-                }
+            guard let data = data else {
+                print("No data returned")
+                return
             }
-            DispatchQueue.main.async {
-                completion(data)
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    if let chartData = json["chartData"] as? [String: Any],
+                       let pieData = chartData["pieChart"] as? [String: Any],
+                       let lineData = chartData["lineChart"] as? [String: [Double]],
+                       let barData = chartData["barChart"] as? [String: [Int]] {
+                        
+                        DispatchQueue.main.async {
+                            self.pieChartData = self.processPieChartData(pieData)
+                            self.lineChartData = lineData
+                            self.barChartData = barData
+                            
+                            self.moodData = self.processBarChartData(barData, for: "moodRating")
+                            self.waterData = self.processBarChartData(barData, for: "waterIntake")
+                            self.sleepData = self.processBarChartData(barData, for: "hoursOfSleep")
+                            self.stepData = self.processBarChartData(barData, for: "steps")
+                        }
+                    }
+                    
+                    if let summaryText = json["summary"] as? String {
+                        DispatchQueue.main.async {
+                            self.summary = summaryText
+                        }
+                    }
+                }
+            } catch {
+                print("Error parsing JSON: \(error.localizedDescription)")
+            }
+        }.resume()
+    }
+    
+    private func processPieChartData(_ data: [String: Any]) -> [String: Double] {
+        var result: [String: Double] = [:]
+        if let labels = data["labels"] as? [String], let values = data["values"] as? [Double] {
+            for (index, label) in labels.enumerated() {
+                result[label] = values[index]
             }
         }
+        return result
+    }
+    
+    private func processBarChartData(_ data: [String: [Int]], for metric: String) -> [Date: Int] {
+        var result: [Date: Int] = [:]
+        if let values = data[metric] {
+            for (index, value) in values.enumerated() {
+                let date = Date(timeIntervalSince1970: TimeInterval(index)) // Example date processing
+                result[date] = value
+            }
+        }
+        return result
     }
 }
 
@@ -861,61 +815,169 @@ struct CheckInDataArray {
 import SwiftUI
 import FirebaseFirestore
 
+
 struct CheckInView: View {
     @Binding var isPresented: Bool
     @EnvironmentObject var viewModel: AuthViewModel
-    @State var moodRating: Int = 3
+    @State var moodRating: Int = 5
     @State var waterIntake: Int = 0
-    @State var hoursOfSleep: Int = 8
+    @State var hoursOfSleep: Int = 0
     @State var steps: Int = 0
     @State var lastCheckInDates: [Date] = []
-
+    
+    let moodDescriptions = [
+        1: "Terrible",
+        2: "Very Bad",
+        3: "Bad",
+        4: "Somewhat Bad",
+        5: "Neutral",
+        6: "Somewhat Good",
+        7: "Good",
+        8: "Very Good",
+        9: "Great",
+        10: "Amazing"
+    ]
 
     var body: some View {
         NavigationView {
-            Form {
-                if viewModel.currentUser?.selectedWidgets.contains("Mood") == true {
-                    Section(header: Text("Mood Rating")) {
-                        Slider(value: Binding<Double>(get: {
-                            Double(moodRating)
-                        }, set: { (newValue) in
-                            moodRating = Int(newValue)
-                        }), in: 1...5, step: 1)
-                        Text("Current mood: \(moodRating)")
+            ScrollView {
+                VStack(spacing: 20) {
+                    Text("Answer these questions to complete your daily check-in!")
+                               .font(.title2)
+                               .fontWeight(.bold)
+                               .multilineTextAlignment(.center)
+                               .padding()
+                               .foregroundColor(.white)
+
+                    
+                    
+                    if viewModel.currentUser?.selectedWidgets.contains("Mood") == true {
+                        moodSection
+                    }
+                    if viewModel.currentUser?.selectedWidgets.contains("Water") == true {
+                        waterSection
+                    }
+                    if viewModel.currentUser?.selectedWidgets.contains("Sleep Tracker") == true {
+                        sleepSection
+                    }
+                    if viewModel.currentUser?.selectedWidgets.contains("Step Counter") == true {
+                        stepSection
                     }
                 }
-                if viewModel.currentUser?.selectedWidgets.contains("Water") == true {
-                    Section(header: Text("Water Intake (in liters)")) {
-                        Stepper(value: $waterIntake, in: 0...10) {
-                            Text("\(waterIntake) L")
-                        }
+                .padding(.horizontal, 20)
+            }
+            .background(Color("SentMessage")) // Background color for the ScrollView
+            .navigationBarItems(
+                leading: Button("Cancel") {
+                    isPresented = false
+                }.foregroundColor(.white),
+                trailing: Button("Save") {
+                    saveCheckInData()
+                    isPresented = false
+                }.foregroundColor(.white)
+            )
+            .navigationBarBackButtonHidden(true)
+        }
+        .background(Color("SentMessage")) // Background color for the Navigation View
+    }
+
+    var moodSection: some View {
+        Section {
+            VStack(alignment: .center, spacing: 8) {
+                Text("How would you rate your mood today?")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Slider(value: Binding<Double>(
+                    get: { Double(moodRating) },
+                    set: { newValue in moodRating = Int(newValue) }
+                ), in: 1...10, step: 1)
+                .accentColor(.white)
+                Text("Current mood: \(moodDescriptions[moodRating] ?? "")")
+            }
+            .frame(maxWidth: .infinity) // Ensure the width is consistent
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color("Navy Blue")))
+            .foregroundColor(.white)
+        }
+    }
+
+    var waterSection: some View {
+        Section {
+            VStack(alignment: .center, spacing: 8) {
+                Text("How much water did you drink today?")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                HStack(spacing: 20) {
+                    decrementButton(for: $waterIntake)
+                    VStack {
+                        Image(systemName: "drop.fill").font(.largeTitle)
+                        Text("\(waterIntake) L").font(.title)
                     }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Sleep Tracker") == true {
-                    Section(header: Text("Hours of Sleep")) {
-                        Stepper(value: $hoursOfSleep, in: 0...24) {
-                            Text("\(hoursOfSleep) hours")
-                        }
-                    }
-                }
-                if viewModel.currentUser?.selectedWidgets.contains("Step Counter") == true {
-                    Section(header: Text("Steps Taken")) {
-                        Text("\(steps) steps")
-                    }
+                    incrementButton(for: $waterIntake)
                 }
             }
-            .foregroundColor(.darkBlue)  // Set the dark blue color for all text inside the form
-            .navigationBarItems(leading: Button("Cancel") {
-                isPresented = false
-            }, trailing: Button("Save") {
-                saveCheckInData()
-                isPresented = false
-            })
-            .navigationBarTitle("Daily Check-In", displayMode: .inline)
+            .frame(maxWidth: .infinity) // Ensure the width is consistent
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color("Navy Blue")))
+            .foregroundColor(.white)
         }
-        .environment(\.colorScheme, .light)
-
     }
+
+    var sleepSection: some View {
+        Section {
+            VStack(alignment: .center, spacing: 8) {
+                Text("How much sleep did you get last night?")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                HStack(spacing: 20) {
+                    decrementButton(for: $hoursOfSleep)
+                    VStack {
+                        Image(systemName: "moon.zzz.fill").font(.largeTitle)
+                        Text("\(hoursOfSleep) hrs").font(.title)
+                    }
+                    incrementButton(for: $hoursOfSleep)
+                }
+            }
+            .frame(maxWidth: .infinity) // Ensure the width is consistent
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color("Navy Blue")))
+            .foregroundColor(.white)
+        }
+    }
+
+    var stepSection: some View {
+        Section {
+            VStack(alignment: .center, spacing: 8) {
+                Text("Steps Taken")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Text("\(steps) steps")
+                    .font(.title)
+            }
+            .frame(maxWidth: .infinity) // Ensure the width is consistent
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color("Navy Blue")))
+            .foregroundColor(.white)
+        }
+    }
+
+
+    func decrementButton(for binding: Binding<Int>) -> some View {
+        Button(action: {
+            if binding.wrappedValue > 0 { binding.wrappedValue -= 1 }
+        }) {
+            Image(systemName: "minus.circle").font(.largeTitle).foregroundColor(.iceBlue)
+        }
+    }
+
+    func incrementButton(for binding: Binding<Int>) -> some View {
+        Button(action: {
+            binding.wrappedValue += 1
+        }) {
+            Image(systemName: "plus.circle").font(.largeTitle).foregroundColor(.iceBlue)
+        }
+    }
+
     
     func fetchSteps() {
         guard let userID = viewModel.currentUser?.id else {
@@ -962,86 +1024,7 @@ struct CheckInView: View {
             }
         }
     }
-//    func saveCheckInData() {
-//        guard let userID = viewModel.currentUser?.id else { return }
-//        let db = Firestore.firestore()
-//        let today = Date()
-//        let userRef = db.collection("users").document(userID)
-//
-//        db.runTransaction({ (transaction, errorPointer) -> Any? in
-//            let userDocument: DocumentSnapshot
-//            do {
-//                try userDocument = transaction.getDocument(userRef)
-//            } catch let fetchError as NSError {
-//                errorPointer?.pointee = fetchError
-//                return nil
-//            }
-//
-//            var checkInDates = userDocument.data()?["checkInDates"] as? [Timestamp] ?? []
-//            // Add today's date if not already included
-//            if !checkInDates.contains(where: { Calendar.current.isDate($0.dateValue(), inSameDayAs: today) }) {
-//                checkInDates.append(Timestamp(date: today))
-//            }
-//
-//            transaction.updateData(["checkInDates": checkInDates], forDocument: userRef)
-//            return nil
-//        }) { (object, error) in
-//            if let error = error {
-//                print("Transaction failed: \(error)")
-//            } else {
-//                print("Transaction successfully committed!")
-//                self.lastCheckInDates.append(today)
-//            }
-//        }
-//    }
-
-//    func updateLastCheckIn(timestamp: Date) {
-//        guard let userID = viewModel.currentUser?.id else { return }
-//        let db = Firestore.firestore()
-//        let userRef = db.collection("users").document(userID)
-//
-//        userRef.getDocument { document, error in
-//            guard let document = document, error == nil else {
-//                print("Error fetching user data: \(error?.localizedDescription ?? "Unknown error")")
-//                return
-//            }
-//
-//            // Initialize or update the weeklyStatus array
-//            var weeklyStatus = document.get("weeklyStatus") as? [Int] ?? [0, 0, 0, 0, 0, 0, 0]
-//            let lastCheck = document.get("lastCheck") as? Timestamp
-//
-//            let calendar = Calendar.current
-//            let currentWeekOfYear = calendar.component(.weekOfYear, from: timestamp)
-//            let currentDayOfWeek = calendar.component(.weekday, from: timestamp)
-//
-//            // Calculate index (0-based, Monday as first day)
-//            let index = (currentDayOfWeek + 5) % 7  // Adjusting index since Sunday is 1 in Gregorian calendar
-//
-//            // Check if the last check-in was in the current week
-//            if let lastCheckDate = lastCheck?.dateValue(), calendar.component(.weekOfYear, from: lastCheckDate) == currentWeekOfYear {
-//                weeklyStatus[index] = 1  // Update only the current day
-//            } else {
-//                // Reset and update for the new week
-//                weeklyStatus = [0, 0, 0, 0, 0, 0, 0]
-//                weeklyStatus[index] = 1
-//            }
-//
-//            // Update Firestore
-//            userRef.updateData([
-//                "lastCheck": timestamp,
-//                "weeklyStatus": weeklyStatus
-//            ]) { error in
-//                if let error = error {
-//                    print("Error updating check-in data: \(error)")
-//                } else {
-//                    print("Check-in data updated successfully")
-//                }
-//                Task{
-//                    await viewModel.fetchUser()
-//                }
-//            }
-//        }
-//    }
+    
     func updateLastCheckIn(timestamp: Date) {
         guard let userID = viewModel.currentUser?.id else { return }
         let db = Firestore.firestore()

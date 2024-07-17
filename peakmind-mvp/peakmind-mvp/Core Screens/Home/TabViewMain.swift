@@ -13,24 +13,16 @@ struct TabViewMain: View {
             ZStack {
                 // Main content with tabs
                 TabView(selection: $selectedTab) {
-                    if user.completedLevels.contains("10") {
-                        Level2MapView().environmentObject(viewModel)
+                    TestView().environmentObject(viewModel)
                             .tabItem {
-                                Label("Phase 2", systemImage: "map.fill")
+                                Label("Map", systemImage: "map.fill")
                             }
                             .tag(0)
-                    } else {
-                        LevelOneMapView().environmentObject(viewModel)
-                            .tabItem {
-                                Label("Phase 1", systemImage: "map.fill")
+                            .overlay {
+                                if !user.hasCompletedInitialQuiz {
+                                    quizPromptOverlay
+                                }
                             }
-                            .tag(0)
-                                                    .overlay {
-                                                        if !user.hasCompletedInitialQuiz {
-                                                            quizPromptOverlay
-                                                        }
-                                                    }
-                    }
 
                     SelfCareHome()
                         .tabItem {

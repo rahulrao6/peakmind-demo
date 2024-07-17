@@ -14,9 +14,19 @@
 		102F1B902BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */; };
 		102F1B912BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */; };
 		102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */; };
+		103D86392C2B8F3F0078A45B /* Confetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103D86382C2B8F3F0078A45B /* Confetti.swift */; };
+		103D863C2C2B91FE0078A45B /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */; };
 		10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95442BEDCEA80092EE29 /* TimerView.swift */; };
 		10CE95472BEDCF9E0092EE29 /* ScenarioQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95462BEDCF9E0092EE29 /* ScenarioQuizView.swift */; };
 		10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95482BEDD9380092EE29 /* CurrentToNewHabits.swift */; };
+		10CE960A2BF7DC4C0092EE29 /* ResilienceChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE96092BF7DC4C0092EE29 /* ResilienceChecklistView.swift */; };
+		10CE96102C02953B0092EE29 /* LevelMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE960F2C02953B0092EE29 /* LevelMapView.swift */; };
+		10CE96152C0297CF0092EE29 /* Glur in Frameworks */ = {isa = PBXBuildFile; productRef = 10CE96142C0297CF0092EE29 /* Glur */; };
+		10CE96172C02B8260092EE29 /* LevelMapUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE96162C02B8260092EE29 /* LevelMapUtil.swift */; };
+		10CE96192C04148A0092EE29 /* NewLevelOneMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE96182C04148A0092EE29 /* NewLevelOneMapView.swift */; };
+		10CE961B2C0415180092EE29 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE961A2C0415180092EE29 /* TestView.swift */; };
+		10CE961D2C0415F80092EE29 /* MapScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE961C2C0415F80092EE29 /* MapScene.swift */; };
+		10CE961F2C0547FC0092EE29 /* VariableBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE961E2C0547FC0092EE29 /* VariableBlur.swift */; };
 		10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D5593C2BC379C700CAC269 /* Minigame2View.swift */; };
 		10D5593F2BC44C0000CAC269 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 10D5593E2BC44C0000CAC269 /* words.txt */; };
 		10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */; };
@@ -236,9 +246,17 @@
 		102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MuscleRelaxationView.swift; path = "../../../Game Level Screens/Level 1/James/MuscleRelaxationView.swift"; sourceTree = "<group>"; };
 		102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdMuscleExerciseEncoded.mov; sourceTree = "<group>"; };
 		102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsQuizView.swift; sourceTree = "<group>"; };
+		103D86382C2B8F3F0078A45B /* Confetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Confetti.swift; sourceTree = "<group>"; };
 		10CE95442BEDCEA80092EE29 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		10CE95462BEDCF9E0092EE29 /* ScenarioQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioQuizView.swift; sourceTree = "<group>"; };
 		10CE95482BEDD9380092EE29 /* CurrentToNewHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentToNewHabits.swift; sourceTree = "<group>"; };
+		10CE96092BF7DC4C0092EE29 /* ResilienceChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResilienceChecklistView.swift; sourceTree = "<group>"; };
+		10CE960F2C02953B0092EE29 /* LevelMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMapView.swift; sourceTree = "<group>"; };
+		10CE96162C02B8260092EE29 /* LevelMapUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMapUtil.swift; sourceTree = "<group>"; };
+		10CE96182C04148A0092EE29 /* NewLevelOneMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLevelOneMapView.swift; sourceTree = "<group>"; };
+		10CE961A2C0415180092EE29 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		10CE961C2C0415F80092EE29 /* MapScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScene.swift; sourceTree = "<group>"; };
+		10CE961E2C0547FC0092EE29 /* VariableBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableBlur.swift; sourceTree = "<group>"; };
 		10D5593C2BC379C700CAC269 /* Minigame2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minigame2View.swift; sourceTree = "<group>"; };
 		10D5593E2BC44C0000CAC269 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
 		10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseView.swift; sourceTree = "<group>"; };
@@ -418,8 +436,10 @@
 				1CF4C41E2B7B1DD50028BC3C /* FirebaseAuthCombine-Community in Frameworks */,
 				1CF4C4422B7B1DD60028BC3C /* FirebaseStorage in Frameworks */,
 				1CF4C4342B7B1DD50028BC3C /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
+				10CE96152C0297CF0092EE29 /* Glur in Frameworks */,
 				1CF4C4262B7B1DD50028BC3C /* FirebaseDynamicLinks in Frameworks */,
 				1CF4C42A2B7B1DD50028BC3C /* FirebaseFirestoreCombine-Community in Frameworks */,
+				103D863C2C2B91FE0078A45B /* ConfettiSwiftUI in Frameworks */,
 				1CF4C4362B7B1DD50028BC3C /* FirebaseInstallations in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,7 +481,15 @@
 			path = James;
 			sourceTree = "<group>";
 		};
-		1C480FB32C20B567002B19A0 /* WidgetKit */ = {
+		10CE96082BF7DC070092EE29 /* James */ = {
+			isa = PBXGroup;
+			children = (
+				10CE96092BF7DC4C0092EE29 /* ResilienceChecklistView.swift */,
+			);
+			path = James;
+			sourceTree = "<group>";
+		};
+		10D5593B2BC379B200CAC269 /* Minigames */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -840,6 +868,7 @@
 		793B79A82BAF8479001062DB /* Level 4 */ = {
 			isa = PBXGroup;
 			children = (
+				10CE96082BF7DC070092EE29 /* James */,
 			);
 			path = "Level 4";
 			sourceTree = "<group>";
@@ -947,6 +976,13 @@
 			children = (
 				79C383F42BC8749700A6779A /* LevelOneMapView.swift */,
 				797B4C422BDC06BC00A3A25D /* Level2MapView.swift */,
+				10CE960F2C02953B0092EE29 /* LevelMapView.swift */,
+				10CE96162C02B8260092EE29 /* LevelMapUtil.swift */,
+				10CE96182C04148A0092EE29 /* NewLevelOneMapView.swift */,
+				10CE961A2C0415180092EE29 /* TestView.swift */,
+				10CE961C2C0415F80092EE29 /* MapScene.swift */,
+				10CE961E2C0547FC0092EE29 /* VariableBlur.swift */,
+				103D86382C2B8F3F0078A45B /* Confetti.swift */,
 			);
 			path = "Level Maps";
 			sourceTree = "<group>";
@@ -1065,6 +1101,8 @@
 				1CF4C4432B7B1DD60028BC3C /* FirebaseStorageCombine-Community */,
 				1CF4A8982B8309CD00051684 /* GoogleSignIn */,
 				1CF4A89A2B8309CD00051684 /* GoogleSignInSwift */,
+				10CE96142C0297CF0092EE29 /* Glur */,
+				103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */,
 			);
 			productName = "peakmind-mvp";
 			productReference = 1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */;
@@ -1141,6 +1179,8 @@
 			packageReferences = (
 				1CF4C40D2B7B1DBB0028BC3C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				10CE96132C0297CF0092EE29 /* XCRemoteSwiftPackageReference "Glur" */,
+				103D863A2C2B91FE0078A45B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = 1CF4C3DF2B7B15E10028BC3C /* Products */;
 			projectDirPath = "";
@@ -1195,6 +1235,7 @@
 			files = (
 				10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */,
 				79C383FA2BD60E0000A6779A /* P1-1_Intro.swift in Sources */,
+				10CE96102C02953B0092EE29 /* LevelMapView.swift in Sources */,
 				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
@@ -1220,6 +1261,7 @@
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
 				79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
+				10CE96172C02B8260092EE29 /* LevelMapUtil.swift in Sources */,
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				79C384322BD6101F00A6779A /* P2-14_Reflection.swift in Sources */,
 				79069CF42BDA0EF300AB52DC /* GlowingBackground.swift in Sources */,
@@ -1275,6 +1317,7 @@
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
 				79C8543D2BF03D18003C918E /* UserProfileView.swift in Sources */,
 				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
+				10CE961D2C0415F80092EE29 /* MapScene.swift in Sources */,
 				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
 				79C383FE2BD60E4200A6779A /* P1-3_EmotionsScenario.swift in Sources */,
 				79C384262BD60FD400A6779A /* P2-8_4Sliders.swift in Sources */,
@@ -1301,6 +1344,7 @@
 				792617862BD70C2000AAAC81 /* ScenarioTemplate.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
 				79C384242BD60FC800A6779A /* P2-7_ExperienceQ.swift in Sources */,
+				10CE960A2BF7DC4C0092EE29 /* ResilienceChecklistView.swift in Sources */,
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
 				1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */,
@@ -1313,6 +1357,7 @@
 				79C384122BD60F0D00A6779A /* P1-13_BodyScan.swift in Sources */,
 				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
 				10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */,
+				103D86392C2B8F3F0078A45B /* Confetti.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */,
@@ -1321,11 +1366,15 @@
 				10CE95472BEDCF9E0092EE29 /* ScenarioQuizView.swift in Sources */,
 				79C384102BD60F0100A6779A /* P1-12_LifestyleQuestion.swift in Sources */,
 				7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */,
+				10CE96192C04148A0092EE29 /* NewLevelOneMapView.swift in Sources */,
 				797B4C432BDC06BC00A3A25D /* Level2MapView.swift in Sources */,
 				1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */,
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				1CD029F72BE9E7200047951D /* Tutorial.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
+				798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */,
+				10CE961B2C0415180092EE29 /* TestView.swift in Sources */,
+				10CE961F2C0547FC0092EE29 /* VariableBlur.swift in Sources */,
 				79C384222BD60FA100A6779A /* P2-6_AnxietyModule.swift in Sources */,
 				10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */,
 				79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */,
@@ -1497,13 +1546,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.08;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
-				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
+				DEVELOPMENT_TEAM = 9UMCCFSYB9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PeakMind;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please share your AppleHealthKit data with us so we can give you the best possible ideas. ";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Our app needs access to your health data to properly update analytics that are used for personalization. ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1545,6 +1595,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = PeakMind;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please share your AppleHealthKit data with us so we can give you the best possible ideas. ";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Our app needs access to your health data to properly update analytics that are used for personalization. ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1682,6 +1733,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		103D863A2C2B91FE0078A45B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+		10CE96132C0297CF0092EE29 /* XCRemoteSwiftPackageReference "Glur" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/joogps/Glur";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
 		1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -1701,6 +1768,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 103D863A2C2B91FE0078A45B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
+		10CE96142C0297CF0092EE29 /* Glur */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 10CE96132C0297CF0092EE29 /* XCRemoteSwiftPackageReference "Glur" */;
+			productName = Glur;
+		};
 		1CF4A8982B8309CD00051684 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;

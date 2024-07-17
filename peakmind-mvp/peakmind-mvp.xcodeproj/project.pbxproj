@@ -111,6 +111,7 @@
 		79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CF12BDA0E9000AB52DC /* InteractiveVIewModel.swift */; };
 		79069CF42BDA0EF300AB52DC /* GlowingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CF32BDA0EF300AB52DC /* GlowingBackground.swift */; };
 		79069D002BDA38BA00AB52DC /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CFF2BDA38BA00AB52DC /* Widget.swift */; };
+		790F17502C45D9870071B34B /* PPContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F174F2C45D9870071B34B /* PPContentView.swift */; };
 		791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */; };
 		791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F92BA7C5A00094A688 /* ConfettiView.swift */; };
 		792617822BD70BF400AAAC81 /* L1ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617812BD70BF400AAAC81 /* L1ScenarioQuiz.swift */; };
@@ -314,6 +315,7 @@
 		79069CF32BDA0EF300AB52DC /* GlowingBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlowingBackground.swift; sourceTree = "<group>"; };
 		79069CFA2BDA152A00AB52DC /* pkmdBoxBreathingEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdBoxBreathingEncoded.mov; sourceTree = "<group>"; };
 		79069CFF2BDA38BA00AB52DC /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
+		790F174F2C45D9870071B34B /* PPContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPContentView.swift; sourceTree = "<group>"; };
 		791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedPlanNew.swift; sourceTree = "<group>"; };
 		791AC8F92BA7C5A00094A688 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		792617812BD70BF400AAAC81 /* L1ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1ScenarioQuiz.swift; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 			isa = PBXGroup;
 			children = (
 				791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */,
+				790F174F2C45D9870071B34B /* PPContentView.swift */,
 			);
 			path = "Personalized Plan";
 			sourceTree = "<group>";
@@ -1308,6 +1311,7 @@
 				79C384282BD60FDE00A6779A /* P2-9_GoalSetting.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */,
+				790F17502C45D9870071B34B /* PPContentView.swift in Sources */,
 				79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */,
 				79C384182BD60F5300A6779A /* P2-1_Intro.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,

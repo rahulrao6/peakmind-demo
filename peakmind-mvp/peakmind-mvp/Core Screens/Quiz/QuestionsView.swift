@@ -281,7 +281,7 @@ struct QuestionsView: View {
     }
 }
 
-struct QuestionsView_Previews: PreviewProvider {
+/*struct QuestionsView_Previews: PreviewProvider {
     static var previews: some View {
         // Example questions
         let exampleQuestions = [
@@ -334,3 +334,4 @@ struct QuestionsView_Previews: PreviewProvider {
         QuestionsView(questions: exampleQuestions)
     }
 }
+*/

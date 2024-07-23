@@ -6,6 +6,8 @@ struct MessageView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var messagesViewModel: MessagesViewModel
     var chatId: String
+    var userName: String
+    var userProfileImage: String
     
     @State private var messageText = ""
     
@@ -18,12 +20,12 @@ struct MessageView: View {
             VStack {
                 VStack {
                     HStack {
-                        Image("RajIcon")
+                        Image(userProfileImage)
                             .resizable()
                             .frame(width: 50, height: 50)
                             .clipShape(Circle())
                         
-                        Text("RajDaGoat")
+                        Text(userName)
                             .font(.system(size: 22, weight: .bold, design: .default))
                         
                         Spacer()
@@ -99,7 +101,7 @@ struct MessageView: View {
 
 struct MessageView_Previews: PreviewProvider {
     static var previews: some View {
-        MessageView(chatId: "sampleChatId")
+        MessageView(chatId: "sampleChatId", userName: "SampleUser", userProfileImage: "RajIcon")
             .environmentObject(AuthViewModel())
             .environmentObject(MessagesViewModel())
     }

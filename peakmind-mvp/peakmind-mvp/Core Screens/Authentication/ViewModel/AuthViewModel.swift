@@ -420,7 +420,8 @@ class AuthViewModel: ObservableObject {
                     hasCompletedTutorial: false,
                     completedLevels: [],
                     completedLevels2: [],
-                    dailyCheckInStreak: 0
+                    dailyCheckInStreak: 0,
+                    bio: ""
                 )
                 do {
                     try self.db.collection("users").document(user.uid).setData(from: userData)
@@ -519,7 +520,8 @@ class AuthViewModel: ObservableObject {
                     hasCompletedTutorial: false,
                     completedLevels: [],
                     completedLevels2: [],
-                    dailyCheckInStreak: 0
+                    dailyCheckInStreak: 0,
+                    bio: ""
                 )
                 do {
                     try self.db.collection("users").document(user.uid).setData(from: userData)
@@ -731,7 +733,46 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
- 
+    
+    func updateBio(newBio: String) {
+        guard let userId = currentUser?.id else { return }
+        let userRef = db.collection("users").document(userId)
+        
+        userRef.updateData(["bio": newBio]) { error in
+            if let error = error {
+                print("Error updating bio: \(error.localizedDescription)")
+            } else {
+                self.currentUser?.bio = newBio
+                print("Bio updated successfully")
+            }
+        }
+    }
+    
+    func fetchFollowing(completion: @escaping ([UserData]) -> Void) {
+        guard let currentUser = currentUser else { return }
+        db.collection("users").whereField("id", in: currentUser.friends).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching following: \(error.localizedDescription)")
+                completion([])
+            } else {
+                let following = snapshot?.documents.compactMap { try? $0.data(as: UserData.self) } ?? []
+                completion(following)
+            }
+        }
+    }
+
+    func fetchFollowers(completion: @escaping ([UserData]) -> Void) {
+        guard let currentUser = currentUser else { return }
+        db.collection("users").whereField("friends", arrayContains: currentUser.id ?? "").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching followers: \(error.localizedDescription)")
+                completion([])
+            } else {
+                let followers = snapshot?.documents.compactMap { try? $0.data(as: UserData.self) } ?? []
+                completion(followers)
+            }
+        }
+    }
 
 
 }

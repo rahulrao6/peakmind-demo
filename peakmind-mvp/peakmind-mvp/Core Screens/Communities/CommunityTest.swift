@@ -265,10 +265,10 @@ struct CommunitiesMainView2: View {
                         .padding(.top, -5)
                         .padding(.bottom, 5)
                         .multilineTextAlignment(.center)
-                    MyCommunitiesSection2().environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
-                    TopCommunitiesSection().environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
+                    MyCommunitiesSection2(title: "My Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
+                    MyCommunitiesSection2(title: "Top Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
                         .padding(.top, 0)
-                    RecommendedCommunitiesSection().environmentObject(CommunitiesViewModel)
+                    //MyCommunitiesSection2(title: "Recommended Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
                 }
             }
             .background(
@@ -288,12 +288,14 @@ struct CommunitiesMainView2: View {
 }
 
 struct MyCommunitiesSection2: View {
+    var title: String
+
     @EnvironmentObject var viewModel: CommunitiesViewModel
     @EnvironmentObject var AuthviewModel: AuthViewModel
 
     var body: some View {
         VStack(spacing: 5) {
-            SectionTitle(title: "My Communities")
+            SectionTitle(title: title)
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: [GridItem(.fixed(100)), GridItem(.fixed(100))], spacing: 10) {
                     ForEach(viewModel.filteredCommunities) { community in

@@ -57,6 +57,7 @@
 		1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */; };
 		1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA2562BCDB6EB003C844C /* UserData.swift */; };
 		1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */; };
+		1CA15D132C4FE8A400391AE9 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */; };
 		1CA25E322BFFEF6A004B0AD2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA25E312BFFEF6A004B0AD2 /* Message.swift */; };
 		1CA25E342C05381E004B0AD2 /* CommunityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA25E332C05381E004B0AD2 /* CommunityTest.swift */; };
 		1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1F5C82B89706900AC9B77 /* ChatView.swift */; };
@@ -426,6 +427,7 @@
 				1CF4C4402B7B1DD50028BC3C /* FirebaseRemoteConfigSwift in Frameworks */,
 				1CF4A8992B8309CD00051684 /* GoogleSignIn in Frameworks */,
 				1CF4C4202B7B1DD50028BC3C /* FirebaseCrashlytics in Frameworks */,
+				1CA15D132C4FE8A400391AE9 /* FirebaseVertexAI-Preview in Frameworks */,
 				1CF4C4322B7B1DD50028BC3C /* FirebaseInAppMessaging-Beta in Frameworks */,
 				1CF4C4242B7B1DD50028BC3C /* FirebaseDatabaseSwift in Frameworks */,
 				1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */,
@@ -1095,6 +1097,7 @@
 				1CF4A89A2B8309CD00051684 /* GoogleSignInSwift */,
 				10CE96142C0297CF0092EE29 /* Glur */,
 				103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */,
+				1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */,
 			);
 			productName = "peakmind-mvp";
 			productReference = 1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */;
@@ -1777,6 +1780,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 10CE96132C0297CF0092EE29 /* XCRemoteSwiftPackageReference "Glur" */;
 			productName = Glur;
+		};
+		1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CF4C40D2B7B1DBB0028BC3C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseVertexAI-Preview";
 		};
 		1CF4A8982B8309CD00051684 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

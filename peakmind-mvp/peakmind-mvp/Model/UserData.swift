@@ -57,6 +57,8 @@ struct UserData: Identifiable, Codable {
     var completedLevels: [String]
     var completedLevels2: [String]
     var dailyCheckInStreak: Int
+    var bio: String
+
 
     var initials: String {
         let formatter = PersonNameComponentsFormatter()

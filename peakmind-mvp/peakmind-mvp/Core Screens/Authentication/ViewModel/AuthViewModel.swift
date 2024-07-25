@@ -343,6 +343,10 @@ class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: UserData?
     @Published var isSignedIn: Bool = false
+    @Published var questions: [PPQuestion] = []
+    @Published var answers: [PPAnswer] = []
+
+
 //    @Published var communitiesViewModel = CommunitiesViewModel()
     @Published var authErrorMessage: String? // New property for error messages
 
@@ -402,27 +406,7 @@ class AuthViewModel: ObservableObject {
                 return
             }
             if let user = result?.user {
-                let userData = UserData(
-                    id: user.uid,
-                    email: email,
-                    username: username,
-                    selectedAvatar: "",
-                    selectedBackground: "",
-                    hasCompletedInitialQuiz: false,
-                    hasSetInitialAvatar: false,
-                    inventory: [],
-                    friends: [user.uid],
-                    LevelOneCompleted: false,
-                    LevelTwoCompleted: false,
-                    selectedWidgets: [],
-                    lastCheck: nil,
-                    weeklyStatus: [0, 0, 0, 0, 0, 0, 0],
-                    hasCompletedTutorial: false,
-                    completedLevels: [],
-                    completedLevels2: [],
-                    dailyCheckInStreak: 0,
-                    bio: ""
-                )
+                let userData = self.getDefaultUserData(id: user.uid, email: email, username: username)
                 do {
                     try self.db.collection("users").document(user.uid).setData(from: userData)
                     self.currentUser = userData
@@ -493,8 +477,9 @@ class AuthViewModel: ObservableObject {
             if let document = document, document.exists {
                 do {
                     print("trying to decode")
-                    self.currentUser = try document.data(as: UserData.self)
+                    var fetchedUserData = try document.data(as: UserData.self)
                     print("decoded")
+                    self.currentUser = self.validateAndFixUserData(fetchedUserData)
                     self.isSignedIn = true
                     print(self.currentUser)
 
@@ -502,27 +487,7 @@ class AuthViewModel: ObservableObject {
                     print("Error decoding user data this is number 2: \(error.localizedDescription)")
                 }
             } else {
-                let userData = UserData(
-                    id: user.uid,
-                    email: user.email ?? "",
-                    username: user.email ?? "User",
-                    selectedAvatar: "",
-                    selectedBackground: "",
-                    hasCompletedInitialQuiz: false,
-                    hasSetInitialAvatar: false,
-                    inventory: [], 
-                    friends: [user.uid],
-                    LevelOneCompleted: false,
-                    LevelTwoCompleted: false,
-                    selectedWidgets: [],
-                    lastCheck: nil,
-                    weeklyStatus: [0,0,0,0,0,0,0],
-                    hasCompletedTutorial: false,
-                    completedLevels: [],
-                    completedLevels2: [],
-                    dailyCheckInStreak: 0,
-                    bio: ""
-                )
+                let userData = self.getDefaultUserData(id: user.uid, email: email ?? "", username: email ?? "User")
                 do {
                     try self.db.collection("users").document(user.uid).setData(from: userData)
                     self.currentUser = userData
@@ -773,6 +738,155 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+
+    func validateAndFixUserData(_ userData: UserData) -> UserData {
+          var fixedUserData = userData
+          let defaultUserData = getDefaultUserData(id: userData.id, email: userData.email, username: userData.username)
+          
+          if userData.selectedAvatar.isEmpty {
+              fixedUserData.selectedAvatar = defaultUserData.selectedAvatar
+          }
+          if userData.selectedBackground.isEmpty {
+              fixedUserData.selectedBackground = defaultUserData.selectedBackground
+          }
+          if userData.inventory.isEmpty {
+              fixedUserData.inventory = defaultUserData.inventory
+          }
+          if userData.friends.isEmpty {
+              fixedUserData.friends = defaultUserData.friends
+          }
+          if userData.selectedWidgets.isEmpty {
+              fixedUserData.selectedWidgets = defaultUserData.selectedWidgets
+          }
+          if userData.weeklyStatus.isEmpty {
+              fixedUserData.weeklyStatus = defaultUserData.weeklyStatus
+          }
+          if userData.completedLevels.isEmpty {
+              fixedUserData.completedLevels = defaultUserData.completedLevels
+          }
+          if userData.completedLevels2.isEmpty {
+              fixedUserData.completedLevels2 = defaultUserData.completedLevels2
+          }
+          if userData.bio.isEmpty {
+              fixedUserData.bio = defaultUserData.bio
+          }
+
+          // Update Firestore document if needed
+          let userRef = db.collection("users").document(userData.id)
+          do {
+              try userRef.setData(from: fixedUserData, merge: true)
+          } catch {
+              print("Error updating user data: \(error.localizedDescription)")
+          }
+          
+          return fixedUserData
+      }
+
+      func getDefaultUserData(id: String, email: String, username: String) -> UserData {
+          return UserData(
+              id: id,
+              email: email,
+              username: username,
+              selectedAvatar: "",
+              selectedBackground: "",
+              hasCompletedInitialQuiz: false,
+              hasSetInitialAvatar: false,
+              inventory: [],
+              friends: [id],
+              LevelOneCompleted: false,
+              LevelTwoCompleted: false,
+              selectedWidgets: [],
+              lastCheck: nil,
+              weeklyStatus: [0, 0, 0, 0, 0, 0, 0],
+              hasCompletedTutorial: false,
+              completedLevels: [],
+              completedLevels2: [],
+              dailyCheckInStreak: 0,
+              bio: ""
+          )
+      }
+    
+    func savePersonalizedPlan(plan: PPPlan, answers: [PPAnswer]) {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+
+        let planData: [String: Any] = [
+            "userId": userId,
+            "planId": plan.id.uuidString,
+            "planTitle": plan.title,
+            "planDescription": plan.description,
+            "timestamp": Timestamp()
+        ]
+
+        db.collection("new_personalized_plan").document(userId).setData(planData) { error in
+            if let error = error {
+                print("Error saving personalized plan: \(error.localizedDescription)")
+            } else {
+                print("Personalized plan saved successfully.")
+                self.saveAnswers(answers: answers)
+            }
+        }
+    }
+    
+    func fetchQuestions() {
+        db.collection("personalized_plan_questions").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching questions: \(error.localizedDescription)")
+                return
+            }
+
+            guard let documents = snapshot?.documents else {
+                print("No documents found")
+                return
+            }
+
+            self.questions = documents.compactMap { doc -> PPQuestion? in
+                return try? doc.data(as: PPQuestion.self)
+            }
+            
+            self.initializeAnswers()
+        }
+    }
+    
+    private func initializeAnswers() {
+        self.answers = self.questions.map { PPAnswer(questionId: $0.id ?? "", answer: 0, followUpAnswer: "") }
+    }
+
+    func saveAnswers(answers: [PPAnswer]) {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        let batch = db.batch()
+        let answersRef = db.collection("users").document(userId).collection("answers")
+        
+        for answer in answers {
+            let answerData: [String: Any] = [
+                "questionId": answer.questionId,
+                "answer": answer.answer,
+                "followUpAnswer": answer.followUpAnswer,
+                "timestamp": Timestamp()
+            ]
+            batch.setData(answerData, forDocument: answersRef.document(answer.id.uuidString))
+        }
+        
+        batch.commit { error in
+            if let error = error {
+                print("Error saving answers: \(error.localizedDescription)")
+            } else {
+                print("Answers saved successfully.")
+            }
+        }
+    }
+    
+//    func saveQuestions() {
+//        let questionsRef = db.collection("personalized_plan_questions")
+//
+//        for question in ppQuestions {
+//            do {
+//                try questionsRef.document("\(question.id)").setData(from: question)
+//            } catch let error {
+//                print("Error writing question to Firestore: \(error)")
+//            }
+//        }
+//    }
 
 
 }

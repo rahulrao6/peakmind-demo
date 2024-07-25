@@ -270,7 +270,8 @@
 //}
 
 
-//-------------------------------------------------Redesign--------------------------------------------------------------
+//-------------------------------------------------Redesign by Zak--------------------------------------------------------------
+
 
 import SwiftUI
 import GoogleSignInSwift
@@ -309,18 +310,31 @@ struct LoginView: View {
 
                 // Form fields
                 VStack(spacing: 16) {
-                    TextField(" ", text: $email)
-                        .placeholderStyle(placeholder: " Email Address", placeholderColor: .black, text: $email)
-                        .cornerRadius(10)
-                        .background(Color.clear.opacity(0))
-                        .autocapitalization(.sentences)
-                        .padding(.horizontal, 16)
+                    ZStack(alignment: .leading) {
+                        if email.isEmpty {
+                            Text("     Email Address")
+                                .foregroundColor(.gray)
+                                .padding(.leading, 5)
+                        }
+                        TextField("", text: $email)
+                            .padding(10)
+                            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.mediumBlue, lineWidth: 1))
+                            .autocapitalization(.none)
+                            .padding(.horizontal, 16)
+                    }
 
-                    SecureField(" ", text: $password)
-                        .placeholderStyle(placeholder: " Password", placeholderColor: .black, text: $password)
-                        .background(Color.clear.opacity(0))
-                        .cornerRadius(10)
-                        .padding(.horizontal, 16)
+                    ZStack(alignment: .leading) {
+                        if password.isEmpty {
+                            Text("     Password")
+                                .foregroundColor(.gray)
+                                .padding(.leading, 5)
+                        }
+                        SecureField("", text: $password)
+                            .padding(10)
+                            .background(RoundedRectangle(cornerRadius: 10).stroke(Color.mediumBlue, lineWidth: 1))
+                            .autocapitalization(.none)
+                            .padding(.horizontal, 16)
+                    }
 
                     NavigationLink {
                         ResetPasswordView()
@@ -373,7 +387,6 @@ struct LoginView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
-                            // Text("Sign in with Google")
                                 .foregroundColor(.black)
                                 .font(.system(size: 16))
                         }
@@ -440,5 +453,4 @@ extension LoginView: AuthenticationFormProtocol {
 #Preview {
     LoginView().environmentObject(AuthViewModel())
 }
-
 

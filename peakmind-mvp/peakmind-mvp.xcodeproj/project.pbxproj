@@ -37,6 +37,7 @@
 		10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		10FA68812BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
+		19F895C52C5059F900C5D6E6 /* ViewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F895C42C5059F900C5D6E6 /* ViewMod.swift */; };
 		1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */; };
 		1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */; };
 		1C53A42B2C254E9F00B27C23 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A42A2C254E9F00B27C23 /* MessageView.swift */; };
@@ -57,8 +58,10 @@
 		1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */; };
 		1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA2562BCDB6EB003C844C /* UserData.swift */; };
 		1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */; };
+		1CA15D132C4FE8A400391AE9 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */; };
 		1CA25E322BFFEF6A004B0AD2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA25E312BFFEF6A004B0AD2 /* Message.swift */; };
 		1CA25E342C05381E004B0AD2 /* CommunityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA25E332C05381E004B0AD2 /* CommunityTest.swift */; };
+		1CBBE30D2C517D3C006EFD6A /* NewPPContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CBBE30C2C517D3C006EFD6A /* NewPPContentView.swift */; };
 		1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1F5C82B89706900AC9B77 /* ChatView.swift */; };
 		1CD029F72BE9E7200047951D /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD029F62BE9E7200047951D /* Tutorial.swift */; };
 		1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */; };
@@ -265,6 +268,7 @@
 		10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3IntroView.swift; sourceTree = "<group>"; };
 		10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitUIView.swift; sourceTree = "<group>"; };
 		10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdTriangleEncoded.mov; sourceTree = "<group>"; };
+		19F895C42C5059F900C5D6E6 /* ViewMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMod.swift; sourceTree = "<group>"; };
 		1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1C480FEE2C21387F002B19A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 		1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		1CA25E312BFFEF6A004B0AD2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		1CA25E332C05381E004B0AD2 /* CommunityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTest.swift; sourceTree = "<group>"; };
+		1CBBE30C2C517D3C006EFD6A /* NewPPContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPPContentView.swift; sourceTree = "<group>"; };
 		1CC1F5C82B89706900AC9B77 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		1CD029F62BE9E7200047951D /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsFlavorView.swift; sourceTree = "<group>"; };
@@ -430,6 +435,7 @@
 				1CF4C4402B7B1DD50028BC3C /* FirebaseRemoteConfigSwift in Frameworks */,
 				1CF4A8992B8309CD00051684 /* GoogleSignIn in Frameworks */,
 				1CF4C4202B7B1DD50028BC3C /* FirebaseCrashlytics in Frameworks */,
+				1CA15D132C4FE8A400391AE9 /* FirebaseVertexAI-Preview in Frameworks */,
 				1CF4C4322B7B1DD50028BC3C /* FirebaseInAppMessaging-Beta in Frameworks */,
 				1CF4C4242B7B1DD50028BC3C /* FirebaseDatabaseSwift in Frameworks */,
 				1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */,
@@ -491,6 +497,25 @@
 				10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */,
 			);
 			path = James;
+			sourceTree = "<group>";
+		};
+		19F895C02C5041E300C5D6E6 /* Redesigns */ = {
+			isa = PBXGroup;
+			children = (
+				19F895C32C5059D800C5D6E6 /* LoginRedesign */,
+			);
+			path = Redesigns;
+			sourceTree = "<group>";
+		};
+		19F895C32C5059D800C5D6E6 /* LoginRedesign */ = {
+			isa = PBXGroup;
+			children = (
+				10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */,
+				10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */,
+				10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */,
+				10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */,
+			);
+			path = LoginRedesign;
 			sourceTree = "<group>";
 		};
 		1C53A4272C254CD100B27C23 /* Messages */ = {
@@ -611,6 +636,7 @@
 		1C9C63D22B8147730066AF70 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				19F895C42C5059F900C5D6E6 /* ViewMod.swift */,
 				1C9C63D32B8147C70066AF70 /* AuthViewModel.swift */,
 			);
 			path = ViewModel;
@@ -660,6 +686,7 @@
 		1CF4C3D52B7B15E10028BC3C = {
 			isa = PBXGroup;
 			children = (
+				19F895C02C5041E300C5D6E6 /* Redesigns */,
 				1CF4C3E02B7B15E10028BC3C /* peakmind-mvp */,
 				1CF4C3F12B7B15E40028BC3C /* peakmind-mvpTests */,
 				1CF4C3FB2B7B15E50028BC3C /* peakmind-mvpUITests */,
@@ -891,6 +918,7 @@
 			children = (
 				791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */,
 				790F174F2C45D9870071B34B /* PPContentView.swift */,
+				1CBBE30C2C517D3C006EFD6A /* NewPPContentView.swift */,
 			);
 			path = "Personalized Plan";
 			sourceTree = "<group>";
@@ -1101,6 +1129,7 @@
 				1CF4A89A2B8309CD00051684 /* GoogleSignInSwift */,
 				10CE96142C0297CF0092EE29 /* Glur */,
 				103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */,
+				1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */,
 			);
 			productName = "peakmind-mvp";
 			productReference = 1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */;
@@ -1179,6 +1208,7 @@
 				1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				10CE96132C0297CF0092EE29 /* XCRemoteSwiftPackageReference "Glur" */,
 				103D863A2C2B91FE0078A45B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+				1973F32F2C4DEFE900EDC29F /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 1CF4C3DF2B7B15E10028BC3C /* Products */;
 			projectDirPath = "";
@@ -1339,6 +1369,7 @@
 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
 				792617842BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift in Sources */,
 				79C384062BD60EAC00A6779A /* P1-5_StressTriggerMap.swift in Sources */,
+				19F895C52C5059F900C5D6E6 /* ViewMod.swift in Sources */,
 				1CD299C22BBA5E4E003A0592 /* Level2Complete.swift in Sources */,
 				79C3841C2BD60F7300A6779A /* P2-3_DefiningAnxietyScenario.swift in Sources */,
 				792617862BD70C2000AAAC81 /* ScenarioTemplate.swift in Sources */,
@@ -1358,6 +1389,7 @@
 				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
 				10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */,
 				103D86392C2B8F3F0078A45B /* Confetti.swift in Sources */,
+				1CBBE30D2C517D3C006EFD6A /* NewPPContentView.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */,
@@ -1625,6 +1657,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
@@ -1644,6 +1677,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
@@ -1662,6 +1696,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvpUITests";
@@ -1679,6 +1714,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvpUITests";
@@ -1748,6 +1784,14 @@
 				minimumVersion = 1.0.4;
 			};
 		};
+		1973F32F2C4DEFE900EDC29F /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -1776,6 +1820,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 10CE96132C0297CF0092EE29 /* XCRemoteSwiftPackageReference "Glur" */;
 			productName = Glur;
+		};
+		1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CF4C40D2B7B1DBB0028BC3C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseVertexAI-Preview";
 		};
 		1CF4A8982B8309CD00051684 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CommunitiesMainView: View {
+struct CommunitiesMainView2: View {
     @EnvironmentObject var viewModel: AuthViewModel
     let avatarIcons = ["Raj": "IndianIcon", "Mikey": "AsianIcon", "Trevor": "WhiteIcon", "Girl1": "Girl1Icon", "Girl2": "Girl2Icon", "Girl3": "Girl3Icon"]
     @Binding var search: String
@@ -17,7 +17,7 @@ struct CommunitiesMainView: View {
                         .padding(.top, -5)
                         .padding(.bottom, 5)
                         .multilineTextAlignment(.center)
-                    MyCommunitiesSection()
+                    //MyCommunitiesSection()
                     TopCommunitiesSection()
                         .padding(.top, 0)
                     RecommendedCommunitiesSection()
@@ -84,7 +84,7 @@ struct HeaderView: View {
     }
 }
 
-struct MyCommunitiesSection: View {
+struct MyCommunitiesSection2: View {
     var body: some View {
         VStack(spacing: 5) {
             SectionTitle(title: "My Communities")

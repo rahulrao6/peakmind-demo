@@ -19,11 +19,9 @@ struct MessageListView: View {
                 ScrollView {
                     VStack(spacing: 10) {
                         ForEach(friends) { friend in
-                            NavigationLink(destination: MessageView(chatId: getChatId(with: friend.id))
-                                            .environmentObject(authViewModel)
-                                            .environmentObject(messagesViewModel)) {
+                            NavigationLink(destination: MessageView(chatId: getChatId(with: friend.id), userName: friend.username, userProfileImage: friend.selectedAvatar).environmentObject(authViewModel).environmentObject(messagesViewModel)) {
                                 HStack {
-                                    Image("RajIcon")
+                                    Image(friend.selectedAvatar)
                                         .resizable()
                                         .frame(width: 40, height: 40)
                                         .foregroundColor(Color("Medium Blue"))

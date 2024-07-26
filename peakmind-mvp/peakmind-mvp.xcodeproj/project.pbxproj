@@ -121,6 +121,8 @@
 		7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617892BD70C6900AAAC81 /* SherpaAlone.swift */; };
 		7926178F2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7926178E2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift */; };
 		792617922BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617912BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift */; };
+		792ED8632C51C8480050D12C /* CustomWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792ED8622C51C8480050D12C /* CustomWidgetView.swift */; };
+		792ED8652C536CBC0050D12C /* SelfCareNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792ED8642C536CBC0050D12C /* SelfCareNew.swift */; };
 		7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7930831B2BE8527E002A2E0B /* FeedbackFormView.swift */; };
 		7930831E2BE85713002A2E0B /* ResourcesToUtilize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7930831D2BE85713002A2E0B /* ResourcesToUtilize.swift */; };
 		793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */; };
@@ -325,6 +327,8 @@
 		792617892BD70C6900AAAC81 /* SherpaAlone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaAlone.swift; sourceTree = "<group>"; };
 		7926178E2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-3_ScenarioQuiz.swift"; sourceTree = "<group>"; };
 		792617912BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-3_ScenarioQuiz.swift"; sourceTree = "<group>"; };
+		792ED8622C51C8480050D12C /* CustomWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetView.swift; sourceTree = "<group>"; };
+		792ED8642C536CBC0050D12C /* SelfCareNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCareNew.swift; sourceTree = "<group>"; };
 		7930831B2BE8527E002A2E0B /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		7930831D2BE85713002A2E0B /* ResourcesToUtilize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesToUtilize.swift; sourceTree = "<group>"; };
 		793B79AE2BAF9019001062DB /* PhysImpactsAnxietyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysImpactsAnxietyView.swift; sourceTree = "<group>"; };
@@ -470,6 +474,14 @@
 			path = James;
 			sourceTree = "<group>";
 		};
+		10CE96082BF7DC070092EE29 /* James */ = {
+			isa = PBXGroup;
+			children = (
+				10CE96092BF7DC4C0092EE29 /* ResilienceChecklistView.swift */,
+			);
+			path = James;
+			sourceTree = "<group>";
+		};
 		10FA68522BB3B191007CCBAC /* James */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,21 +491,6 @@
 				10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */,
 			);
 			path = James;
-			sourceTree = "<group>";
-		};
-		10CE96082BF7DC070092EE29 /* James */ = {
-			isa = PBXGroup;
-			children = (
-				10CE96092BF7DC4C0092EE29 /* ResilienceChecklistView.swift */,
-			);
-			path = James;
-			sourceTree = "<group>";
-		};
-		10D5593B2BC379B200CAC269 /* Minigames */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = WidgetKit;
 			sourceTree = "<group>";
 		};
 		1C53A4272C254CD100B27C23 /* Messages */ = {
@@ -539,7 +536,6 @@
 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
-				1C480FB32C20B567002B19A0 /* WidgetKit */,
 				1CD029F52BE9E7140047951D /* Tutorial */,
 				79069D012BDA39E900AB52DC /* Resources */,
 				1C9FA25B2BCE1B11003C844C /* HealthKit */,
@@ -942,6 +938,7 @@
 			isa = PBXGroup;
 			children = (
 				7976E6652BD73862006C3726 /* SelfCareMainView.swift */,
+				792ED8642C536CBC0050D12C /* SelfCareNew.swift */,
 			);
 			path = "Self Care Suite";
 			sourceTree = "<group>";
@@ -955,6 +952,7 @@
 				79C383E22BC6111D00A6779A /* HabitTrackerViewModel.swift */,
 				79C383E42BC6112700A6779A /* UserDashboard.swift */,
 				79C383E62BC6113200A6779A /* UserDashboardViewModel.swift */,
+				792ED8622C51C8480050D12C /* CustomWidgetView.swift */,
 			);
 			path = "Check In";
 			sourceTree = "<group>";
@@ -1238,6 +1236,7 @@
 				10CE96102C02953B0092EE29 /* LevelMapView.swift in Sources */,
 				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
+				792ED8632C51C8480050D12C /* CustomWidgetView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				793B79BB2BB20423001062DB /* WellnessQ2View.swift in Sources */,
@@ -1273,6 +1272,7 @@
 				7926178F2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift in Sources */,
 				79C383F52BC8749700A6779A /* LevelOneMapView.swift in Sources */,
 				79C383EC2BC6122C00A6779A /* AnimatedTextView.swift in Sources */,
+				792ED8652C536CBC0050D12C /* SelfCareNew.swift in Sources */,
 				793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */,
 				79C383FC2BD60E1300A6779A /* P1-2_MentalHealthMod.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
@@ -1372,7 +1372,6 @@
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				1CD029F72BE9E7200047951D /* Tutorial.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
-				798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */,
 				10CE961B2C0415180092EE29 /* TestView.swift in Sources */,
 				10CE961F2C0547FC0092EE29 /* VariableBlur.swift in Sources */,
 				79C384222BD60FA100A6779A /* P2-6_AnxietyModule.swift in Sources */,
@@ -1546,7 +1545,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.08;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
-				DEVELOPMENT_TEAM = 9UMCCFSYB9;
+				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";

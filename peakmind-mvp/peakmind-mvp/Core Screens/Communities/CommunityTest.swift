@@ -247,7 +247,7 @@ class CommunitiesViewModel: ObservableObject {
     }
 }
 
-struct CommunitiesMainView2: View {
+struct CommunitiesMainView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var CommunitiesViewModel: CommunitiesViewModel
 
@@ -265,8 +265,8 @@ struct CommunitiesMainView2: View {
 //                        .padding(.top, -5)
 //                        .padding(.bottom, 5)
 //                        .multilineTextAlignment(.center)
-                    MyCommunitiesSection2(title: "My Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
-                    MyCommunitiesSection2(title: "Top Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
+                    MyCommunitiesSection(title: "My Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
+                    MyCommunitiesSection(title: "Top Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
                         .padding(.top, 0)
                     //MyCommunitiesSection2(title: "Recommended Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
                 }
@@ -287,7 +287,7 @@ struct CommunitiesMainView2: View {
     }
 }
 
-struct MyCommunitiesSection2: View {
+struct MyCommunitiesSection: View {
     var title: String
 
     @EnvironmentObject var viewModel: CommunitiesViewModel

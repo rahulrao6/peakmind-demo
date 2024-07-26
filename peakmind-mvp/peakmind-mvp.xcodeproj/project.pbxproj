@@ -61,6 +61,7 @@
 		1CA15D132C4FE8A400391AE9 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */; };
 		1CA25E322BFFEF6A004B0AD2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA25E312BFFEF6A004B0AD2 /* Message.swift */; };
 		1CA25E342C05381E004B0AD2 /* CommunityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA25E332C05381E004B0AD2 /* CommunityTest.swift */; };
+		1CBBE30D2C517D3C006EFD6A /* NewPPContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CBBE30C2C517D3C006EFD6A /* NewPPContentView.swift */; };
 		1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1F5C82B89706900AC9B77 /* ChatView.swift */; };
 		1CD029F72BE9E7200047951D /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD029F62BE9E7200047951D /* Tutorial.swift */; };
 		1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */; };
@@ -291,6 +292,7 @@
 		1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		1CA25E312BFFEF6A004B0AD2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		1CA25E332C05381E004B0AD2 /* CommunityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTest.swift; sourceTree = "<group>"; };
+		1CBBE30C2C517D3C006EFD6A /* NewPPContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPPContentView.swift; sourceTree = "<group>"; };
 		1CC1F5C82B89706900AC9B77 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		1CD029F62BE9E7200047951D /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		1CD299BF2BBA3A12003A0592 /* WindsFlavorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindsFlavorView.swift; sourceTree = "<group>"; };
@@ -908,6 +910,7 @@
 			children = (
 				791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */,
 				790F174F2C45D9870071B34B /* PPContentView.swift */,
+				1CBBE30C2C517D3C006EFD6A /* NewPPContentView.swift */,
 			);
 			path = "Personalized Plan";
 			sourceTree = "<group>";
@@ -1374,6 +1377,7 @@
 				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
 				10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */,
 				103D86392C2B8F3F0078A45B /* Confetti.swift in Sources */,
+				1CBBE30D2C517D3C006EFD6A /* NewPPContentView.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */,

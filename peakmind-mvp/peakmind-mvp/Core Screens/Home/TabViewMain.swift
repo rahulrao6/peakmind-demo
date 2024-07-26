@@ -24,7 +24,7 @@ struct TabViewMain: View {
                                 }
                             }
 
-                    SelfCareHome()
+                    SelfCareNew()
                         .tabItem {
                             Label("Self Care", systemImage: "heart")
                         }

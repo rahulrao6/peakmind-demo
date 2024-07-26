@@ -46,3 +46,21 @@ struct CustomButton2: View {
     }
 }
 
+struct CustomButton3: View {
+    var title: String
+    var onClick: () -> ()
+
+    var body: some View {
+        Button(action: onClick) {
+            Text(title)
+                .font(.body) // Smaller font size for the button text
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10) // Padding for the button's vertical size
+                .foregroundColor(.black) // Text color set to white for contrast
+                .background(Color("Ice Blue")) // Background color set to "Dark Blue"
+                .cornerRadius(8) // Corner radius for the button
+        }
+        .padding(.horizontal, 10) // Horizontal padding around the button
+    }
+}

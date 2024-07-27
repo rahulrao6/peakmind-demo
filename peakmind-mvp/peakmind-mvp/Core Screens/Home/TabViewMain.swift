@@ -23,6 +23,8 @@ struct TabViewMain: View {
                                     quizPromptOverlay
                                 }
                             }
+                    
+                    
 
                     SelfCareHome()
                         .tabItem {
@@ -47,6 +49,12 @@ struct TabViewMain: View {
                             Label("Avatar", systemImage: "person.circle")
                         }
                         .tag(4)
+                    
+                    TutorialScene()
+                        .tabItem {
+                            Label("Testing", systemImage: "hammer")
+                        }
+                        .tag(5)
                 }
                 .accentColor(.white)
                 .onAppear {

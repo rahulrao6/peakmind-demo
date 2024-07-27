@@ -16,6 +16,8 @@
 		102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */; };
 		103D86392C2B8F3F0078A45B /* Confetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103D86382C2B8F3F0078A45B /* Confetti.swift */; };
 		103D863C2C2B91FE0078A45B /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */; };
+		103D86462C4626A50078A45B /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103D86452C4626A50078A45B /* TutorialScene.swift */; };
+		103D86972C473CAE0078A45B /* MountainSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103D86962C473CAE0078A45B /* MountainSelect.swift */; };
 		10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95442BEDCEA80092EE29 /* TimerView.swift */; };
 		10CE95472BEDCF9E0092EE29 /* ScenarioQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95462BEDCF9E0092EE29 /* ScenarioQuizView.swift */; };
 		10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95482BEDD9380092EE29 /* CurrentToNewHabits.swift */; };
@@ -246,6 +248,8 @@
 		102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdMuscleExerciseEncoded.mov; sourceTree = "<group>"; };
 		102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsQuizView.swift; sourceTree = "<group>"; };
 		103D86382C2B8F3F0078A45B /* Confetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Confetti.swift; sourceTree = "<group>"; };
+		103D86452C4626A50078A45B /* TutorialScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
+		103D86962C473CAE0078A45B /* MountainSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MountainSelect.swift; path = "peakmind-mvp/Game Level Screens/Level Maps/MountainSelect.swift"; sourceTree = SOURCE_ROOT; };
 		10CE95442BEDCEA80092EE29 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		10CE95462BEDCF9E0092EE29 /* ScenarioQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioQuizView.swift; sourceTree = "<group>"; };
 		10CE95482BEDD9380092EE29 /* CurrentToNewHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentToNewHabits.swift; sourceTree = "<group>"; };
@@ -468,6 +472,14 @@
 			path = James;
 			sourceTree = "<group>";
 		};
+		10CE96082BF7DC070092EE29 /* James */ = {
+			isa = PBXGroup;
+			children = (
+				10CE96092BF7DC4C0092EE29 /* ResilienceChecklistView.swift */,
+			);
+			path = James;
+			sourceTree = "<group>";
+		};
 		10FA68522BB3B191007CCBAC /* James */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,21 +489,6 @@
 				10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */,
 			);
 			path = James;
-			sourceTree = "<group>";
-		};
-		10CE96082BF7DC070092EE29 /* James */ = {
-			isa = PBXGroup;
-			children = (
-				10CE96092BF7DC4C0092EE29 /* ResilienceChecklistView.swift */,
-			);
-			path = James;
-			sourceTree = "<group>";
-		};
-		10D5593B2BC379B200CAC269 /* Minigames */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = WidgetKit;
 			sourceTree = "<group>";
 		};
 		1C53A4272C254CD100B27C23 /* Messages */ = {
@@ -537,7 +534,6 @@
 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
-				1C480FB32C20B567002B19A0 /* WidgetKit */,
 				1CD029F52BE9E7140047951D /* Tutorial */,
 				79069D012BDA39E900AB52DC /* Resources */,
 				1C9FA25B2BCE1B11003C844C /* HealthKit */,
@@ -980,6 +976,8 @@
 				10CE961C2C0415F80092EE29 /* MapScene.swift */,
 				10CE961E2C0547FC0092EE29 /* VariableBlur.swift */,
 				103D86382C2B8F3F0078A45B /* Confetti.swift */,
+				103D86452C4626A50078A45B /* TutorialScene.swift */,
+				103D86962C473CAE0078A45B /* MountainSelect.swift */,
 			);
 			path = "Level Maps";
 			sourceTree = "<group>";
@@ -1294,6 +1292,7 @@
 				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
 				102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */,
 				79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */,
+				103D86462C4626A50078A45B /* TutorialScene.swift in Sources */,
 				79C3842A2BD60FEC00A6779A /* P2-10_5Factors.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
 				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
@@ -1368,11 +1367,11 @@
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				1CD029F72BE9E7200047951D /* Tutorial.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
-				798EFB6A2B84379D00E6027A /* IntroPlayView.swift in Sources */,
 				10CE961B2C0415180092EE29 /* TestView.swift in Sources */,
 				10CE961F2C0547FC0092EE29 /* VariableBlur.swift in Sources */,
 				79C384222BD60FA100A6779A /* P2-6_AnxietyModule.swift in Sources */,
 				10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */,
+				103D86972C473CAE0078A45B /* MountainSelect.swift in Sources */,
 				79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1560,7 +1559,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp";
+				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp.test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

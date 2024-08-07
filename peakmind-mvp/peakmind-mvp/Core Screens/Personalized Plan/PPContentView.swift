@@ -347,30 +347,30 @@ struct PPIntroView: View {
 //    let options: [String]
 //    let followUp: String
 //}
-
-let ppQuestionsold: [PPQuestion] = [
-    PPQuestion(text: "How much does being preoccupied by negative thoughts impact your daily life?",
-               options: ["Not at all", "A little", "Moderately", "Quite a bit", "Extremely"],
-               followUp: "Can you share a recent time when these negative thoughts really got in the way?"),
-    PPQuestion(text: "How much does restlessness affect your daily routine?",
-               options: ["Not at all", "Slightly", "Moderately", "Quite a bit", "Extremely"],
-               followUp: "Can you tell me about a specific day when restlessness really impacted what you were doing?"),
-    PPQuestion(text: "How would you describe your level of fatigue?",
-               options: ["Negligible", "Mild", "Moderate", "Considerable", "Extreme"],
-               followUp: "Can you recall a recent time when your fatigue really affected your day?"),
-    PPQuestion(text: "How would you describe your difficulty in concentrating?",
-               options: ["Never", "Rarely", "Sometimes", "Often", "Always"],
-               followUp: "Can you provide a specific instance within the last week or month where your difficulty in concentration significantly impacted your day-to-day activities?"),
-    PPQuestion(text: "How would you describe your level of irritability?",
-               options: ["Completely calm", "Somewhat calm", "Neutral", "Somewhat irritable", "Very irritable"],
-               followUp: "Could you share a specific instance in the last week or month where your level of irritability was particularly noticeable or impactful?"),
-    PPQuestion(text: "How would you describe your experience with muscle tension?",
-               options: ["Almost Never", "Rarely", "Sometimes", "Often", "Constantly"],
-               followUp: "Could you share a specific example from the past week or month where you experienced notable muscle tension in certain areas? How did it impact your daily activities?"),
-    PPQuestion(text: "How often do you experience panic attacks?",
-               options: ["Rarely", "Occasionally", "Frequently", "Very Often", "Always"],
-               followUp: "Panic Attacks are scary. Could you share a specific time when you experienced a panic attack? What were you doing at that moment?"),
-]
+//
+//let ppQuestionsold: [PPQuestion] = [
+//    PPQuestion(text: "How much does being preoccupied by negative thoughts impact your daily life?",
+//               options: ["Not at all", "A little", "Moderately", "Quite a bit", "Extremely"],
+//               followUp: "Can you share a recent time when these negative thoughts really got in the way?"),
+//    PPQuestion(text: "How much does restlessness affect your daily routine?",
+//               options: ["Not at all", "Slightly", "Moderately", "Quite a bit", "Extremely"],
+//               followUp: "Can you tell me about a specific day when restlessness really impacted what you were doing?"),
+//    PPQuestion(text: "How would you describe your level of fatigue?",
+//               options: ["Negligible", "Mild", "Moderate", "Considerable", "Extreme"],
+//               followUp: "Can you recall a recent time when your fatigue really affected your day?"),
+//    PPQuestion(text: "How would you describe your difficulty in concentrating?",
+//               options: ["Never", "Rarely", "Sometimes", "Often", "Always"],
+//               followUp: "Can you provide a specific instance within the last week or month where your difficulty in concentration significantly impacted your day-to-day activities?"),
+//    PPQuestion(text: "How would you describe your level of irritability?",
+//               options: ["Completely calm", "Somewhat calm", "Neutral", "Somewhat irritable", "Very irritable"],
+//               followUp: "Could you share a specific instance in the last week or month where your level of irritability was particularly noticeable or impactful?"),
+//    PPQuestion(text: "How would you describe your experience with muscle tension?",
+//               options: ["Almost Never", "Rarely", "Sometimes", "Often", "Constantly"],
+//               followUp: "Could you share a specific example from the past week or month where you experienced notable muscle tension in certain areas? How did it impact your daily activities?"),
+//    PPQuestion(text: "How often do you experience panic attacks?",
+//               options: ["Rarely", "Occasionally", "Frequently", "Very Often", "Always"],
+//               followUp: "Panic Attacks are scary. Could you share a specific time when you experienced a panic attack? What were you doing at that moment?"),
+//]
 
 struct PPConcern: Identifiable, Hashable {
     let id = UUID()
@@ -384,17 +384,21 @@ let ppTopConcerns: [PPConcern] = [
     PPConcern(title: "Avoidance", description: "Description for Avoidance")
 ]
 
-struct PPPlan: Identifiable, Hashable {
+struct PPPlan: Identifiable , Decodable, Equatable{
+    static func == (lhs: PPPlan, rhs: PPPlan) -> Bool {
+        lhs.id == rhs.id
+    }
     let id = UUID()
     let title: String
     let description: String
+    let tasks: [TaskFirebase]
 }
 
-let ppPlans: [PPPlan] = [
-    PPPlan(title: "Plan 1", description: "Description for Plan 1"),
-    PPPlan(title: "Plan 2", description: "Description for Plan 2"),
-    PPPlan(title: "Plan 3", description: "Description for Plan 3")
-]
+//ppPlans: [PPPlan] = [
+//    PPPlan(title: "Plan 1", description: "Description for Plan 1"),
+//    PPPlan(title: "Plan 2", description: "Description for Plan 2"),
+//    PPPlan(title: "Plan 3", description: "Description for Plan 3")
+//]
 
 struct PPContentView_Previews: PreviewProvider {
     static var previews: some View {

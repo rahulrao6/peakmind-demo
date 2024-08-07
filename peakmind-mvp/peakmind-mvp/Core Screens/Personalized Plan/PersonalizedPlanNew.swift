@@ -219,7 +219,7 @@ struct PersonalizedPlanNew: View {
     
 }
 
-struct TaskFirebase: Identifiable{
+struct TaskFirebase: Identifiable, Decodable {
     var id: String
     var isCompleted: Bool
     var name: String

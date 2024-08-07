@@ -24,7 +24,7 @@ struct TabViewMain: View {
                                 }
                             }
 
-                    SelfCareNew()
+                    SelfCareNew().environmentObject(viewModel)
                         .tabItem {
                             Label("Self Care", systemImage: "heart")
                         }

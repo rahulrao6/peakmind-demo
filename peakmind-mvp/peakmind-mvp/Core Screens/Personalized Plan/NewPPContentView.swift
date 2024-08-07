@@ -12,6 +12,7 @@ import FirebaseFirestore
 struct PPAnswer: Identifiable {
     let id = UUID()
     let questionId: String
+    let type: String
     var answer: Int
     var followUpAnswer: String
 }
@@ -19,33 +20,34 @@ struct PPAnswer: Identifiable {
 struct PPQuestion: Identifiable, Codable {
     @DocumentID var id: String? = UUID().uuidString
     let text: String
+    let type: String
     let options: [String]
     let followUp: String
 }
 
-let ppQuestions: [PPQuestion] = [
-    PPQuestion(id: "1", text: "How much does being preoccupied by negative thoughts impact your daily life?",
-               options: ["Not at all", "A little", "Moderately", "Quite a bit", "Extremely"],
-               followUp: "Can you share a recent time when these negative thoughts really got in the way?"),
-    PPQuestion(id: "2", text: "How much does restlessness affect your daily routine?",
-               options: ["Not at all", "Slightly", "Moderately", "Quite a bit", "Extremely"],
-               followUp: "Can you tell me about a specific day when restlessness really impacted what you were doing?"),
-    PPQuestion(id: "3", text: "How would you describe your level of fatigue?",
-               options: ["Negligible", "Mild", "Moderate", "Considerable", "Extreme"],
-               followUp: "Can you recall a recent time when your fatigue really affected your day?"),
-    PPQuestion(id: "4", text: "How would you describe your difficulty in concentrating?",
-               options: ["Never", "Rarely", "Sometimes", "Often", "Always"],
-               followUp: "Can you provide a specific instance within the last week or month where your difficulty in concentration significantly impacted your day-to-day activities?"),
-    PPQuestion(id: "5", text: "How would you describe your level of irritability?",
-               options: ["Completely calm", "Somewhat calm", "Neutral", "Somewhat irritable", "Very irritable"],
-               followUp: "Could you share a specific instance in the last week or month where your level of irritability was particularly noticeable or impactful?"),
-    PPQuestion(id: "6", text: "How would you describe your experience with muscle tension?",
-               options: ["Almost Never", "Rarely", "Sometimes", "Often", "Constantly"],
-               followUp: "Could you share a specific example from the past week or month where you experienced notable muscle tension in certain areas? How did it impact your daily activities?"),
-    PPQuestion(id: "7", text: "How often do you experience panic attacks?",
-               options: ["Rarely", "Occasionally", "Frequently", "Very Often", "Always"],
-               followUp: "Panic Attacks are scary. Could you share a specific time when you experienced a panic attack? What were you doing at that moment?"),
-]
+//let ppQuestions: [PPQuestion] = [
+//    PPQuestion(id: "1", text: "How much does being preoccupied by negative thoughts impact your daily life?",
+//               options: ["Not at all", "A little", "Moderately", "Quite a bit", "Extremely"],
+//               followUp: "Can you share a recent time when these negative thoughts really got in the way?"),
+//    PPQuestion(id: "2", text: "How much does restlessness affect your daily routine?",
+//               options: ["Not at all", "Slightly", "Moderately", "Quite a bit", "Extremely"],
+//               followUp: "Can you tell me about a specific day when restlessness really impacted what you were doing?"),
+//    PPQuestion(id: "3", text: "How would you describe your level of fatigue?",
+//               options: ["Negligible", "Mild", "Moderate", "Considerable", "Extreme"],
+//               followUp: "Can you recall a recent time when your fatigue really affected your day?"),
+//    PPQuestion(id: "4", text: "How would you describe your difficulty in concentrating?",
+//               options: ["Never", "Rarely", "Sometimes", "Often", "Always"],
+//               followUp: "Can you provide a specific instance within the last week or month where your difficulty in concentration significantly impacted your day-to-day activities?"),
+//    PPQuestion(id: "5", text: "How would you describe your level of irritability?",
+//               options: ["Completely calm", "Somewhat calm", "Neutral", "Somewhat irritable", "Very irritable"],
+//               followUp: "Could you share a specific instance in the last week or month where your level of irritability was particularly noticeable or impactful?"),
+//    PPQuestion(id: "6", text: "How would you describe your experience with muscle tension?",
+//               options: ["Almost Never", "Rarely", "Sometimes", "Often", "Constantly"],
+//               followUp: "Could you share a specific example from the past week or month where you experienced notable muscle tension in certain areas? How did it impact your daily activities?"),
+//    PPQuestion(id: "7", text: "How often do you experience panic attacks?",
+//               options: ["Rarely", "Occasionally", "Frequently", "Very Often", "Always"],
+//               followUp: "Panic Attacks are scary. Could you share a specific time when you experienced a panic attack? What were you doing at that moment?"),
+//]
 
 struct PPQuestionnaireView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -256,6 +258,7 @@ struct PPPlansView: View {
     @State private var selectedPlan: PPPlan? = nil
     let answers: [PPAnswer]
     @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var errorMessage = ""
 
     var body: some View {
         VStack(spacing: 20) {
@@ -266,40 +269,46 @@ struct PPPlansView: View {
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            ForEach(ppPlans) { plan in
-                Button(action: {
-                    selectedPlan = plan
-                }) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(plan.title)
-                            .font(.headline)
-                            .foregroundColor(selectedPlan == plan ? .white : .black)
-                        
-                        Text(plan.description)
-                            .font(.body)
-                            .foregroundColor(selectedPlan == plan ? .white : .black)
-                    }
-                    .padding()
-                    .background(selectedPlan == plan ? Color.green : Color.white)
-                    .cornerRadius(10)
-                    .shadow(radius: 5)
-                }
-                .padding(.vertical, 5)
-            }
 
-            NavigationLink(destination: PPFinalView(selectedPlan: selectedPlan ?? ppPlans.first!)) {
-                Text("Submit")
+            if authViewModel.ppPlans.isEmpty {
+                Text("Loading plans...")
                     .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(selectedPlan != nil ? Color.green : Color.gray)
-                    .cornerRadius(10)
-            }
-            .disabled(selectedPlan == nil)
-            .padding(.top, 20)
-            .onTapGesture {
-                if let selectedPlan = selectedPlan {
-                    authViewModel.savePersonalizedPlan(plan: selectedPlan, answers: answers)
+            } else {
+                ForEach(authViewModel.ppPlans) { plan in
+                    Button(action: {
+                        selectedPlan = plan
+                    }) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text(plan.title)
+                                .font(.headline)
+                                .foregroundColor(selectedPlan == plan ? .white : .black)
+                            
+                            Text(plan.description)
+                                .font(.body)
+                                .foregroundColor(selectedPlan == plan ? .white : .black)
+                        }
+                        .padding()
+                        .background(selectedPlan == plan ? Color.green : Color.white)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                    }
+                    .padding(.vertical, 5)
+                }
+                
+                NavigationLink(destination: PPFinalView(selectedPlan: selectedPlan ?? authViewModel.ppPlans.first!, answers: answers).environmentObject(authViewModel)) {
+                    Text("Submit")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(selectedPlan != nil ? Color.green : Color.gray)
+                        .cornerRadius(10)
+                }
+                .disabled(selectedPlan == nil)
+                .padding(.top, 20)
+                .onTapGesture {
+//                    if let selectedPlan = selectedPlan {
+//                        authViewModel.savePersonalizedPlan(plan: selectedPlan, answers: answers)
+//                    }
                 }
             }
         }
@@ -308,31 +317,198 @@ struct PPPlansView: View {
         .background(Color("SentMessage"))
         .edgesIgnoringSafeArea(.all)
         .navigationBarTitle("Personalized Plans", displayMode: .inline)
+        .onAppear {
+            authViewModel.fetchPlans { result in
+                switch result {
+                case .success:
+                    //isLoading = false
+                    print("yes")
+                case .failure(let error):
+                    //isLoading = false
+                    errorMessage = error.localizedDescription
+                }
+            }//Use the actual user ID
+        }
     }
 }
 
 
-// Final View
 struct PPFinalView: View {
     let selectedPlan: PPPlan
+    let answers: [PPAnswer]
+    @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
-        VStack(spacing: 20) {
-            Text(selectedPlan.title)
-                .font(.headline)
-                .foregroundColor(.white)
-            
-            Text(selectedPlan.description)
-                .font(.body)
-                .padding()
-                .background(Color.white)
-                .cornerRadius(10)
-                .shadow(radius: 5)
+        ScrollView{
+            VStack(spacing: 20) {
+                Text(selectedPlan.title)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                
+                Text(selectedPlan.description)
+                    .font(.body)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                
+                ForEach(selectedPlan.tasks) { task in
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(task.name)
+                            .font(.body)
+                            .foregroundColor(.black)
+                        
+                        Text("Rank: \(task.rank)")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                        
+                        if task.isCompleted {
+                            Text("Completed at: \(task.timeCompleted)")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                    .padding(.vertical, 5)
+                }
+            }
+            .padding()
+            .background(Color("SentMessage").edgesIgnoringSafeArea(.all))
+            .cornerRadius(10)
+            .shadow(radius: 5)
+            .navigationBarTitle("Your Plan", displayMode: .inline)
+            .onAppear{
+                authViewModel.savePersonalizedPlan(plan: selectedPlan, answers: answers)
+            }
         }
+    }
+}
+
+
+//struct PPOverView: View {
+//    @EnvironmentObject var authViewModel: AuthViewModel
+//    @State private var plan: PPPlan?
+//    @State private var errorMessage: String?
+//    @State private var isLoading: Bool = true
+//
+//    var body: some View {
+//        VStack {
+//            if isLoading {
+//                Text("Loading plan...")
+//            } else if let errorMessage = errorMessage {
+//                Text("Error: \(errorMessage)")
+//                    .foregroundColor(.red)
+//            } else if let plan = plan {
+//                Text(plan.title)
+//                    .font(.title)
+//                    .fontWeight(.bold)
+//                    .padding()
+//
+//                Text(plan.description)
+//                    .font(.body)
+//                    .padding()
+//
+//                List(plan.tasks) { task in
+//                    VStack(alignment: .leading) {
+//                        Text(task.name)
+//                            .font(.headline)
+//                        Text("Rank: \(task.rank)")
+//                            .font(.subheadline)
+//                            .foregroundColor(.gray)
+//                        if task.isCompleted {
+//                            Text("Completed at: \(task.timeCompleted)")
+//                                .font(.subheadline)
+//                                .foregroundColor(.gray)
+//                        }
+//                    }
+//                    .padding()
+//                }
+//            } else {
+//                Text("No plan available.")
+//            }
+//        }
+//        .onAppear {
+//            fetchPlan()
+//        }
+//        .navigationBarTitle("Personalized Plan", displayMode: .inline)
+//        .padding()
+//    }
+//
+//    private func fetchPlan() {
+//        authViewModel.fetchPersonalizedPlan { result in
+//            switch result {
+//            case .success(let fetchedPlan):
+//                self.plan = fetchedPlan
+//                self.isLoading = false
+//            case .failure(let error):
+//                self.errorMessage = error.localizedDescription
+//                self.isLoading = false
+//            }
+//        }
+//    }
+//}
+struct PersonalizedPlanView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var plan: PPPlan?
+    @State private var errorMessage: String?
+    @State private var isLoading: Bool = true
+
+    var body: some View {
+        VStack {
+            if isLoading {
+                Text("Loading plan...")
+            } else if let errorMessage = errorMessage {
+                Text("Error: \(errorMessage)")
+                    .foregroundColor(.red)
+            } else if let plan = plan {
+                Text(plan.title)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding()
+
+                Text(plan.description)
+                    .font(.body)
+                    .padding()
+
+                List(plan.tasks) { task in
+                    VStack(alignment: .leading) {
+                        Text(task.name)
+                            .font(.headline)
+                        Text("Rank: \(task.rank)")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        if task.isCompleted {
+                            Text("Completed at: \(task.timeCompleted)")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .padding()
+                }
+            } else {
+                Text("No plan available.")
+            }
+        }
+        .onAppear {
+            fetchPlan()
+        }
+        .navigationBarTitle("Personalized Plan", displayMode: .inline)
         .padding()
-        .background(Color("SentMessage").edgesIgnoringSafeArea(.all))
-        .cornerRadius(10)
-        .shadow(radius: 5)
-        .navigationBarTitle("Your Plan", displayMode: .inline)
+    }
+
+    private func fetchPlan() {
+        authViewModel.fetchPersonalizedPlan { result in
+            switch result {
+            case .success(let fetchedPlan):
+                self.plan = fetchedPlan
+                self.isLoading = false
+            case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                self.isLoading = false
+            }
+        }
     }
 }

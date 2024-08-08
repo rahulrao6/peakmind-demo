@@ -239,6 +239,7 @@ struct RegistrationView: View {
                                 .background(RoundedRectangle(cornerRadius: 10).stroke(Color.mediumBlue, lineWidth: 1))
                                 .autocapitalization(.none)
                                 .padding(.horizontal, 16)
+                                .onChange(of: email) { _ in validateForm() }
                         }
 
                         ZStack(alignment: .leading) {
@@ -252,6 +253,7 @@ struct RegistrationView: View {
                                 .background(RoundedRectangle(cornerRadius: 10).stroke(Color.mediumBlue, lineWidth: 1))
                                 .autocapitalization(.none)
                                 .padding(.horizontal, 16)
+                                .onChange(of: username) { _ in validateForm() }
                         }
 
                         ZStack(alignment: .leading) {
@@ -265,6 +267,7 @@ struct RegistrationView: View {
                                 .background(RoundedRectangle(cornerRadius: 10).stroke(Color.mediumBlue, lineWidth: 1))
                                 .autocapitalization(.none)
                                 .padding(.horizontal, 16)
+                                .onChange(of: password) { _ in validateForm() }
                         }
 
                         ZStack(alignment: .leading) {
@@ -279,6 +282,7 @@ struct RegistrationView: View {
                                     .background(RoundedRectangle(cornerRadius: 10).stroke(Color.mediumBlue, lineWidth: 1))
                                     .autocapitalization(.none)
                                     .padding(.horizontal, 16)
+                                    .onChange(of: confirm_password) { _ in validateForm() }
 
                                 if !password.isEmpty && !confirm_password.isEmpty {
                                     if password == confirm_password {
@@ -286,15 +290,15 @@ struct RegistrationView: View {
                                             .imageScale(.large)
                                             .fontWeight(.bold)
                                             .foregroundColor(Color(.systemGreen))
-                                            .padding(.bottom, 4)
-                                            .padding(.trailing, 4)
+                                            .padding(.bottom, 8)
+                                            .padding(.trailing, 20)
                                     } else {
                                         Image(systemName: "xmark.circle.fill")
                                             .imageScale(.large)
                                             .fontWeight(.bold)
                                             .foregroundColor(Color(.systemRed))
-                                            .padding(.bottom, 4)
-                                            .padding(.trailing, 4)
+                                            .padding(.bottom, 8)
+                                            .padding(.trailing, 20)
                                     }
                                 }
                             }
@@ -321,7 +325,7 @@ struct RegistrationView: View {
                     }
                     .foregroundColor(.white)
                     .frame(width: UIScreen.main.bounds.width - 48, height: 48)
-                    .background(formIsValid ? Color.iceBlue : Color.mediumBlue)
+                    .background(formIsValid ? Color.mediumBlue : Color.iceBlue)
                     .cornerRadius(10)
                 }
                 .padding(.top, 24)
@@ -376,11 +380,9 @@ struct RegistrationView: View {
             errorMessage = nil
         }
     }
-}
 
-extension RegistrationView: AuthenticationFormProtocol {
-    var formIsValid: Bool {
-        return errorMessage == nil
+    private var formIsValid: Bool {
+        return !email.isEmpty && email.contains("@") && !username.isEmpty && !password.isEmpty && password.count >= 6 && password == confirm_password
     }
 }
 

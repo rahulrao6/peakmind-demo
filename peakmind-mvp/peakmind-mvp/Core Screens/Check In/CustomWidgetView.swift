@@ -1,14 +1,15 @@
 import SwiftUI
 
 struct CustomWidgetView: View {
-    @State private var widgets: [CustomWidget] = [
-        CustomWidget(name: "Steps", frequency: .daily, unit: .count, specificUnit: "steps", value: 1000, description: "Daily steps count"),
-        CustomWidget(name: "Water", frequency: .multipleTimesDaily, unit: .volume, specificUnit: "liters", value: 2, description: "Daily water intake"),
-        CustomWidget(name: "Reading", frequency: .daily, unit: .time, specificUnit: "minutes", value: 30, description: "Daily reading time")
-    ]
+//    @State private var widgets: [CustomWidget] = [
+//        CustomWidget(from: <#any Decoder#>, name: "Steps", frequency: .daily, unit: .count, specificUnit: "steps", value: 1000, description: "Daily steps count"),
+//        CustomWidget(name: "Water", frequency: .multipleTimesDaily, unit: .volume, specificUnit: "liters", value: 2, description: "Daily water intake"),
+//        CustomWidget(name: "Reading", frequency: .daily, unit: .time, specificUnit: "minutes", value: 30, description: "Daily reading time")
+//    ]
     @State private var showingAddWidget = false
     @State private var editingWidget: CustomWidget? = nil
     @State private var isEditMode = false
+    @State private var widgets: [CustomWidget]
 
     let cardWidth: CGFloat = 200
     let cardHeight: CGFloat = 250
@@ -73,8 +74,8 @@ struct CustomWidgetView: View {
     }
 }
 
-struct CustomWidget: Identifiable, Equatable {
-    let id = UUID()
+struct CustomWidget: Identifiable, Equatable, Decodable, Encodable {
+    var id = UUID()
     var name: String
     var frequency: TrackingFrequency
     var unit: MeasurementUnit
@@ -82,15 +83,63 @@ struct CustomWidget: Identifiable, Equatable {
     var value: Int = 0
     var description: String = ""
     var percentageChange: Int = 0
+    // Coding keys to map JSON keys to your properties
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case frequency
+        case value
+        case unit
+        case specificUnit
+        case description
+        case percentageChange
+    }
+
+    init(id: UUID = UUID(), name: String, frequency: TrackingFrequency, value: Int, unit: MeasurementUnit, specificUnit: String, description: String, percentageChange: Int) {
+        self.id = id
+        self.name = name
+        self.frequency = frequency
+        self.unit = unit
+        self.specificUnit = specificUnit
+        self.value = value
+        self.description = description
+        self.percentageChange = percentageChange
+    }
+    
+    // Initialize from a decoder
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        frequency = try container.decode(TrackingFrequency.self, forKey: .frequency)
+        unit = try container.decode(MeasurementUnit.self, forKey: .unit)
+        specificUnit = try container.decode(String.self, forKey: .specificUnit)
+        value = try container.decode(Int.self, forKey: .value)
+        description = try container.decode(String.self, forKey: .description)
+        percentageChange = try container.decode(Int.self, forKey: .percentageChange)
+    }
+
+    // Encode to an encoder
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(frequency.rawValue, forKey: .frequency)
+        try container.encode(unit.rawValue, forKey: .unit)
+        try container.encode(specificUnit, forKey: .specificUnit)
+        try container.encode(value, forKey: .value)
+        try container.encode(description, forKey: .description)
+        try container.encode(percentageChange, forKey: .percentageChange)
+    }
 
 }
 
-enum TrackingFrequency: String, CaseIterable {
+enum TrackingFrequency: String, CaseIterable, Decodable {
     case daily = "Daily"
     case multipleTimesDaily = "Multiple times a day"
 }
 
-enum MeasurementUnit: String, CaseIterable {
+enum MeasurementUnit: String, CaseIterable, Decodable {
     case length = "Length"
     case weight = "Weight"
     case time = "Time"
@@ -107,10 +156,65 @@ enum MeasurementUnit: String, CaseIterable {
         }
     }
 }
+//
+//struct WidgetView2: View {
+//    @Binding var widget: CustomWidget
+//    @Binding var isEditMode: Bool
+//
+//    var body: some View {
+//        VStack(spacing: 5) {
+//            Text(widget.name)
+//                .font(.headline)
+//                .foregroundColor(isEditMode ? .blue : .primary)
+//                .lineLimit(1)
+//                .truncationMode(.tail)
+//            Text("\(widget.value)")
+//                .font(.title2)
+//                .foregroundColor(.white)
+//            Text(widget.specificUnit)
+//                .font(.subheadline)
+//                .foregroundColor(.white)
+//                .padding(.top, -5)
+//            
+//            HStack(spacing: 15) {
+//                Button(action: {
+//                    widget.value += 1
+//                }) {
+//                    Image(systemName: "plus.circle.fill")
+//                        .font(.title)
+//                        .foregroundColor(.iceBlue)
+//                }
+//                Button(action: {
+//                    if widget.value > 0 {
+//                        widget.value -= 1
+//                    }
+//                }) {
+//                    Image(systemName: "minus.circle.fill")
+//                        .font(.title)
+//                        .foregroundColor(.iceBlue)
+//                }
+//            }
+//            .padding(.top, 10)
+//        }
+//        .frame(height: 130)
+//        .frame(width: 80)
+//        .padding()
+//        .background(isEditMode ? Color.blue.opacity(0.2) : Color.mediumBlue.opacity(0.7))
+//        .cornerRadius(10)
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 10)
+//                .stroke(isEditMode ? Color.blue : Color.clear, lineWidth: 2)
+//        )
+//        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5) // Added shadow properties
+//    }
+//}
+
+import SwiftUI
 
 struct WidgetView2: View {
     @Binding var widget: CustomWidget
     @Binding var isEditMode: Bool
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         VStack(spacing: 5) {
@@ -129,16 +233,14 @@ struct WidgetView2: View {
             
             HStack(spacing: 15) {
                 Button(action: {
-                    widget.value += 1
+                    incrementValue()
                 }) {
                     Image(systemName: "plus.circle.fill")
                         .font(.title)
                         .foregroundColor(.iceBlue)
                 }
                 Button(action: {
-                    if widget.value > 0 {
-                        widget.value -= 1
-                    }
+                    decrementValue()
                 }) {
                     Image(systemName: "minus.circle.fill")
                         .font(.title)
@@ -156,9 +258,35 @@ struct WidgetView2: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(isEditMode ? Color.blue : Color.clear, lineWidth: 2)
         )
-        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5) // Added shadow properties
+        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
+    }
+
+    private func incrementValue() {
+        widget.value += 1
+        saveChanges()
+    }
+
+    private func decrementValue() {
+        if widget.value > 0 {
+            widget.value -= 1
+            saveChanges()
+        }
+    }
+
+    private func saveChanges() {
+        Task {
+            do {
+                try await viewModel.saveDailyWidgetData(widget: widget)
+                viewModel.saveDailyWidgetDataLocally(widget: widget)
+            } catch {
+                print("Failed to save daily widget data: \(error.localizedDescription)")
+            }
+        }
     }
 }
+
+
+
 
 struct AddWidgetButton: View {
     var action: () -> Void
@@ -183,6 +311,94 @@ struct AddWidgetButton: View {
         }
     }
 }
+
+//struct AddWidgetView: View {
+//    @Environment(\.presentationMode) var presentationMode
+//    @Binding var widgets: [CustomWidget]
+//    var widgetToEdit: CustomWidget? = nil
+//
+//    @State private var name = ""
+//    @State private var frequency: TrackingFrequency = .daily
+//    @State private var unit: MeasurementUnit = .length
+//    @State private var specificUnit = ""
+//    @State private var description = ""
+//    @State private var showError = false
+//
+//    var body: some View {
+//        NavigationView {
+//            Form {
+//                Section(header: Text("Widget Name")) {
+//                    TextField("Name", text: $name)
+//                        .onChange(of: name) { newValue in
+//                            if newValue.count > 10 {
+//                                name = String(newValue.prefix(10))
+//                            }
+//                        }
+//                        .foregroundColor(name.count > 10 ? .red : .primary)
+//                }
+//                Section(header: Text("Frequency")) {
+//                    Picker("Frequency", selection: $frequency) {
+//                        ForEach(TrackingFrequency.allCases, id: \.self) {
+//                            Text($0.rawValue)
+//                        }
+//                    }
+//                    .pickerStyle(SegmentedPickerStyle())
+//                }
+//                Section(header: Text("Unit")) {
+//                    Picker("Unit", selection: $unit) {
+//                        ForEach(MeasurementUnit.allCases, id: \.self) {
+//                            Text($0.rawValue)
+//                        }
+//                    }
+//                    .pickerStyle(SegmentedPickerStyle())
+//                    
+//                    if !unit.specificUnits.isEmpty {
+//                        Picker("Specific Unit", selection: $specificUnit) {
+//                            ForEach(unit.specificUnits, id: \.self) {
+//                                Text($0)
+//                            }
+//                        }
+//                        .pickerStyle(SegmentedPickerStyle())
+//                    }
+//                }
+//                Section(header: Text("Description")) {
+//                    TextField("Description", text: $description)
+//                }
+//            }
+//            .navigationTitle(widgetToEdit == nil ? "New Widget" : "Edit Widget")
+//            .navigationBarItems(trailing: Button("Save") {
+//                if name.isEmpty || specificUnit.isEmpty {
+//                    showError = true
+//                } else {
+//                    if let widgetToEdit = widgetToEdit, let index = widgets.firstIndex(where: { $0.id == widgetToEdit.id }) {
+//                        widgets[index].name = name
+//                        widgets[index].frequency = frequency
+//                        widgets[index].unit = unit
+//                        widgets[index].specificUnit = specificUnit
+//                        widgets[index].description = description
+//                    } else {
+//                        let newWidget = CustomWidget(name: name, frequency: frequency, unit: unit, specificUnit: specificUnit, description: description)
+//                        widgets.append(newWidget)
+//                    }
+//                    presentationMode.wrappedValue.dismiss()
+//                }
+//            })
+//            .alert(isPresented: $showError) {
+//                Alert(title: Text("Error"), message: Text("Please fill in all required fields."), dismissButton: .default(Text("OK")))
+//            }
+//            .onAppear {
+//                if let widgetToEdit = widgetToEdit {
+//                    name = widgetToEdit.name
+//                    frequency = widgetToEdit.frequency
+//                    unit = widgetToEdit.unit
+//                    specificUnit = widgetToEdit.specificUnit
+//                    description = widgetToEdit.description
+//                }
+//            }
+//        }
+//    }
+//}
+import SwiftUI
 
 struct AddWidgetView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -238,23 +454,29 @@ struct AddWidgetView: View {
                 }
             }
             .navigationTitle(widgetToEdit == nil ? "New Widget" : "Edit Widget")
-            .navigationBarItems(trailing: Button("Save") {
-                if name.isEmpty || specificUnit.isEmpty {
-                    showError = true
-                } else {
-                    if let widgetToEdit = widgetToEdit, let index = widgets.firstIndex(where: { $0.id == widgetToEdit.id }) {
-                        widgets[index].name = name
-                        widgets[index].frequency = frequency
-                        widgets[index].unit = unit
-                        widgets[index].specificUnit = specificUnit
-                        widgets[index].description = description
-                    } else {
-                        let newWidget = CustomWidget(name: name, frequency: frequency, unit: unit, specificUnit: specificUnit, description: description)
-                        widgets.append(newWidget)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        if name.isEmpty || specificUnit.isEmpty {
+                            showError = true
+                        } else {
+                            if let widgetToEdit = widgetToEdit, let index = widgets.firstIndex(where: { $0.id == widgetToEdit.id }) {
+                                widgets[index].name = name
+                                widgets[index].frequency = frequency
+                                widgets[index].unit = unit
+                                widgets[index].specificUnit = specificUnit
+                                widgets[index].description = description
+                            } else {
+                                let newWidget = CustomWidget(id: UUID(), name: name, frequency: frequency, value: 0, unit: unit, specificUnit: specificUnit, description: description, percentageChange: 0)
+                                widgets.append(newWidget)
+                            }
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Text("Save")
                     }
-                    presentationMode.wrappedValue.dismiss()
                 }
-            })
+            }
             .alert(isPresented: $showError) {
                 Alert(title: Text("Error"), message: Text("Please fill in all required fields."), dismissButton: .default(Text("OK")))
             }
@@ -271,6 +493,13 @@ struct AddWidgetView: View {
     }
 }
 
-#Preview {
-    CustomWidgetView()
+struct AddWidgetView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddWidgetView(widgets: .constant([]))
+    }
 }
+
+
+//#Preview {
+//    CustomWidgetView()
+//}

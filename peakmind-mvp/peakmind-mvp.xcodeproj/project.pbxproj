@@ -37,6 +37,8 @@
 		10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		10FA68812BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
+		191340012C682A2900DB5C01 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 191340002C682A2900DB5C01 /* Lottie */; };
+		191340032C682B0500DB5C01 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191340022C682B0500DB5C01 /* LottieView.swift */; };
 		19F895C52C5059F900C5D6E6 /* ViewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F895C42C5059F900C5D6E6 /* ViewMod.swift */; };
 		1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */; };
 		1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */; };
@@ -269,6 +271,7 @@
 		10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3IntroView.swift; sourceTree = "<group>"; };
 		10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitUIView.swift; sourceTree = "<group>"; };
 		10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdTriangleEncoded.mov; sourceTree = "<group>"; };
+		191340022C682B0500DB5C01 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		19F895C42C5059F900C5D6E6 /* ViewMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMod.swift; sourceTree = "<group>"; };
 		1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -438,6 +441,7 @@
 				1CF4A8992B8309CD00051684 /* GoogleSignIn in Frameworks */,
 				1CF4C4202B7B1DD50028BC3C /* FirebaseCrashlytics in Frameworks */,
 				1CA15D132C4FE8A400391AE9 /* FirebaseVertexAI-Preview in Frameworks */,
+				191340012C682A2900DB5C01 /* Lottie in Frameworks */,
 				1CF4C4322B7B1DD50028BC3C /* FirebaseInAppMessaging-Beta in Frameworks */,
 				1CF4C4242B7B1DD50028BC3C /* FirebaseDatabaseSwift in Frameworks */,
 				1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */,
@@ -686,6 +690,7 @@
 			isa = PBXGroup;
 			children = (
 				1CE785FC2B8DA0DB00962A40 /* MessageBubble.swift */,
+				191340022C682B0500DB5C01 /* LottieView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1137,6 +1142,7 @@
 				10CE96142C0297CF0092EE29 /* Glur */,
 				103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */,
 				1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */,
+				191340002C682A2900DB5C01 /* Lottie */,
 			);
 			productName = "peakmind-mvp";
 			productReference = 1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */;
@@ -1216,6 +1222,7 @@
 				10CE96132C0297CF0092EE29 /* XCRemoteSwiftPackageReference "Glur" */,
 				103D863A2C2B91FE0078A45B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				1973F32F2C4DEFE900EDC29F /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				19133FFF2C682A2900DB5C01 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 1CF4C3DF2B7B15E10028BC3C /* Products */;
 			projectDirPath = "";
@@ -1379,6 +1386,7 @@
 				79C384062BD60EAC00A6779A /* P1-5_StressTriggerMap.swift in Sources */,
 				19F895C52C5059F900C5D6E6 /* ViewMod.swift in Sources */,
 				1CD299C22BBA5E4E003A0592 /* Level2Complete.swift in Sources */,
+				191340032C682B0500DB5C01 /* LottieView.swift in Sources */,
 				79C3841C2BD60F7300A6779A /* P2-3_DefiningAnxietyScenario.swift in Sources */,
 				792617862BD70C2000AAAC81 /* ScenarioTemplate.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
@@ -1792,6 +1800,14 @@
 				minimumVersion = 1.0.4;
 			};
 		};
+		19133FFF2C682A2900DB5C01 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 		1973F32F2C4DEFE900EDC29F /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-algorithms.git";
@@ -1828,6 +1844,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 10CE96132C0297CF0092EE29 /* XCRemoteSwiftPackageReference "Glur" */;
 			productName = Glur;
+		};
+		191340002C682A2900DB5C01 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 19133FFF2C682A2900DB5C01 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */ = {
 			isa = XCSwiftPackageProductDependency;

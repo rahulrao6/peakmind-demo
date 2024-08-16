@@ -15,6 +15,7 @@ struct ProfileView: View {
     @State private var isSherpaFullMoonIDActive = false
     @State private var isBreathingExerciseViewActive = false
     @State private var isFeedbackFormPresented = false
+    @State private var isRoutineListViewPresented = false
 
     var body: some View {
         NavigationView {
@@ -84,6 +85,14 @@ struct ProfileView: View {
                         }
                         .sheet(isPresented: $isFriendListViewPresented) {
                             FriendListView().environmentObject(viewModel)
+                        }
+                    }
+                    Section("Habit Stack") {
+                        Button("Routine List") {
+                            isRoutineListViewPresented.toggle()
+                        }
+                        .sheet(isPresented: $isRoutineListViewPresented) {
+                            RoutineListView(viewModel: viewModel).environmentObject(viewModel)
                         }
                     }
                 }

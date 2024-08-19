@@ -228,16 +228,43 @@ import HealthKit
 import SwiftUI
 import FirebaseCore
 import GoogleSignIn
+import UserNotifications
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+//class AppDelegate: NSObject, UIApplicationDelegate {
+//    func application(_ application: UIApplication,
+//                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+//        print("Configuring Firebase...")
+//        FirebaseApp.configure()
+//        print("Firebase configured.")
+//        return true
+//    }
+//
+//    @available(iOS 9.0, *)
+//    func application(_ application: UIApplication, open url: URL,
+//                     options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+//        print("Handling URL: \(url)")
+//        let handled = GIDSignIn.sharedInstance.handle(url)
+//        print("URL handled: \(handled)")
+//        return handled
+//    }
+//}
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+    
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         print("Configuring Firebase...")
         FirebaseApp.configure()
         print("Firebase configured.")
+        
+        // Request notification permission
+        requestNotificationPermission()
+        
+        // Set the notification center delegate
+        UNUserNotificationCenter.current().delegate = self
+        
         return true
     }
-
+    
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
@@ -246,7 +273,37 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         print("URL handled: \(handled)")
         return handled
     }
+    
+    // Request notification permissions from the user
+    private func requestNotificationPermission() {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if let error = error {
+                print("Failed to request notification permissions: \(error.localizedDescription)")
+            } else if granted {
+                print("Notification permission granted.")
+            } else {
+                print("Notification permission denied.")
+            }
+        }
+    }
+    
+    // Handle notifications when the app is in the foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound]) // Show banner and play sound even if the app is in the foreground
+    }
+    
+    // Handle user interactions with notifications
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("Notification received with identifier: \(response.notification.request.identifier)")
+        completionHandler()
+    }
 }
+
 
 @main
 struct peakmind_mvpApp: App {
@@ -260,9 +317,38 @@ struct peakmind_mvpApp: App {
                 ContentView()
                     .environmentObject(viewModel)
                     .environmentObject(CommunitiesViewModel1)
+                    .onAppear {
+                        // Example of scheduling a notification
+                        scheduleNotification()
+                    }
             }
         }
     }
+    func scheduleNotification() {
+        let center = UNUserNotificationCenter.current()
+        
+        // Create the notification content
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder"
+        content.body = "This is your notification scheduled 10 seconds ago!"
+        content.sound = .default
+        
+        // Create a trigger to fire in 10 seconds
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        
+        // Create the notification request
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        // Schedule the notification
+        center.add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            } else {
+                print("Notification scheduled to fire in 10 seconds.")
+            }
+        }
+    }
+
 }
 
 import SwiftUI

@@ -169,9 +169,186 @@ import SwiftUI
 //        }
 //    }
 //}
+//struct SelfCareNew: View {
+//    @State private var showingAddWidget = false
+//    @State private var editingWidget: CustomWidget? = nil
+//    @State private var isEditMode = false
+//    @State private var selectedWidget: CustomWidget?
+//    @State private var showingQuestionsSheet = false
+//    @State private var showingPPSheet = false
+//
+//    @EnvironmentObject var viewModel: AuthViewModel
+//
+//    @State private var widgets: [CustomWidget] = [
+//        CustomWidget(name: "Steps", frequency: .daily, unit: .count, specificUnit: "steps", value: 1000, description: "Daily steps count", percentageChange: 5),
+//        CustomWidget(name: "Water", frequency: .multipleTimesDaily, unit: .volume, specificUnit: "liters", value: 2, description: "Daily water intake", percentageChange: -3),
+//        CustomWidget(name: "Reading", frequency: .daily, unit: .time, specificUnit: "minutes", value: 30, description: "Daily reading time", percentageChange: 8),
+//        CustomWidget(name: "Exercise", frequency: .daily, unit: .time, specificUnit: "minutes", value: 60, description: "Daily exercise time", percentageChange: 10),
+//        CustomWidget(name: "Meditation", frequency: .daily, unit: .time, specificUnit: "minutes", value: 15, description: "Daily meditation time", percentageChange: 2),
+//        CustomWidget(name: "Sleep", frequency: .daily, unit: .time, specificUnit: "hours", value: 8, description: "Daily sleep duration", percentageChange: 1)
+//    ]
+//    
+//    let cardWidth: CGFloat = 200
+//    let cardHeight: CGFloat = 250
+//    let cardSpacing: CGFloat = -70
+//    let defaultUsername: String = "User" // Default username for preview
+//
+//    var body: some View {
+//        NavigationView {
+//            VStack(spacing: 0) {
+//                // Top Section
+//                topSection
+//
+//                CustomButton2(title: "Daily Check In", onClick: {
+//                    // Handle Daily Check In
+//                })
+//                .padding(.top, 60)
+//                .padding(.bottom, -41)
+//                
+//                // Widgets Section
+//                ScrollView(.horizontal, showsIndicators: false) {
+//                    widgetsSection
+//                }
+//                .padding(.top)
+//                .padding(.leading, -48)
+//
+//                // Edit Widgets Button
+//                CustomButton3(title: isEditMode ? "Done" : "Edit Widgets", onClick: {
+//                    isEditMode.toggle()
+//                })
+//                .frame(width: 390) // Smaller width for the button
+//                .padding(.top, -30)
+//                
+//                // Swipeable Graph Interface
+//                swipeableGraphInterface
+//                
+//                CustomButton2(title: "Detailed Analytics", onClick: {
+//                    // Handle Detailed Analytics
+//                })
+//                .padding(.top, -14)
+//                .padding(.bottom, -41)
+//                Spacer()
+//                if viewModel.currentUser?.hasCompletedInitialQuiz ?? false {
+//                    CustomButton2(title: "View Personalized Plan", onClick: {
+//                        showingPPSheet = true
+//                    })
+//                }
+//                
+//            }
+//            .onAppear {
+//                if !(viewModel.currentUser?.hasCompletedInitialQuiz ?? false) {
+//                    showingQuestionsSheet = true
+//                }
+//            }
+//            .background(Color.sentMessage.edgesIgnoringSafeArea(.all))
+//            .navigationBarHidden(true)
+//            .sheet(isPresented: $showingAddWidget) {
+//                AddWidgetView(widgets: $widgets)
+//            }
+//            .sheet(item: $editingWidget) { widget in
+//                AddWidgetView(widgets: $widgets, widgetToEdit: widget)
+//            }
+//            .sheet(item: $selectedWidget) { widget in
+//                WidgetDetailView(widget: widget)
+//            }
+//            .sheet(isPresented: $showingQuestionsSheet, onDismiss: {
+//                Task {
+//                    try await viewModel.fetchUser()
+//                }
+//            }) {
+//                PPContentView().environmentObject(viewModel)
+//            }
+//            .sheet(isPresented: $showingPPSheet) {
+//                PersonalizedPlanView().environmentObject(viewModel)
+//            }
+//        }
+//    }
+//    
+//    // Extracted Subviews
+//    private var topSection: some View {
+//        ZStack {
+//            Image("Header")
+//                .resizable()
+//                .aspectRatio(contentMode: .fill)
+//                .frame(height: 100)
+//                .edgesIgnoringSafeArea(.top)
+//            
+//            HStack {
+//                VStack(alignment: .leading) {
+//                    Text("Welcome, \(defaultUsername)!")
+//                        .fontWeight(.bold)
+//                        .foregroundColor(.black)
+//                        .font(.title)
+//                    
+//                    Text("Check out your analytics below.")
+//                        .fontWeight(.semibold)
+//                        .foregroundColor(.black)
+//                        .font(.body)
+//                }
+//                .padding()
+//                
+//                Spacer()
+//                
+//                Image("Sherpa")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 80, height: 80)
+//                    .padding()
+//            }
+//            .padding(.top, 50)
+//        }
+//        .frame(height: 70)
+//    }
+//
+//    private var widgetsSection: some View {
+//        HStack(spacing: cardSpacing) {
+//            ForEach(widgets.indices, id: \.self) { index in
+//                WidgetView2(widget: $widgets[index], isEditMode: $isEditMode)
+//                    .frame(width: cardWidth, height: cardHeight)
+//                    .onTapGesture {
+//                        if isEditMode {
+//                            editingWidget = widgets[index]
+//                        }
+//                    }
+//            }
+//            AddWidgetButton {
+//                showingAddWidget = true
+//            }
+//            .frame(width: cardWidth, height: cardHeight)
+//        }
+//        .padding(.horizontal)
+//    }
+//
+//    private var swipeableGraphInterface: some View {
+//        GeometryReader { geometry in
+//            TabView {
+//                ForEach(0..<((widgets.count + 1) / 2), id: \.self) { index in
+//                    HStack(spacing: -1) {
+//                        ForEach(0..<2) { subIndex in
+//                            if index * 2 + subIndex < widgets.count {
+//                                GraphCardView(widget: widgets[index * 2 + subIndex])
+//                                    .frame(width: geometry.size.width / 2)
+//                                    .onTapGesture {
+//                                        selectedWidget = widgets[index * 2 + subIndex]
+//                                    }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+//        }
+//        .frame(height: 120)
+//        .padding(.bottom)
+//    }
+//}
+import SwiftUI
+
+import SwiftUI
+
 struct SelfCareNew: View {
     @State private var showingAddWidget = false
-    @State private var editingWidget: CustomWidget? = nil
+    @State private var editingWidget: CustomWidget?
     @State private var isEditMode = false
     @State private var selectedWidget: CustomWidget?
     @State private var showingQuestionsSheet = false
@@ -179,24 +356,13 @@ struct SelfCareNew: View {
 
     @EnvironmentObject var viewModel: AuthViewModel
 
-    @State private var widgets: [CustomWidget] = [
-        CustomWidget(name: "Steps", frequency: .daily, unit: .count, specificUnit: "steps", value: 1000, description: "Daily steps count", percentageChange: 5),
-        CustomWidget(name: "Water", frequency: .multipleTimesDaily, unit: .volume, specificUnit: "liters", value: 2, description: "Daily water intake", percentageChange: -3),
-        CustomWidget(name: "Reading", frequency: .daily, unit: .time, specificUnit: "minutes", value: 30, description: "Daily reading time", percentageChange: 8),
-        CustomWidget(name: "Exercise", frequency: .daily, unit: .time, specificUnit: "minutes", value: 60, description: "Daily exercise time", percentageChange: 10),
-        CustomWidget(name: "Meditation", frequency: .daily, unit: .time, specificUnit: "minutes", value: 15, description: "Daily meditation time", percentageChange: 2),
-        CustomWidget(name: "Sleep", frequency: .daily, unit: .time, specificUnit: "hours", value: 8, description: "Daily sleep duration", percentageChange: 1)
-    ]
-    
     let cardWidth: CGFloat = 200
     let cardHeight: CGFloat = 250
     let cardSpacing: CGFloat = -70
-    let defaultUsername: String = "User" // Default username for preview
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                // Top Section
                 topSection
 
                 CustomButton2(title: "Daily Check In", onClick: {
@@ -205,21 +371,25 @@ struct SelfCareNew: View {
                 .padding(.top, 60)
                 .padding(.bottom, -41)
                 
-                // Widgets Section
                 ScrollView(.horizontal, showsIndicators: false) {
                     widgetsSection
                 }
                 .padding(.top)
                 .padding(.leading, -48)
 
-                // Edit Widgets Button
-                CustomButton3(title: isEditMode ? "Done" : "Edit Widgets", onClick: {
-                    isEditMode.toggle()
-                })
-                .frame(width: 390) // Smaller width for the button
-                .padding(.top, -30)
+//                CustomButton3(title: isEditMode ? "Done" : "Edit Widgets", onClick: {
+//                    if let widgets = viewModel.currentUser?.selectedWidgets {
+//                        if isEditMode {
+//                            Task {
+//                                try await viewModel.saveWidgets(widgets: widgets)
+//                            }
+//                        }
+//                    }
+//                    isEditMode.toggle()
+//                })
+//                .frame(width: 390)
+//                .padding(.top, -30)
                 
-                // Swipeable Graph Interface
                 swipeableGraphInterface
                 
                 CustomButton2(title: "Detailed Analytics", onClick: {
@@ -233,20 +403,49 @@ struct SelfCareNew: View {
                         showingPPSheet = true
                     })
                 }
-                
             }
             .onAppear {
-                if !(viewModel.currentUser?.hasCompletedInitialQuiz ?? false) {
-                    showingQuestionsSheet = true
+                Task {
+                    await viewModel.fetchWidgets()
+                    if !(viewModel.currentUser?.hasCompletedInitialQuiz ?? false) {
+                        showingQuestionsSheet = true
+                    }
                 }
             }
             .background(Color.sentMessage.edgesIgnoringSafeArea(.all))
             .navigationBarHidden(true)
             .sheet(isPresented: $showingAddWidget) {
-                AddWidgetView(widgets: $widgets)
+                if let currentUser = viewModel.currentUser {
+                    AddWidgetView(widgets: Binding(get: {
+                        currentUser.selectedWidgets
+                    }, set: { newWidgets in
+                        viewModel.currentUser?.selectedWidgets = newWidgets
+                        Task {
+                            try await viewModel.saveWidgets(widgets: newWidgets)
+                        }
+                    }))
+                }
             }
-            .sheet(item: $editingWidget) { widget in
-                AddWidgetView(widgets: $widgets, widgetToEdit: widget)
+            .sheet(item: $editingWidget, onDismiss: {
+                if let widgets = viewModel.currentUser?.selectedWidgets {
+                    Task {
+                        try await viewModel.saveWidgets(widgets: widgets)
+                    }
+                }
+            }) { widget in
+                if let currentUser = viewModel.currentUser {
+                    AddWidgetView(
+                        widgets: Binding(get: {
+                            currentUser.selectedWidgets
+                        }, set: { newWidgets in
+                            viewModel.currentUser?.selectedWidgets = newWidgets
+                            Task {
+                                try await viewModel.saveWidgets(widgets: newWidgets)
+                            }
+                        }),
+                        widgetToEdit: widget
+                    )
+                }
             }
             .sheet(item: $selectedWidget) { widget in
                 WidgetDetailView(widget: widget)
@@ -263,8 +462,7 @@ struct SelfCareNew: View {
             }
         }
     }
-    
-    // Extracted Subviews
+
     private var topSection: some View {
         ZStack {
             Image("Header")
@@ -275,7 +473,7 @@ struct SelfCareNew: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Welcome, \(defaultUsername)!")
+                    Text("Welcome, \(viewModel.currentUser?.username ?? "User")!")
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                         .font(.title)
@@ -302,46 +500,65 @@ struct SelfCareNew: View {
 
     private var widgetsSection: some View {
         HStack(spacing: cardSpacing) {
-            ForEach(widgets.indices, id: \.self) { index in
-                WidgetView2(widget: $widgets[index], isEditMode: $isEditMode)
+            if let widgets = viewModel.currentUser?.selectedWidgets {
+                ForEach(widgets.indices, id: \.self) { index in
+                    WidgetView2(widget: Binding(get: {
+                        viewModel.currentUser!.selectedWidgets[index]
+                    }, set: { newValue in
+                        viewModel.currentUser!.selectedWidgets[index] = newValue
+                        Task {
+                            try await viewModel.saveWidgets(widgets: viewModel.currentUser!.selectedWidgets)
+                        }
+                    }), isEditMode: $isEditMode)
                     .frame(width: cardWidth, height: cardHeight)
                     .onTapGesture {
                         if isEditMode {
-                            editingWidget = widgets[index]
+                            editingWidget = viewModel.currentUser?.selectedWidgets[index]
                         }
                     }
+                }
+                AddWidgetButton {
+                    showingAddWidget = true
+                }
+                .frame(width: cardWidth, height: cardHeight)
+                .onChange(of: viewModel.currentUser?.selectedWidgets) { newWidgets in
+                    if let lastAddedWidget = newWidgets?.last {
+                        // Schedule a notification when a new widget (tracker) is added
+                        viewModel.scheduleNotificationForNewTracker(widgetName: lastAddedWidget.name)
+                    }
+                }
             }
-            AddWidgetButton {
-                showingAddWidget = true
-            }
-            .frame(width: cardWidth, height: cardHeight)
         }
         .padding(.horizontal)
     }
 
     private var swipeableGraphInterface: some View {
         GeometryReader { geometry in
-            TabView {
-                ForEach(0..<((widgets.count + 1) / 2), id: \.self) { index in
-                    HStack(spacing: -1) {
-                        ForEach(0..<2) { subIndex in
-                            if index * 2 + subIndex < widgets.count {
-                                GraphCardView(widget: widgets[index * 2 + subIndex])
-                                    .frame(width: geometry.size.width / 2)
-                                    .onTapGesture {
-                                        selectedWidget = widgets[index * 2 + subIndex]
-                                    }
+            if let widgets = viewModel.currentUser?.selectedWidgets {
+                TabView {
+                    ForEach(0..<((widgets.count + 1) / 2), id: \.self) { index in
+                        HStack(spacing: -1) {
+                            ForEach(0..<2) { subIndex in
+                                if index * 2 + subIndex < widgets.count {
+                                    GraphCardView(widget: widgets[index * 2 + subIndex])
+                                        .frame(width: geometry.size.width / 2)
+                                        .onTapGesture {
+                                            selectedWidget = widgets[index * 2 + subIndex]
+                                        }
+                                }
                             }
                         }
                     }
                 }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
         .frame(height: 120)
         .padding(.bottom)
     }
 }
+
+
 
 
 import SwiftUI

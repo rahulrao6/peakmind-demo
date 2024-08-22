@@ -28,6 +28,22 @@
 	</dict>
 	<key>GIDClientID</key>
 	<string>84784545087-eae20phpcgkv089tst1qdkicqcictusi.apps.googleusercontent.com</string>
+	<key>ATSApplicationFontsPath</key>
+	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SF-Pro-Display-Bold.otf</string>
+		<string>SF-Pro-Display-Black.otf</string>
+		<string>SF-Pro-Display-BlackItalic.otf</string>
+		<string>SF-Pro-Display-Medium.otf</string>
+		<string>SF-Pro-Text-Bold.otf</string>
+		<string>SF-Pro-Text-Heavy.otf</string>
+		<string>SF-Pro-Text-Light.otf</string>
+		<string>SF-Pro-Text-Medium.otf</string>
+		<string>SF-Pro-Text-Regular.otf</string>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>com.googleusercontent.apps.84784545087-eae20phpcgkv089tst1qdkicqcictusi
 *** First throw call stack:</string>

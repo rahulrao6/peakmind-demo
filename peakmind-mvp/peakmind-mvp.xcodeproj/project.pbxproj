@@ -87,7 +87,7 @@
 		19627DAA2C7445CF002F5818 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627DA52C7445CF002F5818 /* SF-Pro-Display-Bold.otf */; };
 		19627DAB2C7445CF002F5818 /* SF-Pro-Display-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627DA62C7445CF002F5818 /* SF-Pro-Display-Heavy.otf */; };
 		196F4CAF2C76856900604E7C /* FontChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196F4CAE2C76856900604E7C /* FontChecker.swift */; };
-		19A63EFB2C7431950036F5E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19A63EFA2C7431950036F5E3 /* Assets.xcassets */; };
+		196F4DB92C76BA1700604E7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 196F4DB82C76BA1700604E7C /* Assets.xcassets */; };
 		19A63F012C7431AF0036F5E3 /* LightPurpleNewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */; };
 		19A63F022C7431AF0036F5E3 /* GreenNewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFD2C7431AE0036F5E3 /* GreenNewBG.swift */; };
 		19A63F032C7431AF0036F5E3 /* PurpleNewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFE2C7431AE0036F5E3 /* PurpleNewBG.swift */; };
@@ -375,7 +375,7 @@
 		19627DA52C7445CF002F5818 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		19627DA62C7445CF002F5818 /* SF-Pro-Display-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Heavy.otf"; sourceTree = "<group>"; };
 		196F4CAE2C76856900604E7C /* FontChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontChecker.swift; sourceTree = "<group>"; };
-		19A63EFA2C7431950036F5E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../Assets.xcassets; sourceTree = "<group>"; };
+		196F4DB82C76BA1700604E7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "peakmind-mvp/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG.swift; sourceTree = "<group>"; };
 		19A63EFD2C7431AE0036F5E3 /* GreenNewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenNewBG.swift; sourceTree = "<group>"; };
 		19A63EFE2C7431AE0036F5E3 /* PurpleNewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG.swift; sourceTree = "<group>"; };
@@ -894,7 +894,7 @@
 				79C383F62BD60DA000A6779A /* UPDATED GAME PHASES */,
 				793B79A52BAF8453001062DB /* Game Level Screens */,
 				1C9C63BF2B81326E0066AF70 /* Components */,
-				19A63EFA2C7431950036F5E3 /* Assets.xcassets */,
+				196F4DB82C76BA1700604E7C /* Assets.xcassets */,
 				1CF4C3E12B7B15E10028BC3C /* peakmind_mvpApp.swift */,
 				1CF4C3E72B7B15E40028BC3C /* Preview Content */,
 				B08AF59C2B92A544001A1253 /* README.md */,
@@ -1467,13 +1467,13 @@
 				19627DA72C7445CF002F5818 /* SF-Pro-Display-BoldItalic.otf in Resources */,
 				19627D9B2C7445C7002F5818 /* SF-Pro-Text-Semibold.otf in Resources */,
 				19627DA12C7445C7002F5818 /* SF-Pro-Display-Medium.otf in Resources */,
-				19A63EFB2C7431950036F5E3 /* Assets.xcassets in Resources */,
 				19627D9C2C7445C7002F5818 /* SF-Pro-Text-Ultralight.otf in Resources */,
 				10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 				19627D832C7445C7002F5818 /* SF-Pro-Rounded-Thin.otf in Resources */,
 				19627D9E2C7445C7002F5818 /* SF-Pro-Rounded-Bold.otf in Resources */,
 				19627D872C7445C7002F5818 /* SF-Pro-Text-SemiboldItalic.otf in Resources */,
 				19627D802C7445C7002F5818 /* SF-Pro-Text-Heavy.otf in Resources */,
+				196F4DB92C76BA1700604E7C /* Assets.xcassets in Resources */,
 				19627DA92C7445CF002F5818 /* SF-Pro-Display-Black.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

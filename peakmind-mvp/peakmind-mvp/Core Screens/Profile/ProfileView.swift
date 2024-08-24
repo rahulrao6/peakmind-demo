@@ -16,6 +16,11 @@ struct ProfileView: View {
     @State private var isBreathingExerciseViewActive = false
     @State private var isFeedbackFormPresented = false
     @State private var isRoutineListViewPresented = false
+    @State private var GAD7Present = false
+    @State private var PSSPresent = false
+    @State private var NMRQPresent = false
+    @State private var PHQ9Present = false
+
 
     var body: some View {
         NavigationView {
@@ -93,6 +98,32 @@ struct ProfileView: View {
                         }
                         .sheet(isPresented: $isRoutineListViewPresented) {
                             RoutineListView(viewModel: viewModel).environmentObject(viewModel)
+                        }
+                    }
+                    Section("Quizzes") {
+                        Button("GAD7") {
+                            GAD7Present.toggle()
+                        }
+                        .sheet(isPresented: $GAD7Present) {
+                            GAD7QuizView().environmentObject(viewModel)
+                        }
+                        Button("NMRQ") {
+                            NMRQPresent.toggle()
+                        }
+                        .sheet(isPresented: $NMRQPresent) {
+                            NMRQQuizView().environmentObject(viewModel)
+                        }
+                        Button("PSS") {
+                            PSSPresent.toggle()
+                        }
+                        .sheet(isPresented: $PSSPresent) {
+                            PSSQuizView().environmentObject(viewModel)
+                        }
+                        Button("PHQ9") {
+                            PHQ9Present.toggle()
+                        }
+                        .sheet(isPresented: $PHQ9Present) {
+                            PHQ9QuizView().environmentObject(viewModel)
                         }
                     }
                 }

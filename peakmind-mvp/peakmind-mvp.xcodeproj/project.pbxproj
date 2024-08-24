@@ -52,6 +52,7 @@
 		1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */; };
 		1C7B2E8D2C65D2A700B233D8 /* Routines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B2E8C2C65D2A700B233D8 /* Routines.swift */; };
 		1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7F93EA2BC3B291000754E2 /* PacMan.swift */; };
+		1C82A4672C70F9EF0098E632 /* PeakmindProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82A4662C70F9EF0098E632 /* PeakmindProfiles.swift */; };
 		1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C52B8133360066AF70 /* LoginView.swift */; };
 		1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C72B81359A0066AF70 /* InputView.swift */; };
 		1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C92B813BF70066AF70 /* RegistrationView.swift */; };
@@ -289,6 +290,7 @@
 		1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
 		1C7B2E8C2C65D2A700B233D8 /* Routines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines.swift; sourceTree = "<group>"; };
 		1C7F93EA2BC3B291000754E2 /* PacMan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacMan.swift; sourceTree = "<group>"; };
+		1C82A4662C70F9EF0098E632 /* PeakmindProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeakmindProfiles.swift; sourceTree = "<group>"; };
 		1C9C63C52B8133360066AF70 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		1C9C63C72B81359A0066AF70 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		1C9C63C92B813BF70066AF70 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
@@ -553,6 +555,14 @@
 			path = Routines;
 			sourceTree = "<group>";
 		};
+		1C82A4652C70F9D80098E632 /* PeakmindProfiles */ = {
+			isa = PBXGroup;
+			children = (
+				1C82A4662C70F9EF0098E632 /* PeakmindProfiles.swift */,
+			);
+			path = PeakmindProfiles;
+			sourceTree = "<group>";
+		};
 		1C9C63BF2B81326E0066AF70 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -575,6 +585,7 @@
 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
+				1C82A4652C70F9D80098E632 /* PeakmindProfiles */,
 				79582AB72C6FBE30006866BC /* Templates */,
 				79582AB42C6FBE09006866BC /* Summit Mode */,
 				1C7B2E8B2C65D29A00B233D8 /* Routines */,
@@ -1434,6 +1445,7 @@
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
 				1C9FA2572BCDB6EB003C844C /* UserData.swift in Sources */,
 				793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */,
+				1C82A4672C70F9EF0098E632 /* PeakmindProfiles.swift in Sources */,
 				79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */,
 				10CE95472BEDCF9E0092EE29 /* ScenarioQuizView.swift in Sources */,
 				79C384102BD60F0100A6779A /* P1-12_LifestyleQuestion.swift in Sources */,

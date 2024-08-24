@@ -355,6 +355,8 @@ struct SelfCareNew: View {
     @State private var showingPPSheet = false
 
     @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var healthKitManager: HealthKitManager
+
 
     let cardWidth: CGFloat = 200
     let cardHeight: CGFloat = 250
@@ -364,7 +366,6 @@ struct SelfCareNew: View {
         NavigationView {
             VStack(spacing: 0) {
                 topSection
-
                 CustomButton2(title: "Daily Check In", onClick: {
                     // Handle Daily Check In
                 })
@@ -377,6 +378,7 @@ struct SelfCareNew: View {
                 .padding(.top)
                 .padding(.leading, -48)
 
+                
 //                CustomButton3(title: isEditMode ? "Done" : "Edit Widgets", onClick: {
 //                    if let widgets = viewModel.currentUser?.selectedWidgets {
 //                        if isEditMode {
@@ -503,20 +505,33 @@ struct SelfCareNew: View {
             if let widgets = viewModel.currentUser?.selectedWidgets {
                 ForEach(widgets.indices, id: \.self) { index in
                     WidgetView2(widget: Binding(get: {
-                        viewModel.currentUser!.selectedWidgets[index]
+                        return widgets[index]  // Safe access to widgets array
                     }, set: { newValue in
-                        viewModel.currentUser!.selectedWidgets[index] = newValue
-                        Task {
-                            try await viewModel.saveWidgets(widgets: viewModel.currentUser!.selectedWidgets)
+                        if var user = viewModel.currentUser {
+                            user.selectedWidgets[index] = newValue
+                            viewModel.currentUser = user
+                            Task {
+                                do {
+                                    try await viewModel.saveWidgets(widgets: user.selectedWidgets)
+                                } catch {
+                                    // Handle save error if necessary
+                                    print("Error saving widgets: \(error)")
+                                }
+                            }
                         }
                     }), isEditMode: $isEditMode)
                     .frame(width: cardWidth, height: cardHeight)
                     .onTapGesture {
                         if isEditMode {
-                            editingWidget = viewModel.currentUser?.selectedWidgets[index]
+                            editingWidget = widgets[index]  // Safe access to widgets array
                         }
                     }
                 }
+                
+                StepWidget1()
+                    .environmentObject(viewModel)
+                    .environmentObject(healthKitManager)
+                
                 AddWidgetButton {
                     showingAddWidget = true
                 }
@@ -527,10 +542,15 @@ struct SelfCareNew: View {
                         viewModel.scheduleNotificationForNewTracker(widgetName: lastAddedWidget.name)
                     }
                 }
+            } else {
+                // Handle the case where selectedWidgets is nil
+                Text("No widgets available.")
+                    .frame(width: cardWidth, height: cardHeight)
             }
         }
         .padding(.horizontal)
     }
+
 
     private var swipeableGraphInterface: some View {
         GeometryReader { geometry in
@@ -640,4 +660,21 @@ struct WidgetDetailView: View {
 
 #Preview {
     SelfCareNew()
+}
+
+import SwiftUI
+import HealthKit
+
+struct StepCountView: View {
+    @EnvironmentObject var healthKitManager: HealthKitManager
+
+    var body: some View {
+        VStack {
+            Text("Today's Steps")
+                .font(.headline)
+            Text("\(Int(healthKitManager.liveStepCount)) steps")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+        }
+    }
 }

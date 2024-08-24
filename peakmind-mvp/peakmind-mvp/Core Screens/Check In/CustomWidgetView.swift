@@ -500,6 +500,41 @@ struct AddWidgetView_Previews: PreviewProvider {
 }
 
 
+
+struct StepWidget1: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var healthKitManager: HealthKitManager
+
+    var body: some View {
+        VStack(spacing: 5) {
+            Text("Steps")
+                .font(.headline)
+                .foregroundColor(.blue)
+                .lineLimit(1)
+                .truncationMode(.tail)
+            Text("\(Int(healthKitManager.liveStepCount)) steps")
+                .font(.title2)
+                .foregroundColor(.white)
+
+            .padding(.top, 10)
+        }
+        .frame(height: 130)
+        .frame(width: 80)
+        .padding()
+        .background(Color.blue.opacity(0.2))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.blue)
+        )
+        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 5)
+    }
+
+
+}
+
+
+
 //#Preview {
 //    CustomWidgetView()
 //}

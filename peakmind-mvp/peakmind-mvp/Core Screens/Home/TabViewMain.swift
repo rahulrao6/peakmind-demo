@@ -7,6 +7,7 @@ struct TabViewMain: View {
     @State private var showingQuizPrompt = false // State to manage quiz prompt overlay
     @State private var level2 = false // State to manage quiz prompt overlay
     @EnvironmentObject var CommunitiesViewModel : CommunitiesViewModel
+    @EnvironmentObject var healthKitManager: HealthKitManager
 
     var body: some View {
         if let user = viewModel.currentUser {
@@ -24,7 +25,7 @@ struct TabViewMain: View {
                                 }
                             }
 
-                    SelfCareNew().environmentObject(viewModel)
+                    SelfCareNew().environmentObject(viewModel).environmentObject(healthKitManager)
                         .tabItem {
                             Label("Self Care", systemImage: "heart")
                         }
@@ -53,6 +54,9 @@ struct TabViewMain: View {
                     setupTabBarAppearance()
                     // Show tutorial if it hasn't been completed
                     showingTutorial = !user.hasCompletedTutorial
+                    healthKitManager.requestAuthorization()
+                    healthKitManager.fetchHealthData(for: user.id, numberOfDays: 7)
+                    healthKitManager.startStepCountObserverQuery()
                 }
 
                 // Overlay Tutorial View

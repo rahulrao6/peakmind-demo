@@ -20,6 +20,7 @@ class AuthViewModel: ObservableObject {
 
 //    @Published var communitiesViewModel = CommunitiesViewModel()
     @Published var authErrorMessage: String? // New property for error messages
+    private let healthKitManager = HealthKitManager()
 
     private var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     private let db = Firestore.firestore()
@@ -29,6 +30,8 @@ class AuthViewModel: ObservableObject {
             guard let self = self else { return }
             if let user = user {
                 self.fetchUserData(userId: user.uid)
+                self.healthKitManager.requestAuthorization()
+                self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
             } else {
                 self.isSignedIn = false
                 self.currentUser = nil
@@ -64,6 +67,8 @@ class AuthViewModel: ObservableObject {
             }
             if let user = result?.user {
                 self.fetchUserData(userId: user.uid)
+                self.healthKitManager.requestAuthorization()
+                self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
             }
         }
     }
@@ -316,6 +321,8 @@ class AuthViewModel: ObservableObject {
                 } else if let user = Auth.auth().currentUser {
                     print("calling the fetch/create")
                     self.fetchUserDataOrCreateNew(user: user, email: user.email)
+                    self.healthKitManager.requestAuthorization()
+                    self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
                 }
             }
         }
@@ -409,6 +416,7 @@ class AuthViewModel: ObservableObject {
             let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
             self.currentUser = try snapshot.data(as: UserData.self)
             print("Debug current user is \(String(describing: self.currentUser))")
+            
             //communitiesViewModel.loadCommunities()
         } catch {
             print("Error fetching user data: \(error.localizedDescription)")
@@ -1308,6 +1316,74 @@ class AuthViewModel: ObservableObject {
                 print("Error scheduling notification: \(error.localizedDescription)")
             } else {
                 print("Notification scheduled for new tracker: \(widgetName)")
+            }
+        }
+    }
+
+    func saveToGAD7(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let gad7Data: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("GAD7").setData(gad7Data) { error in
+            if let error = error {
+                print("Error saving GAD-7 data: \(error)")
+            }
+        }
+    }
+    
+    func saveToPHQ9(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let phq9Data: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("PHQ9").setData(phq9Data) { error in
+            if let error = error {
+                print("Error saving phq9Data: \(error)")
+            }
+        }
+    }
+    
+    func saveToNMRQ(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let NMRQdata: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("NMRQ").setData(NMRQdata) { error in
+            if let error = error {
+                print("Error saving NMRQdata: \(error)")
+            }
+        }
+    }
+    
+    func saveToPSS(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let PSSdata: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("PSS").setData(PSSdata) { error in
+            if let error = error {
+                print("Error saving PSS data: \(error)")
             }
         }
     }

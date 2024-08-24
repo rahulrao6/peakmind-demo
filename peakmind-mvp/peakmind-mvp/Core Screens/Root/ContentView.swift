@@ -246,7 +246,7 @@ struct ContentView: View {
     @State private var showingSplash = true
     @State private var navigateToStoreScreen = false
     @State private var navigateToInventoryScreen = false
-    //@EnvironmentObject var healthKitManager: HealthKitManager
+    @EnvironmentObject var healthKitManager: HealthKitManager
     @EnvironmentObject var CommunitiesViewModel : CommunitiesViewModel
 
 
@@ -258,6 +258,7 @@ struct ContentView: View {
                         TabViewMain()
                             .environmentObject(viewModel)
                             .environmentObject(CommunitiesViewModel)
+                            .environmentObject(healthKitManager)
 
                             
                 } else {
@@ -278,6 +279,9 @@ struct ContentView: View {
         }
         .onAppear {
             //readTotalStepCount()
+                healthKitManager.requestAuthorization()
+                healthKitManager.startLiveStepCountUpdates()
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 withAnimation {
                     showingSplash = false

@@ -86,13 +86,25 @@
 		19627DA92C7445CF002F5818 /* SF-Pro-Display-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627DA42C7445CE002F5818 /* SF-Pro-Display-Black.otf */; };
 		19627DAA2C7445CF002F5818 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627DA52C7445CF002F5818 /* SF-Pro-Display-Bold.otf */; };
 		19627DAB2C7445CF002F5818 /* SF-Pro-Display-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627DA62C7445CF002F5818 /* SF-Pro-Display-Heavy.otf */; };
+		19648A5A2C7D0D160061A70D /* PurpleNewBG3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A592C7D0D160061A70D /* PurpleNewBG3.swift */; };
+		19648A5C2C7D0E1C0061A70D /* PurpleNewBG3.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A5B2C7D0E1C0061A70D /* PurpleNewBG3.2.swift */; };
+		19648A5E2C7E5D370061A70D /* PurpleNewBG4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A5D2C7E5D370061A70D /* PurpleNewBG4.swift */; };
+		19648A602C7E5DC70061A70D /* PurpleNewBG4.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A5F2C7E5DC70061A70D /* PurpleNewBG4.2.swift */; };
+		19648A622C7E5FBF0061A70D /* PurpleNewBG5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A612C7E5FBF0061A70D /* PurpleNewBG5.swift */; };
+		19648A642C7EA2850061A70D /* PurpleNewBG6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A632C7EA2850061A70D /* PurpleNewBG6.swift */; };
+		19648A662C7FCB150061A70D /* PurpleNewBG7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A652C7FCB150061A70D /* PurpleNewBG7.swift */; };
+		19648A682C7FCDB20061A70D /* PurpleNewBG8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A672C7FCDB20061A70D /* PurpleNewBG8.swift */; };
+		19648A6A2C7FCEAC0061A70D /* PurpleNewBG9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A692C7FCEAC0061A70D /* PurpleNewBG9.swift */; };
+		19648A6C2C7FCF8A0061A70D /* PurpleNewBG9.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19648A6B2C7FCF8A0061A70D /* PurpleNewBG9.2.swift */; };
 		196F4CAF2C76856900604E7C /* FontChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196F4CAE2C76856900604E7C /* FontChecker.swift */; };
 		196F4DB92C76BA1700604E7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 196F4DB82C76BA1700604E7C /* Assets.xcassets */; };
 		19A63F012C7431AF0036F5E3 /* LightPurpleNewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */; };
 		19A63F022C7431AF0036F5E3 /* GreenNewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFD2C7431AE0036F5E3 /* GreenNewBG.swift */; };
-		19A63F032C7431AF0036F5E3 /* PurpleNewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFE2C7431AE0036F5E3 /* PurpleNewBG.swift */; };
+		19A63F032C7431AF0036F5E3 /* PurpleNewBG2.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFE2C7431AE0036F5E3 /* PurpleNewBG2.2.swift */; };
 		19A63F042C7431AF0036F5E3 /* NewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFF2C7431AE0036F5E3 /* NewBG.swift */; };
 		19A63F052C7431AF0036F5E3 /* PinkNewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63F002C7431AF0036F5E3 /* PinkNewBG.swift */; };
+		19F693E42C779AF900B002E1 /* PurpleNewBG2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F693E32C779AF900B002E1 /* PurpleNewBG2.swift */; };
+		19F693E62C77B13A00B002E1 /* PurpleNewBG1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F693E52C77B13A00B002E1 /* PurpleNewBG1.swift */; };
 		19F895C52C5059F900C5D6E6 /* ViewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F895C42C5059F900C5D6E6 /* ViewMod.swift */; };
 		1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */; };
 		1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */; };
@@ -374,13 +386,25 @@
 		19627DA42C7445CE002F5818 /* SF-Pro-Display-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Black.otf"; sourceTree = "<group>"; };
 		19627DA52C7445CF002F5818 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
 		19627DA62C7445CF002F5818 /* SF-Pro-Display-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Heavy.otf"; sourceTree = "<group>"; };
+		19648A592C7D0D160061A70D /* PurpleNewBG3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG3.swift; sourceTree = "<group>"; };
+		19648A5B2C7D0E1C0061A70D /* PurpleNewBG3.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG3.2.swift; sourceTree = "<group>"; };
+		19648A5D2C7E5D370061A70D /* PurpleNewBG4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG4.swift; sourceTree = "<group>"; };
+		19648A5F2C7E5DC70061A70D /* PurpleNewBG4.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG4.2.swift; sourceTree = "<group>"; };
+		19648A612C7E5FBF0061A70D /* PurpleNewBG5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG5.swift; sourceTree = "<group>"; };
+		19648A632C7EA2850061A70D /* PurpleNewBG6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG6.swift; sourceTree = "<group>"; };
+		19648A652C7FCB150061A70D /* PurpleNewBG7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG7.swift; sourceTree = "<group>"; };
+		19648A672C7FCDB20061A70D /* PurpleNewBG8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG8.swift; sourceTree = "<group>"; };
+		19648A692C7FCEAC0061A70D /* PurpleNewBG9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG9.swift; sourceTree = "<group>"; };
+		19648A6B2C7FCF8A0061A70D /* PurpleNewBG9.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG9.2.swift; sourceTree = "<group>"; };
 		196F4CAE2C76856900604E7C /* FontChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontChecker.swift; sourceTree = "<group>"; };
 		196F4DB82C76BA1700604E7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "peakmind-mvp/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG.swift; sourceTree = "<group>"; };
 		19A63EFD2C7431AE0036F5E3 /* GreenNewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenNewBG.swift; sourceTree = "<group>"; };
-		19A63EFE2C7431AE0036F5E3 /* PurpleNewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG.swift; sourceTree = "<group>"; };
+		19A63EFE2C7431AE0036F5E3 /* PurpleNewBG2.2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG2.2.swift; sourceTree = "<group>"; };
 		19A63EFF2C7431AE0036F5E3 /* NewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBG.swift; sourceTree = "<group>"; };
 		19A63F002C7431AF0036F5E3 /* PinkNewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinkNewBG.swift; sourceTree = "<group>"; };
+		19F693E32C779AF900B002E1 /* PurpleNewBG2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG2.swift; sourceTree = "<group>"; };
+		19F693E52C77B13A00B002E1 /* PurpleNewBG1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG1.swift; sourceTree = "<group>"; };
 		19F895C42C5059F900C5D6E6 /* ViewMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMod.swift; sourceTree = "<group>"; };
 		1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -669,14 +693,34 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		19F693E72C77B13E00B002E1 /* Phase1 */ = {
+			isa = PBXGroup;
+			children = (
+				19F693E52C77B13A00B002E1 /* PurpleNewBG1.swift */,
+				19F693E32C779AF900B002E1 /* PurpleNewBG2.swift */,
+				19A63EFE2C7431AE0036F5E3 /* PurpleNewBG2.2.swift */,
+				19648A592C7D0D160061A70D /* PurpleNewBG3.swift */,
+				19648A5B2C7D0E1C0061A70D /* PurpleNewBG3.2.swift */,
+				19648A5D2C7E5D370061A70D /* PurpleNewBG4.swift */,
+				19648A5F2C7E5DC70061A70D /* PurpleNewBG4.2.swift */,
+				19648A612C7E5FBF0061A70D /* PurpleNewBG5.swift */,
+				19648A632C7EA2850061A70D /* PurpleNewBG6.swift */,
+				19648A652C7FCB150061A70D /* PurpleNewBG7.swift */,
+				19648A672C7FCDB20061A70D /* PurpleNewBG8.swift */,
+				19648A692C7FCEAC0061A70D /* PurpleNewBG9.swift */,
+				19648A6B2C7FCF8A0061A70D /* PurpleNewBG9.2.swift */,
+			);
+			path = Phase1;
+			sourceTree = "<group>";
+		};
 		19F895C02C5041E300C5D6E6 /* Redesigns */ = {
 			isa = PBXGroup;
 			children = (
+				19F693E72C77B13E00B002E1 /* Phase1 */,
 				19A63EFD2C7431AE0036F5E3 /* GreenNewBG.swift */,
 				19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */,
 				19A63EFF2C7431AE0036F5E3 /* NewBG.swift */,
 				19A63F002C7431AF0036F5E3 /* PinkNewBG.swift */,
-				19A63EFE2C7431AE0036F5E3 /* PurpleNewBG.swift */,
 				196F4CAE2C76856900604E7C /* FontChecker.swift */,
 			);
 			path = Redesigns;
@@ -1531,6 +1575,7 @@
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				19A63F052C7431AF0036F5E3 /* PinkNewBG.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
+				19F693E42C779AF900B002E1 /* PurpleNewBG2.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
 				79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
@@ -1544,9 +1589,10 @@
 				7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */,
 				79C384042BD60E8500A6779A /* P1-7_MindfulnessModule.swift in Sources */,
 				79C384202BD60F9100A6779A /* P2-5_AnxietyWellnessQ.swift in Sources */,
+				19648A642C7EA2850061A70D /* PurpleNewBG6.swift in Sources */,
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
 				7926178F2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift in Sources */,
-				19A63F032C7431AF0036F5E3 /* PurpleNewBG.swift in Sources */,
+				19A63F032C7431AF0036F5E3 /* PurpleNewBG2.2.swift in Sources */,
 				79C383F52BC8749700A6779A /* LevelOneMapView.swift in Sources */,
 				19A63F012C7431AF0036F5E3 /* LightPurpleNewBG.swift in Sources */,
 				79C383EC2BC6122C00A6779A /* AnimatedTextView.swift in Sources */,
@@ -1562,10 +1608,14 @@
 				1CA25E322BFFEF6A004B0AD2 /* Message.swift in Sources */,
 				79069D002BDA38BA00AB52DC /* Widget.swift in Sources */,
 				797B4C412BDAE86700A3A25D /* HomeDashboard.swift in Sources */,
+				19648A662C7FCB150061A70D /* PurpleNewBG7.swift in Sources */,
+				19648A5A2C7D0D160061A70D /* PurpleNewBG3.swift in Sources */,
 				1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */,
+				19648A682C7FCDB20061A70D /* PurpleNewBG8.swift in Sources */,
 				79C384142BD60F2300A6779A /* P1-14_Reflection.swift in Sources */,
 				1C65A6252C0E419F00C04DFF /* NewLoginView.swift in Sources */,
 				1CF19B952BDCA9D10087A7E7 /* SherpaTutorialBox.swift in Sources */,
+				19648A6A2C7FCEAC0061A70D /* PurpleNewBG9.swift in Sources */,
 				19A63F022C7431AF0036F5E3 /* GreenNewBG.swift in Sources */,
 				79069CF02BDA0D9100AB52DC /* CauseEffectPair.swift in Sources */,
 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
@@ -1586,11 +1636,13 @@
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */,
 				79C3841A2BD60F5F00A6779A /* P2-1_AnxietyModule.swift in Sources */,
+				19648A622C7E5FBF0061A70D /* PurpleNewBG5.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				79C384282BD60FDE00A6779A /* P2-9_GoalSetting.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */,
 				790F17502C45D9870071B34B /* PPContentView.swift in Sources */,
+				19648A602C7E5DC70061A70D /* PurpleNewBG4.2.swift in Sources */,
 				79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */,
 				79C384182BD60F5300A6779A /* P2-1_Intro.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
@@ -1606,7 +1658,10 @@
 				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
 				79C8543B2BF036C0003C918E /* AnxietyCommunityView.swift in Sources */,
 				1C53A42F2C254F9200B27C23 /* FriendListView.swift in Sources */,
+				19648A6C2C7FCF8A0061A70D /* PurpleNewBG9.2.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
+				19F693E62C77B13A00B002E1 /* PurpleNewBG1.swift in Sources */,
+				19648A5C2C7D0E1C0061A70D /* PurpleNewBG3.2.swift in Sources */,
 				102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */,
 				79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
@@ -1648,6 +1703,7 @@
 				793B79B92BAF906E001062DB /* Level2FlavorView.swift in Sources */,
 				79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */,
 				10CE95472BEDCF9E0092EE29 /* ScenarioQuizView.swift in Sources */,
+				19648A5E2C7E5D370061A70D /* PurpleNewBG4.swift in Sources */,
 				79C384102BD60F0100A6779A /* P1-12_LifestyleQuestion.swift in Sources */,
 				7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */,
 				10CE96192C04148A0092EE29 /* NewLevelOneMapView.swift in Sources */,

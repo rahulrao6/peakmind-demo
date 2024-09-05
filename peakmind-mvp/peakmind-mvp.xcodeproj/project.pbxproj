@@ -192,6 +192,7 @@
 		7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617892BD70C6900AAAC81 /* SherpaAlone.swift */; };
 		7926178F2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7926178E2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift */; };
 		792617922BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617912BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift */; };
+		792872522C8A5CFE00FB6CBE /* RoutineBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792872512C8A5CFE00FB6CBE /* RoutineBuilderView.swift */; };
 		792ED8632C51C8480050D12C /* CustomWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792ED8622C51C8480050D12C /* CustomWidgetView.swift */; };
 		792ED8652C536CBC0050D12C /* SelfCareNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792ED8642C536CBC0050D12C /* SelfCareNew.swift */; };
 		7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7930831B2BE8527E002A2E0B /* FeedbackFormView.swift */; };
@@ -469,6 +470,7 @@
 		792617892BD70C6900AAAC81 /* SherpaAlone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaAlone.swift; sourceTree = "<group>"; };
 		7926178E2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-3_ScenarioQuiz.swift"; sourceTree = "<group>"; };
 		792617912BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P2-3_ScenarioQuiz.swift"; sourceTree = "<group>"; };
+		792872512C8A5CFE00FB6CBE /* RoutineBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineBuilderView.swift; sourceTree = "<group>"; };
 		792ED8622C51C8480050D12C /* CustomWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetView.swift; sourceTree = "<group>"; };
 		792ED8642C536CBC0050D12C /* SelfCareNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCareNew.swift; sourceTree = "<group>"; };
 		7930831B2BE8527E002A2E0B /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
@@ -795,6 +797,7 @@
 				1C9C63C22B8132B00066AF70 /* Root */,
 				7976E66A2BD73877006C3726 /* Self Care Suite */,
 				7976E6692BD73871006C3726 /* Communities */,
+				792872512C8A5CFE00FB6CBE /* RoutineBuilderView.swift */,
 			);
 			path = "Core Screens";
 			sourceTree = "<group>";
@@ -1643,6 +1646,7 @@
 				102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */,
 				790F17502C45D9870071B34B /* PPContentView.swift in Sources */,
 				19648A602C7E5DC70061A70D /* PurpleNewBG4.2.swift in Sources */,
+				792872522C8A5CFE00FB6CBE /* RoutineBuilderView.swift in Sources */,
 				79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */,
 				79C384182BD60F5300A6779A /* P2-1_Intro.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,

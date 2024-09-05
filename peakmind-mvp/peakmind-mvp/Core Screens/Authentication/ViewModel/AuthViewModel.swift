@@ -21,6 +21,7 @@ class AuthViewModel: ObservableObject {
 //    @Published var communitiesViewModel = CommunitiesViewModel()
     @Published var authErrorMessage: String? // New property for error messages
     private let healthKitManager = HealthKitManager()
+    private let EventKitManager1 = EventKitManager()
 
     private var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     private let db = Firestore.firestore()
@@ -31,6 +32,9 @@ class AuthViewModel: ObservableObject {
             if let user = user {
                 self.fetchUserData(userId: user.uid)
                 self.healthKitManager.requestAuthorization()
+                Task {
+                    let _ = await self.EventKitManager1.requestCalendarAccess()
+                }
                 self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
             } else {
                 self.isSignedIn = false

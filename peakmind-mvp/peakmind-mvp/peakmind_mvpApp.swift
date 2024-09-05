@@ -8,10 +8,12 @@ import SwiftUI
 import FirebaseCore
 import GoogleSignIn
 import UserNotifications
+import EventKit
 
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    
+    let eventStore = EKEventStore()
+
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         print("Configuring Firebase...")
@@ -23,6 +25,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         // Set the notification center delegate
         UNUserNotificationCenter.current().delegate = self
+        
+        //requestCalendarAccess()
+
         
         return true
     }
@@ -50,6 +55,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
+
+    
     // Handle notifications when the app is in the foreground
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
@@ -73,6 +80,7 @@ struct peakmind_mvpApp: App {
     @StateObject var viewModel = AuthViewModel()
     @StateObject var CommunitiesViewModel1 = CommunitiesViewModel()
     @StateObject var HealthKitManager1 = HealthKitManager()
+    @StateObject var EventKitManager1 = EventKitManager()
 
 
     var body: some Scene {
@@ -82,6 +90,8 @@ struct peakmind_mvpApp: App {
                     .environmentObject(viewModel)
                     .environmentObject(CommunitiesViewModel1)
                     .environmentObject(HealthKitManager1)
+                    .environmentObject(EventKitManager1)
+
                     .onAppear {
                         // Example of scheduling a notification
                         scheduleNotification()
@@ -353,3 +363,103 @@ class HealthKitManager: ObservableObject {
         }
     }
 }
+import EventKit
+
+class EventKitManager: ObservableObject {
+    let eventStore = EKEventStore()
+
+    // Method to request calendar access
+    func requestCalendarAccess() async -> Bool {
+        if #available(iOS 17.0, *) {
+            do {
+                return try await eventStore.requestFullAccessToEvents()
+            } catch {
+                print("Failed to request calendar access: \(error.localizedDescription)")
+                return false
+            }
+        } else {
+            return await withCheckedContinuation { continuation in
+                eventStore.requestAccess(to: .event) { granted, error in
+                    if let error = error {
+                        print("Failed to request calendar access: \(error.localizedDescription)")
+                        continuation.resume(returning: false)
+                    } else {
+                        continuation.resume(returning: granted)
+                    }
+                }
+            }
+        }
+    }
+    
+    // Method to schedule an event
+    func scheduleEvent(title: String, startDate: Date, endDate: Date, notes: String? = nil) async {
+        let granted = await requestCalendarAccess()
+        guard granted else {
+            print("Calendar access denied")
+            return
+        }
+
+        let event = EKEvent(eventStore: self.eventStore)
+        event.title = title
+        event.startDate = startDate
+        event.endDate = endDate
+        event.notes = notes
+        event.calendar = self.eventStore.defaultCalendarForNewEvents
+
+        do {
+            try self.eventStore.save(event, span: .thisEvent)
+            print("Event saved successfully")
+        } catch let error as NSError {
+            print("Failed to save event with error: \(error)")
+        }
+    }
+    
+    // Method to schedule a recurring event
+    func scheduleRecurringEvent(title: String, startDate: Date, frequency: EKRecurrenceFrequency) async -> String? {
+        let granted = await requestCalendarAccess()
+        guard granted else {
+            print("Calendar access denied")
+            return nil
+        }
+        
+        let event = EKEvent(eventStore: eventStore)
+        event.title = title
+        event.startDate = startDate
+        event.endDate = startDate.addingTimeInterval(3600) // 1 hour duration
+        event.calendar = eventStore.defaultCalendarForNewEvents
+        
+        let recurrenceRule = EKRecurrenceRule(
+            recurrenceWith: frequency,
+            interval: 1,
+            end: nil
+        )
+        event.recurrenceRules = [recurrenceRule]
+        
+        do {
+            try eventStore.save(event, span: .futureEvents)
+            print("Recurring event saved successfully")
+            return event.eventIdentifier
+        } catch {
+            print("Failed to schedule recurring event: \(error)")
+            return nil
+        }
+    }
+    
+    // Method to remove an event
+    func removeEvent(withIdentifier identifier: String) async {
+        let event = eventStore.event(withIdentifier: identifier)
+        
+        guard let event = event else {
+            print("Event not found")
+            return
+        }
+        
+        do {
+            try eventStore.remove(event, span: .futureEvents)
+            print("Event removed successfully")
+        } catch {
+            print("Failed to remove event: \(error)")
+        }
+    }
+}
+

@@ -20,6 +20,7 @@ struct ProfileView: View {
     @State private var PSSPresent = false
     @State private var NMRQPresent = false
     @State private var PHQ9Present = false
+    @EnvironmentObject var eventKitManager: EventKitManager
 
 
     var body: some View {
@@ -97,7 +98,7 @@ struct ProfileView: View {
                             isRoutineListViewPresented.toggle()
                         }
                         .sheet(isPresented: $isRoutineListViewPresented) {
-                            RoutineListView(viewModel: viewModel).environmentObject(viewModel)
+                            RoutineListView(viewModel: viewModel).environmentObject(viewModel).environmentObject(eventKitManager)
                         }
                     }
                     Section("Quizzes") {

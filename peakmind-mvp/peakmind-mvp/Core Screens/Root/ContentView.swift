@@ -248,6 +248,7 @@ struct ContentView: View {
     @State private var navigateToInventoryScreen = false
     @EnvironmentObject var healthKitManager: HealthKitManager
     @EnvironmentObject var CommunitiesViewModel : CommunitiesViewModel
+    @EnvironmentObject var EventKitManager1: EventKitManager
 
 
     var body: some View {
@@ -259,6 +260,7 @@ struct ContentView: View {
                             .environmentObject(viewModel)
                             .environmentObject(CommunitiesViewModel)
                             .environmentObject(healthKitManager)
+                            .environmentObject(EventKitManager1)
 
                             
                 } else {

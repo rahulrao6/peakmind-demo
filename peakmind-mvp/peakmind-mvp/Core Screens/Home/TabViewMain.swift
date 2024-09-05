@@ -8,6 +8,7 @@ struct TabViewMain: View {
     @State private var level2 = false // State to manage quiz prompt overlay
     @EnvironmentObject var CommunitiesViewModel : CommunitiesViewModel
     @EnvironmentObject var healthKitManager: HealthKitManager
+    @EnvironmentObject var EventKitManager1: EventKitManager
 
     var body: some View {
         if let user = viewModel.currentUser {
@@ -31,7 +32,7 @@ struct TabViewMain: View {
                         }
                         .tag(1)
                     
-                    HomeDashboard(selectedTab: $selectedTab)
+                    HomeDashboard(selectedTab: $selectedTab).environmentObject(viewModel)
                         .tabItem {
                             Label("Home", systemImage: "house")
                         }
@@ -43,7 +44,7 @@ struct TabViewMain: View {
                         }
                         .tag(3)
                     
-                    AvatarScreen()
+                    AvatarScreen().environmentObject(viewModel).environmentObject(EventKitManager1)
                         .tabItem {
                             Label("Avatar", systemImage: "person.circle")
                         }

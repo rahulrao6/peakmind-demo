@@ -27,7 +27,8 @@ struct Habits: Identifiable, Codable {
         var isUnlocked: Bool
         var lastCompletedDate: Date?
         var frequency: Frequency
-
+        var scheduleTime: Date?
+        var eventIdentifier: String?
         // Custom initializer
         init(id: String = UUID().uuidString,
              name: String,
@@ -35,7 +36,9 @@ struct Habits: Identifiable, Codable {
              currentStreak: Int = 0,
              isUnlocked: Bool = false,
              lastCompletedDate: Date? = nil,
-             frequency: Frequency = .daily) {
+             frequency: Frequency = .daily,
+             scheduleTime: Date? = nil,
+             eventIdentifier: String? = nil) {
             self.id = id
             self.name = name
             self.requiredStreak = requiredStreak
@@ -43,10 +46,12 @@ struct Habits: Identifiable, Codable {
             self.isUnlocked = isUnlocked
             self.lastCompletedDate = lastCompletedDate
             self.frequency = frequency
+            self.scheduleTime = scheduleTime
+            self.eventIdentifier = eventIdentifier
         }
 
         enum CodingKeys: String, CodingKey {
-            case id, name, requiredStreak, currentStreak, isUnlocked, lastCompletedDate, frequency
+            case id, name, requiredStreak, currentStreak, isUnlocked, lastCompletedDate, frequency, scheduleTime, eventIdentifier
         }
 
     init(from decoder: Decoder) throws {
@@ -104,6 +109,9 @@ struct CreateRoutineView: View {
     @State private var habitName: String = ""
     @State private var habitStreak: Int = 1
     @State private var habitFrequency: Habits.Frequency = .daily
+    @State private var habitScheduleTime = Date()
+    @EnvironmentObject var eventKitManager: EventKitManager
+
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -126,6 +134,7 @@ struct CreateRoutineView: View {
                 .font(.headline)
                 .padding(.horizontal)
 
+
             HStack {
                 TextField("Habit Name", text: $habitName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -133,6 +142,9 @@ struct CreateRoutineView: View {
                 Stepper("Days: \(habitStreak)", value: $habitStreak, in: 1...365)
             }
             .padding()
+
+            DatePicker("Schedule Time", selection: $habitScheduleTime, displayedComponents: [.hourAndMinute])
+                .padding(.horizontal)
 
             Picker("Frequency", selection: $habitFrequency) {
                 Text("Daily").tag(Habits.Frequency.daily)
@@ -178,10 +190,11 @@ struct CreateRoutineView: View {
     }
 
     private func addHabit() {
-        let newHabit = Habits(name: habitName, requiredStreak: habitStreak, frequency: habitFrequency)
+        let newHabit = Habits(name: habitName, requiredStreak: habitStreak, frequency: habitFrequency, scheduleTime: habitScheduleTime)
         habits.append(newHabit)
         habitName = ""
         habitStreak = 1
+        habitScheduleTime = Date()
     }
 
     private func deleteHabit(at offsets: IndexSet) {
@@ -193,7 +206,35 @@ struct CreateRoutineView: View {
             do {
                 let routine = Routine(name: routineName, description: routineDescription, habits: habits)
                 try await viewModel.createRoutine(name: routine.name, description: routine.description ?? "", habits: routine.habits)
-                viewModel.currentUser?.routines.append(routine)
+                
+                var updatedHabits = routine.habits
+                
+                // Schedule events for each habit
+                for (index, habit) in routine.habits.enumerated() {
+                    if let scheduleTime = habit.scheduleTime {
+                        let eventIdentifier = await eventKitManager.scheduleRecurringEvent(
+                            title: habit.name,
+                            startDate: scheduleTime,
+                            frequency: habit.frequency == .daily ? .daily : .weekly
+                        )
+                        // Update the habit with the event identifier
+                        updatedHabits[index].eventIdentifier = eventIdentifier
+                    }
+                }
+                
+                // Update the routine with the updated habits
+                var updatedRoutine = routine
+                updatedRoutine.habits = updatedHabits
+                
+                // Update the routine in Firestore
+                try await viewModel.updateRoutine(updatedRoutine)
+                
+                // Update the local state
+                if let index = viewModel.currentUser?.routines.firstIndex(where: { $0.id == routine.id }) {
+                    viewModel.currentUser?.routines[index] = updatedRoutine
+                } else {
+                    viewModel.currentUser?.routines.append(updatedRoutine)
+                }
             } catch {
                 print("Failed to save routine: \(error.localizedDescription)")
             }
@@ -319,6 +360,8 @@ import SwiftUI
 
 struct RoutineTrackingView: View {
     @ObservedObject var viewModel: AuthViewModel
+    @EnvironmentObject var eventKitManager: EventKitManager
+
     @Binding var routine: Routine
     @State private var errorMessage: String?
 
@@ -330,7 +373,7 @@ struct RoutineTrackingView: View {
 
             List {
                 ForEach($routine.habits) { $habits in
-                    HabitRowView(viewModel: viewModel, habits: $habits, routineID: routine.id, errorMessage: $errorMessage)
+                    HabitRowView(viewModel: viewModel, habits: $habits, routineID: routine.id, errorMessage: $errorMessage).environmentObject(eventKitManager)
                 }
             }
         }
@@ -358,6 +401,7 @@ struct RoutineTrackingView: View {
 
 struct HabitRowView: View {
     @ObservedObject var viewModel: AuthViewModel
+    @EnvironmentObject var eventKitManager: EventKitManager
     @Binding var habits: Habits
     let routineID: String
     @Binding var errorMessage: String?
@@ -397,6 +441,19 @@ struct HabitRowView: View {
         Task {
             do {
                 try await viewModel.completeHabit(routineID: routineID, habitID: habits.id)
+                
+                // Remove the calendar event if it exists
+                if let eventIdentifier = habits.eventIdentifier {
+                    await eventKitManager.removeEvent(withIdentifier: eventIdentifier)
+                    habits.eventIdentifier = nil
+                }
+                
+                // Update the routine in Firestore
+                if let routineIndex = viewModel.currentUser?.routines.firstIndex(where: { $0.id == routineID }),
+                   let habitIndex = viewModel.currentUser?.routines[routineIndex].habits.firstIndex(where: { $0.id == habits.id }) {
+                    viewModel.currentUser?.routines[routineIndex].habits[habitIndex] = habits
+                    try await viewModel.updateRoutine(viewModel.currentUser?.routines[routineIndex])
+                }
             } catch {
                 errorMessage = "Failed to complete habit: \(error.localizedDescription)"
             }
@@ -415,6 +472,7 @@ import SwiftUI
 
 struct RoutineListView: View {
     @ObservedObject var viewModel: AuthViewModel
+    @EnvironmentObject var eventKitManager: EventKitManager
 
     var body: some View {
         NavigationView {
@@ -444,7 +502,7 @@ struct RoutineListView: View {
             .navigationTitle("My Routines")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: CreateRoutineView(viewModel: viewModel)) {
+                    NavigationLink(destination: CreateRoutineView(viewModel: viewModel).environmentObject(eventKitManager)) {
                         Text("Add Routine")
                     }
                 }

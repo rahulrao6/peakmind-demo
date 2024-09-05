@@ -237,6 +237,12 @@ import SwiftUI
 import FirebaseFirestore
 import Lottie
 
+class ConversationState: ObservableObject {
+    @Published var sessionId: String?
+    @Published var isConversationActive: Bool = false
+    @Published var receivedMessages: [ChatMessage] = []
+}
+
 class ChatMessage: Identifiable, Hashable {
     let id = UUID()
     let sender: String
@@ -246,6 +252,10 @@ class ChatMessage: Identifiable, Hashable {
     var feedback: String? // to store feedback
     var isFeedbackVisible: Bool = true  // property to control visibility of feedback button
     var feedbackMessageVisible: Bool = false // property to control visibility of feedback message
+    
+    var isFromUser: Bool {
+        return sender == "Patient"
+    }
 
     init(sender: String, content: String, timestamp: TimeInterval, rating: Int? = nil, feedback: String? = nil) {
         self.sender = sender
@@ -264,11 +274,15 @@ class ChatMessage: Identifiable, Hashable {
     }
 }
 
+
+
 struct ChatView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var message = ""
     @State private var receivedMessages: [ChatMessage] = []
 
+    @State private var sessionId: String?
+    @State private var isConversationActive = false
     @State private var showingFeedbackSheet = false
     @State private var feedbackText = ""
     @State private var selectedMessage: ChatMessage? = nil
@@ -279,7 +293,8 @@ struct ChatView: View {
     @State private var starRating = 0  // State to hold star rating
 
     @State private var showCopyPopup = false  // State to control copy popup visibility
-
+    @State private var conversationHistory: [ConversationPreview] = []
+       @State private var showingHistorySheet = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -377,8 +392,12 @@ struct ChatView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
 
                             Button(action: {
-                                sendMessage()
-                                isTyping = true  // keep typing state true after sending
+                                if isConversationActive {
+                                    continueConversation()
+                                } else {
+                                    startConversation()
+                                }
+                                isTyping = true
                             }) {
                                 Image(systemName: "paperplane.fill")
                                     .foregroundColor(.white)
@@ -396,22 +415,39 @@ struct ChatView: View {
                                     .background(Color(.mediumBlue))
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
                             }
+                            Button(action: {
+                                fetchConversationHistory()
+                                showingHistorySheet = true
+                            }) {
+                                Image(systemName: "clock.fill")
+                                    .foregroundColor(.white)
+                                    .padding(12)
+                                    .background(Color(.mediumBlue))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
                         }
                         .padding(.bottom, 10) // reduced padding to bring the elements closer to the chat area
                         .padding(.horizontal)
                     }
                     .onAppear {
-                        fetchMessages()
+                        //fetchMessages()
+                        startConversation()
+                        if let sessionId = self.sessionId {
+                            fetchMessages()
+                        }
                     }
                     .sheet(isPresented: $showingFeedbackSheet) {
                         feedbackSheetView
+                    }
+                    .sheet(isPresented: $showingHistorySheet) {
+                        conversationHistoryView
                     }
                     .actionSheet(isPresented: $showingSettings) {
                         ActionSheet(
                             title: Text("Settings"),
                             buttons: [
-                                .destructive(Text("Clear Chat")) {
-                                    clearChat()
+                                .destructive(Text("End Conversation")) {
+                                    endConversation()
                                 },
                                 .cancel()
                             ]
@@ -556,41 +592,314 @@ struct ChatView: View {
             })
         }
     }
+    
+    
+    var conversationHistoryView: some View {
+        NavigationView {
+            List(conversationHistory, id: \.session_id) { conversation in
+                Button(action: {
+                    loadConversation(sessionId: conversation.session_id)
+                    showingHistorySheet = false
+                }) {
+                    VStack(alignment: .leading) {
+                        Text(conversation.preview)
+                            .lineLimit(1)
+                        Text(formatDate(timestamp: conversation.timestamp))
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
+                }
+            }
+            .navigationTitle("Conversation History")
+        }
+    }
+    
+    func formatDate(timestamp: Double) -> String {
+        let date = Date(timeIntervalSince1970: timestamp / 1000)
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
 
+    func fetchConversationHistory() {
+           guard let currentUser = viewModel.currentUser else {
+               print("No current user")
+               return
+           }
+
+           let db = Firestore.firestore()
+           let userRef = db.collection("chatbot_").document(currentUser.id)
+           let sessionsRef = userRef.collection("sessions")
+
+           sessionsRef.getDocuments { (querySnapshot, error) in
+               if let error = error {
+                   print("Error getting documents: \(error)")
+               } else {
+                   var history: [ConversationPreview] = []
+                   for document in querySnapshot!.documents {
+                       let data = document.data()
+                       if let messages = data["messages"] as? [[String: Any]],
+                          let lastMessage = messages.last,
+                          let timestamp = lastMessage["timestamp"] as? Double,
+                          let content = lastMessage["content"] as? String {
+                           let preview = ConversationPreview(
+                               session_id: document.documentID,
+                               timestamp: timestamp,
+                               preview: String(content.prefix(50))
+                           )
+                           history.append(preview)
+                       }
+                   }
+                   DispatchQueue.main.async {
+                       self.conversationHistory = history.sorted(by: { $0.timestamp > $1.timestamp })
+                       if self.sessionId == nil, let firstSession = self.conversationHistory.first {
+                           self.loadConversation(sessionId: firstSession.session_id)
+                       }
+                   }
+               }
+           }
+       }
+
+    func loadConversation(sessionId: String) {
+        self.sessionId = sessionId
+        self.isConversationActive = true
+        fetchMessages()
+    }
+
+
+    
     func fetchMessages() {
         guard let currentUser = viewModel.currentUser else {
             print("No current user")
             return
         }
         
-        Firestore.firestore().collection("messages").document(currentUser.id).collection("chats")
-            .order(by: "timestamp", descending: false)
-            .getDocuments { querySnapshot, error in
-                if let error = error {
-                    print("Error getting documents: \(error)")
-                    return
-                } else {
-                    guard let documents = querySnapshot?.documents else {
-                        print("No documents")
-                        return
+        guard let sessionId = self.sessionId else {
+            print("No active session")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let userRef = db.collection("chatbot_").document(currentUser.id)
+        let sessionRef = userRef.collection("sessions").document(sessionId)
+        
+        sessionRef.getDocument { (document, error) in
+            if let error = error {
+                print("Error getting session document: \(error)")
+                return
+            }
+            
+            guard let document = document, document.exists else {
+                print("Session document does not exist")
+                return
+            }
+            
+            if let sessionData = document.data(),
+               let messages = sessionData["messages"] as? [[String: Any]] {
+                self.receivedMessages = messages.compactMap { messageData in
+                    guard let sender = messageData["sender"] as? String,
+                          let content = messageData["content"] as? String,
+                          let timestamp = messageData["timestamp"] as? TimeInterval else {
+                        return nil
                     }
-                    
-                    var messages: [ChatMessage] = []
-                    
-                    for document in documents {
-                        let data = document.data()
-                        if let sender = data["user"] as? String,
-                           let content = data["message"] as? String,
-                           let time = data["timestamp"] as? Double {
-                            let chatMessage = ChatMessage(sender: sender, content: content, timestamp: time)
-                            messages.append(chatMessage)
-                        }
-                    }
-                    
-                    self.receivedMessages = messages
+                    return ChatMessage(sender: sender, content: content, timestamp: timestamp)
                 }
             }
+        }
     }
+    
+    func startConversation() {
+        guard let currentUser = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+
+        let url = URL(string: "http://34.172.190.181:8080/start_conversation")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body: [String: Any] = ["user_id": currentUser.id]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error starting conversation: \(error.localizedDescription)")
+                return
+            }
+
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            // Print received data for debugging
+            if let dataString = String(data: data, encoding: .utf8) {
+                print("Received data: \(dataString)")
+            }
+
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                    print("Parsed JSON: \(json)")
+                    if let message = json["message"] as? String,
+                       let sessionId = json["session_id"] as? String {
+                        DispatchQueue.main.async {
+                            self.sessionId = sessionId
+                            self.isConversationActive = true
+                            self.fetchMessages()
+                        }
+                    } else {
+                        print("Required fields 'message' or 'session_id' not found in JSON")
+                    }
+                }
+            } catch {
+                print("Error parsing JSON: \(error.localizedDescription)")
+                // Try to parse the response as a plain string
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("Response as string: \(responseString)")
+                }
+            }
+        }.resume()
+    }
+
+    func continueConversation() {
+        guard let currentUser = viewModel.currentUser, let sessionId = self.sessionId else {
+            print("No current user or session ID")
+            return
+        }
+
+        let url = URL(string: "http://34.172.190.181:8080/continue_conversation")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body: [String: Any] = [
+            "user_id": currentUser.id,
+            "session_id": sessionId,
+            "message": message
+        ]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error continuing conversation: \(error.localizedDescription)")
+                return
+            }
+
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            // Print received data for debugging
+            if let dataString = String(data: data, encoding: .utf8) {
+                print("Received data: \(dataString)")
+            }
+
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                    print("Parsed JSON: \(json)")
+                    if let response = json["response"] as? String {
+                        DispatchQueue.main.async {
+                            self.message = ""
+                            self.fetchMessages()
+                        }
+                    } else {
+                        print("Required field 'response' not found in JSON")
+                    }
+                }
+            } catch {
+                print("Error parsing JSON: \(error.localizedDescription)")
+                // Try to parse the response as a plain string
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("Response as string: \(responseString)")
+                }
+            }
+        }.resume()
+    }
+
+
+        func endConversation() {
+            guard let currentUser = viewModel.currentUser, let sessionId = self.sessionId else {
+                print("No current user or session ID")
+                return
+            }
+
+            let url = URL(string: "http://34.172.190.181:8080/end_conversation")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            let body: [String: Any] = [
+                "user_id": currentUser.id,
+                "session_id": sessionId
+            ]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error ending conversation: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let data = data else {
+                    print("No data received")
+                    return
+                }
+
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                       let message = json["message"] as? String,
+                       let sentiment = json["sentiment"] as? String {
+                        DispatchQueue.main.async {
+                            print("Conversation ended: \(message)")
+                            print("Sentiment: \(sentiment)")
+                            self.isConversationActive = false
+                            self.sessionId = nil
+                            // You might want to save the sentiment or show it to the user
+                        }
+                    }
+                } catch {
+                    print("Error parsing JSON: \(error.localizedDescription)")
+                }
+            }.resume()
+        }
+    
+//    func fetchMessages() {
+//        guard let currentUser = viewModel.currentUser else {
+//            print("No current user")
+//            return
+//        }
+//        
+//        Firestore.firestore().collection("messages").document(currentUser.id).collection("chats")
+//            .order(by: "timestamp", descending: false)
+//            .getDocuments { querySnapshot, error in
+//                if let error = error {
+//                    print("Error getting documents: \(error)")
+//                    return
+//                } else {
+//                    guard let documents = querySnapshot?.documents else {
+//                        print("No documents")
+//                        return
+//                    }
+//                    
+//                    var messages: [ChatMessage] = []
+//                    
+//                    for document in documents {
+//                        let data = document.data()
+//                        if let sender = data["user"] as? String,
+//                           let content = data["message"] as? String,
+//                           let time = data["timestamp"] as? Double {
+//                            let chatMessage = ChatMessage(sender: sender, content: content, timestamp: time)
+//                            messages.append(chatMessage)
+//                        }
+//                    }
+//                    
+//                    self.receivedMessages = messages
+//                }
+//            }
+//    }
     
     func sendMessage() {
         let timestamp = NSDate().timeIntervalSince1970
@@ -765,3 +1074,9 @@ struct ChatView_Previews: PreviewProvider {
 }
 
 
+struct ConversationPreview: Identifiable {
+    let id = UUID()
+    let session_id: String
+    let timestamp: Double
+    let preview: String
+}

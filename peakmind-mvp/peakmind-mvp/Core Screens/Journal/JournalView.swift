@@ -1,4 +1,4 @@
-import SwiftUI
+/*import SwiftUI
 import Firebase
 
 import JournalingSuggestions
@@ -294,3 +294,4 @@ struct TagView: View {
     }
 }
 
+*/

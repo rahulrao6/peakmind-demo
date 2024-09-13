@@ -183,6 +183,8 @@
 		79069CF42BDA0EF300AB52DC /* GlowingBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CF32BDA0EF300AB52DC /* GlowingBackground.swift */; };
 		79069D002BDA38BA00AB52DC /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79069CFF2BDA38BA00AB52DC /* Widget.swift */; };
 		790F17502C45D9870071B34B /* PPContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F174F2C45D9870071B34B /* PPContentView.swift */; };
+		791A274F2C8A80D8000D52BE /* MentalModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A274E2C8A80D8000D52BE /* MentalModelView.swift */; };
+		791A27512C8FA970000D52BE /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A27502C8FA970000D52BE /* TriangleView.swift */; };
 		791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */; };
 		791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791AC8F92BA7C5A00094A688 /* ConfettiView.swift */; };
 		792617822BD70BF400AAAC81 /* L1ScenarioQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792617812BD70BF400AAAC81 /* L1ScenarioQuiz.swift */; };
@@ -221,6 +223,7 @@
 		797B4C412BDAE86700A3A25D /* HomeDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C402BDAE86700A3A25D /* HomeDashboard.swift */; };
 		797B4C432BDC06BC00A3A25D /* Level2MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C422BDC06BC00A3A25D /* Level2MapView.swift */; };
 		797B4C452BDC094C00A3A25D /* SherpaTutorialBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */; };
+		797BF6412C93C32300118768 /* FactorPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797BF6402C93C32300118768 /* FactorPage.swift */; };
 		79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */; };
 		79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5212B8EAAE600634262 /* CustomButton.swift */; };
 		79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5272B8EAB5C00634262 /* QuestionsView.swift */; };
@@ -461,6 +464,8 @@
 		79069CFA2BDA152A00AB52DC /* pkmdBoxBreathingEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdBoxBreathingEncoded.mov; sourceTree = "<group>"; };
 		79069CFF2BDA38BA00AB52DC /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		790F174F2C45D9870071B34B /* PPContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPContentView.swift; sourceTree = "<group>"; };
+		791A274E2C8A80D8000D52BE /* MentalModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentalModelView.swift; sourceTree = "<group>"; };
+		791A27502C8FA970000D52BE /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		791AC8F72BA7C16A0094A688 /* PersonalizedPlanNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizedPlanNew.swift; sourceTree = "<group>"; };
 		791AC8F92BA7C5A00094A688 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		792617812BD70BF400AAAC81 /* L1ScenarioQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L1ScenarioQuiz.swift; sourceTree = "<group>"; };
@@ -499,6 +504,7 @@
 		797B4C402BDAE86700A3A25D /* HomeDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboard.swift; sourceTree = "<group>"; };
 		797B4C422BDC06BC00A3A25D /* Level2MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2MapView.swift; sourceTree = "<group>"; };
 		797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaTutorialBox.swift; sourceTree = "<group>"; };
+		797BF6402C93C32300118768 /* FactorPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactorPage.swift; sourceTree = "<group>"; };
 		79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarScreenView.swift; sourceTree = "<group>"; };
 		79BFB5212B8EAAE600634262 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		79BFB5272B8EAB5C00634262 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
@@ -798,6 +804,9 @@
 				7976E66A2BD73877006C3726 /* Self Care Suite */,
 				7976E6692BD73871006C3726 /* Communities */,
 				792872512C8A5CFE00FB6CBE /* RoutineBuilderView.swift */,
+				791A274E2C8A80D8000D52BE /* MentalModelView.swift */,
+				791A27502C8FA970000D52BE /* TriangleView.swift */,
+				797BF6402C93C32300118768 /* FactorPage.swift */,
 			);
 			path = "Core Screens";
 			sourceTree = "<group>";
@@ -1587,6 +1596,8 @@
 				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				79C384322BD6101F00A6779A /* P2-14_Reflection.swift in Sources */,
 				79069CF42BDA0EF300AB52DC /* GlowingBackground.swift in Sources */,
+				797BF6412C93C32300118768 /* FactorPage.swift in Sources */,
+				791A27512C8FA970000D52BE /* TriangleView.swift in Sources */,
 				79582AB92C6FBE3A006866BC /* FlowingWaterView.swift in Sources */,
 				79C3842C2BD60FF800A6779A /* P2-11_FeelingTimer.swift in Sources */,
 				7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */,
@@ -1623,6 +1634,7 @@
 				79069CF02BDA0D9100AB52DC /* CauseEffectPair.swift in Sources */,
 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
+				791A274F2C8A80D8000D52BE /* MentalModelView.swift in Sources */,
 				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
 				7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */,
 				1C53A42D2C254F6600B27C23 /* MessageListView.swift in Sources */,

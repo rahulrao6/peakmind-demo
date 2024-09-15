@@ -1,5 +1,5 @@
 {
-  "originHash" : "b28869eeb87b77fa33a2430b6292e49c418c62f10bf4c4256b7d78e43db90fdf",
+  "originHash" : "52ebdd1f4b872bfee40cc69fe9ce175fdda2cba8013c08ea0d52df020cbda8e6",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -143,6 +143,15 @@
       "state" : {
         "revision" : "b7e1104502eca3a213b46303391ca4d3bc8ddec1",
         "version" : "2.30910.0"
+      }
+    },
+    {
+      "identity" : "progressindicatorview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/exyte/ProgressIndicatorView",
+      "state" : {
+        "revision" : "3c33c42939e5bcbd91e20b2ca32ea4fa1b823653",
+        "version" : "1.0.0"
       }
     },
     {

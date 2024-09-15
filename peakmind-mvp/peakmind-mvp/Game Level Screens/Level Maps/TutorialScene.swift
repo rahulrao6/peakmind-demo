@@ -9,9 +9,11 @@ import SwiftUI
 import SpriteKit
 import Glur
 import ConfettiSwiftUI
-
+import FirebaseFirestore
 
 struct TutorialScene: View {    
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     let positions: [CGPoint] = [CGPoint(x: 215, y: 150), CGPoint(x: 240, y: 300), CGPoint(x: 215, y: 450), CGPoint(x: 240, y: 600), CGPoint(x: 180, y: 750),
                                 CGPoint(x: 150, y: 750)]
     
@@ -19,14 +21,27 @@ struct TutorialScene: View {
     @State private var confetti = 0
     @State private var currentPhase = 1
     
+    @Binding var isShowingTutorial: Bool
+    
     @StateObject private var scene: MapScene = {
         let scene = MapScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         scene.scaleMode = .fill
         scene.backgroundColor = .clear
         scene.imagePositions = [CGPoint(x: 215, y: 150), CGPoint(x: 240, y: 300), CGPoint(x: 190, y: 450), CGPoint(x: 150, y: 600), CGPoint(x: 180, y: 750), CGPoint(x: 195, y: 900), CGPoint(x: 240, y: 1050), CGPoint(x: 225, y: 1200), CGPoint(x: 165, y: 1350), CGPoint(x: 160, y: 1500)]
-        scene.maxY = 0.5
+        scene.maxY = 1
         return scene
     }()
+    
+    func buildCompletedLevelArray(uid: Int) -> [CompletedLevel] {
+        var arr: [CompletedLevel] = []
+        
+        for i in 0...uid {
+            let completedLevel = CompletedLevel(uid: i, phase: 1)
+            arr.append(completedLevel)
+        }
+        
+        return arr
+    }
     
     
     var body: some View {
@@ -53,12 +68,19 @@ struct TutorialScene: View {
                 }
                 .onAppear {
                     scene.levels = [
-                        LevelNode(uid: 0, internalName: "P1_5_StressTriggerMap", title: "Welcome to PeakMind!", viewFactory: { AnyView(P1_Intro(closeAction: {print("Done")})) }, phase: 1),
-                        LevelNode(uid: 1, internalName: "P1_MentalHealthMod", title: "PeakMind Game", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: {print("Done")})) }, phase: 1),
-                        LevelNode(uid: 2, internalName: "P1_3_EmotionsScenario", title: "Self Care", viewFactory: { AnyView(P1_3_EmotionsScenario(closeAction: {print("Done")})) }, phase: 1),
-                        LevelNode(uid: 3, internalName: "P1_4_StressModule", title: "Communities", viewFactory: { AnyView(P1_4_StressModule(closeAction: {print("Done")})) }, phase: 1),
-                        LevelNode(uid: 4, internalName: "P1_4_StressModule", title: "Artificial Intelligence", viewFactory: { AnyView(P1_4_StressModule(closeAction: {print("Done")})) }, phase: 1),
-                        LevelNode(uid: 5, internalName: "P1_4_StressModule", title: "PeakMind All Together", viewFactory: { AnyView(P1_4_StressModule(closeAction: {print("Done")})) }, phase: 1),
+                        LevelNode(uid: 0, internalName: "Tutorial1", title: "Your AI Companion", viewFactory: { AnyView(Tutorial1(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 0); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
+                        LevelNode(uid: 1, internalName: "Tutorial2", title: "Journal", viewFactory: { AnyView(Tutorial2(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 1); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
+                        LevelNode(uid: 2, internalName: "Tutorial3", title: "Game", viewFactory: { AnyView(Tutorial3(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 2); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
+                        LevelNode(uid: 3, internalName: "Tutorial4", title: "Routine Builder", viewFactory: { AnyView(Tutorial4(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 3); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
+                        LevelNode(uid: 4, internalName: "Tutorial5", title: "Profiles", viewFactory: { AnyView(Tutorial5(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 4); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
+                        LevelNode(uid: 5, internalName: "Tutorial6", title: "Store", viewFactory: { AnyView(Tutorial6(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 5); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
+                        LevelNode(uid: 6, internalName: "Tutorial7", title: "Check In", viewFactory: { AnyView(Tutorial7(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 6); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
+                        LevelNode(uid: 7, internalName: "Tutorial8", title: "Personalized Plan", viewFactory: { AnyView(Tutorial8(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 7); scene.currentLevel = -1; scene.reloadCompletedLevels(); completeTutorial(); isShowingTutorial = false} })) }, phase: 1),
+                    ]
+                    
+                    scene.phaseColors = [
+                        UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1),
+                        UIColor(red: 142/255, green: 214/255, blue: 215/255, alpha: 1)
                     ]
                 }
             
@@ -121,6 +143,26 @@ struct TutorialScene: View {
         .confettiCannon(counter: $confetti)
     }
     
+    private func completeTutorial() {
+        guard let user = viewModel.currentUser else {
+            print("No authenticated user found.")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.id ?? "")
+        userRef.updateData(["hasCompletedTutorial": true]) { error in
+            if let error = error {
+                print("Error updating tutorial completion flag: \(error)")
+            } else {
+                print("Tutorial completion flag updated successfully.")
+                Task {
+                    await viewModel.fetchUser()  // Refresh user data
+                }
+            }
+        }
+    }
+    
     private func getNodeFromInternalLevelName(internalName: String) -> LevelNode? {
         for level in scene.levels {
             if (level.internalName == internalName) {
@@ -137,8 +179,4 @@ struct TutorialScene: View {
         scene.imagePositions = positions
         return scene
     }
-}
-
-#Preview {
-    TutorialScene()
 }

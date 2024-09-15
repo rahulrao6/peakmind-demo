@@ -9,6 +9,7 @@ import SwiftUI
 import SpriteKit
 import Glur
 import ConfettiSwiftUI
+import ProgressIndicatorView
 
 struct LevelNode: Identifiable {
     var id = UUID()
@@ -30,6 +31,12 @@ struct PhaseGate: Identifiable {
     var phase: Int
 }
 
+struct LevelDecoration: Identifiable {
+    var id = UUID()
+    var name: String
+    var size: CGSize
+}
+
 struct TestView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
@@ -39,6 +46,9 @@ struct TestView: View {
     @State private var activeModal: LevelNode?
     @State private var confetti = 0
     @State private var currentPhase = 1
+    @State private var progress = CGFloat(0.22)
+    @State private var progressString = "0"
+    @State private var canViewVertProgress = true
     
     @StateObject private var scene: MapScene = {
         let scene = MapScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -86,6 +96,10 @@ struct TestView: View {
                                 scene.animateGate()
                                 
                             }
+                            
+                            progress = CGFloat(Float(user.completedLevels.count) / Float(50))
+                            progressString = String(Int(Float(user.completedLevels.count) / Float(50) * Float(1000))) + "ft"
+                            
                         }
                     }
                     .onAppear {
@@ -146,6 +160,11 @@ struct TestView: View {
                             LevelNode(uid: 9, internalName: "P1_MentalHealthMod", title: "Minigame", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
                         ]
                         
+                        scene.phaseColors = [
+                            UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1),
+                            UIColor(red: 142/255, green: 214/255, blue: 215/255, alpha: 1)
+                        ]
+                        
                         if (user.LevelOneCompleted) {
                             scene.completedPhases = 1
                             currentPhase = 2
@@ -167,6 +186,9 @@ struct TestView: View {
                                  scene.completedLevelsList.append(CompletedLevel(uid: level!.uid, phase: level!.phase))
                              }
                          }
+                        
+                        progress = CGFloat(Float(user.completedLevels.count) / Float(50))
+                        progressString = String(Int(Float(user.completedLevels.count) / Float(50) * Float(1000))) + "ft"
                          
                     }
                 
@@ -183,36 +205,38 @@ struct TestView: View {
                         }
                         .padding()
                         
+                        
                     }
                     .frame(width: 350)
                     .background {
                         RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Color.white)
                             .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
                     }
-                    HStack {
-                        Spacer()
-                        VStack {
-                            VStack {
-                                Text("Complete 3/4 Levels to Continue")
-                                    .padding([.top, .leading, .bottom, .trailing], 10)
-                                    .font(.system(size: 10))
-                                
-                                
-                            }
+                    
+                    GeometryReader { geometry in
+                        
+                        ZStack(alignment: .bottom) {
+                            ProgressIndicatorView(isVisible: $canViewVertProgress, type: .impulseBar(progress: $progress, backgroundColor: .white.opacity(0.25)))
+                                .foregroundColor(.white.opacity(0.65))
+                                .frame(width: geometry.size.height - 100, height: 50) // Adjust the width based on the height
+                                .rotationEffect(Angle(degrees: -90))
                             
+                            Spacer()
+                            
+                            Text(progressString)
+                                .foregroundColor(.gray)
+                                
                         }
-                        .background {
-                            RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Color.white)
-                                .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
-                        }
-                        .padding(.trailing, 20)
-                        .frame(width: 200, alignment: .trailing)
-                        .opacity(0)
+                        .position(x: 25, y: geometry.size.height / 2 - 40) // Adjust x position for left alignment
+                        .padding(.leading, 20) // Ensure no padding on the leading side
                     }
+                    
                     
                     Spacer()
                 }
                 .padding(.top, 70)
+                
+                
                 
             }
             .overlay(alignment: .bottom) {

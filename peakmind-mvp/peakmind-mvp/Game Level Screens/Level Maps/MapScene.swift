@@ -12,6 +12,7 @@ class MapScene: SKScene, ObservableObject {
     var canScroll: Bool = true
     var imagePositions: [CGPoint] = []
     var levels: [LevelNode] = []
+    var phaseColors: [UIColor] = []
     var completedLevelsList: [CompletedLevel] = []
     var imageNodes: [SKSpriteNode] = []
     var textNodes: [SKLabelNode] = []
@@ -128,7 +129,7 @@ class MapScene: SKScene, ObservableObject {
         setupNewImages()
         setupCamera()
         setupLevelBox()
-        self.backgroundColor = UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1)
+        self.backgroundColor = phaseColors[0]
     }
 
     private func setupBackground() {
@@ -225,17 +226,35 @@ class MapScene: SKScene, ObservableObject {
         levelInfoText.preferredMaxLayoutWidth = 100
         addChild(levelInfoText)
     }
-    
+    /*
     private func setupProps() {
-        var imageNode = SKSpriteNode(imageNamed: "Rocks")
+        var imageNode = SKSpriteNode(imageNamed: "bush")
         imageNode.position = CGPointMake(320, 565)
         imageNode.size = CGSize(width: 110, height: 110)
         addChild(imageNode)
-        var imageNode2 = SKSpriteNode(imageNamed: "Rocks")
+        var imageNode2 = SKSpriteNode(imageNamed: "bush")
         imageNode2.position = CGPointMake(80, 250)
         imageNode2.xScale = -1.0
-        imageNode2.size = CGSize(width: 80, height: 80)
+        imageNode2.size = CGSize(width: 80, height: 60)
         addChild(imageNode2)
+    }
+     */
+    
+    private func setupProps() {
+        let bush = LevelDecoration(name: "bush", size: CGSize(width: 80, height: 60))
+        
+        let yPositions: [CGFloat] = [0.3, 0.7, 1.3, 1.7].map { CGFloat($0) * UIScreen.main.bounds.height }
+        let xPositions: [CGFloat] = [0.2, 0.8, 0.2, 0.8].map { CGFloat($0) * UIScreen.main.bounds.width }
+
+        for yPosition in yPositions {
+            let randGrow = Double.random(in: 0.8...1.2)
+            let index = yPositions.firstIndex(of: yPosition)
+            let node = SKSpriteNode(imageNamed: bush.name)
+            node.position = CGPoint(x: xPositions[index!], y: yPosition + (bush.size.height / 2))
+            node.zPosition = -1
+            node.size = CGSizeMake(bush.size.width * randGrow, bush.size.height * randGrow)
+            addChild(node)
+        }
     }
     
     func animateGate() {
@@ -338,10 +357,12 @@ class MapScene: SKScene, ObservableObject {
             if movement > 20 {
                 swipeDown()
                 zoomAlphaOut()
+                run(SKAction.colorize(with: phaseColors[Int(floor(currentYPosition/2))], colorBlendFactor: 1.0, duration: 0.5))
                 return
             } else if movement < -20 {
                 swipeUp()
                 zoomAlphaOut()
+                run(SKAction.colorize(with: phaseColors[Int(floor(currentYPosition/2))], colorBlendFactor: 1.0, duration: 0.5))
                 return
             }
         }

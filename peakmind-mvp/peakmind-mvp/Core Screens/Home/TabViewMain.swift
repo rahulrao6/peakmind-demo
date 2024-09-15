@@ -50,11 +50,6 @@ struct TabViewMain: View {
                         }
                         .tag(4)
                     
-                    TutorialScene()
-                        .tabItem {
-                            Label("Testing", systemImage: "hammer")
-                        }
-                        .tag(5)
                 }
                 .accentColor(.white)
                 .onAppear {
@@ -65,11 +60,17 @@ struct TabViewMain: View {
 
                 // Overlay Tutorial View
                 if showingTutorial {
+                    TutorialScene(isShowingTutorial: $showingTutorial)
+                        .environmentObject(viewModel)
+                        .transition(.opacity)
+                        .zIndex(2)
+                    /*
                     TutorialView(isShowingTutorial: $showingTutorial)
                         .environmentObject(TutorialViewModel())
                         .environmentObject(viewModel)
                         .transition(.opacity)
                         .zIndex(2)
+                     */
                 }
             }
         } else {

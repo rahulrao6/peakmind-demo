@@ -168,10 +168,5 @@ struct WellnessQuestionViewPurple: View {
     }
 }
 
-struct WellnessQuestionViewPurple_Previews: PreviewProvider {
-    static var previews: some View {
-        WellnessQuestionViewPurple()
-    }
-}
 
 

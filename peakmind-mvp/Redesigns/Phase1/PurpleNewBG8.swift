@@ -131,9 +131,3 @@ struct CopingMechanismView: View {
     }
 }
 
-struct CopingMechanismView_Previews: PreviewProvider {
-    static var previews: some View {
-        CopingMechanismView()
-    }
-}
-

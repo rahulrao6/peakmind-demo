@@ -1,22 +1,23 @@
 //
-//  PurpleNewBG9.swift
+//  PurpleNewBG1.swift
 //  peakmind-mvp
 //
-//  Created by ZA on 8/28/24.
+//  Created by ZA on 8/22/24.
 //
 
 import SwiftUI
 
-struct IntroView2: View {
+struct P1_1: View {
     @State private var showNextScreen = false
+    var closeAction: () -> Void
     
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
                 .frame(height: 160)
             
-            // intro Text
-            Text("Feeling ready for more? Let's dive deeper with another wellness question. These questions are designed to unlock your personal goals and strategies for mental well-being.")
+            // Intro Text
+            Text("Let's explore an educational module designed to delve into various aspects of mental health, equipping you with coping strategies along the way.")
                 .font(.custom("SFProText-Bold", size: 30))
                 .foregroundColor(Color("PurpleTitleColor"))
                 .multilineTextAlignment(.center)
@@ -25,9 +26,10 @@ struct IntroView2: View {
             
             Spacer()
             
-            // next Button
+            // Next Button
             Button(action: {
                 showNextScreen = true
+                closeAction()
             }) {
                 Text("Next")
                     .font(.custom("SFProText-Bold", size: 20))
@@ -47,7 +49,7 @@ struct IntroView2: View {
             .padding(.bottom, 50)
             .background(
                 NavigationLink(
-                    destination: WellnessQuestionViewPurple2(),
+                    destination: MentalHealthFeatureView(),
                     isActive: $showNextScreen,
                     label: { EmptyView() }
                 )
@@ -61,4 +63,3 @@ struct IntroView2: View {
         )
     }
 }
-

@@ -247,7 +247,7 @@ class CommunitiesViewModel: ObservableObject {
     }
 }
 
-struct CommunitiesMainView2: View {
+struct CommunitiesMainView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var CommunitiesViewModel: CommunitiesViewModel
 
@@ -258,17 +258,17 @@ struct CommunitiesMainView2: View {
             ScrollView {
                 VStack {
                     HeaderView(avatarIcons: avatarIcons, search: $CommunitiesViewModel.searchText).environmentObject(authViewModel).environmentObject(CommunitiesViewModel)
-                    Text("The communities hub is currently under construction. What is currently displayed to you is a sneak peek of how it will be once completed! Click the anxiety community for a preview.")
-                        .font(.system(size: 16, weight: .bold, design: .default))
-                        .foregroundColor(.white)
-                        .padding(.horizontal)
-                        .padding(.top, -5)
-                        .padding(.bottom, 5)
-                        .multilineTextAlignment(.center)
-                    MyCommunitiesSection2().environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
-                    TopCommunitiesSection().environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
+//                    Text("The communities hub is currently under construction. What is currently displayed to you is a sneak peek of how it will be once completed! Click the anxiety community for a preview.")
+//                        .font(.system(size: 16, weight: .bold, design: .default))
+//                        .foregroundColor(.white)
+//                        .padding(.horizontal)
+//                        .padding(.top, -5)
+//                        .padding(.bottom, 5)
+//                        .multilineTextAlignment(.center)
+                    MyCommunitiesSection(title: "My Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
+                    MyCommunitiesSection(title: "Top Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
                         .padding(.top, 0)
-                    RecommendedCommunitiesSection().environmentObject(CommunitiesViewModel)
+                    //MyCommunitiesSection2(title: "Recommended Communities").environmentObject(CommunitiesViewModel).environmentObject(authViewModel)
                 }
             }
             .background(
@@ -287,13 +287,15 @@ struct CommunitiesMainView2: View {
     }
 }
 
-struct MyCommunitiesSection2: View {
+struct MyCommunitiesSection: View {
+    var title: String
+
     @EnvironmentObject var viewModel: CommunitiesViewModel
     @EnvironmentObject var AuthviewModel: AuthViewModel
 
     var body: some View {
         VStack(spacing: 5) {
-            SectionTitle(title: "My Communities")
+            SectionTitle(title: title)
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: [GridItem(.fixed(100)), GridItem(.fixed(100))], spacing: 10) {
                     ForEach(viewModel.filteredCommunities) { community in

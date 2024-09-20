@@ -1,9 +1,15 @@
 import SwiftUI
 import Firebase
-import JournalingSuggestions
+//import JournalingSuggestions
 
 
 struct JournalEntriesView: View {
+    var body: some View {
+        ZStack {
+            
+        }
+    }
+    /*
     @EnvironmentObject var dataManager: JournalDataManager
     @EnvironmentObject var viewModel : AuthViewModel
     @State var journalEntries: [JournalEntry] = []
@@ -199,6 +205,7 @@ struct JournalEntryCard: View {
             .background(Circle().fill(Color.white))
             .shadow(radius: 2)
     }
+     */
 }
 
 #Preview {

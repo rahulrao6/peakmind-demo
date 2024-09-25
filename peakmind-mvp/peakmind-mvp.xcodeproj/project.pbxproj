@@ -224,6 +224,9 @@
 		797B4C432BDC06BC00A3A25D /* Level2MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C422BDC06BC00A3A25D /* Level2MapView.swift */; };
 		797B4C452BDC094C00A3A25D /* SherpaTutorialBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */; };
 		797BF6412C93C32300118768 /* FactorPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797BF6402C93C32300118768 /* FactorPage.swift */; };
+		797BF6432C9D032300118768 /* QuizOnboardingVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797BF6422C9D032300118768 /* QuizOnboardingVIew.swift */; };
+		797BF6452C9D735800118768 /* DailyCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797BF6442C9D735800118768 /* DailyCheckInView.swift */; };
+		797BF6472C9E205D00118768 /* YourQuestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797BF6462C9E205D00118768 /* YourQuestsView.swift */; };
 		79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */; };
 		79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5212B8EAAE600634262 /* CustomButton.swift */; };
 		79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5272B8EAB5C00634262 /* QuestionsView.swift */; };
@@ -273,10 +276,6 @@
 		79C8543B2BF036C0003C918E /* AnxietyCommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C8543A2BF036C0003C918E /* AnxietyCommunityView.swift */; };
 		79C8543D2BF03D18003C918E /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C8543C2BF03D18003C918E /* UserProfileView.swift */; };
 		79E378BD2BBB3C2D00FC917A /* AvatarAndSherpaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */; };
-		E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F502B92ADCB00FCC38D /* JournalEntry.swift */; };
-		E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F522B92ADE900FCC38D /* JournalDataManager.swift */; };
-		E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */; };
-		E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5511F562B92B22900FCC38D /* JournalDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -505,6 +504,9 @@
 		797B4C422BDC06BC00A3A25D /* Level2MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2MapView.swift; sourceTree = "<group>"; };
 		797B4C442BDC094C00A3A25D /* SherpaTutorialBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaTutorialBox.swift; sourceTree = "<group>"; };
 		797BF6402C93C32300118768 /* FactorPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactorPage.swift; sourceTree = "<group>"; };
+		797BF6422C9D032300118768 /* QuizOnboardingVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizOnboardingVIew.swift; sourceTree = "<group>"; };
+		797BF6442C9D735800118768 /* DailyCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheckInView.swift; sourceTree = "<group>"; };
+		797BF6462C9E205D00118768 /* YourQuestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourQuestsView.swift; sourceTree = "<group>"; };
 		79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarScreenView.swift; sourceTree = "<group>"; };
 		79BFB5212B8EAAE600634262 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		79BFB5272B8EAB5C00634262 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
@@ -555,10 +557,6 @@
 		79C8543C2BF03D18003C918E /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		79E378BC2BBB3C2D00FC917A /* AvatarAndSherpaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarAndSherpaView.swift; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		E5511F502B92ADCB00FCC38D /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
-		E5511F522B92ADE900FCC38D /* JournalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDataManager.swift; sourceTree = "<group>"; };
-		E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntriesView.swift; sourceTree = "<group>"; };
-		E5511F562B92B22900FCC38D /* JournalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -806,7 +804,10 @@
 				792872512C8A5CFE00FB6CBE /* RoutineBuilderView.swift */,
 				791A274E2C8A80D8000D52BE /* MentalModelView.swift */,
 				791A27502C8FA970000D52BE /* TriangleView.swift */,
+				797BF6422C9D032300118768 /* QuizOnboardingVIew.swift */,
+				797BF6442C9D735800118768 /* DailyCheckInView.swift */,
 				797BF6402C93C32300118768 /* FactorPage.swift */,
+				797BF6462C9E205D00118768 /* YourQuestsView.swift */,
 			);
 			path = "Core Screens";
 			sourceTree = "<group>";
@@ -1319,11 +1320,7 @@
 		E5511F4D2B92AD6600FCC38D /* Journal */ = {
 			isa = PBXGroup;
 			children = (
-				E5511F502B92ADCB00FCC38D /* JournalEntry.swift */,
 				79BFB52D2B8EDA6E00634262 /* JournalView.swift */,
-				E5511F542B92B1CF00FCC38D /* JournalEntriesView.swift */,
-				E5511F562B92B22900FCC38D /* JournalDetailView.swift */,
-				E5511F522B92ADE900FCC38D /* JournalDataManager.swift */,
 			);
 			path = Journal;
 			sourceTree = "<group>";
@@ -1593,7 +1590,6 @@
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				10CE96172C02B8260092EE29 /* LevelMapUtil.swift in Sources */,
 				79582AB62C6FBE29006866BC /* SummitModeView.swift in Sources */,
-				E5511F532B92ADE900FCC38D /* JournalDataManager.swift in Sources */,
 				79C384322BD6101F00A6779A /* P2-14_Reflection.swift in Sources */,
 				79069CF42BDA0EF300AB52DC /* GlowingBackground.swift in Sources */,
 				797BF6412C93C32300118768 /* FactorPage.swift in Sources */,
@@ -1635,7 +1631,7 @@
 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				791A274F2C8A80D8000D52BE /* MentalModelView.swift in Sources */,
-				E5511F552B92B1CF00FCC38D /* JournalEntriesView.swift in Sources */,
+				797BF6472C9E205D00118768 /* YourQuestsView.swift in Sources */,
 				7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */,
 				1C53A42D2C254F6600B27C23 /* MessageListView.swift in Sources */,
 				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
@@ -1643,8 +1639,6 @@
 				79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */,
 				79C3842A2BD60FEC00A6779A /* P2-10_5Factors.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
-				E5511F572B92B22900FCC38D /* JournalDetailView.swift in Sources */,
-				E5511F512B92ADCB00FCC38D /* JournalEntry.swift in Sources */,
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
 				1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */,
 				79C383E72BC6113200A6779A /* UserDashboardViewModel.swift in Sources */,
@@ -1681,6 +1675,7 @@
 				102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */,
 				79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
+				797BF6432C9D032300118768 /* QuizOnboardingVIew.swift in Sources */,
 				7930831E2BE85713002A2E0B /* ResourcesToUtilize.swift in Sources */,
 				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
 				1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */,
@@ -1722,6 +1717,7 @@
 				19648A5E2C7E5D370061A70D /* PurpleNewBG4.swift in Sources */,
 				79C384102BD60F0100A6779A /* P1-12_LifestyleQuestion.swift in Sources */,
 				7926178A2BD70C6900AAAC81 /* SherpaAlone.swift in Sources */,
+				797BF6452C9D735800118768 /* DailyCheckInView.swift in Sources */,
 				10CE96192C04148A0092EE29 /* NewLevelOneMapView.swift in Sources */,
 				797B4C432BDC06BC00A3A25D /* Level2MapView.swift in Sources */,
 				1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */,

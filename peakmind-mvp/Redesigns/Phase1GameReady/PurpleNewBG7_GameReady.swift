@@ -1,15 +1,18 @@
 //
-//  PurpleNewBG6.swift
+//  PurpleNewBG7.swift
 //  peakmind-mvp
 //
-//  Created by ZA on 8/27/24.
+//  Created by ZA on 8/28/24.
 //
 
 import SwiftUI
 
-struct ReframeExerciseView: View {
-    @State private var negativeThought: String = ""
-    @State private var positiveThought: String = ""
+struct P7_1: View {
+    var closeAction: () -> Void
+    @State private var firstCause: String = ""
+    @State private var firstEffect: String = ""
+    @State private var secondCause: String = ""
+    @State private var secondEffect: String = ""
     @State private var navigateToNextScreen = false
     @State private var isKeyboardVisible: Bool = false // track keyboard visibility
     @State private var currentIndex: Int = 0
@@ -18,13 +21,13 @@ struct ReframeExerciseView: View {
     @State private var focusedField: String? = nil // track which field is focused
     
     let introText = """
-    Let’s flip negative thoughts into something more positive. This exercise will help you challenge and reframe the way you think.
+    Ready to boost your mood? Buckle up for a happiness hack! Let's create a cause-and-effect map to see the magic of small lifestyle changes.
 
-    Start by picking a recent negative thought (e.g., “I never get anything right”). Reframe the thought to be more positive (e.g., “I may not be perfect, but I’m learning and improving all the time.”).
+    Think of two things you can easily add to your routine today. What positive impact might these have on your mental well-being? Write them down, and let's see how even tiny tweaks can lead to a happier you!
     """
     
-    var areBothTextFieldsFilled: Bool {
-        return !negativeThought.isEmpty && !positiveThought.isEmpty
+    var areAllTextFieldsFilled: Bool {
+        return !firstCause.isEmpty && !firstEffect.isEmpty && !secondCause.isEmpty && !secondEffect.isEmpty
     }
     
     var body: some View {
@@ -41,7 +44,7 @@ struct ReframeExerciseView: View {
                         .frame(height: 10)
                     
                     // title section
-                    Text("Reframe Exercise")
+                    Text("Cause & Effect")
                         .font(.custom("SFProText-Bold", size: 28))
                         .foregroundColor(Color("PurpleTitleColor"))
                         .multilineTextAlignment(.center)
@@ -88,28 +91,46 @@ struct ReframeExerciseView: View {
                     .frame(height: geometry.size.height * 0.3) // set a fixed height for the text box
                     .padding(.horizontal, 20)
                     
-                    // input boxes for negative and positive thoughts
+                    // input boxes for causes and effects arranged side by side
                     VStack(spacing: 12) {
-                        // negative thought text box
-                        ThoughtTextEditor(
-                            text: $negativeThought,
-                            placeholder: " Negative Thought",
-                            isFocused: focusedField == "negative" && isKeyboardVisible,
-                            onTap: { focusedField = "negative" }
-                        )
-                        // positive thought text box
-                        ThoughtTextEditor(
-                            text: $positiveThought,
-                            placeholder: " Positive Thought",
-                            isFocused: focusedField == "positive" && isKeyboardVisible,
-                            onTap: { focusedField = "positive" }
-                        )
+                        // first pair of cause and effect boxes
+                        HStack(spacing: 12) {
+                            ThoughtTextEditor(
+                                text: $firstCause,
+                                placeholder: " Cause 1",
+                                isFocused: focusedField == "firstCause" && isKeyboardVisible,
+                                onTap: { focusedField = "firstCause" }
+                            )
+                            ThoughtTextEditor(
+                                text: $firstEffect,
+                                placeholder: " Effect 1",
+                                isFocused: focusedField == "firstEffect" && isKeyboardVisible,
+                                onTap: { focusedField = "firstEffect" }
+                            )
+                        }
+                        
+                        // second pair of cause and effect boxes
+                        HStack(spacing: 12) {
+                            ThoughtTextEditor(
+                                text: $secondCause,
+                                placeholder: " Cause 2",
+                                isFocused: focusedField == "secondCause" && isKeyboardVisible,
+                                onTap: { focusedField = "secondCause" }
+                            )
+                            ThoughtTextEditor(
+                                text: $secondEffect,
+                                placeholder: " Effect 2",
+                                isFocused: focusedField == "secondEffect" && isKeyboardVisible,
+                                onTap: { focusedField = "secondEffect" }
+                            )
+                        }
                     }
                     .padding(.horizontal, 20)
                     
                     // continue button for next screen
                     Button(action: {
                         navigateToNextScreen = true
+                        closeAction()
                     }) {
                         Text("Continue")
                             .font(.custom("SFProText-Bold", size: 20))
@@ -124,13 +145,13 @@ struct ReframeExerciseView: View {
                                 )
                             )
                             .cornerRadius(15)
-                            .shadow(color: areBothTextFieldsFilled ? Color.white.opacity(1) : Color.clear, radius: 10, x: 0, y: 0)
+                            .shadow(color: areAllTextFieldsFilled ? Color.white.opacity(1) : Color.clear, radius: 10, x: 0, y: 0)
                     }
                     .padding(.top, 16)
-                    .disabled(!areBothTextFieldsFilled) // disable the button until both fields are filled
+                    .disabled(!areAllTextFieldsFilled) // disable the button until all fields are filled
                     .background(
                         NavigationLink(
-                            destination: CauseEffectView(), // replace with your next screen view
+                            destination: CopingMechanismView(), // replace with your next screen view
                             isActive: $navigateToNextScreen,
                             label: { EmptyView() }
                         )
@@ -172,3 +193,4 @@ struct ReframeExerciseView: View {
         }
     }
 }
+

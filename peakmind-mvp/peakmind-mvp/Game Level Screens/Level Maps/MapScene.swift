@@ -9,9 +9,10 @@ class MapScene: SKScene, ObservableObject {
     
     private var initialTouchPosition: CGPoint?
     
-    
+    var canScroll: Bool = true
     var imagePositions: [CGPoint] = []
     var levels: [LevelNode] = []
+    var phaseColors: [UIColor] = []
     var completedLevelsList: [CompletedLevel] = []
     var imageNodes: [SKSpriteNode] = []
     var textNodes: [SKLabelNode] = []
@@ -33,9 +34,13 @@ class MapScene: SKScene, ObservableObject {
             item.removeFromParent()
         }
         
+        imageNodes = []
+        
         for item in textNodes {
             item.removeFromParent()
         }
+       
+        textNodes = []
         
         for level in levels {
             let position = getPositionForLevel(level: level)
@@ -49,6 +54,11 @@ class MapScene: SKScene, ObservableObject {
                 let imageNode2 = SKSpriteNode(imageNamed: "LevelComplete")
                 imageNode2.position = CGPointMake(position.x + 14, position.y + 50)
                 imageNode2.size = CGSize(width: 75, height: 100)
+                addChild(imageNode2)
+            } else if (!getIsNextLevel(level: level)) {
+                let imageNode2 = SKSpriteNode(imageNamed: "whitelock")
+                imageNode2.position = CGPointMake(position.x, position.y + 7)
+                imageNode2.size = CGSize(width: 50, height: 50)
                 addChild(imageNode2)
             } else {
                 let text = SKLabelNode(text: String(level.uid + 1))
@@ -71,21 +81,45 @@ class MapScene: SKScene, ObservableObject {
         return false
     }
     
+    func getIsNextLevel(level: LevelNode) -> Bool {
+        if (completedLevelsList.count > 0) {
+            let lastLevel = completedLevelsList[completedLevelsList.count - 1]
+            if (lastLevel.uid != 9) {
+                if(level.phase == lastLevel.phase && level.uid == (lastLevel.uid + 1)) {
+                    return true
+                }
+            } else {
+                if (level.phase == (lastLevel.phase + 1) && level.uid == 0) {
+                    return true
+                }
+            }
+        } else {
+            if (level.phase == 1 && level.uid == 0) {
+                return true
+            }
+        }
+        return false
+    }
+    
     func swipeUp() {
-        if currentYPosition > 0 {
-            currentYPosition -= 0.5
-            let moveAction = SKAction.move(to: CGPoint(x: size.width / 2, y: cameraNode.position.y - (UIScreen.main.bounds.height/2)), duration: 0.3)
-            moveAction.timingMode = .easeInEaseOut // Smooth transition
-            cameraNode.run(moveAction)
+        if canScroll {
+            if currentYPosition > 0 {
+                currentYPosition -= 0.5
+                let moveAction = SKAction.move(to: CGPoint(x: size.width / 2, y: cameraNode.position.y - (UIScreen.main.bounds.height/2)), duration: 0.3)
+                moveAction.timingMode = .easeInEaseOut // Smooth transition
+                cameraNode.run(moveAction)
+            }
         }
     }
     
     func swipeDown() {
-        if currentYPosition < maxY {
-            currentYPosition += 0.5
-            let moveAction = SKAction.move(to: CGPoint(x: size.width / 2, y: cameraNode.position.y + (UIScreen.main.bounds.height/2)), duration: 0.3)
-            moveAction.timingMode = .easeInEaseOut // Smooth transition
-            cameraNode.run(moveAction)
+        if canScroll {
+            if currentYPosition < maxY {
+                currentYPosition += 0.5
+                let moveAction = SKAction.move(to: CGPoint(x: size.width / 2, y: cameraNode.position.y + (UIScreen.main.bounds.height/2)), duration: 0.3)
+                moveAction.timingMode = .easeInEaseOut // Smooth transition
+                cameraNode.run(moveAction)
+            }
         }
     }
 
@@ -95,8 +129,7 @@ class MapScene: SKScene, ObservableObject {
         setupNewImages()
         setupCamera()
         setupLevelBox()
-        setupPhaseGates()
-        self.backgroundColor = UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1)
+        self.backgroundColor = phaseColors[0]
     }
 
     private func setupBackground() {
@@ -131,9 +164,13 @@ class MapScene: SKScene, ObservableObject {
             item.removeFromParent()
         }
         
+        phaseGates = []
+        
         for item in phaseGatesText {
             item.removeFromParent()
         }
+        
+        phaseGatesText = []
         
         maxY = (Float(completedPhases)*2) + 1.5
         
@@ -147,7 +184,7 @@ class MapScene: SKScene, ObservableObject {
         n1.position = CGPointMake(UIScreen.main.bounds.width/2, UIScreen.main.bounds.height * CGFloat(maxY) + 400)
         n1.fillColor = .white
         addChild(n1)
-        phaseGates.append(n1bg)
+        phaseGates.append(n1)
         let n1textup = SKLabelNode(text: "Phase "+String(completedPhases+2))
         n1textup.position = CGPointMake(UIScreen.main.bounds.width/2, (UIScreen.main.bounds.height * CGFloat(maxY))+415)
         n1textup.fontName = "AvenirNext-Bold"
@@ -156,15 +193,16 @@ class MapScene: SKScene, ObservableObject {
         n1textup.verticalAlignmentMode = .center
         addChild(n1textup)
         phaseGatesText.append(n1textup)
-        let n2textup = SKLabelNode(text: "Complete 5 more levels to unlock")
+        let n2textup = SKLabelNode(text: "Complete all levels to unlock")
         n2textup.position = CGPointMake(UIScreen.main.bounds.width/2, (UIScreen.main.bounds.height * CGFloat(maxY))+400-25)
         n2textup.fontName = "AvenirNext"
         n2textup.fontColor = .black
         n2textup.horizontalAlignmentMode = .center
         n2textup.verticalAlignmentMode = .center
         n2textup.fontSize = CGFloat(15.0)
+        n2textup.name = "N2"
         addChild(n2textup)
-        phaseGatesText.append(n1textup)
+        phaseGatesText.append(n2textup)
     }
 
     private func setupLevelBox() {
@@ -188,17 +226,64 @@ class MapScene: SKScene, ObservableObject {
         levelInfoText.preferredMaxLayoutWidth = 100
         addChild(levelInfoText)
     }
-    
+    /*
     private func setupProps() {
-        var imageNode = SKSpriteNode(imageNamed: "Rocks")
+        var imageNode = SKSpriteNode(imageNamed: "bush")
         imageNode.position = CGPointMake(320, 565)
         imageNode.size = CGSize(width: 110, height: 110)
         addChild(imageNode)
-        var imageNode2 = SKSpriteNode(imageNamed: "Rocks")
+        var imageNode2 = SKSpriteNode(imageNamed: "bush")
         imageNode2.position = CGPointMake(80, 250)
         imageNode2.xScale = -1.0
-        imageNode2.size = CGSize(width: 80, height: 80)
+        imageNode2.size = CGSize(width: 80, height: 60)
         addChild(imageNode2)
+    }
+     */
+    
+    private func setupProps() {
+        let bush = LevelDecoration(name: "bush", size: CGSize(width: 80, height: 60))
+        
+        let yPositions: [CGFloat] = [0.3, 0.7, 1.3, 1.7].map { CGFloat($0) * UIScreen.main.bounds.height }
+        let xPositions: [CGFloat] = [0.2, 0.8, 0.2, 0.8].map { CGFloat($0) * UIScreen.main.bounds.width }
+
+        for yPosition in yPositions {
+            let randGrow = Double.random(in: 0.8...1.2)
+            let index = yPositions.firstIndex(of: yPosition)
+            let node = SKSpriteNode(imageNamed: bush.name)
+            node.position = CGPoint(x: xPositions[index!], y: yPosition + (bush.size.height / 2))
+            node.zPosition = -1
+            node.size = CGSizeMake(bush.size.width * randGrow, bush.size.height * randGrow)
+            addChild(node)
+        }
+    }
+    
+    func animateGate() {
+        canScroll = false
+        
+        let moveAction = SKAction.move(to: CGPoint(x: phaseGates[0].position.x, y: phaseGates[0].position.y - UIScreen.main.bounds.height/2), duration: 1 )
+        moveAction.timingMode = .easeInEaseOut // Smooth transition
+        cameraNode.run(moveAction)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.3) {
+            for gate in self.phaseGates {
+                let moveAction = SKAction.move(to: CGPoint(x: gate.position.x, y: gate.position.y + UIScreen.main.bounds.height*2), duration: 2 )
+                moveAction.timingMode = .easeInEaseOut // Smooth transition
+                gate.run(moveAction)
+            }
+            for text in self.phaseGatesText {
+                let moveAction = SKAction.move(to: CGPoint(x: text.position.x, y: text.position.y + UIScreen.main.bounds.height*2), duration: 2 )
+                moveAction.timingMode = .easeInEaseOut // Smooth transition
+                text.run(moveAction)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
+                let moveAction = SKAction.move(to: CGPoint(x: self.size.width / 2, y: self.getTargetY()), duration: 1)
+                moveAction.timingMode = .easeInEaseOut // Smooth transition
+                self.cameraNode.run(moveAction)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.canScroll = true
+                }
+            }
+        }
     }
     
     private func setupNewImages() {
@@ -214,6 +299,11 @@ class MapScene: SKScene, ObservableObject {
                 let imageNode2 = SKSpriteNode(imageNamed: "LevelComplete")
                 imageNode2.position = CGPointMake(position.x + 14, position.y + 50)
                 imageNode2.size = CGSize(width: 75, height: 100)
+                addChild(imageNode2)
+            } else if (!getIsNextLevel(level: level)) {
+                let imageNode2 = SKSpriteNode(imageNamed: "whitelock")
+                imageNode2.position = CGPointMake(position.x, position.y + 7)
+                imageNode2.size = CGSize(width: 50, height: 50)
                 addChild(imageNode2)
             } else {
                 let text = SKLabelNode(text: String(level.uid + 1))
@@ -267,10 +357,12 @@ class MapScene: SKScene, ObservableObject {
             if movement > 20 {
                 swipeDown()
                 zoomAlphaOut()
+                run(SKAction.colorize(with: phaseColors[Int(floor(currentYPosition/2))], colorBlendFactor: 1.0, duration: 0.5))
                 return
             } else if movement < -20 {
                 swipeUp()
                 zoomAlphaOut()
+                run(SKAction.colorize(with: phaseColors[Int(floor(currentYPosition/2))], colorBlendFactor: 1.0, duration: 0.5))
                 return
             }
         }
@@ -280,7 +372,6 @@ class MapScene: SKScene, ObservableObject {
                 shrinkNode(sprite)
                 centerOnNode(node: sprite)
                 selectedPhase = imageNodes.firstIndex(of: sprite) ?? -1
-            
                 return
             }
             if node.name == "LevelInfoBox" && self.levelInfoText.text != "Locked Level" {
@@ -345,7 +436,7 @@ class MapScene: SKScene, ObservableObject {
                 self.levelInfoText.text = self.levels[self.selectedPhase].title
                 self.levelInfoBG.texture = SKTexture(imageNamed: "RoundedShadow")
                 
-                if(self.levels[self.selectedPhase].phase - 1) > self.completedPhases {
+                if ((((self.levels[self.selectedPhase].phase - 1) > self.completedPhases) || (!self.getIsNextLevel(level: self.levels[self.selectedPhase]))) && self.selectedPhase > self.completedLevelsList.count) {
                     self.levelInfoText.text = "Locked Level"
                     self.levelInfoBG.texture = SKTexture(imageNamed: "BGSquareLocked")
                 } else {
@@ -375,3 +466,4 @@ class MapScene: SKScene, ObservableObject {
         return CGPoint(x: xPos, y: yPos)
     }
 }
+

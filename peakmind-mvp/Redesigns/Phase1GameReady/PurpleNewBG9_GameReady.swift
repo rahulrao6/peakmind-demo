@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct IntroView2: View {
+struct P9_1: View {
+    var closeAction: () -> Void
     @State private var showNextScreen = false
     
     var body: some View {
@@ -62,3 +63,10 @@ struct IntroView2: View {
     }
 }
 
+struct IntroView_Previews2: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            IntroView2()
+        }
+    }
+}

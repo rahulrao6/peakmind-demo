@@ -23,6 +23,8 @@ struct TabViewMain: View {
                                     quizPromptOverlay
                                 }
                             }
+                    
+                    
 
                     SelfCareNew().environmentObject(viewModel)
                         .tabItem {
@@ -47,6 +49,7 @@ struct TabViewMain: View {
                             Label("Avatar", systemImage: "person.circle")
                         }
                         .tag(4)
+                    
                 }
                 .accentColor(.white)
                 .onAppear {
@@ -57,11 +60,17 @@ struct TabViewMain: View {
 
                 // Overlay Tutorial View
                 if showingTutorial {
+                    TutorialScene(isShowingTutorial: $showingTutorial)
+                        .environmentObject(viewModel)
+                        .transition(.opacity)
+                        .zIndex(2)
+                    /*
                     TutorialView(isShowingTutorial: $showingTutorial)
                         .environmentObject(TutorialViewModel())
                         .environmentObject(viewModel)
                         .transition(.opacity)
                         .zIndex(2)
+                     */
                 }
             }
         } else {

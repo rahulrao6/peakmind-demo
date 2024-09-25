@@ -1,9 +1,15 @@
 import SwiftUI
 import Firebase
 
-import JournalingSuggestions
+//import JournalingSuggestions
 
 struct JournalView: View {
+    var body: some View {
+        ZStack {
+            
+        }
+    }
+    /*
     @EnvironmentObject var viewModel : AuthViewModel
     @StateObject var journalDataManager = JournalDataManager()
 
@@ -195,6 +201,7 @@ struct JournalView: View {
         //dataManager.addJournalEntry(newEntry)
         presentationMode.wrappedValue.dismiss()
     }
+     */
 }
 
 struct MoodPickerView: View {

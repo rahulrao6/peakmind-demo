@@ -3,47 +3,48 @@ import SwiftUI
 struct ResourcesToUtilize: View {
     var body: some View {
         ZStack {
-            // Background
-            Image("MainBG")
-                .resizable()
-                .edgesIgnoringSafeArea(.all)
-                .aspectRatio(contentMode: .fill)
+            // Background with Linear Gradient
+            LinearGradient(
+                gradient: Gradient(colors: [Color(hex: "452198")!, Color(hex: "1a1164")!]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .edgesIgnoringSafeArea(.all)
             
-            VStack {
+            VStack(alignment: .leading) {
                 Spacer()
                 
                 // Title
-                Text("Resources to Utilize")
-                    .font(.system(size: 30, weight: .bold, design: .default))
+                Text("Resources")
+                    .font(.custom("SFProText-Heavy", size: 40))
                     .foregroundColor(.white)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 5)
+                    .padding(.leading, 36)
                 
-                // Resource Box
-                VStack(spacing: 20) {
-                    LinkButton(title: "SAMHSA Helpline", url: "https://www.samhsa.gov/find-help/national-helpline")
+                // Informative text
+                Text("If you are experiencing a mental health emergency, please call 911. All resources listed take you to the organization's website.")
+                    .font(.custom("SFProText-Bold", size: 18))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.leading)
+                    .padding(.horizontal, 40)
+                    .padding(.bottom, 20)
+                    //.padding(.leading, 20)
+
+                
+                // Resource Buttons
+                VStack(spacing: 13) {
                     LinkButton(title: "988 Suicide and Crisis Hotline", url: "https://988lifeline.org/")
                     LinkButton(title: "Crisis Text Line", url: "https://www.crisistextline.org/")
-                    LinkButton(title: "Veteran Crisis Hotline", url: "https://www.veteranscrisisline.net/")
-                    LinkButton(title: "National Domestic Violence Hotline", url: "https://www.thehotline.org/")
                     LinkButton(title: "NEDA", url: "https://www.nationaleatingdisorders.org/get-help/")
+                    LinkButton(title: "National Domestic Violence Hotline", url: "https://www.thehotline.org/")
                     LinkButton(title: "Mental Health America Helpline", url: "https://www.mhanational.org/")
+                    LinkButton(title: "SAMHSA Helpline", url: "https://www.samhsa.gov/find-help/national-helpline")
+                    LinkButton(title: "Veteran Crisis Hotline", url: "https://www.veteranscrisisline.net/")
                 }
-                .frame(width: 350, height: 600)
-                .background(Color("Dark Blue").opacity(0.75))
-                .cornerRadius(30)
-                .shadow(radius: 5)
-                .padding(.bottom, 20)
-                
-                // Emergency Text
-                Text("If you have a genuine emergency, call 911")
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 20)
-                    .padding(.top, -20)
+                .padding(.horizontal, 20) // Align buttons with equal padding on both sides
                 
                 Spacer()
             }
-            .padding(.horizontal, 20) // Add horizontal padding to center the content
         }
     }
 }
@@ -54,17 +55,34 @@ struct LinkButton: View {
 
     var body: some View {
         Button(action: {
-            if let url = URL(string: url) {
-                UIApplication.shared.open(url)
-            }
+            openLink(urlString: url)
         }) {
-            Text(title)
-                .foregroundColor(.black)
-                .fontWeight(.bold)
-                .frame(width: 320, height: 50)
-                .background(Color("Ice Blue"))
-                .cornerRadius(25)
+            HStack {
+                // Text left-aligned and supporting multiple lines
+                Text(title)
+                    .foregroundColor(.white)
+                    .font(.custom("SFProText-Bold", size: 18))
+                    .multilineTextAlignment(.leading) // Align both lines to the left
+                    .lineLimit(nil) // Allow multiple lines if needed
+                    .padding(.leading, 20)
+                
+                Spacer() // Push the arrow to the right
+                
+                // Arrow on the right side
+                Image(systemName: "arrow.right")
+                    .foregroundColor(.white)
+                    .padding(.trailing, 20)
+            }
+            .frame(width: 340, height: 65) // Wider and taller buttons
+            .background(Color(hex: "180b53")!)
+            .cornerRadius(12)
+            .padding(.horizontal, 10) // Equal padding on both sides
         }
+    }
+
+    func openLink(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url)
     }
 }
 

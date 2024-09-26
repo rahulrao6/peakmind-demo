@@ -101,4 +101,3 @@ struct Level2MapView: View {
         }
     }
 }
-

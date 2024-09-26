@@ -1,5 +1,5 @@
 //
-//  PurpleNewBG8.swift
+//  PurpleNewBG7.swift
 //  peakmind-mvp
 //
 //  Created by ZA on 8/28/24.
@@ -7,17 +7,28 @@
 
 import SwiftUI
 
-struct CopingMechanismView: View {
+struct P7_1: View {
+    var closeAction: () -> Void
+    @State private var firstCause: String = ""
+    @State private var firstEffect: String = ""
+    @State private var secondCause: String = ""
+    @State private var secondEffect: String = ""
+    @State private var navigateToNextScreen = false
+    @State private var isKeyboardVisible: Bool = false // track keyboard visibility
     @State private var currentIndex: Int = 0
     @State private var visibleText: String = ""
     @State private var isTypingCompleted: Bool = false
-    @State private var navigateToIntroView2 = false // state to control navigation
+    @State private var focusedField: String? = nil // track which field is focused
     
     let introText = """
-    Let’s learn progressive muscle relaxation, a powerful technique easing the physical tension driven by anxiety.
+    Ready to boost your mood? Buckle up for a happiness hack! Let's create a cause-and-effect map to see the magic of small lifestyle changes.
 
-    Tense and relax each muscle group intensely one by one. Take a few seconds to flex, and a few seconds to release the tension. Let’s start with your right arm!
+    Think of two things you can easily add to your routine today. What positive impact might these have on your mental well-being? Write them down, and let's see how even tiny tweaks can lead to a happier you!
     """
+    
+    var areAllTextFieldsFilled: Bool {
+        return !firstCause.isEmpty && !firstEffect.isEmpty && !secondCause.isEmpty && !secondEffect.isEmpty
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -33,7 +44,7 @@ struct CopingMechanismView: View {
                         .frame(height: 10)
                     
                     // title section
-                    Text("Coping Mechanism")
+                    Text("Cause & Effect")
                         .font(.custom("SFProText-Bold", size: 28))
                         .foregroundColor(Color("PurpleTitleColor"))
                         .multilineTextAlignment(.center)
@@ -80,13 +91,48 @@ struct CopingMechanismView: View {
                     .frame(height: geometry.size.height * 0.3) // set a fixed height for the text box
                     .padding(.horizontal, 20)
                     
-                    Spacer()
+                    // input boxes for causes and effects arranged side by side
+                    VStack(spacing: 12) {
+                        // first pair of cause and effect boxes
+                        HStack(spacing: 12) {
+                            ThoughtTextEditor(
+                                text: $firstCause,
+                                placeholder: " Cause 1",
+                                isFocused: focusedField == "firstCause" && isKeyboardVisible,
+                                onTap: { focusedField = "firstCause" }
+                            )
+                            ThoughtTextEditor(
+                                text: $firstEffect,
+                                placeholder: " Effect 1",
+                                isFocused: focusedField == "firstEffect" && isKeyboardVisible,
+                                onTap: { focusedField = "firstEffect" }
+                            )
+                        }
+                        
+                        // second pair of cause and effect boxes
+                        HStack(spacing: 12) {
+                            ThoughtTextEditor(
+                                text: $secondCause,
+                                placeholder: " Cause 2",
+                                isFocused: focusedField == "secondCause" && isKeyboardVisible,
+                                onTap: { focusedField = "secondCause" }
+                            )
+                            ThoughtTextEditor(
+                                text: $secondEffect,
+                                placeholder: " Effect 2",
+                                isFocused: focusedField == "secondEffect" && isKeyboardVisible,
+                                onTap: { focusedField = "secondEffect" }
+                            )
+                        }
+                    }
+                    .padding(.horizontal, 20)
                     
-                    // next Button
+                    // continue button for next screen
                     Button(action: {
-                        navigateToIntroView2 = true // trigger navigation
+                        navigateToNextScreen = true
+                        closeAction()
                     }) {
-                        Text("Next")
+                        Text("Continue")
                             .font(.custom("SFProText-Bold", size: 20))
                             .foregroundColor(.white)
                             .padding(.vertical, 8)
@@ -99,17 +145,24 @@ struct CopingMechanismView: View {
                                 )
                             )
                             .cornerRadius(15)
-                            .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0) // show glow when required
+                            .shadow(color: areAllTextFieldsFilled ? Color.white.opacity(1) : Color.clear, radius: 10, x: 0, y: 0)
                     }
-                    .padding(.bottom, 50)
-                    .disabled(!isTypingCompleted) // disable button if typing is not complete
+                    .padding(.top, 16)
+                    .disabled(!areAllTextFieldsFilled) // disable the button until all fields are filled
+                    .background(
+                        NavigationLink(
+                            destination: CopingMechanismView(), // replace with your next screen view
+                            isActive: $navigateToNextScreen,
+                            label: { EmptyView() }
+                        )
+                    )
                     
-                    // navigation link to the next screen
-                    NavigationLink(destination: IntroView2(), isActive: $navigateToIntroView2) {
-                        EmptyView()
-                    }
+                    Spacer()
                 }
                 .padding(.horizontal)
+                .onAppear {
+                    setupKeyboardObservers()
+                }
             }
         }
     }
@@ -129,5 +182,14 @@ struct CopingMechanismView: View {
             }
         }
     }
+    
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { _ in
+            isKeyboardVisible = true
+        }
+        
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+            isKeyboardVisible = false
+        }
+    }
 }
-

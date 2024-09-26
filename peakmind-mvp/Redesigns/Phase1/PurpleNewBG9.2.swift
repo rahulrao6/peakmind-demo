@@ -167,9 +167,3 @@ struct WellnessQuestionViewPurple2: View {
         }
     }
 }
-
-struct WellnessQuestionViewPurple_Previews2: PreviewProvider {
-    static var previews: some View {
-        WellnessQuestionViewPurple2()
-    }
-}

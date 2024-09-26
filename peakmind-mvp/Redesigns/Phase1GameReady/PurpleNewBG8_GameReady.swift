@@ -1,3 +1,4 @@
+
 //
 //  PurpleNewBG8.swift
 //  peakmind-mvp
@@ -7,7 +8,8 @@
 
 import SwiftUI
 
-struct CopingMechanismView: View {
+struct P8_1: View {
+    var closeAction: () -> Void
     @State private var currentIndex: Int = 0
     @State private var visibleText: String = ""
     @State private var isTypingCompleted: Bool = false
@@ -85,6 +87,7 @@ struct CopingMechanismView: View {
                     // next Button
                     Button(action: {
                         navigateToIntroView2 = true // trigger navigation
+                        closeAction()
                     }) {
                         Text("Next")
                             .font(.custom("SFProText-Bold", size: 20))
@@ -131,3 +134,8 @@ struct CopingMechanismView: View {
     }
 }
 
+struct CopingMechanismView_Previews: PreviewProvider {
+    static var previews: some View {
+        CopingMechanismView()
+    }
+}

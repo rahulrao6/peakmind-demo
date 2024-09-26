@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct WellnessQuestionViewPurple: View {
+struct P2_2: View {
+    var closeAction: () -> Void
     @State private var userInput: String = ""
     @FocusState private var isTextEditorFocused: Bool
     @State private var isTyping: Bool = false
@@ -117,6 +118,7 @@ struct WellnessQuestionViewPurple: View {
                     Button(action: {
                         isTextEditorFocused = false
                         navigateToBreathingExercise = true
+                        closeAction()
                     }) {
                         Text("Submit")
                             .font(.custom("SFProText-Bold", size: 20))
@@ -168,4 +170,8 @@ struct WellnessQuestionViewPurple: View {
     }
 }
 
-
+struct WellnessQuestionViewPurple_Previews: PreviewProvider {
+    static var previews: some View {
+        WellnessQuestionViewPurple()
+    }
+}

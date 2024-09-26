@@ -63,6 +63,38 @@
 		10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		191340012C682A2900DB5C01 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 191340002C682A2900DB5C01 /* Lottie */; };
 		191340032C682B0500DB5C01 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191340022C682B0500DB5C01 /* LottieView.swift */; };
+		192D74502C9B95E700B39F2E /* GreenNewBG8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D744F2C9B95E700B39F2E /* GreenNewBG8.swift */; };
+		192D74532CA2130400B39F2E /* PinkNewBG1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74522CA2130400B39F2E /* PinkNewBG1.swift */; };
+		192D74552CA2148D00B39F2E /* PinkNewBG2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74542CA2148D00B39F2E /* PinkNewBG2.swift */; };
+		192D74572CA2163B00B39F2E /* PinkNewBG3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74562CA2163B00B39F2E /* PinkNewBG3.swift */; };
+		192D74592CA21AB800B39F2E /* PinkNewBG4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74582CA21AB800B39F2E /* PinkNewBG4.swift */; };
+		192D745B2CA270C000B39F2E /* PinkNewBG5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D745A2CA270C000B39F2E /* PinkNewBG5.swift */; };
+		192D745D2CA2717400B39F2E /* PinkNewBG5.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D745C2CA2717400B39F2E /* PinkNewBG5.2.swift */; };
+		192D745F2CA272BA00B39F2E /* PinkNewBG6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D745E2CA272BA00B39F2E /* PinkNewBG6.swift */; };
+		192D74612CA2774A00B39F2E /* PinkNewBG7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74602CA2774A00B39F2E /* PinkNewBG7.swift */; };
+		192D74632CA277D400B39F2E /* PinkNewBG7.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74622CA277D400B39F2E /* PinkNewBG7.2.swift */; };
+		192D74652CA3465F00B39F2E /* PinkNewBG8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74642CA3465F00B39F2E /* PinkNewBG8.swift */; };
+		192D74672CA3469B00B39F2E /* PinkNewBG8.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74662CA3469B00B39F2E /* PinkNewBG8.2.swift */; };
+		192D746B2CA3484200B39F2E /* PinkNewBG9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D746A2CA3484200B39F2E /* PinkNewBG9.swift */; };
+		192D746D2CA34BE400B39F2E /* PinkNewBG10.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D746C2CA34BE400B39F2E /* PinkNewBG10.swift */; };
+		192D74702CA35E4000B39F2E /* NewBG1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D746F2CA35E4000B39F2E /* NewBG1.swift */; };
+		192D74722CA3629100B39F2E /* NewBG2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74712CA3629100B39F2E /* NewBG2.swift */; };
+		192D74742CA3691F00B39F2E /* NewBG3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74732CA3691F00B39F2E /* NewBG3.swift */; };
+		192D74762CA36AA500B39F2E /* NewBG4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74752CA36AA500B39F2E /* NewBG4.swift */; };
+		192D74782CA36B2E00B39F2E /* NewBG4.1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74772CA36B2E00B39F2E /* NewBG4.1.swift */; };
+		192D747A2CA3752B00B39F2E /* NewBG4.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74792CA3752B00B39F2E /* NewBG4.2.swift */; };
+		192D747C2CA3768900B39F2E /* NewBG4.3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D747B2CA3768900B39F2E /* NewBG4.3.swift */; };
+		192D747E2CA3770D00B39F2E /* NewBG4.4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D747D2CA3770D00B39F2E /* NewBG4.4.swift */; };
+		192D74802CA3775000B39F2E /* NewBG4.5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D747F2CA3775000B39F2E /* NewBG4.5.swift */; };
+		192D74822CA378A200B39F2E /* NewBG5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74812CA378A200B39F2E /* NewBG5.swift */; };
+		192D74842CA3795300B39F2E /* NewBG6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74832CA3795300B39F2E /* NewBG6.swift */; };
+		192D74862CA37C5100B39F2E /* NewBG7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74852CA37C5100B39F2E /* NewBG7.swift */; };
+		192D74882CA37C9700B39F2E /* NewBG7.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74872CA37C9700B39F2E /* NewBG7.2.swift */; };
+		192D748A2CA37D8900B39F2E /* NewBG8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74892CA37D8900B39F2E /* NewBG8.swift */; };
+		192D748C2CA37E2800B39F2E /* NewBG8.1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D748B2CA37E2800B39F2E /* NewBG8.1.swift */; };
+		192D748E2CA37F4D00B39F2E /* NewBG8.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D748D2CA37F4D00B39F2E /* NewBG8.2.swift */; };
+		192D74902CA37FED00B39F2E /* NewBG8.3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D748F2CA37FED00B39F2E /* NewBG8.3.swift */; };
+		192D74922CA37FF600B39F2E /* NewBG8.4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192D74912CA37FF600B39F2E /* NewBG8.4.swift */; };
 		19627D782C7445C7002F5818 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627D4E2C7445BF002F5818 /* SF-Pro-Display-Semibold.otf */; };
 		19627D792C7445C7002F5818 /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627D4F2C7445BF002F5818 /* SF-Pro-Display-Light.otf */; };
 		19627D7A2C7445C7002F5818 /* SF-Pro-Text-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627D502C7445BF002F5818 /* SF-Pro-Text-RegularItalic.otf */; };
@@ -127,9 +159,23 @@
 		19A63F032C7431AF0036F5E3 /* PurpleNewBG2.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFE2C7431AE0036F5E3 /* PurpleNewBG2.2.swift */; };
 		19A63F042C7431AF0036F5E3 /* NewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63EFF2C7431AE0036F5E3 /* NewBG.swift */; };
 		19A63F052C7431AF0036F5E3 /* PinkNewBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A63F002C7431AF0036F5E3 /* PinkNewBG.swift */; };
+		19AD87B62C9A1B01000D69DA /* GreenNewBG1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87B52C9A1B01000D69DA /* GreenNewBG1.swift */; };
+		19AD87B82C9A1BE1000D69DA /* GreenNewBG2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87B72C9A1BE1000D69DA /* GreenNewBG2.swift */; };
+		19AD87BA2C9A1FF5000D69DA /* GreenNewBG2.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87B92C9A1FF5000D69DA /* GreenNewBG2.2.swift */; };
+		19AD87BC2C9A218E000D69DA /* GreenNewBG3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87BB2C9A218E000D69DA /* GreenNewBG3.swift */; };
+		19AD87BE2C9A2206000D69DA /* GreenNewBG3.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87BD2C9A2206000D69DA /* GreenNewBG3.2.swift */; };
+		19AD87C02C9A3348000D69DA /* GreenNewBG4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87BF2C9A3348000D69DA /* GreenNewBG4.swift */; };
+		19AD87C22C9A38B3000D69DA /* GreenNewBG4.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87C12C9A38B3000D69DA /* GreenNewBG4.2.swift */; };
+		19AD87C42C9B61A8000D69DA /* GreenNewBG5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87C32C9B61A8000D69DA /* GreenNewBG5.swift */; };
+		19AD87C62C9B6299000D69DA /* GreenNewBG5.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87C52C9B6299000D69DA /* GreenNewBG5.2.swift */; };
+		19AD87C82C9B6F45000D69DA /* GreenNewBG6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87C72C9B6F45000D69DA /* GreenNewBG6.swift */; };
+		19AD87CA2C9B7B02000D69DA /* GreenNewBG7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87C92C9B7B02000D69DA /* GreenNewBG7.swift */; };
+		19AD87CC2C9B7B6E000D69DA /* GreenNewBG7.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19AD87CB2C9B7B6E000D69DA /* GreenNewBG7.2.swift */; };
 		19F693E42C779AF900B002E1 /* PurpleNewBG2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F693E32C779AF900B002E1 /* PurpleNewBG2.swift */; };
 		19F693E62C77B13A00B002E1 /* PurpleNewBG1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F693E52C77B13A00B002E1 /* PurpleNewBG1.swift */; };
 		19F895C52C5059F900C5D6E6 /* ViewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F895C42C5059F900C5D6E6 /* ViewMod.swift */; };
+		19FB2D292CA3883C006E0A0B /* NewBG9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FB2D282CA3883C006E0A0B /* NewBG9.swift */; };
+		19FB2D2B2CA38AA9006E0A0B /* NewBG10.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FB2D2A2CA38AA9006E0A0B /* NewBG10.swift */; };
 		1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */; };
 		1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */; };
 		1C53A42B2C254E9F00B27C23 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A42A2C254E9F00B27C23 /* MessageView.swift */; };
@@ -389,6 +435,38 @@
 		10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitUIView.swift; sourceTree = "<group>"; };
 		10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdTriangleEncoded.mov; sourceTree = "<group>"; };
 		191340022C682B0500DB5C01 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		192D744F2C9B95E700B39F2E /* GreenNewBG8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG8.swift; sourceTree = "<group>"; };
+		192D74522CA2130400B39F2E /* PinkNewBG1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG1.swift; sourceTree = "<group>"; };
+		192D74542CA2148D00B39F2E /* PinkNewBG2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG2.swift; sourceTree = "<group>"; };
+		192D74562CA2163B00B39F2E /* PinkNewBG3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG3.swift; sourceTree = "<group>"; };
+		192D74582CA21AB800B39F2E /* PinkNewBG4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG4.swift; sourceTree = "<group>"; };
+		192D745A2CA270C000B39F2E /* PinkNewBG5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG5.swift; sourceTree = "<group>"; };
+		192D745C2CA2717400B39F2E /* PinkNewBG5.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG5.2.swift; sourceTree = "<group>"; };
+		192D745E2CA272BA00B39F2E /* PinkNewBG6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG6.swift; sourceTree = "<group>"; };
+		192D74602CA2774A00B39F2E /* PinkNewBG7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG7.swift; sourceTree = "<group>"; };
+		192D74622CA277D400B39F2E /* PinkNewBG7.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG7.2.swift; sourceTree = "<group>"; };
+		192D74642CA3465F00B39F2E /* PinkNewBG8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG8.swift; sourceTree = "<group>"; };
+		192D74662CA3469B00B39F2E /* PinkNewBG8.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG8.2.swift; sourceTree = "<group>"; };
+		192D746A2CA3484200B39F2E /* PinkNewBG9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG9.swift; sourceTree = "<group>"; };
+		192D746C2CA34BE400B39F2E /* PinkNewBG10.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinkNewBG10.swift; sourceTree = "<group>"; };
+		192D746F2CA35E4000B39F2E /* NewBG1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG1.swift; sourceTree = "<group>"; };
+		192D74712CA3629100B39F2E /* NewBG2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG2.swift; sourceTree = "<group>"; };
+		192D74732CA3691F00B39F2E /* NewBG3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG3.swift; sourceTree = "<group>"; };
+		192D74752CA36AA500B39F2E /* NewBG4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG4.swift; sourceTree = "<group>"; };
+		192D74772CA36B2E00B39F2E /* NewBG4.1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG4.1.swift; sourceTree = "<group>"; };
+		192D74792CA3752B00B39F2E /* NewBG4.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG4.2.swift; sourceTree = "<group>"; };
+		192D747B2CA3768900B39F2E /* NewBG4.3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG4.3.swift; sourceTree = "<group>"; };
+		192D747D2CA3770D00B39F2E /* NewBG4.4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG4.4.swift; sourceTree = "<group>"; };
+		192D747F2CA3775000B39F2E /* NewBG4.5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG4.5.swift; sourceTree = "<group>"; };
+		192D74812CA378A200B39F2E /* NewBG5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG5.swift; sourceTree = "<group>"; };
+		192D74832CA3795300B39F2E /* NewBG6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG6.swift; sourceTree = "<group>"; };
+		192D74852CA37C5100B39F2E /* NewBG7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG7.swift; sourceTree = "<group>"; };
+		192D74872CA37C9700B39F2E /* NewBG7.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG7.2.swift; sourceTree = "<group>"; };
+		192D74892CA37D8900B39F2E /* NewBG8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG8.swift; sourceTree = "<group>"; };
+		192D748B2CA37E2800B39F2E /* NewBG8.1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG8.1.swift; sourceTree = "<group>"; };
+		192D748D2CA37F4D00B39F2E /* NewBG8.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG8.2.swift; sourceTree = "<group>"; };
+		192D748F2CA37FED00B39F2E /* NewBG8.3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG8.3.swift; sourceTree = "<group>"; };
+		192D74912CA37FF600B39F2E /* NewBG8.4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG8.4.swift; sourceTree = "<group>"; };
 		19627D4E2C7445BF002F5818 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 		19627D4F2C7445BF002F5818 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
 		19627D502C7445BF002F5818 /* SF-Pro-Text-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-RegularItalic.otf"; sourceTree = "<group>"; };
@@ -453,9 +531,23 @@
 		19A63EFE2C7431AE0036F5E3 /* PurpleNewBG2.2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG2.2.swift; sourceTree = "<group>"; };
 		19A63EFF2C7431AE0036F5E3 /* NewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBG.swift; sourceTree = "<group>"; };
 		19A63F002C7431AF0036F5E3 /* PinkNewBG.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinkNewBG.swift; sourceTree = "<group>"; };
+		19AD87B52C9A1B01000D69DA /* GreenNewBG1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG1.swift; sourceTree = "<group>"; };
+		19AD87B72C9A1BE1000D69DA /* GreenNewBG2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG2.swift; sourceTree = "<group>"; };
+		19AD87B92C9A1FF5000D69DA /* GreenNewBG2.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG2.2.swift; sourceTree = "<group>"; };
+		19AD87BB2C9A218E000D69DA /* GreenNewBG3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG3.swift; sourceTree = "<group>"; };
+		19AD87BD2C9A2206000D69DA /* GreenNewBG3.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG3.2.swift; sourceTree = "<group>"; };
+		19AD87BF2C9A3348000D69DA /* GreenNewBG4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG4.swift; sourceTree = "<group>"; };
+		19AD87C12C9A38B3000D69DA /* GreenNewBG4.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG4.2.swift; sourceTree = "<group>"; };
+		19AD87C32C9B61A8000D69DA /* GreenNewBG5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG5.swift; sourceTree = "<group>"; };
+		19AD87C52C9B6299000D69DA /* GreenNewBG5.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG5.2.swift; sourceTree = "<group>"; };
+		19AD87C72C9B6F45000D69DA /* GreenNewBG6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG6.swift; sourceTree = "<group>"; };
+		19AD87C92C9B7B02000D69DA /* GreenNewBG7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG7.swift; sourceTree = "<group>"; };
+		19AD87CB2C9B7B6E000D69DA /* GreenNewBG7.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG7.2.swift; sourceTree = "<group>"; };
 		19F693E32C779AF900B002E1 /* PurpleNewBG2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG2.swift; sourceTree = "<group>"; };
 		19F693E52C77B13A00B002E1 /* PurpleNewBG1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG1.swift; sourceTree = "<group>"; };
 		19F895C42C5059F900C5D6E6 /* ViewMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMod.swift; sourceTree = "<group>"; };
+		19FB2D282CA3883C006E0A0B /* NewBG9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG9.swift; sourceTree = "<group>"; };
+		19FB2D2A2CA38AA9006E0A0B /* NewBG10.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG10.swift; sourceTree = "<group>"; };
 		1C480FB92C20B5AC002B19A0 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1C480FBB2C20B5AC002B19A0 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1C480FEE2C21387F002B19A0 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -719,6 +811,55 @@
 			path = Tutorial;
 			sourceTree = "<group>";
 		};
+		192D74512CA2114E00B39F2E /* Phase3 */ = {
+			isa = PBXGroup;
+			children = (
+				19A63F002C7431AF0036F5E3 /* PinkNewBG.swift */,
+				192D74522CA2130400B39F2E /* PinkNewBG1.swift */,
+				192D74542CA2148D00B39F2E /* PinkNewBG2.swift */,
+				192D74562CA2163B00B39F2E /* PinkNewBG3.swift */,
+				192D74582CA21AB800B39F2E /* PinkNewBG4.swift */,
+				192D745A2CA270C000B39F2E /* PinkNewBG5.swift */,
+				192D745C2CA2717400B39F2E /* PinkNewBG5.2.swift */,
+				192D745E2CA272BA00B39F2E /* PinkNewBG6.swift */,
+				192D74602CA2774A00B39F2E /* PinkNewBG7.swift */,
+				192D74622CA277D400B39F2E /* PinkNewBG7.2.swift */,
+				192D74642CA3465F00B39F2E /* PinkNewBG8.swift */,
+				192D74662CA3469B00B39F2E /* PinkNewBG8.2.swift */,
+				192D746A2CA3484200B39F2E /* PinkNewBG9.swift */,
+				192D746C2CA34BE400B39F2E /* PinkNewBG10.swift */,
+			);
+			path = Phase3;
+			sourceTree = "<group>";
+		};
+		192D746E2CA3571200B39F2E /* Phase4 */ = {
+			isa = PBXGroup;
+			children = (
+				19A63EFF2C7431AE0036F5E3 /* NewBG.swift */,
+				192D746F2CA35E4000B39F2E /* NewBG1.swift */,
+				192D74712CA3629100B39F2E /* NewBG2.swift */,
+				192D74732CA3691F00B39F2E /* NewBG3.swift */,
+				192D74752CA36AA500B39F2E /* NewBG4.swift */,
+				192D74772CA36B2E00B39F2E /* NewBG4.1.swift */,
+				192D74792CA3752B00B39F2E /* NewBG4.2.swift */,
+				192D747B2CA3768900B39F2E /* NewBG4.3.swift */,
+				192D747D2CA3770D00B39F2E /* NewBG4.4.swift */,
+				192D747F2CA3775000B39F2E /* NewBG4.5.swift */,
+				192D74812CA378A200B39F2E /* NewBG5.swift */,
+				192D74832CA3795300B39F2E /* NewBG6.swift */,
+				192D74852CA37C5100B39F2E /* NewBG7.swift */,
+				192D74872CA37C9700B39F2E /* NewBG7.2.swift */,
+				192D74892CA37D8900B39F2E /* NewBG8.swift */,
+				192D748B2CA37E2800B39F2E /* NewBG8.1.swift */,
+				192D748D2CA37F4D00B39F2E /* NewBG8.2.swift */,
+				192D748F2CA37FED00B39F2E /* NewBG8.3.swift */,
+				192D74912CA37FF600B39F2E /* NewBG8.4.swift */,
+				19FB2D282CA3883C006E0A0B /* NewBG9.swift */,
+				19FB2D2A2CA38AA9006E0A0B /* NewBG10.swift */,
+			);
+			path = Phase4;
+			sourceTree = "<group>";
+		};
 		19627D4D2C7445A7002F5818 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -773,6 +914,27 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		19AD87B42C9A0D2A000D69DA /* Phase2 */ = {
+			isa = PBXGroup;
+			children = (
+				19A63EFD2C7431AE0036F5E3 /* GreenNewBG.swift */,
+				19AD87B52C9A1B01000D69DA /* GreenNewBG1.swift */,
+				19AD87B72C9A1BE1000D69DA /* GreenNewBG2.swift */,
+				19AD87B92C9A1FF5000D69DA /* GreenNewBG2.2.swift */,
+				19AD87BB2C9A218E000D69DA /* GreenNewBG3.swift */,
+				19AD87BD2C9A2206000D69DA /* GreenNewBG3.2.swift */,
+				19AD87BF2C9A3348000D69DA /* GreenNewBG4.swift */,
+				19AD87C12C9A38B3000D69DA /* GreenNewBG4.2.swift */,
+				19AD87C32C9B61A8000D69DA /* GreenNewBG5.swift */,
+				19AD87C52C9B6299000D69DA /* GreenNewBG5.2.swift */,
+				19AD87C72C9B6F45000D69DA /* GreenNewBG6.swift */,
+				19AD87C92C9B7B02000D69DA /* GreenNewBG7.swift */,
+				19AD87CB2C9B7B6E000D69DA /* GreenNewBG7.2.swift */,
+				192D744F2C9B95E700B39F2E /* GreenNewBG8.swift */,
+			);
+			path = Phase2;
+			sourceTree = "<group>";
+		};
 		10FA68522BB3B191007CCBAC /* James */ = {
 			isa = PBXGroup;
 			children = (
@@ -806,12 +968,12 @@
 		19F895C02C5041E300C5D6E6 /* Redesigns */ = {
 			isa = PBXGroup;
 			children = (
+				192D746E2CA3571200B39F2E /* Phase4 */,
+				192D74512CA2114E00B39F2E /* Phase3 */,
+				19AD87B42C9A0D2A000D69DA /* Phase2 */,
 				10ACEE542C96A05600997166 /* Phase1GameReady */,
 				19F693E72C77B13E00B002E1 /* Phase1 */,
-				19A63EFD2C7431AE0036F5E3 /* GreenNewBG.swift */,
 				19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */,
-				19A63EFF2C7431AE0036F5E3 /* NewBG.swift */,
-				19A63F002C7431AF0036F5E3 /* PinkNewBG.swift */,
 				196F4CAE2C76856900604E7C /* FontChecker.swift */,
 			);
 			path = Redesigns;
@@ -1647,12 +1809,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */,
+				192D745D2CA2717400B39F2E /* PinkNewBG5.2.swift in Sources */,
 				79C383FA2BD60E0000A6779A /* P1-1_Intro.swift in Sources */,
 				1C7B2E8D2C65D2A700B233D8 /* Routines.swift in Sources */,
 				10CE96102C02953B0092EE29 /* LevelMapView.swift in Sources */,
+				19AD87C22C9A38B3000D69DA /* GreenNewBG4.2.swift in Sources */,
 				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
+				19AD87BE2C9A2206000D69DA /* GreenNewBG3.2.swift in Sources */,
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				792ED8632C51C8480050D12C /* CustomWidgetView.swift in Sources */,
+				192D74762CA36AA500B39F2E /* NewBG4.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
 				10ACEE5E2C96A05600997166 /* PurpleNewBG7_GameReady.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
@@ -1662,9 +1828,12 @@
 				1CF4C3E42B7B15E10028BC3C /* ContentView.swift in Sources */,
 				102F1B8C2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift in Sources */,
 				793B79BD2BB20431001062DB /* WellnessQ3View.swift in Sources */,
+				19AD87BC2C9A218E000D69DA /* GreenNewBG3.swift in Sources */,
 				793B79AF2BAF9019001062DB /* PhysImpactsAnxietyView.swift in Sources */,
+				192D74902CA37FED00B39F2E /* NewBG8.3.swift in Sources */,
 				79C383EE2BC6123300A6779A /* Background.swift in Sources */,
 				792617922BD70F3200AAAC81 /* P2-3_ScenarioQuiz.swift in Sources */,
+				19AD87BA2C9A1FF5000D69DA /* GreenNewBG2.2.swift in Sources */,
 				79C3840E2BD60EF400A6779A /* P1-11_CauseEffectMap.swift in Sources */,
 				79C384002BD60E5900A6779A /* P1-4_StressModule.swift in Sources */,
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
@@ -1673,7 +1842,9 @@
 				107D91262C8EA0A400FAEFAA /* Tutorial7.swift in Sources */,
 				79C384082BD60EBC00A6779A /* P1-8_ResourcesAnimation.swift in Sources */,
 				797B4C452BDC094C00A3A25D /* SherpaTutorialBox.swift in Sources */,
+				19AD87C82C9B6F45000D69DA /* GreenNewBG6.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
+				192D74652CA3465F00B39F2E /* PinkNewBG8.swift in Sources */,
 				19A63F052C7431AF0036F5E3 /* PinkNewBG.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
 				19F693E42C779AF900B002E1 /* PurpleNewBG2.swift in Sources */,
@@ -1697,6 +1868,7 @@
 				1CE785FD2B8DA0DB00962A40 /* MessageBubble.swift in Sources */,
 				7926178F2BD70E8200AAAC81 /* P1-3_ScenarioQuiz.swift in Sources */,
 				19A63F032C7431AF0036F5E3 /* PurpleNewBG2.2.swift in Sources */,
+				192D748E2CA37F4D00B39F2E /* NewBG8.2.swift in Sources */,
 				79C383F52BC8749700A6779A /* LevelOneMapView.swift in Sources */,
 				19A63F012C7431AF0036F5E3 /* LightPurpleNewBG.swift in Sources */,
 				79C383EC2BC6122C00A6779A /* AnimatedTextView.swift in Sources */,
@@ -1706,6 +1878,7 @@
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
 				10ACEE5C2C96A05600997166 /* PurpleNewBG5_GameReady.swift in Sources */,
 				792617882BD70C5200AAAC81 /* SherpaTalking.swift in Sources */,
+				192D748C2CA37E2800B39F2E /* NewBG8.1.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
 				1CA25E342C05381E004B0AD2 /* CommunityTest.swift in Sources */,
 				79C383F02BC6123F00A6779A /* MultiSectionView.swift in Sources */,
@@ -1716,18 +1889,25 @@
 				797B4C412BDAE86700A3A25D /* HomeDashboard.swift in Sources */,
 				19648A662C7FCB150061A70D /* PurpleNewBG7.swift in Sources */,
 				19648A5A2C7D0D160061A70D /* PurpleNewBG3.swift in Sources */,
+				192D74592CA21AB800B39F2E /* PinkNewBG4.swift in Sources */,
 				1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */,
 				19648A682C7FCDB20061A70D /* PurpleNewBG8.swift in Sources */,
+				19AD87B62C9A1B01000D69DA /* GreenNewBG1.swift in Sources */,
 				79C384142BD60F2300A6779A /* P1-14_Reflection.swift in Sources */,
 				1C65A6252C0E419F00C04DFF /* NewLoginView.swift in Sources */,
 				1CF19B952BDCA9D10087A7E7 /* SherpaTutorialBox.swift in Sources */,
+				192D74742CA3691F00B39F2E /* NewBG3.swift in Sources */,
+				192D746B2CA3484200B39F2E /* PinkNewBG9.swift in Sources */,
 				19648A6A2C7FCEAC0061A70D /* PurpleNewBG9.swift in Sources */,
 				19A63F022C7431AF0036F5E3 /* GreenNewBG.swift in Sources */,
+				192D74552CA2148D00B39F2E /* PinkNewBG2.swift in Sources */,
 				79069CF02BDA0D9100AB52DC /* CauseEffectPair.swift in Sources */,
 				793B79D02BB3929F001062DB /* SMARTGoalSettingView.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				791A274F2C8A80D8000D52BE /* MentalModelView.swift in Sources */,
 				797BF6472C9E205D00118768 /* YourQuestsView.swift in Sources */,
+				192D748A2CA37D8900B39F2E /* NewBG8.swift in Sources */,
+				19FB2D292CA3883C006E0A0B /* NewBG9.swift in Sources */,
 				7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */,
 				1C53A42D2C254F6600B27C23 /* MessageListView.swift in Sources */,
 				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
@@ -1741,13 +1921,18 @@
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
 				1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */,
 				79C383E72BC6113200A6779A /* UserDashboardViewModel.swift in Sources */,
+				192D74782CA36B2E00B39F2E /* NewBG4.1.swift in Sources */,
+				19AD87C62C9B6299000D69DA /* GreenNewBG5.2.swift in Sources */,
+				192D74802CA3775000B39F2E /* NewBG4.5.swift in Sources */,
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */,
 				79C3841A2BD60F5F00A6779A /* P2-1_AnxietyModule.swift in Sources */,
+				192D74882CA37C9700B39F2E /* NewBG7.2.swift in Sources */,
 				19648A622C7E5FBF0061A70D /* PurpleNewBG5.swift in Sources */,
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				79C384282BD60FDE00A6779A /* P2-9_GoalSetting.swift in Sources */,
 				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
+				192D74612CA2774A00B39F2E /* PinkNewBG7.swift in Sources */,
 				102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */,
 				790F17502C45D9870071B34B /* PPContentView.swift in Sources */,
 				19648A602C7E5DC70061A70D /* PurpleNewBG4.2.swift in Sources */,
@@ -1757,7 +1942,10 @@
 				79C384182BD60F5300A6779A /* P2-1_Intro.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
 				79C8543D2BF03D18003C918E /* UserProfileView.swift in Sources */,
+				192D74532CA2130400B39F2E /* PinkNewBG1.swift in Sources */,
+				19AD87C42C9B61A8000D69DA /* GreenNewBG5.swift in Sources */,
 				1CD299C02BBA3A12003A0592 /* WindsFlavorView.swift in Sources */,
+				192D746D2CA34BE400B39F2E /* PinkNewBG10.swift in Sources */,
 				10CE961D2C0415F80092EE29 /* MapScene.swift in Sources */,
 				793B79B32BAF9045001062DB /* L2SherpaChatView.swift in Sources */,
 				79C383FE2BD60E4200A6779A /* P1-3_EmotionsScenario.swift in Sources */,
@@ -1767,9 +1955,12 @@
 				79C383E12BC6110E00A6779A /* HabitTracker.swift in Sources */,
 				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
 				79C8543B2BF036C0003C918E /* AnxietyCommunityView.swift in Sources */,
+				192D74702CA35E4000B39F2E /* NewBG1.swift in Sources */,
 				1C53A42F2C254F9200B27C23 /* FriendListView.swift in Sources */,
+				192D74632CA277D400B39F2E /* PinkNewBG7.2.swift in Sources */,
 				19648A6C2C7FCF8A0061A70D /* PurpleNewBG9.2.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
+				192D74822CA378A200B39F2E /* NewBG5.swift in Sources */,
 				10ACEE5F2C96A05600997166 /* PurpleNewBG8_GameReady.swift in Sources */,
 				19F693E62C77B13A00B002E1 /* PurpleNewBG1.swift in Sources */,
 				10ACEE602C96A05600997166 /* PurpleNewBG9.2_GameReady.swift in Sources */,
@@ -1778,6 +1969,9 @@
 				79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				797BF6432C9D032300118768 /* QuizOnboardingVIew.swift in Sources */,
+				192D74862CA37C5100B39F2E /* NewBG7.swift in Sources */,
+				192D745F2CA272BA00B39F2E /* PinkNewBG6.swift in Sources */,
+				192D74722CA3629100B39F2E /* NewBG2.swift in Sources */,
 				107D911C2C8EA05D00FAEFAA /* Tutorial2.swift in Sources */,
 				7930831E2BE85713002A2E0B /* ResourcesToUtilize.swift in Sources */,
 				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
@@ -1787,27 +1981,36 @@
 				1C53A42B2C254E9F00B27C23 /* MessageView.swift in Sources */,
 				10ACEE5D2C96A05600997166 /* PurpleNewBG6_GameReady.swift in Sources */,
 				79C3841E2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift in Sources */,
+				19AD87CC2C9B7B6E000D69DA /* GreenNewBG7.2.swift in Sources */,
+				192D74672CA3469B00B39F2E /* PinkNewBG8.2.swift in Sources */,
 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
 				792617842BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift in Sources */,
 				79C384062BD60EAC00A6779A /* P1-5_StressTriggerMap.swift in Sources */,
 				19F895C52C5059F900C5D6E6 /* ViewMod.swift in Sources */,
+				19AD87C02C9A3348000D69DA /* GreenNewBG4.swift in Sources */,
 				1CD299C22BBA5E4E003A0592 /* Level2Complete.swift in Sources */,
 				191340032C682B0500DB5C01 /* LottieView.swift in Sources */,
 				79C3841C2BD60F7300A6779A /* P2-3_DefiningAnxietyScenario.swift in Sources */,
 				792617862BD70C2000AAAC81 /* ScenarioTemplate.swift in Sources */,
 				107D91222C8EA09100FAEFAA /* Tutorial5.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
+				192D74502C9B95E700B39F2E /* GreenNewBG8.swift in Sources */,
 				79C384242BD60FC800A6779A /* P2-7_ExperienceQ.swift in Sources */,
 				10CE960A2BF7DC4C0092EE29 /* ResilienceChecklistView.swift in Sources */,
+				19FB2D2B2CA38AA9006E0A0B /* NewBG10.swift in Sources */,
+				19AD87B82C9A1BE1000D69DA /* GreenNewBG2.swift in Sources */,
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
 				1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */,
 				7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */,
 				7953387F2C0144C100A42D4C /* Structs.swift in Sources */,
 				79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */,
+				192D747E2CA3770D00B39F2E /* NewBG4.4.swift in Sources */,
 				196F4CAF2C76856900604E7C /* FontChecker.swift in Sources */,
 				79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */,
 				79C3842E2BD6100300A6779A /* P2-12_CopingModule.swift in Sources */,
+				192D74842CA3795300B39F2E /* NewBG6.swift in Sources */,
+				192D747C2CA3768900B39F2E /* NewBG4.3.swift in Sources */,
 				79C384022BD60E6B00A6779A /* P1-6_PersonalQuestion.swift in Sources */,
 				107D911A2C8E9D0600FAEFAA /* Tutorial1.swift in Sources */,
 				79C384122BD60F0D00A6779A /* P1-13_BodyScan.swift in Sources */,
@@ -1815,6 +2018,7 @@
 				10ACEE582C96A05600997166 /* PurpleNewBG3.2_GameReady.swift in Sources */,
 				10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */,
 				103D86392C2B8F3F0078A45B /* Confetti.swift in Sources */,
+				192D74922CA37FF600B39F2E /* NewBG8.4.swift in Sources */,
 				1CBBE30D2C517D3C006EFD6A /* NewPPContentView.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,
@@ -1834,9 +2038,14 @@
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
 				10ACEE612C96A05600997166 /* PurpleNewBG9_GameReady.swift in Sources */,
 				10CE961B2C0415180092EE29 /* TestView.swift in Sources */,
+				19AD87CA2C9B7B02000D69DA /* GreenNewBG7.swift in Sources */,
 				10CE961F2C0547FC0092EE29 /* VariableBlur.swift in Sources */,
 				79C384222BD60FA100A6779A /* P2-6_AnxietyModule.swift in Sources */,
+				192D74572CA2163B00B39F2E /* PinkNewBG3.swift in Sources */,
 				10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */,
+				192D745B2CA270C000B39F2E /* PinkNewBG5.swift in Sources */,
+				79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */,
+				192D747A2CA3752B00B39F2E /* NewBG4.2.swift in Sources */,
 				107D91282C8EA0A900FAEFAA /* Tutorial8.swift in Sources */,
 				107D911E2C8EA08500FAEFAA /* Tutorial3.swift in Sources */,
 				103D86972C473CAE0078A45B /* MountainSelect.swift in Sources */,

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ATSApplicationFontsPath</key>
+	<string></string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -21,15 +23,13 @@
 			</array>
 		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>84784545087-eae20phpcgkv089tst1qdkicqcictusi.apps.googleusercontent.com</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>GIDClientID</key>
-	<string>84784545087-eae20phpcgkv089tst1qdkicqcictusi.apps.googleusercontent.com</string>
-	<key>ATSApplicationFontsPath</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-Pro-Display-Bold.otf</string>
@@ -42,10 +42,5 @@
 		<string>SF-Pro-Text-Medium.otf</string>
 		<string>SF-Pro-Text-Regular.otf</string>
 	</array>
-	<key>CFBundleExecutable</key>
-	<string></string>
-	<key>CFBundleIdentifier</key>
-	<string>com.googleusercontent.apps.84784545087-eae20phpcgkv089tst1qdkicqcictusi
-*** First throw call stack:</string>
 </dict>
 </plist>

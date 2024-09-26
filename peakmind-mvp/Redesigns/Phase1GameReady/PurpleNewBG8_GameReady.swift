@@ -1,31 +1,24 @@
 //
-//  PurpleNewBG6.swift
+//  PurpleNewBG8.swift
 //  peakmind-mvp
 //
-//  Created by ZA on 8/27/24.
+//  Created by ZA on 8/28/24.
 //
 
 import SwiftUI
 
-struct ReframeExerciseView: View {
-    @State private var negativeThought: String = ""
-    @State private var positiveThought: String = ""
-    @State private var navigateToNextScreen = false
-    @State private var isKeyboardVisible: Bool = false // track keyboard visibility
+struct P8_1: View {
+    var closeAction: () -> Void
     @State private var currentIndex: Int = 0
     @State private var visibleText: String = ""
     @State private var isTypingCompleted: Bool = false
-    @State private var focusedField: String? = nil // track which field is focused
+    @State private var navigateToIntroView2 = false // state to control navigation
     
     let introText = """
-    Let’s flip negative thoughts into something more positive. This exercise will help you challenge and reframe the way you think.
+    Let’s learn progressive muscle relaxation, a powerful technique easing the physical tension driven by anxiety.
 
-    Start by picking a recent negative thought (e.g., “I never get anything right”). Reframe the thought to be more positive (e.g., “I may not be perfect, but I’m learning and improving all the time.”).
+    Tense and relax each muscle group intensely one by one. Take a few seconds to flex, and a few seconds to release the tension. Let’s start with your right arm!
     """
-    
-    var areBothTextFieldsFilled: Bool {
-        return !negativeThought.isEmpty && !positiveThought.isEmpty
-    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -41,7 +34,7 @@ struct ReframeExerciseView: View {
                         .frame(height: 10)
                     
                     // title section
-                    Text("Reframe Exercise")
+                    Text("Coping Mechanism")
                         .font(.custom("SFProText-Bold", size: 28))
                         .foregroundColor(Color("PurpleTitleColor"))
                         .multilineTextAlignment(.center)
@@ -88,30 +81,14 @@ struct ReframeExerciseView: View {
                     .frame(height: geometry.size.height * 0.3) // set a fixed height for the text box
                     .padding(.horizontal, 20)
                     
-                    // input boxes for negative and positive thoughts
-                    VStack(spacing: 12) {
-                        // negative thought text box
-                        ThoughtTextEditor(
-                            text: $negativeThought,
-                            placeholder: " Negative Thought",
-                            isFocused: focusedField == "negative" && isKeyboardVisible,
-                            onTap: { focusedField = "negative" }
-                        )
-                        // positive thought text box
-                        ThoughtTextEditor(
-                            text: $positiveThought,
-                            placeholder: " Positive Thought",
-                            isFocused: focusedField == "positive" && isKeyboardVisible,
-                            onTap: { focusedField = "positive" }
-                        )
-                    }
-                    .padding(.horizontal, 20)
+                    Spacer()
                     
-                    // continue button for next screen
+                    // next Button
                     Button(action: {
-                        navigateToNextScreen = true
+                        navigateToIntroView2 = true // trigger navigation
+                        closeAction()
                     }) {
-                        Text("Continue")
+                        Text("Next")
                             .font(.custom("SFProText-Bold", size: 20))
                             .foregroundColor(.white)
                             .padding(.vertical, 8)
@@ -124,24 +101,17 @@ struct ReframeExerciseView: View {
                                 )
                             )
                             .cornerRadius(15)
-                            .shadow(color: areBothTextFieldsFilled ? Color.white.opacity(1) : Color.clear, radius: 10, x: 0, y: 0)
+                            .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0) // show glow when required
                     }
-                    .padding(.top, 16)
-                    .disabled(!areBothTextFieldsFilled) // disable the button until both fields are filled
-                    .background(
-                        NavigationLink(
-                            destination: CauseEffectView(), // replace with your next screen view
-                            isActive: $navigateToNextScreen,
-                            label: { EmptyView() }
-                        )
-                    )
+                    .padding(.bottom, 50)
+                    .disabled(!isTypingCompleted) // disable button if typing is not complete
                     
-                    Spacer()
+                    // navigation link to the next screen
+                    NavigationLink(destination: IntroView2(), isActive: $navigateToIntroView2) {
+                        EmptyView()
+                    }
                 }
                 .padding(.horizontal)
-                .onAppear {
-                    setupKeyboardObservers()
-                }
             }
         }
     }
@@ -161,14 +131,11 @@ struct ReframeExerciseView: View {
             }
         }
     }
-    
-    private func setupKeyboardObservers() {
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { _ in
-            isKeyboardVisible = true
-        }
-        
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
-            isKeyboardVisible = false
-        }
+}
+
+struct CopingMechanismView_Previews: PreviewProvider {
+    static var previews: some View {
+        CopingMechanismView()
     }
 }
+

@@ -1,13 +1,14 @@
 //
-//  PurpleNewBG9.2.swift
+//  PurpleNewBG2.2.swift
 //  peakmind-mvp
 //
-//  Created by ZA on 8/28/24.
+//  Created by ZA on 8/19/24.
 //
 
 import SwiftUI
 
-struct WellnessQuestionViewPurple2: View {
+struct P2_2: View {
+    var closeAction: () -> Void
     @State private var userInput: String = ""
     @FocusState private var isTextEditorFocused: Bool
     @State private var isTyping: Bool = false
@@ -35,8 +36,8 @@ struct WellnessQuestionViewPurple2: View {
                         .animation(.easeInOut(duration: 0.3), value: isTextEditorFocused)
                     
                     // question text
-                    Text("Choose one area of your life—like sleep, exercise, or social connections. What's one small change you could make this week? How might it positively impact you?")
-                        .font(.custom("SFProText-Heavy", size: (isTextEditorFocused || isTyping) ? 10 : 24))
+                    Text("What do you most enjoy when you have a day to yourself?")
+                        .font(.custom("SFProText-Heavy", size: (isTextEditorFocused || isTyping) ? 12 : 27))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("PurpleQuestionColor"))
                         .lineLimit(nil)
@@ -48,7 +49,7 @@ struct WellnessQuestionViewPurple2: View {
                     
                     // input box
                     ZStack(alignment: .topLeading) {
-                        // placeholder text
+                        // Placeholder text
                         if userInput.isEmpty {
                             Text("Start typing here...")
                                 .foregroundColor(Color.gray.opacity(0.5))
@@ -117,6 +118,7 @@ struct WellnessQuestionViewPurple2: View {
                     Button(action: {
                         isTextEditorFocused = false
                         navigateToBreathingExercise = true
+                        closeAction()
                     }) {
                         Text("Submit")
                             .font(.custom("SFProText-Bold", size: 20))
@@ -131,16 +133,16 @@ struct WellnessQuestionViewPurple2: View {
                                 )
                             )
                             .cornerRadius(15)
-                            .shadow(color: userInput.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0) // Conditional glow around the button
+                            .shadow(color: userInput.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0) // conditional glow around the button
                     }
                     .padding(.bottom, 50)
-                    .disabled(userInput.isEmpty) // Disable button if no text
-                    .opacity(userInput.isEmpty ? 1.0 : 1.0) // Change opacity when disabled
+                    .disabled(userInput.isEmpty) // disable button if no text
+                    .opacity(userInput.isEmpty ? 1.0 : 1.0) // change opacity when disabled
                     
-                    // Navigation link to switch to BreathingExerciseView2
-//                    NavigationLink(destination: BreathingIntroView(), isActive: $navigateToBreathingExercise) {
-//                        EmptyView()
-//                    }
+                    // navigation link to switch to BreathingExerciseView2
+                    NavigationLink(destination: BreathingIntroView(), isActive: $navigateToBreathingExercise) {
+                        EmptyView()
+                    }
                 }
                 .padding(.horizontal)
                 .onTapGesture {
@@ -167,3 +169,11 @@ struct WellnessQuestionViewPurple2: View {
         }
     }
 }
+
+struct WellnessQuestionViewPurple_Previews: PreviewProvider {
+    static var previews: some View {
+        WellnessQuestionViewPurple()
+    }
+}
+
+

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BreathingExerciseView2: View {
+struct P3_2: View {
     @State private var currentIndex: Int = 0
     @State private var isTextCompleted: Bool = false
     @State private var showAnimation = false
@@ -290,6 +290,46 @@ struct BreathingExerciseView2: View {
         cycleCount = 0
         timeRemaining = 4
         startExercise()
+    }
+}
+
+struct FeatureBulletPoint2: View {
+    var text: String
+    @State private var visibleText: String = ""
+    @State private var charIndex: Int = 0
+    var onTypingComplete: () -> Void
+    
+    var body: some View {
+        // feature text with typing animation
+        Text(visibleText)
+            .font(.custom("SFProText-Medium", size: 16))
+            .foregroundColor(Color("PurpleTextColor"))
+            .multilineTextAlignment(.leading)
+            .onAppear {
+                typeText()
+            }
+    }
+    
+    private func typeText() {
+        visibleText = ""
+        charIndex = 0
+        
+        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { timer in
+            if charIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: charIndex)
+                visibleText.append(text[index])
+                charIndex += 1
+            } else {
+                timer.invalidate()
+                onTypingComplete()
+            }
+        }
+    }
+}
+
+struct BreathingExerciseView2_Previews: PreviewProvider {
+    static var previews: some View {
+        BreathingExerciseView2()
     }
 }
 

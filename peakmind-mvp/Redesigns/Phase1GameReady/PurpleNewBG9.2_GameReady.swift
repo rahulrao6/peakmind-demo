@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WellnessQuestionViewPurple2: View {
+struct P9_2: View {
     @State private var userInput: String = ""
     @FocusState private var isTextEditorFocused: Bool
     @State private var isTyping: Bool = false
@@ -165,5 +165,11 @@ struct WellnessQuestionViewPurple2: View {
                 }
             }
         }
+    }
+}
+
+struct WellnessQuestionViewPurple_Previews2: PreviewProvider {
+    static var previews: some View {
+        WellnessQuestionViewPurple2()
     }
 }

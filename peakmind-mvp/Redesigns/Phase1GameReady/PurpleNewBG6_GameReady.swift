@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct ReframeExerciseView: View {
+struct P6_1: View {
+    var closeAction: () -> Void
     @State private var negativeThought: String = ""
     @State private var positiveThought: String = ""
     @State private var navigateToNextScreen = false
@@ -110,6 +111,7 @@ struct ReframeExerciseView: View {
                     // continue button for next screen
                     Button(action: {
                         navigateToNextScreen = true
+                        closeAction()
                     }) {
                         Text("Continue")
                             .font(.custom("SFProText-Bold", size: 20))
@@ -172,3 +174,52 @@ struct ReframeExerciseView: View {
         }
     }
 }
+
+struct ThoughtTextEditor: View {
+    @Binding var text: String
+    var placeholder: String
+    var isFocused: Bool
+    var onTap: () -> Void
+    
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
+                )
+                .frame(height: isFocused ? 90 : 70) // enlarge only when focused and keyboard is visible
+            
+            if text.isEmpty {
+                Text(placeholder)
+                    .foregroundColor(Color.gray.opacity(0.5))
+                    .padding(.leading, 16)
+                    .padding(.top, 20) // adjust this value to move the placeholder down
+            }
+            
+            TextEditor(text: $text)
+                .scrollContentBackground(.hidden) // makes the background of TextEditor clear
+                .foregroundColor(Color("PurpleTextColor")) // Text color
+                .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)) // adjust padding
+                .frame(height: isFocused ? 90 : 70) // enlarge only when focused and keyboard is visible
+                .onTapGesture {
+                    onTap()
+                }
+                .animation(.easeInOut(duration: 0.3), value: isFocused) // smooth animation
+        }
+    }
+}
+
+struct ReframeExerciseView_Previews: PreviewProvider {
+    static var previews: some View {
+        ReframeExerciseView()
+    }
+}
+

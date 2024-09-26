@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1021614F2C7DC911008F3F6E /* ProgressIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 1021614E2C7DC911008F3F6E /* ProgressIndicatorView */; };
 		102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */; };
 		102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */; };
 		102F1B8C2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */; };
@@ -16,6 +17,29 @@
 		102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */; };
 		103D86392C2B8F3F0078A45B /* Confetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103D86382C2B8F3F0078A45B /* Confetti.swift */; };
 		103D863C2C2B91FE0078A45B /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */; };
+		103D86462C4626A50078A45B /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103D86452C4626A50078A45B /* TutorialScene.swift */; };
+		103D86972C473CAE0078A45B /* MountainSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103D86962C473CAE0078A45B /* MountainSelect.swift */; };
+		107D911A2C8E9D0600FAEFAA /* Tutorial1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D91192C8E9D0600FAEFAA /* Tutorial1.swift */; };
+		107D911C2C8EA05D00FAEFAA /* Tutorial2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D911B2C8EA05D00FAEFAA /* Tutorial2.swift */; };
+		107D911E2C8EA08500FAEFAA /* Tutorial3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D911D2C8EA08500FAEFAA /* Tutorial3.swift */; };
+		107D91202C8EA08B00FAEFAA /* Tutorial4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D911F2C8EA08B00FAEFAA /* Tutorial4.swift */; };
+		107D91222C8EA09100FAEFAA /* Tutorial5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D91212C8EA09100FAEFAA /* Tutorial5.swift */; };
+		107D91242C8EA09700FAEFAA /* Tutorial6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D91232C8EA09700FAEFAA /* Tutorial6.swift */; };
+		107D91262C8EA0A400FAEFAA /* Tutorial7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D91252C8EA0A400FAEFAA /* Tutorial7.swift */; };
+		107D91282C8EA0A900FAEFAA /* Tutorial8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D91272C8EA0A900FAEFAA /* Tutorial8.swift */; };
+		10ACEE552C96A05600997166 /* PurpleNewBG1_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE472C96A05600997166 /* PurpleNewBG1_GameReady.swift */; };
+		10ACEE562C96A05600997166 /* PurpleNewBG2.2_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE482C96A05600997166 /* PurpleNewBG2.2_GameReady.swift */; };
+		10ACEE572C96A05600997166 /* PurpleNewBG2_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE492C96A05600997166 /* PurpleNewBG2_GameReady.swift */; };
+		10ACEE582C96A05600997166 /* PurpleNewBG3.2_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE4A2C96A05600997166 /* PurpleNewBG3.2_GameReady.swift */; };
+		10ACEE592C96A05600997166 /* PurpleNewBG3_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE4B2C96A05600997166 /* PurpleNewBG3_GameReady.swift */; };
+		10ACEE5A2C96A05600997166 /* PurpleNewBG4.2_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE4C2C96A05600997166 /* PurpleNewBG4.2_GameReady.swift */; };
+		10ACEE5B2C96A05600997166 /* PurpleNewBG4_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE4D2C96A05600997166 /* PurpleNewBG4_GameReady.swift */; };
+		10ACEE5C2C96A05600997166 /* PurpleNewBG5_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE4E2C96A05600997166 /* PurpleNewBG5_GameReady.swift */; };
+		10ACEE5D2C96A05600997166 /* PurpleNewBG6_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE4F2C96A05600997166 /* PurpleNewBG6_GameReady.swift */; };
+		10ACEE5E2C96A05600997166 /* PurpleNewBG7_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE502C96A05600997166 /* PurpleNewBG7_GameReady.swift */; };
+		10ACEE5F2C96A05600997166 /* PurpleNewBG8_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE512C96A05600997166 /* PurpleNewBG8_GameReady.swift */; };
+		10ACEE602C96A05600997166 /* PurpleNewBG9.2_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE522C96A05600997166 /* PurpleNewBG9.2_GameReady.swift */; };
+		10ACEE612C96A05600997166 /* PurpleNewBG9_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ACEE532C96A05600997166 /* PurpleNewBG9_GameReady.swift */; };
 		10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95442BEDCEA80092EE29 /* TimerView.swift */; };
 		10CE95472BEDCF9E0092EE29 /* ScenarioQuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95462BEDCF9E0092EE29 /* ScenarioQuizView.swift */; };
 		10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95482BEDD9380092EE29 /* CurrentToNewHabits.swift */; };
@@ -325,6 +349,29 @@
 		102F1B8E2BCB8160008B8AC6 /* pkmdMuscleExerciseEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdMuscleExerciseEncoded.mov; sourceTree = "<group>"; };
 		102F1B942BCDAC69008B8AC6 /* SymptomsQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsQuizView.swift; sourceTree = "<group>"; };
 		103D86382C2B8F3F0078A45B /* Confetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Confetti.swift; sourceTree = "<group>"; };
+		103D86452C4626A50078A45B /* TutorialScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
+		103D86962C473CAE0078A45B /* MountainSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MountainSelect.swift; path = "peakmind-mvp/Game Level Screens/Level Maps/MountainSelect.swift"; sourceTree = SOURCE_ROOT; };
+		107D91192C8E9D0600FAEFAA /* Tutorial1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial1.swift; sourceTree = "<group>"; };
+		107D911B2C8EA05D00FAEFAA /* Tutorial2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial2.swift; sourceTree = "<group>"; };
+		107D911D2C8EA08500FAEFAA /* Tutorial3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial3.swift; sourceTree = "<group>"; };
+		107D911F2C8EA08B00FAEFAA /* Tutorial4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial4.swift; sourceTree = "<group>"; };
+		107D91212C8EA09100FAEFAA /* Tutorial5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial5.swift; sourceTree = "<group>"; };
+		107D91232C8EA09700FAEFAA /* Tutorial6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial6.swift; sourceTree = "<group>"; };
+		107D91252C8EA0A400FAEFAA /* Tutorial7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial7.swift; sourceTree = "<group>"; };
+		107D91272C8EA0A900FAEFAA /* Tutorial8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial8.swift; sourceTree = "<group>"; };
+		10ACEE472C96A05600997166 /* PurpleNewBG1_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG1_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE482C96A05600997166 /* PurpleNewBG2.2_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG2.2_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE492C96A05600997166 /* PurpleNewBG2_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG2_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE4A2C96A05600997166 /* PurpleNewBG3.2_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG3.2_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE4B2C96A05600997166 /* PurpleNewBG3_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG3_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE4C2C96A05600997166 /* PurpleNewBG4.2_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG4.2_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE4D2C96A05600997166 /* PurpleNewBG4_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG4_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE4E2C96A05600997166 /* PurpleNewBG5_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG5_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE4F2C96A05600997166 /* PurpleNewBG6_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG6_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE502C96A05600997166 /* PurpleNewBG7_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG7_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE512C96A05600997166 /* PurpleNewBG8_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG8_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE522C96A05600997166 /* PurpleNewBG9.2_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG9.2_GameReady.swift; sourceTree = "<group>"; };
+		10ACEE532C96A05600997166 /* PurpleNewBG9_GameReady.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleNewBG9_GameReady.swift; sourceTree = "<group>"; };
 		10CE95442BEDCEA80092EE29 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		10CE95462BEDCF9E0092EE29 /* ScenarioQuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioQuizView.swift; sourceTree = "<group>"; };
 		10CE95482BEDD9380092EE29 /* CurrentToNewHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentToNewHabits.swift; sourceTree = "<group>"; };
@@ -566,6 +613,7 @@
 			files = (
 				1CF4C4222B7B1DD50028BC3C /* FirebaseDatabase in Frameworks */,
 				1CF4C4302B7B1DD50028BC3C /* FirebaseFunctionsCombine-Community in Frameworks */,
+				1021614F2C7DC911008F3F6E /* ProgressIndicatorView in Frameworks */,
 				1CF4C4282B7B1DD50028BC3C /* FirebaseFirestore in Frameworks */,
 				1CF4C4142B7B1DD50028BC3C /* FirebaseAnalyticsSwift in Frameworks */,
 				1CF4C4102B7B1DD50028BC3C /* FirebaseAnalytics in Frameworks */,
@@ -626,6 +674,27 @@
 			path = James;
 			sourceTree = "<group>";
 		};
+		10ACEE542C96A05600997166 /* Phase1GameReady */ = {
+			isa = PBXGroup;
+			children = (
+				10ACEE472C96A05600997166 /* PurpleNewBG1_GameReady.swift */,
+				10ACEE482C96A05600997166 /* PurpleNewBG2.2_GameReady.swift */,
+				10ACEE492C96A05600997166 /* PurpleNewBG2_GameReady.swift */,
+				10ACEE4A2C96A05600997166 /* PurpleNewBG3.2_GameReady.swift */,
+				10ACEE4B2C96A05600997166 /* PurpleNewBG3_GameReady.swift */,
+				10ACEE4C2C96A05600997166 /* PurpleNewBG4.2_GameReady.swift */,
+				10ACEE4D2C96A05600997166 /* PurpleNewBG4_GameReady.swift */,
+				10ACEE4E2C96A05600997166 /* PurpleNewBG5_GameReady.swift */,
+				10ACEE4F2C96A05600997166 /* PurpleNewBG6_GameReady.swift */,
+				10ACEE502C96A05600997166 /* PurpleNewBG7_GameReady.swift */,
+				10ACEE512C96A05600997166 /* PurpleNewBG8_GameReady.swift */,
+				10ACEE522C96A05600997166 /* PurpleNewBG9.2_GameReady.swift */,
+				10ACEE532C96A05600997166 /* PurpleNewBG9_GameReady.swift */,
+			);
+			name = Phase1GameReady;
+			path = Redesigns/Phase1GameReady;
+			sourceTree = SOURCE_ROOT;
+		};
 		10CE96082BF7DC070092EE29 /* James */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,15 +703,20 @@
 			path = James;
 			sourceTree = "<group>";
 		};
-		10FA68522BB3B191007CCBAC /* James */ = {
+
+    107D91182C8E9C4B00FAEFAA /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
-				10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */,
-				10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */,
-				10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */,
-				10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */,
+				107D91192C8E9D0600FAEFAA /* Tutorial1.swift */,
+				107D911B2C8EA05D00FAEFAA /* Tutorial2.swift */,
+				107D911D2C8EA08500FAEFAA /* Tutorial3.swift */,
+				107D911F2C8EA08B00FAEFAA /* Tutorial4.swift */,
+				107D91212C8EA09100FAEFAA /* Tutorial5.swift */,
+				107D91232C8EA09700FAEFAA /* Tutorial6.swift */,
+				107D91252C8EA0A400FAEFAA /* Tutorial7.swift */,
+				107D91272C8EA0A900FAEFAA /* Tutorial8.swift */,
 			);
-			path = James;
+			path = Tutorial;
 			sourceTree = "<group>";
 		};
 		19627D4D2C7445A7002F5818 /* Font */ = {
@@ -699,6 +773,16 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		10FA68522BB3B191007CCBAC /* James */ = {
+			isa = PBXGroup;
+			children = (
+				10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */,
+				10FA68532BB3B240007CCBAC /* BreathingExerciseView.swift */,
+				10FA68552BB4D93F007CCBAC /* Level3IntroView.swift */,
+				10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */,
+			);
+			path = James;
+		}
 		19F693E72C77B13E00B002E1 /* Phase1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -722,6 +806,7 @@
 		19F895C02C5041E300C5D6E6 /* Redesigns */ = {
 			isa = PBXGroup;
 			children = (
+				10ACEE542C96A05600997166 /* Phase1GameReady */,
 				19F693E72C77B13E00B002E1 /* Phase1 */,
 				19A63EFD2C7431AE0036F5E3 /* GreenNewBG.swift */,
 				19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */,
@@ -1092,6 +1177,7 @@
 		793B79A52BAF8453001062DB /* Game Level Screens */ = {
 			isa = PBXGroup;
 			children = (
+				107D91182C8E9C4B00FAEFAA /* Tutorial */,
 				7926177E2BD70BC800AAAC81 /* Scenario Template */,
 				79C383F32BC8705C00A6779A /* Level Maps */,
 				793B79A32BAF7F50001062DB /* Level 1 */,
@@ -1259,6 +1345,8 @@
 				10CE961C2C0415F80092EE29 /* MapScene.swift */,
 				10CE961E2C0547FC0092EE29 /* VariableBlur.swift */,
 				103D86382C2B8F3F0078A45B /* Confetti.swift */,
+				103D86452C4626A50078A45B /* TutorialScene.swift */,
+				103D86962C473CAE0078A45B /* MountainSelect.swift */,
 			);
 			path = "Level Maps";
 			sourceTree = "<group>";
@@ -1375,6 +1463,7 @@
 				1CF4A89A2B8309CD00051684 /* GoogleSignInSwift */,
 				10CE96142C0297CF0092EE29 /* Glur */,
 				103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */,
+				1021614E2C7DC911008F3F6E /* ProgressIndicatorView */,
 				1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */,
 				191340002C682A2900DB5C01 /* Lottie */,
 			);
@@ -1455,6 +1544,7 @@
 				1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				10CE96132C0297CF0092EE29 /* XCRemoteSwiftPackageReference "Glur" */,
 				103D863A2C2B91FE0078A45B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+				1021614D2C7DC911008F3F6E /* XCRemoteSwiftPackageReference "ProgressIndicatorView" */,
 				1973F32F2C4DEFE900EDC29F /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				19133FFF2C682A2900DB5C01 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
@@ -1564,6 +1654,7 @@
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				792ED8632C51C8480050D12C /* CustomWidgetView.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
+				10ACEE5E2C96A05600997166 /* PurpleNewBG7_GameReady.swift in Sources */,
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				793B79BB2BB20423001062DB /* WellnessQ2View.swift in Sources */,
 				79C3840C2BD60EE200A6779A /* P1-10_LifestyleModule.swift in Sources */,
@@ -1579,6 +1670,7 @@
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				793B79C12BB38E1C001062DB /* AvatarMenuSheetView.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
+				107D91262C8EA0A400FAEFAA /* Tutorial7.swift in Sources */,
 				79C384082BD60EBC00A6779A /* P1-8_ResourcesAnimation.swift in Sources */,
 				797B4C452BDC094C00A3A25D /* SherpaTutorialBox.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
@@ -1590,10 +1682,12 @@
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				10CE96172C02B8260092EE29 /* LevelMapUtil.swift in Sources */,
 				79582AB62C6FBE29006866BC /* SummitModeView.swift in Sources */,
+				10ACEE572C96A05600997166 /* PurpleNewBG2_GameReady.swift in Sources */,
 				79C384322BD6101F00A6779A /* P2-14_Reflection.swift in Sources */,
 				79069CF42BDA0EF300AB52DC /* GlowingBackground.swift in Sources */,
 				797BF6412C93C32300118768 /* FactorPage.swift in Sources */,
 				791A27512C8FA970000D52BE /* TriangleView.swift in Sources */,
+				107D91242C8EA09700FAEFAA /* Tutorial6.swift in Sources */,
 				79582AB92C6FBE3A006866BC /* FlowingWaterView.swift in Sources */,
 				79C3842C2BD60FF800A6779A /* P2-11_FeelingTimer.swift in Sources */,
 				7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */,
@@ -1610,11 +1704,13 @@
 				793B79CE2BB3927E001062DB /* PhysicalAnxietyQuiz.swift in Sources */,
 				79C383FC2BD60E1300A6779A /* P1-2_MentalHealthMod.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
+				10ACEE5C2C96A05600997166 /* PurpleNewBG5_GameReady.swift in Sources */,
 				792617882BD70C5200AAAC81 /* SherpaTalking.swift in Sources */,
 				797AAB782BA52DEF00F24123 /* AvatarMenuView.swift in Sources */,
 				1CA25E342C05381E004B0AD2 /* CommunityTest.swift in Sources */,
 				79C383F02BC6123F00A6779A /* MultiSectionView.swift in Sources */,
 				797AAB7A2BA5335C00F24123 /* IglooMenuView.swift in Sources */,
+				10ACEE592C96A05600997166 /* PurpleNewBG3_GameReady.swift in Sources */,
 				1CA25E322BFFEF6A004B0AD2 /* Message.swift in Sources */,
 				79069D002BDA38BA00AB52DC /* Widget.swift in Sources */,
 				797B4C412BDAE86700A3A25D /* HomeDashboard.swift in Sources */,
@@ -1637,8 +1733,11 @@
 				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
 				102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */,
 				79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */,
+				103D86462C4626A50078A45B /* TutorialScene.swift in Sources */,
+				107D91202C8EA08B00FAEFAA /* Tutorial4.swift in Sources */,
 				79C3842A2BD60FEC00A6779A /* P2-10_5Factors.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
+				10ACEE552C96A05600997166 /* PurpleNewBG1_GameReady.swift in Sources */,
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
 				1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */,
 				79C383E72BC6113200A6779A /* UserDashboardViewModel.swift in Sources */,
@@ -1653,6 +1752,7 @@
 				790F17502C45D9870071B34B /* PPContentView.swift in Sources */,
 				19648A602C7E5DC70061A70D /* PurpleNewBG4.2.swift in Sources */,
 				792872522C8A5CFE00FB6CBE /* RoutineBuilderView.swift in Sources */,
+				10ACEE5A2C96A05600997166 /* PurpleNewBG4.2_GameReady.swift in Sources */,
 				79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */,
 				79C384182BD60F5300A6779A /* P2-1_Intro.swift in Sources */,
 				793B79B52BAF9051001062DB /* WindsLouderFlavorView.swift in Sources */,
@@ -1670,17 +1770,22 @@
 				1C53A42F2C254F9200B27C23 /* FriendListView.swift in Sources */,
 				19648A6C2C7FCF8A0061A70D /* PurpleNewBG9.2.swift in Sources */,
 				79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */,
+				10ACEE5F2C96A05600997166 /* PurpleNewBG8_GameReady.swift in Sources */,
 				19F693E62C77B13A00B002E1 /* PurpleNewBG1.swift in Sources */,
+				10ACEE602C96A05600997166 /* PurpleNewBG9.2_GameReady.swift in Sources */,
 				19648A5C2C7D0E1C0061A70D /* PurpleNewBG3.2.swift in Sources */,
 				102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */,
 				79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */,
 				1CF4A8962B82EE9900051684 /* ResetPasswordView.swift in Sources */,
 				797BF6432C9D032300118768 /* QuizOnboardingVIew.swift in Sources */,
+				107D911C2C8EA05D00FAEFAA /* Tutorial2.swift in Sources */,
 				7930831E2BE85713002A2E0B /* ResourcesToUtilize.swift in Sources */,
 				1CD299C62BBA8C42003A0592 /* IglooMenuSheet.swift in Sources */,
 				1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */,
+				10ACEE5B2C96A05600997166 /* PurpleNewBG4_GameReady.swift in Sources */,
 				19A63F042C7431AF0036F5E3 /* NewBG.swift in Sources */,
 				1C53A42B2C254E9F00B27C23 /* MessageView.swift in Sources */,
+				10ACEE5D2C96A05600997166 /* PurpleNewBG6_GameReady.swift in Sources */,
 				79C3841E2BD60F8000A6779A /* P2-4_AnxietyTriggerMap.swift in Sources */,
 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
 				792617842BD70C0F00AAAC81 /* ScenarioQuizTemplate.swift in Sources */,
@@ -1690,6 +1795,7 @@
 				191340032C682B0500DB5C01 /* LottieView.swift in Sources */,
 				79C3841C2BD60F7300A6779A /* P2-3_DefiningAnxietyScenario.swift in Sources */,
 				792617862BD70C2000AAAC81 /* ScenarioTemplate.swift in Sources */,
+				107D91222C8EA09100FAEFAA /* Tutorial5.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
 				79C384242BD60FC800A6779A /* P2-7_ExperienceQ.swift in Sources */,
 				10CE960A2BF7DC4C0092EE29 /* ResilienceChecklistView.swift in Sources */,
@@ -1703,8 +1809,10 @@
 				79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */,
 				79C3842E2BD6100300A6779A /* P2-12_CopingModule.swift in Sources */,
 				79C384022BD60E6B00A6779A /* P1-6_PersonalQuestion.swift in Sources */,
+				107D911A2C8E9D0600FAEFAA /* Tutorial1.swift in Sources */,
 				79C384122BD60F0D00A6779A /* P1-13_BodyScan.swift in Sources */,
 				10FA68542BB3B240007CCBAC /* BreathingExerciseView.swift in Sources */,
+				10ACEE582C96A05600997166 /* PurpleNewBG3.2_GameReady.swift in Sources */,
 				10D5593D2BC379C700CAC269 /* Minigame2View.swift in Sources */,
 				103D86392C2B8F3F0078A45B /* Confetti.swift in Sources */,
 				1CBBE30D2C517D3C006EFD6A /* NewPPContentView.swift in Sources */,
@@ -1724,11 +1832,16 @@
 				1C9C63D02B8144C20066AF70 /* User.swift in Sources */,
 				1CD029F72BE9E7200047951D /* Tutorial.swift in Sources */,
 				1C9C63CE2B81428B0066AF70 /* SettingsRowView.swift in Sources */,
+				10ACEE612C96A05600997166 /* PurpleNewBG9_GameReady.swift in Sources */,
 				10CE961B2C0415180092EE29 /* TestView.swift in Sources */,
 				10CE961F2C0547FC0092EE29 /* VariableBlur.swift in Sources */,
 				79C384222BD60FA100A6779A /* P2-6_AnxietyModule.swift in Sources */,
 				10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */,
+				107D91282C8EA0A900FAEFAA /* Tutorial8.swift in Sources */,
+				107D911E2C8EA08500FAEFAA /* Tutorial3.swift in Sources */,
+				103D86972C473CAE0078A45B /* MountainSelect.swift in Sources */,
 				79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */,
+				10ACEE562C96A05600997166 /* PurpleNewBG2.2_GameReady.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1897,7 +2010,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.3.08;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
-				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
+				DEVELOPMENT_TEAM = 9UMCCFSYB9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
@@ -1915,7 +2028,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp";
+				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp.test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2088,6 +2201,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1021614D2C7DC911008F3F6E /* XCRemoteSwiftPackageReference "ProgressIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/ProgressIndicatorView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		103D863A2C2B91FE0078A45B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
@@ -2139,6 +2260,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1021614E2C7DC911008F3F6E /* ProgressIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1021614D2C7DC911008F3F6E /* XCRemoteSwiftPackageReference "ProgressIndicatorView" */;
+			productName = ProgressIndicatorView;
+		};
 		103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 103D863A2C2B91FE0078A45B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;

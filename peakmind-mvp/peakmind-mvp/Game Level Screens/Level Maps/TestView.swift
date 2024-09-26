@@ -9,6 +9,8 @@ import SwiftUI
 import SpriteKit
 import Glur
 import ConfettiSwiftUI
+//import ProgressIndicatorView
+
 
 struct LevelNode: Identifiable {
     var id = UUID()
@@ -29,7 +31,11 @@ struct PhaseGate: Identifiable {
     var id = UUID()
     var phase: Int
 }
-
+struct LevelDecoration: Identifiable {
+    var id = UUID()
+    var name: String
+    var size: CGSize
+}
 struct TestView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     

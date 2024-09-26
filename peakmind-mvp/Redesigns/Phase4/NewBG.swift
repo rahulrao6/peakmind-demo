@@ -172,6 +172,3 @@ struct WellnessQuestionView_Previews: PreviewProvider {
         WellnessQuestionView()
     }
 }
-
-
-

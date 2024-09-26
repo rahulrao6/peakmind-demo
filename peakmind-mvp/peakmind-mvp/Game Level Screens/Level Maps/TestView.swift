@@ -9,8 +9,7 @@ import SwiftUI
 import SpriteKit
 import Glur
 import ConfettiSwiftUI
-//import ProgressIndicatorView
-
+import ProgressIndicatorView
 
 struct LevelNode: Identifiable {
     var id = UUID()
@@ -31,11 +30,13 @@ struct PhaseGate: Identifiable {
     var id = UUID()
     var phase: Int
 }
+
 struct LevelDecoration: Identifiable {
     var id = UUID()
     var name: String
     var size: CGSize
 }
+
 struct TestView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
@@ -45,12 +46,16 @@ struct TestView: View {
     @State private var activeModal: LevelNode?
     @State private var confetti = 0
     @State private var currentPhase = 1
+    @State private var progress = CGFloat(0.22)
+    @State private var progressString = "0"
+    @State private var canViewVertProgress = true
     
     @StateObject private var scene: MapScene = {
         let scene = MapScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         scene.scaleMode = .fill
         scene.backgroundColor = .clear
         scene.imagePositions = [CGPoint(x: 215, y: 150), CGPoint(x: 240, y: 300), CGPoint(x: 190, y: 450), CGPoint(x: 150, y: 600), CGPoint(x: 180, y: 750), CGPoint(x: 195, y: 900), CGPoint(x: 240, y: 1050), CGPoint(x: 225, y: 1200), CGPoint(x: 165, y: 1350), CGPoint(x: 160, y: 1500)]
+        scene.reloadGates()
         return scene
     }()
     
@@ -82,13 +87,24 @@ struct TestView: View {
                                     scene.completedLevelsList.append(CompletedLevel(uid: level!.uid, phase: level!.phase))
                                 }
                             }
+                        
                             scene.reloadCompletedLevels()
                             
                             activeModal = nil
+                            
+                            if (scene.completedLevelsList.count % 10 == 0) {
+                                scene.animateGate()
+                                
+                            }
+                            
+                            progress = CGFloat(Float(user.completedLevels.count) / Float(50))
+                            progressString = String(Int(Float(user.completedLevels.count) / Float(50) * Float(1000))) + "ft"
+                            
                         }
                     }
                     .onAppear {
                         scene.levels = [
+
                             LevelNode(uid: 0, internalName: "P1_5_StressTriggerMap", title: "Mental Health", viewFactory: { AnyView(P1_1(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
                             LevelNode(uid: 1, internalName: "P1_MentalHealthMod", title: "Wellness Question", viewFactory: { AnyView(P2_1(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
                             LevelNode(uid: 2, internalName: "P1_3_EmotionsScenario", title: "Stress Triggers", viewFactory: { AnyView(P3_1(closeAction: { Task {try await viewModel.markLevelCompleted(levelID: activeModal!.internalName); scene.currentLevel = -1} })) }, phase: 1),
@@ -145,6 +161,11 @@ struct TestView: View {
                             LevelNode(uid: 9, internalName: "P1_MentalHealthMod", title: "Minigame", viewFactory: { AnyView(P1_MentalHealthMod(closeAction: { scene.selectedPhase = -1 })) }, phase: 5),
                         ]
                         
+                        scene.phaseColors = [
+                            UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1),
+                            UIColor(red: 142/255, green: 214/255, blue: 215/255, alpha: 1)
+                        ]
+                        
                         if (user.LevelOneCompleted) {
                             scene.completedPhases = 1
                             currentPhase = 2
@@ -155,7 +176,10 @@ struct TestView: View {
                             currentPhase = 3
                         }
                         
+                        
+                        
                         scene.reloadGates()
+                        
                         
                          for levelName in user.completedLevels {
                              let level = getNodeFromInternalLevelName(internalName: levelName)
@@ -163,6 +187,9 @@ struct TestView: View {
                                  scene.completedLevelsList.append(CompletedLevel(uid: level!.uid, phase: level!.phase))
                              }
                          }
+                        
+                        progress = CGFloat(Float(user.completedLevels.count) / Float(50))
+                        progressString = String(Int(Float(user.completedLevels.count) / Float(50) * Float(1000))) + "ft"
                          
                     }
                 
@@ -179,36 +206,38 @@ struct TestView: View {
                         }
                         .padding()
                         
+                        
                     }
                     .frame(width: 350)
                     .background {
                         RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Color.white)
                             .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
                     }
-                    HStack {
-                        Spacer()
-                        VStack {
-                            VStack {
-                                Text("Complete 3/4 Levels to Continue")
-                                    .padding([.top, .leading, .bottom, .trailing], 10)
-                                    .font(.system(size: 10))
-                                
-                                
-                            }
+                    
+                    GeometryReader { geometry in
+                        
+                        ZStack(alignment: .bottom) {
+                            ProgressIndicatorView(isVisible: $canViewVertProgress, type: .impulseBar(progress: $progress, backgroundColor: .white.opacity(0.25)))
+                                .foregroundColor(.white.opacity(0.65))
+                                .frame(width: geometry.size.height - 100, height: 50) // Adjust the width based on the height
+                                .rotationEffect(Angle(degrees: -90))
                             
+                            Spacer()
+                            
+                            Text(progressString)
+                                .foregroundColor(.gray)
+                                
                         }
-                        .background {
-                            RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Color.white)
-                                .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
-                        }
-                        .padding(.trailing, 20)
-                        .frame(width: 200, alignment: .trailing)
-                        .opacity(0)
+                        .position(x: 25, y: geometry.size.height / 2 - 40) // Adjust x position for left alignment
+                        .padding(.leading, 20) // Ensure no padding on the leading side
                     }
+                    
                     
                     Spacer()
                 }
                 .padding(.top, 70)
+                
+                
                 
             }
             .overlay(alignment: .bottom) {
@@ -244,6 +273,6 @@ struct TestView: View {
     }
 }
 
-#Preview {
-    TestView()
-}
+//#Preview {
+    //TestView()
+//}

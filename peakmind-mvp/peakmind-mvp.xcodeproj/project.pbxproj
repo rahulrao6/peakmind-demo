@@ -296,6 +296,7 @@
 		79A73E382CA5DC1500CE9E40 /* NewBG8.4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E372CA5DC1500CE9E40 /* NewBG8.4.swift */; };
 		79A73E3A2CA5DC1B00CE9E40 /* NewBG8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E392CA5DC1B00CE9E40 /* NewBG8.swift */; };
 		79A73E3C2CA5DC2100CE9E40 /* NewBG9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E3B2CA5DC2100CE9E40 /* NewBG9.swift */; };
+		79A73E3F2CA61FEC00CE9E40 /* ProgressIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 79A73E3E2CA61FEC00CE9E40 /* ProgressIndicatorView */; };
 		79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */; };
 		79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5212B8EAAE600634262 /* CustomButton.swift */; };
 		79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5272B8EAB5C00634262 /* QuestionsView.swift */; };
@@ -724,6 +725,7 @@
 				1CF4C4242B7B1DD50028BC3C /* FirebaseDatabaseSwift in Frameworks */,
 				1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */,
 				1CF4C43E2B7B1DD50028BC3C /* FirebaseRemoteConfig in Frameworks */,
+				79A73E3F2CA61FEC00CE9E40 /* ProgressIndicatorView in Frameworks */,
 				1CF4C42E2B7B1DD50028BC3C /* FirebaseFunctions in Frameworks */,
 				1CF4C41A2B7B1DD50028BC3C /* FirebaseAppDistribution-Beta in Frameworks */,
 				1CF4C43C2B7B1DD50028BC3C /* FirebasePerformance in Frameworks */,
@@ -1624,6 +1626,7 @@
 				103D863B2C2B91FE0078A45B /* ConfettiSwiftUI */,
 				1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */,
 				191340002C682A2900DB5C01 /* Lottie */,
+				79A73E3E2CA61FEC00CE9E40 /* ProgressIndicatorView */,
 			);
 			productName = "peakmind-mvp";
 			productReference = 1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */;
@@ -1704,6 +1707,7 @@
 				103D863A2C2B91FE0078A45B /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				1973F32F2C4DEFE900EDC29F /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				19133FFF2C682A2900DB5C01 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				79A73E3D2CA61F0200CE9E40 /* XCRemoteSwiftPackageReference "ProgressIndicatorView" */,
 			);
 			productRefGroup = 1CF4C3DF2B7B15E10028BC3C /* Products */;
 			projectDirPath = "";
@@ -2452,6 +2456,14 @@
 				minimumVersion = 10.21.0;
 			};
 		};
+		79A73E3D2CA61F0200CE9E40 /* XCRemoteSwiftPackageReference "ProgressIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/ProgressIndicatorView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2619,6 +2631,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1CF4C40D2B7B1DBB0028BC3C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		79A73E3E2CA61FEC00CE9E40 /* ProgressIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79A73E3D2CA61F0200CE9E40 /* XCRemoteSwiftPackageReference "ProgressIndicatorView" */;
+			productName = ProgressIndicatorView;
 		};
 /* End XCSwiftPackageProductDependency section */
 

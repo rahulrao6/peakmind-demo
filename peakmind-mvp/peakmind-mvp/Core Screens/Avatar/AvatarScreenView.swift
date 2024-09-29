@@ -13,6 +13,8 @@ struct AvatarScreen: View {
     @State private var isNavigatingToProfileView = false
     @State private var isNavigatingToAvatarEdit = false
     @State private var isNavigatingToIglooEdit = false
+    @EnvironmentObject var EventKitManager1: EventKitManager
+    @EnvironmentObject var healthKitManager: HealthKitManager
 
     @State private var isIglooMenuPresented = false
     @EnvironmentObject var viewModel: AuthViewModel
@@ -69,7 +71,7 @@ struct AvatarScreen: View {
                                 .foregroundColor(Color.white)
                                 .cornerRadius(10)
                                 .sheet(isPresented: $isNavigatingToProfileView) { // Present ProfileView as a sheet
-                                    ProfileView()
+                                    ProfileView().environmentObject(EventKitManager1).environmentObject(healthKitManager)
                                 }
 
                                 Button(action: {

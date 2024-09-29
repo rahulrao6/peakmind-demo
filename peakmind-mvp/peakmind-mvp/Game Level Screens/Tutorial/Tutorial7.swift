@@ -12,7 +12,7 @@ struct Tutorial7: View {
     
     var body: some View {
         ZStack {
-            CheckIn()
+            //CheckIn()
             VStack {
                 Text("This is a daily check-in. Do this every day to track your progress and earn rewards.")
                     .font(.system(size: 20, weight: .bold))

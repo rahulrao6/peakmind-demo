@@ -1,10 +1,116 @@
+//
+//  TriangleView.swift
+//  peakmind-mvp
+//
+//  Created by Raj Jagirdar on 9/15/24.
+//
+
+import Foundation
 import SwiftUI
+
+import Foundation
+
+struct WellbeingResponse: Codable {
+    let emotionalResilience: EmotionalResilience
+    let mood: Mood
+    let overallEmotionalWellBeing: OverallEmotionalWellBeing
+    let stress: Stress
+
+    // Custom coding keys to match JSON keys with special characters
+    enum CodingKeys: String, CodingKey {
+        case emotionalResilience = "Emotional Resilience"
+        case mood = "Mood"
+        case overallEmotionalWellBeing = "Overall Emotional Well-being"
+        case stress = "Stress"
+    }
+}
+
+struct EmotionalResilience: Codable {
+    let result: String
+    let score: Int
+}
+
+struct Mood: Codable {
+    let result: String
+    let score: Int
+}
+
+struct OverallEmotionalWellBeing: Codable {
+    let category: String
+    let score: Double
+}
+
+struct Stress: Codable {
+    let result: String
+    let score: Int
+}
+
+import Foundation
+
+class NetworkManager: ObservableObject {
+    @Published var wellbeingData: WellbeingResponse?
+
+    func fetchWellbeingData(for userID: String) {
+        guard let url = URL(string: "http://34.134.8.212:5100/analyze_emotional_wellbeing") else {
+            print("Invalid URL")
+            return
+        }
+
+        // Prepare the request
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        // Set the request body
+        let body: [String: Any] = ["user_id": userID]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+        // Create the data task
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            // Handle errors
+            if let error = error {
+                print("Error fetching data: \(error.localizedDescription)")
+                return
+            }
+
+            // Ensure data is not nil
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(WellbeingResponse.self, from: data)
+                print("Decoded Response: \(response)")
+                DispatchQueue.main.async {
+                    self.wellbeingData = response
+                    print("wellbeingData set: \(self.wellbeingData)")
+                }
+            } catch let DecodingError.dataCorrupted(context) {
+                print("Data corrupted: \(context.debugDescription)")
+            } catch let DecodingError.keyNotFound(key, context) {
+                print("Key '\(key)' not found: \(context.debugDescription)")
+            } catch let DecodingError.typeMismatch(type, context) {
+                print("Type mismatch for type '\(type)': \(context.debugDescription)")
+            } catch let DecodingError.valueNotFound(value, context) {
+                print("Value '\(value)' not found: \(context.debugDescription)")
+            } catch {
+                print("General decoding error: \(error.localizedDescription)")
+            }
+        }.resume()
+    }
+}
+
+
 
 struct RectangleView: View {
     @State private var selectedCategory: Category? = nil
     @State private var selectedScore: Int = 0 // Track the score of the selected category
     @State private var showCategoryPage = false
     @State private var showMentalModelView = false
+    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var networkManager: NetworkManager // Add this line
 
     var body: some View {
         ZStack {
@@ -68,8 +174,18 @@ struct RectangleView: View {
                                 .padding(.horizontal, -70)
 
                             VStack(spacing: 20) {
-                                CategorySliceView(category: .emotional, score: 45, onTap: { showCategoryPage(.emotional, score: 45) }) // Example score: 45
-                                CategorySliceView(category: .cognitive, score: 85, onTap: { showCategoryPage(.cognitive, score: 85) }) // Example score: 85
+                                CategorySliceView(
+                                    category: .emotional,
+                                    score: networkManager.wellbeingData?.emotionalResilience.score ?? 70,
+                                    onTap: { showCategoryPage(.emotional, score: networkManager.wellbeingData?.emotionalResilience.score ?? 0) }
+                                )
+                                CategorySliceView(
+                                    category: .cognitive,
+                                    score: networkManager.wellbeingData?.mood.score ?? 0,
+                                    onTap: { showCategoryPage(.cognitive, score: networkManager.wellbeingData?.mood.score ?? 0) }
+                                )
+//                                CategorySliceView(category: .emotional, score: 45, onTap: { showCategoryPage(.emotional, score: 45) }) // Example score: 45
+//                                CategorySliceView(category: .cognitive, score: 85, onTap: { showCategoryPage(.cognitive, score: 85) }) // Example score: 85
                                 CategorySliceView(category: .physical, score: 20, onTap: { showCategoryPage(.physical, score: 20) }) // Example score: 20
                                 CategorySliceView(category: .social, score: 65, onTap: { showCategoryPage(.social, score: 65) }) // Example score: 65
                             }
@@ -80,7 +196,11 @@ struct RectangleView: View {
 
                     }
                     .padding(.top, -10)
-
+                    .onAppear {
+                        networkManager.fetchWellbeingData(for: viewModel.currentUser?.id ?? "")
+                        print("tjis is the main")
+                        print(networkManager.wellbeingData?.emotionalResilience.score)
+                    }
                     // "View Summary" button with updated style (wider and smaller font)
                     Button(action: {
                         withAnimation {
@@ -100,7 +220,8 @@ struct RectangleView: View {
                 }
                 .padding()
             } else if let category = selectedCategory {
-                CategoryPageView(category: category, score: selectedScore, onBack: resetPage) // Pass the selected score to CategoryPageView
+                CategoryPageView(category: category, score: selectedScore, onBack: resetPage)
+                    .environmentObject(networkManager)// Pass the selected score to CategoryPageView
                     .transition(.opacity)
                     .animation(.easeInOut, value: showCategoryPage)
             }
@@ -109,6 +230,7 @@ struct RectangleView: View {
 
     // Function to show the category page with score
     private func showCategoryPage(_ category: Category, score: Int) {
+        print(score);
         selectedCategory = category
         selectedScore = score
         withAnimation {
@@ -130,6 +252,7 @@ struct CategoryPageView: View {
     var category: Category
     var score: Int // Add score parameter
     var onBack: () -> Void
+    @EnvironmentObject var networkManager: NetworkManager // Add this line
 
     @State private var showFactorPage = false // Add state to trigger navigation
 
@@ -173,10 +296,10 @@ struct CategoryPageView: View {
                         spacing: 30 // Adjust vertical spacing between rows
                     ) {
                         // Example of varying progress amounts (replace with actual data)
-                        ProgressCircle(progress: 0.75, iconName: "heart.fill") // 75% filled with heart icon
-                        ProgressCircle(progress: 0.5, iconName: "brain.head.profile")  // 50% filled with brain icon
-                        ProgressCircle(progress: 0.25, iconName: "bolt.fill") // 25% filled with bolt icon
-                        ProgressCircle(progress: 0.9, iconName: "person.fill")  // 90% filled with person icon
+//                        ProgressCircle(progress: CGFloat(from: networkManager.wellbeingData?.emotionalResilience ?? 0/100), iconName: "heart.fill") // 75% filled with heart icon
+//                        ProgressCircle(progress:  CGFloat(from: networkManager.wellbeingData?.mood ?? 0/100), iconName: "brain.head.profile")  // 50% filled with brain icon
+//                        ProgressCircle(progress:  CGFloat(from: networkManager.wellbeingData?.stress ?? 0/100), iconName: "bolt.fill") // 25% filled with bolt icon
+//                        ProgressCircle(progress: 0.9, iconName: "person.fill")  // 90% filled with person icon
                     }
                     .padding()
                 }
@@ -196,6 +319,9 @@ struct CategoryPageView: View {
                         .foregroundColor(score > 70 ? .black : .white)
                         .padding(.horizontal, 40)
                 }
+                .onAppear{
+                    print(score)
+                }
                 .fullScreenCover(isPresented: $showFactorPage) {
                     FactorPage(category: category)
                 }
@@ -208,6 +334,7 @@ struct CategoryPageView: View {
 
 // Define the ProgressCircle view first
 struct ProgressCircle: View {
+    //@Binding private var animatedProgress: CGFloat
     @State private var animatedProgress: CGFloat = 0
     var progress: CGFloat
     var iconName: String
@@ -247,7 +374,7 @@ struct ProgressCircle: View {
 
 
 
-struct AnalyticsView2: View {
+struct AnalyticsView21: View {
     var body: some View {
         Text("Analytics Page")
             .font(.largeTitle)
@@ -286,7 +413,7 @@ struct CategorySliceView: View {
     var category: Category
     var score: Int
     var onTap: () -> Void
-    
+
     var body: some View {
         Button(action: onTap) {
             HStack {
@@ -297,7 +424,7 @@ struct CategorySliceView: View {
                     .foregroundColor(score > 70 ? .black : .white)
                     .padding(.trailing, 10)
 
-            
+
             }
             .frame(width: 300, height: 85)
             .background(getColorForScore(score))
@@ -326,7 +453,7 @@ enum Category: String {
         case .social: return Color(hex: "db437d")!
         }
     }
-    
+
     var iconName: String {
         switch self {
         case .emotional: return "heart.fill"

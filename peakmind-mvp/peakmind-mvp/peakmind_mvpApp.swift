@@ -1,225 +1,4 @@
-////
-////  peakmind_mvpApp.swift
-////  peakmind-mvp
-////
-////  Created by Raj Jagirdar on 2/12/24.
-////
-//
-//import SwiftUI
-//import FirebaseCore
-//import GoogleSignIn
-//import HealthKit
-//
-//
-//class AppDelegate: NSObject, UIApplicationDelegate {
-//  func application(_ application: UIApplication,
-//                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-//    FirebaseApp.configure()
-//      
-//
-//    return true
-//  }
-//    @available(iOS 9.0, *)
-//    func application(_ application: UIApplication, open url: URL,
-//                     options: [UIApplication.OpenURLOptionsKey: Any])
-//      -> Bool {
-//      return GIDSignIn.sharedInstance.handle(url)
-//    }
-//}
-//
-//import HealthKit
-//import Combine
-//
-////class HealthKitManager: ObservableObject {
-////    static let shared = HealthKitManager()
-////    let healthStore: HKHealthStore?
-////
-////    init() {
-////        guard HKHealthStore.isHealthDataAvailable() else {
-////            self.healthStore = nil
-////            return
-////        }
-////        self.healthStore = HKHealthStore()
-////    }
-////
-////    func requestAuthorization(completion: @escaping (Bool, Error?) -> Void) {
-////        guard let healthStore = healthStore else {
-////            completion(false, NSError(domain: "HealthKit", code: 0, userInfo: [NSLocalizedDescriptionKey: "HealthKit is not available on this device."]))
-////            return
-////        }
-////
-////        let readTypes = Set([
-////            HKObjectType.quantityType(forIdentifier: .heartRate)!,
-////            HKObjectType.quantityType(forIdentifier: .stepCount)!,
-////            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
-////        ])
-////
-////        healthStore.requestAuthorization(toShare: [], read: readTypes) { success, error in
-////            DispatchQueue.main.async {
-////                completion(success, error)
-////            }
-////        }
-////    }
-////}
-//
-////
-////class HealthKitManager: ObservableObject {
-////    static let shared = HealthKitManager()
-////    let healthStore: HKHealthStore?
-////
-////    init() {
-////        guard HKHealthStore.isHealthDataAvailable() else {
-////            self.healthStore = nil
-////            return
-////        }
-////        self.healthStore = HKHealthStore()
-////    }
-////
-////    func requestAuthorization(completion: @escaping (Bool, Error?) -> Void) {
-////        guard let healthStore = healthStore else {
-////            completion(false, NSError(domain: "HealthKit", code: 0, userInfo: [NSLocalizedDescriptionKey: "HealthKit is not available on this device."]))
-////            return
-////        }
-////
-////        let readTypes = Set([
-////            HKObjectType.quantityType(forIdentifier: .heartRate)!,
-////            HKObjectType.quantityType(forIdentifier: .stepCount)!,
-////            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
-////        ])
-////
-////        healthStore.requestAuthorization(toShare: [], read: readTypes) { success, error in
-////            DispatchQueue.main.async {
-////                completion(success, error)
-////            }
-////        }
-////    }
-////}
-////
-////@main
-////struct peakmind_mvpApp: App {
-////  // register app delegate for Firebase setup
-////    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-////    @StateObject var viewModel = AuthViewModel()
-////
-////    @StateObject var journalDataManager = JournalDataManager() // Instantiate JournalDataManager
-////    //@StateObject var healthStore = HKHealthStore() // Assuming you have proper initialization elsewhere
-////    @StateObject var healthKitManager = HealthKitManager.shared
-////
-////    //private let healthStore: HKHealthStore
-////    
-////    init() {
-////        //guard HKHealthStore.isHealthDataAvailable() else {  fatalError("This app requires a device that supports HealthKit") }
-////        //healthStore = HKHealthStore()
-////        requestHealthkitPermissions()
-////    }
-////    
-////    private func requestHealthkitPermissions() {
-////        
-////        let sampleTypesToRead = Set([
-////            HKObjectType.quantityType(forIdentifier: .heartRate)!,
-////            HKObjectType.quantityType(forIdentifier: .stepCount)!,
-////            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
-////        ])
-////        
-////        healthKitManager.requestAuthorization { success, error in
-////            print("Request Authorization -- Success: ", success, " Error: ", error ?? "nil")
-////        }
-////    }
-////    
-////    
-////  var body: some Scene {
-////    WindowGroup {
-////      NavigationView {
-////          ContentView()
-////              .environmentObject(viewModel)
-////              .environmentObject(journalDataManager) // Provide JournalDataManager
-////              .environmentObject(healthKitManager)  // Provide HealthKitManager
-////
-////              //.environmentObject(healthStore)
-////
-////      }
-////    }
-////  }
-////}
-////
-////
-////extension HKHealthStore: ObservableObject{}
-////
-//class HealthKitManager: ObservableObject {
-//    let healthStore: HKHealthStore?
-//    @Published var isAuthorized = false
-//    @Published var errorMessage: String?
-//
-//    init() {
-//        self.healthStore = HKHealthStore.isHealthDataAvailable() ? HKHealthStore() : nil
-//    }
-//
-//    func requestAuthorization() {
-//        
-//        guard let healthStore = healthStore else {
-//            errorMessage = "HealthKit is not available on this device."
-//            return
-//        }
-//
-//        let readTypes = Set([
-//            HKObjectType.workoutType(),
-//            HKObjectType.quantityType(forIdentifier: .heartRate),
-//            HKObjectType.quantityType(forIdentifier: .stepCount),
-//            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)
-//        ].compactMap { $0 })
-//
-//        healthStore.requestAuthorization(toShare: [], read: readTypes) { [weak self] success, error in
-//            DispatchQueue.main.async {
-//                self?.isAuthorized = success
-//                self?.errorMessage = error?.localizedDescription
-//            }
-//        }
-//    }
-//
-//    func fetchHealthData() {
-//        guard isAuthorized, let healthStore = healthStore else { return }
-//        
-//        // Fetch heart rate
-//        if let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate) {
-//            let query = HKStatisticsQuery(quantityType: heartRateType, quantitySamplePredicate: nil, options: .discreteAverage) { _, result, error in
-//                guard let result = result, let averageHeartRate = result.averageQuantity()?.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) else { return }
-//                print("Average heart rate: \(averageHeartRate) bpm")
-//            }
-//            healthStore.execute(query)
-//        }
-//        
-//        // Similarly, you can fetch step count and sleep analysis data here
-//    }
-//}
-//
-//@main
-//struct peakmind_mvpApp: App {
-//    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-//    @StateObject var viewModel = AuthViewModel()
-//    @StateObject var journalDataManager = JournalDataManager()
-//
-//    // Create HealthKitManager as a regular property
-//    let healthKitManager = HealthKitManager()
-//
-//    init() {
-//        // Request HealthKit authorization during app initialization
-//        healthKitManager.requestAuthorization()
-//    }
-//
-//    var body: some Scene {
-//        WindowGroup {
-//            NavigationView {
-//                ContentView()
-//                    .environmentObject(viewModel)
-//                    .environmentObject(journalDataManager)
-//                    .environmentObject(healthKitManager)  // Pass it as an environment object
-//            }
-//        }
-//    }
-//}
-//
-//
-//extension HKHealthStore: ObservableObject {}
+
 import SwiftUI
 import FirebaseCore
 import GoogleSignIn
@@ -229,27 +8,12 @@ import SwiftUI
 import FirebaseCore
 import GoogleSignIn
 import UserNotifications
+import EventKit
 
-//class AppDelegate: NSObject, UIApplicationDelegate {
-//    func application(_ application: UIApplication,
-//                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-//        print("Configuring Firebase...")
-//        FirebaseApp.configure()
-//        print("Firebase configured.")
-//        return true
-//    }
-//
-//    @available(iOS 9.0, *)
-//    func application(_ application: UIApplication, open url: URL,
-//                     options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
-//        print("Handling URL: \(url)")
-//        let handled = GIDSignIn.sharedInstance.handle(url)
-//        print("URL handled: \(handled)")
-//        return handled
-//    }
-//}
+
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    
+    let eventStore = EKEventStore()
+
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         print("Configuring Firebase...")
@@ -262,6 +26,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Set the notification center delegate
         UNUserNotificationCenter.current().delegate = self
         
+        
+        //requestCalendarAccess()
+
+        
         return true
     }
     
@@ -271,6 +39,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         print("Handling URL: \(url)")
         let handled = GIDSignIn.sharedInstance.handle(url)
         print("URL handled: \(handled)")
+        if handled {
+            // Store the last login time
+            UserDefaults.standard.set(Date(), forKey: "LastLoginTime")
+            print("Last login time updated.")
+        }
         return handled
     }
     
@@ -292,7 +65,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound]) // Show banner and play sound even if the app is in the foreground
+        completionHandler([.banner, .sound])
     }
     
     // Handle user interactions with notifications
@@ -310,6 +83,9 @@ struct peakmind_mvpApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var viewModel = AuthViewModel()
     @StateObject var CommunitiesViewModel1 = CommunitiesViewModel()
+    @StateObject var HealthKitManager1 = HealthKitManager()
+    @StateObject var EventKitManager1 = EventKitManager()
+
 
     var body: some Scene {
         WindowGroup {
@@ -317,9 +93,12 @@ struct peakmind_mvpApp: App {
                 ContentView()
                     .environmentObject(viewModel)
                     .environmentObject(CommunitiesViewModel1)
+                    .environmentObject(HealthKitManager1)
+                    .environmentObject(EventKitManager1)
+
                     .onAppear {
                         // Example of scheduling a notification
-                        scheduleNotification()
+                        scheduleNotificationsBasedOnLastLogin()
                     }
             }
         }
@@ -348,64 +127,491 @@ struct peakmind_mvpApp: App {
             }
         }
     }
+    
+    
+    func getLastLoginDate() -> Date? {
+
+        guard let user = Auth.auth().currentUser else { return nil } // Check if a user is signed in
+
+        return user.metadata.lastSignInDate
+
+    }
+    
+    // Function to calculate time intervals and schedule notifications
+    func scheduleNotificationsBasedOnLastLogin() {
+        guard let lastLogin = getLastLoginDate() else {
+            print("No last login time found.")
+            return
+        }
+        
+        let now = Date()
+        let timeSinceLastLogin = now.timeIntervalSince(lastLogin) // in seconds
+        print(lastLogin);
+        print(timeSinceLastLogin)
+        // Schedule notifications based on the time since the last login
+        if timeSinceLastLogin <= 12 * 3600 {
+            // Schedule notification for "Last Use <12 Hours"
+            scheduleNotification(forSegment: "Last Use <12 Hours", withMessage: "Check in with PeakMind", timeInterval: 1 * 24 * 3600)
+        } else if timeSinceLastLogin <= 1.5 * 24 * 3600 {
+            // Schedule notification for "Last Use <1.5 Days"
+            scheduleNotification(forSegment: "Last Use <1.5 Days", withMessage: "Your mental health matters!", timeInterval: 6 * 3600)
+        } else if timeSinceLastLogin <= 3 * 24 * 3600 {
+            // Schedule notification for "Last Use <3 Days"
+            scheduleNotification(forSegment: "Last Use <3 Days", withMessage: "Don't forget your self-care routine!", timeInterval: 6 * 3600)
+        } else if timeSinceLastLogin <= 7 * 24 * 3600 {
+            // Schedule notification for "Last Use <7 Days"
+            scheduleNotification(forSegment: "Last Use <7 Days", withMessage: "Did you forget about self care?", timeInterval: 24 * 3600)
+        } else if timeSinceLastLogin <= 21 * 24 * 3600 {
+            // Schedule notification for "Last Use <21 Days"
+            scheduleNotification(forSegment: "Last Use <21 Days", withMessage: "Come back, your mental health needs you!", timeInterval: 24 * 3600)
+        } else if timeSinceLastLogin <= 60 * 24 * 3600 {
+            // Schedule notification for "Last Use <60 Days"
+            scheduleNotification(forSegment: "Last Use <60 Days", withMessage: "Refresh yourself with PeakMind!", timeInterval: 72 * 3600)
+        }
+    }
+    
+    // General function to schedule a notification
+    func scheduleNotification(forSegment segment: String, withMessage message: String, timeInterval: TimeInterval) {
+        let center = UNUserNotificationCenter.current()
+
+        // Create the notification content
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder"
+        content.body = message
+        content.sound = .default
+
+        // Create a trigger based on the time interval
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+
+        // Create the notification request
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+        // Schedule the notification
+        center.add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            } else {
+                print("Notification scheduled for segment \(segment).")
+            }
+        }
+    }
 
 }
 
 import SwiftUI
 import HealthKit
 import Combine
+import FirebaseFirestore
+
+import SwiftUI
+import HealthKit
+import Combine
+import FirebaseFirestore
 
 class HealthKitManager: ObservableObject {
     let healthStore: HKHealthStore?
     @Published var isAuthorized = false
     @Published var errorMessage: String?
+    private let db = Firestore.firestore()
+    private var stepCountObserverQuery: HKObserverQuery?
+    @Published var liveStepCount: Double = 0.0
+    private var queryAnchor: HKQueryAnchor?
 
     init() {
         self.healthStore = HKHealthStore.isHealthDataAvailable() ? HKHealthStore() : nil
     }
 
-//    func requestAuthorization() {
-//        guard let healthStore = healthStore else {
-//            errorMessage = "HealthKit is not available on this device."
-//            return
-//        }
-//
-//        let readTypes: Set<HKObjectType> = [
-//            HKObjectType.workoutType(),
-//            HKObjectType.quantityType(forIdentifier: .heartRate),
-//            HKObjectType.quantityType(forIdentifier: .stepCount),
-//            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)
-//        ].map { $0 }
-//
-//        healthStore.requestAuthorization(toShare: nil, read: readTypes) { [weak self] success, error in
-//            DispatchQueue.main.async {
-//                self?.isAuthorized = success
-//                if let error = error {
-//                    self?.errorMessage = error.localizedDescription
-//                } else {
-//                    self?.errorMessage = nil
-//                }
-//            }
-//        }
-//    }
+    func requestAuthorization() {
+        let healthDataToRead = Set([
+            HKObjectType.quantityType(forIdentifier: .stepCount)!,
+            HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
+            HKObjectType.quantityType(forIdentifier: .heartRate)!,
+            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+        ])
 
-    func fetchHealthData() {
+        healthStore?.requestAuthorization(toShare: nil, read: healthDataToRead) { success, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    self.errorMessage = error.localizedDescription
+                } else {
+                    self.isAuthorized = success
+                    if success {
+                        self.startStepCountObserverQuery()
+                    }
+                }
+            }
+        }
+    }
+
+
+    func startLiveStepCountUpdates() {
+        guard let healthStore = healthStore else { return }
+        
+        let stepType = HKObjectType.quantityType(forIdentifier: .stepCount)!
+        let predicate = HKQuery.predicateForSamples(withStart: Calendar.current.startOfDay(for: Date()), end: Date(), options: .strictStartDate)
+        
+        // Anchored Object Query for initial data and incremental updates
+        let query = HKAnchoredObjectQuery(type: stepType, predicate: predicate, anchor: queryAnchor, limit: HKObjectQueryNoLimit) { query, samplesOrNil, deletedObjectsOrNil, newAnchor, errorOrNil in
+            
+            guard let samples = samplesOrNil as? [HKQuantitySample] else {
+                print("Error fetching step count samples: \(String(describing: errorOrNil))")
+                return
+            }
+            
+            // Sum up the steps for the current day
+            let totalSteps = samples.reduce(0.0) { (sum, sample) -> Double in
+                return sum + sample.quantity.doubleValue(for: HKUnit.count())
+            }
+            
+            DispatchQueue.main.async {
+                self.liveStepCount = totalSteps
+            }
+            
+            self.queryAnchor = newAnchor
+        }
+        
+        query.updateHandler = { query, samplesOrNil, deletedObjectsOrNil, newAnchor, errorOrNil in
+            guard let samples = samplesOrNil as? [HKQuantitySample] else {
+                print("Error fetching step count samples: \(String(describing: errorOrNil))")
+                return
+            }
+            
+            // Sum up the steps for the current day
+            let newSteps = samples.reduce(0.0) { (sum, sample) -> Double in
+                return sum + sample.quantity.doubleValue(for: HKUnit.count())
+            }
+            
+            DispatchQueue.main.async {
+                self.liveStepCount += newSteps
+            }
+            
+            self.queryAnchor = newAnchor
+        }
+        
+        healthStore.execute(query)
+    }
+    
+    func startStepCountObserverQuery() {
+        guard let stepType = HKObjectType.quantityType(forIdentifier: .stepCount) else { return }
+
+        stepCountObserverQuery = HKObserverQuery(sampleType: stepType, predicate: nil) { [weak self] _, completionHandler, error in
+            if let error = error {
+                print("Observer query error: \(error.localizedDescription)")
+                return
+            }
+
+            self?.fetchLiveStepCount()
+            completionHandler()
+        }
+
+        if let stepCountObserverQuery = stepCountObserverQuery {
+            healthStore?.execute(stepCountObserverQuery)
+        }
+    }
+
+    func fetchLiveStepCount() {
+        guard let stepType = HKObjectType.quantityType(forIdentifier: .stepCount) else { return }
+        let now = Date()
+        let startDate = Calendar.current.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: now, options: .strictStartDate)
+        let query = HKStatisticsQuery(quantityType: stepType, quantitySamplePredicate: predicate, options: .cumulativeSum) { [weak self] _, result, error in
+            if let error = error {
+                print("Error fetching live step count: \(error.localizedDescription)")
+                return
+            }
+
+            if let sum = result?.sumQuantity() {
+                let stepCount = sum.doubleValue(for: HKUnit.count())
+                DispatchQueue.main.async {
+                    // Update your UI with the stepCount
+                    print("Live step count: \(stepCount)")
+                }
+            }
+        }
+
+        healthStore?.execute(query)
+    }
+
+    func fetchHealthData(for userId: String, numberOfDays: Int) {
         guard isAuthorized, let healthStore = healthStore else { return }
 
-        // Fetch heart rate
-        if let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate) {
-            let query = HKStatisticsQuery(quantityType: heartRateType, quantitySamplePredicate: nil, options: .discreteAverage) { _, result, error in
-                if let error = error {
-                    print("Error fetching heart rate: \(error.localizedDescription)")
-                    return
-                }
-                guard let result = result, let averageHeartRate = result.averageQuantity()?.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) else {
-                    print("No heart rate data available")
-                    return
-                }
-                print("Average heart rate: \(averageHeartRate) bpm")
+        let now = Date()
+        guard let startDate = Calendar.current.date(byAdding: .day, value: -numberOfDays, to: Calendar.current.startOfDay(for: now)) else { return }
+        let endDate = Calendar.current.startOfDay(for: now)
+
+        fetchStepCount(for: userId, startDate: startDate, endDate: endDate)
+        fetchSleepAnalysis(for: userId, startDate: startDate, endDate: endDate)
+    }
+
+    private func fetchStepCount(for userId: String, startDate: Date, endDate: Date) {
+        guard let healthStore = healthStore else { return }
+
+        let stepType = HKObjectType.quantityType(forIdentifier: .stepCount)!
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        let query = HKStatisticsCollectionQuery(quantityType: stepType, quantitySamplePredicate: predicate, options: [.cumulativeSum], anchorDate: startDate, intervalComponents: DateComponents(day: 1))
+
+        query.initialResultsHandler = { [weak self] _, result, error in
+            if let error = error {
+                print("Error fetching step count: \(error.localizedDescription)")
+                return
             }
-            healthStore.execute(query)
+
+            result?.enumerateStatistics(from: startDate, to: endDate) { statistics, _ in
+                if let sum = statistics.sumQuantity() {
+                    let stepCount = sum.doubleValue(for: HKUnit.count())
+                    let date = statistics.startDate
+                    self?.saveHealthDataToFirestore(userId: userId, type: "stepCount", date: date, data: ["steps": stepCount])
+                }
+            }
+        }
+        healthStore.execute(query)
+    }
+
+    private func fetchSleepAnalysis(for userId: String, startDate: Date, endDate: Date) {
+        guard let healthStore = healthStore else { return }
+
+        let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { [weak self] _, samples, error in
+            if let error = error {
+                print("Error fetching sleep analysis: \(error.localizedDescription)")
+                return
+            }
+
+            guard let samples = samples as? [HKCategorySample] else {
+                print("No sleep data available")
+                return
+            }
+
+            var dailySleepData = [Date: TimeInterval]()
+
+            for sample in samples {
+                let date = Calendar.current.startOfDay(for: sample.startDate)
+                let sleepDuration = sample.endDate.timeIntervalSince(sample.startDate)
+
+                if sample.value == HKCategoryValueSleepAnalysis.asleep.rawValue {
+                    dailySleepData[date, default: 0] += sleepDuration
+                }
+            }
+
+            for (date, sleepDuration) in dailySleepData {
+                let sleepDurationInHours = sleepDuration / 3600
+                self?.saveHealthDataToFirestore(userId: userId, type: "sleepDuration", date: date, data: ["sleepDuration": sleepDurationInHours])
+            }
+        }
+        healthStore.execute(query)
+    }
+
+    private func saveHealthDataToFirestore(userId: String, type: String, date: Date, data: [String: Any]) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let formattedDate = dateFormatter.string(from: date)
+
+        let healthDataRef = db.collection("users").document(userId)
+            .collection("healthKitData").document(type)
+            .collection("days").document(formattedDate)
+
+        healthDataRef.getDocument { [weak self] document, error in
+            if let error = error {
+                print("Error checking for existing health data: \(error.localizedDescription)")
+                return
+            }
+
+            if document?.exists == true {
+                print("Data for \(formattedDate) already exists, skipping save.")
+            } else {
+                self?.performSave(healthDataRef: healthDataRef, data: data, formattedDate: formattedDate)
+            }
+        }
+    }
+
+    private func performSave(healthDataRef: DocumentReference, data: [String: Any], formattedDate: String) {
+        healthDataRef.setData(data) { error in
+            if let error = error {
+                print("Error saving health data: \(error.localizedDescription)")
+            } else {
+                print("Health data saved successfully for \(formattedDate).")
+            }
         }
     }
 }
+import EventKit
+import FirebaseAuth
+
+class EventKitManager: ObservableObject {
+    let eventStore = EKEventStore()
+    static let shared = EventKitManager()
+
+    // Method to request calendar access
+    func requestAccess(to entityType: EKEntityType) async -> Bool {
+           if #available(iOS 17.0, *) {
+               do {
+                   switch entityType {
+                   case .event:
+                       return try await eventStore.requestFullAccessToEvents()
+                   case .reminder:
+                       return try await eventStore.requestFullAccessToReminders()
+                   @unknown default:
+                       return false
+                   }
+               } catch {
+                   print("Failed to request \(entityType) access: \(error.localizedDescription)")
+                   return false
+               }
+           } else {
+               return await withCheckedContinuation { continuation in
+                   eventStore.requestAccess(to: entityType) { granted, error in
+                       if let error = error {
+                           print("Failed to request \(entityType) access: \(error.localizedDescription)")
+                           continuation.resume(returning: false)
+                       } else {
+                           continuation.resume(returning: granted)
+                       }
+                   }
+               }
+           }
+       }
+    
+    // Method to schedule an event
+    func scheduleEvent(title: String, startDate: Date, endDate: Date, notes: String? = nil) async {
+        let granted = await requestAccess(to: .event)
+        guard granted else {
+            print("Calendar access denied")
+            return
+        }
+
+        let event = EKEvent(eventStore: self.eventStore)
+        event.title = title
+        event.startDate = startDate
+        event.endDate = endDate
+        event.notes = notes
+        event.calendar = self.eventStore.defaultCalendarForNewEvents
+
+        do {
+            try self.eventStore.save(event, span: .thisEvent)
+            print("Event saved successfully")
+        } catch let error as NSError {
+            print("Failed to save event with error: \(error)")
+        }
+    }
+    
+    // Method to schedule a recurring event
+    func scheduleRecurringEvent(title: String, startDate: Date, frequency: EKRecurrenceFrequency) async -> String? {
+        let granted = await requestAccess(to: .event)
+        guard granted else {
+            print("Calendar access denied")
+            return nil
+        }
+        
+        let event = EKEvent(eventStore: eventStore)
+        event.title = title
+        event.startDate = startDate
+        event.endDate = startDate.addingTimeInterval(3600) // 1 hour duration
+        event.calendar = eventStore.defaultCalendarForNewEvents
+        
+        let recurrenceRule = EKRecurrenceRule(
+            recurrenceWith: frequency,
+            interval: 1,
+            end: nil
+        )
+        event.recurrenceRules = [recurrenceRule]
+        
+        do {
+            try eventStore.save(event, span: .futureEvents)
+            print("Recurring event saved successfully")
+            return event.eventIdentifier
+        } catch {
+            print("Failed to schedule recurring event: \(error)")
+            return nil
+        }
+    }
+    
+    // Method to remove an event
+    func removeEvent(withIdentifier identifier: String) async {
+        let event = eventStore.event(withIdentifier: identifier)
+        
+        guard let event = event else {
+            print("Event not found")
+            return
+        }
+        
+        do {
+            try eventStore.remove(event, span: .futureEvents)
+            print("Event removed successfully")
+        } catch {
+            print("Failed to remove event: \(error)")
+        }
+    }
+    
+    func scheduleReminder(title: String, notes: String? = nil, dueDate: Date?, recurrenceRule: EKRecurrenceRule?) async -> String? {
+        let granted = await requestAccess(to: .reminder)
+        guard granted else {
+            print("Reminder access denied")
+            return nil
+        }
+        
+        let reminder = EKReminder(eventStore: eventStore)
+        reminder.title = title
+        reminder.notes = notes
+        reminder.calendar = eventStore.defaultCalendarForNewReminders()
+        
+        if let dueDate = dueDate {
+            reminder.dueDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: dueDate)
+            let alarm = EKAlarm(absoluteDate: dueDate)
+            reminder.addAlarm(alarm)
+        }
+        
+        if let recurrenceRule = recurrenceRule {
+            reminder.recurrenceRules = [recurrenceRule]
+        }
+        
+        do {
+            try eventStore.save(reminder, commit: true)
+            print("Reminder saved successfully")
+            return reminder.calendarItemIdentifier
+        } catch {
+            print("Failed to save reminder: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    func createRecurrenceRule(frequency: EKRecurrenceFrequency, interval: Int = 1, endDate: Date? = nil) -> EKRecurrenceRule {
+        let recurrenceEnd = endDate != nil ? EKRecurrenceEnd(end: endDate!) : nil
+        return EKRecurrenceRule(
+            recurrenceWith: frequency,
+            interval: interval,
+            daysOfTheWeek: nil,
+            daysOfTheMonth: nil,
+            monthsOfTheYear: nil,
+            weeksOfTheYear: nil,
+            daysOfTheYear: nil,
+            setPositions: nil,
+            end: recurrenceEnd
+        )
+    }
+    
+    func createRecurrenceRuleForEveryNDays(interval: Int, endDate: Date?) -> EKRecurrenceRule {
+        let recurrenceEnd = endDate != nil ? EKRecurrenceEnd(end: endDate!) : nil
+        return EKRecurrenceRule(
+            recurrenceWith: .daily,
+            interval: interval,
+            end: recurrenceEnd
+        )
+    }
+    
+    func createRecurrenceRuleForSpecificDaysOfWeek(daysOfWeek: [Int], endDate: Date?) -> EKRecurrenceRule {
+        let recurrenceEnd = endDate != nil ? EKRecurrenceEnd(end: endDate!) : nil
+        let days = daysOfWeek.map { EKRecurrenceDayOfWeek(EKWeekday(rawValue: $0)!) }
+        return EKRecurrenceRule(
+            recurrenceWith: .weekly,
+            interval: 1,
+            daysOfTheWeek: days,
+            daysOfTheMonth: nil,
+            monthsOfTheYear: nil,
+            weeksOfTheYear: nil,
+            daysOfTheYear: nil,
+            setPositions: nil,
+            end: recurrenceEnd
+        )
+    }
+}
+

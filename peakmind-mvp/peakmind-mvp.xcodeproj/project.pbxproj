@@ -141,7 +141,6 @@
 		1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */; };
 		1C6C0BBA2BA96B5300628B79 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BB92BA96B5300628B79 /* StoreView.swift */; };
 		1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */; };
-		1C7B2E8D2C65D2A700B233D8 /* Routines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B2E8C2C65D2A700B233D8 /* Routines.swift */; };
 		1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7F93EA2BC3B291000754E2 /* PacMan.swift */; };
 		1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C52B8133360066AF70 /* LoginView.swift */; };
 		1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9C63C72B81359A0066AF70 /* InputView.swift */; };
@@ -240,6 +239,7 @@
 		7953387F2C0144C100A42D4C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953387E2C0144C100A42D4C /* Structs.swift */; };
 		79582AB62C6FBE29006866BC /* SummitModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79582AB52C6FBE29006866BC /* SummitModeView.swift */; };
 		79582AB92C6FBE3A006866BC /* FlowingWaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79582AB82C6FBE3A006866BC /* FlowingWaterView.swift */; };
+		7969B4FA2CA9F45A00CEEB05 /* Routines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7969B4F92CA9F45A00CEEB05 /* Routines.swift */; };
 		7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6632BD73793006C3726 /* TabViewMain.swift */; };
 		7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6652BD73862006C3726 /* SelfCareMainView.swift */; };
 		7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */; };
@@ -325,6 +325,10 @@
 		79A73E3A2CA5DC1B00CE9E40 /* NewBG8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E392CA5DC1B00CE9E40 /* NewBG8.swift */; };
 		79A73E3C2CA5DC2100CE9E40 /* NewBG9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E3B2CA5DC2100CE9E40 /* NewBG9.swift */; };
 		79A73E3F2CA61FEC00CE9E40 /* ProgressIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 79A73E3E2CA61FEC00CE9E40 /* ProgressIndicatorView */; };
+		79A73E412CA9EA8000CE9E40 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E402CA9EA8000CE9E40 /* Analytics.swift */; };
+		79A73E432CA9EADB00CE9E40 /* PeakmindProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E422CA9EADB00CE9E40 /* PeakmindProfiles.swift */; };
+		79A73E452CA9EAF400CE9E40 /* Rewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E442CA9EAF400CE9E40 /* Rewards.swift */; };
+		79A73E472CA9EB0F00CE9E40 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E462CA9EB0F00CE9E40 /* Settings.swift */; };
 		79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */; };
 		79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5212B8EAAE600634262 /* CustomButton.swift */; };
 		79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5272B8EAB5C00634262 /* QuestionsView.swift */; };
@@ -332,12 +336,6 @@
 		79BFB52C2B8EABC500634262 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52B2B8EABC500634262 /* Info.swift */; };
 		79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52D2B8EDA6E00634262 /* JournalView.swift */; };
 		79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52F2B914A5000634262 /* SplashScreen.swift */; };
-		79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383DC2BC610F600A6779A /* CheckIn.swift */; };
-		79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383DE2BC6110400A6779A /* CheckInViewModel.swift */; };
-		79C383E12BC6110E00A6779A /* HabitTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E02BC6110E00A6779A /* HabitTracker.swift */; };
-		79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E22BC6111D00A6779A /* HabitTrackerViewModel.swift */; };
-		79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E42BC6112700A6779A /* UserDashboard.swift */; };
-		79C383E72BC6113200A6779A /* UserDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E62BC6113200A6779A /* UserDashboardViewModel.swift */; };
 		79C383EA2BC6122100A6779A /* AnimatedSpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383E92BC6122100A6779A /* AnimatedSpeechBubble.swift */; };
 		79C383EC2BC6122C00A6779A /* AnimatedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383EB2BC6122C00A6779A /* AnimatedTextView.swift */; };
 		79C383EE2BC6123300A6779A /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C383ED2BC6123300A6779A /* Background.swift */; };
@@ -544,7 +542,6 @@
 		1C6C0BB72BA967CF00628B79 /* AnxietyQuiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnxietyQuiz.swift; sourceTree = "<group>"; };
 		1C6C0BB92BA96B5300628B79 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		1C6C0BBB2BA96FDF00628B79 /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
-		1C7B2E8C2C65D2A700B233D8 /* Routines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines.swift; sourceTree = "<group>"; };
 		1C7F93EA2BC3B291000754E2 /* PacMan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacMan.swift; sourceTree = "<group>"; };
 		1C9C63C52B8133360066AF70 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		1C9C63C72B81359A0066AF70 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
@@ -618,6 +615,7 @@
 		7953387E2C0144C100A42D4C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		79582AB52C6FBE29006866BC /* SummitModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummitModeView.swift; sourceTree = "<group>"; };
 		79582AB82C6FBE3A006866BC /* FlowingWaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowingWaterView.swift; sourceTree = "<group>"; };
+		7969B4F92CA9F45A00CEEB05 /* Routines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routines.swift; sourceTree = "<group>"; };
 		7976E6632BD73793006C3726 /* TabViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewMain.swift; sourceTree = "<group>"; };
 		7976E6652BD73862006C3726 /* SelfCareMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCareMainView.swift; sourceTree = "<group>"; };
 		7976E6672BD7386D006C3726 /* CommunitiesMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesMainView.swift; sourceTree = "<group>"; };
@@ -702,6 +700,10 @@
 		79A73E372CA5DC1500CE9E40 /* NewBG8.4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG8.4.swift; sourceTree = "<group>"; };
 		79A73E392CA5DC1B00CE9E40 /* NewBG8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG8.swift; sourceTree = "<group>"; };
 		79A73E3B2CA5DC2100CE9E40 /* NewBG9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG9.swift; sourceTree = "<group>"; };
+		79A73E402CA9EA8000CE9E40 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		79A73E422CA9EADB00CE9E40 /* PeakmindProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeakmindProfiles.swift; sourceTree = "<group>"; };
+		79A73E442CA9EAF400CE9E40 /* Rewards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rewards.swift; sourceTree = "<group>"; };
+		79A73E462CA9EB0F00CE9E40 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarScreenView.swift; sourceTree = "<group>"; };
 		79BFB5212B8EAAE600634262 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		79BFB5272B8EAB5C00634262 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
@@ -709,12 +711,6 @@
 		79BFB52B2B8EABC500634262 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		79BFB52D2B8EDA6E00634262 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
 		79BFB52F2B914A5000634262 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
-		79C383DC2BC610F600A6779A /* CheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckIn.swift; sourceTree = "<group>"; };
-		79C383DE2BC6110400A6779A /* CheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewModel.swift; sourceTree = "<group>"; };
-		79C383E02BC6110E00A6779A /* HabitTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTracker.swift; sourceTree = "<group>"; };
-		79C383E22BC6111D00A6779A /* HabitTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTrackerViewModel.swift; sourceTree = "<group>"; };
-		79C383E42BC6112700A6779A /* UserDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboard.swift; sourceTree = "<group>"; };
-		79C383E62BC6113200A6779A /* UserDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardViewModel.swift; sourceTree = "<group>"; };
 		79C383E92BC6122100A6779A /* AnimatedSpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedSpeechBubble.swift; sourceTree = "<group>"; };
 		79C383EB2BC6122C00A6779A /* AnimatedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedTextView.swift; sourceTree = "<group>"; };
 		79C383ED2BC6123300A6779A /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
@@ -994,14 +990,6 @@
 			path = Raj;
 			sourceTree = "<group>";
 		};
-		1C7B2E8B2C65D29A00B233D8 /* Routines */ = {
-			isa = PBXGroup;
-			children = (
-				1C7B2E8C2C65D2A700B233D8 /* Routines.swift */,
-			);
-			path = Routines;
-			sourceTree = "<group>";
-		};
 		1C9C63BF2B81326E0066AF70 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -1024,9 +1012,9 @@
 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
+				7969B4F72CA9F31B00CEEB05 /* New Group */,
 				79582AB72C6FBE30006866BC /* Templates */,
 				79582AB42C6FBE09006866BC /* Summit Mode */,
-				1C7B2E8B2C65D29A00B233D8 /* Routines */,
 				1CD029F52BE9E7140047951D /* Tutorial */,
 				79069D012BDA39E900AB52DC /* Resources */,
 				1C9FA25B2BCE1B11003C844C /* HealthKit */,
@@ -1042,13 +1030,18 @@
 				1C9C63C22B8132B00066AF70 /* Root */,
 				7976E66A2BD73877006C3726 /* Self Care Suite */,
 				7976E6692BD73871006C3726 /* Communities */,
-				792872512C8A5CFE00FB6CBE /* RoutineBuilderView.swift */,
+				7969B4F82CA9F44300CEEB05 /* Routines */,
+				79A73E482CA9ED3F00CE9E40 /* Routines2 */,
 				791A274E2C8A80D8000D52BE /* MentalModelView.swift */,
 				791A27502C8FA970000D52BE /* TriangleView.swift */,
 				797BF6422C9D032300118768 /* QuizOnboardingVIew.swift */,
 				797BF6442C9D735800118768 /* DailyCheckInView.swift */,
 				797BF6402C93C32300118768 /* FactorPage.swift */,
 				797BF6462C9E205D00118768 /* YourQuestsView.swift */,
+				79A73E402CA9EA8000CE9E40 /* Analytics.swift */,
+				79A73E422CA9EADB00CE9E40 /* PeakmindProfiles.swift */,
+				79A73E442CA9EAF400CE9E40 /* Rewards.swift */,
+				79A73E462CA9EB0F00CE9E40 /* Settings.swift */,
 			);
 			path = "Core Screens";
 			sourceTree = "<group>";
@@ -1442,6 +1435,23 @@
 			path = Templates;
 			sourceTree = "<group>";
 		};
+		7969B4F72CA9F31B00CEEB05 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		7969B4F82CA9F44300CEEB05 /* Routines */ = {
+			isa = PBXGroup;
+			children = (
+				7969B4F92CA9F45A00CEEB05 /* Routines.swift */,
+				792872512C8A5CFE00FB6CBE /* RoutineBuilderView.swift */,
+			);
+			name = Routines;
+			path = Communities/Routines;
+			sourceTree = "<group>";
+		};
 		7976E6692BD73871006C3726 /* Communities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1568,15 +1578,16 @@
 			path = Tutorial;
 			sourceTree = "<group>";
 		};
+		79A73E482CA9ED3F00CE9E40 /* Routines2 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Routines2;
+			sourceTree = "<group>";
+		};
 		79C383DB2BC610E800A6779A /* Check In */ = {
 			isa = PBXGroup;
 			children = (
-				79C383DC2BC610F600A6779A /* CheckIn.swift */,
-				79C383DE2BC6110400A6779A /* CheckInViewModel.swift */,
-				79C383E02BC6110E00A6779A /* HabitTracker.swift */,
-				79C383E22BC6111D00A6779A /* HabitTrackerViewModel.swift */,
-				79C383E42BC6112700A6779A /* UserDashboard.swift */,
-				79C383E62BC6113200A6779A /* UserDashboardViewModel.swift */,
 				792ED8622C51C8480050D12C /* CustomWidgetView.swift */,
 			);
 			path = "Check In";
@@ -1910,7 +1921,6 @@
 				10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */,
 				79A73DDE2CA5D96500CE9E40 /* GreenNewBG1.swift in Sources */,
 				79C383FA2BD60E0000A6779A /* P1-1_Intro.swift in Sources */,
-				1C7B2E8D2C65D2A700B233D8 /* Routines.swift in Sources */,
 				10CE96102C02953B0092EE29 /* LevelMapView.swift in Sources */,
 				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
 				79A73E1E2CA5DBAC00CE9E40 /* NewBG4.1.swift in Sources */,
@@ -1957,12 +1967,12 @@
 				79A73E302CA5DBF900CE9E40 /* NewBG7.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				79A73DB22CA5570800CE9E40 /* PurpleNewBG3_GameReady.swift in Sources */,
+				7969B4FA2CA9F45A00CEEB05 /* Routines.swift in Sources */,
 				79A73DCA2CA55A4500CE9E40 /* Tutorial3.swift in Sources */,
 				79A73DD42CA55A7F00CE9E40 /* Tutorial8.swift in Sources */,
 				1C6C0BBC2BA96FDF00628B79 /* InventoryView.swift in Sources */,
 				19F693E42C779AF900B002E1 /* PurpleNewBG2.swift in Sources */,
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
-				79C383E52BC6112700A6779A /* UserDashboard.swift in Sources */,
 				79A73E1A2CA5DBA000CE9E40 /* NewBG2.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
 				10CE96172C02B8260092EE29 /* LevelMapUtil.swift in Sources */,
@@ -2033,7 +2043,6 @@
 				1C53A42D2C254F6600B27C23 /* MessageListView.swift in Sources */,
 				79C383F22BC6124B00A6779A /* SherpaContinue.swift in Sources */,
 				102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */,
-				79C383E32BC6111D00A6779A /* HabitTrackerViewModel.swift in Sources */,
 				79C3842A2BD60FEC00A6779A /* P2-10_5Factors.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
@@ -2041,7 +2050,6 @@
 				79A73E102CA5DAF900CE9E40 /* PinkNewBG8.swift in Sources */,
 				79A73E342CA5DC0500CE9E40 /* NewBG8.2.swift in Sources */,
 				79A73DB02CA556F300CE9E40 /* PurpleNewBG3.2_GameReady.swift in Sources */,
-				79C383E72BC6113200A6779A /* UserDashboardViewModel.swift in Sources */,
 				79BFB52A2B8EABBB00634262 /* Question.swift in Sources */,
 				7976E6682BD7386D006C3726 /* CommunitiesMainView.swift in Sources */,
 				79C3841A2BD60F5F00A6779A /* P2-1_AnxietyModule.swift in Sources */,
@@ -2053,6 +2061,7 @@
 				103F29832CA9C88B008525A5 /* GreenNewBG5.2_GameReady.swift in Sources */,
 				103F29842CA9C88B008525A5 /* GreenNewBG4_GameReady.swift in Sources */,
 				103F29852CA9C88B008525A5 /* GreenNewBG4.2_GameReady.swift in Sources */,
+				79A73E412CA9EA8000CE9E40 /* Analytics.swift in Sources */,
 				103F29862CA9C88B008525A5 /* GreenNewBG2.2_GameReady.swift in Sources */,
 				103F29872CA9C88B008525A5 /* GreenNewBG1_GameReady.swift in Sources */,
 				103F29882CA9C88B008525A5 /* GreenNewBG6_GameReady.swift in Sources */,
@@ -2086,7 +2095,6 @@
 				793B79B72BAF9063001062DB /* ReducingAnxietyView.swift in Sources */,
 				792617822BD70BF400AAAC81 /* L1ScenarioQuiz.swift in Sources */,
 				79A73DBC2CA5576500CE9E40 /* PurpleNewBG7_GameReady.swift in Sources */,
-				79C383E12BC6110E00A6779A /* HabitTracker.swift in Sources */,
 				79A73E162CA5DB8A00CE9E40 /* NewBG1.swift in Sources */,
 				79A73E062CA5DABC00CE9E40 /* PinkNewBG5.swift in Sources */,
 				79A73DF62CA5D9C600CE9E40 /* GreenNewBG8.swift in Sources */,
@@ -2132,11 +2140,10 @@
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				1C6C0BB82BA967CF00628B79 /* AnxietyQuiz.swift in Sources */,
 				1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */,
+				79A73E472CA9EB0F00CE9E40 /* Settings.swift in Sources */,
 				7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */,
 				7953387F2C0144C100A42D4C /* Structs.swift in Sources */,
-				79C383DD2BC610F700A6779A /* CheckIn.swift in Sources */,
 				196F4CAF2C76856900604E7C /* FontChecker.swift in Sources */,
-				79C383DF2BC6110400A6779A /* CheckInViewModel.swift in Sources */,
 				79C3842E2BD6100300A6779A /* P2-12_CopingModule.swift in Sources */,
 				79C384022BD60E6B00A6779A /* P1-6_PersonalQuestion.swift in Sources */,
 				79C384122BD60F0D00A6779A /* P1-13_BodyScan.swift in Sources */,
@@ -2176,7 +2183,9 @@
 				10CE961F2C0547FC0092EE29 /* VariableBlur.swift in Sources */,
 				79C384222BD60FA100A6779A /* P2-6_AnxietyModule.swift in Sources */,
 				10CE95492BEDD9380092EE29 /* CurrentToNewHabits.swift in Sources */,
+				79A73E432CA9EADB00CE9E40 /* PeakmindProfiles.swift in Sources */,
 				79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */,
+				79A73E452CA9EAF400CE9E40 /* Rewards.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

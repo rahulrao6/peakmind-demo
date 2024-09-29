@@ -143,15 +143,7 @@ struct QuestionsView: View {
         .background {
             Color("SentMessage").ignoresSafeArea()
         }
-        
-        .background(
-            NavigationLink(destination: SelfCareHome().environmentObject(viewModel), isActive: $navigateToHome) {
-                EmptyView()
-            }
-            .hidden()
-            .navigationBarBackButtonHidden(true) // Hide back button
 
-        )
         //.sheet(isPresented: $showPersonalizedPlan) {
         //    PersonalizedPlanView()
         //}

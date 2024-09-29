@@ -137,7 +137,7 @@ struct TutorialView: View {
     var tutorialPages: [TutorialPage] {
         [
             TutorialPage(view: AnyView(ChatView().environmentObject(viewModel)), text: "Welcome to our app! This is the chat view."),
-            TutorialPage(view: AnyView(SelfCareHome().environmentObject(viewModel)), text: "This is the self care home!"),
+            //TutorialPage(view: AnyView(SelfCareHome().environmentObject(viewModel)), text: "This is the self care home!"),
             TutorialPage(view: AnyView(HomeDashboard(selectedTab: .constant(2)).environmentObject(viewModel)), text: "This is the home dashboard!"),
             TutorialPage(view: AnyView(AnxietyCommunityView()), text: "Talk to people here!"),
 

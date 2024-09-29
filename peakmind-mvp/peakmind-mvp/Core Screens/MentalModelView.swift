@@ -1,3 +1,11 @@
+//
+//  MentalModelView.swift
+//  peakmind-mvp
+//
+//  Created by Raj Jagirdar on 9/15/24.
+//
+
+import Foundation
 import SwiftUI
 
 struct MentalModelView: View {

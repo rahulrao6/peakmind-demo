@@ -1,8 +1,17 @@
+//
+//  File.swift
+//  peakmind-mvp
+//
+//  Created by Raj Jagirdar on 9/15/24.
+//
+
+import Foundation
 import SwiftUI
 
 struct FactorPage: View {
     var category: Category // Pass the category for contextual use
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
+    @EnvironmentObject var viewModel: AuthViewModel
 
     // State to track whether to show the FactorDetailView
     @State private var showFactorDetail = false
@@ -101,7 +110,7 @@ struct FactorPage: View {
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(Color(hex: "180b53")!)
                                 .frame(height: 100)
-                            
+
                             Text(getPercentageChange(for: index))
                                 .font(.custom("SFProText-Heavy", size: 24))
                                 .foregroundColor(.white)
@@ -151,7 +160,7 @@ struct FactorPage: View {
     private func getNodeCenters() -> [CGPoint] {
         let startX: CGFloat = UIScreen.main.bounds.width / 2 // Center of the screen
         let startY: CGFloat = 150 // Adjusted Y point within the rectangle for centering
-        
+
         return nodePositions.map { position in
             CGPoint(x: startX + position.width, y: startY + position.height)
         }
@@ -163,7 +172,7 @@ struct FactorPage: View {
 // Detail view for the selected factor (Mood Detail)
 struct FactorDetailView: View {
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
-    
+
     var sampleData: [Double] = [0.4, 0.6, 0.5, 0.8, 0.75, 0.6, 0.85] // Example data
 
     var body: some View {
@@ -175,7 +184,7 @@ struct FactorDetailView: View {
                 endPoint: .bottom
             )
             .edgesIgnoringSafeArea(.all)
-            
+
             VStack(spacing: 20) {
                 // Progress circle for the factor's score
                 ZStack {
@@ -189,7 +198,7 @@ struct FactorDetailView: View {
                         .foregroundColor(.white)
                 }
                 .padding(.top, 40)
-                
+
                 // Line graph for score history
                 VStack {
                     Text("Score Over the Last Month")
@@ -200,7 +209,7 @@ struct FactorDetailView: View {
                         .frame(height: 200)
                 }
                 .padding(.top, 20)
-                
+
                 // Placeholder for scoring details
                 VStack(alignment: .leading) {
                     Text("Scoring Details")
@@ -239,9 +248,9 @@ struct LineGraph: Shape {
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        
+
         guard data.count > 1 else { return path }
-        
+
         let stepX = rect.width / CGFloat(data.count - 1)
         let points = data.enumerated().map { index, value in
             CGPoint(x: CGFloat(index) * stepX, y: rect.height * (1 - CGFloat(value)))

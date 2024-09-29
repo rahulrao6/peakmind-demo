@@ -11,15 +11,10 @@ struct MessageBubble: View {
     let message: String
     let sender: String
     let timestamp: Double
-    
     var isAISender: Bool {
-        
-        if(sender == "AI") {
-            return true
-        } else {
-            return false
-        }
+        return sender == "Sherpa" || sender == "AI"
     }
+
     
     func timeAgo() -> String {
         let date = Date(timeIntervalSince1970: timestamp)

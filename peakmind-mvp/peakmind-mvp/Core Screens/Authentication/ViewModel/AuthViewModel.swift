@@ -17,9 +17,15 @@ class AuthViewModel: ObservableObject {
     @Published var questions: [PPQuestion] = []
     @Published var answers: [PPAnswer] = []
     @Published var ppPlans: [PPPlan] = []
-
+    @Published var totalPoints: Int = 0
+    @Published var pointsHistory: [PointEntry] = []
+    @Published var currentLevel: Int = 0
+    @Published var badges: [Badge] = []
+    
 //    @Published var communitiesViewModel = CommunitiesViewModel()
     @Published var authErrorMessage: String? // New property for error messages
+    private let healthKitManager = HealthKitManager()
+    private let EventKitManager1 = EventKitManager()
 
     private var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     private let db = Firestore.firestore()
@@ -29,6 +35,13 @@ class AuthViewModel: ObservableObject {
             guard let self = self else { return }
             if let user = user {
                 self.fetchUserData(userId: user.uid)
+                self.healthKitManager.requestAuthorization()
+                Task {
+                    //let _ = await self.EventKitManager1.requestAccess(to: .event)
+                    let _ = await self.EventKitManager1.requestAccess(to: .reminder)
+
+                }
+                self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
             } else {
                 self.isSignedIn = false
                 self.currentUser = nil
@@ -64,6 +77,8 @@ class AuthViewModel: ObservableObject {
             }
             if let user = result?.user {
                 self.fetchUserData(userId: user.uid)
+                self.healthKitManager.requestAuthorization()
+                self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
             }
         }
     }
@@ -316,6 +331,8 @@ class AuthViewModel: ObservableObject {
                 } else if let user = Auth.auth().currentUser {
                     print("calling the fetch/create")
                     self.fetchUserDataOrCreateNew(user: user, email: user.email)
+                    self.healthKitManager.requestAuthorization()
+                    self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
                 }
             }
         }
@@ -409,6 +426,7 @@ class AuthViewModel: ObservableObject {
             let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
             self.currentUser = try snapshot.data(as: UserData.self)
             print("Debug current user is \(String(describing: self.currentUser))")
+            
             //communitiesViewModel.loadCommunities()
         } catch {
             print("Error fetching user data: \(error.localizedDescription)")
@@ -1095,9 +1113,9 @@ class AuthViewModel: ObservableObject {
 //                }
 //                return routineDict
 //            }
-//            
+//
 //            try await userRef.updateData(["routines": routinesDicts])
-//            
+//
 //            DispatchQueue.main.async {
 //                self.currentUser?.routines = routines
 //            }
@@ -1168,7 +1186,7 @@ class AuthViewModel: ObservableObject {
 //        guard let currentUserID = currentUser?.id else {
 //            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
 //        }
-//        
+//
 //        guard var routines = currentUser?.routines else {
 //            throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "No routines found"])
 //        }
@@ -1217,9 +1235,9 @@ class AuthViewModel: ObservableObject {
 //                    }
 //                    return routineDict
 //                }
-//                
+//
 //                try await userRef.updateData(["routines": routinesDicts])
-//                
+//
 //                DispatchQueue.main.async {
 //                    self.currentUser?.routines = routines
 //                }
@@ -1309,6 +1327,333 @@ class AuthViewModel: ObservableObject {
             } else {
                 print("Notification scheduled for new tracker: \(widgetName)")
             }
+        }
+    }
+
+    func saveToGAD7(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let gad7Data: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("GAD7").setData(gad7Data) { error in
+            if let error = error {
+                print("Error saving GAD-7 data: \(error)")
+            }
+        }
+    }
+    
+    func saveToPHQ9(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let phq9Data: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("PHQ9").setData(phq9Data) { error in
+            if let error = error {
+                print("Error saving phq9Data: \(error)")
+            }
+        }
+    }
+    
+    func saveToNMRQ(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let NMRQdata: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("NMRQ").setData(NMRQdata) { error in
+            if let error = error {
+                print("Error saving NMRQdata: \(error)")
+            }
+        }
+    }
+    
+    func saveToPSS(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+
+        let db = Firestore.firestore()
+        let PSSdata: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("PSS").setData(PSSdata) { error in
+            if let error = error {
+                print("Error saving PSS data: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - Gamification Functions
+
+    
+    // Log each step
+    // Predefined list of all possible badges
+    let allBadges = [
+        Badge(id: "1", name: "Bronze Badge", description: "Achieve 1000 points", imageURL: "bronzeBadge", dateEarned: nil, pointsRequired: 1000, levelRequired: 1),
+        Badge(id: "2", name: "Silver Badge", description: "Achieve 2000 points", imageURL: "silverBadge", dateEarned: nil, pointsRequired: 2000, levelRequired: 2),
+        Badge(id: "3", name: "Gold Badge", description: "Achieve 3000 points", imageURL: "goldBadge", dateEarned: nil, pointsRequired: 3000, levelRequired: 3),
+        Badge(id: "4", name: "Diamond Badge", description: "Achieve 4000 points", imageURL: "diamondBadge", dateEarned: nil, pointsRequired: 4000, levelRequired: 4)
+    ]
+
+    // Log each step
+    private func log(_ message: String) {
+        print("[AuthViewModel] \(message)")
+    }
+
+    // Award points to user
+    func awardPoints(_ points: Int, reason: String) async throws {
+        log("Starting to award points")
+        guard let userId = currentUser?.id else {
+            log("Current user ID not found")
+            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
+        }
+
+        let userRef = db.collection("points").document(userId)
+        let pointEntry = PointEntry(
+            id: UUID().uuidString,
+            userId: userId,
+            date: Date(),
+            points: points,
+            reason: reason
+        )
+
+        do {
+            // Create an encoder and set the date encoding strategy
+            let encoder = Firestore.Encoder()
+            encoder.dateEncodingStrategy = .timestamp
+            let encodedPointEntry = try encoder.encode(pointEntry)
+
+            // Check if the document exists
+            let document = try await userRef.getDocument()
+            if document.exists {
+                // Document exists, update data
+                log("Document exists, updating data")
+                try await userRef.updateData([
+                    "points": FieldValue.arrayUnion([encodedPointEntry]),
+                    "totalPoints": FieldValue.increment(Int64(points))
+                ])
+            } else {
+                // Document does not exist, create it with initial data
+                log("Document does not exist, creating with initial data")
+                try await userRef.setData([
+                    "points": [encodedPointEntry],
+                    "totalPoints": points
+                ])
+            }
+
+            // Update local data
+            log("Updating local total points")
+            DispatchQueue.main.async {
+                self.totalPoints += points
+            }
+
+            // Check for level up
+            log("Checking for level up")
+            try await checkForLevelUp()
+        } catch {
+            log("Failed to award points: \(error.localizedDescription)")
+            throw error
+        }
+    }
+
+    // Check and handle level up
+    private func checkForLevelUp() async throws {
+        log("Checking for level up")
+        guard let userId = currentUser?.id else {
+            log("Current user data not found")
+            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user data not found"])
+        }
+
+        let newLevel = calculateLevel(totalPoints)
+
+        if newLevel > currentLevel {
+            log("Updating user level to \(newLevel)")
+            let userRef = db.collection("users").document(userId)
+            do {
+                try await userRef.updateData([
+                    "currentLevel": newLevel
+                ])
+
+                // Update local data
+                DispatchQueue.main.async {
+                    self.currentLevel = newLevel
+                }
+
+                // Award level-up badge
+                if let levelBadge = allBadges.first(where: { $0.levelRequired == newLevel }) {
+                    try await awardBadge(badge: levelBadge)
+                }
+            } catch {
+                log("Failed to update level: \(error.localizedDescription)")
+                throw error
+            }
+        }
+    }
+
+    // Calculate user level based on points
+    private func calculateLevel(_ points: Int) -> Int {
+        return points / 1000 + 1
+    }
+
+    // Award badge to user
+    func awardBadge(badge: Badge) async throws {
+        log("Attempting to award badge: \(badge.name)")
+        guard let userId = currentUser?.id else {
+            log("Current user ID not found")
+            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
+        }
+        let userRef = db.collection("badges").document(userId)
+
+        var badgeToAward = badge
+        badgeToAward.dateEarned = Date()
+
+        do {
+            // Fetch current badges
+            let document = try await userRef.getDocument()
+            var currentBadges = [Badge]()
+            if let data = document.data(), let badgesDict = data["badges"] as? [String: [String: Any]] {
+                let decoder = Firestore.Decoder()
+                decoder.dateDecodingStrategy = .timestamp
+                currentBadges = try badgesDict.values.map { dict in
+                    return try decoder.decode(Badge.self, from: dict)
+                }
+            }
+
+            // Check if badge is already in currentBadges
+            if currentBadges.contains(where: { $0.id == badge.id }) {
+                log("Badge already awarded: \(badge.name)")
+                return
+            }
+
+            // Add the badge
+            log("Awarding badge: \(badge.name)")
+            let encoder = Firestore.Encoder()
+            encoder.dateEncodingStrategy = .timestamp
+            let encodedBadge = try encoder.encode(badgeToAward)
+
+            // Update Firestore
+            try await userRef.setData([
+                "badges.\(badge.id)": encodedBadge
+            ], merge: true)
+
+        } catch {
+            log("Failed to award badge: \(error.localizedDescription)")
+            throw error
+        }
+    }
+
+    // Check and award any new badges the user has earned
+    func checkAndAwardBadges(totalPoints: Int, currentLevel: Int, earnedBadges: [Badge]) async throws {
+        for badge in allBadges {
+            // Check if user meets requirements
+            if totalPoints >= badge.pointsRequired && currentLevel >= badge.levelRequired {
+                // Check if user already has this badge
+                if !earnedBadges.contains(where: { $0.id == badge.id }) {
+                    // Award the badge
+                    try await awardBadge(badge: badge)
+                }
+            }
+        }
+    }
+
+    // Fetch points data for user
+    func getPointsData() async throws -> (pointsHistory: [PointEntry], totalPoints: Int) {
+        log("Fetching points data")
+        guard let userId = currentUser?.id else {
+            log("Current user ID not found")
+            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
+        }
+
+        let pointsRef = db.collection("points").document(userId)
+
+        do {
+            let document = try await pointsRef.getDocument()
+            if let data = document.data() {
+                let totalPoints = data["totalPoints"] as? Int ?? 0
+                if let pointsArray = data["points"] as? [[String: Any]] {
+                    let decoder = Firestore.Decoder()
+                    decoder.dateDecodingStrategy = .timestamp
+                    let pointsHistory = try pointsArray.map { dict in
+                        return try decoder.decode(PointEntry.self, from: dict)
+                    }
+                    DispatchQueue.main.async {
+                        self.totalPoints = totalPoints
+                    }
+                    return (pointsHistory: pointsHistory, totalPoints: totalPoints)
+                }
+            }
+            return (pointsHistory: [], totalPoints: 0)
+        } catch {
+            log("Failed to get points data: \(error.localizedDescription)")
+            throw error
+        }
+    }
+
+    // Fetch current level for user
+    func getCurrentLevel() async throws -> Int {
+        log("Fetching current level")
+        guard let userId = currentUser?.id else {
+            log("Current user ID not found")
+            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
+        }
+
+        let userRef = db.collection("users").document(userId)
+
+        do {
+            let document = try await userRef.getDocument()
+            if let data = document.data() {
+                let currentLevel = data["currentLevel"] as? Int ?? 1
+                DispatchQueue.main.async {
+                    self.currentLevel = currentLevel
+                }
+                return currentLevel
+            }
+            return 1
+        } catch {
+            log("Failed to get current level: \(error.localizedDescription)")
+            throw error
+        }
+    }
+
+    // Fetch badges for user
+    func getBadges() async throws -> [Badge] {
+        log("Fetching badges")
+        guard let userId = currentUser?.id else {
+            log("Current user ID not found")
+            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
+        }
+
+        let badgesRef = db.collection("badges").document(userId)
+
+        do {
+            let document = try await badgesRef.getDocument()
+            if let data = document.data(), let badgesDict = data["badges"] as? [String: [String: Any]] {
+                let decoder = Firestore.Decoder()
+                decoder.dateDecodingStrategy = .timestamp
+                let badges = try badgesDict.values.map { dict in
+                    return try decoder.decode(Badge.self, from: dict)
+                }
+                return badges
+            }
+            return []
+        } catch {
+            log("Failed to get badges: \(error.localizedDescription)")
+            throw error
         }
     }
 

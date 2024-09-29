@@ -16,6 +16,19 @@ struct ProfileView: View {
     @State private var isBreathingExerciseViewActive = false
     @State private var isFeedbackFormPresented = false
     @State private var isRoutineListViewPresented = false
+    @State private var isFactorListViewPresented = false
+    @State private var isRectangleViewPresented = false
+    @State private var isRewardsListViewPresented = false
+    @State private var isSettingsListViewPresented = false
+
+    
+    @State private var GAD7Present = false
+    @State private var PSSPresent = false
+    @State private var NMRQPresent = false
+    @State private var PHQ9Present = false
+    @EnvironmentObject var eventKitManager: EventKitManager
+    @EnvironmentObject var healthKitManager: HealthKitManager
+
 
     var body: some View {
         NavigationView {
@@ -92,7 +105,61 @@ struct ProfileView: View {
                             isRoutineListViewPresented.toggle()
                         }
                         .sheet(isPresented: $isRoutineListViewPresented) {
-                            RoutineListView(viewModel: viewModel).environmentObject(viewModel)
+                            RoutineBuilderView().environmentObject(viewModel)
+                        }
+                        
+                        Button("Settings") {
+                            isSettingsListViewPresented.toggle()
+                        }
+                        .sheet(isPresented: $isSettingsListViewPresented) {
+                            SettingsView().environmentObject(viewModel).environmentObject(healthKitManager).environmentObject(eventKitManager)
+                        }
+                        
+                        Button("Rewards") {
+                            isRewardsListViewPresented.toggle()
+                        }
+                        .sheet(isPresented: $isRewardsListViewPresented) {
+                            PointsAndBadgesView().environmentObject(viewModel)
+                        }
+                        
+                        Button("Factor List") {
+                            isFactorListViewPresented.toggle()
+                        }
+                        .sheet(isPresented: $isFactorListViewPresented) {
+                            FactorPage(category: .emotional).environmentObject(viewModel)
+                        }
+                        
+                        Button("Rectangle View") {
+                            isRectangleViewPresented.toggle()
+                        }
+                        .sheet(isPresented: $isRectangleViewPresented) {
+                            RectangleView().environmentObject(viewModel).environmentObject(NetworkManager())
+                        }
+                    }
+                    Section("Quizzes") {
+                        Button("GAD7") {
+                            GAD7Present.toggle()
+                        }
+                        .sheet(isPresented: $GAD7Present) {
+                            GAD7QuizView().environmentObject(viewModel)
+                        }
+                        Button("NMRQ") {
+                            NMRQPresent.toggle()
+                        }
+                        .sheet(isPresented: $NMRQPresent) {
+                            NMRQQuizView().environmentObject(viewModel)
+                        }
+                        Button("PSS") {
+                            PSSPresent.toggle()
+                        }
+                        .sheet(isPresented: $PSSPresent) {
+                            PSSQuizView().environmentObject(viewModel)
+                        }
+                        Button("PHQ9") {
+                            PHQ9Present.toggle()
+                        }
+                        .sheet(isPresented: $PHQ9Present) {
+                            PHQ9QuizView().environmentObject(viewModel)
                         }
                     }
                 }

@@ -1,25 +1,25 @@
 //
-//  PurpleNewBG2.2.swift
+//  PinkNewBG6.swift
 //  peakmind-mvp
 //
-//  Created by ZA on 8/19/24.
+//  Created by ZA on 9/23/24.
 //
 
 import SwiftUI
 
-struct P2_2: View {
+struct P3_6_1: View {
     var closeAction: () -> Void
     @State private var userInput: String = ""
     @FocusState private var isTextEditorFocused: Bool
     @State private var isTyping: Bool = false
     @State private var keyboardHeight: CGFloat = 0
-    @State private var navigateToBreathingExercise: Bool = false
+    @State private var navigateToQuizIntro = false // State for navigation
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 // background image
-                Image("PurpleNewBG")
+                Image("PinkNewBG")
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
                 
@@ -30,26 +30,26 @@ struct P2_2: View {
                     // question header
                     Text("Wellness Question")
                         .font(.custom("SFProText-Bold", size: (isTextEditorFocused || isTyping) ? 12 : 18))
-                        .foregroundColor(Color("PurpleTitleColor"))
+                        .foregroundColor(Color("PinkTitleColor"))
                         .padding(.top, (isTextEditorFocused || isTyping) ? -44 : 10)
                         .animation(.easeInOut(duration: 0.3), value: isTyping)
                         .animation(.easeInOut(duration: 0.3), value: isTextEditorFocused)
                     
                     // question text
-                    Text("What do you most enjoy when you have a day to yourself?")
-                        .font(.custom("SFProText-Heavy", size: (isTextEditorFocused || isTyping) ? 12 : 27))
+                    Text("What emotions usually show up when you're feeling anxious?")
+                        .font(.custom("SFProText-Heavy", size: (isTextEditorFocused || isTyping) ? 18 : 27))
                         .multilineTextAlignment(.center)
-                        .foregroundColor(Color("PurpleQuestionColor"))
+                        .foregroundColor(Color("PinkQuestionColor"))
                         .lineLimit(nil)
                         .padding(.top, (isTextEditorFocused || isTyping) ? -30 : 0)
                         .padding(.horizontal, 20)
-                        .shadow(color: Color.white.opacity(0.3), radius: 10, x: 0, y: 0) // light glow around the text
+                        .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0) // light glow around the text
                         .animation(.easeInOut(duration: 0.5), value: isTyping)
                         .animation(.easeInOut(duration: 0.5), value: isTextEditorFocused)
                     
                     // input box
                     ZStack(alignment: .topLeading) {
-                        // Placeholder text
+                        // placeholder text
                         if userInput.isEmpty {
                             Text("Start typing here...")
                                 .foregroundColor(Color.gray.opacity(0.5))
@@ -61,16 +61,16 @@ struct P2_2: View {
                         // textEditor for user input
                         TextEditor(text: $userInput)
                             .font(.custom("SFProText-Bold", size: 16))
-                            .foregroundColor(Color("TextInsideBoxColor"))
+                            .foregroundColor(Color("PinkTextColor"))
                             .focused($isTextEditorFocused)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 8)
                             .frame(height: 200, alignment: .topLeading)
-                            .background(Color.clear) // make the background clear
+                            .background(Color.clear) // Make the background clear
                             .scrollContentBackground(.hidden)
                             .background(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("PinkBoxGradientColor1"), Color("PinkBoxGradientColor2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -78,7 +78,7 @@ struct P2_2: View {
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
+                                    .stroke(Color("PinkBorderColor"), lineWidth: 3.5)
                             )
                             .onChange(of: userInput) { newValue in
                                 withAnimation {
@@ -100,7 +100,7 @@ struct P2_2: View {
                                 Spacer()
                                 Text("\(userInput.count)/250")
                                     .font(.custom("SFProText-Bold", size: 12))
-                                    .foregroundColor(Color("TextInsideBoxColor"))
+                                    .foregroundColor(Color("PinkTextColor"))
                                     .padding(8)
                                     .background(Color.black.opacity(0.2))
                                     .cornerRadius(8)
@@ -117,7 +117,6 @@ struct P2_2: View {
                     // submit button
                     Button(action: {
                         isTextEditorFocused = false
-                        navigateToBreathingExercise = true
                         closeAction()
                     }) {
                         Text("Submit")
@@ -127,19 +126,21 @@ struct P2_2: View {
                             .padding(.horizontal, 12)
                             .background(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PurpleButtonGradientColor1"), Color("PurpleButtonGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("PinkButtonGradientColor2"), Color("PinkButtonGradientColor1")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
                             )
                             .cornerRadius(15)
-                            .shadow(color: userInput.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0) // conditional glow around the button
+                            .shadow(color: userInput.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0) // light glow when input is not empty
                     }
+                    .disabled(userInput.isEmpty) // Disable the button when there is no input
                     .padding(.bottom, 50)
-                    .disabled(userInput.isEmpty) // disable button if no text
-                    .opacity(userInput.isEmpty ? 1.0 : 1.0) // change opacity when disabled
                     
-                    
+                    // Navigation to P3QuizIntroView
+                    NavigationLink(destination: P3QuizIntro(), isActive: $navigateToQuizIntro) {
+                        EmptyView()
+                    }
                 }
                 .padding(.horizontal)
                 .onTapGesture {
@@ -164,11 +165,5 @@ struct P2_2: View {
                 }
             }
         }
-    }
-}
-
-struct WellnessQuestionViewPurple_Previews: PreviewProvider {
-    static var previews: some View {
-        WellnessQuestionViewPurple()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  PurpleNewBG2.2.swift
+//  GreenNewBG.swift
 //  peakmind-mvp
 //
 //  Created by ZA on 8/19/24.
@@ -7,19 +7,18 @@
 
 import SwiftUI
 
-struct P2_2: View {
+struct P2_WellnessQuestion: View {
     var closeAction: () -> Void
     @State private var userInput: String = ""
     @FocusState private var isTextEditorFocused: Bool
     @State private var isTyping: Bool = false
     @State private var keyboardHeight: CGFloat = 0
-    @State private var navigateToBreathingExercise: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 // background image
-                Image("PurpleNewBG")
+                Image("GreenNewBG")
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
                 
@@ -30,26 +29,26 @@ struct P2_2: View {
                     // question header
                     Text("Wellness Question")
                         .font(.custom("SFProText-Bold", size: (isTextEditorFocused || isTyping) ? 12 : 18))
-                        .foregroundColor(Color("PurpleTitleColor"))
+                        .foregroundColor(Color("GreenTitleColor"))
                         .padding(.top, (isTextEditorFocused || isTyping) ? -44 : 10)
                         .animation(.easeInOut(duration: 0.3), value: isTyping)
                         .animation(.easeInOut(duration: 0.3), value: isTextEditorFocused)
                     
                     // question text
                     Text("What do you most enjoy when you have a day to yourself?")
-                        .font(.custom("SFProText-Heavy", size: (isTextEditorFocused || isTyping) ? 12 : 27))
+                        .font(.custom("SFProText-Heavy", size: (isTextEditorFocused || isTyping) ? 18 : 27))
                         .multilineTextAlignment(.center)
-                        .foregroundColor(Color("PurpleQuestionColor"))
+                        .foregroundColor(Color("GreenQuestionColor"))
                         .lineLimit(nil)
                         .padding(.top, (isTextEditorFocused || isTyping) ? -30 : 0)
                         .padding(.horizontal, 20)
-                        .shadow(color: Color.white.opacity(0.3), radius: 10, x: 0, y: 0) // light glow around the text
+                        .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0) // light glow around the text
                         .animation(.easeInOut(duration: 0.5), value: isTyping)
                         .animation(.easeInOut(duration: 0.5), value: isTextEditorFocused)
                     
                     // input box
                     ZStack(alignment: .topLeading) {
-                        // Placeholder text
+                        // P\placeholder text
                         if userInput.isEmpty {
                             Text("Start typing here...")
                                 .foregroundColor(Color.gray.opacity(0.5))
@@ -61,7 +60,7 @@ struct P2_2: View {
                         // textEditor for user input
                         TextEditor(text: $userInput)
                             .font(.custom("SFProText-Bold", size: 16))
-                            .foregroundColor(Color("TextInsideBoxColor"))
+                            .foregroundColor(Color("GreenTextColor"))
                             .focused($isTextEditorFocused)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 8)
@@ -70,7 +69,7 @@ struct P2_2: View {
                             .scrollContentBackground(.hidden)
                             .background(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("GreenBoxGradientColor1"), Color("GreenBoxGradientColor2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -78,13 +77,13 @@ struct P2_2: View {
                             )
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
+                                    .stroke(Color("GreenBorderColor"), lineWidth: 3.5)
                             )
                             .onChange(of: userInput) { newValue in
                                 withAnimation {
                                     isTyping = !userInput.isEmpty
                                 }
-                                // Enforce character limit
+                                // enforce character limit
                                 if newValue.count > 250 {
                                     userInput = String(newValue.prefix(250))
                                 }
@@ -100,7 +99,7 @@ struct P2_2: View {
                                 Spacer()
                                 Text("\(userInput.count)/250")
                                     .font(.custom("SFProText-Bold", size: 12))
-                                    .foregroundColor(Color("TextInsideBoxColor"))
+                                    .foregroundColor(Color("GreenTextColor"))
                                     .padding(8)
                                     .background(Color.black.opacity(0.2))
                                     .cornerRadius(8)
@@ -114,10 +113,9 @@ struct P2_2: View {
                     Spacer()
                         .frame(height: (isTextEditorFocused || isTyping) ? (keyboardHeight - geometry.safeAreaInsets.bottom) / 2 : 20)
                     
-                    // submit button
+                    // Submit button
                     Button(action: {
                         isTextEditorFocused = false
-                        navigateToBreathingExercise = true
                         closeAction()
                     }) {
                         Text("Submit")
@@ -127,19 +125,16 @@ struct P2_2: View {
                             .padding(.horizontal, 12)
                             .background(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PurpleButtonGradientColor1"), Color("PurpleButtonGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("GreenButtonGradientColor1"), Color("GreenButtonGradientColor2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
                             )
                             .cornerRadius(15)
-                            .shadow(color: userInput.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0) // conditional glow around the button
+                            .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0) // light glow around the button
                     }
                     .padding(.bottom, 50)
-                    .disabled(userInput.isEmpty) // disable button if no text
-                    .opacity(userInput.isEmpty ? 1.0 : 1.0) // change opacity when disabled
-                    
-                    
+
                 }
                 .padding(.horizontal)
                 .onTapGesture {
@@ -167,8 +162,3 @@ struct P2_2: View {
     }
 }
 
-struct WellnessQuestionViewPurple_Previews: PreviewProvider {
-    static var previews: some View {
-        WellnessQuestionViewPurple()
-    }
-}

@@ -1,16 +1,13 @@
-
 //
-//  PurpleNewBG2.swift
+//  GreenNewBG4.2.swift
 //  peakmind-mvp
 //
-//  Created by ZA on 8/22/24.
+//  Created by ZA on 9/17/24.
 //
-
-
 
 import SwiftUI
 
-struct P2_1: View {
+struct P2_4_2: View {
     var closeAction: () -> Void
     @State private var currentIndex: Int = 0
     @State private var isButtonDisabled: Bool = true
@@ -18,16 +15,17 @@ struct P2_1: View {
     @State private var navigateToWellnessQuestion = false // state to control navigation
     
     let bulletPoints = [
-        "Mental health involves our emotional, psychological, and social well-being. It shapes how we perceive the world and think about ourselves. Every decision we make is influenced by our mental health, making it so important to learn coping strategies and how to manage it correctly!",
-        "Managing our mental health requires a conscious effort since we have different personal and environmental needs. Our mental health impacts how we interact with others, shaping personal relationships and social interactions.",
-        "Just like taking care of our bodies, prioritizing mental health is essential. A happy life is within reach for everyone. Using coping strategies, support groups, and learning about our specific mental health struggles will lead to a happier lifestyle."
+        "Not all thoughts are created equal! Some thought patterns are like fire starters, quickly igniting anxious feelings. Let's explore some of the most common culprits. First up, we have pessimism. This is the tendency to see dark clouds forming even on the brightest days, always expecting the worst to happen.",
+        "Next on our list is catastrophizing. This is when our minds take a tiny misstep and blow it up into a full-blown disaster movie! We start with a small problem, like maybe forgetting a line in a presentation, and suddenly we're convinced it's the end of the world. And let's not forget the guilt and shame twins! These two can really fuel the anxiety fire. They whisper in our ears that we've messed up big time and everyone must think terribly of us.",
+        "Worry is like a bad habit - the more you do it, the harder it is to break. It's that constant mental chatter about all the things that could go wrong, even if they're highly unlikely. Similar to worry, obsessive thinking gets stuck on repeat. It's like a mental record player playing the same negative thought over and over, fueling anxiety",
+        "Perfectionism involves setting unrealistic expectations and believing that mistakes are unacceptable. Recognizing these various anxiety triggers within yourself is crucial for understanding and managing your experiences."
     ]
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Background image
-                Image("PurpleNewBG")
+                // background image
+                Image("GreenNewBG")
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
                 
@@ -36,9 +34,9 @@ struct P2_1: View {
                         .frame(height: 80)
                     
                     // title above the box
-                    Text("Mental Health")
+                    Text("Stress Awareness")
                         .font(.custom("SFProText-Bold", size: 30))
-                        .foregroundColor(Color("PurpleTitleColor"))
+                        .foregroundColor(Color("GreenTitleColor"))
                         .padding(.bottom, 10)
                         .shadow(color: Color.white.opacity(0.3), radius: 5, x: 0, y: 0)
                     
@@ -48,7 +46,7 @@ struct P2_1: View {
                         RoundedRectangle(cornerRadius: 15)
                             .fill(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("GreenBoxGradientColor1"), Color("GreenBoxGradientColor2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -56,7 +54,7 @@ struct P2_1: View {
                             .frame(height: geometry.size.height * 0.55) // increased height
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
+                                    .stroke(Color("GreenBorderColor"), lineWidth: 3.5)
                             )
                         
                         // scrollable list of bullet points with auto-scroll
@@ -89,14 +87,14 @@ struct P2_1: View {
                     
                     Spacer()
                     
-                    // next/continue Button
+                    // Next/Continue Button
                     Button(action: {
                         if currentIndex < bulletPoints.count - 1 {
                             isButtonDisabled = true
                             showGlow = false // hide glow when text starts typing
                             currentIndex += 1
                         } else {
-                            navigateToWellnessQuestion = true // trigger navigation
+                            closeAction()
                         }
                     }) {
                         Text(currentIndex < bulletPoints.count - 1 ? "Next" : "Continue")
@@ -106,7 +104,7 @@ struct P2_1: View {
                             .padding(.horizontal, 12)
                             .background(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PurpleButtonGradientColor1"), Color("PurpleButtonGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("GreenButtonGradientColor1"), Color("GreenButtonGradientColor2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -117,10 +115,7 @@ struct P2_1: View {
                     .padding(.bottom, 50)
                     .disabled(isButtonDisabled) // disable button if typing is not complete
                     
-                    // navigation link to the next screen
-                    NavigationLink(destination: WellnessQuestionViewPurple(), isActive: $navigateToWellnessQuestion) {
-                        EmptyView()
-                    }
+                    
                 }
                 .padding(.horizontal)
             }
@@ -130,48 +125,6 @@ struct P2_1: View {
             currentIndex = 0
             isButtonDisabled = true
             showGlow = false
-        }
-    }
-}
-
-struct FeatureBulletPoint: View {
-    var text: String
-    @State private var visibleText: String = ""
-    @State private var charIndex: Int = 0
-    var onTypingComplete: () -> Void
-    
-    var body: some View {
-        // feature text with typing animation
-        Text(visibleText)
-            .font(.custom("SFProText-Medium", size: 16))
-            .foregroundColor(Color("PurpleTextColor"))
-            .multilineTextAlignment(.leading)
-            .onAppear {
-                typeText()
-            }
-    }
-    
-    private func typeText() {
-        visibleText = ""
-        charIndex = 0
-        
-        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { timer in
-            if charIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: charIndex)
-                visibleText.append(text[index])
-                charIndex += 1
-            } else {
-                timer.invalidate()
-                onTypingComplete()
-            }
-        }
-    }
-}
-
-struct MentalHealthFeatureView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            MentalHealthFeatureView()
         }
     }
 }

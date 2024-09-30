@@ -1031,7 +1031,6 @@
 				7976E66A2BD73877006C3726 /* Self Care Suite */,
 				7976E6692BD73871006C3726 /* Communities */,
 				7969B4F82CA9F44300CEEB05 /* Routines */,
-				79A73E482CA9ED3F00CE9E40 /* Routines2 */,
 				791A274E2C8A80D8000D52BE /* MentalModelView.swift */,
 				791A27502C8FA970000D52BE /* TriangleView.swift */,
 				797BF6422C9D032300118768 /* QuizOnboardingVIew.swift */,
@@ -1576,13 +1575,6 @@
 				79A73DD32CA55A7F00CE9E40 /* Tutorial8.swift */,
 			);
 			path = Tutorial;
-			sourceTree = "<group>";
-		};
-		79A73E482CA9ED3F00CE9E40 /* Routines2 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Routines2;
 			sourceTree = "<group>";
 		};
 		79C383DB2BC610E800A6779A /* Check In */ = {

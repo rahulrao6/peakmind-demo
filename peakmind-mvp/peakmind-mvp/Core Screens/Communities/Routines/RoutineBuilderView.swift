@@ -121,7 +121,7 @@ struct Habit: Identifiable {
         case morning = "Morning"
         case afternoon = "Afternoon"
         case evening = "Evening"
-        case anytime = "Anytime"
+        case anytime = "All"
     }
 
     init(id: String, title: String, unit: String, count: Int, goal: Int, startColor: String, endColor: String, category: String, frequency: FrequencyType, reminder: Date?, routineTime: RoutineTime, endDate: Date, dateTaken: String, startDate: Date, interval: Int? = nil, daysOfWeek: [Int]? = nil, specificDates: [Date]? = nil) {

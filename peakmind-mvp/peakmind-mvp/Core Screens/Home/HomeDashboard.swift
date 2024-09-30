@@ -15,125 +15,127 @@ struct HomeDashboard: View {
     }
 
     var body: some View {
-        ZStack {
-            // Background image
-            Image("HomeBG")
-                .resizable()
-                .edgesIgnoringSafeArea(.all)
-
-            VStack {
-                ZStack {
-                    // Logo centered
-                    HStack {
-                        Spacer() // Ensure the logo is centered by adding spacers
+        NavigationView{
+            ZStack {
+                // Background image
+                Image("HomeBG")
+                    .resizable()
+                    .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    ZStack {
+                        // Logo centered
+                        HStack {
+                            Spacer() // Ensure the logo is centered by adding spacers
+                            
+                            Image("PM3D")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 300, height: 60)
+                                .padding(.top, 5)
+                                .padding(.bottom, -13)
+                            
+                            Spacer() // Ensure the logo is centered
+                        }
                         
-                        Image("PM3D")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 300, height: 60)
-                            .padding(.top, 5)
-                            .padding(.bottom, -13)
-                        
-                        Spacer() // Ensure the logo is centered
+                        // Gear icon positioned at the top-right corner
+                        VStack {
+                            HStack {
+                                Spacer() // Push the gear to the right
+                                NavigationLink(destination: SettingsView()) {
+                                    Image(systemName: "gearshape.fill")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .padding(.trailing, 20)
+                                }
+                                .foregroundColor(.navyBlue)
+                            }
+                        }
+                        .padding(.top, -55) // Move the gear icon higher on the screen
                     }
                     
-                    // Gear icon positioned at the top-right corner
-                    VStack {
-                        HStack {
-                            Spacer() // Push the gear to the right
-                            NavigationLink(destination: SettingsView()) {
-                                Image(systemName: "gearshape.fill")
+                    ScrollView {
+                        // Scrollable VStack for the buttons
+                        VStack(spacing: 17) {
+                            ZStack(alignment: .bottomLeading) {
+                                Image("CheckInBG")
                                     .resizable()
-                                    .frame(width: 30, height: 30)
-                                    .padding(.trailing, 20)
-                            }
-                            .foregroundColor(.navyBlue)
-                        }
-                    }
-                    .padding(.top, -55) // Move the gear icon higher on the screen
-                }
-                
-                ScrollView {
-                    // Scrollable VStack for the buttons
-                    VStack(spacing: 17) {
-                        ZStack(alignment: .bottomLeading) {
-                            Image("CheckInBG")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-
-                            VStack(alignment: .leading) {
-                                Button(action: {
-                                    if (!isCheckedIn) {
-                                        self.showDailyCheckInSheet.toggle() // Show Daily Check-In sheet when button pressed
+                                    .aspectRatio(contentMode: .fit)
+                                
+                                VStack(alignment: .leading) {
+                                    Button(action: {
+                                        if (!isCheckedIn) {
+                                            self.showDailyCheckInSheet.toggle() // Show Daily Check-In sheet when button pressed
+                                        }
+                                    }) {
+                                        Image(isCheckedIn ? "Thanks" : "CheckInText")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 225, height: 60)
                                     }
-                                }) {
-                                    Image(isCheckedIn ? "Thanks" : "CheckInText")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 225, height: 60)
-                                }
-                                .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
-                                .padding(.top)
-                                .padding(.leading, 25) // Adjust the left padding as necessary
-                                .sheet(isPresented: $showDailyCheckInSheet) {
-                                    DailyCheckInView() // Present DailyCheckInView as a sheet
-                                }
-
-                                Spacer() // Pushes the dots to the bottom
-
-                                // Dummy HStack for dots as placeholders
-                                HStack(spacing: 5) {
-                                    ForEach(0..<7, id: \.self) { index in
-                                        Circle()
-                                            .fill(index % 2 == 0 ? Color("Ice Blue") : Color.gray)
-                                            .frame(width: 25, height: 25)
-                                            .overlay(
-                                                Text(abbreviationForDay(index: index))
-                                                    .font(.system(size: 12)) // Smaller font size
-                                                    .fontWeight(.bold) // Make the font bold
-                                                    .foregroundColor(.black)
-                                            )
+                                    .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
+                                    .padding(.top)
+                                    .padding(.leading, 25) // Adjust the left padding as necessary
+                                    .sheet(isPresented: $showDailyCheckInSheet) {
+                                        DailyCheckInView() // Present DailyCheckInView as a sheet
                                     }
+                                    
+                                    Spacer() // Pushes the dots to the bottom
+                                    
+                                    // Dummy HStack for dots as placeholders
+                                    HStack(spacing: 5) {
+                                        ForEach(0..<7, id: \.self) { index in
+                                            Circle()
+                                                .fill(index % 2 == 0 ? Color("Ice Blue") : Color.gray)
+                                                .frame(width: 25, height: 25)
+                                                .overlay(
+                                                    Text(abbreviationForDay(index: index))
+                                                        .font(.system(size: 12)) // Smaller font size
+                                                        .fontWeight(.bold) // Make the font bold
+                                                        .foregroundColor(.black)
+                                                )
+                                        }
+                                    }
+                                    .padding(.bottom, 35)
+                                    .padding(.leading, 25) // Align the days of the week with the CheckInText
                                 }
-                                .padding(.bottom, 35)
-                                .padding(.leading, 25) // Align the days of the week with the CheckInText
+                                .frame(maxWidth: .infinity, alignment: .leading) // Ensures alignment
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading) // Ensures alignment
-                        }
-
-                        NavigationLink(destination: OnboardingView()) {
-                            Image("FlowButton")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        }
-                        
-                        NavigationLink(destination: ChatView().environmentObject(viewModel)) { // viewModel passed here
-                            Image("SherpaButton")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        }
-
-                        // HStack for side-by-side buttons
-                        HStack(spacing: 20) {
-                            NavigationLink(destination: JournalView()) {
-                                Image("JournalButton")
+                            
+                            NavigationLink(destination: OnboardingView()) {
+                                Image("FlowButton")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                             }
                             
-                            Button(action: {
-                                showResourcesSheet.toggle()
-                            }) {
-                                Image("ResourcesButton2")
+                            NavigationLink(destination: ChatView().environmentObject(viewModel)) { // viewModel passed here
+                                Image("SherpaButton")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                             }
-                            .sheet(isPresented: $showResourcesSheet) {
-                                ResourcesToUtilize()
+                            
+                            // HStack for side-by-side buttons
+                            HStack(spacing: 20) {
+                                NavigationLink(destination: JournalView()) {
+                                    Image("JournalButton")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                }
+                                
+                                Button(action: {
+                                    showResourcesSheet.toggle()
+                                }) {
+                                    Image("ResourcesButton2")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                }
+                                .sheet(isPresented: $showResourcesSheet) {
+                                    ResourcesToUtilize()
+                                }
                             }
                         }
+                        .padding()
                     }
-                    .padding()
                 }
             }
         }

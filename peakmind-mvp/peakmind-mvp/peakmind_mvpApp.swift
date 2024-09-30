@@ -9,6 +9,7 @@ import FirebaseCore
 import GoogleSignIn
 import UserNotifications
 import EventKit
+import Pendo
 
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -16,6 +17,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+//        PendoManager.shared().setup("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhY2VudGVyIjoidXMiLCJrZXkiOiJmN2M1NzVmODNkNDhkOTQ1M2JlMjM4ZjBjNjUwYTQxNzBlMTI2NGYyZmE0NmMxMTg0NzRjY2E4NTlhNzFiN2ZhMzI3NzNkOTc0NDg1NzljNjVmMjBiZTZkZWJjMjA4Mjc1NDgwMmY4MTZlZmFjNGFjN2NjNDUyNDUwMmIxYzMxMTZiZmE4ODFlYTUzM2ViZWRjZjBlZjJkMjI5N2Q1NjIyOGY5MmRkNDdkMzRlYzNjNDMyMzAyYTYzYjE4N2I2NmIwNWVkMDk0MmQzNzQ5ODU4NTczYTMyZTJlOTA0YzQwZGMyZTdlNDFmZWEzNjIxZDU1Zjc3MzNiYTE1NWM5OGEyNmI2MTVmNjJlN2UzYjcxMzBiMzM4ZTNmYTIxMjMzN2YuODlhOTBjMmI4OWVmZmExNGU4M2RjNzEwMzk2YjY1YTAuYzAwNDQxNTQxMDRiZmRjYmFmZDcxMjU4ZThlYzMzOTdhNjA5MGQ5M2FhZTkyYjM5ZGY0ZWZkYzE4MWNjNWFkNCJ9.GvEo5mEc8ota3tSD_S96vjIGztJH9EjcnZHAXcufAiKJz88iRLLJHJMjMceD0yZKylVk5EA6b-Ie81cidZ8poXKhZzU8utlHycnq1eaBFEpXsLJd4MQV5CBZp_wuBPnkk5GeRPDtOgxEf8J5HEqqbATSv_krbZmszN8sW4oOm4o")
+
         print("Configuring Firebase...")
         FirebaseApp.configure()
         print("Firebase configured.")
@@ -36,6 +39,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL,
                      options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+//        if url.scheme?.range(of: "pendo") != nil {
+//            PendoManager.shared().initWith(url)
+//            return true
+//        }
         print("Handling URL: \(url)")
         let handled = GIDSignIn.sharedInstance.handle(url)
         print("URL handled: \(handled)")
@@ -44,6 +51,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             UserDefaults.standard.set(Date(), forKey: "LastLoginTime")
             print("Last login time updated.")
         }
+
         return handled
     }
     
@@ -100,9 +108,19 @@ struct peakmind_mvpApp: App {
                         // Example of scheduling a notification
                         scheduleNotificationsBasedOnLastLogin()
                     }
+                
             }
+//            .pendoEnableSwiftUI()
+//            .onOpenURL(perform: handleURL)
         }
+
     }
+    
+    func handleURL(_ url: URL) {
+        _ = delegate.application(UIApplication.shared, open: url, options: [:])
+
+    }
+    
     func scheduleNotification() {
         let center = UNUserNotificationCenter.current()
         

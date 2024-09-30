@@ -152,6 +152,7 @@
 		19F693E42C779AF900B002E1 /* PurpleNewBG2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F693E32C779AF900B002E1 /* PurpleNewBG2.swift */; };
 		19F693E62C77B13A00B002E1 /* PurpleNewBG1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F693E52C77B13A00B002E1 /* PurpleNewBG1.swift */; };
 		19F895C52C5059F900C5D6E6 /* ViewMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F895C42C5059F900C5D6E6 /* ViewMod.swift */; };
+		1C2495632CAA417C00F0DE87 /* Pendo in Frameworks */ = {isa = PBXBuildFile; productRef = 1C2495622CAA417C00F0DE87 /* Pendo */; };
 		1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C480FED2C21387F002B19A0 /* Model.xcdatamodeld */; };
 		1C53A4292C254CDF00B27C23 /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A4282C254CDF00B27C23 /* MessagesViewModel.swift */; };
 		1C53A42B2C254E9F00B27C23 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C53A42A2C254E9F00B27C23 /* MessageView.swift */; };
@@ -819,6 +820,7 @@
 				1CF4C4242B7B1DD50028BC3C /* FirebaseDatabaseSwift in Frameworks */,
 				1CF4C4442B7B1DD60028BC3C /* FirebaseStorageCombine-Community in Frameworks */,
 				1CF4C43E2B7B1DD50028BC3C /* FirebaseRemoteConfig in Frameworks */,
+				1C2495632CAA417C00F0DE87 /* Pendo in Frameworks */,
 				79A73E3F2CA61FEC00CE9E40 /* ProgressIndicatorView in Frameworks */,
 				1CF4C42E2B7B1DD50028BC3C /* FirebaseFunctions in Frameworks */,
 				1CF4C41A2B7B1DD50028BC3C /* FirebaseAppDistribution-Beta in Frameworks */,
@@ -1801,6 +1803,7 @@
 				1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */,
 				191340002C682A2900DB5C01 /* Lottie */,
 				79A73E3E2CA61FEC00CE9E40 /* ProgressIndicatorView */,
+				1C2495622CAA417C00F0DE87 /* Pendo */,
 			);
 			productName = "peakmind-mvp";
 			productReference = 1CF4C3DE2B7B15E10028BC3C /* peakmind-mvp.app */;
@@ -1882,6 +1885,7 @@
 				1973F32F2C4DEFE900EDC29F /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 				19133FFF2C682A2900DB5C01 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				79A73E3D2CA61F0200CE9E40 /* XCRemoteSwiftPackageReference "ProgressIndicatorView" */,
+				1C2495612CAA413800F0DE87 /* XCRemoteSwiftPackageReference "pendo-mobile-sdk" */,
 			);
 			productRefGroup = 1CF4C3DF2B7B15E10028BC3C /* Products */;
 			projectDirPath = "";
@@ -2444,8 +2448,10 @@
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PeakMind;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "This app needs access to your calendar to display and manage events.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please share your AppleHealthKit data with us so we can give you the best possible ideas. ";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Our app needs access to your health data to properly update analytics that are used for personalization. ";
+				INFOPLIST_KEY_NSRemindersUsageDescription = "This app requires access to Reminders to schedule habit reminders.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -2486,8 +2492,10 @@
 				INFOPLIST_FILE = "peakmind-mvp/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PeakMind;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "This app needs access to your calendar to display and manage events.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please share your AppleHealthKit data with us so we can give you the best possible ideas. ";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Our app needs access to your health data to properly update analytics that are used for personalization. ";
+				INFOPLIST_KEY_NSRemindersUsageDescription = "This app requires access to Reminders to schedule habit reminders.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -2661,6 +2669,14 @@
 				minimumVersion = 1.2.0;
 			};
 		};
+		1C2495612CAA413800F0DE87 /* XCRemoteSwiftPackageReference "pendo-mobile-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pendo-io/pendo-mobile-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.4.1;
+			};
+		};
 		1CF4A8972B8309C000051684 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -2702,6 +2718,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 19133FFF2C682A2900DB5C01 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		1C2495622CAA417C00F0DE87 /* Pendo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C2495612CAA413800F0DE87 /* XCRemoteSwiftPackageReference "pendo-mobile-sdk" */;
+			productName = Pendo;
 		};
 		1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */ = {
 			isa = XCSwiftPackageProductDependency;

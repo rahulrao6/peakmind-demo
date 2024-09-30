@@ -13,25 +13,25 @@ struct TabViewMain: View {
                 }
                 .tag(2) // Default tab
 
-            RoutineBuilderView()
+            RoutineBuilderView().environmentObject(viewModel)
                 .tabItem {
                     Label("Routines", systemImage: "repeat")
                 }
                 .tag(1)
 
-            JournalView()
+            JournalView().environmentObject(viewModel)
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }
                 .tag(0)
 
-            YourQuestsView()
+            YourQuestsView().environmentObject(viewModel)
                 .tabItem {
                     Label("Quests", systemImage: "flag")
                 }
                 .tag(3)
 
-            JournalView()
+            JournalView().environmentObject(viewModel)
                 .tabItem {
                     Label("Profiles", systemImage: "brain")
                 }

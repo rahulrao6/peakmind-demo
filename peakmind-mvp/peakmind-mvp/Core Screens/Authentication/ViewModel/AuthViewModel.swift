@@ -5,6 +5,7 @@ import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
 import GoogleSignIn
+import Pendo
 
 protocol AuthenticationFormProtocol {
     var formIsValid: Bool { get }
@@ -36,6 +37,8 @@ class AuthViewModel: ObservableObject {
             if let user = user {
                 self.fetchUserData(userId: user.uid)
                 self.healthKitManager.requestAuthorization()
+
+
                 Task {
                     //let _ = await self.EventKitManager1.requestAccess(to: .event)
                     let _ = await self.EventKitManager1.requestAccess(to: .reminder)
@@ -48,6 +51,25 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+    
+    func startPendoSession(user: UserData?, userId: String) {
+        guard let user = user else { return }
+        
+        // Prepare visitorData and accountData for Pendo
+        let visitorData: [String: AnyHashable] = [
+            "name": user.username,
+            "email": user.email,
+            "bio": user.bio
+        ]
+        
+        let accountData: [String: AnyHashable] = [
+            "email": user.email,
+            "lastCheckIn": user.lastCheck
+        ]
+        
+        // Start a Pendo session
+        PendoManager.shared().startSession(userId, accountId: userId, visitorData: visitorData, accountData: accountData)
+    }
 
     func fetchUserData(userId: String) {
         let userRef = db.collection("users").document(userId)
@@ -59,6 +81,8 @@ class AuthViewModel: ObservableObject {
                 do {
                     self.currentUser = try document.data(as: UserData.self)
                     self.isSignedIn = true
+                    self.startPendoSession(user: self.currentUser, userId: userId)
+
                 } catch {
                     print("Error decoding user data: \(error.localizedDescription)")
                 }
@@ -1657,7 +1681,112 @@ class AuthViewModel: ObservableObject {
         }
     }
 
+    func saveJournalEntry(entry: JournalEntry) async throws {
+           guard let currentUserID = currentUser?.id else {
+               throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
+           }
+           
+           let db = Firestore.firestore()
+           let userRef = db.collection("journal").document(currentUserID)
+            let journalRef = userRef.collection("journalEntries").document()
 
+           // Convert the journal entry to a dictionary for Firestore
+           let data: [String: Any] = [
+               "id": journalRef.documentID,
+               "question": entry.question,
+               "answer": entry.answer,
+               "date": Timestamp(date: entry.date)
+           ]
+           
+           // Save the journal entry to Firestore
+           try await journalRef.setData(data)
+       }
+
+       // Fetch journal entries from Firestore
+       func fetchJournalEntries(completion: @escaping ([JournalEntry]) -> Void) {
+           guard let currentUserID = currentUser?.id else { return }
+           
+           let db = Firestore.firestore()
+           let userRef = db.collection("journal").document(currentUserID)
+           let journalCollection = userRef.collection("journalEntries")
+           
+           journalCollection.getDocuments { (snapshot, error) in
+               if let error = error {
+                   print("Error fetching journal entries: \(error.localizedDescription)")
+                   completion([])
+               } else {
+                   var entries: [JournalEntry] = []
+                   for document in snapshot!.documents {
+                       let data = document.data()
+                       if let question = data["question"] as? String,
+                          let answer = data["answer"] as? String,
+                          let date = (data["date"] as? Timestamp)?.dateValue() {
+                           let entry = JournalEntry(id: document.documentID, question: question, answer: answer, date: date)
+                           entries.append(entry)
+                       }
+                   }
+                   completion(entries)
+               }
+           }
+       }
+    
+    func updateJournalEntry(entry: JournalEntry) async throws {
+            guard let currentUserID = currentUser?.id else {
+                throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
+            }
+
+            let db = Firestore.firestore()
+            let userRef = db.collection("journal").document(currentUserID)
+            let journalEntryRef = userRef.collection("journalEntries").document(entry.id) // Ensure entry.id is not nil or empty
+
+            // Log Firestore path
+            print("Updating journal entry at path: users/\(currentUserID)/journalEntries/\(entry.id)")
+
+            // Prepare the updated data
+            let updatedData: [String: Any] = [
+                "question": entry.question,
+                "answer": entry.answer,
+                "date": Timestamp(date: entry.date) // Ensure date is in Firestore format
+            ]
+
+            // Attempt to update Firestore
+            do {
+                print(updatedData)
+                try await journalEntryRef.setData(updatedData)
+                print("Journal entry updated in Firestore.")
+            } catch {
+                print("Failed to update Firestore document: \(error.localizedDescription)")
+                throw error
+            }
+        }
+    
+    func checkIfPromptAnswered(completion: @escaping (Bool) -> Void) {
+        guard let currentUserID = currentUser?.id else { return }
+        
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(currentUserID)
+        
+        userRef.getDocument { document, error in
+            if let error = error {
+                print("Error checking prompt answered: \(error)")
+                completion(false)
+                return
+            }
+            
+            if let data = document?.data(), let lastPromptAnsweredDate = data["lastPromptAnsweredDate"] as? Timestamp {
+                let lastDate = lastPromptAnsweredDate.dateValue()
+                let calendar = Calendar.current
+                if calendar.isDateInToday(lastDate) {
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            } else {
+                completion(false)
+            }
+        }
+    }
+    
 
 
 }

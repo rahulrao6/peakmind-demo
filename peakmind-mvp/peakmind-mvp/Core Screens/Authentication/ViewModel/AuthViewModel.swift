@@ -1730,6 +1730,36 @@ class AuthViewModel: ObservableObject {
            }
        }
     
+    func updateJournalEntry(entry: JournalEntry) async throws {
+            guard let currentUserID = currentUser?.id else {
+                throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
+            }
+
+            let db = Firestore.firestore()
+            let userRef = db.collection("journal").document(currentUserID)
+            let journalEntryRef = userRef.collection("journalEntries").document(entry.id) // Ensure entry.id is not nil or empty
+
+            // Log Firestore path
+            print("Updating journal entry at path: users/\(currentUserID)/journalEntries/\(entry.id)")
+
+            // Prepare the updated data
+            let updatedData: [String: Any] = [
+                "question": entry.question,
+                "answer": entry.answer,
+                "date": Timestamp(date: entry.date) // Ensure date is in Firestore format
+            ]
+
+            // Attempt to update Firestore
+            do {
+                print(updatedData)
+                try await journalEntryRef.setData(updatedData)
+                print("Journal entry updated in Firestore.")
+            } catch {
+                print("Failed to update Firestore document: \(error.localizedDescription)")
+                throw error
+            }
+        }
+    
     func checkIfPromptAnswered(completion: @escaping (Bool) -> Void) {
         guard let currentUserID = currentUser?.id else { return }
         

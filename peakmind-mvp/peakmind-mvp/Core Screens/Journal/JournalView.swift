@@ -429,6 +429,7 @@ struct JournalDetailView: View {
     @State private var isEditing = false // Track if the user is in edit mode
     @State private var editedQuestion: String = ""
     @State private var editedAnswer: String = ""
+    @EnvironmentObject var viewModel: AuthViewModel // Inject the AuthViewModel
 
     var body: some View {
         ZStack {
@@ -452,16 +453,8 @@ struct JournalDetailView: View {
 
                     // Edit button (top-right, next to question)
                     Button(action: {
-                        if isEditing {
-                            // Save changes when exiting edit mode
-                            entry.question = editedQuestion
-                            entry.answer = editedAnswer
-                        } else {
-                            // Prepare fields for editing
-                            editedQuestion = entry.question
-                            editedAnswer = entry.answer
-                        }
-                        isEditing.toggle()
+
+                        update()
                     }) {
                         Text(isEditing ? "Save" : "Edit")
                             .font(.custom("SFProText-Bold", size: 16))
@@ -506,6 +499,19 @@ struct JournalDetailView: View {
         }
         // Disable dark mode by setting the color scheme to light
         .preferredColorScheme(.light)
+    }
+    func update() {
+        if isEditing {
+            var entryt = JournalEntry(question: editedQuestion, answer: editedAnswer, date: entry.date)
+            Task{
+               try await viewModel.updateJournalEntry(entry: entryt)
+            }
+        } else {
+            // Prepare fields for editing
+            editedQuestion = entry.question
+            editedAnswer = entry.answer
+        }
+        isEditing.toggle()
     }
 }
 

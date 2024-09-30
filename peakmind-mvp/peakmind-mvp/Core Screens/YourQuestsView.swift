@@ -93,6 +93,7 @@ struct YourQuestsView: View {
     
     @State private var showRewardPopup = false
     @State private var selectedQuest: Quest?
+    @State private var showPointsAndBadgesView = false // State to control navigation
     
     var body: some View {
         NavigationView {
@@ -173,7 +174,32 @@ struct YourQuestsView: View {
                     }
                 }
             }
+            .overlay(
+                HStack {
+                    Spacer()
+                    VStack {
+                        Button(action: {
+                            showPointsAndBadgesView = true // Set to true to navigate to PointsAndBadgesView
+                        }) {
+                            Image(systemName: "star.fill")
+                                .font(.system(size: 20)) // Smaller button
+                                .foregroundColor(.yellow) // Yellow star
+                                .padding(10) // Reduced padding
+                                .background(Color.black) // Black circle background
+                                .clipShape(Circle())
+                        }
+                        .padding(.top, 40)
+
+                        Spacer()
+                    }
+                    .padding(.trailing, 20)
+                }
+            )
+
             .navigationBarHidden(true)
+            .sheet(isPresented: $showPointsAndBadgesView) {
+                PointsAndBadgesView() // Navigate to the PointsAndBadgesView
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

@@ -43,7 +43,7 @@ struct GradientProgressViewStyleWithLabel: ProgressViewStyle {
 }
 struct GradientProgressViewStyleWithLabel2: ProgressViewStyle {
     var title: String
-    var currentValue: Int
+    @Binding var currentValue: Int // Now it is a binding so you can modify the value
     var totalValue: Int
     var unit: String
     var endColor: Color
@@ -75,10 +75,19 @@ struct GradientProgressViewStyleWithLabel2: ProgressViewStyle {
                 }
                 .frame(width: geometry.size.width)
             }
+            .gesture(DragGesture(minimumDistance: 0)
+                .onChanged { value in
+                    // Use geometry proxy inside the gesture closure
+                    let progress = min(max(0, value.location.x / geometry.size.width), 1)
+                    let newCount = Int(progress * CGFloat(totalValue))
+                    currentValue = newCount // Update currentValue based on the progress
+                }
+            )
         }
         .frame(height: 60)
     }
 }
+
 
 
 import FirebaseFirestore
@@ -223,6 +232,8 @@ struct RoutineBuilderView: View {
     @State private var habitHistory: [String: [Habit]] = [:]
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var habitsByName: [String: [Habit]] = [:]
+    @State private var isEditing: Bool = false // Added for edit mode
+    @State private var isDeleting: Bool = false // Added for delete mode
     private var db = Firestore.firestore()
     
     var body: some View {
@@ -252,8 +263,8 @@ struct RoutineBuilderView: View {
                                 selectedRoutine = routineTime
                             }
                         }
-                        } label: {
-                        Text(selectedRoutine.rawValue ?? "All")
+                    } label: {
+                        Text(selectedRoutine.rawValue)
                             .font(.custom("SFProText-Heavy", size: 14))
                             .frame(width: 50, height: 5)
                             .padding()
@@ -266,106 +277,165 @@ struct RoutineBuilderView: View {
                 .padding(.top, 40)
                 
                 ScrollView(.horizontal, showsIndicators: false) {
-                                   HStack(spacing: 10) {
-                                       ForEach(-3..<7, id: \.self) { index in
-                                           let date = Calendar.current.date(byAdding: .day, value: index, to: Date()) ?? Date()
-                                           VStack {
-                                               ZStack(alignment: .bottom) {
-                                                   RoundedRectangle(cornerRadius: 8)
-                                                       .fill(
-                                                           Calendar.current.isDateInToday(date) ? Color.black.opacity(0.4) :
-                                                           (Calendar.current.isDate(selectedDate, inSameDayAs: date) ? Color.blue.opacity(0.4) : Color.gray.opacity(0.0))
-                                                       )
-                                                       .frame(width: 50, height: 80)
-                                                       .border(Color.blue, width: Calendar.current.isDate(selectedDate, inSameDayAs: date) ? 2 : 0)
-                                                   
-                                                   // Updated progress bar for each date
-                                                   RoundedRectangle(cornerRadius: 8)
-                                                       .fill(Color(hex: "6b58db")!)
-                                                       .frame(width: 50, height: 80 * (habitProgress[dateString(for: date)] ?? 0))
-                                                   
-                                                   VStack {
-                                                       Text(getDayAbbreviation(for: date))
-                                                           .font(.custom("SFProText-Bold", size: 12))
-                                                           .foregroundColor(.white)
-                                                       Text("\(getDateNumber(for: date))")
-                                                           .font(.custom("SFProText-Heavy", size: 16))
-                                                           .foregroundColor(.white)
-                                                   }
-                                                   .padding()
-                                               }
-                                               .onTapGesture {
-                                                   selectedDate = date
-                                                   loadHabits(for: date)
-                                               }
-                                           }
-                                       }
-                                   }
-                                   .padding(.horizontal)
-                               }
-                               .padding(.top, -5)
+                    HStack(spacing: 10) {
+                        ForEach(-3..<7, id: \.self) { index in
+                            let date = Calendar.current.date(byAdding: .day, value: index, to: Date()) ?? Date()
+                            VStack {
+                                ZStack(alignment: .bottom) {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Calendar.current.isDate(selectedDate, inSameDayAs: date) ? Color.green : Color.clear, lineWidth: 2)
+                                        .background(
+                                            Calendar.current.isDateInToday(date) ? Color.black.opacity(0.4) :
+                                            (Calendar.current.isDate(selectedDate, inSameDayAs: date) ? Color.white.opacity(0.3) : Color.gray.opacity(0.0))
+                                        )
+                                        .cornerRadius(8)
+                                        .frame(width: 50, height: 80)
+                                    
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color(hex: "6b58db")!)
+                                        .frame(width: 50, height: 80 * (habitProgress[dateString(for: date)] ?? 0))
+
+                                    VStack {
+                                        Text(getDayAbbreviation(for: date))
+                                            .font(.custom("SFProText-Bold", size: 12))
+                                            .foregroundColor(.white)
+                                        Text("\(getDateNumber(for: date))")
+                                            .font(.custom("SFProText-Heavy", size: 16))
+                                            .foregroundColor(.white)
+                                    }
+                                    .padding()
+                                }
+                                .onTapGesture {
+                                    selectedDate = date
+                                    loadHabits(for: date)
+                                }
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+                .padding(.top, -5)
                 
                 ScrollView {
-                    VStack(spacing: 20) {
+                    VStack(spacing: 23) {
                         if filteredHabits.isEmpty {
                             Text("No tasks for the selected day")
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .padding(.top, 20)
                         } else {
-                        ForEach(filteredHabits) { habit in
-                            ProgressView(value: CGFloat(habit.count) / CGFloat(habit.goal))
-                                .progressViewStyle(GradientProgressViewStyleWithLabel2(
-                                    title: habit.title,
-                                    currentValue: habit.count,
-                                    totalValue: habit.goal,
-                                    unit: habit.unit,
-                                    endColor: Color(hex: habit.endColor)!,
-                                    startColor: Color(hex: habit.startColor)!
-                                ))
-                                .onTapGesture {
-                                    selectedHabitForAnalytics = habit
-                                    loadHabitHistoryForHabit(habit.title) {
-                                        showingAnalytics = true
+                            ForEach($habits) { $habit in
+                                ZStack(alignment: .topTrailing) {
+                                    ProgressView(value: CGFloat(habit.count) / CGFloat(habit.goal))
+                                        .progressViewStyle(GradientProgressViewStyleWithLabel2(
+                                            title: habit.title,
+                                            currentValue: $habit.count, // Use the binding version
+                                            totalValue: habit.goal,
+                                            unit: habit.unit,
+                                            endColor: Color(hex: habit.endColor)!,
+                                            startColor: Color(hex: habit.startColor)!
+                                        ))
+                                        .onTapGesture {
+                                            if isEditing {
+                                                selectedHabitForAnalytics = habit
+                                                showingAddHabitForm = true
+                                            } else if isDeleting {
+                                                print("Delete pressed for \(habit.title)")
+                                            }
+                                        }
+                                        .padding(.horizontal, 5)
+
+                                    if isDeleting {
+                                        Button(action: {
+                                            print("Delete \(habit.title) tapped")
+                                        }) {
+                                            ZStack {
+                                                Circle()
+                                                    .fill(Color.white)
+                                                    .frame(width: 20, height: 20)
+
+                                                Image(systemName: "xmark")
+                                                    .foregroundColor(.red)
+                                                    .frame(width: 10, height: 10)
+                                            }
+                                        }
+                                        .padding(.trailing, 5)
+                                        .padding(.top, -5)
                                     }
                                 }
-                                .gesture(DragGesture(minimumDistance: 10)
-                                    .onEnded { value in
-                                        if value.translation.width < 0 {
-                                            updateHabit(by: habit.id, increment: -1)
-                                        } else if value.translation.width > 0 {
-                                            updateHabit(by: habit.id, increment: 1)
-                                        }
-                                    }
-                                )
-                                .padding(.horizontal)
+                            }
                         }
                     }
-                    }
+                    .frame(minHeight: 0, maxHeight: .infinity)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
+
                 }
+                .frame(maxHeight: .infinity)
                 
-                Button(action: {
-                    showingAddHabitForm.toggle()
-                }) {
-                    Text("Add New Habit")
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                HStack(spacing: 40) {
+                    VStack {
+                        Button(action: {
+                            showingAnalytics = true
+                        }) {
+                            VStack {
+                                Image(systemName: "chart.bar")
+                                    .font(.system(size: 24))
+                                Text("Analytics")
+                                    .font(.custom("SFProText-Bold", size: 14))
+                            }
+                        }
+                    }
+                    
+                    VStack {
+                        Button(action: {
+                            isEditing.toggle()
+                            if isEditing {
+                                isDeleting = false
+                            }
+                        }) {
+                            VStack {
+                                Image(systemName: "pencil")
+                                    .font(.system(size: 24))
+                                Text("Edit")
+                                    .font(.custom("SFProText-Bold", size: 14))
+                            }
+                            .foregroundColor(isEditing ? .blue : .white)
+                        }
+                    }
+                    
+                    VStack {
+                        Button(action: {
+                            isDeleting.toggle()
+                            if isDeleting {
+                                isEditing = false
+                            }
+                        }) {
+                            VStack {
+                                Image(systemName: "trash")
+                                    .font(.system(size: 24))
+                                Text("Delete")
+                                    .font(.custom("SFProText-Bold", size: 14))
+                            }
+                            .foregroundColor(isDeleting ? .blue : .white)
+                        }
+                    }
+                    
+                    VStack {
+                        Button(action: {
+                            showingAddHabitForm.toggle()
+                        }) {
+                            VStack {
+                                Image(systemName: "plus")
+                                    .font(.system(size: 24))
+                                Text("Add Habit")
+                                    .font(.custom("SFProText-Bold", size: 14))
+                            }
+                        }
+                    }
                 }
-                .padding(.bottom)
-                Button(action: {
-                    showingAnalytics = true
-                }) {
-                    Text("Show Analytics")
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding(.bottom)
+                .foregroundColor(.white)
+                .padding(.bottom, 30)
             }
         }
         .sheet(isPresented: $showingIncrementPopup) {
@@ -991,6 +1061,7 @@ import SwiftUI
 struct HabitTemplate: Identifiable, Hashable {
     let id = UUID()
     let name: String
+    let emoji: String
     let defaultUnit: String
     
     func hash(into hasher: inout Hasher) {
@@ -1004,165 +1075,184 @@ struct HabitTemplate: Identifiable, Hashable {
 struct AddHabitForm: View {
     @State private var habitTitle: String = ""
     @State private var habitUnit: String = ""
-    @State private var habitGoal: Int = 1
-    @State private var selectedTemplate: HabitTemplate?
+    @State private var habitGoal: String = "" // Now using a string for direct input
     @State private var category: String = "Health"
-    @State private var frequency: String = "Daily"
+    @State private var frequencyType: Habit.FrequencyType = .daily
     @State private var reminder: Date = Date()
     @State private var startColor: Color = .blue
     @State private var endColor: Color = .purple
     @State private var routineTime: Habit.RoutineTime = .anytime
     @State private var endDate: Date = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
-    @State private var shouldAddToReminders: Bool = false // Add this property
-    @State private var frequencyType: Habit.FrequencyType = .daily
+    @State private var shouldAddToReminders: Bool = false // Add to Reminders flag
     @State private var interval: Int = 1
-    @State private var selectedDaysOfWeek: [Int] = [] // 1 = Sunday, ..., 7 = Saturday
+    @State private var selectedDaysOfWeek: [Int] = []
     @State private var specificDates: [Date] = []
+    
+    @State private var showingTemplateSelection = true
     @Environment(\.dismiss) var dismiss
 
     let habitTemplates: [HabitTemplate] = [
-        HabitTemplate(name: "Exercise", defaultUnit: "minutes"),
-        HabitTemplate(name: "Reading", defaultUnit: "pages"),
-        HabitTemplate(name: "Meditation", defaultUnit: "minutes"),
-        HabitTemplate(name: "Water Intake", defaultUnit: "glasses")
+        HabitTemplate(name: "Exercise", emoji: "🏋️‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Reading", emoji: "📖", defaultUnit: "pages"),
+        HabitTemplate(name: "Meditation", emoji: "🧘‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Water Intake", emoji: "💧", defaultUnit: "glasses"),
+        HabitTemplate(name: "Study", emoji: "📚", defaultUnit: "hours")
     ]
-    
-    var addHabitAction: (Habit) -> Void
 
     let categories = ["Health", "Productivity", "Personal Growth", "Other"]
-    let frequencies = ["Daily", "Weekly", "Monthly"]
+
+    var addHabitAction: (Habit) -> Void
 
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Habit Details")) {
-                    // Existing fields for title, unit, and goal
-                    // ...
-                    Picker("Select Template", selection: $selectedTemplate) {
-                        Text("Custom").tag(HabitTemplate?.none)
+            VStack {
+                if showingTemplateSelection {
+                    // Template Selection List
+                    List {
                         ForEach(habitTemplates) { template in
-                            Text(template.name).tag(HabitTemplate?.some(template))
+                            Button(action: {
+                                habitTitle = template.name
+                                habitUnit = template.defaultUnit
+                                showingTemplateSelection = false
+                            }) {
+                                HStack {
+                                    Text(template.emoji) // Emoji corresponding to the habit type
+                                    Text(template.name)
+                                        .font(.custom("SFProText-Bold", size: 16)) // SF Pro Text Bold
+                                }
+                            }
                         }
-                    }
-                    .onChange(of: selectedTemplate) { newValue in
-                        if let template = newValue {
-                            habitTitle = template.name
-                            habitUnit = template.defaultUnit
-                        } else {
+
+                        // Custom Habit Button
+                        Button(action: {
                             habitTitle = ""
                             habitUnit = ""
+                            showingTemplateSelection = false
+                        }) {
+                            HStack {
+                                Image(systemName: "plus.circle")
+                                Text("Custom Habit")
+                            }
+                            .font(.custom("SFProText-Bold", size: 16)) // SF Pro Text Bold
+                        }
+                        .foregroundColor(.blue)
+                    }
+                    .navigationTitle("Select a Habit Template")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .font(.custom("SFProText-Bold", size: 16)) // SF Pro Text Bold
+                } else {
+                    // Habit Form
+                    Form {
+                        Section(header: Text("Habit Details").font(.custom("SFProText-Bold", size: 16))) {
+                            TextField("Habit Title", text: $habitTitle)
+                                .font(.custom("SFProText-Bold", size: 16))
+                            TextField("Unit", text: $habitUnit)
+                                .disabled(habitTemplates.map { $0.name }.contains(habitTitle))
+                                .font(.custom("SFProText-Bold", size: 16))
+                        }
+
+                        Section(header: Text("Goal").font(.custom("SFProText-Bold", size: 16))) {
+                            TextField("Daily Goal", text: $habitGoal)
+                                .keyboardType(.numberPad)
+                                .font(.custom("SFProText-Bold", size: 16))
+                        }
+
+                        Section(header: Text("Schedule").font(.custom("SFProText-Bold", size: 16))) {
+                            DatePicker("End Date", selection: $endDate, displayedComponents: [.date])
+                                .font(.custom("SFProText-Bold", size: 16))
+
+                            Picker("Group", selection: $category) {
+                                ForEach(categories, id: \.self) { Text($0) }
+                            }
+                            .font(.custom("SFProText-Bold", size: 16))
+
+                            // Frequency picker
+                            Picker("Frequency", selection: $frequencyType) {
+                                Text("Daily").tag(Habit.FrequencyType.daily)
+                                Text("Weekly").tag(Habit.FrequencyType.weekly)
+                                Text("Monthly").tag(Habit.FrequencyType.monthly)
+                                Text("Every N Days").tag(Habit.FrequencyType.everyNDays)
+                                Text("Specific Days of Week").tag(Habit.FrequencyType.specificDaysOfWeek)
+                            }
+                            .pickerStyle(MenuPickerStyle())
+                            .font(.custom("SFProText-Bold", size: 16))
+
+                            if frequencyType == .everyNDays {
+                                Stepper("Every \(interval) days", value: $interval, in: 1...30)
+                                    .font(.custom("SFProText-Bold", size: 16))
+                            } else if frequencyType == .specificDaysOfWeek {
+                                MultipleSelectionRow(title: "Select Days", options: [1, 2, 3, 4, 5, 6, 7], selectedOptions: $selectedDaysOfWeek)
+                                    .font(.custom("SFProText-Bold", size: 16))
+                            }
+                        }
+
+                        Section(header: Text("Reminder Options").font(.custom("SFProText-Bold", size: 16))) {
+                            Toggle("Add to Reminders App", isOn: $shouldAddToReminders)
+                                .font(.custom("SFProText-Bold", size: 16))
+
+                            if shouldAddToReminders {
+                                DatePicker("Reminder Date", selection: $reminder, displayedComponents: [.date, .hourAndMinute])
+                                    .font(.custom("SFProText-Bold", size: 16))
+                            }
+                        }
+
+                        Section(header: Text("Habit Color").font(.custom("SFProText-Bold", size: 16))) {
+                            ColorPicker("Start Color", selection: $startColor)
+                                .font(.custom("SFProText-Bold", size: 16))
+                            ColorPicker("End Color", selection: $endColor)
+                                .font(.custom("SFProText-Bold", size: 16))
+                        }
+
+                        Section {
+                            Button(action: addHabit) {
+                                Text("Add Habit")
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                                    .font(.custom("SFProText-Bold", size: 16))
+                            }
+                            .disabled(habitTitle.isEmpty || habitUnit.isEmpty || habitGoal.isEmpty)
                         }
                     }
-
-                    if selectedTemplate == nil {
-                        TextField("Custom Habit", text: $habitTitle)
-                    }
-
-                    TextField("Unit", text: $habitUnit)
-                        .disabled(selectedTemplate != nil)
-                }
-
-                Section(header: Text("Goal")) {
-                    Stepper("Daily Goal: \(habitGoal) \(habitUnit)", value: $habitGoal, in: 1...100)
-                }
-
-
-                
-                
-                Section(header: Text("Schedule")) {
-                      DatePicker("End Date", selection: $endDate, displayedComponents: [.date])
-                      
-                      Picker("Category", selection: $category) {
-                          ForEach(categories, id: \.self) { Text($0) }
-                      }
-                      
-                    Picker("Frequency", selection: $frequencyType) {
-                        Text("Daily").tag(Habit.FrequencyType.daily)
-                        Text("Weekly").tag(Habit.FrequencyType.weekly)
-                        Text("Monthly").tag(Habit.FrequencyType.monthly)
-                        Text("Every N Days").tag(Habit.FrequencyType.everyNDays)
-                        Text("Specific Days of Week").tag(Habit.FrequencyType.specificDaysOfWeek)
-                        //Text("Custom Dates").tag(Habit.FrequencyType.customDates)
-                        
-                    }
-                    
-                    Group {
-                        switch frequencyType {
-                        case .everyNDays:
-                            Stepper("Every \(interval) days", value: $interval, in: 1...30)
-                        case .specificDaysOfWeek:
-                            MultipleSelectionRow(title: "Select Days", options: [1, 2, 3, 4, 5, 6, 7], selectedOptions: $selectedDaysOfWeek)
-                        default:
-                            EmptyView()
+                    .navigationTitle("New Habit")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Back") {
+                                showingTemplateSelection = true
+                            }
+                            .font(.custom("SFProText-Bold", size: 16))
                         }
                     }
-                    
-                    
-                      
-                      Picker("Routine Time", selection: $routineTime) {
-                          ForEach(Habit.RoutineTime.allCases, id: \.self) { routineTime in
-                              Text(routineTime.rawValue).tag(routineTime)
-                          }
-                      }
-                      
-                      //DatePicker("Reminder", selection: $reminder, displayedComponents: [.hourAndMinute])
-                  }
-                
-                
-                Section(header: Text("Reminder Options")) {
-                    Toggle("Add to Reminders App", isOn: $shouldAddToReminders)
-                    if shouldAddToReminders {
-                        DatePicker("Reminder Date", selection: $reminder, displayedComponents: [.date, .hourAndMinute])
-                    }
-                }
-                
-
-                Section(header: Text("Habit Color")) {
-                    ColorPicker("Start Color", selection: $startColor)
-                    ColorPicker("End Color", selection: $endColor)
-                }
-
-                Section {
-                    Button(action: addHabit) {
-                        Text("Add Habit")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    .disabled(habitTitle.isEmpty || habitUnit.isEmpty)
-                }
-            }
-            .navigationTitle("New Habit")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") { dismiss() }
                 }
             }
         }
     }
 
     private func addHabit() {
+        guard let goalInt = Int(habitGoal) else { return } // Ensure goal is valid integer
+
         let newHabit = Habit(
             id: UUID().uuidString,
             title: habitTitle,
             unit: habitUnit,
             count: 0,
-            goal: habitGoal,
+            goal: goalInt, // Use converted goal as an integer
             startColor: startColor.toHex() ?? "#0000FF",
             endColor: endColor.toHex() ?? "#800080",
             category: category,
-            frequency: frequencyType, // Use frequencyType directly
+            frequency: frequencyType,
             reminder: shouldAddToReminders ? reminder : nil,
             routineTime: routineTime,
-            endDate: endDate, // Provide startDate
+            endDate: endDate,
             dateTaken: "",
             startDate: Date(),
             interval: frequencyType == .everyNDays ? interval : nil,
             daysOfWeek: frequencyType == .specificDaysOfWeek ? selectedDaysOfWeek : nil
         )
+
         addHabitAction(newHabit)
 
         if shouldAddToReminders {
@@ -1180,7 +1270,6 @@ struct AddHabitForm: View {
                     recurrenceRule = EventKitManager.shared.createRecurrenceRuleForEveryNDays(interval: interval, endDate: endDate)
                 case .specificDaysOfWeek:
                     recurrenceRule = EventKitManager.shared.createRecurrenceRuleForSpecificDaysOfWeek(daysOfWeek: selectedDaysOfWeek, endDate: endDate)
-                    break
                 }
 
                 _ = await EventKitManager.shared.scheduleReminder(

@@ -187,27 +187,25 @@ struct P2_3_2: View {
                                     .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
                             }
                             
-                            NavigationLink(destination: P2StressIntroView(), isActive: $navigatetoStressIntroView) {
-                                Button(action: {
-                                    navigatetoStressIntroView = true
-                                    closeAction("")
-                                    
-                                }) {
-                                    Text("Continue")
-                                        .font(.custom("SFProText-Bold", size: 20))
-                                        .foregroundColor(.white)
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 12)
-                                        .background(
-                                            LinearGradient(
-                                                gradient: Gradient(colors: [Color("GreenButtonGradientColor1"), Color("GreenButtonGradientColor2")]),
-                                                startPoint: .topLeading,
-                                                endPoint: .bottomTrailing
-                                            )
+                            Button(action: {
+                                navigatetoStressIntroView = true
+                                closeAction("")
+                                
+                            }) {
+                                Text("Continue")
+                                    .font(.custom("SFProText-Bold", size: 20))
+                                    .foregroundColor(.white)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 12)
+                                    .background(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [Color("GreenButtonGradientColor1"), Color("GreenButtonGradientColor2")]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
                                         )
-                                        .cornerRadius(15)
-                                        .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
-                                }
+                                    )
+                                    .cornerRadius(15)
+                                    .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
                             }
                         }
                         .padding(.top, 20)

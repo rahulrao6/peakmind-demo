@@ -88,8 +88,11 @@ struct TestView: View {
                                     scene.completedLevelsList.append(CompletedLevel(uid: level!.uid, phase: level!.phase))
                                 }
                             }
+                            
                         
                             scene.reloadCompletedLevels()
+                            scene.updatePhase()
+                            scene.reloadGates()
                             
                             activeModal = nil
                             
@@ -97,6 +100,9 @@ struct TestView: View {
                                 scene.animateGate()
                                 
                             }
+                            
+                            currentPhase = Int(floor(Double(scene.completedLevelsList.count) / 10.0))
+                            
                             
                             progress = CGFloat(Float(user.completedLevels.count) / Float(50))
                             progressString = String(Int(Float(user.completedLevels.count) / Float(50) * Float(1000))) + "ft"
@@ -106,34 +112,34 @@ struct TestView: View {
                     .onAppear {
                         scene.levels = [
 
-                            LevelNode(uid: 0, internalName: "P1_5_StressTriggerMap", title: "Mental Health Intro", viewFactory: { AnyView(P1_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 0, internalName: "P1_1", title: "Mental Health Intro", viewFactory: { AnyView(P1_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 1, internalName: "P1_MentalHealthMod", title: "About Mental Health", viewFactory: { AnyView(P2_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 1, internalName: "P1_2", title: "Mental Health 2", viewFactory: { AnyView(P2_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 2, internalName: "P1_3_EmotionsScenario", title: "Coping Mechanism", viewFactory: { AnyView(P3_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 2, internalName: "P1_3", title: "Coping Mechanism", viewFactory: { AnyView(P3_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 3, internalName: "P1_4_StressModule", title: "Stress Triggers", viewFactory: { AnyView(P4_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 3, internalName: "P1_4", title: "Stress Triggers", viewFactory: { AnyView(P4_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 4, internalName: "P1_5_StressTriggerMap", title: "Trigger Mapping", viewFactory: { AnyView(P5_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 4, internalName: "P1_5", title: "Trigger Mapping", viewFactory: { AnyView(P5_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 5, internalName: "P1_5_StressTriggerMap", title: "Reframing", viewFactory: { AnyView(P6_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 5, internalName: "P1_6", title: "Reframing", viewFactory: { AnyView(P6_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 6, internalName: "P1_MentalHealthMod", title: "Mood Boost", viewFactory: { AnyView(P7_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 6, internalName: "P1_7", title: "Mood Boost", viewFactory: { AnyView(P7_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 7, internalName: "P1_MentalHealthMod", title: "Muscle Relaxation", viewFactory: { AnyView(P8_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 7, internalName: "P1_8", title: "Muscle Relaxation", viewFactory: { AnyView(P8_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 8, internalName: "P1_MentalHealthMod", title: "Wellness Question", viewFactory: { AnyView(P9_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 8, internalName: "P1_9", title: "Wellness Question", viewFactory: { AnyView(P9_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 9, internalName: "P1_MentalHealthMod", title: "Minigame", viewFactory: { AnyView(GameUnavailable(closeAction: { (str) -> Void in
+                            LevelNode(uid: 9, internalName: "P1_10", title: "Minigame", viewFactory: { AnyView(GameUnavailable(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
                             
@@ -235,8 +241,11 @@ struct TestView: View {
                         ]
                         
                         scene.phaseColors = [
-                            UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1),
-                            UIColor(red: 142/255, green: 214/255, blue: 215/255, alpha: 1)
+                            UIColor(red: 102/255, green: 185/255, blue: 102/255, alpha: 1),   // Brighter Forest
+                            UIColor(red: 152/255, green: 182/255, blue: 91/255, alpha: 1),    // Brighter Treeline
+                            UIColor(red: 160/255, green: 170/255, blue: 180/255, alpha: 1),   // Brighter Rocky
+                            UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1),   // Bright Snowy (pure white)
+                            UIColor(red: 220/255, green: 215/255, blue: 215/255, alpha: 1)    // Brighter Summit
                         ]
                         
                         if (user.LevelOneCompleted) {
@@ -251,7 +260,8 @@ struct TestView: View {
                         
                         
                         
-                        scene.reloadGates()
+                        
+                        
                         
                         
                          for levelName in user.completedLevels {
@@ -260,6 +270,13 @@ struct TestView: View {
                                  scene.completedLevelsList.append(CompletedLevel(uid: level!.uid, phase: level!.phase))
                              }
                          }
+                        
+                        currentPhase = Int(floor(Double(scene.completedLevelsList.count) / 10.0))
+                        
+                        //scene.reloadCompletedLevels()
+                        scene.updatePhase()
+                        scene.reloadGates()
+                        
                         
                         progress = CGFloat(Float(user.completedLevels.count) / Float(50))
                         progressString = String(Int(Float(user.completedLevels.count) / Float(50) * Float(1000))) + "ft"
@@ -298,7 +315,7 @@ struct TestView: View {
                             Spacer()
                             
                             Text(progressString)
-                                .foregroundColor(.gray)
+                                .foregroundColor(.white)
                                 
                         }
                         .position(x: 25, y: geometry.size.height / 2 - 40) // Adjust x position for left alignment

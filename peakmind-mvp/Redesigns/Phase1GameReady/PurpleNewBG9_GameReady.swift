@@ -47,13 +47,9 @@ struct P9_1: View {
                     .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
             }
             .padding(.bottom, 50)
-            .background(
-                NavigationLink(
-                    destination: P9_2(closeAction: closeAction),
-                    isActive: $showNextScreen,
-                    label: { EmptyView() }
-                )
-            )
+            .fullScreenCover(isPresented: $showNextScreen) {
+                P9_2(closeAction: closeAction)
+            }
         }
         .padding(.horizontal)
         .background(

@@ -14,6 +14,8 @@ struct P2_7_1: View {
     @State private var factor3: String = ""
     @State private var factor4: String = ""
     @State private var factor5: String = ""
+    @State private var isClicked = false
+
     
     var body: some View {
         GeometryReader { geometry in
@@ -76,31 +78,33 @@ struct P2_7_1: View {
                         }
                         .padding(.horizontal, 20)
                     }
+                    .fullScreenCover(isPresented: $isClicked) {
+                        P2_4_2(closeAction: closeAction)
+                    }
                     
                     Spacer()
                     
                     // NavigationLink wraps the button as its label
                     if allTextBoxesFilled {
-                        NavigationLink(
-                            destination: P2_7_2(closeAction: closeAction, factors: [factor1, factor2, factor3, factor4, factor5]),
-                            label: {
-                                Text("Continue")
-                                    .font(.custom("SFProText-Bold", size: 20))
-                                    .foregroundColor(.white)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 12)
-                                    .background(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [Color("GreenButtonGradientColor1"), Color("GreenButtonGradientColor2")]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
+                        Button(action: {
+                                    isClicked = true
+                                }) {
+                                    Text("Continue")
+                                        .font(.custom("SFProText-Bold", size: 20))
+                                        .foregroundColor(.white)
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 12)
+                                        .background(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [Color("GreenButtonGradientColor1"), Color("GreenButtonGradientColor2")]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
                                         )
-                                    )
-                                    .cornerRadius(15)
-                                    .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
-                            }
-                        )
-                        .padding(.bottom, 50)
+                                        .cornerRadius(15)
+                                        .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
+                                }
+                                .padding(.bottom, 50)
                     }
                 }
             }

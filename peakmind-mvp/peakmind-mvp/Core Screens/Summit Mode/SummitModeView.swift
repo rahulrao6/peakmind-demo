@@ -1,5 +1,7 @@
 import SwiftUI
 import Foundation
+import AVKit
+import AVFoundation
 
 // MARK: - Data Models
 
@@ -333,6 +335,20 @@ struct FocusDurationView: View {
 
 
 
+struct VideoPlayerView: UIViewControllerRepresentable {
+    var player: AVPlayer
+
+    func makeUIViewController(context: Context) -> AVPlayerViewController {
+        let controller = AVPlayerViewController()
+        controller.player = player
+        controller.showsPlaybackControls = false // Hide playback controls
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {
+        // No need to update the player on every view update
+    }
+}
 
 
 struct FocusTimerView: View {
@@ -341,136 +357,155 @@ struct FocusTimerView: View {
     @State private var showGiveUpConfirmation: Bool = false
     @Environment(\.presentationMode) var presentationMode // To navigate back after giving up
 
+    // Public initializer to allow external initialization
+    init(viewModel: FlowModeViewModel) {
+        self.viewModel = viewModel
+    }
+
+    // AVPlayer instance for video playback
+    private var player: AVPlayer = {
+        let url = Bundle.main.url(forResource: "mountainLoop", withExtension: "mp4")!
+        let player = AVPlayer(url: url)
+        player.isMuted = true // Optionally mute the video
+        player.actionAtItemEnd = .none
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { _ in
+            player.seek(to: .zero)
+            player.play() // Loop the video automatically
+        }
+        return player
+    }()
+
     var body: some View {
-        VStack {
-            if let mountain = viewModel.mountain {
-                // Title for the mountain name
-                Text("Climbing: \(mountain.name)")
-                    .font(.custom("SFProText-Heavy", size: 35))
-                    .foregroundColor(.white)
-                    .padding(.top, 70) // Top padding for layout
-                    .padding(.horizontal, 20) // Reduced horizontal padding
-                    .multilineTextAlignment(.center) // Center text alignment
-                    .lineLimit(nil) // Allow multiple lines
-                    .allowsTightening(true) // Tighten text for better fitting
-                    .minimumScaleFactor(0.5) // Scale text down to fit if needed
-                
-                if mountain.currentStage < mountain.stages.count {
-                    let currentStage = mountain.stages[mountain.currentStage]
-                    
-                    // Pulsating Circle with time left in the middle
-                    ZStack {
-                        PulsatingCircle(color: currentStage.sceneryColor.opacity(0.7))
-                            .frame(width: 250, height: 250)
-                        
-                        Text(formatTotalTimeLeft())
-                            .font(.custom("SFProText-Heavy", size: 40))
-                            .foregroundColor(.white)
+        ZStack {
+            // Video Player as the full background
+            GeometryReader { geometry in
+                VideoPlayerView(player: player)
+                    .ignoresSafeArea(.all) // Extend video to fill the entire screen, ignoring safe area
+                    .frame(width: geometry.size.width, height: geometry.size.height) // Set to full screen
+                    .aspectRatio(contentMode: .fill) // Fill both width and height, cropping sides if needed
+                    .scaleEffect(3.8) // Manually zoom in (adjust this value for more or less zoom)
+                    .offset(x: 0, y: -70) // Adjust the position (y: -50 moves it upwards; adjust as needed)
+                    .onAppear {
+                        player.play() // Start video playback when view appears
                     }
-                    .padding(.top, 30)
-                    
-                    // Elevation climbed
-                    Text("\(Int(calculateElevationClimbed())) feet climbed")
-                        .font(.custom("SFProText-Bold", size: 18))
-                        .foregroundColor(.white)
-                        .padding(.top, 20)
+            }
+
+            // Foreground content (Text, Progress, Buttons, etc.)
+            VStack {
+                if let mountain = viewModel.mountain {
+                    // Move climbing text up
+                    Text("Climbing: \(mountain.name)")
+                        .font(.custom("SFProText-Heavy", size: 35))
+                        .foregroundColor(.black)
+                        .padding(.top, 20) // Moved higher
                         .padding(.horizontal, 20)
                         .multilineTextAlignment(.center)
-                    
-                    // Progress Bar
+
+                    // Move progress bar up
                     ProgressBar(progress: viewModel.progress)
                         .frame(height: 20)
                         .padding(.horizontal, 20)
-                        .padding(.top, 0)
-                    
-                    // Motivational Text based on remaining time
-                    Text(getMotivationalText(for: viewModel.selectedDuration - viewModel.elapsedTime))
-                        .font(.custom("SFProText-Heavy", size: 24))
-                        .foregroundColor(.white)
-                        .padding(.top, 10)
-                        .padding(.horizontal, 20)
-                        .multilineTextAlignment(.center)
-                    
-                    // Time Until Next Break
-                    Text("\(minutesUntilNextBreak()) minutes until next break")
-                        .font(.custom("SFProText-Bold", size: 18))
-                        .foregroundColor(.white)
-                        .padding(.top, 10)
-                        .padding(.horizontal, 20)
-                        .multilineTextAlignment(.center)
-                    
-                    Spacer()
-                    
-                    // Pause and Give Up buttons side by side
-                    HStack {
-                        // Pause/Resume button
-                        Button(action: {
-                            if isPaused {
-                                // Resume the timer
-                                viewModel.startClimb()
-                            } else {
-                                // Pause the timer
-                                viewModel.stopClimb()
+                        .padding(.top, 5) // Reduced padding to bring it closer to the climbing text
+
+                    if mountain.currentStage < mountain.stages.count {
+                        let currentStage = mountain.stages[mountain.currentStage]
+
+                        // Move elevation climbed text up
+                        Text("\(Int(calculateElevationClimbed())) feet climbed")
+                            .font(.custom("SFProText-Bold", size: 18))
+                            .foregroundColor(.black)
+                            .padding(.top, 5) // Moved closer to the progress bar
+                            .padding(.horizontal, 20)
+                            .multilineTextAlignment(.center)
+
+                        // Move total time left text up
+                        Text(formatTotalTimeLeft())
+                            .font(.custom("SFProText-Heavy", size: 70))
+                            .foregroundColor(.black)
+                            .padding(.top, 0) // Moved higher
+
+                        Spacer() // Create more space between upper and lower sections
+
+                        // Move motivational text down
+                        Text(getMotivationalText(for: viewModel.selectedDuration - viewModel.elapsedTime))
+                            .font(.custom("SFProText-Heavy", size: 24))
+                            .foregroundColor(.black)
+                            .padding(.top, 80) // Move closer to the buttons
+
+                            .padding(.bottom, 0) // Move closer to the buttons
+                            .padding(.horizontal, 20)
+                            .multilineTextAlignment(.center)
+
+                        // Move minutes until next break down
+                        Text("\(minutesUntilNextBreak()) minutes until next break")
+                            .font(.custom("SFProText-Bold", size: 18))
+                            .foregroundColor(.black)
+                            .padding(.bottom, 0) // Move closer to the buttons
+                            .padding(.horizontal, 20)
+                            .multilineTextAlignment(.center)
+
+                        //Spacer()
+
+                        // Pause and Give Up buttons at the bottom
+                        HStack {
+                            Button(action: {
+                                if isPaused {
+                                    viewModel.startClimb()
+                                    player.play() // Resume video if paused
+                                } else {
+                                    viewModel.stopClimb()
+                                    player.pause() // Pause video when timer is paused
+                                }
+                                isPaused.toggle()
+                            }) {
+                                Text(isPaused ? "Resume" : "Pause")
+                                    .font(.custom("SFProText-Bold", size: 16)) // Made text smaller
+                                    .foregroundColor(.white)
+                                    .frame(width: 120, height: 45) // Reduced the button size
+                                    .background(Color(hex: "1c4450")) // Updated to use #1c4450
+                                    .cornerRadius(8) // Smaller corner radius for a more compact look
                             }
-                            isPaused.toggle()
-                        }) {
-                            Text(isPaused ? "Resume" : "Pause")
-                                .font(.custom("SFProText-Bold", size: 20))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color(hex: "081b3f")!)
-                                .cornerRadius(10)
+                            
+                            Button(action: {
+                                showGiveUpConfirmation.toggle()
+                            }) {
+                                Text("Give Up")
+                                    .font(.custom("SFProText-Bold", size: 16)) // Made text smaller
+                                    .foregroundColor(.white)
+                                    .frame(width: 120, height: 45) // Reduced the button size
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(Color.white, lineWidth: 2) // White border around the button
+                                    )
+                            }
+                            .alert(isPresented: $showGiveUpConfirmation) {
+                                Alert(
+                                    title: Text("Are you sure you want to give up?"),
+                                    message: Text("This will end your current focus session."),
+                                    primaryButton: .destructive(Text("Confirm")) {
+                                        viewModel.resetFlow()
+                                        presentationMode.wrappedValue.dismiss() // Navigate back
+                                        player.pause() // Stop the video
+                                    },
+                                    secondaryButton: .cancel(Text("Return"))
+                                )
+                            }
                         }
-                        .padding(.horizontal, 10)
-                        
-                        // Give Up button
-                        Button(action: {
-                            showGiveUpConfirmation.toggle()
-                        }) {
-                            Text("Give Up")
-                                .font(.custom("SFProText-Bold", size: 20))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.red)
-                                .cornerRadius(10)
-                        }
-                        .padding(.horizontal, 10)
-                        .alert(isPresented: $showGiveUpConfirmation) {
-                            Alert(
-                                title: Text("Are you sure you want to give up?"),
-                                message: Text("This will end your current focus session."),
-                                primaryButton: .destructive(Text("Confirm")) {
-                                    // Reset the session and navigate back
-                                    viewModel.resetFlow()
-                                    presentationMode.wrappedValue.dismiss() // Navigate back
-                                },
-                                secondaryButton: .cancel(Text("Return"))
-                            )
-                        }
+                        .padding(.horizontal, 20) // Centered horizontally
+                        .padding(.vertical, 10) // Added vertical padding to move the buttons upwards
+
+                    } else {
+                        Text("Congratulations! You've reached the summit!")
+                            .font(.custom("SFProText-Heavy", size: 28))
+                            .foregroundColor(.black)
+                            .padding()
+                            .multilineTextAlignment(.center)
                     }
-                    .padding(.bottom, 20)
-                } else {
-                    // Congratulatory message
-                    Text("Congratulations! You've reached the summit!")
-                        .font(.custom("SFProText-Heavy", size: 28))
-                        .foregroundColor(.white)
-                        .padding()
-                        .multilineTextAlignment(.center)
                 }
+                Spacer()
             }
-            Spacer()
+            .padding(.top, 0) // Adjust padding as needed to keep content visible over the video
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity) // Take full screen width and height
-        .background(
-            LinearGradient(
-                gradient: Gradient(colors: [Color(hex: "00112d")!, Color(hex: "02284f")!]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .edgesIgnoringSafeArea(.all) // Cover the entire screen including safe areas
-        )
         .onAppear {
             viewModel.startClimb()
         }
@@ -478,7 +513,7 @@ struct FocusTimerView: View {
             viewModel.stopClimb()
         }
     }
-    
+
     // Updated formatTotalTimeLeft to display HOUR:MINUTE when above an hour
     func formatTotalTimeLeft() -> String {
         let totalTimeElapsed = viewModel.elapsedTime
@@ -494,7 +529,7 @@ struct FocusTimerView: View {
             return String(format: "%02d:%02d", minutes, seconds)
         }
     }
-    
+
     // Calculates the elevation climbed based on the total progress
     func calculateElevationClimbed() -> Double {
         guard let mountain = viewModel.mountain else { return 0 }
@@ -503,7 +538,7 @@ struct FocusTimerView: View {
         let totalProgress = viewModel.elapsedTime / totalDuration
         return totalElevation * totalProgress
     }
-    
+
     // Returns motivational text based on time left
     func getMotivationalText(for timeRemaining: TimeInterval) -> String {
         switch timeRemaining {
@@ -519,7 +554,7 @@ struct FocusTimerView: View {
             return "Almost at the summit, keep pushing!"
         }
     }
-    
+
     func minutesUntilNextBreak() -> Int {
         guard let mountain = viewModel.mountain else { return 0 }
         let currentStage = mountain.stages[mountain.currentStage]
@@ -527,6 +562,7 @@ struct FocusTimerView: View {
         return Int(timeLeftInStage / 60)
     }
 }
+
 
 
 struct PulsatingCircle: View {
@@ -552,27 +588,35 @@ struct PulsatingCircle: View {
 
 // MARK: - Progress Bar
 
+// MARK: - Progress Bar
+
 struct ProgressBar: View {
     var progress: Double
     
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
+                // White background behind the blue progress bar
                 Rectangle()
                     .frame(width: geometry.size.width, height: geometry.size.height)
-                    .opacity(0.3)
-                    .foregroundColor(.white) // Adjusted for visibility
+                    .foregroundColor(.white) // White background with full opacity
                 
+                // Blue progress bar with the progress value
                 Rectangle()
                     .frame(width: min(CGFloat(self.progress) * geometry.size.width, geometry.size.width),
                            height: geometry.size.height)
-                    .foregroundColor(.blue)
-                    .animation(.linear, value: progress)
+                    .foregroundColor(Color(hex: "1c4450")) // Updated color to #1c4450
+                    .animation(.linear, value: progress) // Animate progress changes
             }
-            .cornerRadius(10)
+            .cornerRadius(10) // Rounded corners for the progress bar
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.black.opacity(0.7), lineWidth: 1) // Border around the progress bar for visibility
+            )
         }
     }
 }
+
 
 // MARK: - Helpers
 

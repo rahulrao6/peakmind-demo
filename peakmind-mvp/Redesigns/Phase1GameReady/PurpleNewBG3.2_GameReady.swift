@@ -200,25 +200,23 @@ struct P3_2: View {
                                     .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
                             }
                             
-                            NavigationLink(destination: StressIntroView(), isActive: $navigatetoStressIntroView) {
-                                Button(action: {
-                                    closeAction("You completed a controlled breathing exercise.")
-                                }) {
-                                    Text("Continue")
-                                        .font(.custom("SFProText-Bold", size: 20))
-                                        .foregroundColor(.white)
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 12)
-                                        .background(
-                                            LinearGradient(
-                                                gradient: Gradient(colors: [Color("PurpleButtonGradientColor1"), Color("PurpleButtonGradientColor2")]),
-                                                startPoint: .topLeading,
-                                                endPoint: .bottomTrailing
-                                            )
+                            Button(action: {
+                                closeAction("You completed a controlled breathing exercise.")
+                            }) {
+                                Text("Continue")
+                                    .font(.custom("SFProText-Bold", size: 20))
+                                    .foregroundColor(.white)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 12)
+                                    .background(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [Color("PurpleButtonGradientColor1"), Color("PurpleButtonGradientColor2")]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
                                         )
-                                        .cornerRadius(15)
-                                        .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
-                                }
+                                    )
+                                    .cornerRadius(15)
+                                    .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
                             }
                         }
                         .padding(.top, 20)

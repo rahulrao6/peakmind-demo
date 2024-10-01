@@ -82,6 +82,18 @@
 		10FA68822BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */ = {isa = PBXBuildFile; fileRef = 10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */; };
 		191340012C682A2900DB5C01 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 191340002C682A2900DB5C01 /* Lottie */; };
 		191340032C682B0500DB5C01 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191340022C682B0500DB5C01 /* LottieView.swift */; };
+		194AA05E2CAC80CA0041D129 /* LightPurpleNewBG1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA05D2CAC80CA0041D129 /* LightPurpleNewBG1.swift */; };
+		194AA0602CAC82480041D129 /* LightPurpleNewBG2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA05F2CAC82480041D129 /* LightPurpleNewBG2.swift */; };
+		194AA0622CAC83EA0041D129 /* LightPurpleNewBG3.1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA0612CAC83EA0041D129 /* LightPurpleNewBG3.1.swift */; };
+		194AA0642CAC85390041D129 /* LightPurpleNewBG3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA0632CAC85390041D129 /* LightPurpleNewBG3.swift */; };
+		194AA0662CAC89620041D129 /* LightPurpleNewBG4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA0652CAC89620041D129 /* LightPurpleNewBG4.swift */; };
+		194AA0682CAC8D140041D129 /* LightPurpleNewBG5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA0672CAC8D140041D129 /* LightPurpleNewBG5.swift */; };
+		194AA06A2CAC914E0041D129 /* LightPurpleNewBG5.2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA0692CAC914E0041D129 /* LightPurpleNewBG5.2.swift */; };
+		194AA06C2CACA1AE0041D129 /* LightPurpleNewBG6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA06B2CACA1AE0041D129 /* LightPurpleNewBG6.swift */; };
+		194AA06E2CACABAB0041D129 /* LightPurpleNewBG7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA06D2CACABAB0041D129 /* LightPurpleNewBG7.swift */; };
+		194AA0702CACAF320041D129 /* LightPurpleNewBG8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA06F2CACAF320041D129 /* LightPurpleNewBG8.swift */; };
+		194AA0722CACB3550041D129 /* LightPurpleNewBG9.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA0712CACB3550041D129 /* LightPurpleNewBG9.swift */; };
+		194AA0742CACB50E0041D129 /* LightPurpleNewBG10.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194AA0732CACB50E0041D129 /* LightPurpleNewBG10.swift */; };
 		19627D782C7445C7002F5818 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627D4E2C7445BF002F5818 /* SF-Pro-Display-Semibold.otf */; };
 		19627D792C7445C7002F5818 /* SF-Pro-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627D4F2C7445BF002F5818 /* SF-Pro-Display-Light.otf */; };
 		19627D7A2C7445C7002F5818 /* SF-Pro-Text-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19627D502C7445BF002F5818 /* SF-Pro-Text-RegularItalic.otf */; };
@@ -436,6 +448,18 @@
 		10FA686B2BB53B18007CCBAC /* SpriteKitUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitUIView.swift; sourceTree = "<group>"; };
 		10FA687F2BB55130007CCBAC /* pkmdTriangleEncoded.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = pkmdTriangleEncoded.mov; sourceTree = "<group>"; };
 		191340022C682B0500DB5C01 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		194AA05D2CAC80CA0041D129 /* LightPurpleNewBG1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG1.swift; sourceTree = "<group>"; };
+		194AA05F2CAC82480041D129 /* LightPurpleNewBG2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG2.swift; sourceTree = "<group>"; };
+		194AA0612CAC83EA0041D129 /* LightPurpleNewBG3.1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG3.1.swift; sourceTree = "<group>"; };
+		194AA0632CAC85390041D129 /* LightPurpleNewBG3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG3.swift; sourceTree = "<group>"; };
+		194AA0652CAC89620041D129 /* LightPurpleNewBG4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG4.swift; sourceTree = "<group>"; };
+		194AA0672CAC8D140041D129 /* LightPurpleNewBG5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG5.swift; sourceTree = "<group>"; };
+		194AA0692CAC914E0041D129 /* LightPurpleNewBG5.2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG5.2.swift; sourceTree = "<group>"; };
+		194AA06B2CACA1AE0041D129 /* LightPurpleNewBG6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG6.swift; sourceTree = "<group>"; };
+		194AA06D2CACABAB0041D129 /* LightPurpleNewBG7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG7.swift; sourceTree = "<group>"; };
+		194AA06F2CACAF320041D129 /* LightPurpleNewBG8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG8.swift; sourceTree = "<group>"; };
+		194AA0712CACB3550041D129 /* LightPurpleNewBG9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG9.swift; sourceTree = "<group>"; };
+		194AA0732CACB50E0041D129 /* LightPurpleNewBG10.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightPurpleNewBG10.swift; sourceTree = "<group>"; };
 		19627D4E2C7445BF002F5818 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
 		19627D4F2C7445BF002F5818 /* SF-Pro-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Light.otf"; sourceTree = "<group>"; };
 		19627D502C7445BF002F5818 /* SF-Pro-Text-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-RegularItalic.otf"; sourceTree = "<group>"; };
@@ -817,6 +841,26 @@
 			path = James;
 			sourceTree = "<group>";
 		};
+		194AA05C2CAC7FE60041D129 /* Phase5 */ = {
+			isa = PBXGroup;
+			children = (
+				19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */,
+				194AA05D2CAC80CA0041D129 /* LightPurpleNewBG1.swift */,
+				194AA05F2CAC82480041D129 /* LightPurpleNewBG2.swift */,
+				194AA0632CAC85390041D129 /* LightPurpleNewBG3.swift */,
+				194AA0612CAC83EA0041D129 /* LightPurpleNewBG3.1.swift */,
+				194AA0652CAC89620041D129 /* LightPurpleNewBG4.swift */,
+				194AA0672CAC8D140041D129 /* LightPurpleNewBG5.swift */,
+				194AA0692CAC914E0041D129 /* LightPurpleNewBG5.2.swift */,
+				194AA06B2CACA1AE0041D129 /* LightPurpleNewBG6.swift */,
+				194AA06D2CACABAB0041D129 /* LightPurpleNewBG7.swift */,
+				194AA06F2CACAF320041D129 /* LightPurpleNewBG8.swift */,
+				194AA0712CACB3550041D129 /* LightPurpleNewBG9.swift */,
+				194AA0732CACB50E0041D129 /* LightPurpleNewBG10.swift */,
+			);
+			path = Phase5;
+			sourceTree = "<group>";
+		};
 		19627D4D2C7445A7002F5818 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -894,6 +938,7 @@
 		19F895C02C5041E300C5D6E6 /* Redesigns */ = {
 			isa = PBXGroup;
 			children = (
+				194AA05C2CAC7FE60041D129 /* Phase5 */,
 				103F29AE2CAA583A008525A5 /* Phase4GameReady */,
 				103F29912CA9D076008525A5 /* Phase3GameReady */,
 				103F29722CA9C83B008525A5 /* Phase2GameReady */,
@@ -902,7 +947,6 @@
 				79A73DA52CA555DB00CE9E40 /* Phase2 */,
 				79A73DA82CA5563100CE9E40 /* Phase1GameReady */,
 				19F693E72C77B13E00B002E1 /* Phase1 */,
-				19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */,
 				79F902502CABCDEF00928A9A /* GameUnavailable.swift */,
 				79F902522CABCE0400928A9A /* LevelUnavailable.swift */,
 				196F4CAE2C76856900604E7C /* FontChecker.swift */,
@@ -1679,12 +1723,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				194AA0722CACB3550041D129 /* LightPurpleNewBG9.swift in Sources */,
 				10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */,
 				79A73DDE2CA5D96500CE9E40 /* GreenNewBG1.swift in Sources */,
 				1CD299C42BBA7584003A0592 /* VCPopup.swift in Sources */,
 				79A73E1E2CA5DBAC00CE9E40 /* NewBG4.1.swift in Sources */,
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79A73DCC2CA55A5200CE9E40 /* Tutorial4.swift in Sources */,
+				194AA05E2CAC80CA0041D129 /* LightPurpleNewBG1.swift in Sources */,
 				792ED8632C51C8480050D12C /* CustomWidgetView.swift in Sources */,
 				79F902452CABA8DD00928A9A /* P1_MentalHealthMod.swift in Sources */,
 				79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */,
@@ -1724,6 +1770,7 @@
 				79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */,
 				79A73E1A2CA5DBA000CE9E40 /* NewBG2.swift in Sources */,
 				1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */,
+				194AA0742CACB50E0041D129 /* LightPurpleNewBG10.swift in Sources */,
 				10CE96172C02B8260092EE29 /* LevelMapUtil.swift in Sources */,
 				79582AB62C6FBE29006866BC /* SummitModeView.swift in Sources */,
 				79A73E2C2CA5DBEA00CE9E40 /* NewBG6.swift in Sources */,
@@ -1731,6 +1778,7 @@
 				797BF6412C93C32300118768 /* FactorPage.swift in Sources */,
 				791A27512C8FA970000D52BE /* TriangleView.swift in Sources */,
 				79582AB92C6FBE3A006866BC /* FlowingWaterView.swift in Sources */,
+				194AA0662CAC89620041D129 /* LightPurpleNewBG4.swift in Sources */,
 				7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */,
 				79A73E382CA5DC1500CE9E40 /* NewBG8.4.swift in Sources */,
 				79A73DF82CA5DA9100CE9E40 /* PinkNewBG.swift in Sources */,
@@ -1803,6 +1851,7 @@
 				102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */,
 				790F17502C45D9870071B34B /* PPContentView.swift in Sources */,
 				79A73DF42CA5D9B200CE9E40 /* GreenNewBG7.swift in Sources */,
+				194AA0702CACAF320041D129 /* LightPurpleNewBG8.swift in Sources */,
 				79F902532CABCE0400928A9A /* LevelUnavailable.swift in Sources */,
 				19648A602C7E5DC70061A70D /* PurpleNewBG4.2.swift in Sources */,
 				792872522C8A5CFE00FB6CBE /* RoutineBuilderView.swift in Sources */,
@@ -1846,6 +1895,7 @@
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
 				10CE960A2BF7DC4C0092EE29 /* ResilienceChecklistView.swift in Sources */,
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
+				194AA0622CAC83EA0041D129 /* LightPurpleNewBG3.1.swift in Sources */,
 				1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */,
 				79A73E472CA9EB0F00CE9E40 /* Settings.swift in Sources */,
 				7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */,
@@ -1858,9 +1908,11 @@
 				103F29C72CAA5851008525A5 /* NewBG8.3_GameReady.swift in Sources */,
 				103F29C82CAA5851008525A5 /* NewBG_GameReady.swift in Sources */,
 				103F29C92CAA5851008525A5 /* NewBG1_GameReady.swift in Sources */,
+				194AA0642CAC85390041D129 /* LightPurpleNewBG3.swift in Sources */,
 				103F29CA2CAA5851008525A5 /* NewBG8.4_GameReady.swift in Sources */,
 				103F29CB2CAA5851008525A5 /* NewBG8_GameReady.swift in Sources */,
 				103F29CC2CAA5851008525A5 /* NewBG8.1_GameReady.swift in Sources */,
+				194AA0682CAC8D140041D129 /* LightPurpleNewBG5.swift in Sources */,
 				103F29CD2CAA5851008525A5 /* NewBG4.3_GameReady.swift in Sources */,
 				103F29CE2CAA5851008525A5 /* NewBG4.1_GameReady.swift in Sources */,
 				103F29CF2CAA5851008525A5 /* NewBG2_GameReady.swift in Sources */,
@@ -1870,6 +1922,7 @@
 				103F29D32CAA5851008525A5 /* NewBG7_GameReady.swift in Sources */,
 				103F29D42CAA5851008525A5 /* NewBG6_GameReady.swift in Sources */,
 				103F29D52CAA5851008525A5 /* NewBG3_GameReady.swift in Sources */,
+				194AA06A2CAC914E0041D129 /* LightPurpleNewBG5.2.swift in Sources */,
 				103F29D62CAA5851008525A5 /* NewBG7.2_GameReady.swift in Sources */,
 				103F29D72CAA5851008525A5 /* NewBG8.2_GameReady.swift in Sources */,
 				103F29D82CAA5851008525A5 /* NewBG4.5_GameReady.swift in Sources */,
@@ -1897,8 +1950,11 @@
 				79A73E022CA5DAB100CE9E40 /* PinkNewBG5.2.swift in Sources */,
 				79A73E3C2CA5DC2100CE9E40 /* NewBG9.swift in Sources */,
 				79A73DE02CA5D96C00CE9E40 /* GreenNewBG2.2.swift in Sources */,
+				194AA0602CAC82480041D129 /* LightPurpleNewBG2.swift in Sources */,
 				10CE961B2C0415180092EE29 /* TestView.swift in Sources */,
+				194AA06C2CACA1AE0041D129 /* LightPurpleNewBG6.swift in Sources */,
 				10CE961F2C0547FC0092EE29 /* VariableBlur.swift in Sources */,
+				194AA06E2CACABAB0041D129 /* LightPurpleNewBG7.swift in Sources */,
 				79A73E432CA9EADB00CE9E40 /* PeakmindProfiles.swift in Sources */,
 				79069CF22BDA0E9000AB52DC /* InteractiveVIewModel.swift in Sources */,
 				79A73E452CA9EAF400CE9E40 /* Rewards.swift in Sources */,

@@ -325,6 +325,8 @@
 		79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384092BD60ED300A6779A /* P1-9_BoxBreathing.swift */; };
 		79C384122BD60F0D00A6779A /* P1-13_BodyScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C384112BD60F0D00A6779A /* P1-13_BodyScan.swift */; };
 		79F902452CABA8DD00928A9A /* P1_MentalHealthMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F902442CABA8DD00928A9A /* P1_MentalHealthMod.swift */; };
+		79F9024D2CABB1EB00928A9A /* GameUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9024C2CABB1EB00928A9A /* GameUnavailable.swift */; };
+		79F9024F2CABB23300928A9A /* LevelUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F9024E2CABB23300928A9A /* LevelUnavailable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -652,6 +654,8 @@
 		79C384092BD60ED300A6779A /* P1-9_BoxBreathing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-9_BoxBreathing.swift"; sourceTree = "<group>"; };
 		79C384112BD60F0D00A6779A /* P1-13_BodyScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "P1-13_BodyScan.swift"; sourceTree = "<group>"; };
 		79F902442CABA8DD00928A9A /* P1_MentalHealthMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P1_MentalHealthMod.swift; sourceTree = "<group>"; };
+		79F9024C2CABB1EB00928A9A /* GameUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUnavailable.swift; sourceTree = "<group>"; };
+		79F9024E2CABB23300928A9A /* LevelUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUnavailable.swift; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -899,6 +903,8 @@
 				79A73DA82CA5563100CE9E40 /* Phase1GameReady */,
 				19F693E72C77B13E00B002E1 /* Phase1 */,
 				19A63EFC2C7431AE0036F5E3 /* LightPurpleNewBG.swift */,
+				79F9024C2CABB1EB00928A9A /* GameUnavailable.swift */,
+				79F9024E2CABB23300928A9A /* LevelUnavailable.swift */,
 				196F4CAE2C76856900604E7C /* FontChecker.swift */,
 			);
 			path = Redesigns;
@@ -1797,6 +1803,7 @@
 				102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */,
 				790F17502C45D9870071B34B /* PPContentView.swift in Sources */,
 				79A73DF42CA5D9B200CE9E40 /* GreenNewBG7.swift in Sources */,
+				79F9024F2CABB23300928A9A /* LevelUnavailable.swift in Sources */,
 				19648A602C7E5DC70061A70D /* PurpleNewBG4.2.swift in Sources */,
 				792872522C8A5CFE00FB6CBE /* RoutineBuilderView.swift in Sources */,
 				79A73E222CA5DBBD00CE9E40 /* NewBG4.3.swift in Sources */,
@@ -1829,6 +1836,7 @@
 				79A73E2E2CA5DBF000CE9E40 /* NewBG7.2.swift in Sources */,
 				1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */,
 				79A73E362CA5DC0E00CE9E40 /* NewBG8.3.swift in Sources */,
+				79F9024D2CABB1EB00928A9A /* GameUnavailable.swift in Sources */,
 				79A73DD82CA55ACB00CE9E40 /* TutorialScene.swift in Sources */,
 				793B79C32BB390F7001062DB /* AvatarSettingsView.swift in Sources */,
 				79A73E0E2CA5DAF300CE9E40 /* PinkNewBG8.2.swift in Sources */,

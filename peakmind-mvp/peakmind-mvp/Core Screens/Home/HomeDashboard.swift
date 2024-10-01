@@ -1,4 +1,5 @@
 import SwiftUI
+import Firebase
 
 struct HomeDashboard: View {
     @State var isCheckedIn: Bool = false
@@ -6,6 +7,8 @@ struct HomeDashboard: View {
     @State private var showDailyCheckInSheet = false // State variable for DailyCheckInView sheet
     @State private var showAvatarMenuSheet = false // State variable for AvatarMenuView sheet
     @State private var showIglooMenuSheet = false // State variable for IglooMenuView sheet
+    @State private var currentStreak: Int = 0 // New state variable for tracking streak
+
     @Binding var selectedTab: Int
     @EnvironmentObject var viewModel: AuthViewModel // Added viewModel as an environment object
 
@@ -15,7 +18,7 @@ struct HomeDashboard: View {
     }
 
     var body: some View {
-        NavigationView{
+        NavigationView {
             ZStack {
                 // Background image
                 Image("HomeBG")
@@ -76,24 +79,39 @@ struct HomeDashboard: View {
                                     .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
                                     .padding(.top)
                                     .padding(.leading, 25) // Adjust the left padding as necessary
-                                    .sheet(isPresented: $showDailyCheckInSheet) {
+                                    .sheet(isPresented: $showDailyCheckInSheet, onDismiss: {
+                                        fetchCheckInStatus() // Refresh check-in status after dismissal
+                                    }) {
                                         DailyCheckInView() // Present DailyCheckInView as a sheet
+                                            .environmentObject(viewModel) // Ensure AuthViewModel is passed
                                     }
                                     
                                     Spacer() // Pushes the dots to the bottom
                                     
-                                    // Dummy HStack for dots as placeholders
+                                    // Updated HStack for streak dots
                                     HStack(spacing: 5) {
                                         ForEach(0..<7, id: \.self) { index in
-                                            Circle()
-                                                .fill(index % 2 == 0 ? Color("Ice Blue") : Color.gray)
-                                                .frame(width: 25, height: 25)
-                                                .overlay(
-                                                    Text(abbreviationForDay(index: index))
-                                                        .font(.system(size: 12)) // Smaller font size
-                                                        .fontWeight(.bold) // Make the font bold
-                                                        .foregroundColor(.black)
-                                                )
+                                            if index < currentStreak {
+                                                Circle()
+                                                    .fill(Color("Ice Blue"))
+                                                    .frame(width: 25, height: 25)
+                                                    .overlay(
+                                                        Text(abbreviationForDay(index: index))
+                                                            .font(.system(size: 12)) // Smaller font size
+                                                            .fontWeight(.bold) // Make the font bold
+                                                            .foregroundColor(.black)
+                                                    )
+                                            } else {
+                                                Circle()
+                                                    .fill(Color.gray)
+                                                    .frame(width: 25, height: 25)
+                                                    .overlay(
+                                                        Text(abbreviationForDay(index: index))
+                                                            .font(.system(size: 12)) // Smaller font size
+                                                            .fontWeight(.bold) // Make the font bold
+                                                            .foregroundColor(.black)
+                                                    )
+                                            }
                                         }
                                     }
                                     .padding(.bottom, 35)
@@ -137,51 +155,87 @@ struct HomeDashboard: View {
                         .padding()
                     }
                 }
+                .onAppear {
+                    fetchCheckInStatus() // Fetch check-in status when the view appears
+                }
             }
         }
     }
-}
-
-func abbreviationForDay(index: Int) -> String {
-    switch index {
-    case 0: return "M"
-    case 1: return "T"
-    case 2: return "W"
-    case 3: return "TH"
-    case 4: return "F"
-    case 5: return "S"
-    case 6: return "SU"
-    default: return ""
+    
+    // Set up the navigation bar appearance with SF Pro Bold and white color for back button
+    func setupNavigationBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+    
+        // Set background to clear or any other custom color
+        appearance.configureWithTransparentBackground()
+    
+        // Customize the back button appearance
+        appearance.backButtonAppearance.normal.titleTextAttributes = [
+            .font: UIFont(name: "SFPro-Bold", size: 17) ?? UIFont.boldSystemFont(ofSize: 17),
+            .foregroundColor: UIColor.white
+        ]
+    
+        // Apply the appearance globally
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
-}
-
-
-// Preview provider with mock AuthViewModel
-
-struct HomeDashboard_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = AuthViewModel() // Create a mock AuthViewModel
-        NavigationView {
-            HomeDashboard(selectedTab: .constant(2))
-                .environmentObject(viewModel) // Inject the mock AuthViewModel into the view
+    
+    // Fetch the user's check-in status and current streak from Firestore
+    func fetchCheckInStatus() {
+        guard let userId = viewModel.currentUser?.id else {
+            print("User ID not found.")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(userId)
+        
+        userRef.getDocument { document, error in
+            if let error = error {
+                print("Error fetching user data: \(error.localizedDescription)")
+                return
+            }
+            
+            if let document = document, document.exists {
+                // Fetch last check-in date
+                let lastCheckInTimestamp = document.get("lastCheckInDate") as? Timestamp
+                let lastCheckInDate = lastCheckInTimestamp?.dateValue() ?? Date.distantPast
+                
+                // Determine if the user has checked in today
+                DispatchQueue.main.async {
+                    self.isCheckedIn = Calendar.current.isDateInToday(lastCheckInDate)
+                    
+                    // Fetch current streak
+                    self.currentStreak = document.get("currentStreak") as? Int ?? 0
+                }
+            } else {
+                print("User document does not exist.")
+            }
         }
     }
-}
-
-// Set up the navigation bar appearance with SF Pro Bold and white color for back button
-func setupNavigationBarAppearance() {
-    let appearance = UINavigationBarAppearance()
-
-    // Set background to clear or any other custom color
-    appearance.configureWithTransparentBackground()
-
-    // Customize the back button appearance
-    appearance.backButtonAppearance.normal.titleTextAttributes = [
-        .font: UIFont(name: "SFPro-Bold", size: 17) ?? UIFont.boldSystemFont(ofSize: 17),
-        .foregroundColor: UIColor.white
-    ]
-
-    // Apply the appearance globally
-    UINavigationBar.appearance().standardAppearance = appearance
-    UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    
+    // Helper function to get day abbreviations
+    func abbreviationForDay(index: Int) -> String {
+        switch index {
+        case 0: return "M"
+        case 1: return "T"
+        case 2: return "W"
+        case 3: return "TH"
+        case 4: return "F"
+        case 5: return "S"
+        case 6: return "SU"
+        default: return ""
+        }
+    }
+    
+    // Preview provider with mock AuthViewModel
+    struct HomeDashboard_Previews: PreviewProvider {
+        static var previews: some View {
+            let viewModel = AuthViewModel() // Create a mock AuthViewModel
+            NavigationView {
+                HomeDashboard(selectedTab: .constant(2))
+                    .environmentObject(viewModel) // Inject the mock AuthViewModel into the view
+            }
+        }
+    }
 }

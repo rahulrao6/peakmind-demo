@@ -1,10 +1,20 @@
 import SwiftUI
 
+import Firebase
+
 struct DailyCheckInView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    @Environment(\.presentationMode) var presentationMode
     @State private var emotionalRating: Double = 3
     @State private var physicalRating: Double = 3
     @State private var socialRating: Double = 3
     @State private var cognitiveRating: Double = 3
+    
+    // Add these state variables
+    @State private var isSubmitting: Bool = false
+    @State private var errorMessage: String?
+    @State private var showAlert: Bool = false
+    
     
     var body: some View {
         ZStack {
@@ -51,23 +61,177 @@ struct DailyCheckInView: View {
                 Spacer()
                 
                 // Submit button
-                Button(action: {
-                    // Add logic for submission here
-                }) {
-                    Text("Submit")
-                        .font(.custom("SFProText-Bold", size: 18))
-                        .foregroundColor(.black)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color(hex: "b0e8ff")!)
-                        .cornerRadius(12)
+                Button(action: submitCheckIn) {
+                    if isSubmitting {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color(hex: "b0e8ff")!)
+                            .cornerRadius(12)
+                    } else {
+                        Text("Submit")
+                            .font(.custom("SFProText-Bold", size: 18))
+                            .foregroundColor(.black)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color(hex: "b0e8ff")!)
+                            .cornerRadius(12)
+                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 30)
                 .padding(.top, 5)
+                .disabled(isSubmitting)
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"), message: Text(errorMessage ?? "An unknown error occurred."), dismissButton: .default(Text("OK")))
+                }
+                
+                
             }
         }
     }
+    func submitCheckIn() {
+        isSubmitting = true
+        errorMessage = nil
+
+        // Check if user has already checked in today
+        checkIfAlreadyCheckedIn { alreadyCheckedIn in
+            if alreadyCheckedIn {
+                // Show alert
+                errorMessage = "You've already checked in today."
+                showAlert = true
+                isSubmitting = false
+            } else {
+                // Save check-in data
+                saveCheckInData { success, error in
+                    if success {
+                        // Update streak
+                        updateStreak { success in
+                            isSubmitting = false
+                            if success {
+                                // Dismiss the view
+                                presentationMode.wrappedValue.dismiss()
+                            } else {
+                                errorMessage = "Failed to update streak."
+                                showAlert = true
+                            }
+                        }
+                    } else {
+                        errorMessage = error?.localizedDescription ?? "Failed to save check-in data."
+                        showAlert = true
+                        isSubmitting = false
+                    }
+                }
+            }
+        }
+    }
+    func checkIfAlreadyCheckedIn(completion: @escaping (Bool) -> Void) {
+        guard let userId = viewModel.currentUser?.id else {
+            completion(false)
+            return
+        }
+        let db = Firestore.firestore()
+        let today = Calendar.current.startOfDay(for: Date())
+
+        // FIX COLLECTION + Document for Checkin
+        db.collection("users").document(userId).collection("checkIns")
+            .whereField("date", isGreaterThanOrEqualTo: Timestamp(date: today))
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error checking for existing check-in: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    if let count = snapshot?.documents.count, count > 0 {
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                }
+            }
+    }
+    func saveCheckInData(completion: @escaping (Bool, Error?) -> Void) {
+        guard let userId = viewModel.currentUser?.id else {
+            completion(false, nil)
+            return
+        }
+
+        let checkInData: [String: Any] = [
+            "emotionalRating": Int(emotionalRating),
+            "physicalRating": Int(physicalRating),
+            "socialRating": Int(socialRating),
+            "cognitiveRating": Int(cognitiveRating),
+            "date": Timestamp(date: Date())
+        ]
+
+        let db = Firestore.firestore()
+        db.collection("users").document(userId).collection("checkIns").addDocument(data: checkInData) { error in
+            if let error = error {
+                print("Error saving check-in data: \(error.localizedDescription)")
+                completion(false, error)
+            } else {
+                print("Check-in data saved successfully.")
+                completion(true, nil)
+            }
+        }
+    }
+    func updateStreak(completion: @escaping (Bool) -> Void) {
+        guard let userId = viewModel.currentUser?.id else {
+            completion(false)
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(userId)
+
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            let userDocument: DocumentSnapshot
+            do {
+                try userDocument = transaction.getDocument(userRef)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+
+            let lastCheckInTimestamp = userDocument.get("lastCheckInDate") as? Timestamp
+            let lastCheckInDate = lastCheckInTimestamp?.dateValue() ?? Date.distantPast
+            var currentStreak = userDocument.get("currentStreak") as? Int ?? 0
+
+            let calendar = Calendar.current
+            let today = calendar.startOfDay(for: Date())
+            let lastCheckInDay = calendar.startOfDay(for: lastCheckInDate)
+            let dayDifference = calendar.dateComponents([.day], from: lastCheckInDay, to: today).day ?? 0
+
+            if dayDifference == 1 {
+                // Increment streak
+                currentStreak += 1
+            } else if dayDifference > 1 {
+                // Reset streak
+                currentStreak = 1
+            } else if dayDifference == 0 {
+                // Already checked in today
+                return nil
+            }
+
+            // Update the user's streak and last check-in date
+            transaction.updateData([
+                "currentStreak": currentStreak,
+                "lastCheckInDate": Timestamp(date: Date())
+            ], forDocument: userRef)
+
+            return nil
+        }, completion: { (object, error) in
+            if let error = error {
+                print("Error updating streak: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("Streak updated successfully.")
+                completion(true)
+            }
+        })
+    }
+
+
 }
 
 // Question view with a slider

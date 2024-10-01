@@ -17,7 +17,3 @@ struct GameUnavailable: View {
         }
     }
 }
-
-#Preview {
-    GameUnavailable()
-}

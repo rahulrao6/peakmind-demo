@@ -65,6 +65,8 @@
 		103F29D62CAA5851008525A5 /* NewBG7.2_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103F29BC2CAA5851008525A5 /* NewBG7.2_GameReady.swift */; };
 		103F29D72CAA5851008525A5 /* NewBG8.2_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103F29BF2CAA5851008525A5 /* NewBG8.2_GameReady.swift */; };
 		103F29D82CAA5851008525A5 /* NewBG4.5_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103F29B82CAA5851008525A5 /* NewBG4.5_GameReady.swift */; };
+		1058D6662CABA51600C0D425 /* GameUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1058D6652CABA51600C0D425 /* GameUnavailable.swift */; };
+		1058D6682CABA5FA00C0D425 /* LevelUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1058D6672CABA5FA00C0D425 /* LevelUnavailable.swift */; };
 		10CE95452BEDCEA80092EE29 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE95442BEDCEA80092EE29 /* TimerView.swift */; };
 		10CE960A2BF7DC4C0092EE29 /* ResilienceChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE96092BF7DC4C0092EE29 /* ResilienceChecklistView.swift */; };
 		10CE96152C0297CF0092EE29 /* Glur in Frameworks */ = {isa = PBXBuildFile; productRef = 10CE96142C0297CF0092EE29 /* Glur */; };
@@ -425,6 +427,8 @@
 		103F29C12CAA5851008525A5 /* NewBG8.4_GameReady.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG8.4_GameReady.swift; sourceTree = "<group>"; };
 		103F29C22CAA5851008525A5 /* NewBG8_GameReady.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG8_GameReady.swift; sourceTree = "<group>"; };
 		103F29C32CAA5851008525A5 /* NewBG9_GameReady.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBG9_GameReady.swift; sourceTree = "<group>"; };
+		1058D6652CABA51600C0D425 /* GameUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUnavailable.swift; sourceTree = "<group>"; };
+		1058D6672CABA5FA00C0D425 /* LevelUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUnavailable.swift; sourceTree = "<group>"; };
 		10CE95442BEDCEA80092EE29 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		10CE96092BF7DC4C0092EE29 /* ResilienceChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResilienceChecklistView.swift; sourceTree = "<group>"; };
 		10CE96162C02B8260092EE29 /* LevelMapUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMapUtil.swift; sourceTree = "<group>"; };
@@ -906,6 +910,8 @@
 				79F9024C2CABB1EB00928A9A /* GameUnavailable.swift */,
 				79F9024E2CABB23300928A9A /* LevelUnavailable.swift */,
 				196F4CAE2C76856900604E7C /* FontChecker.swift */,
+				1058D6652CABA51600C0D425 /* GameUnavailable.swift */,
+				1058D6672CABA5FA00C0D425 /* LevelUnavailable.swift */,
 			);
 			path = Redesigns;
 			sourceTree = "<group>";
@@ -1818,6 +1824,10 @@
 				79A73DF62CA5D9C600CE9E40 /* GreenNewBG8.swift in Sources */,
 				79A73DEE2CA5D99F00CE9E40 /* GreenNewBG5.swift in Sources */,
 				79A73E122CA5DAFD00CE9E40 /* PinkNewBG9.swift in Sources */,
+				793B79CC2BB39260001062DB /* Level2.swift in Sources */,
+				79C8543B2BF036C0003C918E /* AnxietyCommunityView.swift in Sources */,
+				1058D6662CABA51600C0D425 /* GameUnavailable.swift in Sources */,
+				1C53A42F2C254F9200B27C23 /* FriendListView.swift in Sources */,
 				79A73DDC2CA5D95E00CE9E40 /* GreenNewBG.swift in Sources */,
 				79A73E0C2CA5DAEE00CE9E40 /* PinkNewBG7.swift in Sources */,
 				19648A6C2C7FCF8A0061A70D /* PurpleNewBG9.2.swift in Sources */,
@@ -1825,6 +1835,7 @@
 				19F693E62C77B13A00B002E1 /* PurpleNewBG1.swift in Sources */,
 				79A73DE22CA5D97200CE9E40 /* GreenNewBG2.swift in Sources */,
 				19648A5C2C7D0E1C0061A70D /* PurpleNewBG3.2.swift in Sources */,
+				1058D6682CABA5FA00C0D425 /* LevelUnavailable.swift in Sources */,
 				79A73DE42CA5D97800CE9E40 /* GreenNewBG3.2.swift in Sources */,
 				102F1B952BCDAC69008B8AC6 /* SymptomsQuizView.swift in Sources */,
 				79C3840A2BD60ED300A6779A /* P1-9_BoxBreathing.swift in Sources */,

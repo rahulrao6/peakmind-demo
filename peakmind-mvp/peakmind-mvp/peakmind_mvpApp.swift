@@ -90,7 +90,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 struct peakmind_mvpApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var viewModel = AuthViewModel()
-    @StateObject var CommunitiesViewModel1 = CommunitiesViewModel()
     @StateObject var HealthKitManager1 = HealthKitManager()
     @StateObject var EventKitManager1 = EventKitManager()
 
@@ -100,7 +99,6 @@ struct peakmind_mvpApp: App {
             NavigationView {
                 ContentView()
                     .environmentObject(viewModel)
-                    .environmentObject(CommunitiesViewModel1)
                     .environmentObject(HealthKitManager1)
                     .environmentObject(EventKitManager1)
 

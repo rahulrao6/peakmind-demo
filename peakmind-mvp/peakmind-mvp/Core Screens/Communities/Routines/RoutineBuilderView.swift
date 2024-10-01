@@ -435,7 +435,7 @@ struct RoutineBuilderView: View {
                     }
                 }
                 .foregroundColor(.white)
-                .padding(.bottom, 30)
+                .padding(.bottom, 10)
             }
         }
         .sheet(isPresented: $showingIncrementPopup) {
@@ -1096,10 +1096,15 @@ struct AddHabitForm: View {
         HabitTemplate(name: "Reading", emoji: "📖", defaultUnit: "pages"),
         HabitTemplate(name: "Meditation", emoji: "🧘‍♂️", defaultUnit: "minutes"),
         HabitTemplate(name: "Water Intake", emoji: "💧", defaultUnit: "glasses"),
-        HabitTemplate(name: "Study", emoji: "📚", defaultUnit: "hours")
+        HabitTemplate(name: "Study", emoji: "📚", defaultUnit: "hours"),
+        HabitTemplate(name: "Walk", emoji: "🚶‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Run", emoji: "🏃‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Bike", emoji: "🚴‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Burn Calories", emoji: "🔥", defaultUnit: "calories"),
+        HabitTemplate(name: "Learning", emoji: "🧠", defaultUnit: "hours")
     ]
 
-    let categories = ["Health", "Productivity", "Personal Growth", "Other"]
+    let categories = ["Physical Health", "Mental Wellbeing", "Personal Growth", "Custom"]
 
     var addHabitAction: (Habit) -> Void
 
@@ -1208,7 +1213,7 @@ struct AddHabitForm: View {
                                 Text("Add Habit")
                                     .frame(maxWidth: .infinity)
                                     .padding()
-                                    .background(Color.blue)
+                                    .background(Color.navyBlue)
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
                                     .font(.custom("SFProText-Bold", size: 16))

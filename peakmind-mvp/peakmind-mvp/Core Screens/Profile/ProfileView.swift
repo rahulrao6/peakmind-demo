@@ -92,14 +92,6 @@ struct ProfileView: View {
                         }
                     }
                     
-                    Section("Messaging") {
-                        Button("Friend List") {
-                            isFriendListViewPresented.toggle()
-                        }
-                        .sheet(isPresented: $isFriendListViewPresented) {
-                            FriendListView().environmentObject(viewModel)
-                        }
-                    }
                     Section("Habit Stack") {
                         Button("Routine List") {
                             isRoutineListViewPresented.toggle()

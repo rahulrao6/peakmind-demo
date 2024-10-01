@@ -54,7 +54,3 @@ struct GameUnavailable: View {
         )
     }
 }
-
-#Preview {
-    GameUnavailable(closeAction: {print("CLOSE")})
-}

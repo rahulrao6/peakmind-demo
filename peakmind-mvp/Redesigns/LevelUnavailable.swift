@@ -54,7 +54,3 @@ struct LevelUnavailable: View {
         )
     }
 }
-
-#Preview {
-    LevelUnavailable(closeAction: {print("CLOSE")})
-}

@@ -46,13 +46,10 @@ struct P4_4_1: View {
                     .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
             }
             .padding(.bottom, 50)
-            .background(
-                NavigationLink(
-                    destination: P4_4_2(closeAction: closeAction), // Replace with the actual destination view
-                    isActive: $showNextScreen,
-                    label: { EmptyView() }
-                )
-            )
+
+            .fullScreenCover(isPresented: $showNextScreen) {
+                P4_4_2(closeAction: closeAction)
+            }
         }
         .padding(.horizontal)
         .background(

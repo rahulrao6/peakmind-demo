@@ -102,11 +102,10 @@ struct P4_8_2: View {
             }
             .disabled(selectedOptions.isEmpty)
             .padding(.bottom, 50)
-            .background(
-                NavigationLink(destination: P4_8_3(closeAction: closeAction, selectedActivity: selectedOptions.first ?? ""), isActive: $navigateToNextView) {
-                    EmptyView()
-                }
-            )
+
+            .fullScreenCover(isPresented: $navigateToNextView) {
+                P4_8_3(closeAction: closeAction, selectedActivity: selectedOptions.first ?? "")
+            }
         }
         .background(
             Image("NewBG")

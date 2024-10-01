@@ -118,29 +118,25 @@ struct P2_6_1: View {
                         
                         Spacer()
                         
-                        // NavigationLink to navigate to P2Factor1View
-                        NavigationLink(destination: P2Factor1()) {
-                            Button(action: {
-                                submitGoal()
-                            }) {
-                                Text("Set Goal")
-                                    .font(.custom("SFProText-Bold", size: 20))
-                                    .foregroundColor(.white)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 12)
-                                    .background(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [Color("GreenButtonGradientColor1"), Color("GreenButtonGradientColor2")]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
+                        Button(action: {
+                            submitGoal()
+                        }) {
+                            Text("Set Goal")
+                                .font(.custom("SFProText-Bold", size: 20))
+                                .foregroundColor(.white)
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 12)
+                                .background(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color("GreenButtonGradientColor1"), Color("GreenButtonGradientColor2")]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
                                     )
-                                    .cornerRadius(15)
-                                    .shadow(color: goalText.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0)
-                            }
-                            .disabled(goalText.isEmpty)
+                                )
+                                .cornerRadius(15)
+                                .shadow(color: goalText.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0)
                         }
-                        .padding(.bottom, 50)
+                        .disabled(goalText.isEmpty)
                     }
                     
                     Spacer()

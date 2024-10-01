@@ -29,7 +29,7 @@ struct P1_1: View {
             // Next Button
             Button(action: {
                 showNextScreen = true
-                closeAction("hello")
+                closeAction("You completed your first level!")
                 
             }) {
                 Text("Next")

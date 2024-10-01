@@ -327,6 +327,7 @@
 		79F902452CABA8DD00928A9A /* P1_MentalHealthMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F902442CABA8DD00928A9A /* P1_MentalHealthMod.swift */; };
 		79F902512CABCDEF00928A9A /* GameUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F902502CABCDEF00928A9A /* GameUnavailable.swift */; };
 		79F902532CABCE0400928A9A /* LevelUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F902522CABCE0400928A9A /* LevelUnavailable.swift */; };
+		79F902552CAC811700928A9A /* mountainLoop.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 79F902542CAC811600928A9A /* mountainLoop.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -656,6 +657,7 @@
 		79F902442CABA8DD00928A9A /* P1_MentalHealthMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P1_MentalHealthMod.swift; sourceTree = "<group>"; };
 		79F902502CABCDEF00928A9A /* GameUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUnavailable.swift; sourceTree = "<group>"; };
 		79F902522CABCE0400928A9A /* LevelUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUnavailable.swift; sourceTree = "<group>"; };
+		79F902542CAC811600928A9A /* mountainLoop.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mountainLoop.mp4; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1250,6 +1252,7 @@
 			isa = PBXGroup;
 			children = (
 				79582AB52C6FBE29006866BC /* SummitModeView.swift */,
+				79F902542CAC811600928A9A /* mountainLoop.mp4 */,
 			);
 			path = "Summit Mode";
 			sourceTree = "<group>";
@@ -1646,6 +1649,7 @@
 				19627D9C2C7445C7002F5818 /* SF-Pro-Text-Ultralight.otf in Resources */,
 				10FA68802BB55130007CCBAC /* pkmdTriangleEncoded.mov in Resources */,
 				19627D832C7445C7002F5818 /* SF-Pro-Rounded-Thin.otf in Resources */,
+				79F902552CAC811700928A9A /* mountainLoop.mp4 in Resources */,
 				19627D9E2C7445C7002F5818 /* SF-Pro-Rounded-Bold.otf in Resources */,
 				19627D872C7445C7002F5818 /* SF-Pro-Text-SemiboldItalic.otf in Resources */,
 				19627D802C7445C7002F5818 /* SF-Pro-Text-Heavy.otf in Resources */,

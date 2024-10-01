@@ -19,7 +19,7 @@ struct TabViewMain: View {
                 }
                 .tag(1)
 
-            JournalView().environmentObject(viewModel)
+            TestView().environmentObject(viewModel)
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }

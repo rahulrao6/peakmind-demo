@@ -41,7 +41,7 @@ struct PointsAndBadgesView: View {
     @State private var pointsHistory: [PointEntry] = []
     @State private var badges: [Badge] = []
     @State private var totalPoints: Int = 0
-    @State private var currentLevel: Int = 1
+    @State private var currentLevel: Int = 6 // Set default level to 6 for demonstration
     @State private var isLoading: Bool = true
 
     @EnvironmentObject var viewModel: AuthViewModel
@@ -50,11 +50,30 @@ struct PointsAndBadgesView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 20) {
+                    // Placeholder Box with Edit Button
+                    ZStack(alignment: .topTrailing) {
+                        Rectangle()
+                            .fill(Color.white.opacity(0.1)) // Placeholder box color
+                            .frame(width: 150, height: 150)
+                            .cornerRadius(10)
+                        
+                        Button(action: {
+                            // Action for edit button
+                        }) {
+                            Image(systemName: "pencil")
+                                .foregroundColor(.white)
+                                .padding()
+                        }
+                    }
+                    .padding(.top)
+
                     if isLoading {
                         ProgressView("Loading your rewards...")
+                            .foregroundColor(.white)
                     } else {
                         // User Stats Section
                         UserStatsView(totalPoints: totalPoints, currentLevel: currentLevel)
+                            .foregroundColor(.white)
 
                         // Badges Section
                         BadgesGridView(badges: badges, totalPoints: totalPoints, currentLevel: currentLevel)
@@ -65,6 +84,7 @@ struct PointsAndBadgesView: View {
                 }
                 .padding()
             }
+            .background(Color(hex: "0d2c7b").ignoresSafeArea()) // Setting the background color
             .navigationBarTitle("Rewards", displayMode: .large)
             .onAppear {
                 loadData()
@@ -94,10 +114,6 @@ struct PointsAndBadgesView: View {
                 // Check and award new badges
                 try await viewModel.checkAndAwardBadges(totalPoints: totalPoints, currentLevel: currentLevel, earnedBadges: earnedBadges)
                 
-                Task{
-                    try await viewModel.awardPoints(200,reason:"good job");
-                }
-
                 isLoading = false
             } catch {
                 print("Failed to load data: \(error.localizedDescription)")
@@ -130,19 +146,23 @@ struct UserStatsView: View {
             Text("Level \(currentLevel)")
                 .font(.title)
                 .fontWeight(.bold)
+                .foregroundColor(.white) // Text color white
             Text("\(totalPoints) Points")
                 .font(.headline)
+                .foregroundColor(.white) // Text color white
             ProgressView(value: Float(totalPoints % 1000), total: 1000)
-                .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                .progressViewStyle(LinearProgressViewStyle(tint: .white))
             Text("\(1000 - (totalPoints % 1000)) points to next level")
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundColor(.white.opacity(0.7)) // Caption color white with opacity
         }
         .padding()
-        .background(Color.gray.opacity(0.1))
+        .background(Color.white.opacity(0.1))
         .cornerRadius(10)
     }
 }
+
+// MARK: - Badges Grid View
 
 struct BadgesGridView: View {
     let badges: [Badge]
@@ -153,6 +173,7 @@ struct BadgesGridView: View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Badges")
                 .font(.headline)
+                .foregroundColor(.white) // Text color white
                 .padding(.leading)
             
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 20) {
@@ -163,6 +184,77 @@ struct BadgesGridView: View {
                 }
             }
             .padding()
+        }
+    }
+}
+// BadgeDetailView.swift
+
+struct BadgeDetailView: View {
+    let badge: Badge
+    let totalPoints: Int
+    let currentLevel: Int
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Image(badgeImageName(for: badge))
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150, height: 150)
+                .opacity(badge.dateEarned != nil ? 1 : 0.5)
+
+            Text(badge.name)
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.white) // Text color white
+
+            Text(badge.description)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.white) // Text color white
+                .padding()
+
+            if badge.dateEarned == nil {
+                VStack {
+                    Text("Requirements:")
+                        .font(.headline)
+                        .foregroundColor(.white) // Text color white
+                    Text("Points: \(badge.pointsRequired)")
+                        .foregroundColor(.white) // Text color white
+                    Text("Level: \(badge.levelRequired)")
+                        .foregroundColor(.white) // Text color white
+                }
+                .padding()
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(10)
+
+                if totalPoints >= badge.pointsRequired && currentLevel >= badge.levelRequired {
+                    Text("You've met the requirements for this badge!")
+                        .foregroundColor(.green)
+                        .fontWeight(.bold)
+                } else {
+                    Text("Keep playing to unlock this badge!")
+                        .foregroundColor(.white.opacity(0.7)) // Text color white with opacity
+                }
+            } else {
+                Text("Unlocked on \(badge.dateEarned?.formatted(date: .long, time: .shortened) ?? "Unknown Date")")
+                    .foregroundColor(.white.opacity(0.7)) // Text color white with opacity
+            }
+        }
+        .padding()
+        .navigationBarTitle("Badge Details", displayMode: .inline)
+        .background(Color(hex: "0d2c7b").ignoresSafeArea()) // Background color
+    }
+
+    func badgeImageName(for badge: Badge) -> String {
+        if badge.name.contains("Bronze") {
+            return "bronzeBadge"
+        } else if badge.name.contains("Silver") {
+            return "silverBadge"
+        } else if badge.name.contains("Gold") {
+            return "goldBadge"
+        } else if badge.name.contains("Diamond") {
+            return "diamondBadge"
+        } else {
+            return "defaultBadge" // Make sure to add a default badge image
         }
     }
 }
@@ -192,9 +284,11 @@ struct BadgeView: View {
             }
             Text(badge.name)
                 .font(.caption)
+                .foregroundColor(.white) // Text color white
                 .multilineTextAlignment(.center)
         }
     }
+    
     func badgeImageName(for badge: Badge) -> String {
         if badge.name.contains("Bronze") {
             return "bronzeBadge"
@@ -219,6 +313,7 @@ struct PointsHistoryView: View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Points History")
                 .font(.headline)
+                .foregroundColor(.white) // Text color white
                 .padding(.leading)
             
             ForEach(pointsHistory) { entry in
@@ -227,9 +322,10 @@ struct PointsHistoryView: View {
                         Text(entry.reason)
                             .font(.subheadline)
                             .fontWeight(.bold)
+                            .foregroundColor(.white) // Text color white
                         Text(entry.date, style: .date)
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.white.opacity(0.7)) // Caption color white with opacity
                     }
                     Spacer()
                     Text("+\(entry.points)")
@@ -237,80 +333,15 @@ struct PointsHistoryView: View {
                         .foregroundColor(.green)
                 }
                 .padding(.horizontal)
-                Divider()
+                Divider().background(Color.white)
             }
         }
         .padding(.top)
     }
 }
 
+
 // MARK: - Preview
-
-// BadgeDetailView.swift
-
-struct BadgeDetailView: View {
-    let badge: Badge
-    let totalPoints: Int
-    let currentLevel: Int
-
-    var body: some View {
-        VStack(spacing: 20) {
-            Image(badgeImageName(for: badge))
-                .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
-                .opacity(badge.dateEarned != nil ? 1 : 0.5)
-
-            Text(badge.name)
-                .font(.title)
-                .fontWeight(.bold)
-
-            Text(badge.description)
-                .multilineTextAlignment(.center)
-                .padding()
-
-            if badge.dateEarned == nil {
-                VStack {
-                    Text("Requirements:")
-                        .font(.headline)
-                    Text("Points: \(badge.pointsRequired)")
-                    Text("Level: \(badge.levelRequired)")
-                }
-                .padding()
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(10)
-
-                if totalPoints >= badge.pointsRequired && currentLevel >= badge.levelRequired {
-                    Text("You've met the requirements for this badge!")
-                        .foregroundColor(.green)
-                        .fontWeight(.bold)
-                } else {
-                    Text("Keep playing to unlock this badge!")
-                        .foregroundColor(.secondary)
-                }
-            } else {
-                Text("Unlocked on \(badge.dateEarned?.formatted(date: .long, time: .shortened) ?? "Unknown Date")")
-                    .foregroundColor(.secondary)
-            }
-        }
-        .padding()
-        .navigationBarTitle("Badge Details", displayMode: .inline)
-    }
-
-    func badgeImageName(for badge: Badge) -> String {
-        if badge.name.contains("Bronze") {
-            return "bronzeBadge"
-        } else if badge.name.contains("Silver") {
-            return "silverBadge"
-        } else if badge.name.contains("Gold") {
-            return "goldBadge"
-        } else if badge.name.contains("Diamond") {
-            return "diamondBadge"
-        } else {
-            return "defaultBadge" // Make sure to add a default badge image
-        }
-    }
-}
 
 struct Rewards_Previews: PreviewProvider {
     static var previews: some View {

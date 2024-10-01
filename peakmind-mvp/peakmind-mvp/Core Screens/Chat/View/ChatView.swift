@@ -1,4 +1,3 @@
-
 import SwiftUI
 import FirebaseFirestore
 import Lottie
@@ -213,8 +212,11 @@ struct ChatView: View {
                     selectedMessage = chatMessage
                     showingFeedbackSheet = true
                 }) {
-                    LottieView(name: "feedback", loopMode: .loop)
-                        .frame(width: 30, height: 30)  // adjusted size to make the button bigger
+                    // Replaced LottieView with a star emoji
+                    Image(systemName: "star.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)  // adjusted size
+                        .foregroundColor(.iceBlue)  // changed color to yellow for the star
                 }
 
                 Button(action: {
@@ -555,124 +557,26 @@ struct ChatView: View {
                 }
 
                 do {
-                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                       let message = json["message"] as? String,
-                       let sentiment = json["sentiment"] as? String {
-                        DispatchQueue.main.async {
-                            print("Conversation ended: \(message)")
-                            print("Sentiment: \(sentiment)")
-                            self.isConversationActive = false
-                            self.sessionId = nil
-                            // You might want to save the sentiment or show it to the user
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        // Safely unwrap the "message" key and cast to String
+                        if let message = json["message"] as? String {
+                            DispatchQueue.main.async {
+                                // Use the 'message' string as needed
+                                print("Received message: \(message)")
+                            }
+                        } else {
+                            print("Message key not found or not a String")
                         }
+                    } else {
+                        print("Failed to cast JSON as [String: Any]")
                     }
                 } catch {
                     print("Error parsing JSON: \(error.localizedDescription)")
                 }
+
             }.resume()
         }
-    func sendMessage() {
-        let timestamp = NSDate().timeIntervalSince1970
-        guard let url = URL(string: "http://35.188.88.124/api/chat") else {
-            print("Invalid URL")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        guard let currentUser = viewModel.currentUser else {
-            print("No current user")
-            return
-        }
-
-        let messageDictionary: [String: Any] = ["message": message, "user": currentUser.id, "timestamp": timestamp]
-
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: messageDictionary) else {
-            print("Failed to convert message to JSON")
-            return
-        }
-
-        Firestore.firestore().collection("messages").document(currentUser.id).collection("chats").addDocument(data: messageDictionary) { error in
-            if let error = error {
-                print("Error adding document: \(error)")
-            } else {
-                print("Document added successfully")
-                fetchMessages()
-            }
-        }
-        
-        request.httpBody = jsonData
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error:", error.localizedDescription)
-                return
-            }
-
-            guard let data = data else {
-                print("No data received")
-                return
-            }
-
-            do {
-                let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                if let responseMessage = jsonResponse?["response"] as? String {
-                    DispatchQueue.main.async {
-                        let timestamp = NSDate().timeIntervalSince1970
-                        let sentMessage = ChatMessage(sender: currentUser.id, content: message, timestamp: timestamp)
-                        self.receivedMessages.append(sentMessage)
-                        let messageDictionaryResponse: [String: Any] = ["message": responseMessage, "user": "AI", "timestamp": timestamp]
-                        Firestore.firestore().collection("messages").document(currentUser.id).collection("chats").addDocument(data: messageDictionaryResponse) { error in
-                            if let error = error {
-                                print("Error adding document: \(error)")
-                            } else {
-                                print("Document added successfully")
-                                fetchMessages()
-                            }
-                        }
-                    }
-                }
-            } catch {
-                print("Error parsing JSON:", error.localizedDescription)
-            }
-        }.resume()
-
-        message = ""
-        // do not reset the isTyping flag here to keep the sherpa hidden while typing
-    }
     
-    func clearChat() {
-        receivedMessages.removeAll()
-        
-        guard let currentUser = viewModel.currentUser else {
-            print("No current user")
-            return
-        }
-        
-        // clear messages from Firestore
-        let chatCollection = Firestore.firestore().collection("messages").document(currentUser.id).collection("chats")
-        
-        chatCollection.getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-                return
-            }
-            
-            for document in snapshot!.documents {
-                chatCollection.document(document.documentID).delete { error in
-                    if let error = error {
-                        print("Error deleting document: \(error)")
-                    } else {
-                        print("Document successfully deleted")
-                    }
-                }
-            }
-        }
-    }
-
-    // updated function to submit feedback with star rating
     func submitFeedback() {
         guard let selectedMessage = selectedMessage else { return }
 
@@ -707,6 +611,7 @@ struct ChatView: View {
         starRating = 0  // reset star rating
         self.selectedMessage = nil
     }
+    
     var feedbackSheetView: some View {
         NavigationStack {
             ZStack {
@@ -791,7 +696,6 @@ struct ChatView: View {
 
                         Spacer()
 
-                        
                         Button(action: {
                             submitFeedback()
                         }) {
@@ -824,7 +728,6 @@ struct ChatView: View {
         }
     }
 }
-
 
 struct LottieView: UIViewRepresentable {
     var name: String
@@ -859,7 +762,6 @@ struct ChatView_Previews: PreviewProvider {
             .environmentObject(authViewModel)
     }
 }
-
 
 struct ConversationPreview: Identifiable {
     let id = UUID()

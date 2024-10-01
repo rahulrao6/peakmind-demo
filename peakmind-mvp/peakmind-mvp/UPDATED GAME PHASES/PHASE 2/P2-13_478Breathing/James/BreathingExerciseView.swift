@@ -44,7 +44,7 @@ final class SpriteKitScene: SKScene {
 
 
 struct BreathingExerciseView: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
 
     var body: some View {
         ZStack {
@@ -91,7 +91,7 @@ struct BreathingExerciseView: View {
                 // Instruction Text
                 
                 Button(action: {
-                    closeAction()
+                    closeAction("")
                 }) {
                     Text("Tap to Continue")
                         .foregroundColor(.white)

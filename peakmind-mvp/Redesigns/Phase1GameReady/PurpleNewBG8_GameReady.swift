@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct P8_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var visibleText: String = ""
     @State private var isTypingCompleted: Bool = false
@@ -86,8 +86,7 @@ struct P8_1: View {
                     
                     // next Button
                     Button(action: {
-                        navigateToIntroView2 = true // trigger navigation
-                        closeAction()
+                        closeAction("You completed a coping mechanism!")
                     }) {
                         Text("Next")
                             .font(.custom("SFProText-Bold", size: 20))

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Tutorial3: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
 
     
     var body: some View {
@@ -20,7 +20,7 @@ struct Tutorial3: View {
                     .font(.system(size: 20, weight: .black))
                     .foregroundColor(.black)
                     .onTapGesture {
-                        closeAction()
+                        closeAction("")
                     }
                 Text("This is the mental health game. Learn about different mental health struggles and how to cope interactively!")
                     .font(.system(size: 20, weight: .bold))

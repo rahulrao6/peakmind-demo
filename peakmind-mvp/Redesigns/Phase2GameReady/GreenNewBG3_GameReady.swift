@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P2_3_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var showNextScreen = false
     
     var body: some View {

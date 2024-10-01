@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct P4_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var showNextScreen = false
     
     var body: some View {
@@ -30,7 +30,6 @@ struct P4_1: View {
             // next Button
             Button(action: {
                 showNextScreen = true
-                closeAction()
             }) {
                 Text("Next")
                     .font(.custom("SFProText-Bold", size: 20))
@@ -50,7 +49,7 @@ struct P4_1: View {
             .padding(.bottom, 50)
             .background(
                 NavigationLink(
-                    destination: StressFeatureView(),
+                    destination: P4_2(closeAction: closeAction),
                     isActive: $showNextScreen,
                     label: { EmptyView() }
                 )

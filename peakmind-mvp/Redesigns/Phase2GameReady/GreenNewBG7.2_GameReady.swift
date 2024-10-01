@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct P2_7_2: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State var factors: [String] // The factors passed from the previous screen
     @State private var controllableFactors: [String] = []
     @State private var uncontrollableFactors: [String] = []
@@ -98,7 +98,7 @@ struct P2_7_2: View {
                     // Submit Button (only shown if all factors are placed)
                     if showSubmitButton {
                         Button(action: {
-                            closeAction()
+                            closeAction("")
                         }) {
                             Text("Submit")
                                 .font(.custom("SFProText-Bold", size: 20))

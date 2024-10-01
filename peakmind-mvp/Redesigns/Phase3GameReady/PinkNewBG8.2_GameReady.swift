@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P3_8_2: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isButtonDisabled: Bool = true
     @State private var showGlow: Bool = false
@@ -97,7 +97,7 @@ struct P3_8_2: View {
                             showGlow = false // Hide glow when text starts typing
                             currentIndex += 1
                         } else {
-                            closeAction()
+                            closeAction("")
                         }
                     }) {
                         Text(currentIndex < bulletPoints.count - 1 ? "Next" : "Continue")

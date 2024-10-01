@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P2_6_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var goalText: String = ""
     @State private var showGoalInput = false
     @State private var visibleText: String = ""
@@ -176,7 +176,7 @@ struct P2_6_1: View {
     // Action for continue button
     func submitGoal() {
         print("Goal submitted: \(goalText)")
-        closeAction()
+        closeAction("")
     }
     
     // Keyboard notification handlers

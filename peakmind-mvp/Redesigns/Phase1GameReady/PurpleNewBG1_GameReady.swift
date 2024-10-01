@@ -9,7 +9,7 @@ import SwiftUI
 
 struct P1_1: View {
     @State private var showNextScreen = false
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     
     var body: some View {
         VStack(spacing: 16) {
@@ -29,7 +29,8 @@ struct P1_1: View {
             // Next Button
             Button(action: {
                 showNextScreen = true
-                closeAction()
+                closeAction("hello")
+                
             }) {
                 Text("Next")
                     .font(.custom("SFProText-Bold", size: 20))

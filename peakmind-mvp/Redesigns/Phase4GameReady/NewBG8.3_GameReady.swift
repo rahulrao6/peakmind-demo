@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P4_8_4: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     let selectedActivity1: String // Passed from the second screen
     let selectedActivity2: String // Passed from the second screen
     @State private var selectedOptions: Set<String> = []

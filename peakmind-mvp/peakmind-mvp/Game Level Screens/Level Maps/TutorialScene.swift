@@ -67,6 +67,7 @@ struct TutorialScene: View {
                     }
                 }
                 .onAppear {
+                    /*
                     scene.levels = [
                         LevelNode(uid: 0, internalName: "Tutorial1", title: "Your AI Companion", viewFactory: { AnyView(Tutorial1(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 0); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
                         LevelNode(uid: 1, internalName: "Tutorial2", title: "Journal", viewFactory: { AnyView(Tutorial2(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 1); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
@@ -77,6 +78,7 @@ struct TutorialScene: View {
                         LevelNode(uid: 6, internalName: "Tutorial7", title: "Check In", viewFactory: { AnyView(Tutorial7(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 6); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
                         LevelNode(uid: 7, internalName: "Tutorial8", title: "Personalized Plan", viewFactory: { AnyView(Tutorial8(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 7); scene.currentLevel = -1; scene.reloadCompletedLevels(); completeTutorial(); isShowingTutorial = false} })) }, phase: 1),
                     ]
+                     */
                     
                     scene.phaseColors = [
                         UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1),

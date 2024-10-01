@@ -23,29 +23,29 @@ class AuthViewModel: ObservableObject {
     @Published var currentLevel: Int = 0
     @Published var badges: [Badge] = []
     @Published var quests: [Quest] = []
-
     
-//    @Published var communitiesViewModel = CommunitiesViewModel()
+    
+    //    @Published var communitiesViewModel = CommunitiesViewModel()
     @Published var authErrorMessage: String? // New property for error messages
     private let healthKitManager = HealthKitManager()
     private let EventKitManager1 = EventKitManager()
-
+    
     private var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     private let db = Firestore.firestore()
     private var listenerRegistration: ListenerRegistration?
-
+    
     init() {
         authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self = self else { return }
             if let user = user {
                 self.fetchUserData(userId: user.uid)
                 self.healthKitManager.requestAuthorization()
-
-
+                
+                
                 Task {
                     //let _ = await self.EventKitManager1.requestAccess(to: .event)
                     let _ = await self.EventKitManager1.requestAccess(to: .reminder)
-
+                    
                 }
                 self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
             } else {
@@ -73,7 +73,7 @@ class AuthViewModel: ObservableObject {
         // Start a Pendo session
         PendoManager.shared().startSession(userId, accountId: userId, visitorData: visitorData, accountData: accountData)
     }
-
+    
     func fetchUserData(userId: String) {
         let userRef = db.collection("users").document(userId)
         userRef.getDocument { document, error in
@@ -85,7 +85,7 @@ class AuthViewModel: ObservableObject {
                     self.currentUser = try document.data(as: UserData.self)
                     self.isSignedIn = true
                     self.startPendoSession(user: self.currentUser, userId: userId)
-
+                    
                 } catch {
                     print("Error decoding user data: \(error.localizedDescription)")
                 }
@@ -94,7 +94,7 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     func signInWithEmail(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
             guard let self = self else { return }
@@ -109,7 +109,36 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
+    func saveGameData(phase: Int, level: Int, data: String) {
+        guard let userId = currentUser?.id else { return }
+        
+        
+        let db = Firestore.firestore()
+        
+        // Construct the reference to the document where data will be saved
+        let dataRef = db.collection("gameData")
+            .document(userId)
+            .collection("phases")
+            .document(String(phase))
+            .collection("levels")
+            .document(String(level))
+        
+        // Data to be saved
+        let dataToSave: [String: Any] = [
+            "data": data,
+            "timestamp": Timestamp(date: Date()) // Optional: Add a timestamp
+        ]
+        
+        // Save the data
+        dataRef.setData(dataToSave) { error in
+            if let error = error {
+                print("Error saving game data: \(error.localizedDescription)")
+            } else {
+                print("Game data saved successfully for phase \(phase), level \(level).")
+            }
+        }
+    }
 
     func signUpWithEmail(email: String, password: String, username: String) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in

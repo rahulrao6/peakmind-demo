@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P4_9_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var selectedOption: String? = nil
     @State private var showExplanation: Bool = false
     @State private var explanationText: String = ""

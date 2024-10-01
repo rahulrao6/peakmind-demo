@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P4_2_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var selectedOptions: Set<String> = []
     @State private var navigateToNextView = false // State to control navigation
     
@@ -118,7 +118,7 @@ struct P4_2_1: View {
         // Navigate to the next view after submitting the answers
         if !selectedOptions.isEmpty {
             navigateToNextView = true
-            closeAction()
+            closeAction("")
         }
     }
 }

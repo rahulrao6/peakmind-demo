@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P3_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var showNextScreen = false
     
     var body: some View {
@@ -56,7 +56,7 @@ struct P3_1: View {
                     .padding(.bottom, 50)
                     .background(
                         NavigationLink(
-                            destination: BreathingExerciseView2(),
+                            destination: P3_2(closeAction: closeAction),
                             isActive: $showNextScreen,
                             label: { EmptyView() }
                         )

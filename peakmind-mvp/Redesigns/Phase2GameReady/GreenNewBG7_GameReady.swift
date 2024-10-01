@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P2_7_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var factor1: String = ""
     @State private var factor2: String = ""
     @State private var factor3: String = ""

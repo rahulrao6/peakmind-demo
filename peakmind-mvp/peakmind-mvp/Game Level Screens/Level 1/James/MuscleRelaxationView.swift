@@ -42,7 +42,7 @@ final class BreathingExerciseScene: SKScene {
 }
 
 struct MuscleRelaxationView: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
 
     var body: some View {
         ZStack {
@@ -80,7 +80,7 @@ struct MuscleRelaxationView: View {
                             .frame(width: 300, height: 300)
                             .background(Color.clear)
                         
-                        Button(action: {closeAction()}) {
+                        Button(action: {closeAction("")}) {
                             Text("Continue")
                         }
                     }

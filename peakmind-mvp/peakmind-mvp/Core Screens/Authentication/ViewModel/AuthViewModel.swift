@@ -1860,6 +1860,10 @@ class AuthViewModel: ObservableObject {
             quests[index].claimReward()
             saveQuest(quests[index])
         }
+        
+        Task {
+            try await awardPoints(150, reason: "Completed quest")
+        }
         fetchQuestData()
         checkAndSyncQuests()
     }

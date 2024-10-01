@@ -27,11 +27,11 @@ struct Quest: Identifiable, Codable {
     
     // Define colors for each segment depth (hex strings)
     var segmentColorHexes: [String] = [
-        "4CAF50",  // Green
-        "FF9800",  // Orange
-        "2196F3",  // Blue
-        "E91E63",  // Pink
-        "9C27B0"   // Purple
+        "b0e8ff",  // Green
+        "1a82b3",  // Orange
+        "00b4ff",  // Blue
+        "2262f5",  // Pink
+        "122352"   // Purple
     ]
     
     // Computed property to get Color from hex
@@ -57,7 +57,7 @@ struct Quest: Identifiable, Codable {
         case "Profiles": return "Take \(nextSegmentGoal) Profile Quizzes"
         case "Games": return "Complete \(nextSegmentGoal) Game Modules"
         case "Journal": return "Complete \(nextSegmentGoal) Journal Entries"
-        case "Chat": return "Have \(nextSegmentGoal) Conversations with AI Companion"
+        case "Chat": return "Have \(nextSegmentGoal) Conversations with Sherpa"
         case "Habits": return "Complete \(nextSegmentGoal) Habits in a Routine"
         case "Routine": return "Build \(nextSegmentGoal) Routines"
         default: return baseName
@@ -108,13 +108,18 @@ struct Quest: Identifiable, Codable {
 struct YourQuestsView: View {
     @State private var showRewardPopup = false
     @State private var selectedQuest: Quest?
+    @State private var showPointsAndBadgesView = false // State to control navigation
     @EnvironmentObject var viewModel: AuthViewModel // Inject the AuthViewModel
 
     var body: some View {
         NavigationView {
             ZStack {
                 // Background with Linear Gradient
-                LinearGradient(gradient: Gradient(colors: [Color(hex: "452198")!, Color(hex: "1a1164")!]), startPoint: .top, endPoint: .bottom)
+                LinearGradient(
+                    gradient: Gradient(colors: [Color(hex: "112864")!, Color(hex: "23429a")!]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack(alignment: .leading, spacing: 20) {
@@ -161,7 +166,7 @@ struct YourQuestsView: View {
                                 .font(.custom("SFProText-Heavy", size: 24))
                                 .foregroundColor(.white)
                             
-                            Text("You completed a segment of \(selectedQuest?.title ?? "your quest")!")
+                            Text("You just earned 100 XP!")
                                 .font(.custom("SFProText-Bold", size: 18))
                                 .foregroundColor(.white)
                             
@@ -177,13 +182,13 @@ struct YourQuestsView: View {
                                     .foregroundColor(.white)
                                     .padding()
                                     .frame(maxWidth: .infinity)
-                                    .background(Color(hex: "ca4c73")!)
+                                    .background(Color(hex: "b0e8ff")!)
                                     .cornerRadius(10)
                                     .padding(.horizontal, 20)
                             }
                         }
                         .padding()
-                        .background(Color(hex: "180b53")!)
+                        .background(Color(hex: "0b1953")!)
                         .cornerRadius(15)
                         .frame(maxWidth: 300)
                     }
@@ -198,13 +203,35 @@ struct YourQuestsView: View {
             .onDisappear {
                 viewModel.removeListener()
             }
+            .overlay(
+                HStack {
+                    Spacer()
+                    VStack {
+                        Button(action: {
+                            showPointsAndBadgesView = true // Set to true to navigate to PointsAndBadgesView
+                        }) {
+                            Image(systemName: "star.fill")
+                                .font(.system(size: 20)) // Smaller button
+                                .foregroundColor(Color(hex: "b0e8ff")!) // Yellow star
+                                .padding(10) // Reduced padding
+                                .background(Color.black) // Black circle background
+                                .clipShape(Circle())
+                        }
+                        .padding(.top, 40)
+                        Spacer()
+                    }
+                    .padding(.trailing, 20)
+                }
+            )
             .navigationBarHidden(true)
+            .sheet(isPresented: $showPointsAndBadgesView) {
+                PointsAndBadgesView() // Navigate to the PointsAndBadgesView
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
-// MARK: - QuestCardView
 
 struct QuestCardView: View {
     @Binding var quest: Quest
@@ -218,25 +245,37 @@ struct QuestCardView: View {
                 Text(quest.title)
                     .font(.custom("SFProText-Heavy", size: 24))
                     .foregroundColor(.white)
+                    .padding(.top, 5)
                 
                 // Subtitle for current segment
                 Text(quest.subtitle)
                     .font(.custom("SFProText-Bold", size: 16))
                     .foregroundColor(.gray)
-                
-                Spacer()
-                
-                // Progress Text (e.g., 3/10)
+                    .lineLimit(nil) // Allow unlimited lines
+                    .multilineTextAlignment(.leading) // Align text to the left
+
+                // Yellow stars to indicate current phase
+                HStack {
+                    ForEach(0..<quest.totalSegments.count, id: \.self) { index in
+                        Image(systemName: index < quest.totalSegments.count && (index < quest.totalSegments.firstIndex(of: quest.nextSegmentGoal) ?? quest.totalSegments.count || quest.currentProgress >= quest.totalSegments.last!) ? "star.fill" : "star")
+                            .foregroundColor(index < quest.totalSegments.count && (index < quest.totalSegments.firstIndex(of: quest.nextSegmentGoal) ?? quest.totalSegments.count || quest.currentProgress >= quest.totalSegments.last!) ? Color.yellow : Color.gray)
+                    }
+                }
+
+                // Progress Text (e.g., 3/10) moved up above Spacer
                 HStack {
                     Spacer()
                     Text(quest.segmentDetails)
                         .font(.custom("SFProText-Bold", size: 16))
                         .foregroundColor(.gray)
                 }
+                
+                Spacer() // Spacer ensures the progress bar stays at the bottom
             }
             .padding()
             .frame(height: 150) // Card height
-            .background(quest.currentSegmentColor.opacity(0.5))
+            // Set background to gold if ALL segments are completed, else use #122352
+            .background(quest.currentProgress >= quest.totalSegments.last! ? Color(hex: "2a0068") : Color(hex: "122352"))
             .cornerRadius(12)
             .onTapGesture {
                 if quest.canClaimReward {
@@ -251,13 +290,26 @@ struct QuestCardView: View {
                     .cornerRadius(12, corners: [.bottomLeft, .bottomRight]),
                 alignment: .bottom // Ensure the progress bar is at the very bottom
             )
-            // Add white glow effect if segment can be claimed
-            .shadow(color: quest.canClaimReward ? Color.white.opacity(0.8) : Color.clear, radius: 10, x: 0, y: 0)
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 10)
+        // Apply the glow effect to the entire card (ZStack), not to individual elements
+        .shadow(color: quest.canClaimReward ? Color.white.opacity(0.44) : Color.clear, radius: 8, x: 0, y: 0)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // MARK: - QuestProgressBar
 
@@ -270,7 +322,7 @@ struct QuestProgressBar: View {
                 // Progress Bar with Sunset Gradient
                 RoundedRectangle(cornerRadius: 0) // No corner radius since it's at the bottom
                     .fill(
-                        LinearGradient(gradient: Gradient(colors: [Color(hex: "ff758c")!, Color(hex: "ff7eb3")!, Color(hex: "ffae88")!]), startPoint: .leading, endPoint: .trailing)
+                        LinearGradient(gradient: Gradient(colors: [Color(hex: "00ebf4")!, Color(hex: "0090ff")!, Color(hex: "2067a8")!]), startPoint: .leading, endPoint: .trailing)
                     )
                     .frame(width: geometry.size.width * progress, height: geometry.size.height) // Fill the height
             }
@@ -299,29 +351,6 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
-
-// MARK: - Color Extension
-
-//extension Color {
-//    init?(hex: String) {
-//        let r, g, b: Double
-//
-//        var hexColor = hex
-//        if hex.hasPrefix("#") {
-//            hexColor = String(hex.dropFirst())
-//        }
-//
-//        guard let intCode = Int(hexColor, radix: 16) else {
-//            return nil
-//        }
-//
-//        r = Double((intCode >> 16) & 0xFF) / 255.0
-//        g = Double((intCode >> 8) & 0xFF) / 255.0
-//        b = Double(intCode & 0xFF) / 255.0
-//
-//        self.init(red: r, green: g, blue: b)
-//    }
-//}
 
 // MARK: - Preview
 

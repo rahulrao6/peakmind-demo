@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct P3_2: View {
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isTextCompleted: Bool = false
     @State private var showAnimation = false
@@ -201,7 +202,7 @@ struct P3_2: View {
                             
                             NavigationLink(destination: StressIntroView(), isActive: $navigatetoStressIntroView) {
                                 Button(action: {
-                                    navigatetoStressIntroView = true
+                                    closeAction("You completed a controlled breathing exercise.")
                                 }) {
                                     Text("Continue")
                                         .font(.custom("SFProText-Bold", size: 20))

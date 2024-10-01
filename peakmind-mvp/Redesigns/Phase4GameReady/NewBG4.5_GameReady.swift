@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P4_4_6: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var textInput: String = "" // State to store text for the single text field
     @State private var isButtonEnabled: Bool = false // Control the button's glow and action
     @State private var navigateToNextScreen = false // Navigation state
@@ -84,7 +84,7 @@ struct P4_4_6: View {
                     
                     // Next button with conditional glow
                     Button(action: {
-                        closeAction()
+                        closeAction("")
                         //navigateToNextScreen = true // Action when the button is pressed
                     }) {
                         Text("Next")

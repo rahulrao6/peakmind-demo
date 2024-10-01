@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct P6_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var negativeThought: String = ""
     @State private var positiveThought: String = ""
     @State private var navigateToNextScreen = false
@@ -111,8 +111,7 @@ struct P6_1: View {
                     
                     // continue button for next screen
                     Button(action: {
-                        navigateToNextScreen = true
-                        closeAction()
+                        closeAction("Negative Thought: \(negativeThought) | Positive Thought: \(positiveThought)")
                     }) {
                         Text("Continue")
                             .font(.custom("SFProText-Bold", size: 20))

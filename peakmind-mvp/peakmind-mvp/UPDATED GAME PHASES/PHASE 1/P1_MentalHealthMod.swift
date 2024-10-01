@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P1_MentalHealthMod: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var selectedPage = 0
     let pageTexts = [
         "• Mental health involves our emotional, psychological, and social well-being. It shapes how we perceive the world and think about ourselves.\n• Every decision we make is influenced by our mental health, making it so important to learn coping strategies and how to manage it correctly!",

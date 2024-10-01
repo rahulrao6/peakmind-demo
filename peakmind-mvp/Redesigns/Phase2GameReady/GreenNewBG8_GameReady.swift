@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P2_8_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var selectedStrategy: String? = nil
     @State private var isSpinning = false
     @State private var spinAngle: Double = 0

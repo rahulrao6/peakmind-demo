@@ -158,7 +158,7 @@ class GameModel: ObservableObject {
 
 struct PacManGameView: View {
     @EnvironmentObject var gameModel: GameModel
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
 
     var body: some View {
         GeometryReader { geometry in
@@ -241,7 +241,7 @@ struct CellView: View {
 
 struct ControlsView: View {
     @ObservedObject var gameModel: GameModel
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
 
     var body: some View {
         HStack {
@@ -257,7 +257,7 @@ struct ControlsView: View {
                 }
             }
             Button(action: {
-                closeAction()
+                closeAction("")
             }) {
                 Image(systemName: "xmark")
                     .foregroundColor(.white)
@@ -281,7 +281,7 @@ struct ControlsView: View {
 
 struct GameOverView: View {
     @EnvironmentObject var gameModel: GameModel
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
 
     var body: some View {
         VStack {
@@ -291,7 +291,7 @@ struct GameOverView: View {
             }
             .padding().background(Color.green).foregroundColor(.white).clipShape(RoundedRectangle(cornerRadius: 10))
             Button("Exit") {
-                closeAction()
+                closeAction("")
             }
             .padding().background(Color.green).foregroundColor(.white).clipShape(RoundedRectangle(cornerRadius: 10))
         }
@@ -302,7 +302,7 @@ struct GameOverView: View {
 
 struct GameWonView: View {
     @EnvironmentObject var gameModel: GameModel
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
 
     var body: some View {
         VStack {
@@ -312,7 +312,7 @@ struct GameWonView: View {
             }
             .padding().background(Color.green).foregroundColor(.white).clipShape(RoundedRectangle(cornerRadius: 10))
             Button("Exit") {
-                closeAction()
+                closeAction("")
             }
             .padding().background(Color.green).foregroundColor(.white).clipShape(RoundedRectangle(cornerRadius: 10))
         }

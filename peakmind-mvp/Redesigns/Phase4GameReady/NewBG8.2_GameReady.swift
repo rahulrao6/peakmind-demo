@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P4_8_3: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     let selectedActivity: String // Passed from the first screen
     @State private var selectedOptions: Set<String> = []
     @State private var navigateToNextView = false

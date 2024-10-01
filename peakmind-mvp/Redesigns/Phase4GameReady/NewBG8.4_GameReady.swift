@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P4_8_5: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var navigateToNextView = false
 
     var body: some View {
@@ -26,7 +26,7 @@ struct P4_8_5: View {
 
             // Next button
             Button(action: {
-                closeAction()
+                closeAction("")
             }) {
                 Text("Next")
                     .font(.custom("SFProText-Bold", size: 20))

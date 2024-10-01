@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P3_3_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isTextCompleted: Bool = false
     @State private var currentLitSection: Int = 0
@@ -98,7 +98,7 @@ struct P3_3_1: View {
                     // Continue button to navigate after the body scan completes
                     if currentLitSection == bodySections.count - 1 {
                         Button(action: {
-                            closeAction()
+                            closeAction("")
                         }) {
                             Text("Continue")
                                 .font(.custom("SFProText-Bold", size: 20))

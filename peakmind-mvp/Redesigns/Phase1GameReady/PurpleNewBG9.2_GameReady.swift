@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct P9_2: View {
+    var closeAction: (String) -> Void
     @State private var userInput: String = ""
     @FocusState private var isTextEditorFocused: Bool
     @State private var isTyping: Bool = false
@@ -117,7 +118,7 @@ struct P9_2: View {
                     // submit button
                     Button(action: {
                         isTextEditorFocused = false
-                        navigateToBreathingExercise = true
+                        closeAction("Choose one area of your life—like sleep, exercise, or social connections. What's one small change you could make this week? How might it positively impact you? " + userInput)
                     }) {
                         Text("Submit")
                             .font(.custom("SFProText-Bold", size: 20))

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Tutorial7: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     
     var body: some View {
         ZStack {
@@ -29,7 +29,7 @@ struct Tutorial7: View {
                     .font(.system(size: 20, weight: .black))
                     .foregroundColor(.black)
                     .onTapGesture {
-                        closeAction()
+                        closeAction("")
                     }
                 Spacer()
             }

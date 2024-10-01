@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LevelUnavailable: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     
     var body: some View {
         VStack(spacing: 16) {
@@ -27,7 +27,7 @@ struct LevelUnavailable: View {
             
             // Next Button
             Button(action: {
-                closeAction()
+                closeAction("")
             }) {
                 Text("Next")
                     .font(.custom("SFProText-Bold", size: 20))

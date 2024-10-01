@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P2_2: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var userInput: String = ""
     @FocusState private var isTextEditorFocused: Bool
     @State private var isTyping: Bool = false
@@ -118,7 +118,7 @@ struct P2_2: View {
                     Button(action: {
                         isTextEditorFocused = false
                         navigateToBreathingExercise = true
-                        closeAction()
+                        closeAction("What do you most enjoy when you have a day to yourself? "+ userInput)
                     }) {
                         Text("Submit")
                             .font(.custom("SFProText-Bold", size: 20))

@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct P4_2: View {
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isButtonDisabled: Bool = true
     @State private var showGlow: Bool = false
@@ -93,7 +94,7 @@ struct P4_2: View {
                             showGlow = false // hide glow when text starts typing
                             currentIndex += 1
                         } else {
-                            navigateToWellnessQuestion = true // trigger navigation
+                            closeAction("")
                         }
                     }) {
                         Text(currentIndex < bulletPoints.count - 1 ? "Next" : "Continue")

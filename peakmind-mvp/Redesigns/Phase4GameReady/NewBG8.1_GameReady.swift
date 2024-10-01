@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P4_8_2: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var selectedOptions: Set<String> = []
     @State private var navigateToNextView = false // State for navigation
     

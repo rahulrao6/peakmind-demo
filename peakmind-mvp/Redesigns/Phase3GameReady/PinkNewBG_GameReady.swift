@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P3_WQ: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var userInput: String = ""
     @FocusState private var isTextEditorFocused: Bool
     @State private var isTyping: Bool = false
@@ -116,7 +116,7 @@ struct P3_WQ: View {
                     // submit button
                     Button(action: {
                         isTextEditorFocused = false
-                        closeAction()
+                        closeAction("")
                     }) {
                         Text("Submit")
                             .font(.custom("SFProText-Bold", size: 20))

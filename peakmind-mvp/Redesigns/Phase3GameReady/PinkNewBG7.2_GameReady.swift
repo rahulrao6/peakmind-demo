@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P3_7_2: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var selectedOption: String? = nil
     @State private var showExplanation: Bool = false
     @State private var explanationText: String = ""
@@ -107,7 +107,7 @@ struct P3_7_2: View {
                     // Submit button (if correct choices are selected)
                     if correctAnswers.contains(selectedOption ?? "") {
                         Button(action: {
-                            closeAction()
+                            closeAction("")
                         }) {
                             Text("Continue")
                                 .font(.custom("SFProText-Bold", size: 20))

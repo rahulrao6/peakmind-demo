@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct P2_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isButtonDisabled: Bool = true
     @State private var showGlow: Bool = false
@@ -118,7 +118,7 @@ struct P2_1: View {
                     .disabled(isButtonDisabled) // disable button if typing is not complete
                     
                     // navigation link to the next screen
-                    NavigationLink(destination: WellnessQuestionViewPurple(), isActive: $navigateToWellnessQuestion) {
+                    NavigationLink(destination: P2_2(closeAction: closeAction), isActive: $navigateToWellnessQuestion) {
                         EmptyView()
                     }
                 }

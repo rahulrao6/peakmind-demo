@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P4_6_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var selectedStrategy: String? = nil
     @State private var isSpinning = false
     @State private var spinAngle: Double = 0
@@ -103,7 +103,7 @@ struct P4_6_1: View {
                     // Continue button (shown after spinning)
                     if showContinueButton {
                         Button(action: {
-                            closeAction()
+                            closeAction("")
                         }) {
                             Text("Continue")
                                 .font(.custom("SFProText-Bold", size: 20))

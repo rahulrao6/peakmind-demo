@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P3_10_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var selectedOptions: Set<String> = []
     @State private var navigateToNextView = false // State to control navigation
     
@@ -74,7 +74,7 @@ struct P3_10_1: View {
                     // Submit button with conditional glow
                     Button(action: {
                         submitAnswers()
-                        closeAction()
+                        closeAction("")
                     }) {
                         Text("Submit")
                             .font(.custom("SFProText-Bold", size: 20))

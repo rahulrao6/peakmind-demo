@@ -11,7 +11,7 @@ import SwiftUI
 import Combine
 
 struct P5_1: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isIntroTextCompleted: Bool = false
     @State private var showInputBoxes: Bool = false
@@ -186,8 +186,7 @@ struct P5_1: View {
                         
                         // continue button for next screen
                         Button(action: {
-                            navigateToNextScreen = true
-                            closeAction()
+                            closeAction("You completed a trigger mapping exercise.")
                         }) {
                             Text("Continue")
                                 .font(.custom("SFProText-Bold", size: 20))

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P4_4_3: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var textInputs: [String] = Array(repeating: "", count: 4) // State to store text for the 4 text fields
     @State private var isButtonEnabled: Bool = false // Control the button's glow and action
     @State private var navigateToNextScreen = false // Navigation state

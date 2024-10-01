@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P2_3_2: View {
-    var closeAction: () -> Void
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isTextCompleted: Bool = false
     @State private var isExerciseStarted: Bool = false
@@ -190,7 +190,7 @@ struct P2_3_2: View {
                             NavigationLink(destination: P2StressIntroView(), isActive: $navigatetoStressIntroView) {
                                 Button(action: {
                                     navigatetoStressIntroView = true
-                                    closeAction()
+                                    closeAction("")
                                     
                                 }) {
                                     Text("Continue")

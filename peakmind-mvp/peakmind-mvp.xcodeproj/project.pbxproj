@@ -1085,7 +1085,6 @@
 		1C9C63C02B81327A0066AF70 /* Core Screens */ = {
 			isa = PBXGroup;
 			children = (
-				7969B4F72CA9F31B00CEEB05 /* New Group */,
 				79582AB72C6FBE30006866BC /* Templates */,
 				79582AB42C6FBE09006866BC /* Summit Mode */,
 				1CD029F52BE9E7140047951D /* Tutorial */,
@@ -1505,13 +1504,6 @@
 				79582AB82C6FBE3A006866BC /* FlowingWaterView.swift */,
 			);
 			path = Templates;
-			sourceTree = "<group>";
-		};
-		7969B4F72CA9F31B00CEEB05 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		7969B4F82CA9F44300CEEB05 /* Routines */ = {

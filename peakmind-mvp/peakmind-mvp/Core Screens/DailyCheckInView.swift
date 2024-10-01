@@ -10,7 +10,7 @@ struct DailyCheckInView: View {
         ZStack {
             // Background with Linear Gradient
             LinearGradient(
-                gradient: Gradient(colors: [Color(hex: "452198")!, Color(hex: "1a1164")!]),
+                gradient: Gradient(colors: [Color(hex: "112864")!, Color(hex: "23429a")!]),
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -21,7 +21,7 @@ struct DailyCheckInView: View {
                 
                 // Title
                 Text("Daily Check-In")
-                    .font(.custom("SFProText-Heavy", size: 34))
+                    .font(.custom("SFProText-Heavy", size: 22))
                     .foregroundColor(.white)
                     .padding(.bottom, 0)
                     .padding(.top, 30)
@@ -56,10 +56,10 @@ struct DailyCheckInView: View {
                 }) {
                     Text("Submit")
                         .font(.custom("SFProText-Bold", size: 18))
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color(hex: "ca4c73")!)
+                        .background(Color(hex: "b0e8ff")!)
                         .cornerRadius(12)
                 }
                 .padding(.horizontal, 20)
@@ -81,7 +81,7 @@ struct QuestionView: View {
         VStack(alignment: .leading, spacing: 20) {
             // Multi-line Question Text
             Text(question)
-                .font(.custom("SFProText-Bold", size: 20))
+                .font(.custom("SFProText-Bold", size: 18))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.leading)
                 .lineLimit(nil) // Allow multi-line
@@ -98,7 +98,7 @@ struct QuestionView: View {
                 .padding(.top, -15)
         }
         .padding() // Padding inside the background
-        .background(Color(hex: "180b53")!) // Color-coded background behind the question block
+        .background(Color(hex: "0b1953")!) // Color-coded background behind the question block
         .cornerRadius(12) // Optional: Rounded corners for better appearance
     }
 }
@@ -117,12 +117,12 @@ struct CustomSlider: View {
                     .frame(height: 11)
                 
                 Capsule()
-                    .fill(Color(hex: "ca4c73")!)
+                    .fill(Color(hex: "b0e8ff")!)
                     .frame(width: CGFloat((value - range.lowerBound) / (range.upperBound - range.lowerBound)) * geometry.size.width, height: 11)
                 
                 // Custom thumb circle
                 Circle()
-                    .fill(Color(hex: "ca4c73")!)                    
+                    .fill(Color(hex: "b0e8ff")!)
                     .frame(width: 18, height: 18) // Smaller circle for thumb
                     .offset(x: CGFloat((value - range.lowerBound) / (range.upperBound - range.lowerBound)) * geometry.size.width - 6) // Align thumb properly
                     .gesture(DragGesture(minimumDistance: 0)

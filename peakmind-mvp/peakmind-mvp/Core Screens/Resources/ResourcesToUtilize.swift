@@ -5,7 +5,7 @@ struct ResourcesToUtilize: View {
         ZStack {
             // Background with Linear Gradient
             LinearGradient(
-                gradient: Gradient(colors: [Color(hex: "452198")!, Color(hex: "1a1164")!]),
+                gradient: Gradient(colors: [Color(hex: "112864")!, Color(hex: "23429a")!]),
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -16,14 +16,14 @@ struct ResourcesToUtilize: View {
                 
                 // Title
                 Text("Resources")
-                    .font(.custom("SFProText-Heavy", size: 40))
+                    .font(.custom("SFProText-Heavy", size: 32))
                     .foregroundColor(.white)
                     .padding(.bottom, 5)
                     .padding(.leading, 36)
                 
                 // Informative text
                 Text("If you are experiencing a mental health emergency, please call 911. All resources listed take you to the organization's website.")
-                    .font(.custom("SFProText-Bold", size: 18))
+                    .font(.custom("SFProText-Bold", size: 14))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal, 40)
@@ -70,11 +70,11 @@ struct LinkButton: View {
                 
                 // Arrow on the right side
                 Image(systemName: "arrow.right")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(hex: "b0e8ff")!)
                     .padding(.trailing, 20)
             }
             .frame(width: 340, height: 65) // Wider and taller buttons
-            .background(Color(hex: "180b53")!)
+            .background(Color(hex: "0b1953")!)
             .cornerRadius(12)
             .padding(.horizontal, 10) // Equal padding on both sides
         }

@@ -113,10 +113,8 @@ struct P2_2_1: View {
                     }
                     .padding(.bottom, 50)
                     .disabled(isButtonDisabled) // Disable button if typing is not complete
-                    
-                    // Navigation link to the next screen
-                    NavigationLink(destination: P2_WellnessQuestion(closeAction: closeAction), isActive: $navigateToWellnessQuestion) {
-                        EmptyView()
+                    .fullScreenCover(isPresented: $navigateToWellnessQuestion) {
+                        P2_2_2(closeAction: closeAction)
                     }
                 }
                 .padding(.horizontal)

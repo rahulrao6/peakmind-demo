@@ -104,11 +104,7 @@ struct P4_4_6: View {
                     }
                     .disabled(!isButtonEnabled) // Disable the button until the text field is filled
                     .padding(.bottom, 100)
-                    .background(
-                        NavigationLink(destination: WellnessQuestionView2(), isActive: $navigateToNextScreen) {
-                            EmptyView()
-                        }
-                    )
+
                 }
                 .padding(.horizontal)
                 .onAppear {

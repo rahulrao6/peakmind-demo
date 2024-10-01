@@ -28,7 +28,7 @@ struct P2_1_1: View {
             
             // Next Button
             Button(action: {
-                showNextScreen = true
+                closeAction("")
             }) {
                 Text("Next")
                     .font(.custom("SFProText-Bold", size: 20))
@@ -46,13 +46,6 @@ struct P2_1_1: View {
                     .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
             }
             .padding(.bottom, 50)
-            .background(
-                NavigationLink(
-                    destination: P2MentalHealthFeatureView(),
-                    isActive: $showNextScreen,
-                    label: { EmptyView() }
-                )
-            )
         }
         .padding(.horizontal)
         .background(

@@ -45,10 +45,6 @@ struct P4_8_5: View {
             }
             .padding(.bottom, 50)
 
-            // NavigationLink to P2QuizPageView
-            NavigationLink(destination: P4QuizPageView(), isActive: $navigateToNextView) {
-                EmptyView()
-            }
         }
         .background(
             Image("NewBG")

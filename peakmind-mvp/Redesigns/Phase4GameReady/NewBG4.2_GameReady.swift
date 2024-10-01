@@ -105,11 +105,9 @@ struct P4_4_3: View {
                     }
                     .disabled(!isButtonEnabled) // Disable the button until all text fields are filled
                     .padding(.bottom, 100)
-                    .background(
-                        NavigationLink(destination: P4_4_4(closeAction: closeAction), isActive: $navigateToNextScreen) {
-                            EmptyView()
-                        }
-                    )
+                    .fullScreenCover(isPresented: $navigateToNextScreen) {
+                        P4_4_4(closeAction: closeAction)
+                    }
                 }
                 .padding(.horizontal)
                 .onAppear {

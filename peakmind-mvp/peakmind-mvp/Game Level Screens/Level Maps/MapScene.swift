@@ -1,5 +1,5 @@
 import SpriteKit
-
+import Foundation
 
 class MapScene: SKScene, ObservableObject {
     @Published var currentLevel = -1
@@ -39,6 +39,8 @@ class MapScene: SKScene, ObservableObject {
         for item in textNodes {
             item.removeFromParent()
         }
+        
+        completedPhases = Int(floor(Double(completedLevelsList.count) / 10.0))
        
         textNodes = []
         
@@ -135,7 +137,7 @@ class MapScene: SKScene, ObservableObject {
     private func setupBackground() {
         let imageNames = ["pkmd_path", "InnerPath"]
         let sizes = [CGSize(width: 250, height: UIScreen.main.bounds.height), CGSize(width: 100, height: UIScreen.main.bounds.height)]
-        let yPositions: [CGFloat] = [-1, 0, 1, 2, 3, 4, 5].map { CGFloat($0) * UIScreen.main.bounds.height }
+        let yPositions: [CGFloat] = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map { CGFloat($0) * UIScreen.main.bounds.height }
 
         for (index, imageName) in imageNames.enumerated() {
             for yPosition in yPositions {
@@ -159,7 +161,16 @@ class MapScene: SKScene, ObservableObject {
         setupPhaseGates()
     }
     
+    func updatePhase() {
+        completedPhases = Int(floor(Double(completedLevelsList.count) / 10.0))
+        maxY = (Float(completedPhases)*2) + 1.5
+    }
+    
+    
+    
     private func setupPhaseGates() {
+        
+        
         for item in phaseGates {
             item.removeFromParent()
         }
@@ -419,6 +430,11 @@ class MapScene: SKScene, ObservableObject {
     
     private func centerOnNode(node: SKSpriteNode) {
         //if (levels[selectedPhase].phase - 1) <= completedPhases {
+        print(completedLevelsList)
+        print(maxY)
+        print(completedPhases)
+        
+        
             let alphaAction1 = SKAction.fadeAlpha(to: 0, duration: 0.25)
             levelInfoBG.run(alphaAction1)
             

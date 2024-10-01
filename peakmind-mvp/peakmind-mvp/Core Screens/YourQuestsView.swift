@@ -1,44 +1,65 @@
-import SwiftUI
+//
+//  NewQuestView.swift
+//  peakmind-mvp
+//
+//  Created by Raj Jagirdar on 9/30/24.
+//
 
-// Quest Model with progress and segment management
-// Quest Model with progress and segment management
-struct Quest: Identifiable {
-    let id = UUID()
+import Foundation
+import SwiftUI
+import Firebase
+import FirebaseFirestoreSwift
+
+// MARK: - Quest Model
+
+struct Quest: Identifiable, Codable {
+    @DocumentID var id: String?  // Firebase document ID
     var baseName: String
     var currentProgress: Int
     var nextSegmentGoal: Int
     var totalSegments: [Int]
     
-    // Define colors for each segment depth
-    var segmentColors: [Color] = [
-        Color(hex: "4CAF50")!,  // Green
-        Color(hex: "FF9800")!,  // Orange
-        Color(hex: "2196F3")!,  // Blue
-        Color(hex: "E91E63")!,  // Pink
-        Color(hex: "9C27B0")!   // Purple
+    // Check progress for a specific quest type
+    
+    
+    
+    // Since colors and computed properties are not stored in Firebase, they remain unchanged.
+    
+    // Define colors for each segment depth (hex strings)
+    var segmentColorHexes: [String] = [
+        "4CAF50",  // Green
+        "FF9800",  // Orange
+        "2196F3",  // Blue
+        "E91E63",  // Pink
+        "9C27B0"   // Purple
     ]
+    
+    // Computed property to get Color from hex
+    var segmentColors: [Color] {
+        segmentColorHexes.compactMap { Color(hex: $0) }
+    }
     
     // Dynamically updates the quest title
     var title: String {
         switch baseName {
-        case "First Task": return "Quiz Master"
-        case "Second Task": return "Game Guru"
-        case "Third Task": return "Journal Jedi"
-        case "Fourth Task": return "Sherpa Whisperer"
-        case "Fifth Task": return "Habit Hero"
-        case "Sixth Task": return "Routine Builder"
+        case "Profiles": return "Quiz Master"
+        case "Games": return "Game Guru"
+        case "Journal": return "Journal Jedi"
+        case "Chat": return "Sherpa Whisperer"
+        case "Habits": return "Habit Hero"
+        case "Routine": return "Routine Builder"
         default: return baseName
         }
     }
     
     var subtitle: String {
         switch baseName {
-        case "First Task": return "Take \(nextSegmentGoal) Profile Quizzes"
-        case "Second Task": return "Complete \(nextSegmentGoal) Game Modules"
-        case "Third Task": return "Complete \(nextSegmentGoal) Journal Entries"
-        case "Fourth Task": return "Have \(nextSegmentGoal) Conversations with AI Companion"
-        case "Fifth Task": return "Complete \(nextSegmentGoal) Habits in a Routine"
-        case "Sixth Task": return "Build \(nextSegmentGoal) Routines"
+        case "Profiles": return "Take \(nextSegmentGoal) Profile Quizzes"
+        case "Games": return "Complete \(nextSegmentGoal) Game Modules"
+        case "Journal": return "Complete \(nextSegmentGoal) Journal Entries"
+        case "Chat": return "Have \(nextSegmentGoal) Conversations with AI Companion"
+        case "Habits": return "Complete \(nextSegmentGoal) Habits in a Routine"
+        case "Routine": return "Build \(nextSegmentGoal) Routines"
         default: return baseName
         }
     }
@@ -76,25 +97,19 @@ struct Quest: Identifiable {
         if let nextGoalIndex = totalSegments.firstIndex(of: nextSegmentGoal),
            nextGoalIndex + 1 < totalSegments.count {
             nextSegmentGoal = totalSegments[nextGoalIndex + 1]
+            currentProgress = 0 // Reset progress for the new segment
         }
     }
 }
 
+
+// MARK: - YourQuestsView
+
 struct YourQuestsView: View {
-    
-    @State private var quests: [Quest] = [
-        Quest(baseName: "First Task", currentProgress: 1, nextSegmentGoal: 3, totalSegments: [1, 3, 10, 20, 40]),
-        Quest(baseName: "Second Task", currentProgress: 5, nextSegmentGoal: 25, totalSegments: [5, 25, 50, 150, 400]),
-        Quest(baseName: "Third Task", currentProgress: 10, nextSegmentGoal: 30, totalSegments: [10, 30, 60, 100, 250]),
-        Quest(baseName: "Fourth Task", currentProgress: 3, nextSegmentGoal: 10, totalSegments: [3, 10, 20, 40, 100]),
-        Quest(baseName: "Fifth Task", currentProgress: 5, nextSegmentGoal: 20, totalSegments: [5, 20, 50, 100, 250]),
-        Quest(baseName: "Sixth Task", currentProgress: 1, nextSegmentGoal: 3, totalSegments: [1, 3, 5, 10, 20])
-    ]
-    
     @State private var showRewardPopup = false
     @State private var selectedQuest: Quest?
-    @State private var showPointsAndBadgesView = false // State to control navigation
-    
+    @EnvironmentObject var viewModel: AuthViewModel // Inject the AuthViewModel
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -112,15 +127,15 @@ struct YourQuestsView: View {
                     
                     // Quest list
                     ScrollView {
-                        ForEach($quests) { $quest in
+                        ForEach($viewModel.quests) { $quest in
                             QuestCardView(quest: $quest, showRewardPopup: $showRewardPopup, selectedQuest: $selectedQuest)
                         }
                     }
                     
-                    // Increment Button for Testing
+                    // Remove or keep the Increment Button for Testing
                     Button(action: {
-                        for index in quests.indices {
-                            quests[index].incrementProgress() // Just increment the progress
+                        for quest in viewModel.quests {
+                            viewModel.incrementProgress(for: quest.id ?? "")
                         }
                     }) {
                         Text("Increment All")
@@ -152,8 +167,8 @@ struct YourQuestsView: View {
                             
                             Button(action: {
                                 // Claim reward and move to next segment
-                                if let selectedQuestIndex = quests.firstIndex(where: { $0.id == selectedQuest?.id }) {
-                                    quests[selectedQuestIndex].claimReward()
+                                if let quest = selectedQuest {
+                                    viewModel.claimReward(for: quest.id ?? "")
                                 }
                                 showRewardPopup = false
                             }) {
@@ -174,55 +189,23 @@ struct YourQuestsView: View {
                     }
                 }
             }
-            .overlay(
-                HStack {
-                    Spacer()
-                    VStack {
-                        Button(action: {
-                            showPointsAndBadgesView = true // Set to true to navigate to PointsAndBadgesView
-                        }) {
-                            Image(systemName: "star.fill")
-                                .font(.system(size: 20)) // Smaller button
-                                .foregroundColor(.yellow) // Yellow star
-                                .padding(10) // Reduced padding
-                                .background(Color.black) // Black circle background
-                                .clipShape(Circle())
-                        }
-                        .padding(.top, 40)
+            .onAppear {
+                viewModel.fetchQuestData()
+                print(viewModel.quests)
+                viewModel.checkAndSyncQuests()
 
-                        Spacer()
-                    }
-                    .padding(.trailing, 20)
-                }
-            )
-
-            .navigationBarHidden(true)
-            .sheet(isPresented: $showPointsAndBadgesView) {
-                PointsAndBadgesView() // Navigate to the PointsAndBadgesView
             }
+            .onDisappear {
+                viewModel.removeListener()
+            }
+            .navigationBarHidden(true)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
-struct QuestProgressBar: View {
-    var progress: CGFloat
-    
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                // Progress Bar with Sunset Gradient
-                RoundedRectangle(cornerRadius: 0) // No corner radius since it's at the bottom
-                    .fill(
-                        LinearGradient(gradient: Gradient(colors: [Color(hex: "ff758c")!, Color(hex: "ff7eb3")!, Color(hex: "ffae88")!]), startPoint: .leading, endPoint: .trailing)
-                    )
-                    .frame(width: geometry.size.width * progress, height: geometry.size.height) // Fill the height
-            }
-        }
-    }
-}
+// MARK: - QuestCardView
 
-// Quest Card View with glow effect when segment is claimable
 struct QuestCardView: View {
     @Binding var quest: Quest
     @Binding var showRewardPopup: Bool
@@ -235,7 +218,7 @@ struct QuestCardView: View {
                 Text(quest.title)
                     .font(.custom("SFProText-Heavy", size: 24))
                     .foregroundColor(.white)
-
+                
                 // Subtitle for current segment
                 Text(quest.subtitle)
                     .font(.custom("SFProText-Bold", size: 16))
@@ -266,7 +249,7 @@ struct QuestCardView: View {
                 QuestProgressBar(progress: quest.progressPercentage)
                     .frame(height: 20) // Thin progress bar
                     .cornerRadius(12, corners: [.bottomLeft, .bottomRight]),
-                alignment: .bottom // Make sure the progress bar is at the very bottom
+                alignment: .bottom // Ensure the progress bar is at the very bottom
             )
             // Add white glow effect if segment can be claimed
             .shadow(color: quest.canClaimReward ? Color.white.opacity(0.8) : Color.clear, radius: 10, x: 0, y: 0)
@@ -276,9 +259,27 @@ struct QuestCardView: View {
     }
 }
 
+// MARK: - QuestProgressBar
 
+struct QuestProgressBar: View {
+    var progress: CGFloat
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                // Progress Bar with Sunset Gradient
+                RoundedRectangle(cornerRadius: 0) // No corner radius since it's at the bottom
+                    .fill(
+                        LinearGradient(gradient: Gradient(colors: [Color(hex: "ff758c")!, Color(hex: "ff7eb3")!, Color(hex: "ffae88")!]), startPoint: .leading, endPoint: .trailing)
+                    )
+                    .frame(width: geometry.size.width * progress, height: geometry.size.height) // Fill the height
+            }
+        }
+    }
+}
 
-// Corner Radius Modifier for bottom corners only
+// MARK: - Corner Radius Modifier
+
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
@@ -288,7 +289,7 @@ extension View {
 struct RoundedCorner: Shape {
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
-
+    
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(
             roundedRect: rect,
@@ -299,7 +300,31 @@ struct RoundedCorner: Shape {
     }
 }
 
-// Preview
+// MARK: - Color Extension
+
+//extension Color {
+//    init?(hex: String) {
+//        let r, g, b: Double
+//
+//        var hexColor = hex
+//        if hex.hasPrefix("#") {
+//            hexColor = String(hex.dropFirst())
+//        }
+//
+//        guard let intCode = Int(hexColor, radix: 16) else {
+//            return nil
+//        }
+//
+//        r = Double((intCode >> 16) & 0xFF) / 255.0
+//        g = Double((intCode >> 8) & 0xFF) / 255.0
+//        b = Double(intCode & 0xFF) / 255.0
+//
+//        self.init(red: r, green: g, blue: b)
+//    }
+//}
+
+// MARK: - Preview
+
 struct QuestView_Previews: PreviewProvider {
     static var previews: some View {
         YourQuestsView()

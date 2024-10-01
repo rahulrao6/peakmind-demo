@@ -15,16 +15,15 @@ struct P1_MentalHealthMod: View {
         "• Managing our mental health requires a conscious effort since we have different personal and environmental needs.\n• Our mental health impacts how we interact with others, shaping personal relationships and social interactions.",
         "• Just like physical health, our mental health is equally as important. Everyone deserves to be happy.\n• Using coping strategies, support groups, and learning about our specific mental health struggles will lead to a happier lifestyle."
     ]
-
+    
     var body: some View {
-        MultiSectionView(title: "Mt. Anxiety: Phase One",
-                         sectionHeader: "What is Mental Health?",
-                         pageTexts: pageTexts,
-                         nextScreen: LevelOneMapView()
-            .navigationBarBackButtonHidden(true), closeAction: closeAction)
-
+        Text("Mt. Anxiety: Phase One - What is Mental Health?")
+            .font(.title)
+            .padding()
+            .navigationBarBackButtonHidden(true)
     }
 }
+
 
 //struct P1_MentalHealthMod_Previews: PreviewProvider {
 //    static var previews: some View {

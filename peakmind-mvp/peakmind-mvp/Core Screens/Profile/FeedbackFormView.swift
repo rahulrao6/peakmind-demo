@@ -38,11 +38,6 @@ struct FeedbackFormView: View {
                 }
 
                 Spacer()
-
-                // Navigation link hidden
-                NavigationLink(destination: L2SherpaChatView().navigationBarBackButtonHidden(true), isActive: $navigateToNext) {
-                    EmptyView()
-                }
             }
             .padding()
         }

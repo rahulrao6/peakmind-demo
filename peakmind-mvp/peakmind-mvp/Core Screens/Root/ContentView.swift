@@ -9,7 +9,6 @@ struct ContentView: View {
     @State private var navigateToStoreScreen = false
     @State private var navigateToInventoryScreen = false
     @EnvironmentObject var healthKitManager: HealthKitManager
-    @EnvironmentObject var CommunitiesViewModel : CommunitiesViewModel
     @EnvironmentObject var EventKitManager1: EventKitManager
 
 
@@ -20,7 +19,6 @@ struct ContentView: View {
  
                         TabViewMain()
                             .environmentObject(viewModel)
-                            .environmentObject(CommunitiesViewModel)
                             .environmentObject(healthKitManager)
                             .environmentObject(EventKitManager1)
 

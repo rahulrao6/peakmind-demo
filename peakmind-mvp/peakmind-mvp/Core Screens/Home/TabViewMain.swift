@@ -16,10 +16,10 @@ struct TabViewMain: View {
           Label("Routines", systemImage: "repeat")
         }
         .tag(1)
-      TestView().environmentObject(viewModel)
-        .tabItem {
-          Label("Map", systemImage: "map.fill")
-        }
+        TestView().environmentObject(viewModel)
+            .tabItem {
+                Label("Map", systemImage: "map.fill")
+            }
         .tag(0)
       YourQuestsView().environmentObject(viewModel)
         .tabItem {

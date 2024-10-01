@@ -118,7 +118,7 @@ struct P2_2: View {
                     Button(action: {
                         isTextEditorFocused = false
                         navigateToBreathingExercise = true
-                        closeAction("What do you most enjoy when you have a day to yourself? "+ userInput)
+                        closeAction("What do you most enjoy when you have a day to yourself? "+userInput)
                     }) {
                         Text("Submit")
                             .font(.custom("SFProText-Bold", size: 20))

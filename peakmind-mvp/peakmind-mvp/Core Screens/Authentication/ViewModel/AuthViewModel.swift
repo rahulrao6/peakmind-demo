@@ -1102,6 +1102,7 @@ class AuthViewModel: ObservableObject {
             throw error
         }
     }
+    
 
 //    func completeHabit(routineID: String, habitID: String) async throws {
 //        guard let currentUserID = currentUser?.id else {

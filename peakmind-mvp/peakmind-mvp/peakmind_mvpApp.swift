@@ -242,17 +242,24 @@ class HealthKitManager: ObservableObject {
             HKObjectType.quantityType(forIdentifier: .stepCount)!,
             HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
             HKObjectType.quantityType(forIdentifier: .heartRate)!,
-            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+            HKObjectType.quantityType(forIdentifier: .appleExerciseTime)! // Active Minutes
         ])
 
         healthStore?.requestAuthorization(toShare: nil, read: healthDataToRead) { success, error in
             DispatchQueue.main.async {
                 if let error = error {
                     self.errorMessage = error.localizedDescription
+                    print("Authorization error: \(error.localizedDescription)")
                 } else {
                     self.isAuthorized = success
                     if success {
+                        print("HealthKit authorization granted.")
+                        // Start fetching data after authorization
+                        //self.fetchHealthData(for: userId, numberOfDays: 7) // Replace 'userId' appropriately
                         self.startStepCountObserverQuery()
+                    } else {
+                        print("HealthKit authorization denied.")
                     }
                 }
             }
@@ -349,45 +356,54 @@ class HealthKitManager: ObservableObject {
     }
 
     func fetchHealthData(for userId: String, numberOfDays: Int) {
-        guard isAuthorized, let healthStore = healthStore else { return }
+           guard isAuthorized, let healthStore = healthStore else { return }
 
-        let now = Date()
-        guard let startDate = Calendar.current.date(byAdding: .day, value: -numberOfDays, to: Calendar.current.startOfDay(for: now)) else { return }
-        let endDate = Calendar.current.startOfDay(for: now)
+           let now = Date()
+           let startOfDay = Calendar.current.startOfDay(for: now)
+           guard let startDate = Calendar.current.date(byAdding: .day, value: -numberOfDays + 1, to: startOfDay) else { return }
+           let endDate = now // Include up to the current time
 
-        fetchStepCount(for: userId, startDate: startDate, endDate: endDate)
-        fetchSleepAnalysis(for: userId, startDate: startDate, endDate: endDate)
-    }
+           fetchStepCount(for: userId, startDate: startDate, endDate: endDate)
+           fetchSleepAnalysis(for: userId, startDate: startDate, endDate: endDate)
+           fetchActiveCalories(for: userId, startDate: startDate, endDate: endDate) // Fetch Active Minutes
+       }
 
-    private func fetchStepCount(for userId: String, startDate: Date, endDate: Date) {
-        guard let healthStore = healthStore else { return }
+        func fetchStepCount(for userId: String, startDate: Date, endDate: Date) {
+           guard let healthStore = healthStore else { return }
 
-        let stepType = HKObjectType.quantityType(forIdentifier: .stepCount)!
-        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
-        let query = HKStatisticsCollectionQuery(quantityType: stepType, quantitySamplePredicate: predicate, options: [.cumulativeSum], anchorDate: startDate, intervalComponents: DateComponents(day: 1))
+           let stepType = HKObjectType.quantityType(forIdentifier: .stepCount)!
+           let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+           let query = HKStatisticsCollectionQuery(quantityType: stepType, quantitySamplePredicate: predicate, options: [.cumulativeSum], anchorDate: startDate, intervalComponents: DateComponents(day: 1))
 
-        query.initialResultsHandler = { [weak self] _, result, error in
-            if let error = error {
-                print("Error fetching step count: \(error.localizedDescription)")
-                return
-            }
+           query.initialResultsHandler = { [weak self] _, result, error in
+               if let error = error {
+                   print("Error fetching step count: \(error.localizedDescription)")
+                   return
+               }
 
-            result?.enumerateStatistics(from: startDate, to: endDate) { statistics, _ in
-                if let sum = statistics.sumQuantity() {
-                    let stepCount = sum.doubleValue(for: HKUnit.count())
-                    let date = statistics.startDate
-                    self?.saveHealthDataToFirestore(userId: userId, type: "stepCount", date: date, data: ["steps": stepCount])
-                }
-            }
+               result?.enumerateStatistics(from: startDate, to: endDate) { statistics, _ in
+                   if let sum = statistics.sumQuantity() {
+                       let stepCount = sum.doubleValue(for: HKUnit.count())
+                       let date = statistics.startDate
+                       print("this is step")
+                       print(stepCount)
+                       self?.saveHealthDataToFirestore(userId: userId, type: "stepCount", date: date, data: ["steps": stepCount])
+                   }
+               }
+           }
+           healthStore.execute(query)
+       }
+
+
+    func fetchSleepAnalysis(for userId: String, startDate: Date, endDate: Date) {
+        guard let healthStore = healthStore else {
+            print("Health store is not available.")
+            return
         }
-        healthStore.execute(query)
-    }
-
-    private func fetchSleepAnalysis(for userId: String, startDate: Date, endDate: Date) {
-        guard let healthStore = healthStore else { return }
 
         let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
-        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+        
         let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { [weak self] _, samples, error in
             if let error = error {
                 print("Error fetching sleep analysis: \(error.localizedDescription)")
@@ -404,52 +420,93 @@ class HealthKitManager: ObservableObject {
             for sample in samples {
                 let date = Calendar.current.startOfDay(for: sample.startDate)
                 let sleepDuration = sample.endDate.timeIntervalSince(sample.startDate)
-
-                if sample.value == HKCategoryValueSleepAnalysis.asleep.rawValue {
+                print("Sleep Duration for sample \(sample): \(sleepDuration)")
+                
+                if sample.value == HKCategoryValueSleepAnalysis.asleepUnspecified.rawValue ||
+                   sample.value == HKCategoryValueSleepAnalysis.inBed.rawValue {
                     dailySleepData[date, default: 0] += sleepDuration
                 }
             }
 
             for (date, sleepDuration) in dailySleepData {
                 let sleepDurationInHours = sleepDuration / 3600
+                print("Saving sleep data for \(date): \(sleepDurationInHours) hours")
                 self?.saveHealthDataToFirestore(userId: userId, type: "sleepDuration", date: date, data: ["sleepDuration": sleepDurationInHours])
             }
         }
+        
+        // Execute the query
         healthStore.execute(query)
+        print("Query executed.")
     }
 
-    private func saveHealthDataToFirestore(userId: String, type: String, date: Date, data: [String: Any]) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let formattedDate = dateFormatter.string(from: date)
 
-        let healthDataRef = db.collection("users").document(userId)
-            .collection("healthKitData").document(type)
-            .collection("days").document(formattedDate)
+        func fetchActiveCalories(for userId: String, startDate: Date, endDate: Date) {
+            guard let healthStore = healthStore else { return }
 
-        healthDataRef.getDocument { [weak self] document, error in
-            if let error = error {
-                print("Error checking for existing health data: \(error.localizedDescription)")
-                return
-            }
+               // Use activeEnergyBurned instead of appleExerciseTime
+               guard let activeEnergyBurnedType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
+                   print("Active Energy Burned Type is unavailable.")
+                   return
+               }
 
-            if document?.exists == true {
-                print("Data for \(formattedDate) already exists, skipping save.")
-            } else {
-                self?.performSave(healthDataRef: healthDataRef, data: data, formattedDate: formattedDate)
-            }
-        }
-    }
+               let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+               let query = HKStatisticsCollectionQuery(quantityType: activeEnergyBurnedType, quantitySamplePredicate: predicate, options: [.cumulativeSum], anchorDate: startDate, intervalComponents: DateComponents(day: 1))
 
-    private func performSave(healthDataRef: DocumentReference, data: [String: Any], formattedDate: String) {
-        healthDataRef.setData(data) { error in
-            if let error = error {
-                print("Error saving health data: \(error.localizedDescription)")
-            } else {
-                print("Health data saved successfully for \(formattedDate).")
-            }
-        }
-    }
+               query.initialResultsHandler = { [weak self] _, result, error in
+                   if let error = error {
+                       print("Error fetching active energy burned: \(error.localizedDescription)")
+                       return
+                   }
+
+                   result?.enumerateStatistics(from: startDate, to: endDate) { statistics, _ in
+                       if let sum = statistics.sumQuantity() {
+                           let activeEnergy = sum.doubleValue(for: HKUnit.kilocalorie()) // Active energy is measured in kilocalories
+                           let date = statistics.startDate
+                           print("Active energy burned for \(date): \(activeEnergy) kcal")
+                           self?.saveHealthDataToFirestore(userId: userId, type: "activeEnergyBurned", date: date, data: ["activeEnergy": activeEnergy])
+                       }
+                   }
+               }
+               
+               healthStore.execute(query)
+       }
+
+       private func saveHealthDataToFirestore(userId: String, type: String, date: Date, data: [String: Any]) {
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy-MM-dd"
+           let formattedDate = dateFormatter.string(from: date)
+           print("we are firebaseing now")
+           print(userId)
+           print(type)
+           print(date)
+           let healthDataRef = db.collection("users").document(userId)
+               .collection("healthKitData").document(type)
+               .collection("days").document(formattedDate)
+
+           healthDataRef.getDocument { [weak self] document, error in
+               if let error = error {
+                   print("Error checking for existing health data: \(error.localizedDescription)")
+                   return
+               }
+
+               if document?.exists == true {
+                   print("Data for \(formattedDate) already exists in \(type), skipping save.")
+               } else {
+                   self?.performSave(healthDataRef: healthDataRef, data: data, formattedDate: formattedDate)
+               }
+           }
+       }
+
+       private func performSave(healthDataRef: DocumentReference, data: [String: Any], formattedDate: String) {
+           healthDataRef.setData(data) { error in
+               if let error = error {
+                   print("Error saving health data: \(error.localizedDescription)")
+               } else {
+                   print("Health data saved successfully for \(formattedDate).")
+               }
+           }
+       }
 }
 import EventKit
 import FirebaseAuth

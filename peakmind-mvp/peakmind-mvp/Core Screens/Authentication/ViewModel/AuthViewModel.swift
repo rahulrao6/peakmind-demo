@@ -1735,33 +1735,33 @@ class AuthViewModel: ObservableObject {
            try await journalRef.setData(data)
        }
 
-       // Fetch journal entries from Firestore
-       func fetchJournalEntries(completion: @escaping ([JournalEntry]) -> Void) {
-           guard let currentUserID = currentUser?.id else { return }
-           
-           let db = Firestore.firestore()
-           let userRef = db.collection("journal").document(currentUserID)
-           let journalCollection = userRef.collection("journalEntries")
-           
-           journalCollection.getDocuments { (snapshot, error) in
-               if let error = error {
-                   print("Error fetching journal entries: \(error.localizedDescription)")
-                   completion([])
-               } else {
-                   var entries: [JournalEntry] = []
-                   for document in snapshot!.documents {
-                       let data = document.data()
-                       if let question = data["question"] as? String,
-                          let answer = data["answer"] as? String,
-                          let date = (data["date"] as? Timestamp)?.dateValue() {
-                           let entry = JournalEntry(id: document.documentID, question: question, answer: answer, date: date)
-                           entries.append(entry)
-                       }
-                   }
-                   completion(entries)
-               }
-           }
-       }
+    func fetchJournalEntries(completion: @escaping ([JournalEntry]) -> Void) {
+            guard let currentUserID = currentUser?.id else { return }
+            
+            let db = Firestore.firestore()
+            let userRef = db.collection("journal").document(currentUserID)
+            let journalCollection = userRef.collection("journalEntries")
+            
+            // Fetch documents ordered by the date field in descending order
+            journalCollection.order(by: "date", descending: true).getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error fetching journal entries: \(error.localizedDescription)")
+                    completion([])
+                } else {
+                    var entries: [JournalEntry] = []
+                    for document in snapshot!.documents {
+                        let data = document.data()
+                        if let question = data["question"] as? String,
+                           let answer = data["answer"] as? String,
+                           let date = (data["date"] as? Timestamp)?.dateValue() {
+                            let entry = JournalEntry(id: document.documentID, question: question, answer: answer, date: date)
+                            entries.append(entry)
+                        }
+                    }
+                    completion(entries)
+                }
+            }
+        }
     
     func updateJournalEntry(entry: JournalEntry) async throws {
             guard let currentUserID = currentUser?.id else {

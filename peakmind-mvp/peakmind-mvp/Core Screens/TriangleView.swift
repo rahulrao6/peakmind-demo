@@ -325,6 +325,11 @@ struct CategoryPageView: View {
 //                        ProgressCircle(progress:  CGFloat(from: networkManager.wellbeingData?.mood ?? 0/100), iconName: "brain.head.profile")  // 50% filled with brain icon
 //                        ProgressCircle(progress:  CGFloat(from: networkManager.wellbeingData?.stress ?? 0/100), iconName: "bolt.fill") // 25% filled with bolt icon
 //                        ProgressCircle(progress: 0.9, iconName: "person.fill")  // 90% filled with person icon
+                        ProgressCircle(progress: 0.9, iconName: "heart.fill")  // 90% filled with person icon
+                        ProgressCircle(progress: 0.7, iconName: "brain.head.profile")  // 90% filled with person icon
+                        ProgressCircle(progress: 0.8, iconName: "bolt.fill")  // 90% filled with person icon
+                        ProgressCircle(progress: 0.9, iconName: "person.fill")  // 90% filled with person icon
+                        
                     }
                     .padding()
                 }

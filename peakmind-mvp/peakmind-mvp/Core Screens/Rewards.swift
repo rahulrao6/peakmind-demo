@@ -175,7 +175,6 @@ struct CustomizationCategoryView: View {
 
     @State private var isColorSelected: Bool = false // Tracks if color has been selected
     @State private var selectedColor: String? = nil  // Tracks selected color for variation display
-    @State private var selectedGender: String? = nil // Tracks selected gender for head selection
 
     var body: some View {
         DisclosureGroup(
@@ -185,79 +184,27 @@ struct CustomizationCategoryView: View {
             )
         ) {
             if category == "Head" {
-                // Gender Selection for Head (M for Male, F for Female)
-                HStack(spacing: 20) { // Smaller circles with adjusted spacing
-                    // Male head selection (M)
-                    Circle()
-                        .fill(Color.clear)
-                        .frame(width: 60, height: 60) // Circle size for M and F
-                        .overlay(
-                            Text("M").foregroundColor(.white).font(.caption)
-                        )
-                        .overlay( // Green outline when selected
-                            Circle()
-                                .stroke(selectedGender == "Male" ? Color.green : Color.gray, lineWidth: 2)
-                        )
-                        .onTapGesture {
-                            selectedGender = "Male"
-                        }
-
-                    // Female head selection (F)
-                    Circle()
-                        .fill(Color.clear)
-                        .frame(width: 60, height: 60) // Circle size for M and F
-                        .overlay(
-                            Text("F").foregroundColor(.white).font(.caption)
-                        )
-                        .overlay( // Green outline when selected
-                            Circle()
-                                .stroke(selectedGender == "Female" ? Color.green : Color.gray, lineWidth: 2)
-                        )
-                        .onTapGesture {
-                            selectedGender = "Female"
-                        }
-                }
-                .padding(.top, 10)
-
-                // If male is selected, show male head variations
-                if selectedGender == "Male" {
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        ForEach(itemNames(for: "MaleHead"), id: \.self) { item in
+                        ForEach(1...8, id: \.self) { index in
+                            let assetName = headAssetName(for: index) // Get the corresponding asset name
+                            
                             Circle()
-                                .fill(selectedAssets[category] == item ? Color.green : Color.clear) // Fill the circle when selected
-                                .frame(width: 40, height: 40) // Smaller circle size for variations
-                                .overlay(Text(itemLabel(for: item)).foregroundColor(.white))
+                                .fill(selectedAssets[category] == assetName ? Color.green : Color.clear) // Fill the circle when selected
+                                .frame(width: 40, height: 40) // Circle size for head variations
+                                .overlay(Text("\(index)").foregroundColor(.white)) // Number the circles 1 to 8
                                 .overlay( // Stroke border directly on Circle
                                     Circle().stroke(Color.gray, lineWidth: 2)
                                 )
                                 .onTapGesture {
-                                    selectedAssets[category] = item // Store the selected asset for the male head variation
-                                }
-                        }
-                    }
-                    .padding(.top, 10)
-                }
-
-                // If female is selected, show female head variations
-                if selectedGender == "Female" {
-                    HStack(spacing: 20) {
-                        ForEach(itemNames(for: "FemaleHead"), id: \.self) { item in
-                            Circle()
-                                .fill(selectedAssets[category] == item ? Color.green : Color.clear) // Fill the circle when selected
-                                .frame(width: 40, height: 40) // Smaller circle size for variations
-                                .overlay(Text(itemLabel(for: item)).foregroundColor(.white))
-                                .overlay( // Stroke border directly on Circle
-                                    Circle().stroke(Color.gray, lineWidth: 2)
-                                )
-                                .onTapGesture {
-                                    selectedAssets[category] = item // Store the selected asset for the female head variation
+                                    selectedAssets[category] = assetName // Store the selected head variation
                                 }
                         }
                     }
                     .padding(.top, 10)
                 }
             } else {
-                // Color Selection for Beanie, Coat, and Pants (using actual black circle)
+                // Color Selection for Beanie, Coat, and Pants
                 HStack(spacing: 20) {
                     // Black circle for color selection
                     Circle()
@@ -286,8 +233,15 @@ struct CustomizationCategoryView: View {
                                     Circle().stroke(Color.gray, lineWidth: 2)
                                 )
                                 .onTapGesture {
-                                    selectedAssets[category] = item // Store the selected asset for the variation
+                                    if !item.hasSuffix("3") { // Lock the third variation
+                                        selectedAssets[category] = item
+                                    }
                                 }
+                                .overlay(
+                                    Text(item.hasSuffix("3") ? "🔒" : "")
+                                        .foregroundColor(.white) // Display lock emoji for the third variation
+                                        .font(.caption)
+                                )
                         }
                     }
                     .padding(.top, 10)
@@ -300,6 +254,7 @@ struct CustomizationCategoryView: View {
                     .foregroundColor(.white) // White text to match the background
 
                 Spacer()
+
                 Image(systemName: "chevron.right")
                     .rotationEffect(expandedGroup == category ? .degrees(90) : .degrees(0)) // Rotate arrow when expanded
                     .foregroundColor(.white)
@@ -312,11 +267,9 @@ struct CustomizationCategoryView: View {
     func itemNames(for category: String) -> [String] {
         switch category {
         case "Beanie", "Coat", "Pants":
-            return ["\(selectedColor ?? "Black")\(category)1", "\(selectedColor ?? "Black")\(category)2", "\(selectedColor ?? "Black")\(category)3"] // Generalized asset format with ColorTypeNumber
-        case "MaleHead":
-            return ["MaleHead1", "MaleHead2", "MaleHead3"] // Male head variations
-        case "FemaleHead":
-            return ["FemaleHead1", "FemaleHead2", "FemaleHead3", "FemaleHead4", "FemaleHead5"] // Female head variations
+            return ["\(selectedColor ?? "Black")\(category)1", "\(selectedColor ?? "Black")\(category)2", "\(selectedColor ?? "Black")3"] // Variations 1, 2, and 3 with third locked
+        case "Head":
+            return ["MaleHead1", "MaleHead2", "MaleHead3", "FemaleHead1", "FemaleHead2", "FemaleHead3", "FemaleHead4", "FemaleHead5"] // Combined head variations
         default:
             return []
         }
@@ -337,17 +290,30 @@ struct CustomizationCategoryView: View {
         }
         return ""
     }
+    // Function to return the correct head asset name based on index
+    func headAssetName(for index: Int) -> String {
+        switch index {
+        case 1:
+            return "MaleHead1"
+        case 2:
+            return "MaleHead2"
+        case 3:
+            return "MaleHead3"
+        case 4:
+            return "FemaleHead1"
+        case 5:
+            return "FemaleHead2"
+        case 6:
+            return "FemaleHead3"
+        case 7:
+            return "FemaleHead4"
+        case 8:
+            return "FemaleHead5"
+        default:
+            return ""
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 // PointsAndBadgesView.swift

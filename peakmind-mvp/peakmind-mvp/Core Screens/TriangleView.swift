@@ -104,6 +104,7 @@ class NetworkManager: ObservableObject {
 
 
 
+
 struct RectangleView: View {
     @State private var selectedCategory: Category? = nil
     @State private var selectedScore: Int = 0 // Track the score of the selected category
@@ -111,7 +112,8 @@ struct RectangleView: View {
     @State private var showMentalModelView = false
     @EnvironmentObject var viewModel: AuthViewModel
     @EnvironmentObject var networkManager: NetworkManager // Add this line
-
+    @State private var isPrioritySet: Bool = false
+    @State private var showQuizOnboarding: Bool = false
     var body: some View {
         ZStack {
             // Background Gradient (top to bottom)
@@ -186,8 +188,8 @@ struct RectangleView: View {
                                 )
 //                                CategorySliceView(category: .emotional, score: 45, onTap: { showCategoryPage(.emotional, score: 45) }) // Example score: 45
 //                                CategorySliceView(category: .cognitive, score: 85, onTap: { showCategoryPage(.cognitive, score: 85) }) // Example score: 85
-                                CategorySliceView(category: .physical, score: 20, onTap: { showCategoryPage(.physical, score: 20) }) // Example score: 20
-                                CategorySliceView(category: .social, score: 65, onTap: { showCategoryPage(.social, score: 65) }) // Example score: 65
+//                                CategorySliceView(category: .physical, score: 20, onTap: { showCategoryPage(.physical, score: 20) }) // Example score: 20
+//                                CategorySliceView(category: .social, score: 65, onTap: { showCategoryPage(.social, score: 65) }) // Example score: 65
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -200,6 +202,14 @@ struct RectangleView: View {
                         networkManager.fetchWellbeingData(for: viewModel.currentUser?.id ?? "")
                         print("tjis is the main")
                         print(networkManager.wellbeingData?.emotionalResilience.score)
+                        Task {
+                            do {
+                                isPrioritySet = try await viewModel.checkIfPriorityExists()
+                                showQuizOnboarding = !isPrioritySet
+                            } catch {
+                                print("Failed to check priority existence: \(error.localizedDescription)")
+                            }
+                        }
                     }
                     // "View Summary" button with updated style (wider and smaller font)
                     Button(action: {
@@ -226,6 +236,10 @@ struct RectangleView: View {
                     .animation(.easeInOut, value: showCategoryPage)
             }
         }
+        .sheet(isPresented: $showQuizOnboarding) {
+            QuizOnboardingView().environmentObject(viewModel)
+        }
+        
     }
 
     // Function to show the category page with score
@@ -246,7 +260,18 @@ struct RectangleView: View {
         }
     }
 }
+import Firebase
+import FirebaseCore
 
+extension AuthViewModel {
+    func checkIfPriorityExists() async throws -> Bool {
+        guard let userId = currentUser?.id else { throw NSError(domain: "AuthError", code: 1, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."]) }
+        
+        let db = Firestore.firestore()
+        let docSnapshot = try await db.collection("priority").document(userId).getDocument()
+        return docSnapshot.exists
+    }
+}
 
 struct CategoryPageView: View {
     var category: Category

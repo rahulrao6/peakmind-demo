@@ -23,6 +23,9 @@ struct ProfileView: View {
 
     
     @State private var GAD7Present = false
+    @State private var ISIPresent = false
+    @State private var EnergyPresent = false
+
     @State private var PSSPresent = false
     @State private var NMRQPresent = false
     @State private var PHQ9Present = false
@@ -152,6 +155,18 @@ struct ProfileView: View {
                         }
                         .sheet(isPresented: $PHQ9Present) {
                             PHQ9QuizView().environmentObject(viewModel)
+                        }
+                        Button("ISI") {
+                            ISIPresent.toggle()
+                        }
+                        .sheet(isPresented: $ISIPresent) {
+                            ISIQuizView().environmentObject(viewModel)
+                        }
+                        Button("Energy") {
+                            EnergyPresent.toggle()
+                        }
+                        .sheet(isPresented: $EnergyPresent) {
+                            EnergyQuizView().environmentObject(viewModel)
                         }
                     }
                 }

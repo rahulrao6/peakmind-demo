@@ -10,6 +10,9 @@ struct QuizOnboardingView: View {
     @State private var isTyping: Bool = false
     @State private var keyboardHeight: CGFloat = 0
     @FocusState private var isTextEditorFocused: Bool
+    @EnvironmentObject var authViewModel: AuthViewModel // Injected AuthViewModel
+    @State private var showAlert = false // For showing alert on save
+
 
     var body: some View {
         ZStack {
@@ -218,6 +221,14 @@ struct QuizOnboardingView: View {
                                     }
                                 } else {
                                     // Move to TriangleView or final step
+                                    Task {
+                                              do {
+                                                  try await authViewModel.savePriorityData(selectedCategories: selectedCategories, goals: goals)
+                                                  showAlert = true // Show success alert
+                                              } catch {
+                                                  print("Error saving priority data: \(error)")
+                                              }
+                                          }
                                 }
                             }) {
                                 Text(currentGoalIndex < selectedCategories.count - 1 ? "Next" : "Finish")
@@ -231,6 +242,13 @@ struct QuizOnboardingView: View {
                                     .shadow(color: goals[currentCategory, default: ""].isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0) // Glow when enabled
                             }
                             .padding(.horizontal, 20)
+                            .alert(isPresented: $showAlert) {
+                                Alert(
+                                    title: Text("Success"),
+                                    message: Text("Your priorities and goals have been saved."),
+                                    dismissButton: .default(Text("OK"))
+                                )
+                            }
                             .disabled(goals[currentCategory, default: ""].isEmpty) // Disable when no input
 
                         }
@@ -239,6 +257,34 @@ struct QuizOnboardingView: View {
             }
             .padding()
         }
+    }
+}
+
+import FirebaseAuth
+import FirebaseFirestore
+
+extension AuthViewModel {
+    func savePriorityData(selectedCategories: Set<MentalHealthCategory>, goals: [MentalHealthCategory: String]) async throws {
+        guard let userId = currentUser?.id else {
+            throw NSError(domain: "AuthError", code: 1, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
+        }
+        
+        let db = Firestore.firestore()
+
+        // Safely map the categories and goals to avoid issues with unsupported types
+        let priorityData: [String: Any] = [
+            "selectedCategories": selectedCategories.map { $0.rawValue },  // Array of strings
+            "goals": goals.reduce(into: [String: String]()) { result, entry in
+                // Ensure the goal is always a string
+                result[entry.key.rawValue] = entry.value
+            }
+        ]
+        
+        // Ensure no Swift-specific objects are passed to Firestore
+        print("Saving priority data: \(priorityData)")
+
+        try await db.collection("priority").document(userId).setData(priorityData, merge: true)
+        print("Priority data saved successfully.")
     }
 }
 

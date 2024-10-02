@@ -87,6 +87,9 @@ struct AvatarCustomizationView: View {
     // State to control which group is expanded
     @State private var expandedGroup: String? = nil
 
+    // State to track selected assets for each category (Beanie, Head, Coat, Pants)
+    @State private var selectedAssets: [String: String] = [:]
+
     var body: some View {
         ZStack {
             // Match the background color to the rewards page
@@ -94,55 +97,57 @@ struct AvatarCustomizationView: View {
                 .ignoresSafeArea()
 
             VStack {
-                // Reconstructed avatar display at the top (smaller, no edit button)
+                // Avatar display remains fixed at the top
                 ZStack {
                     Image("SampleIgloo")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 250, height: 250) // Smaller size
+                        .frame(width: 250, height: 250) // Fixed size for avatar preview
                         .cornerRadius(10)
 
                     ZStack {
-                        Image("SamplePants")
+                        Image(selectedAssets["Pants"] ?? "SamplePants")
                             .resizable()
                             .scaledToFit()
-                        Image("SampleCoat")
+                        Image(selectedAssets["Coat"] ?? "SampleCoat")
                             .resizable()
                             .scaledToFit()
-                        Image("SampleHead")
+                        Image(selectedAssets["Head"] ?? "SampleHead")
                             .resizable()
                             .scaledToFit()
-                        Image("SampleBeanie")
+                        Image(selectedAssets["Beanie"] ?? "SampleBeanie")
                             .resizable()
                             .scaledToFit()
                     }
-                    .frame(width: 250, height: 250) // Smaller size
+                    .frame(width: 250, height: 250) // Fixed size for avatar parts
                 }
-                .frame(width: 250, height: 250) // Main avatar frame
+                .frame(width: 250, height: 250)
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
                 .padding()
 
-                Text("Customize Your Avatar")
-                    .font(.custom("SFProText-Heavy", size: 24)) // Set custom font SFProText-Heavy
-                    .foregroundColor(.white) // White text to match the background
+                // Scrollable customization categories
+                ScrollView {
+                    Text("Customize Your Avatar")
+                        .font(.custom("SFProText-Heavy", size: 24)) // Set custom font SFProText-Heavy
+                        .foregroundColor(.white) // White text to match the background
+                        .padding(.bottom, 20)
 
-
-                // Customization Categories as expandable sections
-                VStack(spacing: 20) {
-                    CustomizationCategoryView(category: "Beanie", expandedGroup: $expandedGroup)
-                    Divider().background(Color.white) // Divider between categories
-                    CustomizationCategoryView(category: "Head", expandedGroup: $expandedGroup)
-                    Divider().background(Color.white) // Divider between categories
-                    CustomizationCategoryView(category: "Coat", expandedGroup: $expandedGroup)
-                    Divider().background(Color.white) // Divider between categories
-                    CustomizationCategoryView(category: "Pants", expandedGroup: $expandedGroup)
+                    // Customization Categories as expandable sections
+                    VStack(spacing: 20) {
+                        CustomizationCategoryView(category: "Beanie", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
+                        Divider().background(Color.white) // Divider between categories
+                        CustomizationCategoryView(category: "Head", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
+                        Divider().background(Color.white) // Divider between categories
+                        CustomizationCategoryView(category: "Coat", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
+                        Divider().background(Color.white) // Divider between categories
+                        CustomizationCategoryView(category: "Pants", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
+                    }
+                    .padding()
                 }
-                .padding()
+                .frame(maxHeight: .infinity) // Allow ScrollView to grow without affecting the avatar preview
 
-                Spacer()
-
-                // Done button to go back to the main view
+                // Done button at the bottom, which remains visible
                 Button(action: {
                     isCustomizing = false // Close customization view
                 }) {
@@ -150,7 +155,7 @@ struct AvatarCustomizationView: View {
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color(hex: "2788e3")!)
+                        .background(Color(hex: "000722")!)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
@@ -161,10 +166,16 @@ struct AvatarCustomizationView: View {
     }
 }
 
-// CustomizationCategoryView for expandable categories
+
+
 struct CustomizationCategoryView: View {
     let category: String
     @Binding var expandedGroup: String?
+    @Binding var selectedAssets: [String: String] // Bind to store the selected asset for each category
+
+    @State private var isColorSelected: Bool = false // Tracks if color has been selected
+    @State private var selectedColor: String? = nil  // Tracks selected color for variation display
+    @State private var selectedGender: String? = nil // Tracks selected gender for head selection
 
     var body: some View {
         DisclosureGroup(
@@ -173,15 +184,115 @@ struct CustomizationCategoryView: View {
                 set: { isExpanded in expandedGroup = isExpanded ? category : nil }
             )
         ) {
-            // Placeholder item selection as circles when expanded
-            HStack(spacing: 30) {
-                ForEach(0..<4) { _ in
+            if category == "Head" {
+                // Gender Selection for Head (M for Male, F for Female)
+                HStack(spacing: 20) { // Smaller circles with adjusted spacing
+                    // Male head selection (M)
                     Circle()
-                        .strokeBorder(Color.gray, lineWidth: 2)
-                        .frame(width: 50, height: 50)
+                        .fill(Color.clear)
+                        .frame(width: 60, height: 60) // Circle size for M and F
+                        .overlay(
+                            Text("M").foregroundColor(.white).font(.caption)
+                        )
+                        .overlay( // Green outline when selected
+                            Circle()
+                                .stroke(selectedGender == "Male" ? Color.green : Color.gray, lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            selectedGender = "Male"
+                        }
+
+                    // Female head selection (F)
+                    Circle()
+                        .fill(Color.clear)
+                        .frame(width: 60, height: 60) // Circle size for M and F
+                        .overlay(
+                            Text("F").foregroundColor(.white).font(.caption)
+                        )
+                        .overlay( // Green outline when selected
+                            Circle()
+                                .stroke(selectedGender == "Female" ? Color.green : Color.gray, lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            selectedGender = "Female"
+                        }
+                }
+                .padding(.top, 10)
+
+                // If male is selected, show male head variations
+                if selectedGender == "Male" {
+                    HStack(spacing: 20) {
+                        ForEach(itemNames(for: "MaleHead"), id: \.self) { item in
+                            Circle()
+                                .fill(selectedAssets[category] == item ? Color.green : Color.clear) // Fill the circle when selected
+                                .frame(width: 40, height: 40) // Smaller circle size for variations
+                                .overlay(Text(itemLabel(for: item)).foregroundColor(.white))
+                                .overlay( // Stroke border directly on Circle
+                                    Circle().stroke(Color.gray, lineWidth: 2)
+                                )
+                                .onTapGesture {
+                                    selectedAssets[category] = item // Store the selected asset for the male head variation
+                                }
+                        }
+                    }
+                    .padding(.top, 10)
+                }
+
+                // If female is selected, show female head variations
+                if selectedGender == "Female" {
+                    HStack(spacing: 20) {
+                        ForEach(itemNames(for: "FemaleHead"), id: \.self) { item in
+                            Circle()
+                                .fill(selectedAssets[category] == item ? Color.green : Color.clear) // Fill the circle when selected
+                                .frame(width: 40, height: 40) // Smaller circle size for variations
+                                .overlay(Text(itemLabel(for: item)).foregroundColor(.white))
+                                .overlay( // Stroke border directly on Circle
+                                    Circle().stroke(Color.gray, lineWidth: 2)
+                                )
+                                .onTapGesture {
+                                    selectedAssets[category] = item // Store the selected asset for the female head variation
+                                }
+                        }
+                    }
+                    .padding(.top, 10)
+                }
+            } else {
+                // Color Selection for Beanie, Coat, and Pants (using actual black circle)
+                HStack(spacing: 20) {
+                    // Black circle for color selection
+                    Circle()
+                        .fill(Color.black) // Black color fill
+                        .frame(width: 60, height: 60) // Circle size for color selection
+                        .overlay( // Show green outline when selected
+                            Circle()
+                                .stroke(selectedColor == "Black" ? Color.green : Color.gray, lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            selectedColor = "Black"
+                            isColorSelected.toggle() // Toggle color selection
+                        }
+                }
+                .padding(.top, 10)
+
+                // Show variations for the selected color (e.g., black)
+                if isColorSelected && selectedColor == "Black" {
+                    HStack(spacing: 20) { // Smaller circle size for variations
+                        ForEach(itemNames(for: category), id: \.self) { item in
+                            Circle()
+                                .fill(selectedAssets[category] == item ? Color.green : Color.clear) // Fill the circle when selected
+                                .frame(width: 40, height: 40) // Smaller circle size for variations
+                                .overlay(Text(itemLabel(for: item)).foregroundColor(.white))
+                                .overlay( // Stroke border directly on Circle
+                                    Circle().stroke(Color.gray, lineWidth: 2)
+                                )
+                                .onTapGesture {
+                                    selectedAssets[category] = item // Store the selected asset for the variation
+                                }
+                        }
+                    }
+                    .padding(.top, 10)
                 }
             }
-            .padding(.top, 10)
         } label: {
             HStack {
                 Text(category)
@@ -196,7 +307,44 @@ struct CustomizationCategoryView: View {
             .padding(.vertical, 10)
         }
     }
+
+    // Function to return the appropriate items for each category
+    func itemNames(for category: String) -> [String] {
+        switch category {
+        case "Beanie", "Coat", "Pants":
+            return ["\(selectedColor ?? "Black")\(category)1", "\(selectedColor ?? "Black")\(category)2", "\(selectedColor ?? "Black")\(category)3"] // Generalized asset format with ColorTypeNumber
+        case "MaleHead":
+            return ["MaleHead1", "MaleHead2", "MaleHead3"] // Male head variations
+        case "FemaleHead":
+            return ["FemaleHead1", "FemaleHead2", "FemaleHead3", "FemaleHead4", "FemaleHead5"] // Female head variations
+        default:
+            return []
+        }
+    }
+
+    // Function to return the label for each item (1, 2, 3, etc. for variations)
+    func itemLabel(for item: String) -> String {
+        if item.hasSuffix("1") {
+            return "1"
+        } else if item.hasSuffix("2") {
+            return "2"
+        } else if item.hasSuffix("3") {
+            return "3"
+        } else if item.hasSuffix("4") {
+            return "4"
+        } else if item.hasSuffix("5") {
+            return "5"
+        }
+        return ""
+    }
 }
+
+
+
+
+
+
+
 
 
 

@@ -237,6 +237,37 @@ struct TestView: View {
                                 completeLevel(str: str)
                             })) }, phase: 4),
                             
+                            LevelNode(uid: 0, internalName: "P5_1", title: "Phase Intro", viewFactory: { AnyView(P5_1_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 5),
+                            LevelNode(uid: 1, internalName: "P5_2", title: "Support System", viewFactory: { AnyView(P5_2_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 5),
+                            LevelNode(uid: 2, internalName: "P5_3", title: "Wellness Question", viewFactory: { AnyView(P5_3_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 5),
+                            LevelNode(uid: 3, internalName: "P5_4", title: "Support Mapping", viewFactory: { AnyView(P5_4_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 5),
+                            LevelNode(uid: 4, internalName: "P5_5", title: "Reflection", viewFactory: { AnyView(P5_5_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 4),
+                            LevelNode(uid: 5, internalName: "P5_6", title: "Finding Community", viewFactory: { AnyView(P5_6_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 5),
+                            LevelNode(uid: 6, internalName: "P5_7", title: "Finding Community 2", viewFactory: { AnyView(P5_7_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 5),
+                            LevelNode(uid: 7, internalName: "P5_8", title: "Quiz", viewFactory: { AnyView(P5_8_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 5),
+                            LevelNode(uid: 8, internalName: "P5_9", title: "Safe Spaces", viewFactory: { AnyView(P5_9_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 5),
+                            LevelNode(uid: 9, internalName: "P5_10", title: "Self Reflection", viewFactory: { AnyView(P5_10_1(closeAction: { (str) -> Void in
+                                completeLevel(str: str)
+                            })) }, phase: 5),
+                            
 
                         ]
                         

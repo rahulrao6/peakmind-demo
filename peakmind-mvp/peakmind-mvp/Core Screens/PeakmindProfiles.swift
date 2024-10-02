@@ -87,7 +87,8 @@ struct PHQ9QuizView: View {
     @State private var answers = Array(repeating: 0, count: 9)
     @State private var isSubmitted = false
     @EnvironmentObject var viewModel : AuthViewModel
-
+    @EnvironmentObject var networkManager: NetworkManager
+    
     let questions = [
         "Little interest or pleasure in doing things?",
         "Feeling down, depressed, or hopeless?",
@@ -123,6 +124,8 @@ struct PHQ9QuizView: View {
                 Button(action: {
                     Task {
                         saveToFirebase()
+                        networkManager.fetchWellbeingData(for: viewModel.currentUser?.id ?? "")
+
                     }
                 }) {
                     Text("Submit")
@@ -149,6 +152,8 @@ struct PHQ9QuizView: View {
         Task {
             do {
                 try await viewModel.saveToPHQ9(totalScore: totalScore, answers: answers)
+                networkManager.fetchWellbeingData(for: viewModel.currentUser?.id ?? "")
+
             } catch {
                 print("Failed to save routine: \(error.localizedDescription)")
             }
@@ -165,7 +170,7 @@ struct PSSQuizView: View {
     @State private var answers = Array(repeating: 0, count: 10) // Adjusted to 10 questions
     @State private var isSubmitted = false
     @EnvironmentObject var viewModel: AuthViewModel
-
+    @EnvironmentObject var networkManager: NetworkManager
     let questions = [
         "In the last month, how often have you been upset because of something that happened unexpectedly?",
         "In the last month, how often have you felt that you were unable to control the important things in your life?",
@@ -215,6 +220,8 @@ struct PSSQuizView: View {
                 Button(action: {
                     Task {
                         saveToFirebase()
+                        networkManager.fetchWellbeingData(for: viewModel.currentUser?.id ?? "")
+
                     }
                 }) {
                     Text("Submit")
@@ -260,7 +267,7 @@ struct NMRQQuizView: View {
     @State private var answers = Array(repeating: 1, count: 12) // Default to 1 (Strongly Disagree)
     @State private var isSubmitted = false
     @EnvironmentObject var viewModel: AuthViewModel
-
+    @EnvironmentObject var networkManager: NetworkManager
     let questions = [
         "In a difficult spot, I turn at once to what can be done to put things right.",
         "I influence where I can, rather than worrying about what I can’t influence.",
@@ -315,7 +322,10 @@ struct NMRQQuizView: View {
                 Button(action: {
                     Task {
                         saveToFirebase()
+                        networkManager.fetchWellbeingData(for: viewModel.currentUser?.id ?? "")
+
                         isSubmitted = true
+                        
                     }
                 }) {
                     Text("Submit")
@@ -342,6 +352,8 @@ struct NMRQQuizView: View {
         Task {
             do {
                 try await viewModel.saveToNMRQ(totalScore: totalScore, answers: answers)
+                
+
             } catch {
                 print("Failed to save routine: \(error.localizedDescription)")
             }
@@ -355,7 +367,7 @@ struct ISIQuizView: View {
     @State private var answers = Array(repeating: 0, count: 7)
     @State private var isSubmitted = false
     @EnvironmentObject var viewModel: AuthViewModel
-    
+    @EnvironmentObject var networkManager: NetworkManager
     let questions = [
         "Difficulty falling asleep",
         "Difficulty staying asleep",
@@ -463,7 +475,7 @@ struct EnergyQuizView: View {
     @State private var answers = Array(repeating: 1, count: 15) // Default to 1 (Strongly Disagree)
     @State private var isSubmitted = false
     @EnvironmentObject var viewModel: AuthViewModel
-    
+    @EnvironmentObject var networkManager: NetworkManager
     let questions = [
         "I feel energized most of the day.",
         "I have a lot of stamina.",

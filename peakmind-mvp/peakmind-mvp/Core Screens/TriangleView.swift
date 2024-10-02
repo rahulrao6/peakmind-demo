@@ -11,18 +11,23 @@ import SwiftUI
 import Foundation
 
 struct WellbeingResponse: Codable {
-    let emotionalResilience: EmotionalResilience
-    let mood: Mood
-    let overallEmotionalWellBeing: OverallEmotionalWellBeing
-    let stress: Stress
+    let categoryScores: [String: Double?]  // "Emotional": null, "Physical": 25.0
+    let factorScores: [String: FactorScore]  // Maps to each factor (e.g. "Emotional_Emotional Resilience": {...})
+    let overallProfileScore: Double  // Overall profile score
 
-    // Custom coding keys to match JSON keys with special characters
+    // Custom coding keys to match JSON keys
     enum CodingKeys: String, CodingKey {
-        case emotionalResilience = "Emotional Resilience"
-        case mood = "Mood"
-        case overallEmotionalWellBeing = "Overall Emotional Well-being"
-        case stress = "Stress"
+        case categoryScores = "category_scores"
+        case factorScores = "factor_scores"
+        case overallProfileScore = "overall_profile_score"
     }
+}
+
+struct FactorScore: Codable {  // Represents each factor's score and weight
+    let category: String
+    let factor: String
+    let score: Double?  // Some scores can be null
+    let weight: Double
 }
 
 struct EmotionalResilience: Codable {
@@ -45,13 +50,63 @@ struct Stress: Codable {
     let score: Int
 }
 
-import Foundation
+struct WellbeingData: Codable {
+    let categoryScores: [String: Double]
+    let factorScores: [String: FactorScore]
+}
+
+import SwiftUI
+
+enum Factor: String, CaseIterable, Identifiable {
+    case Mood = "Mood"
+    case Stress = "Stress"
+    case EmotionalResilience = "Emotional Resilience"
+    case Energy = "Energy"
+    case Sleep = "Sleep"
+    
+    var id: String { rawValue }
+    
+    var category: String {
+        switch self {
+        case .Mood, .Stress, .EmotionalResilience:
+            return "Emotional"
+        case .Energy, .Sleep:
+            return "Physical"
+        }
+    }
+    
+    @ViewBuilder
+    func quizView() -> some View {
+        switch self {
+        case .Mood:
+            PHQ9QuizView()
+        case .Stress:
+            PSSQuizView()
+        case .EmotionalResilience:
+            NMRQQuizView()
+        case .Energy:
+            EnergyQuizView()
+        case .Sleep:
+            ISIQuizView()
+        }
+    }
+}
+
+//struct FactorScore: Codable {
+//    let category: String
+//    let factor: String
+//    let score: Double?
+//    let weight: Double
+//}
+import Firebase
+import FirebaseFirestore
 
 class NetworkManager: ObservableObject {
     @Published var wellbeingData: WellbeingResponse?
 
+    // Fetch the wellbeing data from the API
     func fetchWellbeingData(for userID: String) {
-        guard let url = URL(string: "http://34.134.8.212:5100/analyze_emotional_wellbeing") else {
+        guard let url = URL(string: "http://34.28.198.191:5010/analyze_profile") else {
             print("Invalid URL")
             return
         }
@@ -85,25 +140,49 @@ class NetworkManager: ObservableObject {
                 print("Decoded Response: \(response)")
                 DispatchQueue.main.async {
                     self.wellbeingData = response
-                    print("wellbeingData set: \(self.wellbeingData)")
+                    // Save the data to Firebase
+                    self.saveProfileDataToFirebase(userID: userID, wellbeingData: response)
                 }
-            } catch let DecodingError.dataCorrupted(context) {
-                print("Data corrupted: \(context.debugDescription)")
-            } catch let DecodingError.keyNotFound(key, context) {
-                print("Key '\(key)' not found: \(context.debugDescription)")
-            } catch let DecodingError.typeMismatch(type, context) {
-                print("Type mismatch for type '\(type)': \(context.debugDescription)")
-            } catch let DecodingError.valueNotFound(value, context) {
-                print("Value '\(value)' not found: \(context.debugDescription)")
             } catch {
-                print("General decoding error: \(error.localizedDescription)")
+                print("Decoding error: \(error)")
             }
         }.resume()
+    }
+
+    // Save the fetched profile data to Firebase
+    func saveProfileDataToFirebase(userID: String, wellbeingData: WellbeingResponse) {
+        let db = Firestore.firestore()
+        
+        // Prepare the data for Firebase
+        let profileData: [String: Any] = [
+            "category_scores": [
+                "Emotional": wellbeingData.categoryScores["Emotional"] ?? nil,
+                "Physical": wellbeingData.categoryScores["Physical"] ?? nil
+            ],
+            "factor_scores": wellbeingData.factorScores.mapValues { factor in
+                [
+                    "category": factor.category,
+                    "factor": factor.factor,
+                    "score": factor.score ?? nil,
+                    "weight": factor.weight
+                ]
+            },
+            "overall_profile_score": wellbeingData.overallProfileScore
+        ]
+
+        // Save the data under the 'profile_data' collection
+        db.collection("profile_data").document(userID).setData(profileData) { error in
+            if let error = error {
+                print("Error saving profile data to Firebase: \(error.localizedDescription)")
+            } else {
+                print("Profile data successfully saved to Firebase.")
+            }
+        }
     }
 }
 
 
-
+import SwiftUI
 
 struct RectangleView: View {
     @State private var selectedCategory: Category? = nil
@@ -111,9 +190,10 @@ struct RectangleView: View {
     @State private var showCategoryPage = false
     @State private var showMentalModelView = false
     @EnvironmentObject var viewModel: AuthViewModel
-    @EnvironmentObject var networkManager: NetworkManager // Add this line
+    @EnvironmentObject var networkManager: NetworkManager
     @State private var isPrioritySet: Bool = false
-    @State private var showQuizOnboarding: Bool = false
+    @State private var showQuizOnboarding: Bool = true
+    
     var body: some View {
         ZStack {
             // Background Gradient (top to bottom)
@@ -123,15 +203,15 @@ struct RectangleView: View {
                 endPoint: .bottom
             )
             .edgesIgnoringSafeArea(.all)
-
+            
             if showMentalModelView {
                 MentalModelView(onBack: {
                     withAnimation {
                         showMentalModelView = false
                     }
-                }, score: selectedScore) // Correct order of arguments
-                .transition(.move(edge: .trailing)) // Slide in from the right
-                .animation(.easeInOut(duration: 0.6), value: showMentalModelView) // Smooth sliding animation
+                }, score: selectedScore)
+                .transition(.move(edge: .trailing))
+                .animation(.easeInOut(duration: 0.6), value: showMentalModelView)
             } else if !showCategoryPage {
                 VStack {
                     // PeakMind Profile Title, centered
@@ -145,7 +225,7 @@ struct RectangleView: View {
                         Spacer()
                     }
                     .padding(.top, 50)
-
+                    
                     // Category Slices with Gradient Bar above them (Left to Right Gradient)
                     VStack {
                         // Gradient Legend (Horizontal) and Labels "Low" and "High"
@@ -153,7 +233,7 @@ struct RectangleView: View {
                             Text("0")
                                 .font(.custom("SFProText-Bold", size: 14))
                                 .foregroundColor(.white)
-
+                            
                             LinearGradient(
                                 gradient: Gradient(colors: [Color(hex: "db437d")!, Color.white]),
                                 startPoint: .leading,
@@ -161,47 +241,38 @@ struct RectangleView: View {
                             )
                             .frame(height: 20)
                             .cornerRadius(10)
-
+                            
                             Text("100")
                                 .font(.custom("SFProText-Bold", size: 14))
                                 .foregroundColor(.white)
                         }
                         .padding(.bottom, 20)
-
+                        
                         // Rectangular Box with Category Slices
                         ZStack {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color(hex: "180b53")!)
                                 .frame(width: 360, height: 490)
                                 .padding(.horizontal, -70)
-
+                            
                             VStack(spacing: 20) {
-                                CategorySliceView(
-                                    category: .emotional,
-                                    score: networkManager.wellbeingData?.emotionalResilience.score ?? 70,
-                                    onTap: { showCategoryPage(.emotional, score: networkManager.wellbeingData?.emotionalResilience.score ?? 0) }
-                                )
-                                CategorySliceView(
-                                    category: .cognitive,
-                                    score: networkManager.wellbeingData?.mood.score ?? 0,
-                                    onTap: { showCategoryPage(.cognitive, score: networkManager.wellbeingData?.mood.score ?? 0) }
-                                )
-//                                CategorySliceView(category: .emotional, score: 45, onTap: { showCategoryPage(.emotional, score: 45) }) // Example score: 45
-//                                CategorySliceView(category: .cognitive, score: 85, onTap: { showCategoryPage(.cognitive, score: 85) }) // Example score: 85
-//                                CategorySliceView(category: .physical, score: 20, onTap: { showCategoryPage(.physical, score: 20) }) // Example score: 20
-//                                CategorySliceView(category: .social, score: 65, onTap: { showCategoryPage(.social, score: 65) }) // Example score: 65
+                                // Display Category Scores
+                                ForEach(Category.allCases, id: \.self) { category in
+                                    if let score = networkManager.wellbeingData?.categoryScores[category.rawValue] {
+                                        CategorySliceView(category: category, score: Int(score ?? 0)) {
+                                            showCategoryPage(category, score: Int(score ?? 0))
+                                        }
+                                    }
+                                }
                             }
                             .frame(maxWidth: .infinity)
                             .padding()
                         }
                         .padding(.bottom, 20)
-
                     }
                     .padding(.top, -10)
                     .onAppear {
                         networkManager.fetchWellbeingData(for: viewModel.currentUser?.id ?? "")
-                        print("tjis is the main")
-                        print(networkManager.wellbeingData?.emotionalResilience.score)
                         Task {
                             do {
                                 isPrioritySet = try await viewModel.checkIfPriorityExists()
@@ -211,6 +282,7 @@ struct RectangleView: View {
                             }
                         }
                     }
+                    
                     // "View Summary" button with updated style (wider and smaller font)
                     Button(action: {
                         withAnimation {
@@ -231,33 +303,376 @@ struct RectangleView: View {
                 .padding()
             } else if let category = selectedCategory {
                 CategoryPageView(category: category, score: selectedScore, onBack: resetPage)
-                    .environmentObject(networkManager)// Pass the selected score to CategoryPageView
+                    .environmentObject(networkManager) // Pass the selected score to CategoryPageView
                     .transition(.opacity)
                     .animation(.easeInOut, value: showCategoryPage)
             }
         }
-        .sheet(isPresented: $showQuizOnboarding) {
-            QuizOnboardingView().environmentObject(viewModel)
+    }
+        
+        // MARK: - Functions
+        
+        // Function to show the category page with score
+         func showCategoryPage(_ category: Category, score: Int) {
+            selectedCategory = category
+            selectedScore = score
+            withAnimation {
+                showCategoryPage = true
+            }
         }
         
-    }
-
-    // Function to show the category page with score
-    private func showCategoryPage(_ category: Category, score: Int) {
-        print(score);
-        selectedCategory = category
-        selectedScore = score
-        withAnimation {
-            showCategoryPage = true
+        // Function to reset and go back
+         func resetPage() {
+            withAnimation {
+                showCategoryPage = false
+                showMentalModelView = false
+            }
         }
     }
+//struct RectangleView: View {
+//    @State private var selectedCategory: Category? = nil
+//    @State private var selectedScore: Int = 0 // Track the score of the selected category
+//    @State private var showCategoryPage = false
+//    @State private var showMentalModelView = false
+//    @EnvironmentObject var viewModel: AuthViewModel
+//    @EnvironmentObject var networkManager: NetworkManager
+//    @State private var isPrioritySet: Bool = false
+//    @State private var showQuizOnboarding: Bool = true
+//    
+//    var body: some View {
+//        ZStack {
+//            // Background Gradient (top to bottom)
+//            LinearGradient(
+//                gradient: Gradient(colors: [Color(hex: "452198")!, Color(hex: "1a1164")!]),
+//                startPoint: .top,
+//                endPoint: .bottom
+//            )
+//            .edgesIgnoringSafeArea(.all)
+//
+//            if showMentalModelView {
+//                MentalModelView(onBack: {
+//                    withAnimation {
+//                        showMentalModelView = false
+//                    }
+//                }, score: selectedScore) // Correct order of arguments
+//                .transition(.move(edge: .trailing)) // Slide in from the right
+//                .animation(.easeInOut(duration: 0.6), value: showMentalModelView) // Smooth sliding animation
+//            } else if !showCategoryPage {
+//                VStack {
+//                    // PeakMind Profile Title, centered
+//                    HStack {
+//                        Spacer()
+//                        Text("Your PeakMind")
+//                            .font(.custom("SFProText-Heavy", size: 36))
+//                            .multilineTextAlignment(.center)
+//                            .foregroundColor(.white)
+//                            .padding(.top)
+//                        Spacer()
+//                    }
+//                    .padding(.top, 50)
+//
+//                    // Category Slices with Gradient Bar above them (Left to Right Gradient)
+//                    VStack {
+//                        // Gradient Legend (Horizontal) and Labels "Low" and "High"
+//                        HStack {
+//                            Text("0")
+//                                .font(.custom("SFProText-Bold", size: 14))
+//                                .foregroundColor(.white)
+//
+//                            LinearGradient(
+//                                gradient: Gradient(colors: [Color(hex: "db437d")!, Color.white]),
+//                                startPoint: .leading,
+//                                endPoint: .trailing
+//                            )
+//                            .frame(height: 20)
+//                            .cornerRadius(10)
+//
+//                            Text("100")
+//                                .font(.custom("SFProText-Bold", size: 14))
+//                                .foregroundColor(.white)
+//                        }
+//                        .padding(.bottom, 20)
+//
+//                        // Rectangular Box with Category Slices
+//                        ZStack {
+//                            RoundedRectangle(cornerRadius: 20)
+//                                .fill(Color(hex: "180b53")!)
+//                                .frame(width: 360, height: 490)
+//                                .padding(.horizontal, -70)
+//
+//                            VStack(spacing: 20) {
+//                                // Display Category Scores
+//                                ForEach(Category.allCases, id: \.self) { category in
+//                                    if let score = networkManager.wellbeingData?.categoryScores[category.rawValue] {
+//                                        CategorySliceView(category: category, score: Int(score ?? 0)) {
+//                                            showCategoryPage(category, score: Int(score ?? 0))
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            .frame(maxWidth: .infinity)
+//                            .padding()
+//                        }
+//                        .padding(.bottom, 20)
+//                    }
+//                    .padding(.top, -10)
+//                    .onAppear {
+//                        networkManager.fetchWellbeingData(for: viewModel.currentUser?.id ?? "")
+//                        Task {
+//                            do {
+//                                isPrioritySet = try await viewModel.checkIfPriorityExists()
+//                                showQuizOnboarding = !isPrioritySet
+//                            } catch {
+//                                print("Failed to check priority existence: \(error.localizedDescription)")
+//                            }
+//                        }
+//                    }
+//                    // "View Summary" button with updated style (wider and smaller font)
+//                    Button(action: {
+//                        withAnimation {
+//                            selectedScore = 75 // Example score passed to MentalModelView
+//                            showMentalModelView = true
+//                        }
+//                    }) {
+//                        Text("View Summary")
+//                            .font(.custom("SFProText-Heavy", size: 18)) // Smaller font size
+//                            .foregroundColor(.white)
+//                            .padding()
+//                            .frame(maxWidth: 300) // Wider button
+//                            .background(Color(hex: "180b53")!)
+//                            .cornerRadius(10)
+//                    }
+//                    .padding(.bottom)
+//                }
+//                .padding()
+//            } else if let category = selectedCategory {
+//                CategoryPageView(category: category, score: selectedScore, onBack: resetPage)
+//                    .environmentObject(networkManager) // Pass the selected score to CategoryPageView
+//                    .transition(.opacity)
+//                    .animation(.easeInOut, value: showCategoryPage)
+//            }
+//        }
+//        .sheet(isPresented: $showQuizOnboarding) {
+//            QuizOnboardingView().environmentObject(viewModel)
+//        }
+//    }
+//
+//    // Function to show the category page with score
+//    private func showCategoryPage(_ category: Category, score: Int) {
+//        selectedCategory = category
+//        selectedScore = score
+//        withAnimation {
+//            showCategoryPage = true
+//        }
+//    }
+//
+//    // Function to reset and go back
+//    private func resetPage() {
+//        withAnimation {
+//            showCategoryPage = false
+//            showMentalModelView = false
+//        }
+//    }
+//}
 
-    // Function to reset and go back
-    private func resetPage() {
-        withAnimation {
-            showCategoryPage = false
-            showMentalModelView = false
+// Define the CategoryPageView to show factors dynamically
+//struct CategoryPageView: View {
+//    var category: Category
+//    var score: Int
+//    var onBack: () -> Void
+//    @EnvironmentObject var networkManager: NetworkManager
+//    @State private var showFactorPage = false // Trigger for navigation
+//
+//    var body: some View {
+//        ZStack {
+//            getColorForScore(score)
+//                .edgesIgnoringSafeArea(.all)
+//
+//            VStack {
+//                // Back button
+//                HStack {
+//                    Button(action: onBack) {
+//                        Image(systemName: "arrow.left")
+//                            .font(.system(size: 24, weight: .bold))
+//                            .foregroundColor(score > 70 ? .black : .white)
+//                            .padding()
+//                            .background(Color.black.opacity(0.2))
+//                            .cornerRadius(10)
+//                    }
+//                    Spacer()
+//                }
+//                .padding([.leading, .top], 20)
+//
+//                Spacer()
+//
+//                // Category Title
+//                Text(category.rawValue)
+//                    .font(.custom("SFProText-Heavy", size: 45))
+//                    .foregroundColor(score > 70 ? .black : .white)
+//                    .padding(.top, -60)
+//
+//                // Factor Circles
+//                ZStack {
+//                    RoundedRectangle(cornerRadius: 20)
+//                        .fill(Color.black.opacity(0.2))
+//                        .frame(width: 340, height: 330)
+//
+//                    LazyVGrid(
+//                        columns: [
+//                            GridItem(.flexible(), spacing: -30),
+//                            GridItem(.flexible(), spacing: 20)
+//                        ],
+//                        spacing: 30
+//                    ) {
+//                        if let factorScores = networkManager.wellbeingData?.factorScores {
+//                            ForEach(factorScores.keys.sorted(), id: \.self) { factorKey in
+//                                if factorScores[factorKey]?.category == category.rawValue,
+//                                   let factorScore = factorScores[factorKey]?.score {
+//                                    ProgressCircle(progress: CGFloat(factorScore / 100), iconName: factorKey)
+//                                }
+//                            }
+//                        }
+//                    }
+//                    .padding()
+//                }
+//                .padding(.bottom, 20)
+//
+//                Spacer()
+//            }
+//        }
+//    }
+//}
+import SwiftUI
+
+struct CategoryPageView: View {
+    var category: Category
+    var score: Int
+    var onBack: () -> Void
+    @EnvironmentObject var networkManager: NetworkManager
+    @State private var selectedFactor: Factor? = nil // Track the selected factor for quiz
+    
+    var body: some View {
+        ZStack {
+            getColorForScore(score)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                // Back Button
+                HStack {
+                    Button(action: onBack) {
+                        Image(systemName: "arrow.left")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundColor(score > 70 ? .black : .white)
+                            .padding()
+                            .background(Color.black.opacity(0.2))
+                            .cornerRadius(10)
+                    }
+                    Spacer()
+                }
+                .padding([.leading, .top], 20)
+                
+                Spacer()
+                
+                // Category Title
+                Text(category.rawValue)
+                    .font(.custom("SFProText-Heavy", size: 45))
+                    .foregroundColor(score > 70 ? .black : .white)
+                    .padding(.top, -60)
+                
+                // Factor Circles or Quiz Buttons
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.black.opacity(0.2))
+                        .frame(width: 340, height: 330)
+                    
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.flexible(), spacing: 30),
+                            GridItem(.flexible(), spacing: 30)
+                        ],
+                        spacing: 30
+                    ) {
+                        if let factorScores = networkManager.wellbeingData?.factorScores {
+                            // Iterate through all factors
+                            ForEach(Factor.allCases, id: \.self) { factor in
+                                if factor.category == category.rawValue {
+                                    if let factorScore = factorScores[factor.rawValue]?.score {
+                                        // Display ProgressCircle if score exists
+                                        ProgressCircle(progress: CGFloat(factorScore) / 100, iconName: factor.rawValue)
+                                            .onTapGesture {
+                                                // Optionally, navigate to a detailed view
+                                            }
+                                    } else {
+                                        // Display a button to take the quiz if score doesn't exist
+                                        Button(action: {
+                                            selectedFactor = factor
+                                        }) {
+                                            ZStack {
+                                                Circle()
+                                                    .fill(Color(hex: "180b53")!)
+                                                    .frame(width: 80, height: 80)
+                                                Image(systemName: "plus.circle")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 40, height: 40)
+                                                    .foregroundColor(.white)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .padding()
+                }
+                .padding(.bottom, 20)
+                
+                Spacer()
+            }
         }
+        .sheet(item: $selectedFactor) { factor in
+            factor.quizView()
+                .environmentObject(networkManager) // Pass environment objects if needed
+        }
+    }
+    
+    // Helper method to get color based on score
+    private func getColorForScore(_ score: Int) -> Color {
+        switch score {
+        case 0..<50:
+            return Color.red
+        case 50..<80:
+            return Color.orange
+        default:
+            return Color.green
+        }
+    }
+}
+// Function to generate colors based on score
+func getColorForScore(_ score: Int) -> Color {
+    switch score {
+    case 0...10:
+        return Color(hex: "db437d")!
+    case 11...20:
+        return Color(hex: "df5285")!
+    case 21...30:
+        return Color(hex: "e77097")!
+    case 31...40:
+        return Color(hex: "ef8daa")!
+    case 41...50:
+        return Color(hex: "f39bb4")!
+    case 51...60:
+        return Color(hex: "f8b4c6")!
+    case 61...70:
+        return Color(hex: "f8b4c6")!
+    case 71...80:
+        return Color(hex: "fde0e7")!
+    case 81...90:
+        return Color(hex: "fde0e7")!
+    case 91...100:
+        return Color(hex: "ffffff")!
+    default:
+        return Color.white
     }
 }
 import Firebase
@@ -273,94 +688,6 @@ extension AuthViewModel {
     }
 }
 
-struct CategoryPageView: View {
-    var category: Category
-    var score: Int // Add score parameter
-    var onBack: () -> Void
-    @EnvironmentObject var networkManager: NetworkManager // Add this line
-
-    @State private var showFactorPage = false // Add state to trigger navigation
-
-    var body: some View {
-        ZStack {
-            getColorForScore(score) // Set background color based on score
-                .edgesIgnoringSafeArea(.all) // Full screen background color
-
-            VStack {
-                // Back button at the top left with an arrow
-                HStack {
-                    Button(action: onBack) {
-                        Image(systemName: "arrow.left") // Using SF Symbol for the arrow
-                            .font(.system(size: 24, weight: .bold)) // Adjust size and weight
-                            .foregroundColor(score > 70 ? .black : .white) // Change arrow color based on score
-                            .padding() // Add some padding
-                            .background(Color.black.opacity(0.2)) // Add semi-transparent background
-                            .cornerRadius(10) // Rounded edges for the button
-                    }
-                    Spacer() // Pushes the back button to the left
-                }
-                .padding([.leading, .top], 20) // Add padding to position the button in the top left corner
-
-                Spacer() // Move title closer to the middle
-                Text("\(category.rawValue)")
-                    .font(.custom("SFProText-Heavy", size: 45)) // Font changed to SFProText-Heavy
-                    .foregroundColor(score > 70 ? .black : .white) // Set title color based on score
-                    .padding(.top, -60)
-
-                // Add a single rectangle around all progress circles
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.black.opacity(0.2)) // Set background color and opacity
-                        .frame(width: 340, height: 330)
-
-                    LazyVGrid(
-                        columns: [
-                            GridItem(.flexible(), spacing: -30),
-                            GridItem(.flexible(), spacing: 20)
-                        ],
-                        spacing: 30 // Adjust vertical spacing between rows
-                    ) {
-                        // Example of varying progress amounts (replace with actual data)
-//                        ProgressCircle(progress: CGFloat(from: networkManager.wellbeingData?.emotionalResilience ?? 0/100), iconName: "heart.fill") // 75% filled with heart icon
-//                        ProgressCircle(progress:  CGFloat(from: networkManager.wellbeingData?.mood ?? 0/100), iconName: "brain.head.profile")  // 50% filled with brain icon
-//                        ProgressCircle(progress:  CGFloat(from: networkManager.wellbeingData?.stress ?? 0/100), iconName: "bolt.fill") // 25% filled with bolt icon
-//                        ProgressCircle(progress: 0.9, iconName: "person.fill")  // 90% filled with person icon
-                        ProgressCircle(progress: 0.9, iconName: "heart.fill")  // 90% filled with person icon
-                        ProgressCircle(progress: 0.7, iconName: "brain.head.profile")  // 90% filled with person icon
-                        ProgressCircle(progress: 0.8, iconName: "bolt.fill")  // 90% filled with person icon
-                        ProgressCircle(progress: 0.9, iconName: "person.fill")  // 90% filled with person icon
-                        
-                    }
-                    .padding()
-                }
-                .padding(.bottom, 20)
-
-                Button(action: {
-                    showFactorPage = true
-                }) {
-                    Text("View Factors")
-                        .font(.custom("SFProText-Heavy", size: 18))
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(score > 70 ? .black : .white, lineWidth: 4)
-                        )
-                        .foregroundColor(score > 70 ? .black : .white)
-                        .padding(.horizontal, 40)
-                }
-                .onAppear{
-                    print(score)
-                }
-                .fullScreenCover(isPresented: $showFactorPage) {
-                    FactorPage(category: category)
-                }
-
-                Spacer()
-            }
-        }
-    }
-}
 
 // Define the ProgressCircle view first
 struct ProgressCircle: View {
@@ -412,32 +739,7 @@ struct AnalyticsView21: View {
             .foregroundColor(.black)
     }
 }
-func getColorForScore(_ score: Int) -> Color {
-    switch score {
-    case 0...10:
-        return Color(hex: "db437d")!
-    case 11...20:
-        return Color(hex: "df5285")!
-    case 21...30:
-        return Color(hex: "e77097")!
-    case 31...40:
-        return Color(hex: "ef8daa")!
-    case 41...50:
-        return Color(hex: "f39bb4")!
-    case 51...60:
-        return Color(hex: "f8b4c6")!
-    case 61...70:
-        return Color(hex: "f8b4c6")!
-    case 71...80:
-        return Color(hex: "fde0e7")!
-    case 81...90:
-        return Color(hex: "fde0e7")!
-    case 91...100:
-        return Color(hex: "ffffff")!
-    default:
-        return Color.white
-    }
-}
+
 
 struct CategorySliceView: View {
     var category: Category
@@ -469,11 +771,13 @@ struct CategorySliceView: View {
 
 
 
-enum Category: String {
+enum Category: String, CaseIterable, Identifiable {
     case emotional = "Emotional"
     case cognitive = "Cognitive"
     case physical = "Physical"
     case social = "Social"
+
+    var id: String { rawValue }  // Make the rawValue the unique identifier
 
     var color: Color {
         switch self {

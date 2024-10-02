@@ -17,7 +17,7 @@ struct MessageBubble: View {
 
     
     func timeAgo() -> String {
-        let date = Date(timeIntervalSince1970: timestamp)
+        let date = Date(timeIntervalSince1970: timestamp/1000)
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
         return formatter.localizedString(for: date, relativeTo: Date())

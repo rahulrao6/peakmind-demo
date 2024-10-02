@@ -45,7 +45,7 @@ struct HomeDashboard: View {
                         VStack {
                             HStack {
                                 Spacer() // Push the gear to the right
-                                NavigationLink(destination: SettingsView()) {
+                                NavigationLink(destination: ProfileView().environmentObject(viewModel)) {
                                     Image(systemName: "gearshape.fill")
                                         .resizable()
                                         .frame(width: 30, height: 30)

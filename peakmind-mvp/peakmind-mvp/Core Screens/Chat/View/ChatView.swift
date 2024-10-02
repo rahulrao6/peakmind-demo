@@ -80,7 +80,7 @@ struct ChatView: View {
                         }
                     }
                     .sheet(isPresented: $showingFeedbackSheet) {
-                        feedbackSheetView
+                        FeedbackSheetView(selectedMessage: selectedMessage, receivedMessages: receivedMessages).environmentObject(viewModel)
                     }
                     .actionSheet(isPresented: $showingSettings) {
                         settingsActionSheet()
@@ -89,7 +89,6 @@ struct ChatView: View {
 
                 overlayViews()
             }
-            .navigationTitle("Chat")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
@@ -213,22 +212,24 @@ struct ChatView: View {
                     selectedMessage = chatMessage
                     showingFeedbackSheet = true
                 }) {
-                    LottieView(name: "feedback", loopMode: .loop)
-                        .frame(width: 30, height: 30)  // adjusted size to make the button bigger
+                    //LottieView(name: "feedback", loopMode: .loop)
+                    Image(systemName: "text.bubble")
+                        .frame(width: 20, height: 20)  // adjusted size to make the button bigger
                 }
 
-                Button(action: {
-                    UIPasteboard.general.string = chatMessage.content
-                    showCopyPopup = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        showCopyPopup = false
-                    }
-                }) {
-                    Image(systemName: "doc.on.doc")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.blue)  // color for the copy button
-                }
+//                Button(action: {
+//                    UIPasteboard.general.string = chatMessage.content
+//                    showCopyPopup = true
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+//                        showCopyPopup = false
+//                    }
+//                }) {
+//                    Image(systemName: "doc.on.doc")
+//                        .resizable()
+//                        .frame(width: 20, height: 20)
+//                        .foregroundColor(.blue)  // color for the copy button
+//                }
+                
             } else if chatMessage.feedbackMessageVisible {
                 Text("Thanks for the feedback")
                     .font(.caption)
@@ -321,7 +322,7 @@ struct ChatView: View {
     }
     
     func formatDate(timestamp: Double) -> String {
-        let date = Date(timeIntervalSince1970: timestamp)
+        let date = Date(timeIntervalSince1970: timestamp/1000)
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
@@ -867,3 +868,240 @@ struct ConversationPreview: Identifiable {
     let timestamp: Double
     let preview: String
 }
+
+import SwiftUI
+
+struct FeedbackSheetView: View {
+    @State private var feedbackText: String = ""
+    @State private var starRating: Int = 0
+    @State private var feedbackSubmitted: Bool = false
+    @State private var showingFeedbackSheet: Bool = false
+    @FocusState private var isFeedbackTextFocused: Bool
+    @State private var isTyping: Bool = false
+    @State private var keyboardHeight: CGFloat = 0
+    @EnvironmentObject var viewModel: AuthViewModel
+    let selectedMessage: ChatMessage?
+    let receivedMessages: [ChatMessage]
+
+    var body: some View {
+        NavigationStack {
+            GeometryReader { geometry in
+                ZStack {
+                    // Background image
+                    Image("PurpleNewBG")
+                        .resizable()
+                        .edgesIgnoringSafeArea(.all)
+                    
+                    VStack(spacing: 20) {
+                        Spacer()
+                            .frame(height: (isTyping || isFeedbackTextFocused) ? 100 : 10)
+                        
+                        if feedbackSubmitted {
+                            VStack(spacing: 20) {
+                                HStack(spacing: 10) {
+                                    LottieView(name: "checkmark", loopMode: .playOnce)
+                                        .frame(width: 60, height: 60)
+                                }
+                                
+                                Button(action: {
+                                    showingFeedbackSheet = false
+                                    feedbackSubmitted = false
+                                }) {
+                                    Text("Done")
+                                        .fontWeight(.semibold)
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.mediumBlue)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                        .padding(.horizontal)
+                                }
+                                .padding(.top)
+                            }
+                        } else {
+                            VStack(spacing: 20) {
+                                // Header with icon
+                                HStack {
+                                    Image(systemName: "star.circle")
+                                        .resizable()
+                                        .frame(width: 40, height: 35)
+                                        .foregroundColor(.mediumBlue)
+                                    Text("We value your feedback!")
+                                        .font(.title2)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.mediumBlue)
+                                }
+                                .padding(.top)
+                                
+                                // Star rating system
+                                HStack {
+                                    ForEach(1..<6) { star in
+                                        Image(systemName: starRating >= star ? "star.fill" : "star")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .foregroundColor(.yellow)
+                                            .onTapGesture {
+                                                starRating = star
+                                            }
+                                    }
+                                }
+                                .padding(.vertical)
+                                
+                                // Text editor for additional feedback
+                                ZStack(alignment: .topLeading) {
+                                    if feedbackText.isEmpty {
+                                        Text("Start typing here...")
+                                            .foregroundColor(Color.gray.opacity(0.5))
+                                            .padding(.vertical, 14)
+                                            .padding(.horizontal, 16)
+                                            .zIndex(1) // Ensure it stays on top
+                                    }
+                                    
+                                    TextEditor(text: $feedbackText)
+                                        .font(.custom("SFProText-Bold", size: 16))
+                                        .foregroundColor(Color("TextInsideBoxColor"))
+                                        .focused($isFeedbackTextFocused)
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 8)
+                                        .frame(height: 200, alignment: .topLeading)
+                                        .background(Color.clear) // Make the background clear
+                                        .scrollContentBackground(.hidden)
+                                        .background(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                            .cornerRadius(10)
+                                        )
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
+                                        )
+                                        .onChange(of: feedbackText) { newValue in
+                                            withAnimation {
+                                                isTyping = !feedbackText.isEmpty
+                                            }
+                                            if newValue.count > 500 {
+                                                feedbackText = String(newValue.prefix(500))
+                                            }
+                                        }
+                                        .onSubmit {
+                                            isFeedbackTextFocused = false // Dismiss the keyboard
+                                        }
+                                    
+                                    VStack {
+                                        Spacer()
+                                        HStack {
+                                            Spacer()
+                                            Text("\(feedbackText.count)/500")
+                                                .font(.custom("SFProText-Bold", size: 12))
+                                                .foregroundColor(Color("TextInsideBoxColor"))
+                                                .padding(8)
+                                                .background(Color.black.opacity(0.2))
+                                                .cornerRadius(8)
+                                                .padding(8)
+                                        }
+                                    }
+                                }
+                                .frame(height: 200)
+                                .padding(.horizontal)
+                                
+                                Spacer()
+                                    .frame(height: (isTyping || isFeedbackTextFocused) ? (keyboardHeight - geometry.safeAreaInsets.bottom) / 2 : 20)
+                                
+                                // Submit button
+                                Button(action: {
+                                    isFeedbackTextFocused = false
+                                    submitFeedback()
+                                }) {
+                                    Text("Submit")
+                                        .font(.custom("SFProText-Bold", size: 20))
+                                        .foregroundColor(.white)
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 12)
+                                        .background(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [Color("PurpleButtonGradientColor1"), Color("PurpleButtonGradientColor2")]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                        )
+                                        .cornerRadius(15)
+                                        .shadow(color: feedbackText.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0) // Conditional glow around the button
+                                }
+                                .padding(.bottom, 50)
+                                .disabled(feedbackText.isEmpty) // Disable button if no text
+                                .opacity(feedbackText.isEmpty ? 0.6 : 1.0) // Change opacity when disabled
+                            }
+                            .padding(.horizontal)
+                            .onTapGesture {
+                                isFeedbackTextFocused = false
+                            }
+                            .onAppear {
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                                    if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                                        withAnimation {
+                                            keyboardHeight = keyboardFrame.height
+                                            isTyping = true
+                                        }
+                                    }
+                                }
+                                
+                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                                    withAnimation {
+                                        isTyping = false
+                                        keyboardHeight = 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding()
+                .navigationBarTitle("Feedback", displayMode: .inline)
+                .navigationBarItems(leading: Button("Cancel") {
+                    showingFeedbackSheet = false
+                })
+            }
+        }
+    }
+    
+    // Updated function to submit feedback with star rating
+    func submitFeedback() {
+        // Ensure you have selectedMessage and currentUser in your actual implementation
+        guard let selectedMessage = selectedMessage else { return }
+        guard let index = receivedMessages.firstIndex(where: { $0.id == selectedMessage.id }) else { return }
+
+        receivedMessages[index].rating = starRating
+        receivedMessages[index].feedback = feedbackText
+
+        guard let currentUser = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+
+        let feedbackData: [String: Any] = [
+            "rating": starRating,
+            "user": currentUser.id,
+            "messageId": selectedMessage.id.uuidString,
+            "feedback": feedbackText,
+            "timestamp": NSDate().timeIntervalSince1970
+        ]
+
+        Firestore.firestore().collection("ratings").document(currentUser.id).collection("feedback").document(selectedMessage.id.uuidString).setData(feedbackData) { error in
+            if let error = error {
+                print("Error submitting feedback: \(error)")
+            } else {
+                print("Feedback submitted successfully")
+                feedbackSubmitted = true
+            }
+        }
+
+        feedbackText = ""
+        starRating = 0  // Reset star rating
+        //self.selectedMessage = nil
+    }
+}
+
+

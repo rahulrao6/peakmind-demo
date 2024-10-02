@@ -66,7 +66,9 @@ struct JournalView: View {
                             .cornerRadius(10)
                             .padding(.horizontal, 20)
                     }
+                    .disabled(isPromptAnswered)
                     .padding(.bottom, 20)
+                    
                     
                     // Journal Entries Log
                     ScrollView {
@@ -369,6 +371,9 @@ struct JournalDetailView: View {
             var entryt = JournalEntry(question: editedQuestion, answer: editedAnswer, date: entry.date)
             Task{
                try await viewModel.updateJournalEntry(entry: entryt)
+                viewModel.fetchJournalEntries { entries in
+                    print(entries)
+                }
             }
         } else {
             // Prepare fields for editing

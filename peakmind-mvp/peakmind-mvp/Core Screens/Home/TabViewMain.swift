@@ -26,7 +26,7 @@ struct TabViewMain: View {
           Label("Quests", systemImage: "flag")
         }
         .tag(3)
-      JournalView().environmentObject(viewModel)
+        RectangleView().environmentObject(viewModel).environmentObject(NetworkManager())
         .tabItem {
           Label("Profiles", systemImage: "brain")
         }

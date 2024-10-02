@@ -348,3 +348,233 @@ struct NMRQQuizView: View {
         }
     }
 }
+import SwiftUI
+import Firebase
+
+struct ISIQuizView: View {
+    @State private var answers = Array(repeating: 0, count: 7)
+    @State private var isSubmitted = false
+    @EnvironmentObject var viewModel: AuthViewModel
+    
+    let questions = [
+        "Difficulty falling asleep",
+        "Difficulty staying asleep",
+        "Problems waking up too early",
+        "How satisfied/dissatisfied are you with your current sleep pattern?",
+        "How noticeable to others do you think your sleep problem is in terms of impairing the quality of your life?",
+        "How worried/distressed are you about your current sleep problem?",
+        "To what extent do you consider your sleep problem to interfere with your daily functioning (e.g. daytime fatigue, mood, ability to function at work/daily chores, concentration, memory, mood, etc.) currently?"
+    ]
+    
+    var totalScore: Int {
+        answers.reduce(0, +)
+    }
+    
+    var feedbackText: String {
+        switch totalScore {
+        case 0...7:
+            return "No clinically significant insomnia"
+        case 8...14:
+            return "Subthreshold insomnia"
+        case 15...21:
+            return "Clinical insomnia (moderate severity)"
+        case 22...28:
+            return "Clinical insomnia (severe)"
+        default:
+            return ""
+        }
+    }
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                Form {
+                    ForEach(0..<questions.count, id: \.self) { index in
+                        Section(header: Text(questions[index])) {
+                            Picker("Select your answer", selection: $answers[index]) {
+                                ForEach(0..<5) { value in
+                                    Text("\(value)").tag(value)
+                                }
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+                        }
+                    }
+                }
+                Button(action: {
+                    Task {
+                        saveToFirebase()
+                        isSubmitted = true
+                    }
+                }) {
+                    Text("Submit")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
+            }
+            .navigationBarTitle("ISI Quiz")
+            .alert(isPresented: $isSubmitted) {
+                Alert(
+                    title: Text("Submitted"),
+                    message: Text("Your ISI score is \(totalScore).\n\n\(feedbackText)"),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+        }
+    }
+    
+    func saveToFirebase() {
+        Task {
+            do {
+                try await viewModel.saveToISI(totalScore: totalScore, answers: answers)
+            } catch {
+                print("Failed to save ISI data: \(error.localizedDescription)")
+            }
+        }
+    }
+}
+
+extension AuthViewModel {
+    func saveToISI(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+        
+        let db = Firestore.firestore()
+        let ISIData: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("ISI").setData(ISIData) { error in
+            if let error = error {
+                print("Error saving ISI data: \(error)")
+            }
+        }
+    }
+}
+
+import SwiftUI
+import Firebase
+
+struct EnergyQuizView: View {
+    @State private var answers = Array(repeating: 1, count: 15) // Default to 1 (Strongly Disagree)
+    @State private var isSubmitted = false
+    @EnvironmentObject var viewModel: AuthViewModel
+    
+    let questions = [
+        "I feel energized most of the day.",
+        "I have a lot of stamina.",
+        "I find it easy to get out of bed in the morning.",
+        "I am able to focus and concentrate easily.",
+        "I have a lot of mental energy.",
+        "I feel physically strong.",
+        "I have a lot of physical endurance.",
+        "I enjoy physical activity.",
+        "I feel motivated to accomplish my goals.",
+        "I am able to handle stress well.",
+        "I have a positive outlook on life.",
+        "I am able to sleep well at night.",
+        "I feel rested and refreshed after sleep.",
+        "I have a lot of energy for social activities.",
+        "I am able to maintain a healthy diet."
+    ]
+    
+    var totalScore: Int {
+        answers.reduce(0, +)
+    }
+    
+    var feedbackText: String {
+        switch totalScore {
+        case 0...14:
+            return "Low energy"
+        case 15...29:
+            return "Moderate energy"
+        case 30...45:
+            return "High energy"
+        default:
+            return ""
+        }
+    }
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                Form {
+                    ForEach(0..<questions.count, id: \.self) { index in
+                        Section(header: Text(questions[index])) {
+                            Picker("Select your answer", selection: $answers[index]) {
+                                Text("Strongly Disagree").tag(1)
+                                Text("Disagree").tag(2)
+                                Text("Neutral").tag(3)
+                                Text("Agree").tag(4)
+                                Text("Strongly Agree").tag(5)
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+                        }
+                    }
+                }
+                Button(action: {
+                    Task {
+                        saveToFirebase()
+                        isSubmitted = true
+                    }
+                }) {
+                    Text("Submit")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
+            }
+            .navigationBarTitle("Energy Quiz")
+            .alert(isPresented: $isSubmitted) {
+                Alert(
+                    title: Text("Submitted"),
+                    message: Text("Your Energy score is \(totalScore).\n\n\(feedbackText)"),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+        }
+    }
+    
+    func saveToFirebase() {
+        Task {
+            do {
+                try await viewModel.saveToEnergy(totalScore: totalScore, answers: answers)
+            } catch {
+                print("Failed to save Energy data: \(error.localizedDescription)")
+            }
+        }
+    }
+}
+
+extension AuthViewModel {
+    func saveToEnergy(totalScore: Int, answers: [Int]) async throws {
+        guard let userId = currentUser?.id else { return }
+        
+        let db = Firestore.firestore()
+        let energyData: [String: Any] = [
+            "score": totalScore,
+            "answers": answers,
+            "date": Timestamp(date: Date())
+        ]
+        
+        db.collection("users").document(userId).collection("profiles").document("Energy").setData(energyData) { error in
+            if let error = error {
+                print("Error saving Energy data: \(error)")
+            }
+        }
+    }
+}
+
+struct EnergyQuizView_Previews: PreviewProvider {
+    static var previews: some View {
+        EnergyQuizView()
+            .environmentObject(AuthViewModel())
+    }
+}

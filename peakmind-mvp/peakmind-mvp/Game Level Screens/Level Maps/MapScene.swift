@@ -5,7 +5,7 @@ class MapScene: SKScene, ObservableObject {
     @Published var currentLevel = -1
     @Published var completedLevels = 0
     @Published var completedPhases = 0
-
+    @Published var selectedPhase: Int = -1
     
     private var initialTouchPosition: CGPoint?
     
@@ -21,7 +21,7 @@ class MapScene: SKScene, ObservableObject {
     var cameraNode: SKCameraNode!
     var levelInfoBG: SKSpriteNode!
     var levelInfoText: SKLabelNode!
-    var selectedPhase: Int = -1
+    
     var currentYPosition: Float = 0
     var maxY: Float = 0
     
@@ -420,6 +420,8 @@ class MapScene: SKScene, ObservableObject {
     }
     
     private func zoomOut() {
+        
+        selectedPhase = -1
 
         let moveAction = SKAction.move(to: CGPoint(x: size.width / 2, y: getTargetY()), duration: 0.5)
         moveAction.timingMode = .easeInEaseOut // Smooth transition

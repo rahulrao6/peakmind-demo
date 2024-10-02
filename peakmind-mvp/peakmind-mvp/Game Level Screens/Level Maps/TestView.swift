@@ -51,6 +51,8 @@ struct TestView: View {
     @State private var progressString = "0"
     @State private var canViewVertProgress = true
     
+    @State private var showElevation: Bool = true
+    
     @StateObject private var scene: MapScene = {
         let scene = MapScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         scene.scaleMode = .fill
@@ -73,6 +75,13 @@ struct TestView: View {
                             VariableBlurView(maxBlurRadius: 5)
                                 .frame(height: 200)
                                 .ignoresSafeArea()
+                        }
+                    }
+                    .onChange(of: scene.selectedPhase) { levelID in
+                        if (levelID == -1) {
+                            showElevation = true
+                        } else {
+                            showElevation = false
                         }
                     }
                     .onChange(of: scene.currentLevel) { levelIndex in
@@ -335,22 +344,27 @@ struct TestView: View {
                             .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
                     }
                     
-                    GeometryReader { geometry in
+                    if (true) {
                         
-                        ZStack(alignment: .bottom) {
-                            ProgressIndicatorView(isVisible: $canViewVertProgress, type: .impulseBar(progress: $progress, backgroundColor: .white.opacity(0.25)))
-                                .foregroundColor(.white.opacity(0.65))
-                                .frame(width: geometry.size.height - 100, height: 50) // Adjust the width based on the height
-                                .rotationEffect(Angle(degrees: -90))
-                            
-                            Spacer()
-                            
-                            Text(progressString)
-                                .foregroundColor(.white)
+                        GeometryReader { geometry in
+                            ZStack(alignment: .bottom) {
+                                ProgressIndicatorView(isVisible: $canViewVertProgress, type: .impulseBar(progress: $progress, backgroundColor: .white.opacity(0.25)))
+                                    .foregroundColor(.white.opacity(0.65))
+                                    .frame(width: geometry.size.height - 100, height: 50) // Adjust the width based on the height
+                                    .rotationEffect(Angle(degrees: -90))
                                 
+                                Spacer()
+                                
+                                Text(progressString)
+                                    .foregroundColor(.white)
+                            }
+                            .position(x: 25, y: geometry.size.height / 2 - 40) // Adjust x position for left alignment
+                            .padding(.leading, 20) // Ensure no padding on the leading side
+                            .offset(x: showElevation ? 0 : -geometry.size.width) // Slide in from left
+                            .animation(.easeInOut, value: showElevation) // Animate the change
                         }
-                        .position(x: 25, y: geometry.size.height / 2 - 40) // Adjust x position for left alignment
-                        .padding(.leading, 20) // Ensure no padding on the leading side
+                        
+                        
                     }
                     
                     

@@ -341,9 +341,10 @@
 		79A73E432CA9EADB00CE9E40 /* PeakmindProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E422CA9EADB00CE9E40 /* PeakmindProfiles.swift */; };
 		79A73E452CA9EAF400CE9E40 /* Rewards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E442CA9EAF400CE9E40 /* Rewards.swift */; };
 		79A73E472CA9EB0F00CE9E40 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73E462CA9EB0F00CE9E40 /* Settings.swift */; };
+		79AB21EC2CAE305F003767AF /* HabitIndividualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AB21EB2CAE305F003767AF /* HabitIndividualView.swift */; };
+		79AB21EE2CAE49C3003767AF /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AB21ED2CAE49C3003767AF /* SurveyView.swift */; };
 		79BFB5202B8EAAB300634262 /* AvatarScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */; };
 		79BFB5222B8EAAE600634262 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5212B8EAAE600634262 /* CustomButton.swift */; };
-		79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5272B8EAB5C00634262 /* QuestionsView.swift */; };
 		79BFB52A2B8EABBB00634262 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB5292B8EABBB00634262 /* Question.swift */; };
 		79BFB52C2B8EABC500634262 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52B2B8EABC500634262 /* Info.swift */; };
 		79BFB52E2B8EDA6E00634262 /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFB52D2B8EDA6E00634262 /* JournalView.swift */; };
@@ -354,6 +355,7 @@
 		79F902512CABCDEF00928A9A /* GameUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F902502CABCDEF00928A9A /* GameUnavailable.swift */; };
 		79F902532CABCE0400928A9A /* LevelUnavailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F902522CABCE0400928A9A /* LevelUnavailable.swift */; };
 		79F902552CAC811700928A9A /* mountainLoop.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 79F902542CAC811600928A9A /* mountainLoop.mp4 */; };
+		79F902572CAE294B00928A9A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F902562CAE294B00928A9A /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -697,9 +699,10 @@
 		79A73E422CA9EADB00CE9E40 /* PeakmindProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeakmindProfiles.swift; sourceTree = "<group>"; };
 		79A73E442CA9EAF400CE9E40 /* Rewards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rewards.swift; sourceTree = "<group>"; };
 		79A73E462CA9EB0F00CE9E40 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		79AB21EB2CAE305F003767AF /* HabitIndividualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitIndividualView.swift; sourceTree = "<group>"; };
+		79AB21ED2CAE49C3003767AF /* SurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
 		79BFB51F2B8EAAB300634262 /* AvatarScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarScreenView.swift; sourceTree = "<group>"; };
 		79BFB5212B8EAAE600634262 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		79BFB5272B8EAB5C00634262 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
 		79BFB5292B8EABBB00634262 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		79BFB52B2B8EABC500634262 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		79BFB52D2B8EDA6E00634262 /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
@@ -710,6 +713,7 @@
 		79F902502CABCDEF00928A9A /* GameUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUnavailable.swift; sourceTree = "<group>"; };
 		79F902522CABCE0400928A9A /* LevelUnavailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelUnavailable.swift; sourceTree = "<group>"; };
 		79F902542CAC811600928A9A /* mountainLoop.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mountainLoop.mp4; sourceTree = "<group>"; };
+		79F902562CAE294B00928A9A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		B08AF59C2B92A544001A1253 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1037,7 +1041,6 @@
 				793B79AB2BAF87F1001062DB /* Personalized Plan */,
 				793B79A42BAF7FB1001062DB /* Avatar */,
 				793B79AA2BAF86CD001062DB /* Home */,
-				793B79A92BAF8686001062DB /* Quiz */,
 				1CC1F5C62B89705200AC9B77 /* Chat */,
 				1C9C63C42B8132F50066AF70 /* Profile */,
 				1C9C63C32B8132DB0066AF70 /* Authentication */,
@@ -1052,6 +1055,9 @@
 				797BF6462C9E205D00118768 /* YourQuestsView.swift */,
 				79A73E402CA9EA8000CE9E40 /* Analytics.swift */,
 				79A73E422CA9EADB00CE9E40 /* PeakmindProfiles.swift */,
+				79F902562CAE294B00928A9A /* OnboardingView.swift */,
+				79AB21EB2CAE305F003767AF /* HabitIndividualView.swift */,
+				79AB21ED2CAE49C3003767AF /* SurveyView.swift */,
 				79A73E442CA9EAF400CE9E40 /* Rewards.swift */,
 				79A73E462CA9EB0F00CE9E40 /* Settings.swift */,
 			);
@@ -1313,14 +1319,6 @@
 				10CE96082BF7DC070092EE29 /* James */,
 			);
 			path = "Level 4";
-			sourceTree = "<group>";
-		};
-		793B79A92BAF8686001062DB /* Quiz */ = {
-			isa = PBXGroup;
-			children = (
-				79BFB5272B8EAB5C00634262 /* QuestionsView.swift */,
-			);
-			path = Quiz;
 			sourceTree = "<group>";
 		};
 		793B79AA2BAF86CD001062DB /* Home */ = {
@@ -1870,6 +1868,7 @@
 				19648A6A2C7FCEAC0061A70D /* PurpleNewBG9.swift in Sources */,
 				79069CF02BDA0D9100AB52DC /* CauseEffectPair.swift in Sources */,
 				79A73DB42CA5571B00CE9E40 /* PurpleNewBG4.2_GameReady.swift in Sources */,
+				79F902572CAE294B00928A9A /* OnboardingView.swift in Sources */,
 				79A73DDA2CA55C7800CE9E40 /* MountainSelect.swift in Sources */,
 				1CF4A89E2B830BFF00051684 /* ViewExtension.swift in Sources */,
 				791A274F2C8A80D8000D52BE /* MentalModelView.swift in Sources */,
@@ -1913,7 +1912,6 @@
 				109A4A762CACC6E400305E39 /* LightPurpleNewBG_GameReady.swift in Sources */,
 				109A4A772CACC6E400305E39 /* LightPurpleNewBG4_GameReady.swift in Sources */,
 				103F298E2CA9C88B008525A5 /* GreenNewBG7_GameReady.swift in Sources */,
-				79BFB5282B8EAB5C00634262 /* QuestionsView.swift in Sources */,
 				102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */,
 				790F17502C45D9870071B34B /* PPContentView.swift in Sources */,
 				79A73DF42CA5D9B200CE9E40 /* GreenNewBG7.swift in Sources */,
@@ -1964,6 +1962,7 @@
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,
 				194AA0622CAC83EA0041D129 /* LightPurpleNewBG3.1.swift in Sources */,
 				1C480FEF2C21387F002B19A0 /* Model.xcdatamodeld in Sources */,
+				79AB21EC2CAE305F003767AF /* HabitIndividualView.swift in Sources */,
 				79A73E472CA9EB0F00CE9E40 /* Settings.swift in Sources */,
 				7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */,
 				7953387F2C0144C100A42D4C /* Structs.swift in Sources */,
@@ -1999,6 +1998,7 @@
 				79A73DC82CA55A3700CE9E40 /* Tutorial2.swift in Sources */,
 				103D86392C2B8F3F0078A45B /* Confetti.swift in Sources */,
 				79A73DFC2CA5DAA000CE9E40 /* PinkNewBG10.swift in Sources */,
+				79AB21EE2CAE49C3003767AF /* SurveyView.swift in Sources */,
 				1CBBE30D2C517D3C006EFD6A /* NewPPContentView.swift in Sources */,
 				79BFB5302B914A5000634262 /* SplashScreen.swift in Sources */,
 				1CF4C3E22B7B15E10028BC3C /* peakmind_mvpApp.swift in Sources */,

@@ -24,6 +24,7 @@ class AuthViewModel: ObservableObject {
     @Published var badges: [Badge] = []
     @Published var quests: [Quest] = []
     @Published  var journalEntries: [JournalEntry] = []
+    @Published var habitsByName: [String: [Habit]] = [:]
 
     
     //    @Published var communitiesViewModel = CommunitiesViewModel()
@@ -2077,7 +2078,95 @@ class AuthViewModel: ObservableObject {
     }
     
     
+    private func dateString(for date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+    
+    func loadHabitHistory() {
+        guard let user = currentUser else {
+            print("No current user")
+            return
+        }
+        let userID = user.id
+        
+        let calendar = Calendar.current
+        let endDate = Date()
+        let startDate = calendar.date(byAdding: .day, value: -30, to: endDate)!
+        
+        var currentDate = startDate
+        while currentDate <= endDate {
+            let dateString = dateString(for: currentDate)
+            
+            db.collection("users").document(userID).collection("habits").document(dateString).getDocument { document, error in
+                if let document = document, document.exists {
+                    if let data = document.data(), let habitsData = data["habits"] as? [[String: Any]] {
+                        let validHabits = habitsData.compactMap { habitData -> Habit? in
+                            return self.createHabit(from: habitData)
+                        }
+                        
+                        DispatchQueue.main.async {
+                            // Group habits by title
+                            for habit in validHabits {
+                                var existingHabits = self.habitsByName[habit.title] ?? []
+                                existingHabits.append(habit)
+                                self.habitsByName[habit.title] = existingHabits
+                            }
+                        }
+                    }
+                } else if let error = error {
+                    print("Error fetching document for \(dateString): \(error.localizedDescription)")
+                }
+            }
+            
+            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+        }
+    }
+        
+    private func createHabit(from data: [String: Any]) -> Habit? {
+        if let id = data["id"] as? String,
+           let title = data["title"] as? String,
+           let unit = data["unit"] as? String,
+           let count = data["count"] as? Int,
+           let goal = data["goal"] as? Int,
+           let startColor = data["startColor"] as? String,
+           let endColor = data["endColor"] as? String,
+           let category = data["category"] as? String,
+           let frequencyRawValue = data["frequency"] as? String,
+           let frequency = Habit.FrequencyType(rawValue: frequencyRawValue),
+           let routineTimeRawValue = data["routineTime"] as? String,
+           let routineTime = Habit.RoutineTime(rawValue: routineTimeRawValue),
+           let endDate = (data["endDate"] as? Timestamp)?.dateValue(),
+           let startDate = (data["startDate"] as? Timestamp)?.dateValue(),
+           let dateTaken = data["dateTaken"] as? String {
 
+            let reminder = (data["reminder"] as? Timestamp)?.dateValue()
+
+            let interval = data["interval"] as? Int
+            let daysOfWeek = data["daysOfWeek"] as? [Int]
+
+            var specificDates: [Date]? = nil
+            if let specificDatesTimestamps = data["specificDates"] as? [Timestamp] {
+                specificDates = specificDatesTimestamps.map { $0.dateValue() }
+            } else if let specificDatesMillis = data["specificDates"] as? [Double] {
+                specificDates = specificDatesMillis.map { Date(timeIntervalSince1970: $0 / 1000) }
+            } else if let specificDatesStrings = data["specificDates"] as? [String] {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust the date format if needed
+                specificDates = specificDatesStrings.compactMap { dateFormatter.date(from: $0) }
+            }
+
+            return Habit(id: id, title: title, unit: unit, count: count, goal: goal,
+                         startColor: startColor, endColor: endColor,
+                         category: category, frequency: frequency,
+                         reminder: reminder, routineTime: routineTime,
+                         endDate: endDate, dateTaken: dateTaken, startDate: startDate,
+                         interval: interval, daysOfWeek: daysOfWeek, specificDates: specificDates)
+        }
+        return nil
+    }
+    
 
 }
 

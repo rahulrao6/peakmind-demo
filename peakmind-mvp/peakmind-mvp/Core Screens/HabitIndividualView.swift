@@ -351,7 +351,7 @@ struct HabitIndividualView: View {
                 selectedHabitForAnalytics = nil
             }) { habit in
                 AnalyticsView2(
-                    habitHistory: habitsByName[habit.title] ?? [],
+                    habitHistory: viewModel.habitsByName[habit.title] ?? [],
                     habitTitle: habit.title,
                     habitid: habit.id
                 )
@@ -376,7 +376,9 @@ struct HabitIndividualView: View {
             .onAppear{
                 
                     //loadHabits(for: selectedDate)
-                    loadHabitHistory()
+                loadHabitHistoryForHabit(habit.title, completion: {
+                    print(habitsByName)
+                })
                     print(habitsByName)
 
 
@@ -516,6 +518,53 @@ extension HabitIndividualView {
         
         group.notify(queue: .main) {
             print("Finished loading habit history. habitsByName: \(self.habitsByName)")
+        }
+    }
+    
+    private func loadHabitHistoryForHabit(_ habitTitle: String, completion: @escaping () -> Void) {
+        guard let user = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+        let userID = user.id
+
+        let calendar = Calendar.current
+        let endDate = Date()
+        let startDate = calendar.date(byAdding: .day, value: -30, to: endDate)!
+
+        var currentDate = startDate
+        var habitData: [Habit] = []
+
+        let dispatchGroup = DispatchGroup()
+
+        while currentDate <= endDate {
+            let dateString = dateString(for: currentDate)
+            dispatchGroup.enter()
+
+            db.collection("users").document(userID).collection("habits").document(dateString).getDocument { document, error in
+                defer { dispatchGroup.leave() }
+
+                if let document = document, document.exists {
+                    if let data = document.data(), let habitsData = data["habits"] as? [[String: Any]] {
+                        for habitDict in habitsData {
+                            if let habit = createHabit(from: habitDict), habit.title == habitTitle {
+                                habitData.append(habit)
+                            }
+                        }
+                    }
+                } else {
+                    if let error = error {
+                        print("Error fetching document for \(dateString): \(error.localizedDescription)")
+                    }
+                }
+            }
+
+            currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            self.habitsByName[habitTitle] = habitData
+            completion()
         }
     }
     

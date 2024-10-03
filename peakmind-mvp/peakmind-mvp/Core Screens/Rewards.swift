@@ -425,9 +425,16 @@ struct UserStatsView: View {
             Text("Level \(currentLevel)")
                 .font(.custom("SFProText-Heavy", size: 26)) // Main title font
                 .foregroundColor(.white)
-            Text("\(totalPoints) Points")
-                .font(.custom("SFProText-Bold", size: 18)) // Secondary text font
-                .foregroundColor(.white)
+            HStack {
+                Text("\(totalPoints)")
+                    .font(.custom("SFProText-Bold", size: 18)) // Main points font
+                    .foregroundColor(.white)
+                
+                Image("PeakCoin") // Use the PeakCoin image asset
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24) // Adjust size of the coin image as needed
+            }
             ProgressView(value: Float(totalPoints % 1000), total: 1000)
                 .progressViewStyle(LinearProgressViewStyle(tint: Color(hex: "2788e3")!))
             Text("\(1000 - (totalPoints % 1000)) points to next level")

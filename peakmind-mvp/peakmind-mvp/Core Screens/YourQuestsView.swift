@@ -120,7 +120,7 @@ struct YourQuestsView: View {
                     startPoint: .top,
                     endPoint: .bottom
                 )
-                    .edgesIgnoringSafeArea(.all)
+                .edgesIgnoringSafeArea(.all)
                 
                 VStack(alignment: .leading, spacing: 20) {
                     // Page title
@@ -159,40 +159,55 @@ struct YourQuestsView: View {
                 // Reward Popup - only appears after tapping to claim
                 if showRewardPopup {
                     ZStack {
-                        Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
+                        // Background overlay
+                        Color.black.opacity(0.7).edgesIgnoringSafeArea(.all)
                         
-                        VStack(spacing: 20) {
-                            Text("Congratulations!")
-                                .font(.custom("SFProText-Heavy", size: 24))
-                                .foregroundColor(.white)
+                        // Base reward popup image that covers the entire screen
+                        Image("RewardPopup")
+                            .resizable()
+                            .scaledToFit()
+                            .edgesIgnoringSafeArea(.all) // Make sure the image covers the full screen
+                        
+                        // Overlay +150 text, PeakCoin image, and Claim button
+                        VStack(spacing: 30) {
                             
-                            Text("You just earned 100 XP!")
-                                .font(.custom("SFProText-Bold", size: 18))
-                                .foregroundColor(.white)
+                            // +150 and PeakCoin overlay positioned using y-offset
+                            HStack {
+                                Text("+150")
+                                    .font(.custom("SFProText-Bold", size: 45)) // Font size for +150
+                                    .foregroundColor(.white)
+                                
+                                Image("PeakCoin")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 55, height: 55) // Adjust size as needed
+                            }
+                            .offset(y: -20) // Adjust Y-offset for precise positioning of +150 and PeakCoin
                             
+                            
+                            // Claim button on top of the image asset, positioned using y-offset
                             Button(action: {
-                                // Claim reward and move to next segment
+                                // Claim reward and move to the next segment
                                 if let quest = selectedQuest {
                                     viewModel.claimReward(for: quest.id ?? "")
                                 }
                                 showRewardPopup = false
                             }) {
                                 Text("Claim")
-                                    .font(.custom("SFProText-Bold", size: 18))
+                                    .font(.custom("SFProText-Bold", size: 24)) // Button font size
                                     .foregroundColor(.white)
-                                    .padding()
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color(hex: "b0e8ff")!)
-                                    .cornerRadius(10)
-                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 18) // Reduced vertical padding to make the button less tall
+                                    .padding(.horizontal, 55) // Adjust horizontal padding to make it less wide
+                                    .background(Color(hex: "03182c")!) // Button background color
+                                    .cornerRadius(10) // Rounded corners for the button
                             }
+                            .frame(width: 220) // Set a specific width to make the button less wide
+                            .offset(y: -0) // Adjust Y-offset to position the button precisely
+
                         }
-                        .padding()
-                        .background(Color(hex: "0b1953")!)
-                        .cornerRadius(15)
-                        .frame(maxWidth: 300)
                     }
                 }
+
             }
             .onAppear {
                 viewModel.fetchQuestData()
@@ -210,12 +225,13 @@ struct YourQuestsView: View {
                         Button(action: {
                             showPointsAndBadgesView = true // Set to true to navigate to PointsAndBadgesView
                         }) {
-                            Image(systemName: "star.fill")
-                                .font(.system(size: 20)) // Smaller button
-                                .foregroundColor(Color(hex: "b0e8ff")!) // Yellow star
-                                .padding(10) // Reduced padding
-                                .background(Color.black) // Black circle background
-                                .clipShape(Circle())
+                            Image("PeakCoin") // Use custom image asset instead of system star icon
+                                 .resizable() // Make the image resizable to control its size
+                                 .aspectRatio(contentMode: .fit)
+                                 .frame(width: 42, height: 42) // Adjust the size of the image
+                                 .padding(5) // Add padding around the image
+                                 .background(Color.black) // Black circle background
+                                 .clipShape(Circle())
                         }
                         .padding(.top, 40)
                         Spacer()

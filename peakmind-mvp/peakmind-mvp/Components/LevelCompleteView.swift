@@ -4,6 +4,7 @@ struct LevelCompleteView: View {
     @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
+        
         Group {
             if let user = viewModel.currentUser {
                 ZStack {

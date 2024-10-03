@@ -271,15 +271,20 @@ struct RectangleView: View {
                         .padding(.bottom, 20)
                     }
                     .padding(.top, -10)
+                    
                     .onAppear {
                         networkManager.fetchWellbeingData(for: viewModel.currentUser?.id ?? "")
                         Task {
                             do {
+                                print("cehckign priority")
                                 isPrioritySet = try await viewModel.checkIfPriorityExists()
-                                showQuizOnboarding = !isPrioritySet
+                                print("tihsohfdi if it exis ")
+                                
+                                print(isPrioritySet)
                             } catch {
                                 print("Failed to check priority existence: \(error.localizedDescription)")
                             }
+                            showQuizOnboarding = !isPrioritySet
                         }
                     }
                     
@@ -684,6 +689,8 @@ extension AuthViewModel {
         
         let db = Firestore.firestore()
         let docSnapshot = try await db.collection("priority").document(userId).getDocument()
+        print("this si if the fsoifd exists")
+        print(docSnapshot.exists)
         return docSnapshot.exists
     }
 }

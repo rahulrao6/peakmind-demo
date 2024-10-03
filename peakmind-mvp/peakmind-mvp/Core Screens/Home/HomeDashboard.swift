@@ -49,12 +49,12 @@ struct HomeDashboard: View {
                                     Image(systemName: "gearshape.fill")
                                         .resizable()
                                         .frame(width: 30, height: 30)
-                                        .padding(.trailing, 20)
+                                        .padding(.trailing, 15)
                                 }
                                 .foregroundColor(.navyBlue)
                             }
                         }
-                        .padding(.top, -55) // Move the gear icon higher on the screen
+                        .padding(.top, -25) // Move the gear icon higher on the screen
                     }
                     
                     ScrollView {

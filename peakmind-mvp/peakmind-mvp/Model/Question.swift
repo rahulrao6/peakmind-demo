@@ -11,6 +11,5 @@ struct Question: Identifiable, Codable{
     var id: UUID = .init()
     var question: String
     var selectedNumber: Int
-    var peak_tackled: String
     var descriptors: [String] 
 }

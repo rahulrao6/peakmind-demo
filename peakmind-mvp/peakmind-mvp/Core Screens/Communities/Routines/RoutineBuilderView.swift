@@ -1762,7 +1762,7 @@ struct AnalyticsView2: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var showLineChart = true
     @State private var showingEditForm = false
-    @State private var habitToEdit: Habit?
+    @State private var showDeleteConfirmation = false
     
     var body: some View {
         NavigationView {
@@ -1815,12 +1815,15 @@ struct AnalyticsView2: View {
                 Spacer()
                 
                 HStack(spacing: 40) {
+                    
                     VStack {
                         Button(action: {
                             // Edit Action
-                            if let firstHabit = habitHistory.first {
-                                habitToEdit = firstHabit
-                                showingEditForm = true
+                            if let habitToEdit = habitHistory.first(where: { $0.id == habitid }) {
+                                //self.habitToEdit = habitToEdit
+                                self.showingEditForm = true
+                            } else {
+                                print("Habit not found in history")
                             }
                         }) {
                             VStack {
@@ -1830,12 +1833,12 @@ struct AnalyticsView2: View {
                                     .font(.custom("SFProText-Bold", size: 14))
                             }
                         }
+                        .disabled(habitHistory.isEmpty)
                     }
                     
                     VStack {
                         Button(action: {
-                            // Delete Action
-                            deleteHabit()
+                            showDeleteConfirmation = true
                         }) {
                             VStack {
                                 Image(systemName: "trash")
@@ -1844,29 +1847,42 @@ struct AnalyticsView2: View {
                                     .font(.custom("SFProText-Bold", size: 14))
                             }
                         }
+                        .disabled(habitHistory.isEmpty)
                     }
+                    
                 }
                 .foregroundColor(.white)
                 .padding(.bottom, 10)
             }
             .navigationTitle("Analytics for \(habitTitle)")
             .sheet(isPresented: $showingEditForm) {
-                if let habit = habitToEdit {
-                    EditHabitForm(habit: habit, updateAction: { updatedHabit in
-                        // Handle update action, e.g., refresh data
-                        // This might involve notifying the parent view to reload data
-                        print("Habit updated: \(updatedHabit)")
+                if let baseHabit = baseHabit() {
+                    EditHabitForm(habit: baseHabit, updateAction: { updatedHabit in
+                        updateHabit(updatedHabit: updatedHabit)
                     })
                     .environmentObject(viewModel)
+                } else {
+                    Text("Error: Unable to load habit data.")
                 }
+            }
+            .alert(isPresented: $showDeleteConfirmation) {
+                Alert(
+                    title: Text("Delete Habit"),
+                    message: Text("Are you sure you want to delete this habit? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        deleteHabit()
+                    },
+                    secondaryButton: .cancel()
+                )
             }
         }
         .onAppear{
-            print(habitTitle)
+            print("Analytics for \(habitTitle)")
             print(habitHistory)
         }
     }
     
+    // Helper to parse date string to Date
     func parseDate(from dateString: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust to your date format
@@ -1884,8 +1900,13 @@ struct AnalyticsView2: View {
         }
     }
     
-    private func deleteHabit() {
-        // Confirm Deletion (handled by the alert)
+    // Obtain a base habit from the habitHistory (assuming all habits have the same data except dateTaken)
+    func baseHabit() -> Habit? {
+        return habitHistory.first
+    }
+    
+    // MARK: - Update Habit
+    func updateHabit(updatedHabit: Habit) {
         guard let user = viewModel.currentUser else {
             print("No current user")
             return
@@ -1895,52 +1916,125 @@ struct AnalyticsView2: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        // Fetch all unique dates from habitHistory
-        let uniqueDateStrings = Set(habitHistory.compactMap { parseDate(from: $0.dateTaken) }.map { dateFormatter.string(from: $0) })
-        
-        // Iterate through each date and remove the habit
-        for dateString in uniqueDateStrings {
-            let habitDoc = db.collection("users").document(userID).collection("habits").document(dateString)
+        db.collection("users").document(userID).collection("habits").getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error fetching habit documents: \(error.localizedDescription)")
+                return
+            }
             
-            // Create a dummy habit with the same ID for array removal
-            let dummyHabit = Habit(
-                id: habitid,
-                title: habitTitle,
-                unit: "",
-                count: 0,
-                goal: 0,
-                startColor: "",
-                endColor: "",
-                category: "",
-                frequency: .daily,
-                reminder: Date(),
-                routineTime: .anytime,
-                endDate: Date(),
-                dateTaken: dateString,
-                startDate: Date(),
-                interval: nil,
-                daysOfWeek: nil,
-                specificDates: nil
-            )
+            guard let documents = querySnapshot?.documents else {
+                print("No habit documents found")
+                return
+            }
             
-            habitDoc.updateData([
-                "habits": FieldValue.arrayRemove([dummyHabit.toDictionary()])
-            ]) { error in
+            let batch = db.batch()
+            let updatedHabitDict = updatedHabit.toDictionary()
+            
+            for document in documents {
+                var habits = document.get("habits") as? [[String: Any]] ?? []
+                var updated = false
+                for (index, habit) in habits.enumerated() {
+                    if let habitId = habit["id"] as? String, habitId == updatedHabit.id {
+                        // Update the habit's fields
+                        var newHabit = habit
+                        newHabit["title"] = updatedHabit.title
+                        newHabit["unit"] = updatedHabit.unit
+                        newHabit["goal"] = updatedHabit.goal
+                        newHabit["startColor"] = updatedHabit.startColor
+                        newHabit["endColor"] = updatedHabit.endColor
+                        newHabit["category"] = updatedHabit.category
+                        newHabit["frequency"] = updatedHabit.frequency.rawValue
+                        newHabit["routineTime"] = updatedHabit.routineTime.rawValue
+                        newHabit["endDate"] = Timestamp(date: updatedHabit.endDate)
+                        
+                        if let reminderDate = updatedHabit.reminder {
+                            newHabit["reminder"] = Timestamp(date: reminderDate)
+                        } else {
+                            newHabit["reminder"] = NSNull()
+                        }
+                        
+                        if let interval = updatedHabit.interval {
+                            newHabit["interval"] = interval
+                        } else {
+                            newHabit["interval"] = NSNull()
+                        }
+                        
+                        if let daysOfWeek = updatedHabit.daysOfWeek {
+                            newHabit["daysOfWeek"] = daysOfWeek
+                        } else {
+                            newHabit["daysOfWeek"] = NSNull()
+                        }
+                        
+                        if let specificDates = updatedHabit.specificDates {
+                            newHabit["specificDates"] = specificDates.map { Timestamp(date: $0) }
+                        } else {
+                            newHabit["specificDates"] = NSNull()
+                        }
+                        
+                        habits[index] = newHabit
+                        updated = true
+                    }
+                }
+                if updated {
+                    batch.updateData(["habits": habits], forDocument: document.reference)
+                }
+            }
+            
+            batch.commit { error in
                 if let error = error {
-                    print("Error deleting habit from \(dateString): \(error.localizedDescription)")
+                    print("Error updating habit: \(error.localizedDescription)")
                 } else {
-                    print("Habit deleted successfully from \(dateString)")
+                    print("Habit updated successfully across all dates.")
+                    // Optionally, you can trigger a data refresh here
                 }
             }
         }
-        
-        // Optionally, notify the user
-        // You might want to dismiss the Analytics view or refresh data here
     }
-        
-        // Optionally, notify the user
-        // You might want to dismiss the Analytics view or refresh data here
     
+    // MARK: - Delete Habit
+    func deleteHabit() {
+        guard let user = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+        let userID = user.id
+        let db = Firestore.firestore()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        db.collection("users").document(userID).collection("habits").getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error fetching habit documents: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No habit documents found")
+                return
+            }
+            
+            let batch = db.batch()
+            
+            for document in documents {
+                var habits = document.get("habits") as? [[String: Any]] ?? []
+                let originalCount = habits.count
+                habits.removeAll { $0["id"] as? String == habitid }
+                
+                if habits.count != originalCount {
+                    batch.updateData(["habits": habits], forDocument: document.reference)
+                }
+            }
+            
+            batch.commit { error in
+                if let error = error {
+                    print("Error deleting habit: \(error.localizedDescription)")
+                } else {
+                    print("Habit deleted successfully from all dates.")
+                    // Optionally, dismiss the AnalyticsView or refresh data
+                }
+            }
+        }
+    }
 }
 
 struct EditHabitForm: View {
@@ -2297,97 +2391,93 @@ struct EditHabitForm: View {
             return dates
         }
         
-         func updateHabitInFirestore(_ habit: Habit) {
-            guard let user = viewModel.currentUser else {
-                print("No current user")
-                return
+    private func updateHabitInFirestore(_ habit: Habit) {
+        guard let user = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+        let userID = user.id
+        let db = Firestore.firestore()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        var datesToUpdate: [Date] = []
+        
+        // Generate all relevant dates based on frequency
+        switch habit.frequency {
+        case .daily:
+            datesToUpdate = generateDailyDates(startDate: habit.startDate, endDate: habit.endDate)
+        case .weekly:
+            datesToUpdate = generateWeeklyDates(startDate: habit.startDate, endDate: habit.endDate)
+        case .monthly:
+            datesToUpdate = generateMonthlyDates(startDate: habit.startDate, endDate: habit.endDate)
+        case .everyNDays:
+            if let interval = habit.interval {
+                datesToUpdate = generateEveryNDaysDates(startDate: habit.startDate, endDate: habit.endDate, interval: interval)
             }
-            let userID = user.id
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let calendar = Calendar.current
-            
-            var datesToUpdate: [Date] = []
-            
-            switch habit.frequency {
-            case .daily:
-                datesToUpdate = generateDailyDates(startDate: habit.startDate, endDate: habit.endDate)
-            case .weekly:
-                datesToUpdate = generateWeeklyDates(startDate: habit.startDate, endDate: habit.endDate)
-            case .monthly:
-                datesToUpdate = generateMonthlyDates(startDate: habit.startDate, endDate: habit.endDate)
-            case .everyNDays:
-                if let interval = habit.interval {
-                    datesToUpdate = generateEveryNDaysDates(startDate: habit.startDate, endDate: habit.endDate, interval: interval)
-                }
-            case .specificDaysOfWeek:
-                if let daysOfWeek = habit.daysOfWeek {
-                    datesToUpdate = generateSpecificDaysOfWeekDates(startDate: habit.startDate, endDate: habit.endDate, daysOfWeek: daysOfWeek)
-                }
+        case .specificDaysOfWeek:
+            if let daysOfWeek = habit.daysOfWeek {
+                datesToUpdate = generateSpecificDaysOfWeekDates(startDate: habit.startDate, endDate: habit.endDate, daysOfWeek: daysOfWeek)
             }
+        }
+        
+        for date in datesToUpdate {
+            let dateString = dateFormatter.string(from: date)
+            let habitDoc = db.collection("users").document(userID).collection("habits").document(dateString)
             
-            for date in datesToUpdate {
-                let dateString = dateFormatter.string(from: date)
-                
-                var habitData: [String: Any] = [
-                    "id": habit.id,
-                    "title": habit.title,
-                    "unit": habit.unit,
-                    "count": habit.count,
-                    "goal": habit.goal,
-                    "startColor": habit.startColor,
-                    "endColor": habit.endColor,
-                    "category": habit.category,
-                    "frequency": habit.frequency.rawValue,
-                    "routineTime": habit.routineTime.rawValue,
-                    "startDate": Timestamp(date: habit.startDate),
-                    "endDate": Timestamp(date: habit.endDate),
-                    "dateTaken": dateString
-                ]
-                
-                if let reminderDate = habit.reminder {
-                    habitData["reminder"] = Timestamp(date: reminderDate)
-                } else {
-                    habitData["reminder"] = NSNull()
-                }
-                
-                if let interval = habit.interval {
-                    habitData["interval"] = interval
-                } else {
-                    habitData["interval"] = NSNull()
-                }
-                
-                if let daysOfWeek = habit.daysOfWeek {
-                    habitData["daysOfWeek"] = daysOfWeek
-                } else {
-                    habitData["daysOfWeek"] = NSNull()
-                }
-                
-                if let specificDates = habit.specificDates {
-                    habitData["specificDates"] = specificDates.map { Timestamp(date: $0) }
-                } else {
-                    habitData["specificDates"] = NSNull()
-                }
-                
-                db.collection("users").document(userID).collection("habits").document(dateString).setData([
-                    "habits": FieldValue.arrayRemove([habitToEdit.toDictionary()])
-                ], merge: true) { error in
-                    if let error = error {
-                        print("Error removing old habit: \(error.localizedDescription)")
-                    } else {
-                        db.collection("users").document(userID).collection("habits").document(dateString).setData([
-                            "habits": FieldValue.arrayUnion([habitData])
-                        ], merge: true) { error in
-                            if let error = error {
-                                print("Error updating habit: \(error.localizedDescription)")
-                            } else {
-                                print("Habit updated successfully for \(dateString)!")
-                            }
-                        }
+            db.runTransaction { (transaction, errorPointer) -> Any? in
+                do {
+                    let habitSnapshot = try transaction.getDocument(habitDoc)
+                    guard var habitsArray = habitSnapshot.data()?["habits"] as? [[String: Any]] else {
+                        // If no habits array exists, nothing to update
+                        return nil
                     }
+                    
+                    // Find the index of the habit to update
+                    if let index = habitsArray.firstIndex(where: { $0["id"] as? String == habit.id }) {
+                        // Preserve the existing count
+                        let existingCount = habitsArray[index]["count"] as? Int ?? 0
+                        
+                        // Update fields except count
+                        habitsArray[index]["title"] = habit.title
+                        habitsArray[index]["unit"] = habit.unit
+                        habitsArray[index]["goal"] = habit.goal
+                        habitsArray[index]["startColor"] = habit.startColor
+                        habitsArray[index]["endColor"] = habit.endColor
+                        habitsArray[index]["category"] = habit.category
+                        habitsArray[index]["frequency"] = habit.frequency.rawValue
+                        habitsArray[index]["routineTime"] = habit.routineTime.rawValue
+                        habitsArray[index]["reminder"] = habit.reminder != nil ? Timestamp(date: habit.reminder!) : NSNull()
+                        habitsArray[index]["endDate"] = Timestamp(date: habit.endDate)
+                        habitsArray[index]["interval"] = habit.interval ?? NSNull()
+                        habitsArray[index]["daysOfWeek"] = habit.daysOfWeek ?? NSNull()
+                        habitsArray[index]["specificDates"] = habit.specificDates?.map { Timestamp(date: $0) } ?? NSNull()
+                        
+                        // Restore the existing count
+                        habitsArray[index]["count"] = existingCount
+                        
+                        // Optionally, update other fields like dateTaken if necessary
+                        // habitsArray[index]["dateTaken"] = habit.dateTaken
+                    
+                        // Commit the updated habits array back to Firestore
+                        transaction.updateData(["habits": habitsArray], forDocument: habitDoc)
+                    }
+                    return nil
+                } catch let error as NSError {
+                    errorPointer?.pointee = error
+                    return nil
+                }
+            } completion: { (object, error) in
+                if let error = error {
+                    print("Transaction failed: \(error)")
+                    // Optionally, present an alert to the user
+                } else {
+                    print("Transaction successfully committed for date \(dateString)!")
+                    // Optionally, refresh data or notify the user
                 }
             }
         }
+    }
     }
 
     

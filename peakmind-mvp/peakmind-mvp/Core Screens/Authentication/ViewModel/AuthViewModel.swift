@@ -1834,6 +1834,14 @@ class AuthViewModel: ObservableObject {
                 self.quests = querySnapshot?.documents.compactMap { document in
                     try? document.data(as: Quest.self)
                 } ?? []
+                // Only add new quests that are not already in the array
+                for quests in self.quests {
+                                if !self.quests.contains(where: { $0.id == quests.id }) {
+                                    self.quests.append(quests)
+                                }
+                            }
+                
+
                 
                 // If no quests exist, create default ones
                 if self.quests.isEmpty {
@@ -1901,44 +1909,59 @@ class AuthViewModel: ObservableObject {
     func removeListener() {
         listenerRegistration?.remove()
     }
-    
-    // Central function to check and sync quests
     func checkAndSyncQuests() {
-        for index in quests.indices {
-            let quest = quests[index]
-            
-            switch quest.baseName {
-            case "Journal":
-                checkJournalProgress(for: quest) { updatedQuest in
-                    //self.quests[index] = updatedQuest
-                    self.saveQuest(updatedQuest)
-                    self.fetchQuestData()
-                }
-            case "Profiles":
-                // Add the check for profiles here
-                checkProfileProgress(for: quest) { updatedQuest in
-                    self.quests[index] = updatedQuest
-                    self.saveQuest(updatedQuest)
-                }
-            case "Games":
-                // Add the check for games here
-                checkGameProgress(for: quest) { updatedQuest in
-                    self.quests[index] = updatedQuest
-                    self.saveQuest(updatedQuest)
-                }
-            case "Chat":
-                // Add the check for games here
-                checkChatProgress(for: quest) { updatedQuest in
-                    //self.quests[index] = updatedQuest
-                    self.saveQuest(updatedQuest)
-                    self.fetchQuestData()
+           for index in quests.indices {
+               let quest = quests[index]
+               
+               switch quest.baseName {
+               case "Journal":
+                   checkJournalProgress(for: quest) { updatedQuest in
+                       //self.quests[index] = updatedQuest
+                       self.saveQuest(updatedQuest)
+                   }
+               case "Profiles":
+                   // Add the check for profiles here
+                   checkProfileProgress(for: quest) { updatedQuest in
+                       self.quests[index] = updatedQuest
+                       self.saveQuest(updatedQuest)
+                   }
+               case "Games":
+                   // Add the check for games here
+                   checkGameProgress(for: quest) { updatedQuest in
+                       //self.quests[index] = updatedQuest
+                       self.saveQuest(updatedQuest)
+                   }
+                   
+               case "Chat":
+                   // Add the check for games here
+                   checkChatProgress(for: quest) { updatedQuest in
+                       //self.quests[index] = updatedQuest
+                       self.saveQuest(updatedQuest)
 
-                }
-            default:
-                break
-            }
-        }
-    }
+                   }
+               case "Habits":
+                   // Add the check for games here
+                   checkHabitProgress(for: quest) { updatedQuest in
+                       self.quests[index] = updatedQuest
+                       self.saveQuest(updatedQuest)
+
+                   }
+               case "DailyCheckin":
+                   print("Processing DailyCheckin quest")  // Debugging
+                   checkDailyCheckinProgress(for: quest) { updatedQuest in
+                       self.saveQuest(updatedQuest)
+                  
+                          }
+               //case "RoutineCompletion":
+                 //         checkRoutineCompletionProgress(for: quest) { updatedQuest in
+                   //           self.saveQuest(updatedQuest)
+                     //     }
+               default:
+                   break
+               }
+           }
+       }
+       
     
     func checkJournalProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
         fetchJournalEntries { entries in
@@ -1962,23 +1985,284 @@ class AuthViewModel: ObservableObject {
             completion(updatedQuest)
         }
     }
+    func checkHabitProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
+        fetchCompletedHabitsCount { completedHabitsCount in
+            var updatedQuest = quest
+            updatedQuest.currentProgress = completedHabitsCount
 
-    // Add similar check functions for other quest types
+            // Update the next segment goal (milestone)
+            if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal {
+                if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+                   nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                    updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+                }
+            }
+
+            completion(updatedQuest)
+        }
+    }
+    func fetchCompletedHabitsCount(completion: @escaping (Int) -> Void) {
+        guard let currentUserID = currentUser?.id else {
+            print("No current user")
+            completion(0)
+            return
+        }
+
+        let db = Firestore.firestore()
+        let habitsRef = db.collection("users").document(currentUserID).collection("habits")
+
+        // Fetch all available dates in the "habits" collection
+        habitsRef.getDocuments { (dateSnapshot, error) in
+            if let error = error {
+                print("Error fetching habit dates: \(error.localizedDescription)")
+                completion(0)
+                return
+            }
+
+            var totalCompletedHabitsCount = 0
+            let dateDocuments = dateSnapshot?.documents ?? []
+
+            if dateDocuments.isEmpty {
+                completion(0)  // No dates found, return 0
+                return
+            }
+
+            // Loop through each date document to access the habits array
+            for dateDocument in dateDocuments {
+                let habitData = dateDocument.data()
+                
+                // Assuming the array is stored under a field called "habits"
+                if let habitsArray = habitData["habits"] as? [[String: Any]] {
+                    for habit in habitsArray {
+                        if let count = habit["count"] as? Int, let goal = habit["goal"] as? Int {
+                            if count == goal {
+                                totalCompletedHabitsCount += 1  // Increment count for completed habits
+                            }
+                        }
+                    }
+                }
+            }
+
+            print("Total completed habits: \(totalCompletedHabitsCount)")  // Debugging
+            completion(totalCompletedHabitsCount)
+        }
+    }
+
+
+
+
+    func checkDailyCheckinProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
+        guard let currentUserID = currentUser?.id else {
+            print("No current user")
+            completion(quest)
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(currentUserID)
+        let checkInsRef = userRef.collection("checkIns")
+
+        // Fetch the most recent check-in, ordered by date in descending order
+        checkInsRef.order(by: "date", descending: true).limit(to: 1).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error fetching check-in: \(error.localizedDescription)")
+                completion(quest)
+                return
+            }
+
+            guard let latestCheckIn = querySnapshot?.documents.first,
+                  let checkinTimestamp = latestCheckIn.data()["date"] as? Timestamp else {
+                // No check-in found, reset progress
+                var updatedQuest = quest
+                updatedQuest.currentProgress = 0
+                completion(updatedQuest)
+                return
+            }
+
+            var updatedQuest = quest
+            let lastCheckinDate = checkinTimestamp.dateValue()
+
+            // Check if the latest check-in was today
+            if Calendar.current.isDateInToday(lastCheckinDate) {
+                if updatedQuest.currentProgress == 0 {
+                    // Increment progress only if it hasn't been updated for today
+                    updatedQuest.currentProgress += 1
+                }
+            } else {
+                // If the last check-in is not today, reset the progress
+                updatedQuest.currentProgress = 0
+            }
+
+            // Update the next segment goal if needed
+            if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal,
+               let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+               nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+            }
+
+            completion(updatedQuest)
+        }
+    }
+
+
+    func fetchGameProgress(completion: @escaping (Int) -> Void) {
+        guard let userId = currentUser?.id else {
+            print("No current user")
+            completion(0)
+            return
+        }
+
+        let db = Firestore.firestore()
+        let gameDataRef = db.collection("gameData").document(userId).collection("phases")
+
+        // Fetch all phases for the user
+        gameDataRef.getDocuments { (phaseSnapshot, error) in
+            if let error = error {
+                print("Error getting phases: \(error.localizedDescription)")
+                completion(0)
+            } else {
+                var totalLevelsCompleted = 0
+                let phases = phaseSnapshot?.documents ?? []
+
+                // Fetch levels for each phase
+                let group = DispatchGroup()  // Used to manage async calls
+                for phaseDocument in phases {
+                    let levelsRef = gameDataRef.document(phaseDocument.documentID).collection("levels")
+
+                    group.enter()  // Enter the dispatch group for each phase
+                    levelsRef.getDocuments { (levelSnapshot, levelError) in
+                        if let levelError = levelError {
+                            print("Error getting levels: \(levelError.localizedDescription)")
+                        } else {
+                            let levels = levelSnapshot?.documents ?? []
+                            totalLevelsCompleted += levels.count  // Count the number of levels in the phase
+                        }
+                        group.leave()  // Leave the dispatch group once the phase is processed
+                    }
+                }
+
+                // Once all async fetches are completed, call the completion handler
+                group.notify(queue: .main) {
+                    completion(totalLevelsCompleted)
+                }
+            }
+        }
+    }
+
+    func checkGameProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
+        fetchGameProgress { gameProgressCount in
+            var updatedQuest = quest
+            updatedQuest.currentProgress = gameProgressCount
+
+            // Check if the user has reached the next segment goal
+            if gameProgressCount >= updatedQuest.nextSegmentGoal {
+                if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+                   nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                    updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+                }
+            }
+
+            completion(updatedQuest)
+        }
+    }
+
+
+    func fetchProfileCount(completion: @escaping (Int) -> Void) {
+        guard let currentUserID = currentUser?.id else {
+            print("No current user")
+            completion(0)
+            return
+        }
+
+        let db = Firestore.firestore()
+        let profilesRef = db.collection("users").document(currentUserID).collection("profiles")
+
+        // Fetch all documents in the profiles collection
+        profilesRef.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching profiles: \(error.localizedDescription)")
+                completion(0)
+                return
+            }
+
+            // Count the number of documents in the profiles collection
+            let profileCount = querySnapshot?.documents.count ?? 0
+            print("Profile count: \(profileCount)")
+            completion(profileCount)
+        }
+    }
     func checkProfileProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
-        // Example logic to fetch profile data and update quest progress
-//        fetchProfileData { profileCount in
-//            var updatedQuest = quest
-//            updatedQuest.currentProgress = profileCount
-//
-//            for segment in quest.totalSegments {
-//                if profileCount >= segment {
-//                    updatedQuest.nextSegmentGoal = segment
-//                } else {
-//                    break
-//                }
-//            }
-//
-//            completion(updatedQuest)
+        fetchProfileCount { profileCount in
+            var updatedQuest = quest
+            updatedQuest.currentProgress = profileCount
+
+            // Update the next segment goal (milestone)
+            if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal {
+                if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+                   nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                    updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+                }
+            }
+
+            completion(updatedQuest)
+        }
+    }
+
+
+     
+
+
+     func fetchChatProgress(completion: @escaping (Int) -> Void) {
+         guard let currentUser = currentUser else {
+             print("No current user")
+             completion(0)
+             return
+         }
+
+         let db = Firestore.firestore()
+         let userRef = db.collection("chatbot_").document(currentUser.id)
+         let sessionsRef = userRef.collection("sessions")
+
+         sessionsRef.getDocuments { (querySnapshot, error) in
+             if let error = error {
+                 print("Error getting chat sessions: \(error)")
+                 completion(0)  // Return 0 in case of error
+             } else {
+                 // Count the number of documents (i.e., sessions)
+                 let sessionCount = querySnapshot?.documents.count ?? 0
+                 completion(sessionCount)
+             }
+         }
+     }
+     
+     func checkChatProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
+         fetchChatProgress { sessionCount in
+             var updatedQuest = quest
+             
+             // Update current progress with the number of chat sessions
+             updatedQuest.currentProgress = sessionCount
+             
+             // Only move forward in segments, do not reset to lower goals
+             if sessionCount >= updatedQuest.nextSegmentGoal {
+                 // Move to the next segment goal (if there is a next goal)
+                 if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+                    nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                     updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+                 }
+             }
+             
+             completion(updatedQuest)
+         }
+     }
+     
+     
+
+
+ 
+
+
+    
+    
 //        }
     }
 
@@ -2000,54 +2284,6 @@ class AuthViewModel: ObservableObject {
 //        }
     }
     
-    func fetchChatProgress(completion: @escaping (Int) -> Void) {
-        guard let currentUser = currentUser else {
-            print("No current user")
-            completion(0)
-            return
-        }
-
-        let db = Firestore.firestore()
-        let userRef = db.collection("chatbot_").document(currentUser.id)
-        let sessionsRef = userRef.collection("sessions")
-
-        sessionsRef.getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error getting chat sessions: \(error)")
-                completion(0)  // Return 0 in case of error
-            } else {
-                // Count the number of documents (i.e., sessions)
-                let sessionCount = querySnapshot?.documents.count ?? 0
-                completion(sessionCount)
-            }
-        }
-    }
-    
-    func checkChatProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
-        fetchChatProgress { sessionCount in
-            var updatedQuest = quest
-            
-            // Update current progress with the number of chat sessions
-            updatedQuest.currentProgress = sessionCount
-            
-            // Only move forward in segments, do not reset to lower goals
-            if sessionCount >= updatedQuest.nextSegmentGoal {
-                // Move to the next segment goal (if there is a next goal)
-                if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
-                   nextGoalIndex + 1 < updatedQuest.totalSegments.count {
-                    updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
-                }
-            }
-            
-            completion(updatedQuest)
-        }
-    }
-    
-    
-
-
-}
-
 
 
 // UserData model

@@ -431,18 +431,46 @@ extension HabitIndividualView {
         }
     }
     
-    // Delete Habit
     func deleteHabit() {
-        guard let user = viewModel.currentUser else { return }
+        guard let user = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
         let userID = user.id
         let db = Firestore.firestore()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        db.collection("users").document(userID).collection("habits").document(habit.id).delete { error in
+        db.collection("users").document(userID).collection("habits").getDocuments { querySnapshot, error in
             if let error = error {
-                print("Error deleting habit: \(error.localizedDescription)")
-            } else {
-                print("Habit deleted successfully.")
-                // Optionally, dismiss the sheet or notify the parent view to refresh
+                print("Error fetching habit documents: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No habit documents found")
+                return
+            }
+            
+            let batch = db.batch()
+            
+            for document in documents {
+                var habits = document.get("habits") as? [[String: Any]] ?? []
+                let originalCount = habits.count
+                habits.removeAll { $0["id"] as? String == habit.id }
+                
+                if habits.count != originalCount {
+                    batch.updateData(["habits": habits], forDocument: document.reference)
+                }
+            }
+            
+            batch.commit { error in
+                if let error = error {
+                    print("Error deleting habit: \(error.localizedDescription)")
+                } else {
+                    print("Habit deleted successfully from all dates.")
+                    // Optionally, dismiss the AnalyticsView or refresh data
+                }
             }
         }
     }

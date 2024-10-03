@@ -23,7 +23,8 @@ class AuthViewModel: ObservableObject {
     @Published var currentLevel: Int = 0
     @Published var badges: [Badge] = []
     @Published var quests: [Quest] = []
-    
+    @Published  var journalEntries: [JournalEntry] = []
+
     
     //    @Published var communitiesViewModel = CommunitiesViewModel()
     @Published var authErrorMessage: String? // New property for error messages
@@ -33,6 +34,8 @@ class AuthViewModel: ObservableObject {
     private var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     private let db = Firestore.firestore()
     private var listenerRegistration: ListenerRegistration?
+    private var listenerRegistration2: ListenerRegistration?
+
     
     init() {
         authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
@@ -1718,6 +1721,7 @@ class AuthViewModel: ObservableObject {
            guard let currentUserID = currentUser?.id else {
                throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
            }
+        print("savingjournal")
            
            let db = Firestore.firestore()
            let userRef = db.collection("journal").document(currentUserID)
@@ -1730,6 +1734,8 @@ class AuthViewModel: ObservableObject {
                "answer": entry.answer,
                "date": Timestamp(date: entry.date)
            ]
+        print("savingjournal2")
+
            
            // Save the journal entry to Firestore
            try await journalRef.setData(data)
@@ -1763,35 +1769,59 @@ class AuthViewModel: ObservableObject {
             }
         }
     
-    func updateJournalEntry(entry: JournalEntry) async throws {
-            guard let currentUserID = currentUser?.id else {
-                throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
-            }
-
-            let db = Firestore.firestore()
-            let userRef = db.collection("journal").document(currentUserID)
-            let journalEntryRef = userRef.collection("journalEntries").document(entry.id) // Ensure entry.id is not nil or empty
-
-            // Log Firestore path
-            print("Updating journal entry at path: users/\(currentUserID)/journalEntries/\(entry.id)")
-
-            // Prepare the updated data
-            let updatedData: [String: Any] = [
-                "question": entry.question,
-                "answer": entry.answer,
-                "date": Timestamp(date: entry.date) // Ensure date is in Firestore format
-            ]
-
-            // Attempt to update Firestore
-            do {
-                print(updatedData)
-                try await journalEntryRef.setData(updatedData)
-                print("Journal entry updated in Firestore.")
-            } catch {
-                print("Failed to update Firestore document: \(error.localizedDescription)")
-                throw error
-            }
+    func fetchJournalEntries2() {
+        guard let currentUserID = Auth.auth().currentUser?.uid else {
+            return
         }
+        
+        listenerRegistration2 = db.collection("journal")
+            .document(currentUserID)
+            .collection("journalEntries")
+            .order(by: "date", descending: true) // Sort by date descending
+            .addSnapshotListener { [weak self] (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching journal entries: \(error.localizedDescription)")
+                    return
+                }
+                
+                self?.journalEntries = querySnapshot?.documents.compactMap { document in
+                    try? document.data(as: JournalEntry.self)
+                } ?? []
+            }
+    }
+    
+    func updateJournalEntry(entry: JournalEntry) async throws {
+        guard let currentUserID = currentUser?.id else {
+            throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
+        }
+
+        guard let entryID = entry.id else {
+            throw NSError(domain: "UpdateError", code: 400, userInfo: [NSLocalizedDescriptionKey: "Journal entry ID is missing."])
+        }
+
+        let db = Firestore.firestore()
+        let journalEntryRef = db.collection("journal").document(currentUserID).collection("journalEntries").document(entryID)
+
+        // Log Firestore path for debugging
+        print("Updating journal entry at path: users/\(currentUserID)/journalEntries/\(entryID)")
+
+        // Prepare the updated data
+        let updatedData: [String: Any] = [
+            "question": entry.question,
+            "answer": entry.answer,
+            "date": Timestamp(date: entry.date) // Ensure date is in Firestore format
+        ]
+
+        // Attempt to update Firestore
+        do {
+            print("Updated Data: \(updatedData)")
+            try await journalEntryRef.setData(updatedData, merge: true) // Use merge to update fields without overwriting the entire document
+            print("Journal entry updated in Firestore.")
+        } catch {
+            print("Failed to update Firestore document: \(error.localizedDescription)")
+            throw error
+        }
+    }
     
     func checkIfPromptAnswered(completion: @escaping (Bool) -> Void) {
         guard let currentUserID = currentUser?.id else { return }
@@ -1900,6 +1930,9 @@ class AuthViewModel: ObservableObject {
     
     func removeListener() {
         listenerRegistration?.remove()
+    }
+    func removeListener2() {
+        listenerRegistration2?.remove()
     }
     
     // Central function to check and sync quests

@@ -571,6 +571,7 @@ struct RoutineBuilderView: View {
             loadHabitHistory()
             updateAllHabitProgress()
             fetchGroups()
+            viewModel.loadHabitHistory()
 
         }
     }

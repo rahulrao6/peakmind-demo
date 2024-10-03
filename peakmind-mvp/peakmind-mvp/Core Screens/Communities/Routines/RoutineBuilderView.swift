@@ -48,7 +48,8 @@ struct GradientProgressViewStyleWithLabel2: ProgressViewStyle {
     var unit: String
     var endColor: Color
     var startColor: Color
-
+    @Binding var habit: Habit // Pass the habit object
+      var saveHabit: (String, Int) -> Void // Pass the saveHabit function
     func makeBody(configuration: Configuration) -> some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
@@ -81,6 +82,10 @@ struct GradientProgressViewStyleWithLabel2: ProgressViewStyle {
                     let progress = min(max(0, value.location.x / geometry.size.width), 1)
                     let newCount = Int(progress * CGFloat(totalValue))
                     currentValue = newCount // Update currentValue based on the progress
+                }
+                .onEnded { value in
+                    habit.count = currentValue
+                    saveHabit(habit.id, currentValue)
                 }
             )
         }
@@ -152,6 +157,50 @@ struct Habit: Identifiable {
         self.daysOfWeek = daysOfWeek
         self.specificDates = specificDates
     }
+    func toDictionary() -> [String: Any] {
+        var dict: [String: Any] = [
+            "id": id,
+            "title": title,
+            "unit": unit,
+            "count": count,
+            "goal": goal,
+            "startColor": startColor,
+            "endColor": endColor,
+            "category": category,
+            "frequency": frequency.rawValue,
+            "routineTime": routineTime.rawValue,
+            "startDate": Timestamp(date: startDate),
+            "endDate": Timestamp(date: endDate),
+            "dateTaken": dateTaken
+        ]
+        
+        if let reminder = reminder {
+            dict["reminder"] = Timestamp(date: reminder)
+        } else {
+            dict["reminder"] = NSNull()
+        }
+        
+        if let interval = interval {
+            dict["interval"] = interval
+        } else {
+            dict["interval"] = NSNull()
+        }
+        
+        if let daysOfWeek = daysOfWeek {
+            dict["daysOfWeek"] = daysOfWeek
+        } else {
+            dict["daysOfWeek"] = NSNull()
+        }
+        
+        if let specificDates = specificDates {
+            dict["specificDates"] = specificDates.map { Timestamp(date: $0) }
+        } else {
+            dict["specificDates"] = NSNull()
+        }
+        
+        return dict
+    }
+
     
     enum CodingKeys: String, CodingKey {
         case id, title, unit, count, goal, startColor, endColor, category, frequency, reminder, routineTime, endDate, dateTaken, startDate, interval, daysOfWeek, specificDates
@@ -228,14 +277,17 @@ struct RoutineBuilderView: View {
     @State private var habits: [Habit] = []
     @State private var habitProgress: [String: CGFloat] = [:]
     @State private var showingAnalytics: Bool = false
-    @State private var selectedHabitForAnalytics: Habit?
+    @State private var selectedHabitForAnalytics: Habit? = nil
     @State private var habitHistory: [String: [Habit]] = [:]
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var habitsByName: [String: [Habit]] = [:]
     @State private var isEditing: Bool = false // Added for edit mode
     @State private var isDeleting: Bool = false // Added for delete mode
     private var db = Firestore.firestore()
-    
+    @State var customGroups: [Groups] = []
+    @State private var selectedGroup: String = "All"
+    let predefinedGroups = ["All", "Health", "Productivity", "Fitness"]
+
     var body: some View {
         ZStack {
             GeometryReader { geometry in
@@ -258,13 +310,26 @@ struct RoutineBuilderView: View {
                     Spacer()
                     
                     Menu {
-                        ForEach(Habit.RoutineTime.allCases, id: \.self) { routineTime in
-                            Button(routineTime.rawValue) {
-                                selectedRoutine = routineTime
+
+                        // Custom Groups
+                        ForEach(predefinedGroups, id: \.self) { group in
+                            Button(group) {
+                                selectedGroup = group
+                                print(selectedGroup)
+
+                            }
+                        }
+                        // List custom groups
+                        ForEach(customGroups) { group in
+                            Button(group.name) {
+                                selectedGroup = group.name
+                                print(group.name)
+                                print(selectedGroup)
+
                             }
                         }
                     } label: {
-                        Text(selectedRoutine.rawValue)
+                        Text(selectedGroup)
                             .font(.custom("SFProText-Heavy", size: 14))
                             .frame(width: 50, height: 5)
                             .padding()
@@ -324,7 +389,7 @@ struct RoutineBuilderView: View {
                                 .foregroundColor(.white)
                                 .padding(.top, 20)
                         } else {
-                            ForEach($habits) { $habit in
+                            ForEach(filteredHabits, id: \.id ) { $habit in
                                 ZStack(alignment: .topTrailing) {
                                     ProgressView(value: CGFloat(habit.count) / CGFloat(habit.goal))
                                         .progressViewStyle(GradientProgressViewStyleWithLabel2(
@@ -333,35 +398,56 @@ struct RoutineBuilderView: View {
                                             totalValue: habit.goal,
                                             unit: habit.unit,
                                             endColor: Color(hex: habit.endColor)!,
-                                            startColor: Color(hex: habit.startColor)!
+                                            startColor: Color(hex: habit.startColor)!,
+                                            habit: $habit,
+                                            saveHabit: updateHabitNew
                                         ))
                                         .onTapGesture {
                                             if isEditing {
                                                 selectedHabitForAnalytics = habit
+                                                showingAnalytics.toggle()
                                                 showingAddHabitForm = true
                                             } else if isDeleting {
                                                 print("Delete pressed for \(habit.title)")
                                             }
                                         }
                                         .padding(.horizontal, 5)
+                                    
+                                    Button(action: {
+                                        selectedHabitForAnalytics = habit
 
-                                    if isDeleting {
-                                        Button(action: {
-                                            print("Delete \(habit.title) tapped")
-                                        }) {
-                                            ZStack {
-                                                Circle()
-                                                    .fill(Color.white)
-                                                    .frame(width: 20, height: 20)
 
-                                                Image(systemName: "xmark")
-                                                    .foregroundColor(.red)
-                                                    .frame(width: 10, height: 10)
-                                            }
+                                    }) {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color.white)
+                                                .frame(width: 20, height: 20)
+
+                                            Image(systemName: "pencil")
+                                                .foregroundColor(.black)
+                                                .frame(width: 10, height: 10)
                                         }
-                                        .padding(.trailing, 5)
-                                        .padding(.top, -5)
                                     }
+                                    .padding(.trailing, 5)
+                                    .padding(.top, -5)
+
+//                                    if isDeleting {
+//                                        Button(action: {
+//                                            print("Delete \(habit.title) tapped")
+//                                        }) {
+//                                            ZStack {
+//                                                Circle()
+//                                                    .fill(Color.white)
+//                                                    .frame(width: 20, height: 20)
+//
+//                                                Image(systemName: "xmark")
+//                                                    .foregroundColor(.red)
+//                                                    .frame(width: 10, height: 10)
+//                                            }
+//                                        }
+//                                        .padding(.trailing, 5)
+//                                        .padding(.top, -5)
+//                                    }
                                 }
                             }
                         }
@@ -387,39 +473,39 @@ struct RoutineBuilderView: View {
                         }
                     }
                     
-                    VStack {
-                        Button(action: {
-                            isEditing.toggle()
-                            if isEditing {
-                                isDeleting = false
-                            }
-                        }) {
-                            VStack {
-                                Image(systemName: "pencil")
-                                    .font(.system(size: 24))
-                                Text("Edit")
-                                    .font(.custom("SFProText-Bold", size: 14))
-                            }
-                            .foregroundColor(isEditing ? .blue : .white)
-                        }
-                    }
-                    
-                    VStack {
-                        Button(action: {
-                            isDeleting.toggle()
-                            if isDeleting {
-                                isEditing = false
-                            }
-                        }) {
-                            VStack {
-                                Image(systemName: "trash")
-                                    .font(.system(size: 24))
-                                Text("Delete")
-                                    .font(.custom("SFProText-Bold", size: 14))
-                            }
-                            .foregroundColor(isDeleting ? .blue : .white)
-                        }
-                    }
+//                    VStack {
+//                        Button(action: {
+//                            isEditing.toggle()
+//                            if isEditing {
+//                                isDeleting = false
+//                            }
+//                        }) {
+//                            VStack {
+//                                Image(systemName: "pencil")
+//                                    .font(.system(size: 24))
+//                                Text("Edit")
+//                                    .font(.custom("SFProText-Bold", size: 14))
+//                            }
+//                            .foregroundColor(isEditing ? .blue : .white)
+//                        }
+//                    }
+//                    
+//                    VStack {
+//                        Button(action: {
+//                            isDeleting.toggle()
+//                            if isDeleting {
+//                                isEditing = false
+//                            }
+//                        }) {
+//                            VStack {
+//                                Image(systemName: "trash")
+//                                    .font(.system(size: 24))
+//                                Text("Delete")
+//                                    .font(.custom("SFProText-Bold", size: 14))
+//                            }
+//                            .foregroundColor(isDeleting ? .blue : .white)
+//                        }
+//                    }
                     
                     VStack {
                         Button(action: {
@@ -448,30 +534,46 @@ struct RoutineBuilderView: View {
             }
         }
         .sheet(isPresented: $showingAddHabitForm) {
-            AddHabitForm { newHabit in
-                habits.append(newHabit)
-                saveHabit(newHabit)
-            }
+                
+                AddHabitForm() { newHabit in
+                    habits.append(newHabit)
+                    saveHabit(newHabit)
+                    fetchGroups()
+                }
+            
         }
-        .sheet(isPresented: $showingAnalytics) {
-            if let selectedHabit = selectedHabitForAnalytics {
-                AnalyticsView2(
-                    habitHistory: habitsByName[selectedHabit.title] ?? [],
-                    habitTitle: selectedHabit.title
-                )
-            }
+        .sheet(item: $selectedHabitForAnalytics, onDismiss: {
+            selectedHabitForAnalytics = nil
+        }) { habit in
+            AnalyticsView2(
+                habitHistory: habitsByName[habit.title] ?? [],
+                habitTitle: habit.title,
+                habitid: habit.id
+            )
+            .environmentObject(viewModel)
         }
         
         .onAppear {
             loadHabits(for: selectedDate)
             loadHabitHistory()
             updateAllHabitProgress()
+            fetchGroups()
 
         }
     }
     
-    private var filteredHabits: [Habit] {
-        selectedRoutine == .anytime ? habits : habits.filter { $0.routineTime == selectedRoutine }
+    private var filteredHabits: [Binding<Habit>] {
+        let filtered = selectedGroup == "All" ? habits : habits.filter { $0.category == selectedGroup }
+        return filtered.map { habit in
+            Binding(
+                get: { habit },
+                set: { newValue in
+                    if let index = habits.firstIndex(where: { $0.id == habit.id }) {
+                        habits[index] = newValue
+                    }
+                }
+            )
+        }
     }
     
     // New helper function to get date string
@@ -751,7 +853,56 @@ struct RoutineBuilderView: View {
         }
     }
     
-    
+    private func updateHabitNew(by habitId: String, newCount: Int) {
+        guard let user = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+        
+        let userID = user.id
+        let dateString = dateString(for: selectedDate)
+
+        let documentRef = db.collection("users").document(userID).collection("habits").document(dateString)
+
+        documentRef.getDocument { document, error in
+            if let document = document, document.exists {
+                if var habitsData = document.data()?["habits"] as? [[String: Any]] {
+                    if let index = habitsData.firstIndex(where: { $0["id"] as? String == habitId }) {
+                        var habitData = habitsData[index]
+                        let currentCount = habitData["count"] as? Int ?? 0
+                        let goal = habitData["goal"] as? Int ?? 0
+                        //let newCount = min(max(0, currentCount + increment), goal)
+                        habitData["count"] = newCount
+                        habitsData[index] = habitData
+                        
+                        documentRef.setData(["habits": habitsData], merge: true) { error in
+                            if let error = error {
+                                print("Error updating habit: \(error.localizedDescription)")
+                            } else {
+                                print("Habit updated successfully!")
+                                loadHabits(for: selectedDate)
+                                self.updateAllHabitProgress()
+                                if newCount >= goal {
+                                    print("Habit \(habitData["title"] as? String ?? "") completed!")
+                                    // Optional: Add reward or notification
+                                    Task {
+                                        do {
+                                            try await self.viewModel.awardPoints(10, reason: "Completed habit: \(habitData["title"] as? String ?? "")")
+                                            print("Awarded 10 points for completing habit")
+                                        } catch {
+                                            print("Failed to award points: \(error.localizedDescription)")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                print("Document does not exist or error: \(error?.localizedDescription ?? "unknown error")")
+            }
+        }
+    }
 
 
 
@@ -928,6 +1079,27 @@ struct RoutineBuilderView: View {
         }
     }
     
+    func fetchGroups() {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            //completion(.failure(NSError(domain: "User not authenticated", code: 401, userInfo: nil)))
+            return
+        }
+        
+        db.collection("groups")
+            .whereField("userID", isEqualTo: userID)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching groups: \(error)")
+                    return
+                }
+                
+                self.customGroups = querySnapshot?.documents.compactMap { document in
+                    try? document.data(as: Groups.self)
+                } ?? []
+            }
+    }
+
+    
     private func createHabit(from data: [String: Any]) -> Habit? {
         if let id = data["id"] as? String,
            let title = data["title"] as? String,
@@ -980,6 +1152,19 @@ struct RoutineBuilderView: View {
     }
 }
 
+import Foundation
+import FirebaseFirestoreSwift
+
+struct Groups: Identifiable, Codable, Equatable {
+    @DocumentID var id: String? // Firestore document ID
+    let name: String
+    let userID: String // Reference to the user
+    
+    // Conform to Equatable for comparison
+    static func == (lhs: Groups, rhs: Groups) -> Bool {
+        return lhs.id == rhs.id && lhs.name == rhs.name && lhs.userID == rhs.userID
+    }
+}
 
 
 struct IncrementPopup: View {
@@ -1072,7 +1257,9 @@ struct HabitTemplate: Identifiable, Hashable {
         return lhs.id == rhs.id
     }
 }
+
 struct AddHabitForm: View {
+
     @State private var habitTitle: String = ""
     @State private var habitUnit: String = ""
     @State private var habitGoal: String = "" // Now using a string for direct input
@@ -1087,7 +1274,14 @@ struct AddHabitForm: View {
     @State private var interval: Int = 1
     @State private var selectedDaysOfWeek: [Int] = []
     @State private var specificDates: [Date] = []
+    @State var customGroups: [Groups] = []
     
+    @State private var isAddingCustomGroup: Bool = false
+    @State private var newGroupName: String = ""
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
+    @State private var db = Firestore.firestore()
+
     @State private var showingTemplateSelection = true
     @Environment(\.dismiss) var dismiss
 
@@ -1104,7 +1298,10 @@ struct AddHabitForm: View {
         HabitTemplate(name: "Learning", emoji: "🧠", defaultUnit: "hours")
     ]
 
-    let categories = ["Physical Health", "Mental Wellbeing", "Personal Growth", "Custom"]
+    //let categories = ["Physical Health", "Mental Wellbeing", "Personal Growth", "Custom"]
+    
+    let categories = ["Health", "Productivity", "Fitness"]
+
 
     var addHabitAction: (Habit) -> Void
 
@@ -1166,10 +1363,42 @@ struct AddHabitForm: View {
                             DatePicker("End Date", selection: $endDate, displayedComponents: [.date])
                                 .font(.custom("SFProText-Bold", size: 16))
 
+                            
+                            
                             Picker("Group", selection: $category) {
                                 ForEach(categories, id: \.self) { Text($0) }
+                                ForEach(customGroups) { group in
+                                    Text(group.name).tag(group.name)
+                                }
+                                Text("Custom").tag("Custom")
                             }
-                            .font(.custom("SFProText-Bold", size: 16))
+                            
+                            
+                            if category == "Custom" || customGroups.map({ $0.name }).contains(category) == false {
+                                           if category == "Custom" {
+                                               // Show text field to add a new custom group
+                                               VStack(alignment: .leading) {
+                                                   TextField("New Group Name", text: $newGroupName)
+                                                       .textFieldStyle(RoundedBorderTextFieldStyle())
+                                                       .font(.custom("SFProText-Bold", size: 16))
+                                                   
+                                                   Button(action: {
+                                                       addNewGroup()
+                                                   }) {
+                                                       Text("Add Group")
+                                                           .frame(maxWidth: .infinity)
+                                                           .padding()
+                                                           .background(Color.blue)
+                                                           .foregroundColor(.white)
+                                                           .cornerRadius(8)
+                                                   }
+                                                   .disabled(newGroupName.trimmingCharacters(in: .whitespaces).isEmpty)
+                                                   .font(.custom("SFProText-Bold", size: 16))
+                                                   .padding(.top, 5)
+                                               }
+                                               .padding(.vertical, 5)
+                                           }
+                                       }
 
                             // Frequency picker
                             Picker("Frequency", selection: $frequencyType) {
@@ -1233,61 +1462,147 @@ struct AddHabitForm: View {
                     }
                 }
             }
-        }
-    }
-
-    private func addHabit() {
-        guard let goalInt = Int(habitGoal) else { return } // Ensure goal is valid integer
-
-        let newHabit = Habit(
-            id: UUID().uuidString,
-            title: habitTitle,
-            unit: habitUnit,
-            count: 0,
-            goal: goalInt, // Use converted goal as an integer
-            startColor: startColor.toHex() ?? "#0000FF",
-            endColor: endColor.toHex() ?? "#800080",
-            category: category,
-            frequency: frequencyType,
-            reminder: shouldAddToReminders ? reminder : nil,
-            routineTime: routineTime,
-            endDate: endDate,
-            dateTaken: "",
-            startDate: Date(),
-            interval: frequencyType == .everyNDays ? interval : nil,
-            daysOfWeek: frequencyType == .specificDaysOfWeek ? selectedDaysOfWeek : nil
-        )
-
-        addHabitAction(newHabit)
-
-        if shouldAddToReminders {
-            Task {
-                var recurrenceRule: EKRecurrenceRule? = nil
-
-                switch frequencyType {
-                case .daily:
-                    recurrenceRule = EventKitManager.shared.createRecurrenceRule(frequency: .daily)
-                case .weekly:
-                    recurrenceRule = EventKitManager.shared.createRecurrenceRule(frequency: .weekly)
-                case .monthly:
-                    recurrenceRule = EventKitManager.shared.createRecurrenceRule(frequency: .monthly)
-                case .everyNDays:
-                    recurrenceRule = EventKitManager.shared.createRecurrenceRuleForEveryNDays(interval: interval, endDate: endDate)
-                case .specificDaysOfWeek:
-                    recurrenceRule = EventKitManager.shared.createRecurrenceRuleForSpecificDaysOfWeek(daysOfWeek: selectedDaysOfWeek, endDate: endDate)
-                }
-
-                _ = await EventKitManager.shared.scheduleReminder(
-                    title: habitTitle,
-                    notes: "Don't forget to complete your habit!",
-                    dueDate: reminder,
-                    recurrenceRule: recurrenceRule
-                )
+            .onAppear {
+                // Fetch groups when the view appears
+                fetchGroups()
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
         }
-
-        dismiss()
     }
+    
+    private func addNewGroup() {
+        let trimmedName = newGroupName.trimmingCharacters(in: .whitespaces)
+        guard !trimmedName.isEmpty else {
+            alertMessage = "Group name cannot be empty."
+            showAlert = true
+            return
+        }
+        
+        // Check if the group already exists
+        if customGroups.contains(where: { $0.name.lowercased() == trimmedName.lowercased() }) {
+            alertMessage = "A group with this name already exists."
+            showAlert = true
+            return
+        }
+        
+        addGroup(name: trimmedName) { result in
+            switch result {
+            case .success():
+                // Clear the text field and dismiss keyboard
+                newGroupName = ""
+                // Optionally, set the selected category to the new group
+                category = trimmedName
+            case .failure(let error):
+                alertMessage = "Failed to add group: \(error.localizedDescription)"
+                showAlert = true
+            }
+        }
+        fetchGroups()
+    }
+    
+    func fetchGroups() {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            //completion(.failure(NSError(domain: "User not authenticated", code: 401, userInfo: nil)))
+            return
+        }
+        
+        db.collection("groups")
+            .whereField("userID", isEqualTo: userID)
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching groups: \(error)")
+                    return
+                }
+                
+                self.customGroups = querySnapshot?.documents.compactMap { document in
+                    try? document.data(as: Groups.self)
+                } ?? []
+            }
+    }
+
+    func addGroup(name: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            completion(.failure(NSError(domain: "User not authenticated", code: 401, userInfo: nil)))
+            return
+        }
+        
+        let newGroup = Groups(id: nil, name: name, userID: userID)
+        
+        do {
+            _ = try db.collection("groups").addDocument(from: newGroup) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(()))
+                }
+            }
+        } catch let error {
+            completion(.failure(error))
+        }
+    }
+
+
+    private func addHabit() {
+            guard let goalInt = Int(habitGoal) else {
+                alertMessage = "Please enter a valid goal."
+                showAlert = true
+                return
+            }
+            
+            // Ensure that if a new group was created, it's already added
+            let selectedCategory = category
+            
+            let newHabit = Habit(
+                id: UUID().uuidString,
+                title: habitTitle,
+                unit: habitUnit,
+                count: 0,
+                goal: goalInt,
+                startColor: startColor.toHex() ?? "#0000FF",
+                endColor: endColor.toHex() ?? "#800080",
+                category: selectedCategory,
+                frequency: frequencyType,
+                reminder: shouldAddToReminders ? reminder : nil,
+                routineTime: routineTime,
+                endDate: endDate,
+                dateTaken: "",
+                startDate: Date(),
+                interval: frequencyType == .everyNDays ? interval : nil,
+                daysOfWeek: frequencyType == .specificDaysOfWeek ? selectedDaysOfWeek : nil
+            )
+            
+            addHabitAction(newHabit)
+            
+            if shouldAddToReminders {
+                Task {
+                    var recurrenceRule: EKRecurrenceRule? = nil
+                    
+                    switch frequencyType {
+                    case .daily:
+                        recurrenceRule = EventKitManager.shared.createRecurrenceRule(frequency: .daily)
+                    case .weekly:
+                        recurrenceRule = EventKitManager.shared.createRecurrenceRule(frequency: .weekly)
+                    case .monthly:
+                        recurrenceRule = EventKitManager.shared.createRecurrenceRule(frequency: .monthly)
+                    case .everyNDays:
+                        recurrenceRule = EventKitManager.shared.createRecurrenceRuleForEveryNDays(interval: interval, endDate: endDate)
+                    case .specificDaysOfWeek:
+                        recurrenceRule = EventKitManager.shared.createRecurrenceRuleForSpecificDaysOfWeek(daysOfWeek: selectedDaysOfWeek, endDate: endDate)
+                    }
+                    
+                    _ = await EventKitManager.shared.scheduleReminder(
+                        title: habitTitle,
+                        notes: "Don't forget to complete your habit!",
+                        dueDate: reminder,
+                        recurrenceRule: recurrenceRule
+                    )
+                }
+            }
+            
+            dismiss()
+        }
 }
 
 struct MultipleSelectionRow: View {
@@ -1324,10 +1639,130 @@ struct MultipleSelectionRow: View {
     }
 }
 
+//struct AnalyticsView2: View {
+//    let habitHistory: [Habit]
+//    let habitTitle: String
+//    let habitid: String
+//    @EnvironmentObject var viewModel: AuthViewModel
+//    @State private var showLineChart = true
+//    
+//    var body: some View {
+//        NavigationView {
+//            VStack {
+//                Picker("", selection: $showLineChart) {
+//                    Text("Line Chart").tag(true)
+//                    Text("Bar Chart").tag(false)
+//                }
+//                .pickerStyle(SegmentedPickerStyle())
+//                .padding()
+//                
+//                if habitHistory.isEmpty {
+//                    Text("No data available")
+//                        .font(.headline)
+//                        .padding()
+//                } else {
+//                    Chart {
+//                        ForEach(sortedHabitHistory) { habit in
+//                            if let date = parseDate(from: habit.dateTaken) {
+//                                if showLineChart {
+//                                    LineMark(
+//                                        x: .value("Date", date),
+//                                        y: .value("Count", habit.count)
+//                                    )
+//                                    .foregroundStyle(Color.blue)
+//                                } else {
+//                                    BarMark(
+//                                        x: .value("Date", date),
+//                                        y: .value("Count", habit.count)
+//                                    )
+//                                    .foregroundStyle(Color.green)
+//                                }
+//                            }
+//                        }
+//                    }
+//                    .chartXAxis {
+//                        AxisMarks(values: .automatic(desiredCount: 5)) { value in
+//                            AxisGridLine()
+//                            AxisTick()
+//                            AxisValueLabel(format: .dateTime.month().day())
+//                        }
+//                    }
+//                    .chartYAxis {
+//                        AxisMarks()
+//                    }
+//                    .frame(height: 300)
+//                    .padding()
+//                }
+//                Spacer()
+//                HStack(spacing: 40) {
+//                    
+//                    VStack {
+//                        Button(action: {
+//                            print("edit")
+//                        }) {
+//                            VStack {
+//                                Image(systemName: "pencil")
+//                                    .font(.system(size: 24))
+//                                Text("Edit")
+//                                    .font(.custom("SFProText-Bold", size: 14))
+//                            }
+//                            
+//                        }
+//                    }
+//                    
+//                    VStack {
+//                        Button(action: {
+//                                print("delte this")
+//                            
+//                        }) {
+//                            VStack {
+//                                Image(systemName: "trash")
+//                                    .font(.system(size: 24))
+//                                Text("Delete")
+//                                    .font(.custom("SFProText-Bold", size: 14))
+//                            }
+//                            
+//                        }
+//                    }
+//                    
+//                }
+//                .foregroundColor(.white)
+//                .padding(.bottom, 10)
+//            }
+//            .navigationTitle("Analytics for \(habitTitle)")
+//        }
+//        .onAppear{
+//            print(habitTitle)
+//            print(habitHistory)
+//        }
+//    }
+//    
+//    func parseDate(from dateString: String) -> Date? {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust to your date format
+//        return dateFormatter.date(from: dateString)
+//    }
+//    
+//    // Sort the habitHistory by date
+//    var sortedHabitHistory: [Habit] {
+//        habitHistory.sorted { (habit1, habit2) -> Bool in
+//            guard let date1 = parseDate(from: habit1.dateTaken),
+//                  let date2 = parseDate(from: habit2.dateTaken) else {
+//                return false
+//            }
+//            return date1 < date2
+//        }
+//    }
+//}
+
 struct AnalyticsView2: View {
     let habitHistory: [Habit]
     let habitTitle: String
+    let habitid: String
+    @EnvironmentObject var viewModel: AuthViewModel
     @State private var showLineChart = true
+    @State private var showingEditForm = false
+    @State private var habitToEdit: Habit?
     
     var body: some View {
         NavigationView {
@@ -1376,8 +1811,59 @@ struct AnalyticsView2: View {
                     .frame(height: 300)
                     .padding()
                 }
+                
+                Spacer()
+                
+                HStack(spacing: 40) {
+                    VStack {
+                        Button(action: {
+                            // Edit Action
+                            if let firstHabit = habitHistory.first {
+                                habitToEdit = firstHabit
+                                showingEditForm = true
+                            }
+                        }) {
+                            VStack {
+                                Image(systemName: "pencil")
+                                    .font(.system(size: 24))
+                                Text("Edit")
+                                    .font(.custom("SFProText-Bold", size: 14))
+                            }
+                        }
+                    }
+                    
+                    VStack {
+                        Button(action: {
+                            // Delete Action
+                            deleteHabit()
+                        }) {
+                            VStack {
+                                Image(systemName: "trash")
+                                    .font(.system(size: 24))
+                                Text("Delete")
+                                    .font(.custom("SFProText-Bold", size: 14))
+                            }
+                        }
+                    }
+                }
+                .foregroundColor(.white)
+                .padding(.bottom, 10)
             }
             .navigationTitle("Analytics for \(habitTitle)")
+            .sheet(isPresented: $showingEditForm) {
+                if let habit = habitToEdit {
+                    EditHabitForm(habit: habit, updateAction: { updatedHabit in
+                        // Handle update action, e.g., refresh data
+                        // This might involve notifying the parent view to reload data
+                        print("Habit updated: \(updatedHabit)")
+                    })
+                    .environmentObject(viewModel)
+                }
+            }
+        }
+        .onAppear{
+            print(habitTitle)
+            print(habitHistory)
         }
     }
     
@@ -1397,4 +1883,513 @@ struct AnalyticsView2: View {
             return date1 < date2
         }
     }
+    
+    private func deleteHabit() {
+        // Confirm Deletion (handled by the alert)
+        guard let user = viewModel.currentUser else {
+            print("No current user")
+            return
+        }
+        let userID = user.id
+        let db = Firestore.firestore()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        // Fetch all unique dates from habitHistory
+        let uniqueDateStrings = Set(habitHistory.compactMap { parseDate(from: $0.dateTaken) }.map { dateFormatter.string(from: $0) })
+        
+        // Iterate through each date and remove the habit
+        for dateString in uniqueDateStrings {
+            let habitDoc = db.collection("users").document(userID).collection("habits").document(dateString)
+            
+            // Create a dummy habit with the same ID for array removal
+            let dummyHabit = Habit(
+                id: habitid,
+                title: habitTitle,
+                unit: "",
+                count: 0,
+                goal: 0,
+                startColor: "",
+                endColor: "",
+                category: "",
+                frequency: .daily,
+                reminder: Date(),
+                routineTime: .anytime,
+                endDate: Date(),
+                dateTaken: dateString,
+                startDate: Date(),
+                interval: nil,
+                daysOfWeek: nil,
+                specificDates: nil
+            )
+            
+            habitDoc.updateData([
+                "habits": FieldValue.arrayRemove([dummyHabit.toDictionary()])
+            ]) { error in
+                if let error = error {
+                    print("Error deleting habit from \(dateString): \(error.localizedDescription)")
+                } else {
+                    print("Habit deleted successfully from \(dateString)")
+                }
+            }
+        }
+        
+        // Optionally, notify the user
+        // You might want to dismiss the Analytics view or refresh data here
+    }
+        
+        // Optionally, notify the user
+        // You might want to dismiss the Analytics view or refresh data here
+    
 }
+
+struct EditHabitForm: View {
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: AuthViewModel
+    
+    @State private var habitTitle: String
+    @State private var habitUnit: String
+    @State private var habitGoal: String
+    @State private var category: String
+    @State private var frequencyType: Habit.FrequencyType
+    @State private var reminder: Date
+    @State private var startColor: Color
+    @State private var endColor: Color
+    @State private var routineTime: Habit.RoutineTime
+    @State private var endDate: Date
+    @State private var shouldAddToReminders: Bool
+    @State private var interval: Int
+    @State private var selectedDaysOfWeek: [Int]
+    @State private var specificDates: [Date]
+    @State var customGroups: [Groups] = []
+    
+    @State private var isAddingCustomGroup: Bool = false
+    @State private var newGroupName: String = ""
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
+    @State private var db = Firestore.firestore()
+    
+    let habitToEdit: Habit
+    let updateHabitAction: (Habit) -> Void
+    
+    let habitTemplates: [HabitTemplate] = [
+        HabitTemplate(name: "Exercise", emoji: "🏋️‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Reading", emoji: "📖", defaultUnit: "pages"),
+        HabitTemplate(name: "Meditation", emoji: "🧘‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Water Intake", emoji: "💧", defaultUnit: "glasses"),
+        HabitTemplate(name: "Study", emoji: "📚", defaultUnit: "hours"),
+        HabitTemplate(name: "Walk", emoji: "🚶‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Run", emoji: "🏃‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Bike", emoji: "🚴‍♂️", defaultUnit: "minutes"),
+        HabitTemplate(name: "Burn Calories", emoji: "🔥", defaultUnit: "calories"),
+        HabitTemplate(name: "Learning", emoji: "🧠", defaultUnit: "hours")
+    ]
+    
+    let categories = ["Health", "Productivity", "Fitness"]
+    
+    init(habit: Habit, updateAction: @escaping (Habit) -> Void) {
+        self.habitToEdit = habit
+        self.updateHabitAction = updateAction
+        _habitTitle = State(initialValue: habit.title)
+        _habitUnit = State(initialValue: habit.unit)
+        _habitGoal = State(initialValue: String(habit.goal))
+        _category = State(initialValue: habit.category)
+        _frequencyType = State(initialValue: habit.frequency)
+        _reminder = State(initialValue: habit.reminder ?? Date())
+        _startColor = State(initialValue: Color(hex: habit.startColor) ?? .blue)
+        _endColor = State(initialValue: Color(hex: habit.endColor) ?? .purple)
+        _routineTime = State(initialValue: habit.routineTime)
+        _endDate = State(initialValue: habit.endDate)
+        _shouldAddToReminders = State(initialValue: habit.reminder != nil)
+        _interval = State(initialValue: habit.interval ?? 1)
+        _selectedDaysOfWeek = State(initialValue: habit.daysOfWeek ?? [])
+        _specificDates = State(initialValue: habit.specificDates ?? [])
+    }
+    
+    var body: some View {
+
+            VStack {
+                Form {
+                    Section(header: Text("Habit Details").font(.custom("SFProText-Bold", size: 16))) {
+                        TextField("Habit Title", text: $habitTitle)
+                            .font(.custom("SFProText-Bold", size: 16))
+                        TextField("Unit", text: $habitUnit)
+                            .disabled(habitTemplates.map { $0.name }.contains(habitTitle))
+                            .font(.custom("SFProText-Bold", size: 16))
+                    }
+                    
+                    Section(header: Text("Goal").font(.custom("SFProText-Bold", size: 16))) {
+                        TextField("Daily Goal", text: $habitGoal)
+                            .keyboardType(.numberPad)
+                            .font(.custom("SFProText-Bold", size: 16))
+                    }
+                    
+                    Section(header: Text("Schedule").font(.custom("SFProText-Bold", size: 16))) {
+                        DatePicker("End Date", selection: $endDate, displayedComponents: [.date])
+                            .font(.custom("SFProText-Bold", size: 16))
+                        
+                        Picker("Group", selection: $category) {
+                            ForEach(categories, id: \.self) { Text($0) }
+                            ForEach(customGroups) { group in
+                                Text(group.name).tag(group.name)
+                            }
+                            Text("Custom").tag("Custom")
+                        }
+                        
+                        if category == "Custom" || !customGroups.map({ $0.name }).contains(category) {
+                            if category == "Custom" {
+                                VStack(alignment: .leading) {
+                                    TextField("New Group Name", text: $newGroupName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .font(.custom("SFProText-Bold", size: 16))
+                                    
+                                    Button(action: {
+                                        addNewGroup()
+                                    }) {
+                                        Text("Add Group")
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .background(Color.blue)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(8)
+                                    }
+                                    .disabled(newGroupName.trimmingCharacters(in: .whitespaces).isEmpty)
+                                    .font(.custom("SFProText-Bold", size: 16))
+                                    .padding(.top, 5)
+                                }
+                                .padding(.vertical, 5)
+                            }
+                        }
+                        
+                        Picker("Frequency", selection: $frequencyType) {
+                            Text("Daily").tag(Habit.FrequencyType.daily)
+                            Text("Weekly").tag(Habit.FrequencyType.weekly)
+                            Text("Monthly").tag(Habit.FrequencyType.monthly)
+                            Text("Every N Days").tag(Habit.FrequencyType.everyNDays)
+                            Text("Specific Days of Week").tag(Habit.FrequencyType.specificDaysOfWeek)
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                        .font(.custom("SFProText-Bold", size: 16))
+                        
+                        if frequencyType == .everyNDays {
+                            Stepper("Every \(interval) days", value: $interval, in: 1...30)
+                                .font(.custom("SFProText-Bold", size: 16))
+                        } else if frequencyType == .specificDaysOfWeek {
+                            MultipleSelectionRow(title: "Select Days", options: [1, 2, 3, 4, 5, 6, 7], selectedOptions: $selectedDaysOfWeek)
+                                .font(.custom("SFProText-Bold", size: 16))
+                        }
+                    }
+                    
+                    Section(header: Text("Reminder Options").font(.custom("SFProText-Bold", size: 16))) {
+                        Toggle("Add to Reminders App", isOn: $shouldAddToReminders)
+                            .font(.custom("SFProText-Bold", size: 16))
+                        
+                        if shouldAddToReminders {
+                            DatePicker("Reminder Date", selection: $reminder, displayedComponents: [.date, .hourAndMinute])
+                                .font(.custom("SFProText-Bold", size: 16))
+                        }
+                    }
+                    
+                    Section(header: Text("Habit Color").font(.custom("SFProText-Bold", size: 16))) {
+                        ColorPicker("Start Color", selection: $startColor)
+                            .font(.custom("SFProText-Bold", size: 16))
+                        ColorPicker("End Color", selection: $endColor)
+                            .font(.custom("SFProText-Bold", size: 16))
+                    }
+                    
+                    Section {
+                        Button(action: updateHabit) {
+                            Text("Update Habit")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.navyBlue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                                .font(.custom("SFProText-Bold", size: 16))
+                        }
+                        .disabled(habitTitle.isEmpty || habitUnit.isEmpty || habitGoal.isEmpty)
+                    }
+                }
+                .navigationTitle("Edit Habit")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Cancel") {
+                            dismiss()
+                        }
+                        .font(.custom("SFProText-Bold", size: 16))
+                    }
+                }
+            }
+            .onAppear {
+                fetchGroups()
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
+        }
+        
+         func addNewGroup() {
+            let trimmedName = newGroupName.trimmingCharacters(in: .whitespaces)
+            guard !trimmedName.isEmpty else {
+                alertMessage = "Group name cannot be empty."
+                showAlert = true
+                return
+            }
+            
+            // Check if the group already exists
+            if customGroups.contains(where: { $0.name.lowercased() == trimmedName.lowercased() }) {
+                alertMessage = "A group with this name already exists."
+                showAlert = true
+                return
+            }
+            
+            addGroup(name: trimmedName) { result in
+                switch result {
+                case .success():
+                    // Clear the text field and dismiss keyboard
+                    newGroupName = ""
+                    // Optionally, set the selected category to the new group
+                    category = trimmedName
+                case .failure(let error):
+                    alertMessage = "Failed to add group: \(error.localizedDescription)"
+                    showAlert = true
+                }
+            }
+            fetchGroups()
+        }
+        
+        func fetchGroups() {
+            guard let userID = Auth.auth().currentUser?.uid else {
+                return
+            }
+            
+            db.collection("groups")
+                .whereField("userID", isEqualTo: userID)
+                .getDocuments { (querySnapshot, error) in
+                    if let error = error {
+                        print("Error fetching groups: \(error)")
+                        return
+                    }
+                    
+                    self.customGroups = querySnapshot?.documents.compactMap { document in
+                        try? document.data(as: Groups.self)
+                    } ?? []
+                }
+        }
+        
+        func addGroup(name: String, completion: @escaping (Result<Void, Error>) -> Void) {
+            guard let userID = Auth.auth().currentUser?.uid else {
+                completion(.failure(NSError(domain: "User not authenticated", code: 401, userInfo: nil)))
+                return
+            }
+            
+            let newGroup = Groups(id: nil, name: name, userID: userID)
+            
+            do {
+                _ = try db.collection("groups").addDocument(from: newGroup) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
+                }
+            } catch let error {
+                completion(.failure(error))
+            }
+        }
+        
+         func updateHabit() {
+            guard let goalInt = Int(habitGoal) else {
+                alertMessage = "Please enter a valid goal."
+                showAlert = true
+                return
+            }
+            
+            let selectedCategory = category
+            
+            let updatedHabit = Habit(
+                id: habitToEdit.id,
+                title: habitTitle,
+                unit: habitUnit,
+                count: habitToEdit.count, // Retain the current count
+                goal: goalInt,
+                startColor: startColor.toHex() ?? "#0000FF",
+                endColor: endColor.toHex() ?? "#800080",
+                category: selectedCategory,
+                frequency: frequencyType,
+                reminder: shouldAddToReminders ? reminder : nil,
+                routineTime: routineTime,
+                endDate: endDate,
+                dateTaken: habitToEdit.dateTaken,
+                startDate: habitToEdit.startDate,
+                interval: frequencyType == .everyNDays ? interval : nil,
+                daysOfWeek: frequencyType == .specificDaysOfWeek ? selectedDaysOfWeek : nil,
+                specificDates: frequencyType == .specificDaysOfWeek ? specificDates : nil
+            )
+            
+            updateHabitAction(updatedHabit)
+            updateHabitInFirestore(updatedHabit)
+            dismiss()
+        }
+        
+        func generateDailyDates(startDate: Date, endDate: Date) -> [Date] {
+            var dates: [Date] = []
+            var currentDate = startDate
+            let calendar = Calendar.current
+
+            while currentDate <= endDate {
+                dates.append(currentDate)
+                currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+            }
+            return dates
+        }
+        
+        
+        
+        func generateWeeklyDates(startDate: Date, endDate: Date) -> [Date] {
+            var dates: [Date] = []
+            var currentDate = startDate
+            let calendar = Calendar.current
+
+            while currentDate <= endDate {
+                dates.append(currentDate)
+                currentDate = calendar.date(byAdding: .weekOfYear, value: 1, to: currentDate)!
+            }
+            return dates
+        }
+        func generateMonthlyDates(startDate: Date, endDate: Date) -> [Date] {
+            var dates: [Date] = []
+            var currentDate = startDate
+            let calendar = Calendar.current
+
+            while currentDate <= endDate {
+                dates.append(currentDate)
+                currentDate = calendar.date(byAdding: .month, value: 1, to: currentDate)!
+            }
+            return dates
+        }
+        
+        func generateSpecificDaysOfWeekDates(startDate: Date, endDate: Date, daysOfWeek: [Int]) -> [Date] {
+            var dates: [Date] = []
+            var currentDate = startDate
+            let calendar = Calendar.current
+
+            while currentDate <= endDate {
+                let weekday = calendar.component(.weekday, from: currentDate)
+                if daysOfWeek.contains(weekday) {
+                    dates.append(currentDate)
+                }
+                currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+            }
+            return dates
+        }
+        
+        func generateEveryNDaysDates(startDate: Date, endDate: Date, interval: Int) -> [Date] {
+            var dates: [Date] = []
+            var currentDate = startDate
+            let calendar = Calendar.current
+
+            while currentDate <= endDate {
+                dates.append(currentDate)
+                currentDate = calendar.date(byAdding: .day, value: interval, to: currentDate)!
+            }
+            return dates
+        }
+        
+         func updateHabitInFirestore(_ habit: Habit) {
+            guard let user = viewModel.currentUser else {
+                print("No current user")
+                return
+            }
+            let userID = user.id
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let calendar = Calendar.current
+            
+            var datesToUpdate: [Date] = []
+            
+            switch habit.frequency {
+            case .daily:
+                datesToUpdate = generateDailyDates(startDate: habit.startDate, endDate: habit.endDate)
+            case .weekly:
+                datesToUpdate = generateWeeklyDates(startDate: habit.startDate, endDate: habit.endDate)
+            case .monthly:
+                datesToUpdate = generateMonthlyDates(startDate: habit.startDate, endDate: habit.endDate)
+            case .everyNDays:
+                if let interval = habit.interval {
+                    datesToUpdate = generateEveryNDaysDates(startDate: habit.startDate, endDate: habit.endDate, interval: interval)
+                }
+            case .specificDaysOfWeek:
+                if let daysOfWeek = habit.daysOfWeek {
+                    datesToUpdate = generateSpecificDaysOfWeekDates(startDate: habit.startDate, endDate: habit.endDate, daysOfWeek: daysOfWeek)
+                }
+            }
+            
+            for date in datesToUpdate {
+                let dateString = dateFormatter.string(from: date)
+                
+                var habitData: [String: Any] = [
+                    "id": habit.id,
+                    "title": habit.title,
+                    "unit": habit.unit,
+                    "count": habit.count,
+                    "goal": habit.goal,
+                    "startColor": habit.startColor,
+                    "endColor": habit.endColor,
+                    "category": habit.category,
+                    "frequency": habit.frequency.rawValue,
+                    "routineTime": habit.routineTime.rawValue,
+                    "startDate": Timestamp(date: habit.startDate),
+                    "endDate": Timestamp(date: habit.endDate),
+                    "dateTaken": dateString
+                ]
+                
+                if let reminderDate = habit.reminder {
+                    habitData["reminder"] = Timestamp(date: reminderDate)
+                } else {
+                    habitData["reminder"] = NSNull()
+                }
+                
+                if let interval = habit.interval {
+                    habitData["interval"] = interval
+                } else {
+                    habitData["interval"] = NSNull()
+                }
+                
+                if let daysOfWeek = habit.daysOfWeek {
+                    habitData["daysOfWeek"] = daysOfWeek
+                } else {
+                    habitData["daysOfWeek"] = NSNull()
+                }
+                
+                if let specificDates = habit.specificDates {
+                    habitData["specificDates"] = specificDates.map { Timestamp(date: $0) }
+                } else {
+                    habitData["specificDates"] = NSNull()
+                }
+                
+                db.collection("users").document(userID).collection("habits").document(dateString).setData([
+                    "habits": FieldValue.arrayRemove([habitToEdit.toDictionary()])
+                ], merge: true) { error in
+                    if let error = error {
+                        print("Error removing old habit: \(error.localizedDescription)")
+                    } else {
+                        db.collection("users").document(userID).collection("habits").document(dateString).setData([
+                            "habits": FieldValue.arrayUnion([habitData])
+                        ], merge: true) { error in
+                            if let error = error {
+                                print("Error updating habit: \(error.localizedDescription)")
+                            } else {
+                                print("Habit updated successfully for \(dateString)!")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    
+    // Extension to convert Habit to Dictionary
+

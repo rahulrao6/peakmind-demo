@@ -287,7 +287,8 @@ struct RoutineBuilderView: View {
     @State var customGroups: [Groups] = []
     @State private var selectedGroup: String = "All"
     let predefinedGroups = ["All", "Health", "Productivity", "Fitness"]
-
+    @State private var showingHabitIndividualView: Bool = false
+    @State private var selectedHabit: Habit? = nil
     var body: some View {
         ZStack {
             GeometryReader { geometry in
@@ -414,8 +415,9 @@ struct RoutineBuilderView: View {
                                         .padding(.horizontal, 5)
                                     
                                     Button(action: {
-                                        selectedHabitForAnalytics = habit
-
+                                        //selectedHabitForAnalytics = habit
+                                        selectedHabit = habit
+                                        showingHabitIndividualView = true
 
                                     }) {
                                         ZStack {
@@ -551,6 +553,17 @@ struct RoutineBuilderView: View {
                 habitid: habit.id
             )
             .environmentObject(viewModel)
+        }
+        
+        .sheet(item: $selectedHabit, onDismiss: {
+            selectedHabit = nil
+            loadAllHabits();
+            loadHabits(for: selectedDate)
+        }) { habit in
+            
+            HabitIndividualView(habit: habit, selectedDate: selectedDate)
+                    .environmentObject(viewModel)
+            
         }
         
         .onAppear {

@@ -72,8 +72,8 @@ struct JournalView: View {
                     
                     // Journal Entries Log
                     ScrollView {
-                        ForEach(journalEntries) { entry in
-                            NavigationLink(destination: JournalDetailView(entry: .constant(entry))) {
+                        ForEach(viewModel.journalEntries) { entry in
+                            NavigationLink(destination: JournalDetailView(entry: entry)) {
                                 HStack {
                                     VStack(alignment: .leading) {
                                         Text(entry.question)
@@ -125,31 +125,24 @@ struct JournalView: View {
             }
             .navigationBarHidden(true)
             .sheet(isPresented: $isAddingEntry) {
-                AddJournalEntryView(journalEntries: $journalEntries)
-                    .onDisappear {
-                        Task {
-                            try await viewModel.saveJournalEntry(entry: journalEntries.last!)
-                        }
-                    }
+                AddJournalEntryView().environmentObject(viewModel)
             }
             .fullScreenCover(isPresented: $showJournalPrompt) {
                 JournalPromptView(
                     question: currentQuestion,
-                    isPromptAnswered: $isPromptAnswered,
-                    journalEntries: $journalEntries
-                )
-                .onDisappear {
-                    Task {
-                        try await viewModel.saveJournalEntry(entry: journalEntries.last!)
-                    }
-                }
+                    isPromptAnswered: $isPromptAnswered
+                ).environmentObject(viewModel)
             }
             .onAppear {
-                viewModel.fetchJournalEntries { entries in
-                    self.journalEntries = entries
-                    checkIfPromptAnswered()
-                }
+                viewModel.fetchJournalEntries2()
+//                viewModel.fetchJournalEntries { entries in
+//                    // This might be redundant if fetchJournalEntries2 uses a snapshot listener
+//                    checkIfPromptAnswered()
+//                }
             }
+        }
+        .onDisappear{
+            viewModel.removeListener2()
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -168,11 +161,10 @@ struct JournalView: View {
     }
 }
 
-// Journal Prompt View where user answers the prompt
 struct JournalPromptView: View {
     var question: String
     @Binding var isPromptAnswered: Bool
-    @Binding var journalEntries: [JournalEntry]
+    @EnvironmentObject var viewModel: AuthViewModel // Use AuthViewModel
     
     @State private var userAnswer = ""
     @FocusState private var isTextEditorFocused: Bool
@@ -194,7 +186,7 @@ struct JournalPromptView: View {
                 HStack {
                     Text(question)
                         .font(.custom("SFProText-Heavy", size: isTextEditorFocused ? 20 : 35)) // Change font size when focused
-                        .foregroundColor(.white) // Change text to black
+                        .foregroundColor(.white) // Change text to white
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
                         .padding(.horizontal, 30)
@@ -252,8 +244,15 @@ struct JournalPromptView: View {
                 Button(action: {
                     isPromptAnswered = true
                     let entry = JournalEntry(question: question, answer: userAnswer, date: Date())
-                    journalEntries.append(entry)
-                    dismiss() // Dismiss view after submission
+                    Task {
+                        do {
+                            try await viewModel.saveJournalEntry(entry: entry)
+                            dismiss() // Dismiss view after submission
+                        } catch {
+                            print("Error saving journal entry: \(error.localizedDescription)")
+                            // Optionally, show an alert to the user
+                        }
+                    }
                 }) {
                     Text("Submit")
                         .font(.custom("SFProText-Bold", size: 20))
@@ -273,25 +272,26 @@ struct JournalPromptView: View {
     }
 }
 
+import FirebaseFirestore
+
 // Model for Journal Entry
-struct JournalEntry: Identifiable {
-    var id: String
+struct JournalEntry: Identifiable, Decodable {
+    @DocumentID var id: String? // Firestore document ID
     var question: String
     var answer: String
     var date: Date
     
-    init(id: String = UUID().uuidString, question: String, answer: String, date: Date) {
-        self.id = id
-        self.question = question
-        self.answer = answer
-        self.date = date
-    }
+//    init(id: String = UUID().uuidString, question: String, answer: String, date: Date) {
+//        self.id = id
+//        self.question = question
+//        self.answer = answer
+//        self.date = date
+//    }
 }
 
 
-// Journal Entry Detail View
 struct JournalDetailView: View {
-    @Binding var entry: JournalEntry
+    var entry: JournalEntry
     @State private var isEditing = false // Track if the user is in edit mode
     @State private var editedQuestion: String = ""
     @State private var editedAnswer: String = ""
@@ -319,7 +319,6 @@ struct JournalDetailView: View {
 
                     // Edit button (top-right, next to question)
                     Button(action: {
-
                         update()
                     }) {
                         Text(isEditing ? "Save" : "Edit")
@@ -366,13 +365,28 @@ struct JournalDetailView: View {
         // Disable dark mode by setting the color scheme to light
         .preferredColorScheme(.light)
     }
+    
     func update() {
         if isEditing {
-            var entryt = JournalEntry(question: editedQuestion, answer: editedAnswer, date: entry.date)
-            Task{
-               try await viewModel.updateJournalEntry(entry: entryt)
-                viewModel.fetchJournalEntries { entries in
-                    print(entries)
+            guard let entryID = entry.id else {
+                print("Cannot update journal entry without ID.")
+                return
+            }
+            
+            let updatedEntry = JournalEntry(
+                id: entryID,
+                question: editedQuestion,
+                answer: editedAnswer,
+                date: entry.date
+            )
+            
+            Task {
+                do {
+                    try await viewModel.updateJournalEntry(entry: updatedEntry)
+                    print("Journal entry updated successfully.")
+                } catch {
+                    print("Failed to update journal entry: \(error.localizedDescription)")
+                    // Optionally, present an alert to the user
                 }
             }
         } else {
@@ -387,8 +401,7 @@ struct JournalDetailView: View {
 import SwiftUI
 
 struct AddJournalEntryView: View {
-    @Binding var journalEntries: [JournalEntry]
-    
+    @EnvironmentObject var viewModel: AuthViewModel // Use AuthViewModel
     @State private var title = ""
     @State private var entry = ""
     @FocusState private var isTextEditorFocused: Bool
@@ -486,8 +499,15 @@ struct AddJournalEntryView: View {
                 // Add Entry Button
                 Button(action: {
                     let newEntry = JournalEntry(question: title, answer: entry, date: Date())
-                    journalEntries.append(newEntry)
-                    dismiss()
+                    Task {
+                        do {
+                            try await viewModel.saveJournalEntry(entry: newEntry)
+                            dismiss()
+                        } catch {
+                            print("Error saving journal entry: \(error.localizedDescription)")
+                            // Optionally, show an alert to the user
+                        }
+                    }
                     title = ""
                     entry = ""
                 }) {

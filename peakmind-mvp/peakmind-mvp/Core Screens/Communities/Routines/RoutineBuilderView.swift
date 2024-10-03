@@ -462,53 +462,7 @@ struct RoutineBuilderView: View {
                 .frame(maxHeight: .infinity)
                 
                 HStack(spacing: 40) {
-                    VStack {
-                        Button(action: {
-                            showingAnalytics = true
-                        }) {
-                            VStack {
-                                Image(systemName: "chart.bar")
-                                    .font(.system(size: 24))
-                                Text("Analytics")
-                                    .font(.custom("SFProText-Bold", size: 14))
-                            }
-                        }
-                    }
-                    
-//                    VStack {
-//                        Button(action: {
-//                            isEditing.toggle()
-//                            if isEditing {
-//                                isDeleting = false
-//                            }
-//                        }) {
-//                            VStack {
-//                                Image(systemName: "pencil")
-//                                    .font(.system(size: 24))
-//                                Text("Edit")
-//                                    .font(.custom("SFProText-Bold", size: 14))
-//                            }
-//                            .foregroundColor(isEditing ? .blue : .white)
-//                        }
-//                    }
-//                    
-//                    VStack {
-//                        Button(action: {
-//                            isDeleting.toggle()
-//                            if isDeleting {
-//                                isEditing = false
-//                            }
-//                        }) {
-//                            VStack {
-//                                Image(systemName: "trash")
-//                                    .font(.system(size: 24))
-//                                Text("Delete")
-//                                    .font(.custom("SFProText-Bold", size: 14))
-//                            }
-//                            .foregroundColor(isDeleting ? .blue : .white)
-//                        }
-//                    }
-                    
+                    Spacer()
                     VStack {
                         Button(action: {
                             showingAddHabitForm.toggle()
@@ -1653,121 +1607,6 @@ struct MultipleSelectionRow: View {
     }
 }
 
-//struct AnalyticsView2: View {
-//    let habitHistory: [Habit]
-//    let habitTitle: String
-//    let habitid: String
-//    @EnvironmentObject var viewModel: AuthViewModel
-//    @State private var showLineChart = true
-//    
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                Picker("", selection: $showLineChart) {
-//                    Text("Line Chart").tag(true)
-//                    Text("Bar Chart").tag(false)
-//                }
-//                .pickerStyle(SegmentedPickerStyle())
-//                .padding()
-//                
-//                if habitHistory.isEmpty {
-//                    Text("No data available")
-//                        .font(.headline)
-//                        .padding()
-//                } else {
-//                    Chart {
-//                        ForEach(sortedHabitHistory) { habit in
-//                            if let date = parseDate(from: habit.dateTaken) {
-//                                if showLineChart {
-//                                    LineMark(
-//                                        x: .value("Date", date),
-//                                        y: .value("Count", habit.count)
-//                                    )
-//                                    .foregroundStyle(Color.blue)
-//                                } else {
-//                                    BarMark(
-//                                        x: .value("Date", date),
-//                                        y: .value("Count", habit.count)
-//                                    )
-//                                    .foregroundStyle(Color.green)
-//                                }
-//                            }
-//                        }
-//                    }
-//                    .chartXAxis {
-//                        AxisMarks(values: .automatic(desiredCount: 5)) { value in
-//                            AxisGridLine()
-//                            AxisTick()
-//                            AxisValueLabel(format: .dateTime.month().day())
-//                        }
-//                    }
-//                    .chartYAxis {
-//                        AxisMarks()
-//                    }
-//                    .frame(height: 300)
-//                    .padding()
-//                }
-//                Spacer()
-//                HStack(spacing: 40) {
-//                    
-//                    VStack {
-//                        Button(action: {
-//                            print("edit")
-//                        }) {
-//                            VStack {
-//                                Image(systemName: "pencil")
-//                                    .font(.system(size: 24))
-//                                Text("Edit")
-//                                    .font(.custom("SFProText-Bold", size: 14))
-//                            }
-//                            
-//                        }
-//                    }
-//                    
-//                    VStack {
-//                        Button(action: {
-//                                print("delte this")
-//                            
-//                        }) {
-//                            VStack {
-//                                Image(systemName: "trash")
-//                                    .font(.system(size: 24))
-//                                Text("Delete")
-//                                    .font(.custom("SFProText-Bold", size: 14))
-//                            }
-//                            
-//                        }
-//                    }
-//                    
-//                }
-//                .foregroundColor(.white)
-//                .padding(.bottom, 10)
-//            }
-//            .navigationTitle("Analytics for \(habitTitle)")
-//        }
-//        .onAppear{
-//            print(habitTitle)
-//            print(habitHistory)
-//        }
-//    }
-//    
-//    func parseDate(from dateString: String) -> Date? {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust to your date format
-//        return dateFormatter.date(from: dateString)
-//    }
-//    
-//    // Sort the habitHistory by date
-//    var sortedHabitHistory: [Habit] {
-//        habitHistory.sorted { (habit1, habit2) -> Bool in
-//            guard let date1 = parseDate(from: habit1.dateTaken),
-//                  let date2 = parseDate(from: habit2.dateTaken) else {
-//                return false
-//            }
-//            return date1 < date2
-//        }
-//    }
-//}
 
 struct AnalyticsView2: View {
     let habitHistory: [Habit]
@@ -1780,121 +1619,115 @@ struct AnalyticsView2: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Picker("", selection: $showLineChart) {
-                    Text("Line Chart").tag(true)
-                    Text("Bar Chart").tag(false)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
-                
-                if habitHistory.isEmpty {
-                    Text("No data available")
-                        .font(.headline)
-                        .padding()
-                } else {
-                    Chart {
-                        ForEach(sortedHabitHistory) { habit in
-                            if let date = parseDate(from: habit.dateTaken) {
-                                if showLineChart {
-                                    LineMark(
-                                        x: .value("Date", date),
-                                        y: .value("Count", habit.count)
-                                    )
-                                    .foregroundStyle(Color.blue)
-                                } else {
-                                    BarMark(
-                                        x: .value("Date", date),
-                                        y: .value("Count", habit.count)
-                                    )
-                                    .foregroundStyle(Color.green)
+            ZStack {
+                // Background gradient
+                LinearGradient(
+                    gradient: Gradient(colors: [Color(hex: "112864")!, Color(hex: "23429a")!]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .edgesIgnoringSafeArea(.all)
+
+                VStack {
+                    Picker("", selection: $showLineChart) {
+                        Text("Line Chart").tag(true)
+                        Text("Bar Chart").tag(false)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+
+                    if habitHistory.isEmpty {
+                        Text("No data available")
+                            .font(.headline)
+                            .padding()
+                            .foregroundColor(.white)  // Ensure text is visible on dark background
+                    } else {
+                        Chart {
+                            ForEach(sortedHabitHistory) { habit in
+                                if let date = parseDate(from: habit.dateTaken) {
+                                    if showLineChart {
+                                        LineMark(
+                                            x: .value("Date", date),
+                                            y: .value("Count", habit.count)
+                                        )
+                                        .foregroundStyle(Color.white)  // Set the line color to white
+                                    } else {
+                                        BarMark(
+                                            x: .value("Date", date),
+                                            y: .value("Count", habit.count)
+                                        )
+                                        .foregroundStyle(Color.white)  // Set the bar color to white
+                                    }
                                 }
                             }
                         }
-                    }
-                    .chartXAxis {
-                        AxisMarks(values: .automatic(desiredCount: 5)) { value in
-                            AxisGridLine()
-                            AxisTick()
-                            AxisValueLabel(format: .dateTime.month().day())
-                        }
-                    }
-                    .chartYAxis {
-                        AxisMarks()
-                    }
-                    .frame(height: 300)
-                    .padding()
-                }
-                
-                Spacer()
-                
-                HStack(spacing: 40) {
-                    
-                    VStack {
-                        Button(action: {
-                            // Edit Action
-                            if let habitToEdit = habitHistory.first(where: { $0.id == habitid }) {
-                                //self.habitToEdit = habitToEdit
-                                self.showingEditForm = true
-                            } else {
-                                print("Habit not found in history")
-                            }
-                        }) {
-                            VStack {
-                                Image(systemName: "pencil")
-                                    .font(.system(size: 24))
-                                Text("Edit")
-                                    .font(.custom("SFProText-Bold", size: 14))
+                        .chartXAxis {
+                            AxisMarks(values: .automatic(desiredCount: 5)) { value in
+                                AxisGridLine()
+                                AxisTick()
+                                AxisValueLabel(format: .dateTime.month().day())
+                                    .foregroundStyle(.white)  // Set the axis label color to white
                             }
                         }
-                        .disabled(habitHistory.isEmpty)
-                    }
-                    
-                    VStack {
-                        Button(action: {
-                            showDeleteConfirmation = true
-                        }) {
-                            VStack {
-                                Image(systemName: "trash")
-                                    .font(.system(size: 24))
-                                Text("Delete")
-                                    .font(.custom("SFProText-Bold", size: 14))
+                        .chartYAxis {
+                            AxisMarks { value in
+                                AxisGridLine()
+                                AxisTick()
+                                AxisValueLabel()
+                                    .foregroundStyle(.white)  // Set the axis label color to white
                             }
                         }
-                        .disabled(habitHistory.isEmpty)
+                        .frame(height: 300)
+                        .padding()
+
                     }
-                    
+
+                    Spacer()
+
                 }
-                .foregroundColor(.white)
-                .padding(.bottom, 10)
-            }
-            .navigationTitle("Analytics for \(habitTitle)")
-            .sheet(isPresented: $showingEditForm) {
-                if let baseHabit = baseHabit() {
-                    EditHabitForm(habit: baseHabit, updateAction: { updatedHabit in
-                        updateHabit(updatedHabit: updatedHabit)
-                    })
-                    .environmentObject(viewModel)
-                } else {
-                    Text("Error: Unable to load habit data.")
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        VStack {
+                            Text("Analytics for \(habitTitle)")
+                                .font(.custom("SFProText-Heavy", size: 30))
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(nil) // Allow multiple lines
+                                .fixedSize(horizontal: false, vertical: true) // Let the text expand vertically
+                                .padding(.top, 50) // Add padding to the top
+
+                        }
+                    }
+                }
+
+                .sheet(isPresented: $showingEditForm) {
+                    if let baseHabit = baseHabit() {
+                        EditHabitForm(habit: baseHabit, updateAction: { updatedHabit in
+                            updateHabit(updatedHabit: updatedHabit)
+                        })
+                        .environmentObject(viewModel)
+                    } else {
+                        Text("Error: Unable to load habit data.")
+                    }
+                }
+                .alert(isPresented: $showDeleteConfirmation) {
+                    Alert(
+                        title: Text("Delete Habit"),
+                        message: Text("Are you sure you want to delete this habit? This action cannot be undone."),
+                        primaryButton: .destructive(Text("Delete")) {
+                            deleteHabit()
+                        },
+                        secondaryButton: .cancel()
+                    )
                 }
             }
-            .alert(isPresented: $showDeleteConfirmation) {
-                Alert(
-                    title: Text("Delete Habit"),
-                    message: Text("Are you sure you want to delete this habit? This action cannot be undone."),
-                    primaryButton: .destructive(Text("Delete")) {
-                        deleteHabit()
-                    },
-                    secondaryButton: .cancel()
-                )
+            .onAppear {
+                print("Analytics for \(habitTitle)")
+                print(habitHistory)
             }
-        }
-        .onAppear{
-            print("Analytics for \(habitTitle)")
-            print(habitHistory)
         }
     }
+
     
     // Helper to parse date string to Date
     func parseDate(from dateString: String) -> Date? {

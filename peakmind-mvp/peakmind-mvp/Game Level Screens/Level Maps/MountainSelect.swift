@@ -13,7 +13,8 @@ struct Mountain2: Hashable {
 }
 
 struct MountainSelect: View {
-    @State var currentMountain = 3
+    var closeAction: () -> Void
+    @State var currentMountain = 0
     @State var mountains = [
         Mountain2(name: "Anxiety", completedLevels: 0),
         Mountain2(name: "Emotion", completedLevels: 0),
@@ -29,11 +30,19 @@ struct MountainSelect: View {
             
             VStack {
                 HStack {
-                    Image(systemName:"xmark.circle")
-                        .foregroundStyle(.white)
-                        .opacity(0.4)
-                        .font(.system(size: 50))
-                        .padding([.leading, .bottom])
+                    Button(action: {
+                        closeAction()
+                    }) {
+                        Image(systemName: "xmark.circle") // Button icon
+                            .font(.system(size: 50)) // Icon size
+                            .foregroundStyle(.black) // Icon color
+                            .opacity(0.4) // Icon opacity
+                            .frame(width: 60, height: 60) // Button size
+                            .background(Color.white) // Button background color
+                            .clipShape(Circle()) // Make button round
+                            .shadow(radius: 4) // Add slight shadow
+                            .padding([.leading, .bottom]) // Custom padding for leading and bottom
+                    }
                     Spacer()
                 }
                 ScrollView {
@@ -112,7 +121,7 @@ struct MountainSelect: View {
                                                 .padding(.top, 25)
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                             
-                                            Text("Summit other mountains!")
+                                            Text("Coming Soon!")
                                                 .multilineTextAlignment(.leading)
                                                 .foregroundStyle(Color.init(hex: "77B5EF")!)
                                                 .padding(.bottom, 25)
@@ -131,8 +140,4 @@ struct MountainSelect: View {
             }.padding(.top)
         }
     }
-}
-
-#Preview {
-    MountainSelect()
 }

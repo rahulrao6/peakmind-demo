@@ -97,257 +97,320 @@
 //        }
 //    }
 //}
-
 import SwiftUI
 import HealthKit
 import EventKit
 import UserNotifications
 
 struct SettingsView: View {
-    // Inject HealthKitManager, EventKitManager, and AuthViewModel from the environment
     @EnvironmentObject var healthKitManager: HealthKitManager
     @EnvironmentObject var eventKitManager: EventKitManager
     @EnvironmentObject var viewModel: AuthViewModel
     
-    // State to hold the current notification settings
     @State private var notificationSettings: UNNotificationSettings?
-    
-    // State to control the display of the alert
     @State private var showHealthSettingsAlert = false
+    @State private var showDeleteConfirmation = false
+    @State private var deleteConfirmationText = ""
     
     var body: some View {
-            Form {
-                // User Profile Section
-                if let user = viewModel.currentUser {
-                    Section {
-                        HStack {
-                            Text(user.initials)
-                                .font(.title)
+        Form {
+            if let user = viewModel.currentUser {
+                Section {
+                    HStack {
+                        Text(user.initials)
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .frame(width: 72, height: 72)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(user.username)
+                                .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundColor(.white)
-                                .frame(width: 72, height: 72)
-                                .background(Color.blue)
-                                .clipShape(Circle())
+                                .padding(.top, 4)
                             
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(user.username)
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                    .padding(.top, 4)
-                                
-                                Text(user.email)
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
-                            }
+                            Text(user.email)
+                                .font(.footnote)
+                                .foregroundColor(.gray)
                         }
                     }
                 }
-                
-                // HealthKit Permissions Section
-                Section(header: Text("HealthKit Permissions")) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Step Count")
-                            .font(.headline)
-                        HStack {
-                            // Display current authorization status
-                            Text(healthKitManager.isAuthorized ? "Authorized" : "Not Authorized")
+            }
+            
+            Section(header: Text("HealthKit Permissions")) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Step Count")
+                        .font(.headline)
+                    HStack {
+                        Text(healthKitManager.isAuthorized ? "Authorized" : "Not Authorized")
+                            .foregroundColor(healthKitManager.isAuthorized ? .green : .red)
+                        Spacer()
+                        Button(action: {
+                            healthKitManager.requestAuthorization()
+                        }) {
+                            Text(healthKitManager.isAuthorized ? "Reauthorize" : "Authorize")
                                 .foregroundColor(healthKitManager.isAuthorized ? .green : .red)
-                            Spacer()
-                            // Button to request HealthKit authorization
-                            Button(action: {
-                                healthKitManager.requestAuthorization()
-                            }) {
-                                Text(healthKitManager.isAuthorized ? "Reauthorize" : "Authorize")
-                                    .foregroundColor(healthKitManager.isAuthorized ? .green : .red)
-                            }
-                            .buttonStyle(BorderlessButtonStyle())
                         }
-                        Text("Allows the app to read your step count data.")
-                            .font(.caption)
-                            .foregroundColor(.gray)
+                        .buttonStyle(BorderlessButtonStyle())
                     }
-                    
-                    // Button to open Health Settings
-                    Button(action: {
-                        openHealthSettings()
-                    }) {
-                        HStack {
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(.blue)
-                            Text("Open Health Settings")
-                                .foregroundColor(.blue)
-                        }
-                    }
+                    Text("Allows the app to read your step count data.")
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
                 
-                // EventKit Permissions Section
-                Section(header: Text("EventKit Permissions")) {
-                    // Calendars Permissions
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Calendars")
-                            .font(.headline)
-                        HStack {
-                            Text(eventKitManager.isCalendarAuthorized ? "Authorized" : "Not Authorized")
-                                .foregroundColor(eventKitManager.isCalendarAuthorized ? .green : .red)
-                            Spacer()
-                            Button(action: {
-                                Task {
-                                    await eventKitManager.requestAccess(to: .event)
-                                    fetchNotificationSettings()
-                                }
-                            }) {
-                                Text(eventKitManager.isCalendarAuthorized ? "Reauthorize" : "Authorize")
-                                    .foregroundColor(eventKitManager.isCalendarAuthorized ? .green : .red)
-                            }
-                            .buttonStyle(BorderlessButtonStyle())
-                        }
-                        Text("Allows the app to access your calendars.")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    }
-                    
-                    // Reminders Permissions
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Reminders")
-                            .font(.headline)
-                        HStack {
-                            Text(eventKitManager.isRemindersAuthorized ? "Authorized" : "Not Authorized")
-                                .foregroundColor(eventKitManager.isRemindersAuthorized ? .green : .red)
-                            Spacer()
-                            Button(action: {
-                                Task {
-                                    await eventKitManager.requestAccess(to: .reminder)
-                                    fetchNotificationSettings()
-                                }
-                            }) {
-                                Text(eventKitManager.isRemindersAuthorized ? "Reauthorize" : "Authorize")
-                                    .foregroundColor(eventKitManager.isRemindersAuthorized ? .green : .red)
-                            }
-                            .buttonStyle(BorderlessButtonStyle())
-                        }
-                        Text("Allows the app to access your reminders.")
-                            .font(.caption)
-                            .foregroundColor(.gray)
+                Button(action: {
+                    openHealthSettings()
+                }) {
+                    HStack {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(.blue)
+                        Text("Open Health Settings")
+                            .foregroundColor(.blue)
                     }
                 }
-                
-                // Notifications Permissions Section
-                Section(header: Text("Notifications Permissions")) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Notifications")
-                            .font(.headline)
-                        HStack {
-                            Text(notificationSettings?.authorizationStatus == .authorized ? "Authorized" : "Not Authorized")
-                                .foregroundColor(notificationSettings?.authorizationStatus == .authorized ? .green : .red)
-                            Spacer()
-                            Button(action: {
-                                requestNotificationPermissions()
+            }
+            
+            Section(header: Text("EventKit Permissions")) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Calendars")
+                        .font(.headline)
+                    HStack {
+                        Text(eventKitManager.isCalendarAuthorized ? "Authorized" : "Not Authorized")
+                            .foregroundColor(eventKitManager.isCalendarAuthorized ? .green : .red)
+                        Spacer()
+                        Button(action: {
+                            Task {
+                                await eventKitManager.requestAccess(to: .event)
                                 fetchNotificationSettings()
-                            }) {
-                                Text(notificationSettings?.authorizationStatus == .authorized ? "Reauthorize" : "Authorize")
-                                    .foregroundColor(notificationSettings?.authorizationStatus == .authorized ? .green : .red)
                             }
-                            .buttonStyle(BorderlessButtonStyle())
+                        }) {
+                            Text(eventKitManager.isCalendarAuthorized ? "Reauthorize" : "Authorize")
+                                .foregroundColor(eventKitManager.isCalendarAuthorized ? .green : .red)
                         }
-                        Text("Allows the app to send you notifications.")
-                            .font(.caption)
-                            .foregroundColor(.gray)
+                        .buttonStyle(BorderlessButtonStyle())
                     }
+                    Text("Allows the app to access your calendars.")
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
                 
-                // Account Section
-                Section(header: Text("Account")) {
-                    Button {
-                        viewModel.signOut()
-                    } label: {
-                        SettingsRowView(imageName: "arrow.left.circle.fill", title: "Sign Out", tintColor: .red)
-                            .foregroundColor(.black)
-                    }
-                    
-                    Button {
-                        Task {
-                            try await viewModel.deleteAccount()
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Reminders")
+                        .font(.headline)
+                    HStack {
+                        Text(eventKitManager.isRemindersAuthorized ? "Authorized" : "Not Authorized")
+                            .foregroundColor(eventKitManager.isRemindersAuthorized ? .green : .red)
+                        Spacer()
+                        Button(action: {
+                            Task {
+                                await eventKitManager.requestAccess(to: .reminder)
+                                fetchNotificationSettings()
+                            }
+                        }) {
+                            Text(eventKitManager.isRemindersAuthorized ? "Reauthorize" : "Authorize")
+                                .foregroundColor(eventKitManager.isRemindersAuthorized ? .green : .red)
                         }
-                    } label: {
-                        SettingsRowView(imageName: "xmark.circle.fill", title: "Delete Account", tintColor: .red)
-                            .foregroundColor(.black)
+                        .buttonStyle(BorderlessButtonStyle())
                     }
+                    Text("Allows the app to access your reminders.")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+            }
+            
+            Section(header: Text("Notifications Permissions")) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Notifications")
+                        .font(.headline)
+                    HStack {
+                        Text(notificationSettings?.authorizationStatus == .authorized ? "Authorized" : "Not Authorized")
+                            .foregroundColor(notificationSettings?.authorizationStatus == .authorized ? .green : .red)
+                        Spacer()
+                        Button(action: {
+                            requestNotificationPermissions()
+                            fetchNotificationSettings()
+                        }) {
+                            Text(notificationSettings?.authorizationStatus == .authorized ? "Reauthorize" : "Authorize")
+                                .foregroundColor(notificationSettings?.authorizationStatus == .authorized ? .green : .red)
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                    }
+                    Text("Allows the app to send you notifications.")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+            }
+            
+            Section(header: Text("Account")) {
+                Button {
+                    viewModel.signOut()
+                } label: {
+                    SettingsRowView(imageName: "arrow.left.circle.fill", title: "Sign Out", tintColor: .red)
+                        .foregroundColor(.black)
                 }
                 
-                // General Settings Section
-                Section(header: Text("General")) {
-                    Button(action: {
-                        openAppSettings()
-                    }) {
-                        HStack {
-                            Image(systemName: "gearshape")
-                                .foregroundColor(.black)
-                            Text("Open System Settings")
-                                .foregroundColor(.black)
-                        }
+                Button {
+                    showDeleteConfirmation = true
+                } label: {
+                    SettingsRowView(imageName: "xmark.circle.fill", title: "Delete Account", tintColor: .red)
+                        .foregroundColor(.black)
+                }
+            }
+            
+            Section(header: Text("General")) {
+                Button(action: {
+                    openAppSettings()
+                }) {
+                    HStack {
+                        Image(systemName: "gearshape")
+                            .foregroundColor(.black)
+                        Text("Open System Settings")
+                            .foregroundColor(.black)
                     }
                 }
             }
-            .navigationTitle("Settings")
-            .onAppear {
+        }
+        .navigationTitle("Settings")
+        .onAppear {
+            fetchNotificationSettings()
+            healthKitManager.checkAuthorization()
+            eventKitManager.checkAuthorization()
+        }
+        .alert(isPresented: $showHealthSettingsAlert) {
+            Alert(
+                title: Text("Cannot Open Health Settings"),
+                message: Text("Please navigate to the Health app manually to manage your HealthKit permissions."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+        .overlay(
+            Group {
+                if showDeleteConfirmation {
+                    DeleteConfirmationModal(
+                        isPresented: $showDeleteConfirmation,
+                        confirmationText: $deleteConfirmationText,
+                        onDelete: {
+                            Task {
+                                try await viewModel.deleteAccount()
+                                try await deleteAllData()
+                            }
+                        }
+                    )
+                }
+            }
+        )
+    }
+    
+    func fetchNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                self.notificationSettings = settings
+            }
+        }
+    }
+    
+    func requestNotificationPermissions() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            DispatchQueue.main.async {
                 fetchNotificationSettings()
-                healthKitManager.checkAuthorization()
-                eventKitManager.checkAuthorization()
-            }
-            .alert(isPresented: $showHealthSettingsAlert) {
-                Alert(
-                    title: Text("Cannot Open Health Settings"),
-                    message: Text("Please navigate to the Health app manually to manage your HealthKit permissions."),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
-        }
-        
-        // MARK: - Helper Methods
-        
-        /// Fetches the current notification settings.
-        func fetchNotificationSettings() {
-            UNUserNotificationCenter.current().getNotificationSettings { settings in
-                DispatchQueue.main.async {
-                    self.notificationSettings = settings
-                }
-            }
-        }
-        
-        /// Requests notification permissions from the user.
-        func requestNotificationPermissions() {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                DispatchQueue.main.async {
-                    fetchNotificationSettings()
-                    if let error = error {
-                        print("Failed to request notification permissions: \(error.localizedDescription)")
-                    } else if granted {
-                        print("Notification permission granted.")
-                    } else {
-                        print("Notification permission denied.")
-                    }
-                }
-            }
-        }
-        
-        /// Opens the app's settings in the system Settings app.
-        func openAppSettings() {
-            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
-            }
-        }
-        
-        /// Attempts to open the Health app's settings.
-        func openHealthSettings() {
-            if let healthSettingsURL = URL(string: "x-apple-health://") {
-                if UIApplication.shared.canOpenURL(healthSettingsURL) {
-                    UIApplication.shared.open(healthSettingsURL)
+                if let error = error {
+                    print("Failed to request notification permissions: \(error.localizedDescription)")
+                } else if granted {
+                    print("Notification permission granted.")
                 } else {
-                    // Show alert to inform user
-                    showHealthSettingsAlert = true
+                    print("Notification permission denied.")
                 }
             }
         }
     }
+    
+    func openAppSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    func openHealthSettings() {
+        if let healthSettingsURL = URL(string: "x-apple-health://") {
+            if UIApplication.shared.canOpenURL(healthSettingsURL) {
+                UIApplication.shared.open(healthSettingsURL)
+            } else {
+                showHealthSettingsAlert = true
+            }
+        }
+    }
+    
+    func deleteAllData() async throws {
+        // Implement the deletion logic here
+        print("All data deleted")
+    }
+}
 
+
+
+import SwiftUI
+
+struct DeleteConfirmationModal: View {
+    @Binding var isPresented: Bool
+    @Binding var confirmationText: String
+    var onDelete: () -> Void
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Confirm Deletion")
+                .font(.headline)
+                .padding(.top)
+
+            Text("Type DELETE to confirm you want to delete all data.")
+                .font(.subheadline)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+
+            TextField("Type DELETE to confirm", text: $confirmationText)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding(.horizontal)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+
+            HStack {
+                Button(action: {
+                    if confirmationText.uppercased() == "DELETE" {
+                        onDelete()
+                        isPresented = false
+                    }
+                }) {
+                    Text("Delete")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.red)
+                        .cornerRadius(8)
+                }
+                .disabled(confirmationText.uppercased() != "DELETE")
+
+                Button(action: {
+                    isPresented = false
+                }) {
+                    Text("Cancel")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray)
+                        .cornerRadius(8)
+                }
+            }
+            .padding(.horizontal)
+
+            Spacer()
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(16)
+        .shadow(radius: 10)
+        .padding(.horizontal, 40)
+        .frame(maxWidth: 400, maxHeight: 300)
+    }
+}

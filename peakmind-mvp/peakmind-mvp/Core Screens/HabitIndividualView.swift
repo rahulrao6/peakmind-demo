@@ -178,7 +178,6 @@
 //
 import SwiftUI
 import Firebase
-
 struct HabitIndividualView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var count: Int
@@ -237,23 +236,26 @@ struct HabitIndividualView: View {
                         HStack {
                             Button(action: {
                                 if count > 0 {
-//                                    count -= 1
-//                                    inputText = "\(count)"
-                                    hasChanged = true
+                                    let newCount = count - 1
                                     updateHabit(by: habit.id, increment: -1)
+                                    updateHabitCount(to: newCount)
+
                                 }
                             }) {
-                                Image(systemName: "minus.circle.fill")
-                                    .resizable()
-                                    .frame(width: 33, height: 33)
-                                    .foregroundColor(.red)
+                                HStack {
+                                    Image(systemName: "minus.circle.fill")
+                                        .resizable()
+                                        .frame(width: 33, height: 33)
+                                        .foregroundColor(.red)
+                              
+                                }
                             }
                             
                             TextField("", text: $inputText, onCommit: {
                                 if let value = Int(inputText) {
-                                    count = value
-                                    hasChanged = true
-                                    updateCount()
+                                    updateHabitCount(to: value)
+                                    let increment = value - count;
+                                    updateHabit(by: habit.id, increment: increment)
                                 }
                             })
                             .font(.custom("SFProText-Heavy", size: 80))
@@ -265,34 +267,28 @@ struct HabitIndividualView: View {
                             .lineLimit(1)
                             .onChange(of: inputText) { newValue in
                                 if let value = Int(newValue) {
-                                    let increment = value - count;
-                                    print("change by")
-                                    print(increment)
-                                    count = value
-                                    hasChanged = true
-                                    updateHabit(by: habit.id, increment: increment)
-()
+                                    updateHabitCount(to: value)
                                 }
                             }
 
                             Button(action: {
-//                                count += 1
-//                                inputText = "\(count)"
-                                hasChanged = true
-                                //updateCount()
+                                let newCount = count + 1
                                 updateHabit(by: habit.id, increment: 1)
+                                updateHabitCount(to: newCount)
                             }) {
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable()
-                                    .frame(width: 33, height: 33)
-                                    .foregroundColor(.green)
+                                HStack {
+                                    Image(systemName: "plus.circle.fill")
+                                        .resizable()
+                                        .frame(width: 33, height: 33)
+                                        .foregroundColor(.green)
+                                }
                             }
                         }
                         
                         // Save Button
                         if hasChanged {
                             Button(action: {
-                                //saveHabit()
+                                saveHabit()
                             }) {
                                 Text("Save")
                                     .font(.custom("SFProText-Bold", size: 18))
@@ -358,35 +354,237 @@ struct HabitIndividualView: View {
                 .environmentObject(viewModel)
             }
             
-            
-//            .sheet(isPresented: $showAnalyticsView) {
-//                AnalyticsView2(
-//                    habitHistory: habitsByName[habit.title] ?? [],
-//                    habitTitle: habit.title,
-//                    habitid: habit.id
-//                )
-//                .environmentObject(viewModel)
-//            }
             .sheet(isPresented: $showingEditForm) {
                 EditHabitForm(habit: habit, updateAction: { updatedHabit in
                     updateHabit(updatedHabit: updatedHabit)
                 })
                 .environmentObject(viewModel)
             }
-            .onAppear{
-                
-                    //loadHabits(for: selectedDate)
-                loadHabitHistoryForHabit(habit.title, completion: {
+            .onAppear {
+                loadHabitHistoryForHabit(habit.title) {
                     print(habitsByName)
-                })
-                    print(habitsByName)
-
-
-                
+                }
             }
         }
     }
+
+    private func updateHabitCount(to newCount: Int) {
+        print(inputText)
+        print(newCount);
+        count = newCount
+        inputText = "\(newCount)"
+        hasChanged = true
+        //updateHabit(by: habit.id, count: newCount)
+    }
 }
+//struct HabitIndividualView: View {
+//    @EnvironmentObject var viewModel: AuthViewModel
+//    @State private var count: Int
+//    @State private var inputText: String
+//    @State private var hasChanged: Bool = false
+//    @State private var showDeleteConfirmation = false
+//    @State private var showAnalyticsView: Bool = false
+//    @State private var showingEditForm: Bool = false
+//    @State private var habitsByName: [String: [Habit]] = [:]
+//    private var db = Firestore.firestore()
+//    @State private var selectedHabitForAnalytics: Habit? = nil
+//
+//    let habit: Habit
+//    let selectedDate: Date
+//
+//    init(habit: Habit, selectedDate: Date) {
+//        self.habit = habit
+//        self.selectedDate = selectedDate
+//        _count = State(initialValue: habit.count)
+//        _inputText = State(initialValue: "\(habit.count)")
+//    }
+//
+//    var body: some View {
+//        NavigationView {
+//            ZStack {
+//                // Background gradient
+//                LinearGradient(
+//                    gradient: Gradient(colors: [Color(hex: "112864")!, Color(hex: "23429a")!]),
+//                    startPoint: .top,
+//                    endPoint: .bottom
+//                )
+//                .edgesIgnoringSafeArea(.all)
+//                
+//                VStack {
+//                    // Header with Delete Button
+//                    HStack {
+//                        Spacer()
+//                        Button(action: {
+//                            showDeleteConfirmation = true
+//                        }) {
+//                            Image(systemName: "trash")
+//                                .resizable()
+//                                .frame(width: 24, height: 24)
+//                                .foregroundColor(.white)
+//                                .padding()
+//                        }
+//                    }
+//                    
+//                    // Habit Details
+//                    VStack(alignment: .center, spacing: 30) {
+//                        Text(habit.title)
+//                            .font(.custom("SFProText-Heavy", size: 40))
+//                            .foregroundColor(.white)
+//                        
+//                        // Count Increment Section
+//                        HStack {
+//                            Button(action: {
+//                                if count > 0 {
+////                                    count -= 1
+////                                    inputText = "\(count)"
+//                                    hasChanged = true
+//                                    updateHabit(by: habit.id, increment: -1)
+//                                }
+//                            }) {
+//                                Image(systemName: "minus.circle.fill")
+//                                    .resizable()
+//                                    .frame(width: 33, height: 33)
+//                                    .foregroundColor(.red)
+//                            }
+//                            
+//                            TextField("", text: $inputText, onCommit: {
+//                                if let value = Int(inputText) {
+//                                    count = value
+//                                    hasChanged = true
+//                                    updateCount()
+//                                }
+//                            })
+//                            .font(.custom("SFProText-Heavy", size: 80))
+//                            .foregroundColor(.white)
+//                            .multilineTextAlignment(.center)
+//                            .frame(width: 120)
+//                            .keyboardType(.numberPad)
+//                            .minimumScaleFactor(0.5)
+//                            .lineLimit(1)
+//                            .onChange(of: inputText) { newValue in
+//                                if let value = Int(newValue) {
+//                                    let increment = value - count;
+//                                    print("change by")
+//                                    print(increment)
+//                                    count = value
+//                                    hasChanged = true
+//                                    updateHabit(by: habit.id, increment: increment)
+//()
+//                                }
+//                            }
+//
+//                            Button(action: {
+////                                count += 1
+////                                inputText = "\(count)"
+//                                hasChanged = true
+//                                //updateCount()
+//                                updateHabit(by: habit.id, increment: 1)
+//                            }) {
+//                                Image(systemName: "plus.circle.fill")
+//                                    .resizable()
+//                                    .frame(width: 33, height: 33)
+//                                    .foregroundColor(.green)
+//                            }
+//                        }
+//                        
+//                        // Save Button
+//                        if hasChanged {
+//                            Button(action: {
+//                                //saveHabit()
+//                            }) {
+//                                Text("Save")
+//                                    .font(.custom("SFProText-Bold", size: 18))
+//                                    .foregroundColor(.white)
+//                                    .padding()
+//                                    .frame(width: 120, height: 50)
+//                                    .background(Color(hex: "161331")!)
+//                                    .cornerRadius(10)
+//                            }
+//                        }
+//                        
+//                        // Edit and View Analytics Buttons
+//                        VStack(spacing: 20) {
+//                            Button(action: {
+//                                // Navigate to Edit Habit Form
+//                                showingEditForm = true
+//                            }) {
+//                                Text("Edit Habit")
+//                                    .font(.custom("SFProText-Bold", size: 22))
+//                                    .foregroundColor(.black)
+//                                    .padding()
+//                                    .frame(width: 300, height: 70)
+//                                    .background(Color(hex: "b0e8ff")!)
+//                                    .cornerRadius(10)
+//                            }
+//
+//                            Button(action: {
+//                                selectedHabitForAnalytics = habit
+//                                showAnalyticsView = true
+//                            }) {
+//                                Text("View Analytics")
+//                                    .font(.custom("SFProText-Bold", size: 22))
+//                                    .foregroundColor(.black)
+//                                    .padding()
+//                                    .frame(width: 300, height: 70)
+//                                    .background(Color(hex: "b0e8ff")!)
+//                                    .cornerRadius(10)
+//                            }
+//                        }
+//                        .padding(.top, 20)
+//                    }
+//                    
+//                    Spacer()
+//                }
+//            }
+//            .navigationBarTitleDisplayMode(.inline)
+//            .navigationTitle("Habit Details")
+//            .confirmationDialog("Are you sure you want to delete this habit?", isPresented: $showDeleteConfirmation) {
+//                Button("Yes", role: .destructive) {
+//                    deleteHabit()
+//                }
+//                Button("No", role: .cancel) {}
+//            }
+//            
+//            .sheet(item: $selectedHabitForAnalytics, onDismiss: {
+//                selectedHabitForAnalytics = nil
+//            }) { habit in
+//                AnalyticsView2(
+//                    habitHistory: viewModel.habitsByName[habit.title] ?? [],
+//                    habitTitle: habit.title,
+//                    habitid: habit.id
+//                )
+//                .environmentObject(viewModel)
+//            }
+//            
+//            
+////            .sheet(isPresented: $showAnalyticsView) {
+////                AnalyticsView2(
+////                    habitHistory: habitsByName[habit.title] ?? [],
+////                    habitTitle: habit.title,
+////                    habitid: habit.id
+////                )
+////                .environmentObject(viewModel)
+////            }
+//            .sheet(isPresented: $showingEditForm) {
+//                EditHabitForm(habit: habit, updateAction: { updatedHabit in
+//                    updateHabit(updatedHabit: updatedHabit)
+//                })
+//                .environmentObject(viewModel)
+//            }
+//            .onAppear{
+//                
+//                    //loadHabits(for: selectedDate)
+//                loadHabitHistoryForHabit(habit.title, completion: {
+//                    print(habitsByName)
+//                })
+//                    print(habitsByName)
+//
+//
+//                
+//            }
+//        }
+//    }
+//}
 
 extension HabitIndividualView {
     // Update Count in Firebase

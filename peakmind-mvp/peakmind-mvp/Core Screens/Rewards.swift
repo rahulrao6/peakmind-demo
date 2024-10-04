@@ -30,41 +30,41 @@ struct PointEntry: Identifiable, Codable {
 // AvatarView
 struct AvatarView: View {
     @State private var isCustomizing: Bool = false // State to trigger navigation to customization hub
-
+    @State private var selectedAssets: [String: String] = [:] // Store the selected assets
+    @EnvironmentObject var viewModel: AuthViewModel // Access the view model to fetch avatar data
+    
     var body: some View {
-        ZStack(alignment: .topTrailing) { // Align edit button to top right
-            // Avatar display
+        ZStack(alignment: .topTrailing) {
             ZStack {
                 Image("SampleIgloo")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 350, height: 350)
                     .cornerRadius(10)
-
+                
                 ZStack {
-                    Image("SamplePants")
+                    Image(selectedAssets["Pants"] ?? "SamplePants")
                         .resizable()
                         .scaledToFit()
-                    Image("SampleCoat")
+                    Image(selectedAssets["Coat"] ?? "SampleCoat")
                         .resizable()
                         .scaledToFit()
-                    Image("SampleHead")
+                    Image(selectedAssets["Head"] ?? "SampleHead")
                         .resizable()
                         .scaledToFit()
-                    Image("SampleBeanie")
+                    Image(selectedAssets["Beanie"] ?? "SampleBeanie")
                         .resizable()
                         .scaledToFit()
                 }
                 .frame(width: 350, height: 350)
-                .scaleEffect(1.0)
             }
             .frame(width: 350, height: 350)
             .background(Color.gray.opacity(0.2))
             .cornerRadius(10)
-
-            // Edit button in the top right
+            
+            // Edit button
             Button(action: {
-                isCustomizing = true // Trigger navigation to the customization view
+                isCustomizing = true
             }) {
                 Image(systemName: "pencil.circle.fill")
                     .resizable()
@@ -75,24 +75,33 @@ struct AvatarView: View {
             }
             .padding()
         }
-        // Navigation to the customization hub
+        .onAppear {
+            Task {
+                do {
+                    if let fetchedAssets = try await viewModel.fetchAvatarCustomization() {
+                        self.selectedAssets = fetchedAssets
+                    } else {
+                        print("No avatar customization found")
+                    }
+                } catch {
+                    print("Error fetching avatar customization: \(error.localizedDescription)")
+                }
+            }
+        }
         .fullScreenCover(isPresented: $isCustomizing) {
-            AvatarCustomizationView(isCustomizing: $isCustomizing)
+            AvatarCustomizationView(isCustomizing: $isCustomizing, selectedAssets: $selectedAssets)
         }
     }
 }
+
 struct AvatarCustomizationView: View {
     @Binding var isCustomizing: Bool // Binding to go back to the previous view
-
-    // State to control which group is expanded
+    @EnvironmentObject var viewModel: AuthViewModel // Access the view model for saving
     @State private var expandedGroup: String? = nil
-
-    // State to track selected assets for each category (Beanie, Head, Coat, Pants)
-    @State private var selectedAssets: [String: String] = [:]
-
+    @Binding var selectedAssets: [String : String]
+    
     var body: some View {
         ZStack {
-            // Match the background color to the rewards page
             Color(hex: "0d2c7b")
                 .ignoresSafeArea()
 
@@ -146,10 +155,15 @@ struct AvatarCustomizationView: View {
                     .padding()
                 }
                 .frame(maxHeight: .infinity) // Allow ScrollView to grow without affecting the avatar preview
-
-                // Done button at the bottom, which remains visible
                 Button(action: {
-                    isCustomizing = false // Close customization view
+                    Task {
+                        do {
+                            try await viewModel.saveAvatarCustomization(selectedAssets: selectedAssets)
+                            isCustomizing = false // Close customization view
+                        } catch {
+                            print("Error saving avatar customization: \(error.localizedDescription)")
+                        }
+                    }
                 }) {
                     Text("Done")
                         .fontWeight(.bold)
@@ -162,10 +176,94 @@ struct AvatarCustomizationView: View {
                 .padding()
             }
         }
-        .navigationBarHidden(true) // Hide default navigation bar
+        .navigationBarHidden(true)
     }
 }
-
+//struct AvatarCustomizationView: View {
+//    @Binding var isCustomizing: Bool // Binding to go back to the previous view
+//
+//    // State to control which group is expanded
+//    @State private var expandedGroup: String? = nil
+//
+//    // State to track selected assets for each category (Beanie, Head, Coat, Pants)
+//    @State private var selectedAssets: [String: String] = [:]
+//
+//    var body: some View {
+//        ZStack {
+//            // Match the background color to the rewards page
+//            Color(hex: "0d2c7b")
+//                .ignoresSafeArea()
+//
+//            VStack {
+//                // Avatar display remains fixed at the top
+//                ZStack {
+//                    Image("SampleIgloo")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 250, height: 250) // Fixed size for avatar preview
+//                        .cornerRadius(10)
+//
+//                    ZStack {
+//                        Image(selectedAssets["Pants"] ?? "SamplePants")
+//                            .resizable()
+//                            .scaledToFit()
+//                        Image(selectedAssets["Coat"] ?? "SampleCoat")
+//                            .resizable()
+//                            .scaledToFit()
+//                        Image(selectedAssets["Head"] ?? "SampleHead")
+//                            .resizable()
+//                            .scaledToFit()
+//                        Image(selectedAssets["Beanie"] ?? "SampleBeanie")
+//                            .resizable()
+//                            .scaledToFit()
+//                    }
+//                    .frame(width: 250, height: 250) // Fixed size for avatar parts
+//                }
+//                .frame(width: 250, height: 250)
+//                .background(Color.gray.opacity(0.2))
+//                .cornerRadius(10)
+//                .padding()
+//
+//                // Scrollable customization categories
+//                ScrollView {
+//                    Text("Customize Your Avatar")
+//                        .font(.custom("SFProText-Heavy", size: 24)) // Set custom font SFProText-Heavy
+//                        .foregroundColor(.white) // White text to match the background
+//                        .padding(.bottom, 20)
+//
+//                    // Customization Categories as expandable sections
+//                    VStack(spacing: 20) {
+//                        CustomizationCategoryView(category: "Beanie", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
+//                        Divider().background(Color.white) // Divider between categories
+//                        CustomizationCategoryView(category: "Head", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
+//                        Divider().background(Color.white) // Divider between categories
+//                        CustomizationCategoryView(category: "Coat", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
+//                        Divider().background(Color.white) // Divider between categories
+//                        CustomizationCategoryView(category: "Pants", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
+//                    }
+//                    .padding()
+//                }
+//                .frame(maxHeight: .infinity) // Allow ScrollView to grow without affecting the avatar preview
+//
+//                // Done button at the bottom, which remains visible
+//                Button(action: {
+//                    isCustomizing = false // Close customization view
+//                }) {
+//                    Text("Done")
+//                        .fontWeight(.bold)
+//                        .frame(maxWidth: .infinity)
+//                        .padding()
+//                        .background(Color(hex: "000722")!)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(10)
+//                }
+//                .padding()
+//            }
+//        }
+//        .navigationBarHidden(true) // Hide default navigation bar
+//    }
+//}
+//
 
 
 struct CustomizationCategoryView: View {

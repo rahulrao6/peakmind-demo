@@ -1937,6 +1937,31 @@ class AuthViewModel: ObservableObject {
         checkAndSyncQuests()
     }
     
+    func saveAvatarCustomization(selectedAssets: [String: String]) async throws {
+        guard let userId = currentUser?.id else { return }
+        
+        let db = Firestore.firestore()
+        let avatarData: [String: Any] = [
+            "selectedAssets": selectedAssets,
+            "date": Timestamp(date: Date()) // Optional, for tracking when the customization was saved
+        ]
+        
+        try await db.collection("avatars").document(userId).setData(avatarData)
+        print("Avatar customization saved successfully!")
+    }
+    
+    // Function to fetch the avatar customization from Firebase
+    func fetchAvatarCustomization() async throws -> [String: String]? {
+        guard let userId = currentUser?.id else { return nil }
+        
+        let db = Firestore.firestore()
+        let document = try await db.collection("avatars").document(userId).getDocument()
+        guard let data = document.data(), let selectedAssets = data["selectedAssets"] as? [String: String] else {
+            return nil
+        }
+        return selectedAssets
+    }
+    
     func removeListener() {
         listenerRegistration?.remove()
     }

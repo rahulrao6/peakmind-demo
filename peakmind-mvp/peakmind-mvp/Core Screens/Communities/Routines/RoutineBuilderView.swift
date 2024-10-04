@@ -300,33 +300,25 @@ struct RoutineBuilderView: View {
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
             .edgesIgnoringSafeArea(.all)
-            
+
             VStack {
                 HStack {
                     Text("Your Routines")
                         .font(.custom("SFProText-Heavy", size: 28))
                         .foregroundColor(.white)
                         .padding(.leading, 20)
-                    
-                    Spacer()
-                    
-                    Menu {
 
-                        // Custom Groups
+                    Spacer()
+
+                    Menu {
                         ForEach(predefinedGroups, id: \.self) { group in
                             Button(group) {
                                 selectedGroup = group
-                                print(selectedGroup)
-
                             }
                         }
-                        // List custom groups
                         ForEach(customGroups) { group in
                             Button(group.name) {
                                 selectedGroup = group.name
-                                print(group.name)
-                                print(selectedGroup)
-
                             }
                         }
                     } label: {
@@ -341,7 +333,7 @@ struct RoutineBuilderView: View {
                     }
                 }
                 .padding(.top, 40)
-                
+
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
                         ForEach(-3..<7, id: \.self) { index in
@@ -356,7 +348,7 @@ struct RoutineBuilderView: View {
                                         )
                                         .cornerRadius(8)
                                         .frame(width: 50, height: 80)
-                                    
+
                                     RoundedRectangle(cornerRadius: 8)
                                         .fill(Color(hex: "6b58db")!)
                                         .frame(width: 50, height: 80 * (habitProgress[dateString(for: date)] ?? 0))
@@ -381,7 +373,7 @@ struct RoutineBuilderView: View {
                     .padding(.horizontal)
                 }
                 .padding(.top, -5)
-                
+
                 ScrollView {
                     VStack(spacing: 23) {
                         if filteredHabits.isEmpty {
@@ -395,7 +387,7 @@ struct RoutineBuilderView: View {
                                     ProgressView(value: CGFloat(habit.count) / CGFloat(habit.goal))
                                         .progressViewStyle(GradientProgressViewStyleWithLabel2(
                                             title: habit.title,
-                                            currentValue: $habit.count, // Use the binding version
+                                            currentValue: $habit.count,
                                             totalValue: habit.goal,
                                             unit: habit.unit,
                                             endColor: Color(hex: habit.endColor)!,
@@ -413,90 +405,67 @@ struct RoutineBuilderView: View {
                                             }
                                         }
                                         .padding(.horizontal, 5)
-                                    
+
                                     Button(action: {
-                                        //selectedHabitForAnalytics = habit
                                         selectedHabit = habit
                                         showingHabitIndividualView = true
-
                                     }) {
                                         ZStack {
                                             Circle()
                                                 .fill(Color.white)
                                                 .frame(width: 20, height: 20)
 
-                                            Image(systemName: "pencil")
+                                            Image(systemName: "pencil.circle.fill")
                                                 .foregroundColor(.black)
                                                 .frame(width: 10, height: 10)
                                         }
                                     }
                                     .padding(.trailing, 5)
                                     .padding(.top, -5)
-
-//                                    if isDeleting {
-//                                        Button(action: {
-//                                            print("Delete \(habit.title) tapped")
-//                                        }) {
-//                                            ZStack {
-//                                                Circle()
-//                                                    .fill(Color.white)
-//                                                    .frame(width: 20, height: 20)
-//
-//                                                Image(systemName: "xmark")
-//                                                    .foregroundColor(.red)
-//                                                    .frame(width: 10, height: 10)
-//                                            }
-//                                        }
-//                                        .padding(.trailing, 5)
-//                                        .padding(.top, -5)
-//                                    }
                                 }
                             }
                         }
                     }
                     .frame(minHeight: 0, maxHeight: .infinity)
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 20)
+                    .padding(.top, 20)
+                    .padding(.bottom, 60) // Extend the scroll view further down to avoid overlap with button
+                }
 
-                }
-                .frame(maxHeight: .infinity)
-                
-                HStack(spacing: 40) {
-                    Spacer()
-                    VStack {
-                        Button(action: {
-                            showingAddHabitForm.toggle()
-                        }) {
-                            VStack {
-                                Image(systemName: "plus")
-                                    .font(.system(size: 24))
-                                Text("Add Habit")
-                                    .font(.custom("SFProText-Bold", size: 14))
-                            }
-                        }
-                    }
-                }
-                .foregroundColor(.white)
-                .padding(.bottom, 10)
+                Spacer()
             }
-        }
-        .sheet(isPresented: $showingIncrementPopup) {
-            if let habitId = selectedHabitId {
-                IncrementPopup(habitId: habitId, habits: habits) { increment in
-                    updateHabit(by: habitId, increment: increment)
+
+            // Floating "Add Habit" button
+            VStack {
+                Spacer() // Pushes the button to the bottom
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        showingAddHabitForm.toggle()
+                    }) {
+                        HStack {
+                            Text("Add Habit")
+                                .font(.custom("SFProText-Bold", size: 14))
+                            Image(systemName: "plus")
+                                .font(.system(size: 24))
+                        }
+                        .padding()
+                        .background(Color.white.opacity(0.8)) // Transparent background
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                        .shadow(color: .gray, radius: 5, x: 0, y: 5) // Shadow effect
+                    }
+                    .padding(.trailing, 20) // Add padding to float it from the right side
+                    .padding(.bottom, 20)   // Padding to position it above the bottom of the screen
                 }
-            } else {
-                EmptyView()
             }
         }
         .sheet(isPresented: $showingAddHabitForm) {
-                
-                AddHabitForm() { newHabit in
-                    habits.append(newHabit)
-                    saveHabit(newHabit)
-                    fetchGroups()
-                }
-            
+            AddHabitForm() { newHabit in
+                habits.append(newHabit)
+                saveHabit(newHabit)
+                fetchGroups()
+            }
         }
         .sheet(item: $selectedHabitForAnalytics, onDismiss: {
             selectedHabitForAnalytics = nil
@@ -508,25 +477,20 @@ struct RoutineBuilderView: View {
             )
             .environmentObject(viewModel)
         }
-        
         .sheet(item: $selectedHabit, onDismiss: {
             selectedHabit = nil
             loadAllHabits();
             loadHabits(for: selectedDate)
         }) { habit in
-            
             HabitIndividualView(habit: habit, selectedDate: selectedDate)
-                    .environmentObject(viewModel)
-            
+                .environmentObject(viewModel)
         }
-        
         .onAppear {
             loadHabits(for: selectedDate)
             loadHabitHistory()
             updateAllHabitProgress()
             fetchGroups()
             viewModel.loadHabitHistory()
-
         }
     }
     

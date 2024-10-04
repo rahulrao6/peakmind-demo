@@ -138,21 +138,6 @@ struct YourQuestsView: View {
                     }
                     
                     // Remove or keep the Increment Button for Testing
-                    Button(action: {
-                        for quest in viewModel.quests {
-                            viewModel.incrementProgress(for: quest.id ?? "")
-                        }
-                    }) {
-                        Text("Increment All")
-                            .font(.custom("SFProText-Bold", size: 18))
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color(hex: "ca4c73")!)
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
-                    }
-                    
                     Spacer()
                 }
                 

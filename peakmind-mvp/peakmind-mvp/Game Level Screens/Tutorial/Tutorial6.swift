@@ -10,12 +10,11 @@ import SwiftUI
 struct Tutorial6: View {
     var closeAction: (String) -> Void
     
-    
     var body: some View {
         ZStack {
-            
+            JournalView()
             VStack {
-                Text("This is where you can find your rewards. All tasks in PeakMind get you closer to your next reward.")
+                Text("This is your journal, come here to spark your creativity.")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.black)
                     .padding(50)
@@ -36,4 +35,5 @@ struct Tutorial6: View {
             }
         }
     }
+       
 }

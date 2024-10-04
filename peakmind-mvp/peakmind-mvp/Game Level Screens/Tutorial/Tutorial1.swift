@@ -1,5 +1,5 @@
 //
-//  Tutorial1.swift
+//  Tutorial2.swift
 //  peakmind-mvp
 //
 //  Created by James Wilson on 9/8/24.
@@ -9,30 +9,33 @@ import SwiftUI
 
 struct Tutorial1: View {
     var closeAction: (String) -> Void
+
     
     var body: some View {
         ZStack {
-            ChatView()
+            TestView()
             VStack {
-                Text("This is your AI sherpa companion, get immediate support whenever you need.")
+                Spacer()
+                Text("Tap here to Continue")
+                    .font(.system(size: 20, weight: .black))
+                    .foregroundColor(.black)
+                    .onTapGesture {
+                        closeAction("")
+                    }
+                Text("This is the mental health game. Learn about different mental health struggles and how to cope interactively!")
                     .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.gray)
                     .padding(50)
-
+                
                     .background(
                         RoundedRectangle(cornerRadius: 20, style: .continuous).fill(Color.white)
-                            .opacity(0.3)
+                            .opacity(0.8)
                     )
                     .frame(height: 300)
                     .frame(maxWidth: 300)
-                Text("Tap here to Continue")
-                    .font(.system(size: 20, weight: .black))
-                    .foregroundColor(.white)
-                    
-                Spacer()
+                    .padding(.bottom, 50)
+                
             }
-        }.onTapGesture {
-            closeAction("")
         }
     }
 }

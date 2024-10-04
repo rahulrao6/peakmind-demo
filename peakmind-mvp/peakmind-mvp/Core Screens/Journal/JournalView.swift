@@ -5,6 +5,9 @@ struct JournalView: View {
     @State private var currentQuestion: String = "What made you smile today?"
     @State private var journalEntries: [JournalEntry] = []
     @State private var isAddingEntry = false
+    @State private var isShowingDetails = false
+    @State private var showback = true
+
     @State private var showJournalPrompt = false
     @EnvironmentObject var viewModel: AuthViewModel // Inject the AuthViewModel
     
@@ -35,7 +38,7 @@ struct JournalView: View {
         "Who has the biggest influence on your life?"
     ]
     var body: some View {
-        //NavigationStack {
+        NavigationStack {
             ZStack {
                 // Updated background gradient
                 LinearGradient(
@@ -126,6 +129,9 @@ struct JournalView: View {
             .sheet(isPresented: $isAddingEntry) {
                 AddJournalEntryView().environmentObject(viewModel)
             }
+            .sheet(isPresented: $isShowingDetails) {
+                AddJournalEntryView().environmentObject(viewModel)
+            }
             .fullScreenCover(isPresented: $showJournalPrompt) {
                 JournalPromptView(
                     question: currentQuestion,
@@ -136,16 +142,20 @@ struct JournalView: View {
                 viewModel.fetchJournalEntries2()
                 setCurrentQuestion()
                 checkIfPromptAnswered()
+                showback = false
 //                viewModel.fetchJournalEntries { entries in
 //                    // This might be redundant if fetchJournalEntries2 uses a snapshot listener
 //                    checkIfPromptAnswered()
 //                }
             }
-        //}
+        }
         .onDisappear{
             viewModel.removeListener2()
+            showback = true
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarBackButtonHidden(showback)
+
     }
     
     func checkIfPromptAnswered() {
@@ -395,6 +405,7 @@ struct JournalDetailView: View {
                     // Optionally, present an alert to the user
                 }
             }
+            viewModel.fetchJournalEntries2()
         } else {
             // Prepare fields for editing
             editedQuestion = entry.question

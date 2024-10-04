@@ -1890,7 +1890,7 @@ class AuthViewModel: ObservableObject {
             Quest(baseName: "Journal", currentProgress: 0, nextSegmentGoal: 10, totalSegments: [10, 30, 60, 100, 250]),
             Quest(baseName: "Chat", currentProgress: 0, nextSegmentGoal: 3, totalSegments: [3, 10, 20, 40, 100]),
             Quest(baseName: "Habits", currentProgress: 0, nextSegmentGoal: 5, totalSegments: [5, 20, 50, 100, 250]),
-            Quest(baseName: "Routine", currentProgress: 0, nextSegmentGoal: 1, totalSegments: [1, 3, 5, 10, 20])
+            Quest(baseName: "Routine", currentProgress: 0, nextSegmentGoal: 1, totalSegments: [1, 5, 10, 20, 50])
         ]
         
         for var quest in defaultQuests {
@@ -2022,67 +2022,68 @@ class AuthViewModel: ObservableObject {
         }
     }
     func checkHabitProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
-        fetchCompletedHabitsCount { completedHabitsCount in
-            var updatedQuest = quest
-            updatedQuest.currentProgress = completedHabitsCount
-            
-            // Update the next segment goal (milestone)
-            if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal {
-                if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
-                   nextGoalIndex + 1 < updatedQuest.totalSegments.count {
-                    updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
-                }
-            }
-            
-            completion(updatedQuest)
-        }
-    }
-    func fetchCompletedHabitsCount(completion: @escaping (Int) -> Void) {
-        guard let currentUserID = currentUser?.id else {
-            print("No current user")
-            completion(0)
-            return
-        }
-        
-        let db = Firestore.firestore()
-        let habitsRef = db.collection("users").document(currentUserID).collection("habits")
-        
-        // Fetch all available dates in the "habits" collection
-        habitsRef.getDocuments { (dateSnapshot, error) in
-            if let error = error {
-                print("Error fetching habit dates: \(error.localizedDescription)")
-                completion(0)
-                return
-            }
-            
-            var totalCompletedHabitsCount = 0
-            let dateDocuments = dateSnapshot?.documents ?? []
-            
-            if dateDocuments.isEmpty {
-                completion(0)  // No dates found, return 0
-                return
-            }
-            
-            // Loop through each date document to access the habits array
-            for dateDocument in dateDocuments {
-                let habitData = dateDocument.data()
-                
-                // Assuming the array is stored under a field called "habits"
-                if let habitsArray = habitData["habits"] as? [[String: Any]] {
-                    for habit in habitsArray {
-                        if let count = habit["count"] as? Int, let goal = habit["goal"] as? Int {
-                            if count == goal {
-                                totalCompletedHabitsCount += 1  // Increment count for completed habits
-                            }
-                        }
-                    }
-                }
-            }
-            
-            print("Total completed habits: \(totalCompletedHabitsCount)")  // Debugging
-            completion(totalCompletedHabitsCount)
-        }
-    }
+             fetchCompletedHabitsCount { completedHabitsCount in
+                 var updatedQuest = quest
+                 updatedQuest.currentProgress = completedHabitsCount
+
+                 // Update the next segment goal (milestone)
+                 if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal {
+                     if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+                        nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                         updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+                     }
+                 }
+
+                 completion(updatedQuest)
+             }
+         }
+      
+      func fetchCompletedHabitsCount(completion: @escaping (Int) -> Void) {
+          guard let currentUserID = currentUser?.id else {
+              print("No current user")
+              completion(0)
+              return
+          }
+
+          let db = Firestore.firestore()
+          let habitsRef = db.collection("users").document(currentUserID).collection("habits")
+
+          // Fetch all available dates in the "habits" collection
+          habitsRef.getDocuments { (dateSnapshot, error) in
+              if let error = error {
+                  print("Error fetching habit dates: \(error.localizedDescription)")
+                  completion(0)
+                  return
+              }
+
+              var totalCompletedHabitsCount = 0
+              let dateDocuments = dateSnapshot?.documents ?? []
+
+              if dateDocuments.isEmpty {
+                  completion(0)  // No dates found, return 0
+                  return
+              }
+
+              // Loop through each date document to access the habits array
+              for dateDocument in dateDocuments {
+                  let habitData = dateDocument.data()
+                  
+                  // Assuming the array is stored under a field called "habits"
+                  if let habitsArray = habitData["habits"] as? [[String: Any]] {
+                      for habit in habitsArray {
+                          if let count = habit["count"] as? Int, let goal = habit["goal"] as? Int {
+                              if count == goal {
+                                  totalCompletedHabitsCount += 1  // Increment count for completed habits
+                              }
+                          }
+                      }
+                  }
+              }
+
+              print("Total completed habits: \(totalCompletedHabitsCount)")  // Debugging
+              completion(totalCompletedHabitsCount)
+          }
+      }
     
     
     
@@ -2228,21 +2229,62 @@ class AuthViewModel: ObservableObject {
         }
     }
     func checkProfileProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
-        fetchProfileCount { profileCount in
-            var updatedQuest = quest
-            updatedQuest.currentProgress = profileCount
-            
-            // Update the next segment goal (milestone)
-            if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal {
-                if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
-                   nextGoalIndex + 1 < updatedQuest.totalSegments.count {
-                    updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+            fetchProfileDocumentCount { profileDocumentCount in
+                var updatedQuest = quest
+                print("Fetched profile count: \(profileDocumentCount)")
+                updatedQuest.currentProgress = profileDocumentCount
+
+                // Update the next segment goal (milestone)
+                if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal {
+                    if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+                       nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                        updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+                    }
                 }
+
+                print("Updated quest progress: \(updatedQuest.currentProgress)")
+                completion(updatedQuest)
             }
-            
-            completion(updatedQuest)
         }
-    }
+
+        func fetchProfileDocumentCount(completion: @escaping (Int) -> Void) {
+            guard let currentUserID = currentUser?.id else {
+                print("No current user, returning 0")
+                completion(0)
+                return
+            }
+
+            let db = Firestore.firestore()
+            let profilesRef = db.collection("users").document(currentUserID).collection("profiles")
+
+            // Debugging: Print the Firestore path
+            print("Querying path: /users/\(currentUserID)/profiles")
+
+            profilesRef.getDocuments(source: .server) { (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching profiles: \(error.localizedDescription)")
+                    completion(0)
+                    return
+                }
+
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents found in profiles collection")
+                    completion(0)
+                    return
+                }
+
+                // Debugging: Print the document IDs
+                print("Documents found: \(documents.count)")
+                for document in documents {
+                    print("Document ID: \(document.documentID), Data: \(document.data())")
+                }
+
+                let profileDocumentCount = documents.count
+                print("Profile document count: \(profileDocumentCount)")
+                completion(profileDocumentCount)
+            }
+        }
+
     
     
     

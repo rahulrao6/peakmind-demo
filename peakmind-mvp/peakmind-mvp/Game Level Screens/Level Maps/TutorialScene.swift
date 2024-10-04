@@ -67,22 +67,37 @@ struct TutorialScene: View {
                     }
                 }
                 .onAppear {
-                    /*
+                    
                     scene.levels = [
-                        LevelNode(uid: 0, internalName: "Tutorial1", title: "Your AI Companion", viewFactory: { AnyView(Tutorial1(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 0); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
-                        LevelNode(uid: 1, internalName: "Tutorial2", title: "Journal", viewFactory: { AnyView(Tutorial2(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 1); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
-                        LevelNode(uid: 2, internalName: "Tutorial3", title: "Game", viewFactory: { AnyView(Tutorial3(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 2); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
-                        LevelNode(uid: 3, internalName: "Tutorial4", title: "Routine Builder", viewFactory: { AnyView(Tutorial4(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 3); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
-                        LevelNode(uid: 4, internalName: "Tutorial5", title: "Profiles", viewFactory: { AnyView(Tutorial5(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 4); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
-                        LevelNode(uid: 5, internalName: "Tutorial6", title: "Store", viewFactory: { AnyView(Tutorial6(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 5); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
-                        LevelNode(uid: 6, internalName: "Tutorial7", title: "Check In", viewFactory: { AnyView(Tutorial7(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 6); scene.currentLevel = -1; scene.reloadCompletedLevels()} })) }, phase: 1),
-                        LevelNode(uid: 7, internalName: "Tutorial8", title: "Personalized Plan", viewFactory: { AnyView(Tutorial8(closeAction: { Task { self.currentPhase = -1; scene.completedLevelsList = buildCompletedLevelArray(uid: 7); scene.currentLevel = -1; scene.reloadCompletedLevels(); completeTutorial(); isShowingTutorial = false} })) }, phase: 1),
+                        LevelNode(uid: 0, internalName: "T1", title: "PeakMind Game", viewFactory: { AnyView(Tutorial1(closeAction: { (str) -> Void in
+                            completeLevel(str: str)
+                        })) }, phase: 0),
+                        LevelNode(uid: 1, internalName: "T2", title: "Routines", viewFactory: { AnyView(Tutorial2(closeAction: { (str) -> Void in
+                            completeLevel(str: str)
+                        })) }, phase: 0),
+                        LevelNode(uid: 2, internalName: "T3", title: "Flow Mode", viewFactory: { AnyView(Tutorial3(closeAction: { (str) -> Void in
+                            completeLevel(str: str)
+                        })) }, phase: 0),
+                        LevelNode(uid: 3, internalName: "T4", title: "Profiles", viewFactory: { AnyView(Tutorial4(closeAction: { (str) -> Void in
+                            completeLevel(str: str)
+                        })) }, phase: 0),
+                        LevelNode(uid: 4, internalName: "T5", title: "Quests", viewFactory: { AnyView(Tutorial5(closeAction: { (str) -> Void in
+                            completeLevel(str: str)
+                        })) }, phase: 0),
+                        LevelNode(uid: 5, internalName: "T6", title: "Journal", viewFactory: { AnyView(Tutorial6(closeAction: { (str) -> Void in
+                            completeLevel(str: str)
+                        })) }, phase: 0),
+                        LevelNode(uid: 6, internalName: "T7", title: "Daily Check-In", viewFactory: { AnyView(Tutorial7(closeAction: { (str) -> Void in
+                            completeLevel(str: str)
+                        })) }, phase: 0),
+                        LevelNode(uid: 7, internalName: "T8", title: "AI Wellness", viewFactory: { AnyView(Tutorial8(closeAction: { (str) -> Void in
+                            completeLevel(str: str)
+                        })) }, phase: 0),
                     ]
-                     */
+                     
                     
                     scene.phaseColors = [
-                        UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1),
-                        UIColor(red: 142/255, green: 214/255, blue: 215/255, alpha: 1)
+                        UIColor(red: 142/255, green: 214/255, blue: 137/255, alpha: 1)
                     ]
                 }
             
@@ -143,6 +158,11 @@ struct TutorialScene: View {
             phase.viewFactory()
         }
         .confettiCannon(counter: $confetti)
+    }
+    
+    func completeLevel(str: String) {
+        Task {scene.currentLevel = -1}
+
     }
     
     private func completeTutorial() {

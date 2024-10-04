@@ -9,15 +9,19 @@ import SwiftUI
 
 struct Tutorial4: View {
     var closeAction: (String) -> Void
-
     
     var body: some View {
         ZStack {
-            
+            ProfileView()
             VStack {
-                Text("This is your routine builder - come here to build better habits.")
+                Spacer()
+                Text("Tap to Continue")
+                    .font(.system(size: 20, weight: .black))
+                    .foregroundColor(.black)
+                    
+                Text("This is your profile - learn more about your strengths and weaknesses and gain personalized recommendations!")
                     .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .padding(50)
                 
                     .background(
@@ -26,14 +30,11 @@ struct Tutorial4: View {
                     )
                     .frame(height: 300)
                     .frame(maxWidth: 300)
-                Text("Tap here to Continue")
-                    .font(.system(size: 20, weight: .black))
-                    .foregroundColor(.black)
-                    .onTapGesture {
-                        closeAction("")
-                    }
-                Spacer()
+                
             }
+        }
+        .onTapGesture {
+            closeAction("")
         }
     }
 }

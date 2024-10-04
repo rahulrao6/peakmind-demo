@@ -330,7 +330,7 @@ struct TestView: View {
                                 .font(.system(size: 30, weight: .heavy, design: .default))
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                             
-                            Text("Phase "+String(currentPhase))
+                            Text("Phase "+String(currentPhase + 1))
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                             
                         }
@@ -378,7 +378,7 @@ struct TestView: View {
             .overlay(alignment: .bottom) {
                 GeometryReader { geom in
                     VariableBlurView(maxBlurRadius: 2, direction: .blurredBottomClearTop)
-                        .frame(height: 200)
+                        .frame(height: 0)
                         .ignoresSafeArea()
                         .padding(.top, 700)
                 }
@@ -413,6 +413,20 @@ struct TestView: View {
         scene.imagePositions = positions
         return scene
     }
+}
+
+func sy(pixels: Int) -> CGFloat {
+    let orig = 2622
+    let height = UIScreen.main.bounds.height
+    
+    return CGFloat(pixels / orig) * (height)
+}
+
+func sx(pixels: Int) -> CGFloat {
+    let orig = 2622
+    let height = UIScreen.main.bounds.height
+    
+    return CGFloat(pixels / orig) * (height)
 }
 
 //#Preview {

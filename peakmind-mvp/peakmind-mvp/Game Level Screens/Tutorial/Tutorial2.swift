@@ -9,14 +9,15 @@ import SwiftUI
 
 struct Tutorial2: View {
     var closeAction: (String) -> Void
+
     
     var body: some View {
         ZStack {
-            JournalView()
+            RoutineBuilderView()
             VStack {
-                Text("This is your journal, come here to spark your creativity.")
+                Text("This is your routine builder - come here to build better habits.")
                     .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .padding(50)
                 
                     .background(
@@ -35,5 +36,4 @@ struct Tutorial2: View {
             }
         }
     }
-       
 }

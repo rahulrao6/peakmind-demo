@@ -9,11 +9,12 @@ import SwiftUI
 
 struct Tutorial3: View {
     var closeAction: (String) -> Void
+    var viewModel: AuthViewModel = AuthViewModel()
 
     
     var body: some View {
         ZStack {
-            OnboardingView()
+            OnboardingView(authViewModel: viewModel)
             VStack {
                 Spacer()
 

@@ -1806,7 +1806,7 @@
 				791AC8FA2BA7C5A00094A688 /* ConfettiView.swift in Sources */,
 				79A73DCC2CA55A5200CE9E40 /* Tutorial2.swift in Sources */,
 				19A575982CAFB132009956C6 /* Phase2Summary.swift in Sources */,
-				79A73DCC2CA55A5200CE9E40 /* Tutorial4.swift in Sources */,
+				79A73DCC2CA55A5200CE9E40 /* Tutorial2.swift in Sources */,
 				194AA05E2CAC80CA0041D129 /* LightPurpleNewBG1.swift in Sources */,
 				792ED8632C51C8480050D12C /* CustomWidgetView.swift in Sources */,
 				79F902452CABA8DD00928A9A /* P1_MentalHealthMod.swift in Sources */,
@@ -2230,7 +2230,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = PeakMind;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "This app needs access to your calendar to display and manage events.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please share your AppleHealthKit data with us so we can give you the best possible ideas. ";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Metrics from HealthKit allow PeakMind to provide personalized recommendations. HealthKit metrics help to assess energy, sleep, and activity levels for users to track and understand where they can best improve their physical and mental health with the help of PeakMind. ";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Our app needs access to your health data to properly update analytics that are used for personalization. ";
 				INFOPLIST_KEY_NSRemindersUsageDescription = "This app requires access to Reminders to schedule habit reminders.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -2274,7 +2274,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = PeakMind;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "This app needs access to your calendar to display and manage events.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please share your AppleHealthKit data with us so we can give you the best possible ideas. ";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Metrics from HealthKit allow PeakMind to provide personalized recommendations. HealthKit metrics help to assess energy, sleep, and activity levels for users to track and understand where they can best improve their physical and mental health with the help of PeakMind. ";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Our app needs access to your health data to properly update analytics that are used for personalization. ";
 				INFOPLIST_KEY_NSRemindersUsageDescription = "This app requires access to Reminders to schedule habit reminders.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

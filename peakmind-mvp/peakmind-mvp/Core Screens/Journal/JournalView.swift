@@ -35,7 +35,7 @@ struct JournalView: View {
         "Who has the biggest influence on your life?"
     ]
     var body: some View {
-        NavigationStack {
+        //NavigationStack {
             ZStack {
                 // Updated background gradient
                 LinearGradient(
@@ -54,7 +54,6 @@ struct JournalView: View {
                     
                     // Daily Prompt Button
                     Button(action: {
-                        currentQuestion = dailyQuestions.randomElement() ?? "How do you feel today?"
                         showJournalPrompt = true
                     }) {
                         Text(isPromptAnswered ? "Daily Prompt Answered!" : "Answer Your Daily Prompt")
@@ -135,12 +134,14 @@ struct JournalView: View {
             }
             .onAppear {
                 viewModel.fetchJournalEntries2()
+                setCurrentQuestion()
+                checkIfPromptAnswered()
 //                viewModel.fetchJournalEntries { entries in
 //                    // This might be redundant if fetchJournalEntries2 uses a snapshot listener
 //                    checkIfPromptAnswered()
 //                }
             }
-        }
+        //}
         .onDisappear{
             viewModel.removeListener2()
         }
@@ -158,6 +159,11 @@ struct JournalView: View {
         } else {
             isPromptAnswered = false
         }
+    }
+    func setCurrentQuestion() {
+        let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 0
+        let questionIndex = (dayOfYear - 1) % dailyQuestions.count
+        currentQuestion = dailyQuestions[questionIndex]
     }
 }
 

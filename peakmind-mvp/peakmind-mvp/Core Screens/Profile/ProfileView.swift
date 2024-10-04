@@ -95,42 +95,42 @@ struct ProfileView: View {
                         }
                     }
                     
-                    Section("Habit Stack") {
-                        Button("Routine List") {
-                            isRoutineListViewPresented.toggle()
-                        }
-                        .sheet(isPresented: $isRoutineListViewPresented) {
-                            RoutineBuilderView().environmentObject(viewModel)
-                        }
-                        
-                        Button("Settings") {
-                            isSettingsListViewPresented.toggle()
-                        }
-                        .sheet(isPresented: $isSettingsListViewPresented) {
-                            SettingsView().environmentObject(viewModel).environmentObject(healthKitManager).environmentObject(eventKitManager)
-                        }
-                        
-                        Button("Rewards") {
-                            isRewardsListViewPresented.toggle()
-                        }
-                        .sheet(isPresented: $isRewardsListViewPresented) {
-                            PointsAndBadgesView().environmentObject(viewModel)
-                        }
-                        
-                        Button("Factor List") {
-                            isFactorListViewPresented.toggle()
-                        }
-                        .sheet(isPresented: $isFactorListViewPresented) {
-                            FactorPage(category: .emotional).environmentObject(viewModel)
-                        }
-                        
-                        Button("Rectangle View") {
-                            isRectangleViewPresented.toggle()
-                        }
-                        .sheet(isPresented: $isRectangleViewPresented) {
-                            RectangleView().environmentObject(viewModel).environmentObject(NetworkManager())
-                        }
-                    }
+//                    Section("Habit Stack") {
+//                        Button("Routine List") {
+//                            isRoutineListViewPresented.toggle()
+//                        }
+//                        .sheet(isPresented: $isRoutineListViewPresented) {
+//                            RoutineBuilderView().environmentObject(viewModel)
+//                        }
+//                        
+//                        Button("Settings") {
+//                            isSettingsListViewPresented.toggle()
+//                        }
+//                        .sheet(isPresented: $isSettingsListViewPresented) {
+//                            SettingsView().environmentObject(viewModel).environmentObject(healthKitManager).environmentObject(eventKitManager)
+//                        }
+//                        
+//                        Button("Rewards") {
+//                            isRewardsListViewPresented.toggle()
+//                        }
+//                        .sheet(isPresented: $isRewardsListViewPresented) {
+//                            PointsAndBadgesView().environmentObject(viewModel)
+//                        }
+//                        
+//                        Button("Factor List") {
+//                            isFactorListViewPresented.toggle()
+//                        }
+//                        .sheet(isPresented: $isFactorListViewPresented) {
+//                            FactorPage(category: .emotional).environmentObject(viewModel)
+//                        }
+//                        
+//                        Button("Rectangle View") {
+//                            isRectangleViewPresented.toggle()
+//                        }
+//                        .sheet(isPresented: $isRectangleViewPresented) {
+//                            RectangleView().environmentObject(viewModel).environmentObject(NetworkManager())
+//                        }
+//                    }
                     Section("Quizzes") {
                         Button("GAD7") {
                             GAD7Present.toggle()

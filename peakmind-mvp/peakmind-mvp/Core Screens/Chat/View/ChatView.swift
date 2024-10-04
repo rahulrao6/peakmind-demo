@@ -543,6 +543,7 @@ struct ChatView: View {
     }
 
     func continueConversation() {
+        receivedMessages.append(ChatMessage(sender: "Patient", content: message, timestamp: Date().timeIntervalSince1970))
         guard let currentUser = viewModel.currentUser, let sessionId = self.sessionId else {
             print("No current user or session ID")
             return
@@ -581,6 +582,7 @@ struct ChatView: View {
                     print("Parsed JSON: \(json)")
                     if let response = json["response"] as? String {
                         DispatchQueue.main.async {
+                            //receivedMessages.append(ChatMessage(sender: "Patient", content: message, timestamp: NSDate().timeIntervalSince1970))
                             self.message = ""
                             self.fetchMessages()
                         }

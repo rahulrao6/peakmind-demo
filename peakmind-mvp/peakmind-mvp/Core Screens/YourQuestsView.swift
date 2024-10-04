@@ -46,8 +46,10 @@ struct Quest: Identifiable, Codable {
         case "Games": return "Game Guru"
         case "Journal": return "Journal Jedi"
         case "Chat": return "Sherpa Whisperer"
+        case "DailyCheckin": return "Check-in Champion"
         case "Habits": return "Habit Hero"
         case "Routine": return "Routine Builder"
+        case "RoutineCompletion": return "Routine Streak Master"
         default: return baseName
         }
     }
@@ -60,6 +62,8 @@ struct Quest: Identifiable, Codable {
         case "Chat": return "Have \(nextSegmentGoal) Conversations with Sherpa"
         case "Habits": return "Complete \(nextSegmentGoal) Habits in a Routine"
         case "Routine": return "Build \(nextSegmentGoal) Routines"
+        case "DailyCheckin": return "Maintain a streak for \(nextSegmentGoal) days"
+        case "RoutineCompletion": return "Complete routines for \(nextSegmentGoal) consecutive days"
         default: return baseName
         }
     }

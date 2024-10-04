@@ -12,10 +12,15 @@ struct FactorPage: View {
     var category: Category // Pass the category for contextual use
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
     @EnvironmentObject var viewModel: AuthViewModel
+    
 
+    @EnvironmentObject var networkManager: NetworkManager
+    var score: Int
+    var factorScores: [String: Double]
     // State to track whether to show the FactorDetailView
     @State private var showFactorDetail = false
     @State private var selectedNodeIndex: Int? = nil // To track the selected node
+    @State private var selectedFactor: Int = 0// To track the selected node
 
     // Static positions for the nodes, adjusted for centering and longer lines
     @State private var nodePositions: [CGSize] = [
@@ -75,25 +80,31 @@ struct FactorPage: View {
                         }
                     }
                     .stroke(Color.white, lineWidth: 2)
-
-                    // Node graph with 4 static nodes, drawn over the path
-                    ForEach(0..<4, id: \.self) { index in
-                        let nodeCenter = getNodeCenters()[index]
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 80, height: 80)
-                            .overlay(
-                                Image(systemName: getIconName(for: index))
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40, height: 40)
-                                    .foregroundColor(Color(hex: "180b53")!)
-                            )
-                            .position(nodeCenter) // Position node exactly at the path point
-                            .onTapGesture {
-                                selectedNodeIndex = index
-                                showFactorDetail = true // Trigger navigation
+                    
+                    ForEach(Array(Factor.allCases.enumerated()), id: \.element) { index, factor in
+                        if factor.category == category.rawValue {
+                            if let factorScore = factorScores[factor.rawValue] {
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 80, height: 80)
+                                    .overlay(
+                                        Image(systemName: getIconName(for: index)) // Use index as the parameter
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 40, height: 40)
+                                            .foregroundColor(Color(hex: "180b53")!)
+                                    )
+                                    .onTapGesture {
+                                        selectedNodeIndex = index
+                                        Task{
+                                            selectedFactor = Int(factorScore)
+                                        }
+                                        showFactorDetail = true // Trigger navigation
+                                    }
+                            } else {
+                                Text("t")
                             }
+                        }
                     }
                 }
 
@@ -137,16 +148,22 @@ struct FactorPage: View {
                     .padding(.trailing, 20)
                 }
             }
+            .onAppear {
+                
+                print(factorScores)
+                print(category)
+                print(score)
+            }
             // Present FactorDetailView when a node is tapped
             .fullScreenCover(isPresented: $showFactorDetail) {
-                FactorDetailView() // Present detail view when node is tapped
+                FactorDetailView(factorScore: selectedFactor) // Present detail view when node is tapped
             }
         }
     }
 
     // Helper function to return the icon name for each node
     private func getIconName(for index: Int) -> String {
-        let icons = ["heart.fill", "brain.head.profile", "bolt.fill", "person.fill"]
+        let icons = ["heart.fill", "brain.head.profile", "bolt.fill", "person.fill", ""]
         return icons[index]
     }
 
@@ -172,6 +189,7 @@ struct FactorPage: View {
 // Detail view for the selected factor (Mood Detail)
 struct FactorDetailView: View {
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
+    var factorScore: Int // Pass the category for contextual use
 
     var sampleData: [Double] = [0.4, 0.6, 0.5, 0.8, 0.75, 0.6, 0.85] // Example data
 
@@ -193,7 +211,7 @@ struct FactorDetailView: View {
                         .stroke(Color.white, lineWidth: 20)
                         .frame(width: 150, height: 150)
                         .rotationEffect(.degrees(-90)) // Start from top
-                    Text("75") // Example score
+                    Text("\(factorScore)") // Example score
                         .font(.custom("SFProText-Heavy", size: 36))
                         .foregroundColor(.white)
                 }
@@ -266,8 +284,4 @@ struct LineGraph: Shape {
 }
 
 // Preview for testing
-struct FactorPage_Previews: PreviewProvider {
-    static var previews: some View {
-        FactorPage(category: .emotional)
-    }
-}
+

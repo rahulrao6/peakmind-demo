@@ -25,7 +25,7 @@ class AuthViewModel: ObservableObject {
     @Published var quests: [Quest] = []
     @Published  var journalEntries: [JournalEntry] = []
     @Published var habitsByName: [String: [Habit]] = [:]
-
+    
     
     //    @Published var communitiesViewModel = CommunitiesViewModel()
     @Published var authErrorMessage: String? // New property for error messages
@@ -36,7 +36,7 @@ class AuthViewModel: ObservableObject {
     private let db = Firestore.firestore()
     private var listenerRegistration: ListenerRegistration?
     private var listenerRegistration2: ListenerRegistration?
-
+    
     
     init() {
         authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
@@ -143,7 +143,7 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     func signUpWithEmail(email: String, password: String, username: String) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
             guard let self = self else { return }
@@ -163,8 +163,8 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
-
+    
+    
     func signOut() {
         do {
             try Auth.auth().signOut()
@@ -174,12 +174,12 @@ class AuthViewModel: ObservableObject {
             print("Failed to sign out: \(error.localizedDescription)")
         }
     }
-
+    
     // Sign In with Apple Functions
     func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {
         request.requestedScopes = [.fullName, .email]
     }
-
+    
     func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
         switch result {
         case .success(let authorization):
@@ -212,39 +212,39 @@ class AuthViewModel: ObservableObject {
             print("Authorization failed: \(error.localizedDescription)")
         }
     }
-
-//    private func fetchUserDataOrCreateNew(user: User, email: String?) {
-//        let userRef = db.collection("users").document(user.uid)
-//        userRef.getDocument { document, error in
-//            if let error = error {
-//                print("Error fetching user data this is numner 1: \(error.localizedDescription)")
-//                return
-//            }
-//            if let document = document, document.exists {
-//                do {
-//                    print("trying to decode")
-//                    var fetchedUserData = try document.data(as: UserData.self)
-//                    print("decoded")
-//                    self.currentUser = self.validateAndFixUserData(fetchedUserData)
-//                    self.isSignedIn = true
-//                    print(self.currentUser)
-//
-//                } catch {
-//                    print("Error decoding user data this is number 2: \(error.localizedDescription)")
-//                }
-//            } else {
-//                let userData = self.getDefaultUserData(id: user.uid, email: email ?? "", username: email ?? "User")
-//                do {
-//                    try self.db.collection("users").document(user.uid).setData(from: userData)
-//                    self.currentUser = userData
-//                    self.isSignedIn = true
-//                    print(self.currentUser)
-//                } catch {
-//                    print("Error saving user data: \(error.localizedDescription)")
-//                }
-//            }
-//        }
-//    }
+    
+    //    private func fetchUserDataOrCreateNew(user: User, email: String?) {
+    //        let userRef = db.collection("users").document(user.uid)
+    //        userRef.getDocument { document, error in
+    //            if let error = error {
+    //                print("Error fetching user data this is numner 1: \(error.localizedDescription)")
+    //                return
+    //            }
+    //            if let document = document, document.exists {
+    //                do {
+    //                    print("trying to decode")
+    //                    var fetchedUserData = try document.data(as: UserData.self)
+    //                    print("decoded")
+    //                    self.currentUser = self.validateAndFixUserData(fetchedUserData)
+    //                    self.isSignedIn = true
+    //                    print(self.currentUser)
+    //
+    //                } catch {
+    //                    print("Error decoding user data this is number 2: \(error.localizedDescription)")
+    //                }
+    //            } else {
+    //                let userData = self.getDefaultUserData(id: user.uid, email: email ?? "", username: email ?? "User")
+    //                do {
+    //                    try self.db.collection("users").document(user.uid).setData(from: userData)
+    //                    self.currentUser = userData
+    //                    self.isSignedIn = true
+    //                    print(self.currentUser)
+    //                } catch {
+    //                    print("Error saving user data: \(error.localizedDescription)")
+    //                }
+    //            }
+    //        }
+    //    }
     private func fetchUserDataOrCreateNew(user: User, email: String?) {
         let userRef = db.collection("users").document(user.uid)
         userRef.getDocument { document, error in
@@ -252,12 +252,12 @@ class AuthViewModel: ObservableObject {
                 print("Error fetching user data: \(error.localizedDescription)")
                 return
             }
-
+            
             guard let document = document else {
                 print("Document does not exist")
                 return
             }
-
+            
             if document.exists {
                 do {
                     print("Trying to decode")
@@ -270,7 +270,7 @@ class AuthViewModel: ObservableObject {
                 } catch let decodingError {
                     print("Error decoding user data: \(decodingError.localizedDescription)")
                     print("Document data: \(document.data() ?? [:])") // Log the raw document data
-
+                    
                     // Attempt to fix the document data
                     if let rawData = document.data() {
                         let fixedUserData = self.fixDocumentData(rawData: rawData, userId: user.uid, email: email)
@@ -299,10 +299,10 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     private func fixDocumentData(rawData: [String: Any], userId: String, email: String?) -> UserData {
         var fixedUserData: [String: Any] = rawData
-
+        
         // Ensure all expected fields are present, using defaults if necessary
         if fixedUserData["id"] == nil { fixedUserData["id"] = userId }
         if fixedUserData["email"] == nil { fixedUserData["email"] = email ?? "" }
@@ -324,7 +324,7 @@ class AuthViewModel: ObservableObject {
         if fixedUserData["dailyCheckInStreak"] == nil { fixedUserData["dailyCheckInStreak"] = 0 }
         if fixedUserData["bio"] == nil { fixedUserData["bio"] = "" }
         if fixedUserData["routines"] == nil { fixedUserData["routines"] = [] }
-
+        
         // Convert the fixed data dictionary back to UserData
         do {
             let fixedData = try JSONSerialization.data(withJSONObject: fixedUserData, options: [])
@@ -342,12 +342,12 @@ class AuthViewModel: ObservableObject {
             print("DEBUG: No user is currently signed in.")
             return
         }
-
+        
         do {
             // Delete user data from Firestore first
             let userId = user.uid
             try await Firestore.firestore().collection("users").document(userId).delete()
-
+            
             // Proceed with deleting the user account
             try await user.delete()
             // Clear any related user data in the app
@@ -356,20 +356,20 @@ class AuthViewModel: ObservableObject {
                 self?.userSession = nil
                 self?.currentUser = nil
             }
-
+            
             print("User account and data successfully deleted.")
         } catch let error {
             print("DEBUG: Failed to delete account with error \(error.localizedDescription)")
         }
     }
-
+    
     func signInWithGoogle() {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         _ = GIDConfiguration(clientID: clientID)
-
+        
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         guard let rootViewController = windowScene.windows.first?.rootViewController else { return }
-
+        
         GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { signInResult, error in
             guard let signInResult = signInResult else {
                 if let error = error {
@@ -377,13 +377,13 @@ class AuthViewModel: ObservableObject {
                 }
                 return
             }
-
+            
             let user = signInResult.user
             let idToken = user.idToken?.tokenString
             let accessToken = user.accessToken.tokenString
-
+            
             let credential = GoogleAuthProvider.credential(withIDToken: idToken!, accessToken: accessToken)
-
+            
             Auth.auth().signIn(with: credential) { [weak self] (_, error) in
                 guard let self = self else { return }
                 if let error = error {
@@ -397,23 +397,23 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     // Level Functions
     func markLevelCompleted(levelID: String) async throws {
         guard let currentUserID = currentUser?.id else {
             throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
         }
-
+        
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(currentUserID)
-
+        
         // Update the local model first
         if let index = currentUser?.completedLevels.firstIndex(where: { $0 == levelID }) {
             print("Level already marked as completed.")
         } else {
             currentUser?.completedLevels.append(levelID)
         }
-
+        
         // Synchronize with Firestore
         try await userRef.updateData([
             "completedLevels": FieldValue.arrayUnion([levelID])
@@ -424,26 +424,26 @@ class AuthViewModel: ObservableObject {
                 print("Level marked as completed successfully.")
             }
         }
-
+        
         // Refresh user data to ensure UI is updated
         await fetchUser()
     }
-
+    
     func markLevelCompleted2(levelID: String) async throws {
         guard let currentUserID = currentUser?.id else {
             throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
         }
-
+        
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(currentUserID)
-
+        
         // Update the local model first
         if let index = currentUser?.completedLevels2.firstIndex(where: { $0 == levelID }) {
             print("Level already marked as completed.")
         } else {
             currentUser?.completedLevels2.append(levelID)
         }
-
+        
         // Synchronize with Firestore
         try await userRef.updateData([
             "completedLevels2": FieldValue.arrayUnion([levelID])
@@ -454,11 +454,11 @@ class AuthViewModel: ObservableObject {
                 print("Level marked as completed successfully.")
             }
         }
-
+        
         // Refresh user data to ensure UI is updated
         await fetchUser()
     }
-
+    
     func saveSelectedWidgets(selected: [String]) async {
         guard let user = currentUser else {
             print("No authenticated user found.")
@@ -466,7 +466,7 @@ class AuthViewModel: ObservableObject {
         }
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(user.id ?? "")
-
+        
         do {
             try await userRef.setData(["selectedWidgets": selected], merge: true)
             // Update local user data and refresh
@@ -478,10 +478,10 @@ class AuthViewModel: ObservableObject {
             print("Error updating widget selection: \(error)")
         }
     }
-
+    
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-
+        
         do {
             let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
             self.currentUser = try snapshot.data(as: UserData.self)
@@ -492,7 +492,7 @@ class AuthViewModel: ObservableObject {
             print("Error fetching user data: \(error.localizedDescription)")
         }
     }
-
+    
     func setUserDetails(result_fetch: AuthDataResult) async throws {
         print("Called the setUserDetails func")
         self.userSession = result_fetch.user
@@ -500,7 +500,7 @@ class AuthViewModel: ObservableObject {
             await fetchUser()
         }
     }
-
+    
     func resetPassword(email: String) {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let err = error {
@@ -512,7 +512,7 @@ class AuthViewModel: ObservableObject {
         self.authErrorMessage = nil
     }
     
-
+    
     func addFriend(friendId: String) {
         guard let currentUser = currentUser else { return }
         db.collection("users").document(currentUser.id ?? "").updateData([
@@ -565,7 +565,7 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     func fetchFollowers(completion: @escaping ([UserData]) -> Void) {
         guard let currentUser = currentUser else { return }
         db.collection("users").whereField("friends", arrayContains: currentUser.id ?? "").getDocuments { snapshot, error in
@@ -578,7 +578,7 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     func validateAndFixUserData(_ userData: UserData) -> UserData {
         var fixedUserData = userData
         let defaultUserData = getDefaultUserData(id: userData.id, email: userData.email, username: userData.username)
@@ -634,7 +634,7 @@ class AuthViewModel: ObservableObject {
         if userData.routines.isEmpty {
             fixedUserData.routines = defaultUserData.routines
         }
-
+        
         // Update Firestore document if needed
         let userRef = db.collection("users").document(userData.id)
         do {
@@ -645,30 +645,30 @@ class AuthViewModel: ObservableObject {
         
         return fixedUserData
     }
-
-//      func getDefaultUserData(id: String, email: String, username: String) -> UserData {
-//          return UserData(
-//              id: id,
-//              email: email,
-//              username: username,
-//              selectedAvatar: "",
-//              selectedBackground: "",
-//              hasCompletedInitialQuiz: false,
-//              hasSetInitialAvatar: false,
-//              inventory: [],
-//              friends: [id],
-//              LevelOneCompleted: false,
-//              LevelTwoCompleted: false,
-//              selectedWidgets: [],
-//              lastCheck: nil,
-//              weeklyStatus: [0, 0, 0, 0, 0, 0, 0],
-//              hasCompletedTutorial: false,
-//              completedLevels: [],
-//              completedLevels2: [],
-//              dailyCheckInStreak: 0,
-//              bio: ""
-//          )
-//      }
+    
+    //      func getDefaultUserData(id: String, email: String, username: String) -> UserData {
+    //          return UserData(
+    //              id: id,
+    //              email: email,
+    //              username: username,
+    //              selectedAvatar: "",
+    //              selectedBackground: "",
+    //              hasCompletedInitialQuiz: false,
+    //              hasSetInitialAvatar: false,
+    //              inventory: [],
+    //              friends: [id],
+    //              LevelOneCompleted: false,
+    //              LevelTwoCompleted: false,
+    //              selectedWidgets: [],
+    //              lastCheck: nil,
+    //              weeklyStatus: [0, 0, 0, 0, 0, 0, 0],
+    //              hasCompletedTutorial: false,
+    //              completedLevels: [],
+    //              completedLevels2: [],
+    //              dailyCheckInStreak: 0,
+    //              bio: ""
+    //          )
+    //      }
     func getDefaultUserData(id: String, email: String, username: String) -> UserData {
         return UserData(
             id: id,
@@ -692,11 +692,11 @@ class AuthViewModel: ObservableObject {
             bio: "", routines: []
         )
     }
-
+    
     
     func savePersonalizedPlan(plan: PPPlan, answers: [PPAnswer]) {
         guard let userId = Auth.auth().currentUser?.uid else { return }
-
+        
         let tasksData = plan.tasks.map { task in
             return [
                 "id": task.id,
@@ -706,7 +706,7 @@ class AuthViewModel: ObservableObject {
                 "timeCompleted": task.timeCompleted
             ] as [String : Any]
         }
-
+        
         let planData: [String: Any] = [
             "userId": userId,
             "planId": "\(plan.id)",
@@ -715,7 +715,7 @@ class AuthViewModel: ObservableObject {
             "timestamp": Timestamp(),
             "tasks": tasksData
         ]
-
+        
         db.collection("new_personalized_plan").document(userId).setData(planData) { error in
             if let error = error {
                 print("Error saving personalized plan: \(error.localizedDescription)")
@@ -731,9 +731,9 @@ class AuthViewModel: ObservableObject {
             completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])))
             return
         }
-
+        
         let planRef = db.collection("new_personalized_plan").document(userId)
-
+        
         planRef.getDocument { document, error in
             if let document = document, document.exists {
                 do {
@@ -742,7 +742,7 @@ class AuthViewModel: ObservableObject {
                         let planTitle = data["planTitle"] as? String ?? ""
                         let planDescription = data["planDescription"] as? String ?? ""
                         let tasksData = data["tasks"] as? [[String: Any]] ?? []
-
+                        
                         var tasks: [TaskFirebase] = []
                         for taskData in tasksData {
                             let task = TaskFirebase(
@@ -754,7 +754,7 @@ class AuthViewModel: ObservableObject {
                             )
                             tasks.append(task)
                         }
-
+                        
                         let plan = PPPlan(
                             title: planTitle,
                             description: planDescription,
@@ -781,12 +781,12 @@ class AuthViewModel: ObservableObject {
                 print("Error fetching questions: \(error.localizedDescription)")
                 return
             }
-
+            
             guard let documents = snapshot?.documents else {
                 print("No documents found")
                 return
             }
-
+            
             self.questions = documents.compactMap { doc -> PPQuestion? in
                 return try? doc.data(as: PPQuestion.self)
             }
@@ -798,14 +798,14 @@ class AuthViewModel: ObservableObject {
     private func initializeAnswers() {
         self.answers = self.questions.map { PPAnswer(questionId: $0.id ?? "", type:  $0.type, answer: 0, followUpAnswer: "") }
     }
-
+    
     func saveAnswers(answers: [PPAnswer]) {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         
         let batch = db.batch()
         let answersRef = db.collection("users").document(userId).collection("answers")
         let userDocRef = db.collection("users").document(userId)
-
+        
         for answer in answers {
             let answerData: [String: Any] = [
                 "questionId": answer.questionId,
@@ -835,59 +835,59 @@ class AuthViewModel: ObservableObject {
     }
     
     func fetchPlans(completion: @escaping (Result<[PPPlan], Error>) -> Void) {
-            guard let url = URL(string: "http://34.70.2.21:8080/generate_plan") else {
-                completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
-                return
-            }
-            
-            guard let userId = Auth.auth().currentUser?.uid else {
-                completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])))
-                return
-            }
-
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let body: [String: Any] = ["user_id": userId]
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
-
-            let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-                if let error = error {
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
-                    return
-                }
-                
-                guard let data = data else {
-                    DispatchQueue.main.async {
-                        completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
-                    }
-                    return
-                }
-                
-                do {
-                    let plans = try JSONDecoder().decode([PPPlan].self, from: data)
-                    DispatchQueue.main.async {
-                        self?.ppPlans = plans
-                        completion(.success(plans))
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
-                }
-            }
-            
-            task.resume()
+        guard let url = URL(string: "http://34.70.2.21:8080/generate_plan") else {
+            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
         }
+        
+        guard let userId = Auth.auth().currentUser?.uid else {
+            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: Any] = ["user_id": userId]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+                return
+            }
+            
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                }
+                return
+            }
+            
+            do {
+                let plans = try JSONDecoder().decode([PPPlan].self, from: data)
+                DispatchQueue.main.async {
+                    self?.ppPlans = plans
+                    completion(.success(plans))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            }
+        }
+        
+        task.resume()
+    }
     
     func saveWidgets(widgets: [CustomWidget]) async {
         guard let userID = currentUser?.id else { return }
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(userID)
-
+        
         do {
             try await userRef.updateData(["selectedWidgets": widgets.map { try Firestore.Encoder().encode($0) }])
             print("Widgets saved successfully.")
@@ -897,12 +897,12 @@ class AuthViewModel: ObservableObject {
         
         await fetchWidgets()
     }
-
+    
     func fetchWidgets() async {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let db = Firestore.firestore()
         let userRef = db.collection("users").document(userId)
-
+        
         do {
             let document = try await userRef.getDocument()
             if let data = document.data() {
@@ -918,8 +918,8 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-
-   
+    
+    
     func saveDailyWidgetData(widget: CustomWidget) async throws {
         guard let userId = currentUser?.id else { return }
         let dateFormatter = DateFormatter()
@@ -944,7 +944,7 @@ class AuthViewModel: ObservableObject {
             throw error
         }
     }
-
+    
     func saveAllDailyWidgetData() async throws {
         guard let userId = currentUser?.id, let widgets = currentUser?.selectedWidgets else { return }
         let dateFormatter = DateFormatter()
@@ -973,12 +973,12 @@ class AuthViewModel: ObservableObject {
             throw error
         }
     }
-
+    
     func saveDailyWidgetDataLocally(widget: CustomWidget) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: Date())
-
+        
         // Get the current data for the day from UserDefaults
         var dailyData = UserDefaults.standard.dictionary(forKey: dateString) as? [String: Any] ?? [:]
         
@@ -993,7 +993,7 @@ class AuthViewModel: ObservableObject {
         // Save the updated daily data back to UserDefaults
         UserDefaults.standard.set(dailyData, forKey: dateString)
     }
-
+    
     func saveAllDailyWidgetDataLocally() {
         guard let widgets = currentUser?.selectedWidgets else { return }
         
@@ -1001,13 +1001,13 @@ class AuthViewModel: ObservableObject {
             saveDailyWidgetDataLocally(widget: widget)
         }
     }
-
+    
     func uploadLocalDailyData() async {
         guard let userId = currentUser?.id else { return }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.string(from: Date())
-
+        
         // Retrieve the saved daily data from UserDefaults
         let dailyData = UserDefaults.standard.dictionary(forKey: dateString) as? [String: Any] ?? [:]
         
@@ -1024,25 +1024,25 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-     
+    
     
     // MARK: - Routine and Habit Management
-
+    
     
     func createRoutine(name: String, description: String, habits: [Habits]) async throws {
         guard let currentUserID = currentUser?.id else { throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"]) }
-
+        
         var newRoutine = Routine(name: name, description: description, habits: habits)
         newRoutine.habits[0].isUnlocked = true  // Unlock the first habit by default
-
+        
         // Ensure that the currentUser's routines array exists
         if currentUser?.routines == nil {
             currentUser?.routines = []
         }
-
+        
         // Append the new routine to the user's routines
         currentUser?.routines.append(newRoutine)
-
+        
         // Prepare the Firestore document reference
         let userRef = db.collection("users").document(currentUserID)
         
@@ -1066,15 +1066,15 @@ class AuthViewModel: ObservableObject {
         guard let routine = routine else { throw NSError(domain: "AuthViewModel", code: 6, userInfo: [NSLocalizedDescriptionKey: "Routine is nil"]) }
         guard let userID = currentUser?.id else { throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"]) }
         guard var routines = currentUser?.routines else { throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "No routines found"]) }
-
+        
         if let index = routines.firstIndex(where: { $0.id == routine.id }) {
             routines[index] = routine
         } else {
             throw NSError(domain: "AuthViewModel", code: 2, userInfo: [NSLocalizedDescriptionKey: "Routine not found"])
         }
-
+        
         let userRef = db.collection("users").document(userID)
-
+        
         do {
             let encodedRoutines = try Firestore.Encoder().encode(routines)
             try await userRef.updateData(["routines": encodedRoutines])
@@ -1086,14 +1086,14 @@ class AuthViewModel: ObservableObject {
             throw error
         }
     }
-
+    
     func deleteRoutine(_ routine: Routine?) async throws {
         guard let routine = routine else { throw NSError(domain: "AuthViewModel", code: 6, userInfo: [NSLocalizedDescriptionKey: "Routine is nil"]) }
         guard let userID = currentUser?.id else { throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"]) }
         guard var routines = currentUser?.routines else { throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "No routines found"]) }
-
+        
         routines.removeAll(where: { $0.id == routine.id })
-
+        
         let userRef = db.collection("users").document(userID)
         do {
             let encodedRoutines = try Firestore.Encoder().encode(routines)
@@ -1107,84 +1107,84 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-
-//    func completeHabit(routineID: String, habitID: String) async throws {
-//        guard let currentUserID = currentUser?.id else {
-//            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
-//        }
-//        guard var routines = currentUser?.routines else {
-//            throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "No routines found"])
-//        }
-//        guard let routineIndex = routines.firstIndex(where: { $0.id == routineID }) else {
-//            throw NSError(domain: "AuthViewModel", code: 2, userInfo: [NSLocalizedDescriptionKey: "Routine not found"])
-//        }
-//        guard let habitIndex = routines[routineIndex].habits.firstIndex(where: { $0.id == habitID }) else {
-//            throw NSError(domain: "AuthViewModel", code: 3, userInfo: [NSLocalizedDescriptionKey: "Habit not found"])
-//        }
-//
-//        var habit = routines[routineIndex].habits[habitIndex]
-//
-//        // Check previous habits
-//        for otherHabit in routines[routineIndex].habits where otherHabit.isUnlocked && otherHabit.id != habitID {
-//            if otherHabit.lastCompletedDate == nil || !Calendar.current.isDateInToday(otherHabit.lastCompletedDate!) {
-//                throw NSError(domain: "AuthViewModel", code: 4, userInfo: [NSLocalizedDescriptionKey: "Cannot complete habit, previous unlocked habit not completed."])
-//            }
-//        }
-//
-//        let today = Date()
-//        if let lastCompleted = habit.lastCompletedDate, Calendar.current.isDateInToday(lastCompleted) {
-//            throw NSError(domain: "AuthViewModel", code: 5, userInfo: [NSLocalizedDescriptionKey: "Habit already completed today."])
-//        }
-//
-//        habit.currentStreak += 1
-//        habit.lastCompletedDate = today
-//
-//        routines[routineIndex].habits[habitIndex] = habit
-//
-//        if habit.currentStreak >= habit.requiredStreak && habitIndex + 1 < routines[routineIndex].habits.count {
-//            routines[routineIndex].habits[habitIndex + 1].isUnlocked = true
-//        }
-//
-//        let userRef = db.collection("users").document(currentUserID)
-//        do {
-//            // Convert routines to a dictionary representation
-//            let routinesDicts = routines.map { routine -> [String: Any] in
-//                var routineDict: [String: Any] = [
-//                    "id": routine.id,
-//                    "name": routine.name,
-//                    "habits": routine.habits.map { habit -> [String: Any] in
-//                        var habitDict: [String: Any] = [
-//                            "id": habit.id,
-//                            "name": habit.name,
-//                            "requiredStreak": habit.requiredStreak,
-//                            "currentStreak": habit.currentStreak,
-//                            "isUnlocked": habit.isUnlocked
-//                        ]
-//                        if let lastCompletedDate = habit.lastCompletedDate {
-//                            habitDict["lastCompletedDate"] = Timestamp(date: lastCompletedDate)
-//                        }
-//                        return habitDict
-//                    }
-//                ]
-//                if let description = routine.description {
-//                    routineDict["description"] = description
-//                }
-//                if let targetDate = routine.targetDate {
-//                    routineDict["targetDate"] = Timestamp(date: targetDate)
-//                }
-//                return routineDict
-//            }
-//
-//            try await userRef.updateData(["routines": routinesDicts])
-//
-//            DispatchQueue.main.async {
-//                self.currentUser?.routines = routines
-//            }
-//        } catch {
-//            print("Failed to update habit completion: \(error.localizedDescription)")
-//            throw error
-//        }
-//    }
+    
+    //    func completeHabit(routineID: String, habitID: String) async throws {
+    //        guard let currentUserID = currentUser?.id else {
+    //            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
+    //        }
+    //        guard var routines = currentUser?.routines else {
+    //            throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "No routines found"])
+    //        }
+    //        guard let routineIndex = routines.firstIndex(where: { $0.id == routineID }) else {
+    //            throw NSError(domain: "AuthViewModel", code: 2, userInfo: [NSLocalizedDescriptionKey: "Routine not found"])
+    //        }
+    //        guard let habitIndex = routines[routineIndex].habits.firstIndex(where: { $0.id == habitID }) else {
+    //            throw NSError(domain: "AuthViewModel", code: 3, userInfo: [NSLocalizedDescriptionKey: "Habit not found"])
+    //        }
+    //
+    //        var habit = routines[routineIndex].habits[habitIndex]
+    //
+    //        // Check previous habits
+    //        for otherHabit in routines[routineIndex].habits where otherHabit.isUnlocked && otherHabit.id != habitID {
+    //            if otherHabit.lastCompletedDate == nil || !Calendar.current.isDateInToday(otherHabit.lastCompletedDate!) {
+    //                throw NSError(domain: "AuthViewModel", code: 4, userInfo: [NSLocalizedDescriptionKey: "Cannot complete habit, previous unlocked habit not completed."])
+    //            }
+    //        }
+    //
+    //        let today = Date()
+    //        if let lastCompleted = habit.lastCompletedDate, Calendar.current.isDateInToday(lastCompleted) {
+    //            throw NSError(domain: "AuthViewModel", code: 5, userInfo: [NSLocalizedDescriptionKey: "Habit already completed today."])
+    //        }
+    //
+    //        habit.currentStreak += 1
+    //        habit.lastCompletedDate = today
+    //
+    //        routines[routineIndex].habits[habitIndex] = habit
+    //
+    //        if habit.currentStreak >= habit.requiredStreak && habitIndex + 1 < routines[routineIndex].habits.count {
+    //            routines[routineIndex].habits[habitIndex + 1].isUnlocked = true
+    //        }
+    //
+    //        let userRef = db.collection("users").document(currentUserID)
+    //        do {
+    //            // Convert routines to a dictionary representation
+    //            let routinesDicts = routines.map { routine -> [String: Any] in
+    //                var routineDict: [String: Any] = [
+    //                    "id": routine.id,
+    //                    "name": routine.name,
+    //                    "habits": routine.habits.map { habit -> [String: Any] in
+    //                        var habitDict: [String: Any] = [
+    //                            "id": habit.id,
+    //                            "name": habit.name,
+    //                            "requiredStreak": habit.requiredStreak,
+    //                            "currentStreak": habit.currentStreak,
+    //                            "isUnlocked": habit.isUnlocked
+    //                        ]
+    //                        if let lastCompletedDate = habit.lastCompletedDate {
+    //                            habitDict["lastCompletedDate"] = Timestamp(date: lastCompletedDate)
+    //                        }
+    //                        return habitDict
+    //                    }
+    //                ]
+    //                if let description = routine.description {
+    //                    routineDict["description"] = description
+    //                }
+    //                if let targetDate = routine.targetDate {
+    //                    routineDict["targetDate"] = Timestamp(date: targetDate)
+    //                }
+    //                return routineDict
+    //            }
+    //
+    //            try await userRef.updateData(["routines": routinesDicts])
+    //
+    //            DispatchQueue.main.async {
+    //                self.currentUser?.routines = routines
+    //            }
+    //        } catch {
+    //            print("Failed to update habit completion: \(error.localizedDescription)")
+    //            throw error
+    //        }
+    //    }
     func completeHabit(routineID: String, habitID: String) async throws {
         guard let currentUserID = currentUser?.id else {
             throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
@@ -1198,14 +1198,14 @@ class AuthViewModel: ObservableObject {
         guard let habitIndex = routines[routineIndex].habits.firstIndex(where: { $0.id == habitID }) else {
             throw NSError(domain: "AuthViewModel", code: 3, userInfo: [NSLocalizedDescriptionKey: "Habit not found"])
         }
-
+        
         var habit = routines[routineIndex].habits[habitIndex]
-
+        
         // Handle different frequency types
         let today = Date()
         let calendar = Calendar.current
         var shouldCompleteHabit = false
-
+        
         switch habit.frequency {
         case .daily:
             if let lastCompleted = habit.lastCompletedDate, calendar.isDateInToday(lastCompleted) {
@@ -1218,16 +1218,16 @@ class AuthViewModel: ObservableObject {
             }
             shouldCompleteHabit = true
         }
-
+        
         if shouldCompleteHabit {
             habit.currentStreak += 1
             habit.lastCompletedDate = today
             routines[routineIndex].habits[habitIndex] = habit
-
+            
             if habit.currentStreak >= habit.requiredStreak && habitIndex + 1 < routines[routineIndex].habits.count {
                 routines[routineIndex].habits[habitIndex + 1].isUnlocked = true
             }
-
+            
             let userRef = db.collection("users").document(currentUserID)
             do {
                 let routinesDicts = try routines.map { try Firestore.Encoder().encode($0) }
@@ -1241,87 +1241,87 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
-
-//    func checkAndResetStreaks() async throws {
-//        guard let currentUserID = currentUser?.id else {
-//            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
-//        }
-//
-//        guard var routines = currentUser?.routines else {
-//            throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "No routines found"])
-//        }
-//
-//        let today = Date()
-//        var hasChanges = false
-//
-//        for routineIndex in routines.indices {
-//            for habitIndex in routines[routineIndex].habits.indices {
-//                if let lastCompletedDate = routines[routineIndex].habits[habitIndex].lastCompletedDate,
-//                   !Calendar.current.isDateInYesterday(lastCompletedDate) && !Calendar.current.isDateInToday(lastCompletedDate) {
-//                    routines[routineIndex].habits[habitIndex].currentStreak = 0
-//                    routines[routineIndex].habits[habitIndex].isUnlocked = habitIndex == 0
-//                    hasChanges = true
-//                }
-//            }
-//        }
-//
-//        if hasChanges {
-//            let userRef = db.collection("users").document(currentUserID)
-//            do {
-//                // Convert routines to a dictionary representation
-//                let routinesDicts = routines.map { routine -> [String: Any] in
-//                    var routineDict: [String: Any] = [
-//                        "id": routine.id,
-//                        "name": routine.name,
-//                        "habits": routine.habits.map { habit -> [String: Any] in
-//                            var habitDict: [String: Any] = [
-//                                "id": habit.id,
-//                                "name": habit.name,
-//                                "requiredStreak": habit.requiredStreak,
-//                                "currentStreak": habit.currentStreak,
-//                                "isUnlocked": habit.isUnlocked
-//                            ]
-//                            if let lastCompletedDate = habit.lastCompletedDate {
-//                                habitDict["lastCompletedDate"] = Timestamp(date: lastCompletedDate)
-//                            }
-//                            return habitDict
-//                        }
-//                    ]
-//                    if let description = routine.description {
-//                        routineDict["description"] = description
-//                    }
-//                    if let targetDate = routine.targetDate {
-//                        routineDict["targetDate"] = Timestamp(date: targetDate)
-//                    }
-//                    return routineDict
-//                }
-//
-//                try await userRef.updateData(["routines": routinesDicts])
-//
-//                DispatchQueue.main.async {
-//                    self.currentUser?.routines = routines
-//                }
-//            } catch {
-//                print("Failed to update streaks: \(error.localizedDescription)")
-//                throw error
-//            }
-//        }
-//    }
+    
+    
+    //    func checkAndResetStreaks() async throws {
+    //        guard let currentUserID = currentUser?.id else {
+    //            throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
+    //        }
+    //
+    //        guard var routines = currentUser?.routines else {
+    //            throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "No routines found"])
+    //        }
+    //
+    //        let today = Date()
+    //        var hasChanges = false
+    //
+    //        for routineIndex in routines.indices {
+    //            for habitIndex in routines[routineIndex].habits.indices {
+    //                if let lastCompletedDate = routines[routineIndex].habits[habitIndex].lastCompletedDate,
+    //                   !Calendar.current.isDateInYesterday(lastCompletedDate) && !Calendar.current.isDateInToday(lastCompletedDate) {
+    //                    routines[routineIndex].habits[habitIndex].currentStreak = 0
+    //                    routines[routineIndex].habits[habitIndex].isUnlocked = habitIndex == 0
+    //                    hasChanges = true
+    //                }
+    //            }
+    //        }
+    //
+    //        if hasChanges {
+    //            let userRef = db.collection("users").document(currentUserID)
+    //            do {
+    //                // Convert routines to a dictionary representation
+    //                let routinesDicts = routines.map { routine -> [String: Any] in
+    //                    var routineDict: [String: Any] = [
+    //                        "id": routine.id,
+    //                        "name": routine.name,
+    //                        "habits": routine.habits.map { habit -> [String: Any] in
+    //                            var habitDict: [String: Any] = [
+    //                                "id": habit.id,
+    //                                "name": habit.name,
+    //                                "requiredStreak": habit.requiredStreak,
+    //                                "currentStreak": habit.currentStreak,
+    //                                "isUnlocked": habit.isUnlocked
+    //                            ]
+    //                            if let lastCompletedDate = habit.lastCompletedDate {
+    //                                habitDict["lastCompletedDate"] = Timestamp(date: lastCompletedDate)
+    //                            }
+    //                            return habitDict
+    //                        }
+    //                    ]
+    //                    if let description = routine.description {
+    //                        routineDict["description"] = description
+    //                    }
+    //                    if let targetDate = routine.targetDate {
+    //                        routineDict["targetDate"] = Timestamp(date: targetDate)
+    //                    }
+    //                    return routineDict
+    //                }
+    //
+    //                try await userRef.updateData(["routines": routinesDicts])
+    //
+    //                DispatchQueue.main.async {
+    //                    self.currentUser?.routines = routines
+    //                }
+    //            } catch {
+    //                print("Failed to update streaks: \(error.localizedDescription)")
+    //                throw error
+    //            }
+    //        }
+    //    }
     
     func checkAndResetStreaks() async throws {
         guard let currentUserID = currentUser?.id else {
             throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
         }
-
+        
         guard var routines = currentUser?.routines else {
             throw NSError(domain: "AuthViewModel", code: 1, userInfo: [NSLocalizedDescriptionKey: "No routines found"])
         }
-
+        
         let today = Date()
         let calendar = Calendar.current
         var hasChanges = false
-
+        
         for routineIndex in routines.indices {
             for habitIndex in routines[routineIndex].habits.indices {
                 let habit = routines[routineIndex].habits[habitIndex]
@@ -1343,7 +1343,7 @@ class AuthViewModel: ObservableObject {
                 }
             }
         }
-
+        
         if hasChanges {
             let userRef = db.collection("users").document(currentUserID)
             do {
@@ -1358,14 +1358,14 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     
     func isHabitCompletedToday(_ habit: Habits) -> Bool {
-         guard let lastCompletedDate = habit.lastCompletedDate else {
-             return false
-         }
-         return Calendar.current.isDateInToday(lastCompletedDate)
-     }
+        guard let lastCompletedDate = habit.lastCompletedDate else {
+            return false
+        }
+        return Calendar.current.isDateInToday(lastCompletedDate)
+    }
     
     func scheduleNotificationForNewTracker(widgetName: String) {
         let center = UNUserNotificationCenter.current()
@@ -1379,7 +1379,7 @@ class AuthViewModel: ObservableObject {
         dateComponents.minute = 0
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-
+        
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         
         center.add(request) { error in
@@ -1390,10 +1390,10 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     func saveToGAD7(totalScore: Int, answers: [Int]) async throws {
         guard let userId = currentUser?.id else { return }
-
+        
         let db = Firestore.firestore()
         let gad7Data: [String: Any] = [
             "score": totalScore,
@@ -1410,14 +1410,14 @@ class AuthViewModel: ObservableObject {
     
     func saveToPHQ9(totalScore: Int, answers: [Int]) async throws {
         guard let userId = currentUser?.id else { return }
-
+        
         let db = Firestore.firestore()
         let phq9Data: [String: Any] = [
             "score": totalScore,
             "answers": answers,
             "date": Timestamp(date: Date())
         ]
-        
+        print("savetophq");
         db.collection("users").document(userId).collection("profiles").document("PHQ9").setData(phq9Data) { error in
             if let error = error {
                 print("Error saving phq9Data: \(error)")
@@ -1427,7 +1427,7 @@ class AuthViewModel: ObservableObject {
     
     func saveToNMRQ(totalScore: Int, answers: [Int]) async throws {
         guard let userId = currentUser?.id else { return }
-
+        
         let db = Firestore.firestore()
         let NMRQdata: [String: Any] = [
             "score": totalScore,
@@ -1444,7 +1444,7 @@ class AuthViewModel: ObservableObject {
     
     func saveToPSS(totalScore: Int, answers: [Int]) async throws {
         guard let userId = currentUser?.id else { return }
-
+        
         let db = Firestore.firestore()
         let PSSdata: [String: Any] = [
             "score": totalScore,
@@ -1460,7 +1460,7 @@ class AuthViewModel: ObservableObject {
     }
     
     // MARK: - Gamification Functions
-
+    
     
     // Log each step
     // Predefined list of all possible badges
@@ -1470,12 +1470,12 @@ class AuthViewModel: ObservableObject {
         Badge(id: "3", name: "Gold Badge", description: "Achieve 3000 points", imageURL: "goldBadge", dateEarned: nil, pointsRequired: 3000, levelRequired: 3),
         Badge(id: "4", name: "Diamond Badge", description: "Achieve 4000 points", imageURL: "diamondBadge", dateEarned: nil, pointsRequired: 4000, levelRequired: 4)
     ]
-
+    
     // Log each step
     private func log(_ message: String) {
         print("[AuthViewModel] \(message)")
     }
-
+    
     // Award points to user
     func awardPoints(_ points: Int, reason: String) async throws {
         log("Starting to award points")
@@ -1483,7 +1483,7 @@ class AuthViewModel: ObservableObject {
             log("Current user ID not found")
             throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
         }
-
+        
         let userRef = db.collection("points").document(userId)
         let pointEntry = PointEntry(
             id: UUID().uuidString,
@@ -1492,13 +1492,13 @@ class AuthViewModel: ObservableObject {
             points: points,
             reason: reason
         )
-
+        
         do {
             // Create an encoder and set the date encoding strategy
             let encoder = Firestore.Encoder()
             encoder.dateEncodingStrategy = .timestamp
             let encodedPointEntry = try encoder.encode(pointEntry)
-
+            
             // Check if the document exists
             let document = try await userRef.getDocument()
             if document.exists {
@@ -1516,13 +1516,13 @@ class AuthViewModel: ObservableObject {
                     "totalPoints": points
                 ])
             }
-
+            
             // Update local data
             log("Updating local total points")
             DispatchQueue.main.async {
                 self.totalPoints += points
             }
-
+            
             // Check for level up
             log("Checking for level up")
             try await checkForLevelUp()
@@ -1531,7 +1531,7 @@ class AuthViewModel: ObservableObject {
             throw error
         }
     }
-
+    
     // Check and handle level up
     private func checkForLevelUp() async throws {
         log("Checking for level up")
@@ -1539,9 +1539,9 @@ class AuthViewModel: ObservableObject {
             log("Current user data not found")
             throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user data not found"])
         }
-
+        
         let newLevel = calculateLevel(totalPoints)
-
+        
         if newLevel > currentLevel {
             log("Updating user level to \(newLevel)")
             let userRef = db.collection("users").document(userId)
@@ -1549,12 +1549,12 @@ class AuthViewModel: ObservableObject {
                 try await userRef.updateData([
                     "currentLevel": newLevel
                 ])
-
+                
                 // Update local data
                 DispatchQueue.main.async {
                     self.currentLevel = newLevel
                 }
-
+                
                 // Award level-up badge
                 if let levelBadge = allBadges.first(where: { $0.levelRequired == newLevel }) {
                     try await awardBadge(badge: levelBadge)
@@ -1565,12 +1565,12 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     // Calculate user level based on points
     private func calculateLevel(_ points: Int) -> Int {
         return points / 1000 + 1
     }
-
+    
     // Award badge to user
     func awardBadge(badge: Badge) async throws {
         log("Attempting to award badge: \(badge.name)")
@@ -1579,10 +1579,10 @@ class AuthViewModel: ObservableObject {
             throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
         }
         let userRef = db.collection("badges").document(userId)
-
+        
         var badgeToAward = badge
         badgeToAward.dateEarned = Date()
-
+        
         do {
             // Fetch current badges
             let document = try await userRef.getDocument()
@@ -1594,30 +1594,30 @@ class AuthViewModel: ObservableObject {
                     return try decoder.decode(Badge.self, from: dict)
                 }
             }
-
+            
             // Check if badge is already in currentBadges
             if currentBadges.contains(where: { $0.id == badge.id }) {
                 log("Badge already awarded: \(badge.name)")
                 return
             }
-
+            
             // Add the badge
             log("Awarding badge: \(badge.name)")
             let encoder = Firestore.Encoder()
             encoder.dateEncodingStrategy = .timestamp
             let encodedBadge = try encoder.encode(badgeToAward)
-
+            
             // Update Firestore
             try await userRef.setData([
                 "badges.\(badge.id)": encodedBadge
             ], merge: true)
-
+            
         } catch {
             log("Failed to award badge: \(error.localizedDescription)")
             throw error
         }
     }
-
+    
     // Check and award any new badges the user has earned
     func checkAndAwardBadges(totalPoints: Int, currentLevel: Int, earnedBadges: [Badge]) async throws {
         for badge in allBadges {
@@ -1631,7 +1631,7 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    
     // Fetch points data for user
     func getPointsData() async throws -> (pointsHistory: [PointEntry], totalPoints: Int) {
         log("Fetching points data")
@@ -1639,9 +1639,9 @@ class AuthViewModel: ObservableObject {
             log("Current user ID not found")
             throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
         }
-
+        
         let pointsRef = db.collection("points").document(userId)
-
+        
         do {
             let document = try await pointsRef.getDocument()
             if let data = document.data() {
@@ -1664,7 +1664,7 @@ class AuthViewModel: ObservableObject {
             throw error
         }
     }
-
+    
     // Fetch current level for user
     func getCurrentLevel() async throws -> Int {
         log("Fetching current level")
@@ -1672,9 +1672,9 @@ class AuthViewModel: ObservableObject {
             log("Current user ID not found")
             throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
         }
-
+        
         let userRef = db.collection("users").document(userId)
-
+        
         do {
             let document = try await userRef.getDocument()
             if let data = document.data() {
@@ -1690,7 +1690,7 @@ class AuthViewModel: ObservableObject {
             throw error
         }
     }
-
+    
     // Fetch badges for user
     func getBadges() async throws -> [Badge] {
         log("Fetching badges")
@@ -1698,9 +1698,9 @@ class AuthViewModel: ObservableObject {
             log("Current user ID not found")
             throw NSError(domain: "AuthViewModel", code: 0, userInfo: [NSLocalizedDescriptionKey: "Current user ID not found"])
         }
-
+        
         let badgesRef = db.collection("badges").document(userId)
-
+        
         do {
             let document = try await badgesRef.getDocument()
             if let data = document.data(), let badgesDict = data["badges"] as? [String: [String: Any]] {
@@ -1717,58 +1717,58 @@ class AuthViewModel: ObservableObject {
             throw error
         }
     }
-
+    
     func saveJournalEntry(entry: JournalEntry) async throws {
-           guard let currentUserID = currentUser?.id else {
-               throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
-           }
+        guard let currentUserID = currentUser?.id else {
+            throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
+        }
         print("savingjournal")
-           
-           let db = Firestore.firestore()
-           let userRef = db.collection("journal").document(currentUserID)
-            let journalRef = userRef.collection("journalEntries").document()
-
-           // Convert the journal entry to a dictionary for Firestore
-           let data: [String: Any] = [
-               "id": journalRef.documentID,
-               "question": entry.question,
-               "answer": entry.answer,
-               "date": Timestamp(date: entry.date)
-           ]
+        
+        let db = Firestore.firestore()
+        let userRef = db.collection("journal").document(currentUserID)
+        let journalRef = userRef.collection("journalEntries").document()
+        
+        // Convert the journal entry to a dictionary for Firestore
+        let data: [String: Any] = [
+            "id": journalRef.documentID,
+            "question": entry.question,
+            "answer": entry.answer,
+            "date": Timestamp(date: entry.date)
+        ]
         print("savingjournal2")
-
-           
-           // Save the journal entry to Firestore
-           try await journalRef.setData(data)
-       }
-
+        
+        
+        // Save the journal entry to Firestore
+        try await journalRef.setData(data)
+    }
+    
     func fetchJournalEntries(completion: @escaping ([JournalEntry]) -> Void) {
-            guard let currentUserID = currentUser?.id else { return }
-            
-            let db = Firestore.firestore()
-            let userRef = db.collection("journal").document(currentUserID)
-            let journalCollection = userRef.collection("journalEntries")
-            
-            // Fetch documents ordered by the date field in descending order
-            journalCollection.order(by: "date", descending: true).getDocuments { (snapshot, error) in
-                if let error = error {
-                    print("Error fetching journal entries: \(error.localizedDescription)")
-                    completion([])
-                } else {
-                    var entries: [JournalEntry] = []
-                    for document in snapshot!.documents {
-                        let data = document.data()
-                        if let question = data["question"] as? String,
-                           let answer = data["answer"] as? String,
-                           let date = (data["date"] as? Timestamp)?.dateValue() {
-                            let entry = JournalEntry(id: document.documentID, question: question, answer: answer, date: date)
-                            entries.append(entry)
-                        }
+        guard let currentUserID = currentUser?.id else { return }
+        
+        let db = Firestore.firestore()
+        let userRef = db.collection("journal").document(currentUserID)
+        let journalCollection = userRef.collection("journalEntries")
+        
+        // Fetch documents ordered by the date field in descending order
+        journalCollection.order(by: "date", descending: true).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching journal entries: \(error.localizedDescription)")
+                completion([])
+            } else {
+                var entries: [JournalEntry] = []
+                for document in snapshot!.documents {
+                    let data = document.data()
+                    if let question = data["question"] as? String,
+                       let answer = data["answer"] as? String,
+                       let date = (data["date"] as? Timestamp)?.dateValue() {
+                        let entry = JournalEntry(id: document.documentID, question: question, answer: answer, date: date)
+                        entries.append(entry)
                     }
-                    completion(entries)
                 }
+                completion(entries)
             }
         }
+    }
     
     func fetchJournalEntries2() {
         guard let currentUserID = Auth.auth().currentUser?.uid else {
@@ -1795,24 +1795,24 @@ class AuthViewModel: ObservableObject {
         guard let currentUserID = currentUser?.id else {
             throw NSError(domain: "AuthError", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated."])
         }
-
+        
         guard let entryID = entry.id else {
             throw NSError(domain: "UpdateError", code: 400, userInfo: [NSLocalizedDescriptionKey: "Journal entry ID is missing."])
         }
-
+        
         let db = Firestore.firestore()
         let journalEntryRef = db.collection("journal").document(currentUserID).collection("journalEntries").document(entryID)
-
+        
         // Log Firestore path for debugging
         print("Updating journal entry at path: users/\(currentUserID)/journalEntries/\(entryID)")
-
+        
         // Prepare the updated data
         let updatedData: [String: Any] = [
             "question": entry.question,
             "answer": entry.answer,
             "date": Timestamp(date: entry.date) // Ensure date is in Firestore format
         ]
-
+        
         // Attempt to update Firestore
         do {
             print("Updated Data: \(updatedData)")
@@ -1853,7 +1853,7 @@ class AuthViewModel: ObservableObject {
     
     func fetchQuestData() {
         guard let userId = currentUser?.id else { return }
-
+        
         
         listenerRegistration = db.collection("quests").document(userId).collection("userQuests")
             .addSnapshotListener { querySnapshot, error in
@@ -1865,6 +1865,14 @@ class AuthViewModel: ObservableObject {
                 self.quests = querySnapshot?.documents.compactMap { document in
                     try? document.data(as: Quest.self)
                 } ?? []
+                // Only add new quests that are not already in the array
+                for quests in self.quests {
+                    if !self.quests.contains(where: { $0.id == quests.id }) {
+                        self.quests.append(quests)
+                    }
+                }
+                
+                
                 
                 // If no quests exist, create default ones
                 if self.quests.isEmpty {
@@ -1875,7 +1883,7 @@ class AuthViewModel: ObservableObject {
     
     func createDefaultQuests() {
         guard let userId = currentUser?.id else { return }
-
+        
         let defaultQuests = [
             Quest(baseName: "Profiles", currentProgress: 0, nextSegmentGoal: 1, totalSegments: [1, 3, 10, 20, 40]),
             Quest(baseName: "Games", currentProgress: 0, nextSegmentGoal: 5, totalSegments: [5, 25, 50, 150, 400]),
@@ -1899,7 +1907,7 @@ class AuthViewModel: ObservableObject {
             return
         }
         guard let userId = currentUser?.id else { return }
-
+        
         print("saving quests now")
         print(quest)
         do {
@@ -1946,7 +1954,6 @@ class AuthViewModel: ObservableObject {
                 checkJournalProgress(for: quest) { updatedQuest in
                     //self.quests[index] = updatedQuest
                     self.saveQuest(updatedQuest)
-                    self.fetchQuestData()
                 }
             case "Profiles":
                 // Add the check for profiles here
@@ -1957,22 +1964,40 @@ class AuthViewModel: ObservableObject {
             case "Games":
                 // Add the check for games here
                 checkGameProgress(for: quest) { updatedQuest in
-                    self.quests[index] = updatedQuest
+                    //self.quests[index] = updatedQuest
                     self.saveQuest(updatedQuest)
                 }
+                
             case "Chat":
                 // Add the check for games here
                 checkChatProgress(for: quest) { updatedQuest in
                     //self.quests[index] = updatedQuest
                     self.saveQuest(updatedQuest)
-                    self.fetchQuestData()
-
+                    
                 }
+            case "Habits":
+                // Add the check for games here
+                checkHabitProgress(for: quest) { updatedQuest in
+                    self.quests[index] = updatedQuest
+                    self.saveQuest(updatedQuest)
+                    
+                }
+            case "DailyCheckin":
+                print("Processing DailyCheckin quest")  // Debugging
+                checkDailyCheckinProgress(for: quest) { updatedQuest in
+                    self.saveQuest(updatedQuest)
+                    
+                }
+                //case "RoutineCompletion":
+                //         checkRoutineCompletionProgress(for: quest) { updatedQuest in
+                //           self.saveQuest(updatedQuest)
+                //     }
             default:
                 break
             }
         }
     }
+    
     
     func checkJournalProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
         fetchJournalEntries { entries in
@@ -1996,43 +2021,232 @@ class AuthViewModel: ObservableObject {
             completion(updatedQuest)
         }
     }
-
-    // Add similar check functions for other quest types
-    func checkProfileProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
-        // Example logic to fetch profile data and update quest progress
-//        fetchProfileData { profileCount in
-//            var updatedQuest = quest
-//            updatedQuest.currentProgress = profileCount
-//
-//            for segment in quest.totalSegments {
-//                if profileCount >= segment {
-//                    updatedQuest.nextSegmentGoal = segment
-//                } else {
-//                    break
-//                }
-//            }
-//
-//            completion(updatedQuest)
-//        }
+    func checkHabitProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
+        fetchCompletedHabitsCount { completedHabitsCount in
+            var updatedQuest = quest
+            updatedQuest.currentProgress = completedHabitsCount
+            
+            // Update the next segment goal (milestone)
+            if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal {
+                if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+                   nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                    updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+                }
+            }
+            
+            completion(updatedQuest)
+        }
     }
-
+    func fetchCompletedHabitsCount(completion: @escaping (Int) -> Void) {
+        guard let currentUserID = currentUser?.id else {
+            print("No current user")
+            completion(0)
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let habitsRef = db.collection("users").document(currentUserID).collection("habits")
+        
+        // Fetch all available dates in the "habits" collection
+        habitsRef.getDocuments { (dateSnapshot, error) in
+            if let error = error {
+                print("Error fetching habit dates: \(error.localizedDescription)")
+                completion(0)
+                return
+            }
+            
+            var totalCompletedHabitsCount = 0
+            let dateDocuments = dateSnapshot?.documents ?? []
+            
+            if dateDocuments.isEmpty {
+                completion(0)  // No dates found, return 0
+                return
+            }
+            
+            // Loop through each date document to access the habits array
+            for dateDocument in dateDocuments {
+                let habitData = dateDocument.data()
+                
+                // Assuming the array is stored under a field called "habits"
+                if let habitsArray = habitData["habits"] as? [[String: Any]] {
+                    for habit in habitsArray {
+                        if let count = habit["count"] as? Int, let goal = habit["goal"] as? Int {
+                            if count == goal {
+                                totalCompletedHabitsCount += 1  // Increment count for completed habits
+                            }
+                        }
+                    }
+                }
+            }
+            
+            print("Total completed habits: \(totalCompletedHabitsCount)")  // Debugging
+            completion(totalCompletedHabitsCount)
+        }
+    }
+    
+    
+    
+    
+    func checkDailyCheckinProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
+        guard let currentUserID = currentUser?.id else {
+            print("No current user")
+            completion(quest)
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(currentUserID)
+        let checkInsRef = userRef.collection("checkIns")
+        
+        // Fetch the most recent check-in, ordered by date in descending order
+        checkInsRef.order(by: "date", descending: true).limit(to: 1).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error fetching check-in: \(error.localizedDescription)")
+                completion(quest)
+                return
+            }
+            
+            guard let latestCheckIn = querySnapshot?.documents.first,
+                  let checkinTimestamp = latestCheckIn.data()["date"] as? Timestamp else {
+                // No check-in found, reset progress
+                var updatedQuest = quest
+                updatedQuest.currentProgress = 0
+                completion(updatedQuest)
+                return
+            }
+            
+            var updatedQuest = quest
+            let lastCheckinDate = checkinTimestamp.dateValue()
+            
+            // Check if the latest check-in was today
+            if Calendar.current.isDateInToday(lastCheckinDate) {
+                if updatedQuest.currentProgress == 0 {
+                    // Increment progress only if it hasn't been updated for today
+                    updatedQuest.currentProgress += 1
+                }
+            } else {
+                // If the last check-in is not today, reset the progress
+                updatedQuest.currentProgress = 0
+            }
+            
+            // Update the next segment goal if needed
+            if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal,
+               let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+               nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+            }
+            
+            completion(updatedQuest)
+        }
+    }
+    
+    
+    func fetchGameProgress(completion: @escaping (Int) -> Void) {
+        guard let userId = currentUser?.id else {
+            print("No current user")
+            completion(0)
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let gameDataRef = db.collection("gameData").document(userId).collection("phases")
+        
+        // Fetch all phases for the user
+        gameDataRef.getDocuments { (phaseSnapshot, error) in
+            if let error = error {
+                print("Error getting phases: \(error.localizedDescription)")
+                completion(0)
+            } else {
+                var totalLevelsCompleted = 0
+                let phases = phaseSnapshot?.documents ?? []
+                
+                // Fetch levels for each phase
+                let group = DispatchGroup()  // Used to manage async calls
+                for phaseDocument in phases {
+                    let levelsRef = gameDataRef.document(phaseDocument.documentID).collection("levels")
+                    
+                    group.enter()  // Enter the dispatch group for each phase
+                    levelsRef.getDocuments { (levelSnapshot, levelError) in
+                        if let levelError = levelError {
+                            print("Error getting levels: \(levelError.localizedDescription)")
+                        } else {
+                            let levels = levelSnapshot?.documents ?? []
+                            totalLevelsCompleted += levels.count  // Count the number of levels in the phase
+                        }
+                        group.leave()  // Leave the dispatch group once the phase is processed
+                    }
+                }
+                
+                // Once all async fetches are completed, call the completion handler
+                group.notify(queue: .main) {
+                    completion(totalLevelsCompleted)
+                }
+            }
+        }
+    }
+    
     func checkGameProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
-        // Example logic to fetch game data and update quest progress
-//        fetchGameData { gameModuleCount in
-//            var updatedQuest = quest
-//            updatedQuest.currentProgress = gameModuleCount
-//
-//            for segment in quest.totalSegments {
-//                if gameModuleCount >= segment {
-//                    updatedQuest.nextSegmentGoal = segment
-//                } else {
-//                    break
-//                }
-//            }
-//
-//            completion(updatedQuest)
-//        }
+        fetchGameProgress { gameProgressCount in
+            var updatedQuest = quest
+            updatedQuest.currentProgress = gameProgressCount
+            
+            // Check if the user has reached the next segment goal
+            if gameProgressCount >= updatedQuest.nextSegmentGoal {
+                if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+                   nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                    updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+                }
+            }
+            
+            completion(updatedQuest)
+        }
     }
+    
+    
+    func fetchProfileCount(completion: @escaping (Int) -> Void) {
+        guard let currentUserID = currentUser?.id else {
+            print("No current user")
+            completion(0)
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let profilesRef = db.collection("users").document(currentUserID).collection("profiles")
+        
+        // Fetch all documents in the profiles collection
+        profilesRef.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching profiles: \(error.localizedDescription)")
+                completion(0)
+                return
+            }
+            
+            // Count the number of documents in the profiles collection
+            let profileCount = querySnapshot?.documents.count ?? 0
+            print("Profile count: \(profileCount)")
+            completion(profileCount)
+        }
+    }
+    func checkProfileProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
+        fetchProfileCount { profileCount in
+            var updatedQuest = quest
+            updatedQuest.currentProgress = profileCount
+            
+            // Update the next segment goal (milestone)
+            if updatedQuest.currentProgress >= updatedQuest.nextSegmentGoal {
+                if let nextGoalIndex = updatedQuest.totalSegments.firstIndex(of: updatedQuest.nextSegmentGoal),
+                   nextGoalIndex + 1 < updatedQuest.totalSegments.count {
+                    updatedQuest.nextSegmentGoal = updatedQuest.totalSegments[nextGoalIndex + 1]
+                }
+            }
+            
+            completion(updatedQuest)
+        }
+    }
+    
+    
+    
+    
     
     func fetchChatProgress(completion: @escaping (Int) -> Void) {
         guard let currentUser = currentUser else {
@@ -2040,11 +2254,11 @@ class AuthViewModel: ObservableObject {
             completion(0)
             return
         }
-
+        
         let db = Firestore.firestore()
         let userRef = db.collection("chatbot_").document(currentUser.id)
         let sessionsRef = userRef.collection("sessions")
-
+        
         sessionsRef.getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error getting chat sessions: \(error)")
@@ -2076,6 +2290,35 @@ class AuthViewModel: ObservableObject {
             completion(updatedQuest)
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //        }
+    
+//    
+//    func checkGameProgress(for quest: Quest, completion: @escaping (Quest) -> Void) {
+//        // Example logic to fetch game data and update quest progress
+//        //        fetchGameData { gameModuleCount in
+//        //            var updatedQuest = quest
+//        //            updatedQuest.currentProgress = gameModuleCount
+//        //
+//        //            for segment in quest.totalSegments {
+//        //                if gameModuleCount >= segment {
+//        //                    updatedQuest.nextSegmentGoal = segment
+//        //                } else {
+//        //                    break
+//        //                }
+//        //            }
+//        //
+//        //            completion(updatedQuest)
+//        //        }
+//    }
     
     
     private func dateString(for date: Date) -> String {
@@ -2123,7 +2366,7 @@ class AuthViewModel: ObservableObject {
             currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
         }
     }
-        
+    
     private func createHabit(from data: [String: Any]) -> Habit? {
         if let id = data["id"] as? String,
            let title = data["title"] as? String,
@@ -2140,12 +2383,12 @@ class AuthViewModel: ObservableObject {
            let endDate = (data["endDate"] as? Timestamp)?.dateValue(),
            let startDate = (data["startDate"] as? Timestamp)?.dateValue(),
            let dateTaken = data["dateTaken"] as? String {
-
+            
             let reminder = (data["reminder"] as? Timestamp)?.dateValue()
-
+            
             let interval = data["interval"] as? Int
             let daysOfWeek = data["daysOfWeek"] as? [Int]
-
+            
             var specificDates: [Date]? = nil
             if let specificDatesTimestamps = data["specificDates"] as? [Timestamp] {
                 specificDates = specificDatesTimestamps.map { $0.dateValue() }
@@ -2156,7 +2399,7 @@ class AuthViewModel: ObservableObject {
                 dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust the date format if needed
                 specificDates = specificDatesStrings.compactMap { dateFormatter.date(from: $0) }
             }
-
+            
             return Habit(id: id, title: title, unit: unit, count: count, goal: goal,
                          startColor: startColor, endColor: endColor,
                          category: category, frequency: frequency,
@@ -2167,8 +2410,9 @@ class AuthViewModel: ObservableObject {
         return nil
     }
     
-
 }
+
+
 
 
 

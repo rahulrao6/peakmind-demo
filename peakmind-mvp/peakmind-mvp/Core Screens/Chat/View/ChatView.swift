@@ -271,42 +271,113 @@ struct ChatView: View {
         }
     }
 
-    // Helper function for conversation history view
     @ViewBuilder
     private func conversationHistoryView() -> some View {
-        VStack {
-            HStack {
-                Text("Previous Conversations")
-                    .font(.headline)
-                Spacer()
-                Button(action: {
-                    showConversationHistory = false
-                }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.gray)
+        ZStack {
+            // Background image for cohesive look
+            Image("PurpleNewBG")
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
+
+            VStack(alignment: .leading, spacing: 20) {
+                // Header with title, clear, and close buttons
+                HStack {
+                    Image(systemName: "clock.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(Color("PurpleButtonGradientColor1"))
+                    Text("Previous Conversations")
+                        .font(.custom("SFProText-Bold", size: 18))
+                        .foregroundColor(Color("PurpleButtonGradientColor2"))
+                    Spacer()
+                    
+                    // Clear button
+                    Button(action: clearConversationHistory) {
+                        Text("Clear All")
+                            .font(.caption)
+                            .foregroundColor(Color.red)
+                    }
+                    
+                    // Close button
+                    Button(action: {
+                        showConversationHistory = false
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(Color.gray)
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.top, 10)
+
+                // List of conversation previews
+                ScrollView {
+                    VStack(spacing: 15) {
+                        ForEach(conversationHistory.prefix(20), id: \.session_id) { conversation in
+                            Button(action: {
+                                loadConversation(sessionId: conversation.session_id)
+                                showConversationHistory = false
+                            }) {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(conversation.preview)
+                                        .font(.custom("SFProText-Medium", size: 16))
+                                        .foregroundColor(Color("TextInsideBoxColor"))
+                                        .lineLimit(1)
+                                    Text(formatDate(timestamp: conversation.timestamp))
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                    .cornerRadius(12)
+                                    .shadow(color: Color("PurpleButtonGradientColor2").opacity(0.3), radius: 5, x: 0, y: 2)
+                                )
+                            }
+                            .padding(.horizontal)
+                        }
+                    }
+                    .padding(.bottom, 20)
                 }
             }
             .padding()
+            .background(Color.white.opacity(0.9))
+            .cornerRadius(15)
+            .padding()
+        }
+    }
 
-            List(conversationHistory.prefix(20), id: \.session_id) { conversation in
-                Button(action: {
-                    loadConversation(sessionId: conversation.session_id)
-                    showConversationHistory = false
-                }) {
-                    VStack(alignment: .leading) {
-                        Text(conversation.preview)
-                            .lineLimit(1)
-                        Text(formatDate(timestamp: conversation.timestamp))
-                            .font(.caption)
-                            .foregroundColor(.gray)
+    // Function to clear conversation history from local storage and Firestore
+    private func clearConversationHistory() {
+        // Clear local conversation history
+        conversationHistory.removeAll()
+
+        // Clear from Firestore
+        guard let currentUser = viewModel.currentUser else { return }
+        let db = Firestore.firestore()
+        let userRef = db.collection("chatbot_").document(currentUser.id)
+        let sessionsRef = userRef.collection("sessions")
+        
+        sessionsRef.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error retrieving documents for deletion: \(error)")
+                return
+            }
+            
+            for document in querySnapshot!.documents {
+                document.reference.delete { error in
+                    if let error = error {
+                        print("Error deleting document: \(error)")
                     }
                 }
             }
         }
-        .background(Color.white)
-        .cornerRadius(15)
-        .padding()
     }
+
 
     // Helper function for the copy popup view
     @ViewBuilder
@@ -772,6 +843,10 @@ struct ConversationPreview: Identifiable {
 
 import SwiftUI
 
+import SwiftUI
+import FirebaseFirestore
+import Lottie
+
 struct FeedbackSheetView: View {
     @State private var feedbackText: String = ""
     @State private var starRating: Int = 0
@@ -788,9 +863,10 @@ struct FeedbackSheetView: View {
         NavigationStack {
             GeometryReader { geometry in
                 ZStack {
-                    // Background image
+                    // Set the background to fully cover with PurpleNewBG
                     Image("PurpleNewBG")
                         .resizable()
+                        .scaledToFill()
                         .edgesIgnoringSafeArea(.all)
                     
                     VStack(spacing: 20) {
@@ -855,7 +931,7 @@ struct FeedbackSheetView: View {
                                             .foregroundColor(Color.gray.opacity(0.5))
                                             .padding(.vertical, 14)
                                             .padding(.horizontal, 16)
-                                            .zIndex(1) // Ensure it stays on top
+                                            .zIndex(1)
                                     }
                                     
                                     TextEditor(text: $feedbackText)
@@ -865,7 +941,7 @@ struct FeedbackSheetView: View {
                                         .padding(.horizontal, 12)
                                         .padding(.vertical, 8)
                                         .frame(height: 200, alignment: .topLeading)
-                                        .background(Color.clear) // Make the background clear
+                                        .background(Color.clear)
                                         .scrollContentBackground(.hidden)
                                         .background(
                                             LinearGradient(
@@ -888,7 +964,7 @@ struct FeedbackSheetView: View {
                                             }
                                         }
                                         .onSubmit {
-                                            isFeedbackTextFocused = false // Dismiss the keyboard
+                                            isFeedbackTextFocused = false
                                         }
                                     
                                     VStack {
@@ -929,11 +1005,11 @@ struct FeedbackSheetView: View {
                                             )
                                         )
                                         .cornerRadius(15)
-                                        .shadow(color: feedbackText.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0) // Conditional glow around the button
+                                        .shadow(color: feedbackText.isEmpty ? Color.clear : Color.white.opacity(1), radius: 10, x: 0, y: 0)
                                 }
                                 .padding(.bottom, 50)
-                                .disabled(feedbackText.isEmpty) // Disable button if no text
-                                .opacity(feedbackText.isEmpty ? 0.6 : 1.0) // Change opacity when disabled
+                                .disabled(feedbackText.isEmpty)
+                                .opacity(feedbackText.isEmpty ? 0.6 : 1.0)
                             }
                             .padding(.horizontal)
                             .onTapGesture {
@@ -958,19 +1034,18 @@ struct FeedbackSheetView: View {
                             }
                         }
                     }
+                    .padding()
+                    .navigationBarTitle("Feedback", displayMode: .inline)
+                    .navigationBarItems(leading: Button("Cancel") {
+                        showingFeedbackSheet = false
+                    })
                 }
-                .padding()
-                .navigationBarTitle("Feedback", displayMode: .inline)
-                .navigationBarItems(leading: Button("Cancel") {
-                    showingFeedbackSheet = false
-                })
             }
         }
     }
     
     // Updated function to submit feedback with star rating
     func submitFeedback() {
-        // Ensure you have selectedMessage and currentUser in your actual implementation
         guard let selectedMessage = selectedMessage else { return }
         guard let index = receivedMessages.firstIndex(where: { $0.id == selectedMessage.id }) else { return }
 
@@ -1000,8 +1075,7 @@ struct FeedbackSheetView: View {
         }
 
         feedbackText = ""
-        starRating = 0  // Reset star rating
-        //self.selectedMessage = nil
+        starRating = 0
     }
 }
 

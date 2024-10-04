@@ -235,6 +235,14 @@ class HealthKitManager: ObservableObject {
 
     init() {
         self.healthStore = HKHealthStore.isHealthDataAvailable() ? HKHealthStore() : nil
+        checkAuthorization()
+    }
+    
+    
+    func checkAuthorization() {
+        guard let healthStore = healthStore else { return }
+        let stepType = HKObjectType.quantityType(forIdentifier: .stepCount)!
+        healthStore.authorizationStatus(for: stepType) == .sharingAuthorized ? (self.isAuthorized = true) : (self.isAuthorized = false)
     }
 
     func requestAuthorization() {
@@ -514,8 +522,24 @@ import FirebaseAuth
 class EventKitManager: ObservableObject {
     let eventStore = EKEventStore()
     static let shared = EventKitManager()
-
+    @Published var isCalendarAuthorized = false
+    @Published var isRemindersAuthorized = false
     // Method to request calendar access
+    
+    
+    init() {
+        checkAuthorization()
+    }
+
+    func checkAuthorization() {
+        let calendarStatus = EKEventStore.authorizationStatus(for: .event)
+        self.isCalendarAuthorized = (calendarStatus == .authorized)
+        
+        let reminderStatus = EKEventStore.authorizationStatus(for: .reminder)
+        self.isRemindersAuthorized = (reminderStatus == .authorized)
+    }
+
+    
     func requestAccess(to entityType: EKEntityType) async -> Bool {
            if #available(iOS 17.0, *) {
                do {

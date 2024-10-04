@@ -272,6 +272,84 @@
 
 //-------------------------------------------------Redesign by Zak--------------------------------------------------------------
 
+import SwiftUI
+
+struct OnboardingSlide: Identifiable {
+    let id = UUID()
+    let image: String      // Image asset name
+    let title: String
+    let description: String
+}
+
+import SwiftUI
+
+struct OnboardingViewLogin: View {
+    @Binding var isPresented: Bool
+    @State private var currentSlide = 0
+
+    // Define your slides here
+    let slides = [
+        OnboardingSlide(image: "onboarding1", title: "Welcome to PeakMind", description: "Improve your mental health with our app."),
+        OnboardingSlide(image: "onboarding2", title: "Track Your Progress", description: "Monitor your well-being and growth."),
+        OnboardingSlide(image: "onboarding3", title: "Achieve Your Goals", description: "Reach your full potential with PeakMind.")
+    ]
+
+    var body: some View {
+        VStack {
+            TabView(selection: $currentSlide) {
+                ForEach(0..<slides.count, id: \.self) { index in
+                    VStack(spacing: 20) {
+                        Image(slides[index].image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 300)
+                            .shadow(radius: 10)
+                            .padding()
+
+                        Text(slides[index].title)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+
+                        Text(slides[index].description)
+                            .font(.body)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                    }
+                    .tag(index)
+                }
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+            .animation(.easeInOut, value: currentSlide)
+            .padding()
+
+            Button(action: {
+                if currentSlide < slides.count - 1 {
+                    withAnimation {
+                        currentSlide += 1
+                    }
+                } else {
+                    // Dismiss the onboarding
+                    isPresented = false
+                }
+            }) {
+                Text(currentSlide < slides.count - 1 ? "Next" : "Get Started")
+                    .foregroundColor(.white)
+                    .frame(width: 200, height: 50)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            }
+            .padding()
+        }
+        .background(
+            Image("onboardingBackground") // Optional: Background image for onboarding
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+        )
+    }
+}
 
 import SwiftUI
 import GoogleSignInSwift
@@ -281,6 +359,7 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
     @EnvironmentObject var viewModel: AuthViewModel
+    @State private var showOnboarding = true // State to control onboarding presentation
 
     var body: some View {
         NavigationStack {
@@ -439,6 +518,9 @@ struct LoginView: View {
             )
             .onAppear {
                 viewModel.clearError()
+            }
+            .fullScreenCover(isPresented: $showOnboarding) {
+                OnboardingViewLogin(isPresented: $showOnboarding)
             }
         }
     }

@@ -15,7 +15,8 @@ struct MentalModelView: View {
     @State private var scoreChange: Int = 2
     @State private var showScoreText: Bool = false // State to show the score text
     @State private var showHistory = false
-
+    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var networkManager: NetworkManager
     var body: some View {
         NavigationView { // Ensure this view is inside NavigationView
             ZStack {
@@ -121,23 +122,56 @@ struct MentalModelView: View {
 
                         // 2x2 grid of categories using their specific icons
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40)], spacing: 20) {
-                            ForEach([Category.emotional, Category.cognitive, Category.physical, Category.social], id: \.self) { category in
-                                NavigationLink(destination: FactorPage(category: category)) { // Navigate to FactorPage
-                                    VStack {
-                                        Image(systemName: category.iconName)
-                                            .resizable()
-                                            .foregroundColor(.white)
-                                            .frame(width: 50, height: 50)
-                                            .padding()
-                                        Text(category.rawValue)
-                                            .font(.custom("SFProText-Bold", size: 18))
-                                            .foregroundColor(.white)
+                            
+                            ForEach(Category.allCases, id: \.self) { category in
+                                if category != .cognitive && category != .social { // Exclude locked categories
+                                    if let score = networkManager.wellbeingData?.categoryScores[category.rawValue],
+                                       let factorScoresForCategory = networkManager.wellbeingData?.factorScores.filter({ $0.value.category == category.rawValue }) {
+                                        
+                                        // Reduce factorScoresForCategory into a dictionary of [String: Double]
+                                        let factorScoresDictionary = factorScoresForCategory.reduce(into: [String: Double]()) { (result, item) in
+                                            if let score = item.value.score { // Unwrap the optional score safely
+                                                result[item.key] = score // Add the unwrapped score to the result
+                                            }
+                                        }
+
+                                        
+                                        NavigationLink(destination: FactorPage(category: category, score: Int(score ?? 0), factorScores: factorScoresDictionary)) { // Navigate to FactorPage
+                                            VStack {
+                                                Image(systemName: category.iconName)
+                                                    .resizable()
+                                                    .foregroundColor(.white)
+                                                    .frame(width: 50, height: 50)
+                                                    .padding()
+                                                Text(category.rawValue)
+                                                    .font(.custom("SFProText-Bold", size: 18))
+                                                    .foregroundColor(.white)
+                                            }
+                                            .frame(width: 160, height: 160)
+                                            .background(Color(hex: "180b53"))
+                                            .cornerRadius(15)
+                                        }
                                     }
-                                    .frame(width: 160, height: 160)
-                                    .background(Color(hex: "180b53"))
-                                    .cornerRadius(15)
                                 }
                             }
+                            
+//                            ForEach([Category.emotional, Category.cognitive, Category.physical, Category.social], id: \.self) { category in
+//                                NavigationLink(destination: FactorPage(category: category)) { // Navigate to FactorPage
+//                                    VStack {
+//                                        Image(systemName: category.iconName)
+//                                            .resizable()
+//                                            .foregroundColor(.white)
+//                                            .frame(width: 50, height: 50)
+//                                            .padding()
+//                                        Text(category.rawValue)
+//                                            .font(.custom("SFProText-Bold", size: 18))
+//                                            .foregroundColor(.white)
+//                                    }
+//                                    .frame(width: 160, height: 160)
+//                                    .background(Color(hex: "180b53"))
+//                                    .cornerRadius(15)
+//                                }
+//                            }
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, -20)
@@ -175,7 +209,15 @@ struct MentalModelView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
         }
+        .onAppear{
+            networkManager.fetchWellbeingDataServer(for: viewModel.currentUser?.id ?? "")
+            animatedScore = networkManager.wellbeingData?.overallProfileScore ?? 0
+            print(networkManager.wellbeingData?.overallProfileScore)
+            print(animatedScore)
+            
+        }
     }
+        
 }
 
 // HistoryView to show score changes with dates

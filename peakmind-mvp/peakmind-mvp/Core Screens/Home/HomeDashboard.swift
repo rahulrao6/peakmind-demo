@@ -11,6 +11,8 @@ struct HomeDashboard: View {
 
     @Binding var selectedTab: Int
     @EnvironmentObject var viewModel: AuthViewModel // Added viewModel as an environment object
+    @EnvironmentObject var EventKitManager1: EventKitManager
+    @EnvironmentObject var healthKitManager: HealthKitManager
 
     init(selectedTab: Binding<Int>? = nil) {
         _selectedTab = selectedTab ?? .constant(2) // Default to tab index 2 if no binding is provided
@@ -45,7 +47,7 @@ struct HomeDashboard: View {
                         VStack {
                             HStack {
                                 Spacer() // Push the gear to the right
-                                NavigationLink(destination: ProfileView().environmentObject(viewModel)) {
+                                NavigationLink(destination: SettingsView().environmentObject(viewModel).environmentObject(healthKitManager).environmentObject(EventKitManager1)) {
                                     Image(systemName: "gearshape.fill")
                                         .resizable()
                                         .frame(width: 30, height: 30)
@@ -120,7 +122,7 @@ struct HomeDashboard: View {
                                 .frame(maxWidth: .infinity, alignment: .leading) // Ensures alignment
                             }
                             
-                            NavigationLink(destination: OnboardingView()) {
+                            NavigationLink(destination: OnboardingView(authViewModel: viewModel)) {
                                 Image("FlowButton")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

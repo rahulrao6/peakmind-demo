@@ -3,10 +3,12 @@ struct TabViewMain: View {
   @State private var selectedTab = 2 // Home tab is the default (index 2)
   @EnvironmentObject var viewModel: AuthViewModel
   @EnvironmentObject var healthKitManager: HealthKitManager
+    @EnvironmentObject var EventKitManager1: EventKitManager
+
   var body: some View {
     // Main content with tabs
     TabView(selection: $selectedTab) {
-      HomeDashboard(selectedTab: $selectedTab)
+        HomeDashboard(selectedTab: $selectedTab).environmentObject(healthKitManager).environmentObject(viewModel).environmentObject(EventKitManager1)
         .tabItem {
           Label("Home", systemImage: "square.grid.2x2")
         }

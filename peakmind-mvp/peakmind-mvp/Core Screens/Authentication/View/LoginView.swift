@@ -289,9 +289,9 @@ struct OnboardingViewLogin: View {
 
     // Define your slides here
     let slides = [
-        OnboardingSlide(image: "onboarding1", title: "Welcome to PeakMind", description: "Improve your mental health with our app."),
-        OnboardingSlide(image: "onboarding2", title: "Track Your Progress", description: "Monitor your well-being and growth."),
-        OnboardingSlide(image: "onboarding3", title: "Achieve Your Goals", description: "Reach your full potential with PeakMind.")
+        OnboardingSlide(image: "Onboarding1", title: "Welcome to PeakMind", description: "Improve your mental health with our app."),
+        OnboardingSlide(image: "Onboarding2", title: "Track Your Progress", description: "Monitor your well-being and growth."),
+        OnboardingSlide(image: "Onboarding3", title: "Achieve Your Goals", description: "Reach your full potential with PeakMind.")
     ]
 
     var body: some View {

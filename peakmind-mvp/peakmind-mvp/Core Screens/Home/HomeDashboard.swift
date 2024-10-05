@@ -90,27 +90,27 @@ struct HomeDashboard: View {
                                     
                                     Spacer() // Pushes the dots to the bottom
                                     
-                                    // Updated HStack for streak dots
                                     HStack(spacing: 5) {
+                                        // Ensure that the viewModel is provided to this view, and currentUser is non-nil
                                         ForEach(0..<7, id: \.self) { index in
-                                            if index < currentStreak {
+                                            if viewModel.currentUser?.weeklyStatus[index] == 1 { // Checked-in
                                                 Circle()
-                                                    .fill(Color("Ice Blue"))
+                                                    .fill(Color("Ice Blue")) // Highlighted color for check-in
                                                     .frame(width: 25, height: 25)
                                                     .overlay(
                                                         Text(abbreviationForDay(index: index))
-                                                            .font(.system(size: 12)) // Smaller font size
-                                                            .fontWeight(.bold) // Make the font bold
-                                                            .foregroundColor(.black)
+                                                            .font(.system(size: 12))
+                                                            .fontWeight(.bold)
+                                                            .foregroundColor(.white) // Changed for better contrast
                                                     )
                                             } else {
                                                 Circle()
-                                                    .fill(Color.gray)
+                                                    .fill(Color.gray) // Default color for no check-in
                                                     .frame(width: 25, height: 25)
                                                     .overlay(
                                                         Text(abbreviationForDay(index: index))
-                                                            .font(.system(size: 12)) // Smaller font size
-                                                            .fontWeight(.bold) // Make the font bold
+                                                            .font(.system(size: 12))
+                                                            .fontWeight(.bold)
                                                             .foregroundColor(.black)
                                                     )
                                             }

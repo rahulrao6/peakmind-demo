@@ -1873,7 +1873,6 @@ class AuthViewModel: ObservableObject {
                 }
                 
                 
-                
                 // If no quests exist, create default ones
                 if self.quests.isEmpty {
                     self.createDefaultQuests()
@@ -1895,7 +1894,7 @@ class AuthViewModel: ObservableObject {
         
         for var quest in defaultQuests {
             do {
-                let _ = try db.collection("quests").document(userId).collection("userQuests").addDocument(from: quest)
+                try db.collection("quests").document(userId).collection("userQuests").addDocument(from: quest)
             } catch {
                 print("Error adding default quest: \(error)")
             }

@@ -94,27 +94,30 @@ struct DailyCheckInView: View {
     func submitCheckIn() {
         isSubmitting = true
         errorMessage = nil
-
-        // Check if user has already checked in today
+        
         checkIfAlreadyCheckedIn { alreadyCheckedIn in
             if alreadyCheckedIn {
-                // Show alert
                 errorMessage = "You've already checked in today."
                 showAlert = true
                 isSubmitting = false
             } else {
-                // Save check-in data
                 saveCheckInData { success, error in
                     if success {
-                        // Update streak
-                        updateStreak { success in
-                            isSubmitting = false
+                        updateWeeklyStatus { success in
                             if success {
-                                // Dismiss the view
-                                presentationMode.wrappedValue.dismiss()
+                                updateStreak { success in
+                                    isSubmitting = false
+                                    if success {
+                                        presentationMode.wrappedValue.dismiss()
+                                    } else {
+                                        errorMessage = "Failed to update streak."
+                                        showAlert = true
+                                    }
+                                }
                             } else {
-                                errorMessage = "Failed to update streak."
+                                errorMessage = "Failed to update weekly status."
                                 showAlert = true
+                                isSubmitting = false
                             }
                         }
                     } else {
@@ -126,6 +129,9 @@ struct DailyCheckInView: View {
             }
         }
     }
+    
+    
+    
     func checkIfAlreadyCheckedIn(completion: @escaping (Bool) -> Void) {
         guard let userId = viewModel.currentUser?.id else {
             completion(false)
@@ -175,6 +181,53 @@ struct DailyCheckInView: View {
             }
         }
     }
+    
+    func updateWeeklyStatus(completion: @escaping (Bool) -> Void) {
+        guard let userId = viewModel.currentUser?.id else {
+            completion(false)
+            return
+        }
+
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(userId)
+        
+        let today = Date()
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: today) - 1 // Subtract 1 to adjust for the array index (0-based)
+
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            let userDocument: DocumentSnapshot
+            do {
+                try userDocument = transaction.getDocument(userRef)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            var weeklyStatus = userDocument.get("weeklyStatus") as? [Int] ?? [0, 0, 0, 0, 0, 0, 0]
+            
+            if weekday == 0 { // It's Monday, reset weekly status
+                weeklyStatus = [1, 0, 0, 0, 0, 0, 0]
+            } else { // Set current day to 1
+                weeklyStatus[weekday] = 1
+            }
+            
+            transaction.updateData([
+                "weeklyStatus": weeklyStatus
+            ], forDocument: userRef)
+
+            return nil
+        }, completion: { (object, error) in
+            if let error = error {
+                print("Error updating weekly status: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("Weekly status updated successfully.")
+                completion(true)
+            }
+        })
+    }
+    
     func updateStreak(completion: @escaping (Bool) -> Void) {
         guard let userId = viewModel.currentUser?.id else {
             completion(false)

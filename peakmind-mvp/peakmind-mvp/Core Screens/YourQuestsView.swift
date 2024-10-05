@@ -199,9 +199,14 @@ struct YourQuestsView: View {
 
             }
             .onAppear {
-                viewModel.fetchQuestData()
+                Task {
+                    await viewModel.fetchQuestData()
+                    if (!viewModel.quests.isEmpty) {
+                        viewModel.checkAndSyncQuests()
+                    }
+                }
                 print(viewModel.quests)
-                viewModel.checkAndSyncQuests()
+                
 
             }
             .onDisappear {

@@ -1968,54 +1968,57 @@ class AuthViewModel: ObservableObject {
         listenerRegistration2?.remove()
     }
     
-    // Central function to check and sync quests
     func checkAndSyncQuests() {
-        for index in quests.indices {
-            let quest = quests[index]
-            
+        for (index, quest) in quests.enumerated() {
             switch quest.baseName {
             case "Journal":
-                checkJournalProgress(for: quest) { updatedQuest in
-                    //self.quests[index] = updatedQuest
-                    self.saveQuest(updatedQuest)
+                checkJournalProgress(for: quest) { [weak self] updatedQuest in
+                    guard let self = self else { return }
+                    if index < self.quests.count { // Ensure the index is still valid
+                        self.quests[index] = updatedQuest
+                        self.saveQuest(updatedQuest)
+                    }
                 }
             case "Profiles":
-                // Add the check for profiles here
-                checkProfileProgress(for: quest) { updatedQuest in
-                    self.quests[index] = updatedQuest
-                    self.saveQuest(updatedQuest)
+                checkProfileProgress(for: quest) { [weak self] updatedQuest in
+                    guard let self = self else { return }
+                    if index < self.quests.count { // Ensure the index is still valid
+                        self.quests[index] = updatedQuest
+                        self.saveQuest(updatedQuest)
+                    }
                 }
             case "Games":
-                // Add the check for games here
-                checkGameProgress(for: quest) { updatedQuest in
-                    //self.quests[index] = updatedQuest
-                    self.saveQuest(updatedQuest)
+                checkGameProgress(for: quest) { [weak self] updatedQuest in
+                    guard let self = self else { return }
+                    if index < self.quests.count { // Ensure the index is still valid
+                        self.saveQuest(updatedQuest)
+                    }
                 }
-                
             case "Chat":
-                // Add the check for games here
-                checkChatProgress(for: quest) { updatedQuest in
-                    //self.quests[index] = updatedQuest
-                    self.saveQuest(updatedQuest)
-                    
+                checkChatProgress(for: quest) { [weak self] updatedQuest in
+                    guard let self = self else { return }
+                    if index < self.quests.count { // Ensure the index is still valid
+                        self.saveQuest(updatedQuest)
+                    }
                 }
             case "Habits":
-                // Add the check for games here
-                checkHabitProgress(for: quest) { updatedQuest in
-                    self.quests[index] = updatedQuest
-                    self.saveQuest(updatedQuest)
-                    
+                checkHabitProgress(for: quest) { [weak self] updatedQuest in
+                    guard let self = self else { return }
+                    if index < self.quests.count { // Ensure the index is still valid
+                        self.quests[index] = updatedQuest
+                        self.saveQuest(updatedQuest)
+                    }
                 }
             case "DailyCheckin":
                 print("Processing DailyCheckin quest")  // Debugging
-                checkDailyCheckinProgress(for: quest) { updatedQuest in
-                    self.saveQuest(updatedQuest)
-                    
+                checkDailyCheckinProgress(for: quest) { [weak self] updatedQuest in
+                    guard let self = self else { return }
+                    if let index = self.quests.firstIndex(where: { $0.id == quest.id }) {
+                        // Ensure the quest is still in the array before updating it
+                        self.quests[index] = updatedQuest
+                        self.saveQuest(updatedQuest)
+                    }
                 }
-                //case "RoutineCompletion":
-                //         checkRoutineCompletionProgress(for: quest) { updatedQuest in
-                //           self.saveQuest(updatedQuest)
-                //     }
             default:
                 break
             }

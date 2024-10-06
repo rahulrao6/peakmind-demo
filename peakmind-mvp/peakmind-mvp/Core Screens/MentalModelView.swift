@@ -17,6 +17,8 @@ struct MentalModelView: View {
     @State private var showHistory = false
     @EnvironmentObject var viewModel: AuthViewModel
     @EnvironmentObject var networkManager: NetworkManager
+    @EnvironmentObject var healthKitManager: HealthKitManager
+
     var body: some View {
         NavigationView { // Ensure this view is inside NavigationView
             ZStack {
@@ -94,7 +96,7 @@ struct MentalModelView: View {
                                             showHistory.toggle()
                                         }
                                         .sheet(isPresented: $showHistory) {
-                                            HistoryView() // Show history in a new view
+                                            HistoryView(networkManager: networkManager, userID: viewModel.currentUser?.id ?? "") // Show history in a new view
                                         }
                                 }
                                 .padding(.bottom, 20) // Spacing between VStack and bottom of the rectangle
@@ -136,7 +138,7 @@ struct MentalModelView: View {
                                         }
 
                                         
-                                        NavigationLink(destination: FactorPage(category: category, score: Int(score ?? 0), factorScores: factorScoresDictionary)) { // Navigate to FactorPage
+                                        NavigationLink(destination: FactorPage(category: category, score: Int(score ?? 0), factorScores: factorScoresDictionary).environmentObject(viewModel).environmentObject(healthKitManager).environmentObject(networkManager)) { // Navigate to FactorPage
                                             VStack {
                                                 Image(systemName: category.iconName)
                                                     .resizable()
@@ -221,40 +223,44 @@ struct MentalModelView: View {
 }
 
 // HistoryView to show score changes with dates
+import SwiftUI
+
 struct HistoryView: View {
-    var historyData: [(date: String, score: Int)] = [
-        ("2023-09-01", 75),
-        ("2023-09-02", 78),
-        ("2023-09-03", 74),
-        ("2023-09-04", 80),
-        ("2023-09-05", 82),
-        ("2023-09-06", 77),
-        ("2023-09-07", 79)
-    ]
+    @ObservedObject var networkManager: NetworkManager
+    var userID: String
 
     var body: some View {
         NavigationView {
-            List(historyData, id: \.date) { entry in
-                HStack {
-                    Text(entry.date)
-                        .font(.custom("SFProText-Bold", size: 22)) // Set to SF Pro Bold
-                        .foregroundColor(.white)
-                    Spacer()
-                    Text("\(entry.score)")
-                        .font(.custom("SFProText-Bold", size: 22)) // Set to SF Pro Bold
-                        .foregroundColor(.white)
+            if networkManager.historyData.isEmpty {
+                Text("Loading history data...")
+                    .foregroundColor(.white)
+                    .onAppear {
+                        // Fetch the history data when the view appears
+                        networkManager.fetchHistoryData(for: userID)
+                    }
+            } else {
+                List(networkManager.historyData, id: \.date) { entry in
+                    HStack {
+                        Text(entry.date)
+                            .font(.custom("SFProText-Bold", size: 22)) // Set to SF Pro Bold
+                            .foregroundColor(.white)
+                        Spacer()
+                        Text("\(entry.score)")
+                            .font(.custom("SFProText-Bold", size: 22)) // Set to SF Pro Bold
+                            .foregroundColor(.white)
+                    }
+                    .listRowBackground(Color(hex: "180b53")!) // Set row background color
                 }
-                .listRowBackground(Color(hex: "180b53")!) // Set row background color
-            }
-            .listStyle(PlainListStyle()) // Style the list
-            .background(Color(hex: "180b53")!.edgesIgnoringSafeArea(.all)) // Set background color for the list view
-            .navigationTitle("Score History")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar { // Customizing the title appearance
-                ToolbarItem(placement: .principal) {
-                    Text("Score History")
-                        .font(.custom("SFProText-Bold", size: 22)) // Set to SF Pro Bold
-                        .foregroundColor(.white)
+                .listStyle(PlainListStyle()) // Style the list
+                .background(Color(hex: "180b53")!.edgesIgnoringSafeArea(.all)) // Set background color for the list view
+                .navigationTitle("Score History")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar { // Customizing the title appearance
+                    ToolbarItem(placement: .principal) {
+                        Text("Score History")
+                            .font(.custom("SFProText-Bold", size: 22)) // Set to SF Pro Bold
+                            .foregroundColor(.white)
+                    }
                 }
             }
         }

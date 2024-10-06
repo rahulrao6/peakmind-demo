@@ -355,6 +355,7 @@ class HealthKitManager: ObservableObject {
                 let stepCount = sum.doubleValue(for: HKUnit.count())
                 DispatchQueue.main.async {
                     // Update your UI with the stepCount
+                    self?.liveStepCount = stepCount
                     print("Live step count: \(stepCount)")
                 }
             }

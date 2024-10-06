@@ -104,7 +104,43 @@ import FirebaseFirestore
 class NetworkManager: ObservableObject {
     @Published var wellbeingData: WellbeingResponse?
     private var listener: ListenerRegistration?
+    @Published var historyData: [(date: String, score: Int)] = [] // Store history data here
 
+    func fetchHistoryData(for userID: String) {
+         let db = Firestore.firestore()
+
+         db.collection("profile_data").document(userID).collection("scores")
+             .order(by: "timestamp", descending: true)
+             .getDocuments { querySnapshot, error in
+                 if let error = error {
+                     print("Error fetching history data from Firebase: \(error.localizedDescription)")
+                     return
+                 }
+
+                 var fetchedHistory: [(date: String, score: Int)] = []
+
+                 querySnapshot?.documents.forEach { document in
+                     var documentData = document.data()
+
+                     // Convert Timestamp to readable date format
+                     if let firestoreTimestamp = documentData["timestamp"] as? Timestamp {
+                         let date = firestoreTimestamp.dateValue()
+                         let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
+
+                         // Get the overall profile score
+                         if let overallProfileScore = documentData["overall_profile_score"] as? Int {
+                             fetchedHistory.append((date: formattedDate, score: overallProfileScore))
+                         }
+                     }
+                 }
+
+                 // Update the history data
+                 DispatchQueue.main.async {
+                     self.historyData = fetchedHistory
+                 }
+             }
+     }
+    
     func fetchWellbeingDataServer(for userID: String) {
         guard let url = URL(string: "http://34.28.198.191:5010/analyze_profile") else {
             print("Invalid URL")
@@ -120,34 +156,47 @@ class NetworkManager: ObservableObject {
         let body: [String: Any] = ["user_id": userID]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
-        // Create the data task
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            // Handle errors
-            if let error = error {
-                print("Error fetching data: \(error.localizedDescription)")
+        // Fetch the latest wellbeing data from Firebase first
+        fetchWellbeingDataReturn(for: userID) { returnedData, error in
+            guard let returnedData = returnedData, error == nil else {
+                print("Error fetching data from Firebase: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
 
-            // Ensure data is not nil
-            guard let data = data else {
-                print("No data received")
-                return
-            }
-
-            do {
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(WellbeingResponse.self, from: data)
-                print("Decoded Response: \(response)")
-                DispatchQueue.main.async {
-                    self.wellbeingData = response
-                    // Save the data to Firebase
-                    self.saveProfileDataToFirebase(userID: userID, wellbeingData: response)
+            // Create the data task
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                // Handle errors
+                if let error = error {
+                    print("Error fetching data from the server: \(error.localizedDescription)")
+                    return
                 }
-            } catch {
-                print("Decoding error: \(error)")
-            }
-        }.resume()
+
+                // Ensure data is not nil
+                guard let data = data else {
+                    print("No data received from the server")
+                    return
+                }
+
+                do {
+                    let decoder = JSONDecoder()
+                    let serverResponse = try decoder.decode(WellbeingResponse.self, from: data)
+                    print("Decoded Response from Server: \(serverResponse)")
+
+                    DispatchQueue.main.async {
+                        self.wellbeingData = serverResponse
+
+                        // Conditionally save to Firebase if the score is different
+                        if returnedData.overallProfileScore != serverResponse.overallProfileScore {
+                            self.saveProfileDataToFirebase(userID: userID, wellbeingData: serverResponse)
+                        }
+                    }
+                } catch {
+                    print("Decoding error: \(error)")
+                }
+            }.resume()
+        }
     }
+
     // Fetch the wellbeing data from the API
     func fetchWellbeingData(for userID: String) {
             let db = Firestore.firestore()
@@ -191,6 +240,49 @@ class NetworkManager: ObservableObject {
                 }
         }
 
+    
+    
+    func fetchWellbeingDataReturn(for userID: String, completion: @escaping (WellbeingResponse?, Error?) -> Void) {
+        let db = Firestore.firestore()
+
+        db.collection("profile_data").document(userID).collection("scores")
+            .order(by: "timestamp", descending: true)
+            .limit(to: 1)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching data from Firebase: \(error.localizedDescription)")
+                    completion(nil, error)
+                    return
+                }
+
+                guard let document = querySnapshot?.documents.first else {
+                    print("No document found in Firebase")
+                    completion(nil, nil)
+                    return
+                }
+
+                var documentData = document.data()
+
+                // Convert Timestamp to a JSON-compatible format
+                if let firestoreTimestamp = documentData["timestamp"] as? Timestamp {
+                    documentData["timestamp"] = firestoreTimestamp.dateValue().timeIntervalSince1970 * 1000
+                }
+
+                do {
+                    // Convert the data to JSON format and decode to WellbeingResponse
+                    let jsonData = try JSONSerialization.data(withJSONObject: documentData, options: [])
+                    let decoder = JSONDecoder()
+                    let wellbeingResponse = try decoder.decode(WellbeingResponse.self, from: jsonData)
+
+                    DispatchQueue.main.async {
+                        completion(wellbeingResponse, nil)
+                    }
+                } catch {
+                    print("Error decoding data from Firebase: \(error.localizedDescription)")
+                    completion(nil, error)
+                }
+            }
+    }
     private func listenToFirebaseUpdates(userID: String) {
         let db = Firestore.firestore()
         listener = db.collection("profile_data").document(userID).collection("scores")
@@ -446,7 +538,8 @@ struct RectangleView: View {
     @EnvironmentObject var networkManager: NetworkManager
     @State private var isPrioritySet: Bool = false
     @State private var showQuizOnboarding: Bool = true
-    
+    @EnvironmentObject var healthKitManager: HealthKitManager
+
     var body: some View {
         ZStack {
             // Background Gradient (top to bottom)
@@ -462,7 +555,7 @@ struct RectangleView: View {
                     withAnimation {
                         showMentalModelView = false
                     }
-                }, score: Int(networkManager.wellbeingData?.overallProfileScore ?? 0)).environmentObject(networkManager).environmentObject(viewModel)
+                }, score: Int(networkManager.wellbeingData?.overallProfileScore ?? 0)).environmentObject(networkManager).environmentObject(viewModel).environmentObject(healthKitManager)
                 .transition(.move(edge: .trailing))
                 .animation(.easeInOut(duration: 0.6), value: showMentalModelView)
             } else if !showCategoryPage {
@@ -600,6 +693,7 @@ struct RectangleView: View {
                 )
                 .environmentObject(networkManager)
                 .environmentObject(viewModel)
+                .environmentObject(healthKitManager)
                 .transition(.opacity)
                 .animation(.easeInOut, value: showCategoryPage)
             }
@@ -804,6 +898,7 @@ struct CategoryPageView: View {
     @EnvironmentObject var networkManager: NetworkManager
     @State private var selectedFactor: Factor? = nil // Track the selected factor for quiz
     @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var healthKitManager: HealthKitManager
 
     var body: some View {
         ZStack {

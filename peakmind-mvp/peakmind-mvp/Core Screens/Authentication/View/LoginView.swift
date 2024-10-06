@@ -274,81 +274,78 @@
 
 import SwiftUI
 
-struct OnboardingSlide: Identifiable {
-    let id = UUID()
-    let image: String      // Image asset name
-    let title: String
-    let description: String
-}
-
-import SwiftUI
-
 struct OnboardingViewLogin: View {
     @Binding var isPresented: Bool
-    @State private var currentSlide = 0
+    @State private var currentIndex = 0
 
-    // Define your slides here
+    // Define your slides here with only images
     let slides = [
-        OnboardingSlide(image: "Onboarding1", title: "Welcome to PeakMind", description: "Improve your mental health with our app."),
-        OnboardingSlide(image: "Onboarding2", title: "Track Your Progress", description: "Monitor your well-being and growth."),
-        OnboardingSlide(image: "Onboarding3", title: "Achieve Your Goals", description: "Reach your full potential with PeakMind.")
+        OnboardingSlide(image: "Onboarding1"),
+        OnboardingSlide(image: "Onboarding2"),
+        OnboardingSlide(image: "Onboarding3")
     ]
 
     var body: some View {
-        VStack {
-            TabView(selection: $currentSlide) {
+        ZStack {
+            // Image Slider
+            TabView(selection: $currentIndex) {
                 ForEach(0..<slides.count, id: \.self) { index in
-                    VStack(spacing: 20) {
+                    GeometryReader { geometry in
                         Image(slides[index].image)
                             .resizable()
-                            .scaledToFit()
-                            .frame(height: 300)
-                            .shadow(radius: 10)
-                            .padding()
-
-                        Text(slides[index].title)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
-
-                        Text(slides[index].description)
-                            .font(.body)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
+                            .scaledToFill()
+                            .frame(width: geometry.size.width, height: geometry.size.height) // Full screen image
+                            .clipped() // Ensure no overflow
                     }
+                    .ignoresSafeArea()
                     .tag(index)
                 }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-            .animation(.easeInOut, value: currentSlide)
-            .padding()
-
-            Button(action: {
-                if currentSlide < slides.count - 1 {
-                    withAnimation {
-                        currentSlide += 1
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never)) // Hide default dots
+            
+            // Overlay: Dots and Button
+            VStack {
+                Spacer() // Push content to the bottom
+                
+                // Dots indicator
+                HStack(spacing: 8) {
+                    ForEach(0..<slides.count, id: \.self) { index in
+                        Circle()
+                            .frame(width: 8, height: 8)
+                            .foregroundColor(currentIndex == index ? Color(hex: "abdeff") : .gray)
                     }
-                } else {
-                    // Dismiss the onboarding
-                    isPresented = false
                 }
-            }) {
-                Text(currentSlide < slides.count - 1 ? "Next" : "Get Started")
-                    .foregroundColor(.white)
-                    .frame(width: 200, height: 50)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                .padding(.bottom, 20)
+
+                // Next or Get Started button
+                Button(action: {
+                    if currentIndex < slides.count - 1 {
+                        withAnimation {
+                            currentIndex += 1
+                        }
+                    } else {
+                        // Dismiss the onboarding
+                        isPresented = false
+                    }
+                }) {
+                    Text(currentIndex < slides.count - 1 ? "Next" : "Get Started")
+                        .font(Font.custom("SFProText-Heavy", size: 18))
+                        .foregroundColor(.black)
+                        .padding()
+                        .background(Color(hex: "abdeff"))
+                        .cornerRadius(10)
+                }
+                .padding(.bottom, 40)
             }
-            .padding()
         }
-        .background(
-            Image("onboardingBackground") // Optional: Background image for onboarding
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-        )
+        .ignoresSafeArea() // Covers entire screen
     }
+}
+
+// Define your OnboardingSlide structure (only images now)
+struct OnboardingSlide: Identifiable {
+    let id = UUID()
+    let image: String      // Image asset name
 }
 
 import SwiftUI

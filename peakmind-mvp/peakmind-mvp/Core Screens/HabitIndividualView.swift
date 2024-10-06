@@ -335,7 +335,7 @@ struct HabitIndividualView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Habit Details")
+            .navigationTitle("")
             .confirmationDialog("Are you sure you want to delete this habit?", isPresented: $showDeleteConfirmation) {
                 Button("Yes", role: .destructive) {
                     deleteHabit()

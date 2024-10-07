@@ -137,10 +137,7 @@ struct P4_WQ3: View {
                     .disabled(userInput.isEmpty) // Disable the button when there is no input
                     .padding(.bottom, 50)
                     
-                    // Navigation to P4IntroView. Just a placehodler for now since it's the last screen on this phase.
-                    NavigationLink(destination: P4IntroView(), isActive: $navigateToQuizIntro) {
-                        EmptyView()
-                    }
+                   
                 }
                 .padding(.horizontal)
                 .onTapGesture {

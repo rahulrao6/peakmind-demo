@@ -79,22 +79,35 @@ class AuthViewModel: ObservableObject {
     }
     
     func fetchUserData(userId: String) {
-        let userRef = db.collection("users").document(userId)
-        userRef.getDocument { document, error in
-            if let error = error {
-                print("Error fetching user data: \(error.localizedDescription)")
-            }
-            if let document = document, document.exists {
+        // Check if currentUser is nil and userId is not empty
+        if !userId.isEmpty {
+            let userRef = db.collection("users").document(userId)
+            userRef.getDocument { document, error in
+                if let error = error {
+                    print("Error fetching user data: \(error.localizedDescription)")
+                    return
+                }
+                guard let document = document, document.exists else {
+                    print("User document does not exist")
+                    return
+                }
                 do {
+                    // Try to decode the user data
                     self.currentUser = try document.data(as: UserData.self)
                     self.isSignedIn = true
+
+                    // Start the Pendo session
                     self.startPendoSession(user: self.currentUser, userId: userId)
-                    
                 } catch {
                     print("Error decoding user data: \(error.localizedDescription)")
                 }
-            } else {
-                print("User document does not exist")
+            }
+        } else {
+            if currentUser != nil {
+                print("Current user already exists.")
+            }
+            if userId.isEmpty {
+                print("User ID is empty, cannot fetch user data.")
             }
         }
     }

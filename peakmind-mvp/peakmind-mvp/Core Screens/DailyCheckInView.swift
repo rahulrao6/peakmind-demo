@@ -224,6 +224,7 @@ struct DailyCheckInView: View {
             } else {
                 print("Weekly status updated successfully.")
                 completion(true)
+                viewModel.fetchUserData(userId: viewModel.currentUser?.id ?? "")
             }
         })
     }
@@ -248,7 +249,7 @@ struct DailyCheckInView: View {
 
             let lastCheckInTimestamp = userDocument.get("lastCheckInDate") as? Timestamp
             let lastCheckInDate = lastCheckInTimestamp?.dateValue() ?? Date.distantPast
-            var currentStreak = userDocument.get("currentStreak") as? Int ?? 0
+            var dailyCheckInStreak = userDocument.get("dailyCheckInStreak") as? Int ?? 0
 
             let calendar = Calendar.current
             let today = calendar.startOfDay(for: Date())
@@ -257,10 +258,10 @@ struct DailyCheckInView: View {
 
             if dayDifference == 1 {
                 // Increment streak
-                currentStreak += 1
+                dailyCheckInStreak += 1
             } else if dayDifference > 1 {
                 // Reset streak
-                currentStreak = 1
+                dailyCheckInStreak = 1
             } else if dayDifference == 0 {
                 // Already checked in today
                 return nil
@@ -268,7 +269,7 @@ struct DailyCheckInView: View {
 
             // Update the user's streak and last check-in date
             transaction.updateData([
-                "currentStreak": currentStreak,
+                "dailyCheckInStreak": dailyCheckInStreak,
                 "lastCheckInDate": Timestamp(date: Date())
             ], forDocument: userRef)
 

@@ -96,7 +96,7 @@ struct MentalModelView: View {
                                             showHistory.toggle()
                                         }
                                         .sheet(isPresented: $showHistory) {
-                                            HistoryView(networkManager: networkManager, userID: viewModel.currentUser?.id ?? "") // Show history in a new view
+                                            HistoryView(networkManager: networkManager, userID: viewModel.currentUser?.id ?? "")
                                         }
                                 }
                                 .padding(.bottom, 20) // Spacing between VStack and bottom of the rectangle

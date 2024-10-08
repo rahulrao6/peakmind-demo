@@ -63,9 +63,11 @@ struct HomeDashboard: View {
                         // Scrollable VStack for the buttons
                         VStack(spacing: 17) {
                             ZStack(alignment: .bottomLeading) {
+                                    
                                 Image("CheckInBG")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                
                                 
                                 VStack(alignment: .leading) {
                                     Button(action: {
@@ -158,6 +160,7 @@ struct HomeDashboard: View {
                     }
                 }
                 .onAppear {
+                    viewModel.fetchUserData(userId: viewModel.currentUser?.id ?? "")
                     fetchCheckInStatus() // Fetch check-in status when the view appears
                 }
             }

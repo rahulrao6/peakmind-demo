@@ -261,7 +261,7 @@ struct TestView: View {
                             })) }, phase: 5),
                             LevelNode(uid: 4, internalName: "P5_5", title: "Reflection", viewFactory: { AnyView(P5_5_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
-                            })) }, phase: 4),
+                            })) }, phase: 5),
                             LevelNode(uid: 5, internalName: "P5_6", title: "Finding Community", viewFactory: { AnyView(P5_6_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 5),

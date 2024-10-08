@@ -163,11 +163,11 @@ struct P5FeatureBulletPoint10: View {
     }
 }
 
-struct P5Summary_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            P5Summary()
-        }
-    }
-}
-
+//struct P5Summary_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            P5Summary()
+//        }
+//    }
+//}
+//

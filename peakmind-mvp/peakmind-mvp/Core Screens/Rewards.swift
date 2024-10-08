@@ -216,47 +216,50 @@ struct CustomizationCategoryView: View {
                     .padding(.top, 10)
                 }
             } else {
-                // Color Selection for Beanie, Coat, and Pants
-                HStack(spacing: 20) {
-                    // Black circle for color selection
-                    Circle()
-                        .fill(Color.black) // Black color fill
-                        .frame(width: 60, height: 60) // Circle size for color selection
-                        .overlay( // Show green outline when selected
-                            Circle()
-                                .stroke(selectedColor == "Black" ? Color.green : Color.gray, lineWidth: 2)
-                        )
-                        .onTapGesture {
-                            selectedColor = "Black"
-                            isColorSelected.toggle() // Toggle color selection
-                        }
-                }
-                .padding(.top, 10)
+                // Horizontal scrollable color selection
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        // Black color circle (selectable)
+                        colorCircle(color: .black, colorName: "Black", selectedColor: $selectedColor, isColorSelected: $isColorSelected)
 
-                // Show variations for the selected color (e.g., black)
-                if isColorSelected && selectedColor == "Black" {
-                    HStack(spacing: 20) { // Smaller circle size for variations
-                        ForEach(itemNames(for: category), id: \.self) { item in
-                            Circle()
-                                .fill(selectedAssets[category] == item ? Color.green : Color.clear) // Fill the circle when selected
-                                .frame(width: 40, height: 40) // Smaller circle size for variations
-                                .overlay(Text(itemLabel(for: item)).foregroundColor(.white))
-                                .overlay( // Stroke border directly on Circle
-                                    Circle().stroke(Color.gray, lineWidth: 2)
-                                )
-                                .onTapGesture {
-                                    if !item.hasSuffix("3") { // Lock the third variation
-                                        selectedAssets[category] = item
-                                    }
-                                }
-                                .overlay(
-                                    Text(item.hasSuffix("3") ? "🔒" : "")
-                                        .foregroundColor(.white) // Display lock emoji for the third variation
-                                        .font(.caption)
-                                )
-                        }
+                        // Locked colors: blue, green, orange, purple, red, white, yellow
+                        lockedColorCircle(color: .blue, colorName: "Blue")
+                        lockedColorCircle(color: .green, colorName: "Green")
+                        lockedColorCircle(color: .orange, colorName: "Orange")
+                        lockedColorCircle(color: .purple, colorName: "Purple")
+                        lockedColorCircle(color: .red, colorName: "Red")
+                        lockedColorCircle(color: .white, colorName: "White")
+                        lockedColorCircle(color: .yellow, colorName: "Yellow")
                     }
                     .padding(.top, 10)
+                }
+
+                // Show variations for the selected color (e.g., black)
+                if isColorSelected {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) { // Smaller circle size for variations
+                            ForEach(itemNames(for: category), id: \.self) { item in
+                                Circle()
+                                    .fill(selectedAssets[category] == item ? Color.green : Color.clear) // Fill the circle when selected
+                                    .frame(width: 40, height: 40) // Smaller circle size for variations
+                                    .overlay(Text(itemLabel(for: item)).foregroundColor(.white))
+                                    .overlay( // Stroke border directly on Circle
+                                        Circle().stroke(Color.gray, lineWidth: 2)
+                                    )
+                                    .onTapGesture {
+                                        if !item.hasSuffix("3") { // Lock the third variation
+                                            selectedAssets[category] = item
+                                        }
+                                    }
+                                    .overlay(
+                                        Text(item.hasSuffix("3") ? "🔒" : "")
+                                            .foregroundColor(.white) // Display lock emoji for the third variation
+                                            .font(.caption)
+                                    )
+                            }
+                        }
+                        .padding(.top, 10)
+                    }
                 }
             }
         } label: {
@@ -275,16 +278,40 @@ struct CustomizationCategoryView: View {
         }
     }
 
+    // Helper function to display color selection circle (for the selectable black color)
+    private func colorCircle(color: Color, colorName: String, selectedColor: Binding<String?>, isColorSelected: Binding<Bool>) -> some View {
+        Circle()
+            .fill(color) // Fill with the color passed as argument
+            .frame(width: 60, height: 60) // Circle size for color selection
+            .overlay( // Show green outline when selected
+                Circle()
+                    .stroke(selectedColor.wrappedValue == colorName ? Color.green : Color.gray, lineWidth: 2)
+            )
+            .onTapGesture {
+                selectedColor.wrappedValue = colorName
+                isColorSelected.wrappedValue = true // Toggle color selection to show variations
+            }
+    }
+
+    // Helper function to display locked color selection circles
+    private func lockedColorCircle(color: Color, colorName: String) -> some View {
+        Circle()
+            .fill(color)
+            .frame(width: 60, height: 60) // Circle size for locked color selection
+            .overlay(
+                Text("🔒")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+            )
+            .overlay( // Stroke border around the circle
+                Circle()
+                    .stroke(Color.gray, lineWidth: 2)
+            )
+    }
+
     // Function to return the appropriate items for each category
     func itemNames(for category: String) -> [String] {
-        switch category {
-        case "Beanie", "Coat", "Pants":
-            return ["\(selectedColor ?? "Black")\(category)1", "\(selectedColor ?? "Black")\(category)2", "\(selectedColor ?? "Black")3"] // Variations 1, 2, and 3 with third locked
-        case "Head":
-            return ["MaleHead1", "MaleHead2", "MaleHead3", "MaleHead4", "MaleHead5", "FemaleHead1", "FemaleHead2", "FemaleHead3", "FemaleHead4", "FemaleHead5"] // Updated to include MaleHead4 and MaleHead5
-        default:
-            return []
-        }
+        return ["\(selectedColor ?? "Black")\(category)1", "\(selectedColor ?? "Black")\(category)2", "\(selectedColor ?? "Black")3"]
     }
 
     // Function to return the label for each item (1, 2, 3, etc. for variations)
@@ -295,13 +322,10 @@ struct CustomizationCategoryView: View {
             return "2"
         } else if item.hasSuffix("3") {
             return "3"
-        } else if item.hasSuffix("4") {
-            return "4"
-        } else if item.hasSuffix("5") {
-            return "5"
         }
         return ""
     }
+
     // Function to return the correct head asset name based on index
     func headAssetName(for index: Int) -> String {
         switch index {
@@ -330,6 +354,8 @@ struct CustomizationCategoryView: View {
         }
     }
 }
+
+
 
 
 // PointsAndBadgesView.swift

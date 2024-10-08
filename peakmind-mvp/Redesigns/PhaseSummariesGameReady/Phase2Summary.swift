@@ -163,10 +163,10 @@ struct P2FeatureBulletPoint10: View {
     }
 }
 
-struct P2Summary_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            P2Summary()
-        }
-    }
-}
+//struct P2Summary_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            P2Summary()
+//        }
+//    }
+//}

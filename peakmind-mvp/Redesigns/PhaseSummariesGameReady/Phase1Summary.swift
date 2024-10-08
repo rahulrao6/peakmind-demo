@@ -129,12 +129,12 @@ struct P1S: View {
     }
 }
 
-// Preview for P1Summary
-struct P1Summary_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            P1Summary()
-        }
-    }
-}
-
+//// Preview for P1Summary
+//struct P1Summary_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            P1Summary()
+//        }
+//    }
+//}
+//

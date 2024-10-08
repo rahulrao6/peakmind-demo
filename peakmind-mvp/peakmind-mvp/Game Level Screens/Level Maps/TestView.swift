@@ -41,7 +41,7 @@ struct LevelDecoration: Identifiable {
 struct TestView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
-    let positions: [CGPoint] = [CGPoint(x: 215, y: 150), CGPoint(x: 240, y: 300), CGPoint(x: 215, y: 450), CGPoint(x: 240, y: 600), CGPoint(x: 180, y: 750),
+    let positions: [CGPoint] = [CGPoint(x: 235, y: sy(pixels: 150)), CGPoint(x: 240, y: 300), CGPoint(x: 215, y: 450), CGPoint(x: 240, y: 600), CGPoint(x: 180, y: 750),
                                 CGPoint(x: 150, y: 750)]
     
     @State private var activeModal: LevelNode?
@@ -58,10 +58,23 @@ struct TestView: View {
         let scene = MapScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         scene.scaleMode = .fill
         scene.backgroundColor = .clear
-        scene.imagePositions = [CGPoint(x: 215, y: 150), CGPoint(x: 240, y: 300), CGPoint(x: 190, y: 450), CGPoint(x: 150, y: 600), CGPoint(x: 180, y: 750), CGPoint(x: 195, y: 900), CGPoint(x: 240, y: 1050), CGPoint(x: 225, y: 1200), CGPoint(x: 165, y: 1350), CGPoint(x: 160, y: 1500)]
+        scene.imagePositions = [
+            CGPoint(x: sx(pixels: 215), y: sy(pixels: 150)),
+            CGPoint(x: sx(pixels: 240), y: sy(pixels: 300)),
+            CGPoint(x: sx(pixels: 190), y: sy(pixels: 450)),
+            CGPoint(x: sx(pixels: 150), y: sy(pixels: 600)),
+            CGPoint(x: sx(pixels: 180), y: sy(pixels: 750)),
+            CGPoint(x: sx(pixels: 195), y: sy(pixels: 900)),
+            CGPoint(x: sx(pixels: 240), y: sy(pixels: 1050)),
+            CGPoint(x: sx(pixels: 225), y: sy(pixels: 1200)),
+            CGPoint(x: sx(pixels: 165), y: sy(pixels: 1350)),
+            CGPoint(x: sx(pixels: 160), y: sy(pixels: 1500))
+        ]
         scene.reloadGates()
         return scene
     }()
+    
+    
     
     
     var body: some View {
@@ -76,6 +89,7 @@ struct TestView: View {
                             VariableBlurView(maxBlurRadius: 5)
                                 .frame(height: 200)
                                 .ignoresSafeArea()
+                            
                         }
                     }
                     .onChange(of: scene.selectedPhase) { levelID in
@@ -445,16 +459,21 @@ struct TestView: View {
 
 func sy(pixels: Int) -> CGFloat {
     let orig = 2622
-    let height = UIScreen.main.bounds.height
+    let height = UIScreen.main.nativeBounds.size.height
     
-    return CGFloat(pixels / orig) * (height)
+    
+    
+    return (CGFloat(pixels) / CGFloat(orig)) * (height)
 }
 
 func sx(pixels: Int) -> CGFloat {
-    let orig = 2622
-    let height = UIScreen.main.bounds.height
+    let orig = 1206
+    let width = UIScreen.main.nativeBounds.size.width
     
-    return CGFloat(pixels / orig) * (height)
+    print("width: \(width)")
+    print(CGFloat(pixels)/CGFloat(orig))
+    
+    return (CGFloat(pixels)/CGFloat(orig)) * (width)
 }
 
 //#Preview {

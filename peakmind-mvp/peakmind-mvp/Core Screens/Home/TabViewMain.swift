@@ -4,11 +4,12 @@ struct TabViewMain: View {
   @EnvironmentObject var viewModel: AuthViewModel
   @EnvironmentObject var healthKitManager: HealthKitManager
     @EnvironmentObject var EventKitManager1: EventKitManager
+    @EnvironmentObject  var nm : NetworkManager
 
   var body: some View {
     // Main content with tabs
     TabView(selection: $selectedTab) {
-        HomeDashboard(selectedTab: $selectedTab).environmentObject(healthKitManager).environmentObject(viewModel).environmentObject(EventKitManager1)
+        HomeDashboard(selectedTab: $selectedTab).environmentObject(healthKitManager).environmentObject(viewModel).environmentObject(EventKitManager1).environmentObject(nm)
         .tabItem {
           Label("Home", systemImage: "square.grid.2x2")
         }
@@ -28,7 +29,7 @@ struct TabViewMain: View {
           Label("Quests", systemImage: "flag")
         }
         .tag(3)
-        RectangleView().environmentObject(viewModel).environmentObject(NetworkManager()).environmentObject(healthKitManager)
+        RectangleView().environmentObject(viewModel).environmentObject(nm).environmentObject(healthKitManager)
         .tabItem {
           Label("Profiles", systemImage: "brain")
         }

@@ -105,6 +105,16 @@ class NetworkManager: ObservableObject {
     @Published var wellbeingData: WellbeingResponse?
     private var listener: ListenerRegistration?
     @Published var historyData: [(date: String, score: Int)] = [] // Store history data here
+    
+    init() {
+        listener = nil
+        wellbeingData = nil
+    }
+    
+    func reset() {
+        listener = nil
+        wellbeingData = nil
+    }
 
     func fetchHistoryData(for userID: String) {
          let db = Firestore.firestore()
@@ -638,7 +648,9 @@ struct RectangleView: View {
                         .padding(.top, -10)
                     }
                     
-                    
+                    .sheet(isPresented: $showQuizOnboarding, content: {
+                        QuizOnboardingView().environmentObject(viewModel)
+                    })
                     .onAppear {
                         networkManager.fetchWellbeingDataServer(for: viewModel.currentUser?.id ?? "")
                         Task {
@@ -654,6 +666,8 @@ struct RectangleView: View {
                             showQuizOnboarding = !isPrioritySet
                             if (!isPrioritySet) {
                                 try await viewModel.saveToPSS(totalScore: 1, answers: [1,1,1,1,1,1])
+                                networkManager.fetchWellbeingDataServer(for: viewModel.currentUser?.id ?? "")
+
                             }
                         }
                     }

@@ -13,7 +13,8 @@ struct SettingsView: View {
     @State private var showHealthSettingsAlert = false
     @State private var showDeleteConfirmation = false
     @State private var deleteConfirmationText = ""
-    
+    @EnvironmentObject  var nm : NetworkManager
+
     var body: some View {
         Form {
             if let user = viewModel.currentUser {
@@ -147,6 +148,7 @@ struct SettingsView: View {
             
             Section(header: Text("Account")) {
                 Button {
+                    nm.reset()
                     viewModel.signOut()
                 } label: {
                     SettingsRowView(imageName: "arrow.left.circle.fill", title: "Sign Out", tintColor: .red)

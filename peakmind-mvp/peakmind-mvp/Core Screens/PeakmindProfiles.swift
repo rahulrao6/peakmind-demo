@@ -527,7 +527,7 @@ extension AuthViewModel {
 import SwiftUI
 import Firebase
 //
-//struct EnergyQuizView: View {
+//struct : View {
 //    @State private var answers = Array(repeating: 1, count: 15) // Default to 1 (Strongly Disagree)
 //    @State private var isSubmitted = false
 //    @EnvironmentObject var viewModel: AuthViewModel

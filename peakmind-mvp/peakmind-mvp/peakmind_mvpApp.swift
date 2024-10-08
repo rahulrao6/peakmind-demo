@@ -92,6 +92,7 @@ struct peakmind_mvpApp: App {
     @StateObject var viewModel = AuthViewModel()
     @StateObject var HealthKitManager1 = HealthKitManager()
     @StateObject var EventKitManager1 = EventKitManager()
+    @StateObject var nm = NetworkManager()
 
 
     var body: some Scene {
@@ -101,10 +102,12 @@ struct peakmind_mvpApp: App {
                     .environmentObject(viewModel)
                     .environmentObject(HealthKitManager1)
                     .environmentObject(EventKitManager1)
+                    .environmentObject(nm)
 
                     .onAppear {
                         // Example of scheduling a notification
                         scheduleNotificationsBasedOnLastLogin()
+                        nm.reset()
                     }
                 
             }

@@ -196,7 +196,7 @@ struct FactorPage: View {
                                     .font(.custom("SFProText-Heavy", size: 18))
                                     .foregroundColor(.white)
 
-                                Text("\(healthKitManager.liveStepCount)")
+                                Text("\(Int(healthKitManager.liveStepCount))")
                                     .font(.custom("SFProText-Heavy", size: 24))
                                     .foregroundColor(.white)
                             }

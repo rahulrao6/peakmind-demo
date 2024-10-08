@@ -232,66 +232,49 @@ struct HabitIndividualView: View {
                             .font(.custom("SFProText-Heavy", size: 40))
                             .foregroundColor(.white)
                         
-                        // Count Increment Section
-                        HStack {
-                            Button(action: {
-                                if count > 0 {
-                                    let increment = -1
-                                    print("Minus button tapped, increment: \(increment)")
-                                    self.count += increment
-                                    self.isProgrammaticChange = true
-                                    self.inputText = "\(self.count)"
-                                    self.hasChanged = true
-                                    self.updateHabit(by: habit.id, increment: increment)
-                                    self.isProgrammaticChange = false
-                                }
-                            }) {
-                                Image(systemName: "minus.circle.fill")
-                                    .resizable()
-                                    .frame(width: 33, height: 33)
-                                    .foregroundColor(.red)
-                            }
-                            TextField("", text: $inputText, onCommit: {
-                                if let value = Int(inputText), !isProgrammaticChange {
-                                    let increment = value - self.count
-                                    self.count = value
-                                    self.hasChanged = true
-                                    self.updateHabit(by: habit.id, increment: increment)
-                                }
-                            })
-                            .font(.custom("SFProText-Heavy", size: 80))
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                            .frame(width: 120)
-                            .keyboardType(.numberPad)
-                            .minimumScaleFactor(0.5)
-                            .lineLimit(1)
-                            .onChange(of: inputText) { newValue in
-                                if let value = Int(newValue), !isProgrammaticChange {
-                                    let increment = value - self.count
-                                    self.count = value
-                                    self.hasChanged = true
-                                    self.updateHabit(by: habit.id, increment: increment)
-                                }
-                            }
+                        // Circle Design
+                        ZStack {
+                            Circle()
+                                .fill(Color.black.opacity(0.3)) // Black fill with 0.3 opacity inside the circle
+                                .frame(width: 300, height: 300)
 
-                            Button(action: {
-                                let increment = 1
-                                print("Plus button tapped, increment: \(increment)")
-                                self.count += increment
-                                self.isProgrammaticChange = true
-                                self.inputText = "\(self.count)"
-                                self.hasChanged = true
-                                self.updateHabit(by: habit.id, increment: increment)
-                                self.isProgrammaticChange = false
-                            }) {
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable()
-                                    .frame(width: 33, height: 33)
-                                    .foregroundColor(.green)
+                            Circle()
+                                .stroke(Color(hex: "b0e8ff")!, lineWidth: 5) // Blue outline and transparent inside
+                                .frame(width: 300, height: 300)
+
+                            VStack {
+                                // Display the habit unit name above the number
+                                Text(habit.unit) // This displays the unit of the habit
+                                    .font(.custom("SFProText-Heavy", size: 24)) // Font for the unit
+                                    .foregroundColor(.white) // Set text color to white
+
+                                // TextField for entering the count
+                                TextField("", text: $inputText, onCommit: {
+                                    if let value = Int(inputText), !isProgrammaticChange {
+                                        let increment = value - self.count
+                                        self.count = value
+                                        self.hasChanged = true
+                                        self.updateHabit(by: habit.id, increment: increment)
+                                    }
+                                })
+                                .font(.custom("SFProText-Heavy", size: 80)) // Font for the count number
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                                .frame(width: 120)
+                                .keyboardType(.numberPad)
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(1)
+                                .onChange(of: inputText) { newValue in
+                                    if let value = Int(newValue), !isProgrammaticChange {
+                                        let increment = value - self.count
+                                        self.count = value
+                                        self.hasChanged = true
+                                        self.updateHabit(by: habit.id, increment: increment)
+                                    }
+                                }
                             }
-                                 }
-                        
+                        }
+                    
                         // Save Button
                         if hasChanged {
                             Button(action: {

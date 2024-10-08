@@ -994,12 +994,28 @@ struct CategoryPageView: View {
     // Helper method to get color based on score
     private func getColorForScore(_ score: Int) -> Color {
         switch score {
-        case 0..<50:
-            return Color.red
-        case 50..<80:
-            return Color.orange
+        case 0...10:
+            return Color(hex: "db437d")!
+        case 11...20:
+            return Color(hex: "df5285")!
+        case 21...30:
+            return Color(hex: "e77097")!
+        case 31...40:
+            return Color(hex: "ef8daa")!
+        case 41...50:
+            return Color(hex: "f39bb4")!
+        case 51...60:
+            return Color(hex: "f8b4c6")!
+        case 61...70:
+            return Color(hex: "f8b4c6")!
+        case 71...80:
+            return Color(hex: "fde0e7")!
+        case 81...90:
+            return Color(hex: "fde0e7")!
+        case 91...100:
+            return Color(hex: "ffffff")!
         default:
-            return Color.green
+            return Color.white
         }
     }
 }

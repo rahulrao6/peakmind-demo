@@ -42,16 +42,19 @@ class AuthViewModel: ObservableObject {
         authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self = self else { return }
             if let user = user {
-                self.fetchUserData(userId: user.uid)
-                self.healthKitManager.requestAuthorization()
-                
-                
-                Task {
-                    //let _ = await self.EventKitManager1.requestAccess(to: .event)
-                    let _ = await self.EventKitManager1.requestAccess(to: .reminder)
+                if (!user.uid.isEmpty) {
+                    self.fetchUserData(userId: user.uid)
                     
+                    
+                    Task {
+                        //let _ = await self.EventKitManager1.requestAccess(to: .event)
+                        let _ = await self.EventKitManager1.requestAccess(to: .reminder)
+                        
+                    }
+                    self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
                 }
-                self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
+                self.healthKitManager.requestAuthorization()
+
             } else {
                 self.isSignedIn = false
                 self.currentUser = nil

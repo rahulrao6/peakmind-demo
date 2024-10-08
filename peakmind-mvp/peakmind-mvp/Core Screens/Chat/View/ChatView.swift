@@ -175,7 +175,10 @@ struct ChatView: View {
                     .padding(12)
                     .background(Color.mediumBlue)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+                
             }
+            .disabled(message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)  // Disable button if message is empty or whitespace
+
 
             Button(action: {
                 showingSettings = true
@@ -543,7 +546,13 @@ struct ChatView: View {
     }
 
     func continueConversation() {
-        receivedMessages.append(ChatMessage(sender: "Patient", content: message, timestamp: Date().timeIntervalSince1970))
+        let currentTime = Date().timeIntervalSince1970
+        let newMessage = ChatMessage(sender: "Patient", content: message, timestamp: currentTime)
+        receivedMessages.append(newMessage)
+
+        // Log the current timestamp
+        print("Timestamp when sending: \(currentTime)")
+        
         guard let currentUser = viewModel.currentUser, let sessionId = self.sessionId else {
             print("No current user or session ID")
             return

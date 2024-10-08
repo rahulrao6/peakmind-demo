@@ -652,25 +652,28 @@ struct RectangleView: View {
                                 print("Failed to check priority existence: \(error.localizedDescription)")
                             }
                             showQuizOnboarding = !isPrioritySet
+                            if (!isPrioritySet) {
+                                try await viewModel.saveToPSS(totalScore: 1, answers: [1,1,1,1,1,1])
+                            }
                         }
                     }
                     
-                    // "View Summary" button with updated style (wider and smaller font)
-                    Button(action: {
-                        withAnimation {
-                            selectedScore = 75 // Example score passed to MentalModelView
-                            showMentalModelView = true
-                        }
-                    }) {
-                        Text("View Summary")
-                            .font(.custom("SFProText-Heavy", size: 18)) // Smaller font size
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: 300) // Wider button
-                            .background(Color(hex: "180b53")!)
-                            .cornerRadius(10)
-                    }
-                    .padding(.bottom, 30)
+//                    // "View Summary" button with updated style (wider and smaller font)
+//                    Button(action: {
+//                        withAnimation {
+//                            selectedScore = 75 // Example score passed to MentalModelView
+//                            showMentalModelView = true
+//                        }
+//                    }) {
+//                        Text("View Summary")
+//                            .font(.custom("SFProText-Heavy", size: 18)) // Smaller font size
+//                            .foregroundColor(.white)
+//                            .padding()
+//                            .frame(maxWidth: 300) // Wider button
+//                            .background(Color(hex: "180b53")!)
+//                            .cornerRadius(10)
+//                    }
+//                    .padding(.bottom, 30)
                     Spacer()
                 }
                 .padding()

@@ -330,6 +330,7 @@ struct SurveyView: View {
                         Task {
                             await saveToFirebase()
                         }
+                        dismiss()
                     } else {
                         withAnimation(.easeInOut) {
                             currentIndex += 1

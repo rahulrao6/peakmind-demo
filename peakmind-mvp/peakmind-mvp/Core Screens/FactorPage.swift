@@ -7,12 +7,51 @@
 
 import Foundation
 import SwiftUI
+import Firebase
+import FirebaseFirestore
+import SwiftUI
+
+enum FactorQuiz: String, CaseIterable, Identifiable {
+    case mood = "PHQ9"
+    case stress = "PSS"
+    case resilience = "NMRQ"
+    case energy = "Energy"
+    case sleep = "ISI"
+
+    var id: String { self.rawValue }
+
+    @ViewBuilder
+    var quizView: some View {
+        switch self {
+        case .mood:
+            PHQ9QuizView()
+        case .stress:
+            PSSQuizView()
+        case .resilience:
+            NMRQQuizView()
+        case .energy:
+            EnergyQuizView()
+        case .sleep:
+            ISIQuizView()
+        }
+    }
+}
+
+// Example Views for demonstration. Replace with your actual view implementations.
+
 
 struct FactorPage: View {
     var category: Category // Pass the category for contextual use
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
     @EnvironmentObject var viewModel: AuthViewModel
-    
+    @State private var surveyScores: [String: Int] = [:]
+    @State private var surveyScoresPhysical: [String: Int] = [:]
+    @State private var selectedFactor2: FactorQuiz? = nil // Track the selected factor for quiz
+    @State private var selectedFactor3: String? = nil // Track the selected factor for quiz
+
+    @State private var isDataLoaded = false
+
+    @EnvironmentObject var healthKitManager: HealthKitManager
 
     @EnvironmentObject var networkManager: NetworkManager
     var score: Int
@@ -80,30 +119,38 @@ struct FactorPage: View {
                         }
                     }
                     .stroke(Color.white, lineWidth: 2)
-                    
-                    ForEach(Array(Factor.allCases.enumerated()), id: \.element) { index, factor in
-                        if factor.category == category.rawValue {
-                            if let factorScore = factorScores[factor.rawValue] {
-                                Circle()
-                                    .fill(Color.white)
-                                    .frame(width: 80, height: 80)
-                                    .overlay(
-                                        Image(systemName: getIconName(for: index)) // Use index as the parameter
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 40, height: 40)
-                                            .foregroundColor(Color(hex: "180b53")!)
-                                    )
-                                    .onTapGesture {
-                                        selectedNodeIndex = index
-                                        Task{
-                                            selectedFactor = Int(factorScore)
+                    VStack{
+                        ForEach(factorScores.sorted(by: { $0.key < $1.key }), id: \.key) { factorName, score in
+                            //if factor.category == category.rawValue {
+                            //if let factorScore = factorScores[factor.rawValue] {
+                            Circle()
+                                .fill(Color.white)
+                                .frame(width: 80, height: 80)
+                                .overlay(
+                                    Image(systemName: getIconName(for: 1)) // Use index as the parameter
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(Color(hex: "180b53")!)
+                                )
+                                .onTapGesture {
+                                    //selectedNodeIndex = factorName
+                                    Task{
+                                        selectedFactor = Int(score)
+                                        selectedFactor3 = factorName
+                                        await MainActor.run {
+                                            if let _ = selectedFactor3 {
+                                                showFactorDetail = true // Trigger navigation only if selectedFactor3 is set
+                                            }
                                         }
-                                        showFactorDetail = true // Trigger navigation
                                     }
-                            } else {
-                                Text("t")
-                            }
+                                    //showFactorDetail = true // Trigger navigation
+   
+                                }
+                            //                            } else {
+                            //                                Text("t")
+                            //                            }
+                            //}
                         }
                     }
                 }
@@ -116,17 +163,46 @@ struct FactorPage: View {
 
                 // 2x2 grid of percentage tiles
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                    ForEach(0..<4) { index in
+                    ForEach(surveyScores.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
                         ZStack {
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(Color(hex: "180b53")!)
                                 .frame(height: 100)
 
-                            Text(getPercentageChange(for: index))
-                                .font(.custom("SFProText-Heavy", size: 24))
-                                .foregroundColor(.white)
+                            VStack {
+                                Text(key)
+                                    .font(.custom("SFProText-Heavy", size: 18))
+                                    .foregroundColor(.white)
+
+                                Text("\(value)")
+                                    .font(.custom("SFProText-Heavy", size: 24))
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        .onTapGesture {
+                            // Navigate to the factor detail view
+                            selectedFactor2 = FactorQuiz(rawValue: key)
+
                         }
                     }
+                    if (category == .physical) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color(hex: "180b53")!)
+                                .frame(height: 100)
+
+                            VStack {
+                                Text("Steps")
+                                    .font(.custom("SFProText-Heavy", size: 18))
+                                    .foregroundColor(.white)
+
+                                Text("\(healthKitManager.liveStepCount)")
+                                    .font(.custom("SFProText-Heavy", size: 24))
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
+                    
                 }
                 .padding(.horizontal, 20)
 
@@ -149,18 +225,92 @@ struct FactorPage: View {
                 }
             }
             .onAppear {
-                
+                fetchDataBasedOnCategory()
                 print(factorScores)
                 print(category)
                 print(score)
             }
             // Present FactorDetailView when a node is tapped
-            .fullScreenCover(isPresented: $showFactorDetail) {
-                FactorDetailView(factorScore: selectedFactor) // Present detail view when node is tapped
+            .fullScreenCover(isPresented: Binding(get: {
+                showFactorDetail && selectedFactor3 != nil
+            }, set: { newValue in
+                showFactorDetail = newValue
+            })) {
+                FactorDetailView(factorScore: selectedFactor, selectedFactor: selectedFactor3 ?? "").environmentObject(viewModel) // Present detail view when node is tapped
+            }
+            .sheet(item: $selectedFactor2) { factor in
+                factor.quizView
+                    .environmentObject(networkManager)
+                    .onDisappear {
+                        // Update factor scores once quiz is completed (mocking score for now)
+                        // Example: factorScores[factor.rawValue] = Double.random(in: 60...100)
+                    }
             }
         }
     }
 
+    private func fetchDataBasedOnCategory() {
+        switch category {
+        case .emotional:
+            fetchSurveyScores()
+        case .physical:
+            print("phy")
+            fetchSurveyScoresPhysical()
+            //healthKitManager.fetchLiveStepCount()
+            //fetchPhysicalData()
+        default:
+            print("No specific data fetching setup for this category")
+        }
+    }
+    
+    private func fetchSurveyScores() {
+        guard let userId = viewModel.currentUser?.id else { return }
+        let db = Firestore.firestore()
+
+        db.collection("users").document(userId).collection("profiles")
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching survey scores: \(error)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents else { return }
+                for document in documents {
+                    let data = document.data()
+                    if (document.documentID == "PHQ9" || document.documentID == "NMRQ" || document.documentID == "PSS" ){
+                        let score = data["score"] as? Int ?? 0
+                        surveyScores[document.documentID] = score
+                    }
+                }
+                print(surveyScores)
+                isDataLoaded = true
+            }
+    }
+    
+    private func fetchSurveyScoresPhysical() {
+        guard let userId = viewModel.currentUser?.id else { return }
+        let db = Firestore.firestore()
+
+        db.collection("users").document(userId).collection("profiles")
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching survey scores: \(error)")
+                    return
+                }
+
+                guard let documents = snapshot?.documents else { return }
+                for document in documents {
+                    let data = document.data()
+                    if (document.documentID == "Energy" || document.documentID == "ISI" ){
+                        let score = data["score"] as? Int ?? 0
+                        surveyScores[document.documentID] = score
+                    }
+                }
+                print(surveyScores)
+                isDataLoaded = true
+            }
+    }
+    
     // Helper function to return the icon name for each node
     private func getIconName(for index: Int) -> String {
         let icons = ["heart.fill", "brain.head.profile", "bolt.fill", "person.fill", ""]
@@ -184,14 +334,24 @@ struct FactorPage: View {
     }
 }
 
+struct ScoreEntry: Identifiable {
+    var id: String
+    var score: Double
+    var date: Date
+}
+import FirebaseFirestore
 
 
 // Detail view for the selected factor (Mood Detail)
 struct FactorDetailView: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
     var factorScore: Int // Pass the category for contextual use
-
+    var selectedFactor: String
     var sampleData: [Double] = [0.4, 0.6, 0.5, 0.8, 0.75, 0.6, 0.85] // Example data
+    @State private var scoreEntries: [ScoreEntry] = []
+    
 
     var body: some View {
         ZStack {
@@ -222,7 +382,7 @@ struct FactorDetailView: View {
                     Text("Score Over the Last Month")
                         .font(.custom("SFProText-Bold", size: 24))
                         .foregroundColor(.white)
-                    LineGraph(data: sampleData) // Custom LineGraph view
+                    LineGraph(data: sortedScores) // Custom LineGraph view
                         .stroke(Color.white, lineWidth: 2)
                         .frame(height: 200)
                 }
@@ -257,6 +417,50 @@ struct FactorDetailView: View {
                 .padding(.bottom, 40)
             }
         }
+        .onAppear {
+            print(selectedFactor)
+            fetchFactorHistory(userId: viewModel.currentUser?.id ?? "", factorName: selectedFactor) { entries in
+                self.scoreEntries = entries
+                print(scoreEntries)
+
+            }
+        }
+    }
+    
+    var sortedScores: [Double] {
+        return scoreEntries
+            .sorted(by: { $0.date < $1.date })
+            .map { $0.score/100 }
+    }
+
+    func fetchFactorHistory(userId: String, factorName: String, completion: @escaping ([ScoreEntry]) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("profile_data").document(userId).collection("scores")
+            .order(by: "timestamp", descending: true) // Ensures the results are ordered by date
+            .getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    completion([])
+                    return
+                }
+                print(querySnapshot)
+                var scoreEntries: [ScoreEntry] = []
+                for document in querySnapshot!.documents {
+                    print(document)
+                    let data = document.data()
+                    if let factorScores = data["factor_scores"] as? [String: Any],
+                       let factorData = factorScores[factorName] as? [String: Any],
+                       let score = factorData["score"] as? Double,
+                       let timestamp = data["timestamp"] as? Timestamp {
+                        let date = timestamp.dateValue()
+                        scoreEntries.append(ScoreEntry(id: document.documentID, score: score, date: date))
+                    }
+                }
+
+                // Sorting the score entries by date in ascending order
+                scoreEntries.sort(by: { $0.date < $1.date })
+                completion(scoreEntries)
+            }
     }
 }
 

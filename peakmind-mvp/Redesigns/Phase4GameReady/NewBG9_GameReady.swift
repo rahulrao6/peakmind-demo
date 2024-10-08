@@ -126,10 +126,8 @@ struct P4_9_1: View {
                                 .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
                         }
                         .padding(.bottom, 20) // Adjusted padding at the bottom
-
-                        // NavigationLink to WellnessQuestionView3
-                        NavigationLink(destination: P4_WQ3(closeAction: closeAction), isActive: $navigateToNextView) {
-                            EmptyView()
+                        .fullScreenCover(isPresented: $navigateToNextView) {
+                            P4_WQ3(closeAction: closeAction)
                         }
                     }
                 }

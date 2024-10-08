@@ -852,12 +852,6 @@ struct ConversationPreview: Identifiable {
     let preview: String
 }
 
-import SwiftUI
-
-import SwiftUI
-import FirebaseFirestore
-import Lottie
-
 struct FeedbackSheetView: View {
     @State private var feedbackText: String = ""
     @State private var starRating: Int = 0
@@ -908,18 +902,10 @@ struct FeedbackSheetView: View {
                             }
                         } else {
                             VStack(spacing: 20) {
-                                // Header with icon
-                                HStack {
-                                    Image(systemName: "star.circle")
-                                        .resizable()
-                                        .frame(width: 40, height: 35)
-                                        .foregroundColor(.mediumBlue)
-                                    Text("We value your feedback!")
-                                        .font(.title2)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.mediumBlue)
-                                }
-                                .padding(.top)
+                                Text("We value your feedback!")
+                                    .font(.custom("SFProText-Heavy", size: 25)) // Adjust size as needed
+                                    .foregroundColor(.white)
+                                    .padding(.top)
                                 
                                 // Star rating system
                                 HStack {
@@ -1046,7 +1032,7 @@ struct FeedbackSheetView: View {
                         }
                     }
                     .padding()
-                    .navigationBarTitle("Feedback", displayMode: .inline)
+                    .navigationBarTitle("", displayMode: .inline)
                     .navigationBarItems(leading: Button("Cancel") {
                         showingFeedbackSheet = false
                     })

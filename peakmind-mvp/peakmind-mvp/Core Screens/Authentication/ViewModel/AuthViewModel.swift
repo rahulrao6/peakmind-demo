@@ -42,16 +42,19 @@ class AuthViewModel: ObservableObject {
         authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self = self else { return }
             if let user = user {
-                self.fetchUserData(userId: user.uid)
-                self.healthKitManager.requestAuthorization()
-                
-                
-                Task {
-                    //let _ = await self.EventKitManager1.requestAccess(to: .event)
-                    let _ = await self.EventKitManager1.requestAccess(to: .reminder)
+                if (!user.uid.isEmpty) {
+                    self.fetchUserData(userId: user.uid)
                     
+                    
+                    Task {
+                        //let _ = await self.EventKitManager1.requestAccess(to: .event)
+                        let _ = await self.EventKitManager1.requestAccess(to: .reminder)
+                        
+                    }
+                    self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
                 }
-                self.healthKitManager.fetchHealthData(for: user.uid, numberOfDays: 7)
+                self.healthKitManager.requestAuthorization()
+
             } else {
                 self.isSignedIn = false
                 self.currentUser = nil
@@ -1898,11 +1901,11 @@ class AuthViewModel: ObservableObject {
         
         let defaultQuests = [
             Quest(baseName: "Profiles", currentProgress: 0, nextSegmentGoal: 1, totalSegments: [1, 3, 10, 20, 40]),
-            Quest(baseName: "Games", currentProgress: 0, nextSegmentGoal: 5, totalSegments: [5, 25, 50, 150, 400]),
+//            Quest(baseName: "Games", currentProgress: 0, nextSegmentGoal: 5, totalSegments: [5, 25, 50, 150, 400]),
             Quest(baseName: "Journal", currentProgress: 0, nextSegmentGoal: 10, totalSegments: [10, 30, 60, 100, 250]),
             Quest(baseName: "Chat", currentProgress: 0, nextSegmentGoal: 3, totalSegments: [3, 10, 20, 40, 100]),
-            Quest(baseName: "Habits", currentProgress: 0, nextSegmentGoal: 5, totalSegments: [5, 20, 50, 100, 250]),
-            Quest(baseName: "Routine", currentProgress: 0, nextSegmentGoal: 1, totalSegments: [1, 5, 10, 20, 50])
+            Quest(baseName: "Habits", currentProgress: 0, nextSegmentGoal: 5, totalSegments: [5, 20, 50, 100, 250])
+//            Quest(baseName: "Routine", currentProgress: 0, nextSegmentGoal: 1, totalSegments: [1, 5, 10, 20, 50])
         ]
         
         for var quest in defaultQuests {

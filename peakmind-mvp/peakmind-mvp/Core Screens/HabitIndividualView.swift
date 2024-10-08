@@ -189,7 +189,7 @@ struct HabitIndividualView: View {
     @State private var habitsByName: [String: [Habit]] = [:]
     private var db = Firestore.firestore()
     @State private var selectedHabitForAnalytics: Habit? = nil
-
+    @State private var isProgrammaticChange: Bool = false
     let habit: Habit
     let selectedDate: Date
 
@@ -236,26 +236,27 @@ struct HabitIndividualView: View {
                         HStack {
                             Button(action: {
                                 if count > 0 {
-                                    let newCount = count - 1
-                                    updateHabit(by: habit.id, increment: -1)
-                                    updateHabitCount(to: newCount)
-
+                                    let increment = -1
+                                    print("Minus button tapped, increment: \(increment)")
+                                    self.count += increment
+                                    self.isProgrammaticChange = true
+                                    self.inputText = "\(self.count)"
+                                    self.hasChanged = true
+                                    self.updateHabit(by: habit.id, increment: increment)
+                                    self.isProgrammaticChange = false
                                 }
                             }) {
-                                HStack {
-                                    Image(systemName: "minus.circle.fill")
-                                        .resizable()
-                                        .frame(width: 33, height: 33)
-                                        .foregroundColor(.red)
-                              
-                                }
+                                Image(systemName: "minus.circle.fill")
+                                    .resizable()
+                                    .frame(width: 33, height: 33)
+                                    .foregroundColor(.red)
                             }
-                            
                             TextField("", text: $inputText, onCommit: {
-                                if let value = Int(inputText) {
-                                    updateHabitCount(to: value)
-                                    let increment = value - count;
-                                    updateHabit(by: habit.id, increment: increment)
+                                if let value = Int(inputText), !isProgrammaticChange {
+                                    let increment = value - self.count
+                                    self.count = value
+                                    self.hasChanged = true
+                                    self.updateHabit(by: habit.id, increment: increment)
                                 }
                             })
                             .font(.custom("SFProText-Heavy", size: 80))
@@ -266,24 +267,30 @@ struct HabitIndividualView: View {
                             .minimumScaleFactor(0.5)
                             .lineLimit(1)
                             .onChange(of: inputText) { newValue in
-                                if let value = Int(newValue) {
-                                    updateHabitCount(to: value)
+                                if let value = Int(newValue), !isProgrammaticChange {
+                                    let increment = value - self.count
+                                    self.count = value
+                                    self.hasChanged = true
+                                    self.updateHabit(by: habit.id, increment: increment)
                                 }
                             }
 
                             Button(action: {
-                                let newCount = count + 1
-                                updateHabit(by: habit.id, increment: 1)
-                                updateHabitCount(to: newCount)
+                                let increment = 1
+                                print("Plus button tapped, increment: \(increment)")
+                                self.count += increment
+                                self.isProgrammaticChange = true
+                                self.inputText = "\(self.count)"
+                                self.hasChanged = true
+                                self.updateHabit(by: habit.id, increment: increment)
+                                self.isProgrammaticChange = false
                             }) {
-                                HStack {
-                                    Image(systemName: "plus.circle.fill")
-                                        .resizable()
-                                        .frame(width: 33, height: 33)
-                                        .foregroundColor(.green)
-                                }
+                                Image(systemName: "plus.circle.fill")
+                                    .resizable()
+                                    .frame(width: 33, height: 33)
+                                    .foregroundColor(.green)
                             }
-                        }
+                                 }
                         
                         // Save Button
                         if hasChanged {
@@ -849,7 +856,7 @@ extension HabitIndividualView {
             print("No current user")
             return
         }
-        
+        print(increment)
         let userID = user.id
         let dateString = dateString(for: selectedDate)
 
@@ -863,6 +870,7 @@ extension HabitIndividualView {
                         let currentCount = habitData["count"] as? Int ?? 0
                         let goal = habitData["goal"] as? Int ?? 0
                         let newCount = min(max(0, currentCount + increment), goal)
+                        print("newoicounkjbsbdsi \(newCount)")
                         habitData["count"] = newCount
                         habitsData[index] = habitData
                         

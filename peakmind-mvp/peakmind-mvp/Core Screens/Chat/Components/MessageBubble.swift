@@ -29,13 +29,13 @@ struct MessageBubble: View {
                 Spacer()
                 
                 HStack {
-                    Text(timeAgo())
+                    //Text(timeAgo())
                         //.padding(3)
-                        .foregroundColor(.white)
+                        //.foregroundColor(.white)
                         //.font(.footnote)
-                        .padding(.trailing, -4)
-                        .font(.system(size: 10))
-                        .italic()
+                        //.padding(.trailing, -4)
+                        //.font(.system(size: 10))
+                        //.italic()
                 }
                     //.clipShape(ChatBubbleShape(isFromCurrentUser: true))
                     //.padding(2)

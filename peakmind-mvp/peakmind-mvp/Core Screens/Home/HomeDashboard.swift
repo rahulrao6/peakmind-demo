@@ -124,6 +124,7 @@ struct HomeDashboard: View {
                                                             .fontWeight(.bold)
                                                             .foregroundColor(.black)
                                                     )
+                                                
                                             }
                                         }
                                     }

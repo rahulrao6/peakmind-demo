@@ -179,92 +179,6 @@ struct AvatarCustomizationView: View {
         .navigationBarHidden(true)
     }
 }
-//struct AvatarCustomizationView: View {
-//    @Binding var isCustomizing: Bool // Binding to go back to the previous view
-//
-//    // State to control which group is expanded
-//    @State private var expandedGroup: String? = nil
-//
-//    // State to track selected assets for each category (Beanie, Head, Coat, Pants)
-//    @State private var selectedAssets: [String: String] = [:]
-//
-//    var body: some View {
-//        ZStack {
-//            // Match the background color to the rewards page
-//            Color(hex: "0d2c7b")
-//                .ignoresSafeArea()
-//
-//            VStack {
-//                // Avatar display remains fixed at the top
-//                ZStack {
-//                    Image("SampleIgloo")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(width: 250, height: 250) // Fixed size for avatar preview
-//                        .cornerRadius(10)
-//
-//                    ZStack {
-//                        Image(selectedAssets["Pants"] ?? "SamplePants")
-//                            .resizable()
-//                            .scaledToFit()
-//                        Image(selectedAssets["Coat"] ?? "SampleCoat")
-//                            .resizable()
-//                            .scaledToFit()
-//                        Image(selectedAssets["Head"] ?? "SampleHead")
-//                            .resizable()
-//                            .scaledToFit()
-//                        Image(selectedAssets["Beanie"] ?? "SampleBeanie")
-//                            .resizable()
-//                            .scaledToFit()
-//                    }
-//                    .frame(width: 250, height: 250) // Fixed size for avatar parts
-//                }
-//                .frame(width: 250, height: 250)
-//                .background(Color.gray.opacity(0.2))
-//                .cornerRadius(10)
-//                .padding()
-//
-//                // Scrollable customization categories
-//                ScrollView {
-//                    Text("Customize Your Avatar")
-//                        .font(.custom("SFProText-Heavy", size: 24)) // Set custom font SFProText-Heavy
-//                        .foregroundColor(.white) // White text to match the background
-//                        .padding(.bottom, 20)
-//
-//                    // Customization Categories as expandable sections
-//                    VStack(spacing: 20) {
-//                        CustomizationCategoryView(category: "Beanie", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
-//                        Divider().background(Color.white) // Divider between categories
-//                        CustomizationCategoryView(category: "Head", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
-//                        Divider().background(Color.white) // Divider between categories
-//                        CustomizationCategoryView(category: "Coat", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
-//                        Divider().background(Color.white) // Divider between categories
-//                        CustomizationCategoryView(category: "Pants", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
-//                    }
-//                    .padding()
-//                }
-//                .frame(maxHeight: .infinity) // Allow ScrollView to grow without affecting the avatar preview
-//
-//                // Done button at the bottom, which remains visible
-//                Button(action: {
-//                    isCustomizing = false // Close customization view
-//                }) {
-//                    Text("Done")
-//                        .fontWeight(.bold)
-//                        .frame(maxWidth: .infinity)
-//                        .padding()
-//                        .background(Color(hex: "000722")!)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(10)
-//                }
-//                .padding()
-//            }
-//        }
-//        .navigationBarHidden(true) // Hide default navigation bar
-//    }
-//}
-//
-
 
 struct CustomizationCategoryView: View {
     let category: String
@@ -284,7 +198,7 @@ struct CustomizationCategoryView: View {
             if category == "Head" {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        ForEach(1...8, id: \.self) { index in
+                        ForEach(1...10, id: \.self) { index in
                             let assetName = headAssetName(for: index) // Get the corresponding asset name
                             
                             Circle()
@@ -367,7 +281,7 @@ struct CustomizationCategoryView: View {
         case "Beanie", "Coat", "Pants":
             return ["\(selectedColor ?? "Black")\(category)1", "\(selectedColor ?? "Black")\(category)2", "\(selectedColor ?? "Black")3"] // Variations 1, 2, and 3 with third locked
         case "Head":
-            return ["MaleHead1", "MaleHead2", "MaleHead3", "FemaleHead1", "FemaleHead2", "FemaleHead3", "FemaleHead4", "FemaleHead5"] // Combined head variations
+            return ["MaleHead1", "MaleHead2", "MaleHead3", "MaleHead4", "MaleHead5", "FemaleHead1", "FemaleHead2", "FemaleHead3", "FemaleHead4", "FemaleHead5"] // Updated to include MaleHead4 and MaleHead5
         default:
             return []
         }
@@ -398,14 +312,18 @@ struct CustomizationCategoryView: View {
         case 3:
             return "MaleHead3"
         case 4:
-            return "FemaleHead1"
+            return "MaleHead4" // Added MaleHead4
         case 5:
-            return "FemaleHead2"
+            return "MaleHead5" // Added MaleHead5
         case 6:
-            return "FemaleHead3"
+            return "FemaleHead1"
         case 7:
-            return "FemaleHead4"
+            return "FemaleHead2"
         case 8:
+            return "FemaleHead3"
+        case 9:
+            return "FemaleHead4"
+        case 10:
             return "FemaleHead5"
         default:
             return ""

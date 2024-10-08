@@ -116,8 +116,10 @@ class AnalyticsViewModel: ObservableObject {
 import SwiftUI
 import Charts
 
+// MARK: - Analytics View
 struct AnalyticsView: View {
     @StateObject private var viewModel: AnalyticsViewModel
+    @State private var selectedChartType: ChartType = .bar
 
     init(habitTitle: String, userID: String) {
         _viewModel = StateObject(wrappedValue: AnalyticsViewModel(habitTitle: habitTitle, userID: userID))
@@ -130,8 +132,18 @@ struct AnalyticsView: View {
                     ProgressView("Loading data...")
                         .padding()
                 } else {
-                    // Your chart or data display code
-                    ChartView(habitHistory: viewModel.habitHistory)
+                    Picker("Select Chart Type", selection: $selectedChartType) {
+                        Text("Bar Chart").tag(ChartType.bar)
+                        Text("Line Chart").tag(ChartType.line)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+
+                    if selectedChartType == .bar {
+                        BarChartView(habitHistory: viewModel.habitHistory)
+                    } else {
+                        LineChartView(habitHistory: viewModel.habitHistory)
+                    }
                 }
             }
             .navigationTitle("Analytics for \(viewModel.habitTitle)")
@@ -139,7 +151,62 @@ struct AnalyticsView: View {
     }
 }
 
-struct ChartView: View {
+// MARK: - Chart Type Enum
+enum ChartType {
+    case bar
+    case line
+}
+
+// MARK: - Bar Chart View
+struct BarChartView: View {
+    let habitHistory: [Habit]
+
+    var body: some View {
+        Chart {
+            ForEach(sortedHabitHistory) { habit in
+                if let date = parseDate(from: habit.dateTaken) {
+                    BarMark(
+                        x: .value("Date", date),
+                        y: .value("Count", habit.count)
+                    )
+                    .foregroundStyle(Color.green)
+                }
+            }
+        }
+        .chartXAxis {
+            AxisMarks(values: .automatic(desiredCount: 5)) { value in
+                AxisGridLine()
+                AxisTick()
+                AxisValueLabel(format: .dateTime.month().day())
+            }
+        }
+        .chartYAxis {
+            AxisMarks()
+        }
+        .frame(height: 300)
+        .padding()
+    }
+
+    // Helper functions
+    func parseDate(from dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: dateString)
+    }
+
+    var sortedHabitHistory: [Habit] {
+        habitHistory.sorted { (habit1, habit2) -> Bool in
+            guard let date1 = parseDate(from: habit1.dateTaken),
+                  let date2 = parseDate(from: habit2.dateTaken) else {
+                return false
+            }
+            return date1 < date2
+        }
+    }
+}
+
+// MARK: - Line Chart View
+struct LineChartView: View {
     let habitHistory: [Habit]
 
     var body: some View {
@@ -171,7 +238,7 @@ struct ChartView: View {
     // Helper functions
     func parseDate(from dateString: String) -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust to your date format
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.date(from: dateString)
     }
 

@@ -59,16 +59,16 @@ struct JournalView: View {
                     Button(action: {
                         showJournalPrompt = true
                     }) {
-                        Text(isPromptAnswered ? "Daily Prompt Answered!" : "Answer Your Daily Prompt")
+                        Text(Calendar.current.isDateInToday(journalEntries.last?.date ?? Date() - 1) ? "Daily Prompt Answered!" : "Answer Your Daily Prompt")
                             .font(.custom("SFProText-Bold", size: 18))
                             .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(isPromptAnswered ? Color.gray : Color(hex: "b0e8ff")!)
+                            .background(Calendar.current.isDateInToday(journalEntries.last?.date ?? Date() - 1) ? Color.gray : Color(hex: "b0e8ff")!)
                             .cornerRadius(10)
                             .padding(.horizontal, 20)
                     }
-                    .disabled(isPromptAnswered)
+                    .disabled(Calendar.current.isDateInToday(journalEntries.last?.date ?? Date() - 1))
                     .padding(.bottom, 20)
                     
                     
@@ -142,7 +142,6 @@ struct JournalView: View {
                 viewModel.fetchJournalEntries2()
                 setCurrentQuestion()
                 checkIfPromptAnswered()
-                showback = false
 //                viewModel.fetchJournalEntries { entries in
 //                    // This might be redundant if fetchJournalEntries2 uses a snapshot listener
 //                    checkIfPromptAnswered()
@@ -151,7 +150,6 @@ struct JournalView: View {
         }
         .onDisappear{
             viewModel.removeListener2()
-            showback = true
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarBackButtonHidden(showback)
@@ -164,6 +162,8 @@ struct JournalView: View {
             return
         }
         let calendar = Calendar.current
+        print(lastEntry.date)
+        print(calendar.isDateInToday(lastEntry.date))
         if calendar.isDateInToday(lastEntry.date) {
             isPromptAnswered = true
         } else {

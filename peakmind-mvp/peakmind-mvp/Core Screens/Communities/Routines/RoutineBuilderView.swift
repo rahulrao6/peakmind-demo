@@ -479,8 +479,11 @@ struct RoutineBuilderView: View {
         }
         .sheet(item: $selectedHabit, onDismiss: {
             selectedHabit = nil
-            loadAllHabits();
             loadHabits(for: selectedDate)
+            loadHabitHistory()
+            updateAllHabitProgress()
+            fetchGroups()
+            viewModel.loadHabitHistory()
         }) { habit in
             HabitIndividualView(habit: habit, selectedDate: selectedDate)
                 .environmentObject(viewModel)

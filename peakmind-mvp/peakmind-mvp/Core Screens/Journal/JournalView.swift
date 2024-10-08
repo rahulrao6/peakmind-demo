@@ -380,6 +380,7 @@ struct JournalDetailView: View {
         }
         // Disable dark mode by setting the color scheme to light
         .preferredColorScheme(.light)
+
     }
     
     func update() {

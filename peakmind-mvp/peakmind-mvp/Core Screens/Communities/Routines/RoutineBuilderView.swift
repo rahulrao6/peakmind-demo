@@ -402,6 +402,7 @@ struct RoutineBuilderView: View {
                                                 showingAddHabitForm = true
                                             } else if isDeleting {
                                                 print("Delete pressed for \(habit.title)")
+                                                print("Delete pressed for \(habit.title)")
                                             }
                                         }
                                         .padding(.horizontal, 5)
@@ -413,15 +414,15 @@ struct RoutineBuilderView: View {
                                         ZStack {
                                             Circle()
                                                 .fill(Color.white)
-                                                .frame(width: 20, height: 20)
+                                                .frame(width: 25, height: 25)
 
-                                            Image(systemName: "pencil.circle.fill")
+                                            Image(systemName: "ellipsis")  // Use ellipsis instead of pencil.circle.fill
                                                 .foregroundColor(.black)
-                                                .frame(width: 10, height: 10)
+                                                .frame(width: 25, height: 25)
                                         }
                                     }
-                                    .padding(.trailing, 5)
-                                    .padding(.top, -5)
+                                    .padding(.trailing, 3)
+                                    .padding(.top, -8)
                                 }
                             }
                         }
@@ -1304,7 +1305,8 @@ struct AddHabitForm: View {
                                 }
                                 Text("Custom").tag("Custom")
                             }
-                            
+                            .font(.custom("SFProText-Bold", size: 16))
+
                             
                             if category == "Custom" || customGroups.map({ $0.name }).contains(category) == false {
                                            if category == "Custom" {
@@ -1577,7 +1579,7 @@ struct AnalyticsView2: View {
     let habitTitle: String
     let habitid: String
     @EnvironmentObject var viewModel: AuthViewModel
-    @State private var showLineChart = true
+    @State private var showLineChart = false
     @State private var showingEditForm = false
     @State private var showDeleteConfirmation = false
     
@@ -1643,7 +1645,6 @@ struct AnalyticsView2: View {
                         }
                         .frame(height: 300)
                         .padding()
-
                     }
 
                     Spacer()
@@ -1940,7 +1941,8 @@ struct EditHabitForm: View {
                             }
                             Text("Custom").tag("Custom")
                         }
-                        
+                        .font(.custom("SFProText-Bold", size: 16))
+
                         if category == "Custom" || !customGroups.map({ $0.name }).contains(category) {
                             if category == "Custom" {
                                 VStack(alignment: .leading) {

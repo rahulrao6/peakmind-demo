@@ -271,8 +271,6 @@ struct OnboardingView: View {
     init(authViewModel: AuthViewModel) {
         _viewModel = StateObject(wrappedValue: FlowModeViewModel(viewModel: authViewModel))
     }
-    
-
 
     var body: some View {
         NavigationView {
@@ -300,9 +298,7 @@ struct OnboardingView: View {
                     .padding(.bottom, 20)
                 
                 // Start Focus Session button
-                NavigationLink(destination: FocusGoalView(viewModel: viewModel)
-                                .navigationBarBackButtonHidden(true)
-                ) {
+                NavigationLink(destination: FocusGoalView(viewModel: viewModel)) {
                     Text("Start Focus Session")
                         .font(.custom("SFProText-Bold", size: 20))
                         .foregroundColor(.white)
@@ -334,9 +330,10 @@ struct OnboardingView: View {
                 .edgesIgnoringSafeArea(.all)
             )
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(StackNavigationViewStyle()) // Keeps it simple for multiple screens
     }
 }
+
 
 
 
@@ -345,18 +342,60 @@ struct PreviousSessionsView: View {
     @ObservedObject var viewModel: FlowModeViewModel
 
     var body: some View {
-        List(viewModel.focusSessions) { session in
-            VStack(alignment: .leading) {
-                Text(session.title)
-                    .font(.headline)
-                Text("Mountain: \(session.mountainName)")
-                Text("Duration: \(formatDuration(session.duration))")
-                Text("Elevation Climbed: \(Int(session.elevationClimbed)) feet")
-                Text(session.completed ? "Completed" : "Not Completed")
-                    .foregroundColor(session.completed ? .green : .red)
+        ZStack {
+            // Background gradient
+            LinearGradient(
+                gradient: Gradient(colors: [Color(hex: "112864")!, Color(hex: "23429a")!]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .edgesIgnoringSafeArea(.all)
+
+            VStack {
+                // Title set to white
+                Text("Previous Sessions")
+                    .font(.custom("SFProText-Heavy", size: 30))
+                    .foregroundColor(.white)
+                    .padding(.top, 0)
+
+                // List of sessions
+                ScrollView {
+                    VStack(spacing: 10) {
+                        ForEach(viewModel.focusSessions) { session in
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text(session.title)
+                                        .font(.custom("SFProText-Heavy", size: 22))
+                                        .foregroundColor(.white)
+
+                                    Text("Mountain: \(session.mountainName)")
+                                        .font(.custom("SFProText-Bold", size: 18))
+                                        .foregroundColor(.white)
+
+                                    Text("Duration: \(formatDuration(session.duration))")
+                                        .font(.custom("SFProText-Bold", size: 18))
+                                        .foregroundColor(.white)
+
+                                    Text("Elevation Climbed: \(Int(session.elevationClimbed)) feet")
+                                        .font(.custom("SFProText-Bold", size: 18))
+                                        .foregroundColor(.white)
+
+                                    Text(session.completed ? "Completed" : "Not Completed")
+                                        .font(.custom("SFProText-Bold", size: 18))
+                                        .foregroundColor(session.completed ? .green : .red)
+                                }
+                                Spacer() // Ensures the background color spans the full width
+                            }
+                            .padding()
+                            .background(Color(hex: "0b1953")) // Backing color for session history
+                            .cornerRadius(10)
+                            .frame(maxWidth: .infinity) // Full width of the screen
+                        }
+                    }
+                    .padding(.horizontal, 16) // Padding around the list items
+                }
             }
         }
-        .navigationTitle("Previous Sessions")
         .onAppear {
             viewModel.fetchFocusSessions()
         }
@@ -369,7 +408,6 @@ struct PreviousSessionsView: View {
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
 }
-
 
 
 
@@ -406,8 +444,7 @@ struct FocusGoalView: View {
             .padding(.horizontal, 30) // Increased horizontal padding
             .padding(.top, 10)
             
-            NavigationLink(destination: FocusDurationView(viewModel: viewModel)
-                            .navigationBarBackButtonHidden(true)) {
+            NavigationLink(destination: FocusDurationView(viewModel: viewModel)) {
                 Text("Continue")
                     .font(.custom("SFProText-Bold", size: 20))
                     .foregroundColor(.white)
@@ -438,11 +475,13 @@ struct FocusGoalView: View {
 
 
 
+
 // Inside FocusDurationView, update the button structure to fix the navigation and text display
 
 struct FocusDurationView: View {
     @ObservedObject var viewModel: FlowModeViewModel
     @State private var selectedDuration: TimeInterval = 1800 // Default to 30 minutes
+    @State private var showFocusTimer: Bool = false // State to control full screen cover
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -474,12 +513,12 @@ struct FocusDurationView: View {
             .cornerRadius(8)
             .padding(.horizontal, 30) // Increased horizontal padding
             
-            NavigationLink(destination: FocusTimerView(viewModel: viewModel, selectedDuration: selectedDuration)
-                            .onAppear {
-                                viewModel.selectedDuration = selectedDuration
-                                viewModel.startNewFocusSession()
-                            }
-                            .navigationBarBackButtonHidden(true)) {
+            // Full-screen presentation of FocusTimerView
+            Button(action: {
+                viewModel.selectedDuration = selectedDuration
+                viewModel.startNewFocusSession() // Start the session
+                showFocusTimer = true // Trigger full-screen view
+            }) {
                 Text("Start Timer")
                     .font(.custom("SFProText-Bold", size: 20))
                     .foregroundColor(.white)
@@ -490,11 +529,12 @@ struct FocusDurationView: View {
             }
             .padding(.horizontal, 30) // Increased horizontal padding
             .padding(.top, 20)
-            
+            .fullScreenCover(isPresented: $showFocusTimer) {
+                FocusTimerView(viewModel: viewModel, selectedDuration: selectedDuration)
+                    .navigationBarBackButtonHidden(true) // Hide the back button in the timer view
+            }
+
             Spacer()
-        }
-        .onAppear{
-            print(viewModel.$focusGoal)
         }
         .background(
             LinearGradient(
@@ -506,6 +546,7 @@ struct FocusDurationView: View {
         )
     }
 }
+
 
 
 

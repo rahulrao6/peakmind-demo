@@ -50,6 +50,7 @@ struct TestView: View {
     @State private var progress = CGFloat(0.22)
     @State private var progressString = "0"
     @State private var canViewVertProgress = true
+    @State private var showMountains = false
     
     @State private var showElevation: Bool = true
     
@@ -260,7 +261,7 @@ struct TestView: View {
                             })) }, phase: 5),
                             LevelNode(uid: 4, internalName: "P5_5", title: "Reflection", viewFactory: { AnyView(P5_5_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
-                            })) }, phase: 4),
+                            })) }, phase: 5),
                             LevelNode(uid: 5, internalName: "P5_6", title: "Finding Community", viewFactory: { AnyView(P5_6_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 5),
@@ -344,33 +345,60 @@ struct TestView: View {
                             .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
                     }
                     
-                    if (true) {
+                    ZStack {
                         
-                        GeometryReader { geometry in
-                            ZStack(alignment: .bottom) {
-                                ProgressIndicatorView(isVisible: $canViewVertProgress, type: .impulseBar(progress: $progress, backgroundColor: .white.opacity(0.25)))
-                                    .foregroundColor(.white.opacity(0.65))
-                                    .frame(width: geometry.size.height - 100, height: 50) // Adjust the width based on the height
-                                    .rotationEffect(Angle(degrees: -90))
-                                
-                                Spacer()
-                                
-                                Text(progressString)
-                                    .foregroundColor(.white)
+                        if (true) {
+                            
+                            GeometryReader { geometry in
+                                ZStack(alignment: .bottom) {
+                                    ProgressIndicatorView(isVisible: $canViewVertProgress, type: .impulseBar(progress: $progress, backgroundColor: .white.opacity(0.25)))
+                                        .foregroundColor(.white.opacity(0.65))
+                                        .frame(width: geometry.size.height - 100, height: 50) // Adjust the width based on the height
+                                        .rotationEffect(Angle(degrees: -90))
+                                    
+                                    Text(progressString)
+                                        .foregroundColor(.white)
+                                        .padding(.bottom, 10) // Adjust padding to fine-tune positioning at the bottom
+                                }
+                                .position(x: 25, y: geometry.size.height / 2 - 40) // Adjust x position for left alignment
+                                .padding(.leading, 20) // Ensure no padding on the leading side
+                                .offset(x: showElevation ? 0 : -geometry.size.width) // Slide in from left
+                                .animation(.easeInOut, value: showElevation) // Animate the change
                             }
-                            .position(x: 25, y: geometry.size.height / 2 - 40) // Adjust x position for left alignment
-                            .padding(.leading, 20) // Ensure no padding on the leading side
-                            .offset(x: showElevation ? 0 : -geometry.size.width) // Slide in from left
-                            .animation(.easeInOut, value: showElevation) // Animate the change
+                            
+                            
                         }
                         
                         
+                        Spacer()
+                        
+                        HStack {
+                            Spacer() // Push the buttons to the right
+                            VStack(spacing: 16) { // Stack buttons vertically with some spacing
+                                Button(action: {
+                                    showMountains = true
+                                }) {
+                                    Image(systemName: "mountain.2") // Top button icon
+                                        .font(.system(size: 24)) // Icon size
+                                        .foregroundColor(.black) // Icon color
+                                        .frame(width: 60, height: 60) // Button size
+                                        .background(Color.white) // Button background color
+                                        .clipShape(Circle()) // Make button round
+                                        .shadow(radius: 4) // Add slight shadow
+                                }
+                               
+                            }
+                            .padding(.trailing, 16) // Padding from the right edge
+                            .padding(.top, 440) // Padding from the bottom edge
+                        }
                     }
-                    
-                    
-                    Spacer()
                 }
                 .padding(.top, 70)
+                .fullScreenCover(isPresented: $showMountains) {
+                                    MountainSelect(closeAction: {
+                                        showMountains = false
+                                    })
+                                }
                 
                 
                 

@@ -148,7 +148,7 @@ struct TestView: View {
                             LevelNode(uid: 8, internalName: "P1_9", title: "Wellness Question", viewFactory: { AnyView(P9_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 9, internalName: "P1_10", title: "Minigame", viewFactory: { AnyView(GameUnavailable(closeAction: { (str) -> Void in
+                            LevelNode(uid: 9, internalName: "P1_10", title: "Summary", viewFactory: { AnyView(P1S(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
                             
@@ -179,8 +179,8 @@ struct TestView: View {
                             LevelNode(uid: 8, internalName: "P2_9", title: "4/7/8 Breathing", viewFactory: { AnyView(LevelUnavailable(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 2),
-                            LevelNode(uid: 9, internalName: "P2_10", title: "Minigame", viewFactory: { AnyView(
-                                GameUnavailable(closeAction: { (str) -> Void in
+                            LevelNode(uid: 9, internalName: "P2_10", title: "Summary", viewFactory: { AnyView(
+                                P2S(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 2),
                             
@@ -242,7 +242,7 @@ struct TestView: View {
                             LevelNode(uid: 8, internalName: "P4_9", title: "Scenario", viewFactory: { AnyView(P4_9_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 4),
-                            LevelNode(uid: 9, internalName: "P4_10", title: "Minigame", viewFactory: { AnyView(GameUnavailable(closeAction: { (str) -> Void in
+                            LevelNode(uid: 9, internalName: "P4_10", title: "Summary", viewFactory: { AnyView(P4S(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 4),
                             

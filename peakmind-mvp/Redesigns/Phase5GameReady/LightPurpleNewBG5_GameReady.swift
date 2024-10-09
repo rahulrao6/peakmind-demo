@@ -35,7 +35,7 @@ struct P5_5_1: View {
                     Spacer().frame(height: 10)
                     
                     // title section
-                    Text("Reflect on Your Challenges")
+                    Text("What are some challenges you're dealing with?")
                         .font(.custom("SFProText-Bold", size: 28))
                         .foregroundColor(Color("LightPurpleTitleColor"))
                         .multilineTextAlignment(.center)

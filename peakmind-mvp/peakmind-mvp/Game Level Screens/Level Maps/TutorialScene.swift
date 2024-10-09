@@ -12,6 +12,7 @@ import ConfettiSwiftUI
 import FirebaseFirestore
 
 struct TutorialScene: View {
+    var closeAction: () -> Void
     @EnvironmentObject var viewModel: AuthViewModel
     
     let positions: [CGPoint] = [CGPoint(x: 215, y: 150), CGPoint(x: 240, y: 300), CGPoint(x: 215, y: 450), CGPoint(x: 240, y: 600), CGPoint(x: 180, y: 750),
@@ -64,6 +65,10 @@ struct TutorialScene: View {
                     } else {
                         confetti = confetti + 1
                         activeModal = nil
+                        
+                        scene.reloadCompletedLevels()
+                        
+                        
                     }
                 }
                 .onAppear {
@@ -71,28 +76,28 @@ struct TutorialScene: View {
                     scene.levels = [
                         LevelNode(uid: 0, internalName: "T1", title: "PeakMind Game", viewFactory: { AnyView(Tutorial1(closeAction: { (str) -> Void in
                             completeLevel(str: str)
-                        })) }, phase: 0),
+                        })) }, phase: 1),
                         LevelNode(uid: 1, internalName: "T2", title: "Routines", viewFactory: { AnyView(Tutorial2(closeAction: { (str) -> Void in
                             completeLevel(str: str)
-                        })) }, phase: 0),
+                        })) }, phase: 1),
                         LevelNode(uid: 2, internalName: "T3", title: "Flow Mode", viewFactory: { AnyView(Tutorial3(closeAction: { (str) -> Void in
                             completeLevel(str: str)
-                        })) }, phase: 0),
+                        })) }, phase: 1),
                         LevelNode(uid: 3, internalName: "T4", title: "Profiles", viewFactory: { AnyView(Tutorial4(closeAction: { (str) -> Void in
                             completeLevel(str: str)
-                        })) }, phase: 0),
+                        })) }, phase: 1),
                         LevelNode(uid: 4, internalName: "T5", title: "Quests", viewFactory: { AnyView(Tutorial5(closeAction: { (str) -> Void in
                             completeLevel(str: str)
-                        })) }, phase: 0),
+                        })) }, phase: 1),
                         LevelNode(uid: 5, internalName: "T6", title: "Journal", viewFactory: { AnyView(Tutorial6(closeAction: { (str) -> Void in
                             completeLevel(str: str)
-                        })) }, phase: 0),
+                        })) }, phase: 1),
                         LevelNode(uid: 6, internalName: "T7", title: "Daily Check-In", viewFactory: { AnyView(Tutorial7(closeAction: { (str) -> Void in
                             completeLevel(str: str)
-                        })) }, phase: 0),
+                        })) }, phase: 1),
                         LevelNode(uid: 7, internalName: "T8", title: "AI Wellness", viewFactory: { AnyView(Tutorial8(closeAction: { (str) -> Void in
                             completeLevel(str: str)
-                        })) }, phase: 0),
+                        })) }, phase: 1),
                     ]
                      
                     
@@ -161,7 +166,13 @@ struct TutorialScene: View {
     }
     
     func completeLevel(str: String) {
-        Task {scene.currentLevel = -1}
+        Task {
+            scene.completedLevelsList.append(CompletedLevel(uid: scene.currentLevel, phase: 1))
+            scene.currentLevel = -1
+            if(scene.completedLevelsList.count == 8) {
+                closeAction()
+            }
+        }
 
     }
     

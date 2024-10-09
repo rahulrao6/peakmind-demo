@@ -1781,6 +1781,7 @@ class AuthViewModel: ObservableObject {
                         entries.append(entry)
                     }
                 }
+                self.journalEntries = entries;
                 completion(entries)
             }
         }

@@ -164,7 +164,7 @@ struct SettingsView: View {
             
             Section(header: Text("Account")) {
                 Button {
-                    nm.reset()
+                    //nm.reset()
                     viewModel.signOut()
                 } label: {
                     SettingsRowView(imageName: "arrow.left.circle.fill", title: "Sign Out", tintColor: .red)

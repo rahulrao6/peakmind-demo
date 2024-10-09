@@ -6,6 +6,7 @@ class MapScene: SKScene, ObservableObject {
     @Published var completedLevels = 0
     @Published var completedPhases = 0
     @Published var selectedPhase: Int = -1
+    @Published var currentYPosition: Float = 0
     
     private var initialTouchPosition: CGPoint?
     
@@ -22,7 +23,6 @@ class MapScene: SKScene, ObservableObject {
     var levelInfoBG: SKSpriteNode!
     var levelInfoText: SKLabelNode!
     
-    var currentYPosition: Float = 0
     var maxY: Float = 0
     
     func getTargetY() -> CGFloat {
@@ -196,7 +196,7 @@ class MapScene: SKScene, ObservableObject {
         n1.fillColor = .white
         addChild(n1)
         phaseGates.append(n1)
-        let n1textup = SKLabelNode(text: "Phase "+String(completedPhases+2))
+        let n1textup = SKLabelNode(text: "Phase "+String(completedPhases+1))
         n1textup.position = CGPointMake(UIScreen.main.bounds.width/2, (UIScreen.main.bounds.height * CGFloat(maxY))+415)
         n1textup.fontName = "AvenirNext-Bold"
         n1textup.fontColor = .black

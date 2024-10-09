@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct P5Summary: View {
+struct P5S: View {
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isButtonDisabled: Bool = true
     @State private var showGlow: Bool = false
@@ -90,7 +91,7 @@ struct P5Summary: View {
                             showGlow = false // Hide glow when text starts typing
                             currentIndex += 1
                         } else {
-                            navigateToWellnessQuestion = true // Trigger navigation
+                            closeAction("")
                         }
                     }) {
                         Text(currentIndex < bulletPoints.count - 1 ? "Next" : "Done")
@@ -162,11 +163,11 @@ struct P5FeatureBulletPoint10: View {
     }
 }
 
-struct P5Summary_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            P5Summary()
-        }
-    }
-}
-
+//struct P5Summary_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            P5Summary()
+//        }
+//    }
+//}
+//

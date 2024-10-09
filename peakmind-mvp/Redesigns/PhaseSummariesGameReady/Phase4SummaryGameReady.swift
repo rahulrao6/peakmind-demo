@@ -1,5 +1,5 @@
 //
-//  Phase3Summary.swift
+//  Phase4Summary.swift
 //  peakmind-mvp
 //
 //  Created by ZA on 10/4/24.
@@ -7,21 +7,22 @@
 
 import SwiftUI
 
-struct P3Summary: View {
+struct P4S: View {
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isButtonDisabled: Bool = true
     @State private var showGlow: Bool = false
     @State private var navigateToWellnessQuestion = false // state to control navigation
     
     let bulletPoints = [
-        "You’ve learned how anxiety affects your body and emotions, causing physical tension and emotional distress. Through exercises like body scans and understanding physical symptoms, you learned tools to reduce both emotional and physical discomfort. Remember to address anxiety symptoms early for quicker recovery and overall well-being."
+        "This phase focused on building resilience through consistent self-care and creating routines to manage your anxiety. You practiced grounding techniques like the 5/4/3/2/1 method to stay grounded and build mental resilience. Remember to prioritize and maintain your self-care habits to strengthen your resilience over time!"
     ]
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 // Background image
-                Image("PinkNewBG")
+                Image("NewBG")
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
                 
@@ -32,7 +33,7 @@ struct P3Summary: View {
                     // Title above the box
                     Text("Summary")
                         .font(.custom("SFProText-Bold", size: 30))
-                        .foregroundColor(Color("PinkTitleColor"))
+                        .foregroundColor(Color("QuestionHeaderColor"))
                         .padding(.bottom, 10)
                         .shadow(color: Color.white.opacity(0.3), radius: 5, x: 0, y: 0)
                     
@@ -42,7 +43,7 @@ struct P3Summary: View {
                         RoundedRectangle(cornerRadius: 15)
                             .fill(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PinkBoxGradientColor1"), Color("PinkBoxGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("BoxGradient1"), Color("BoxGradient2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -50,7 +51,7 @@ struct P3Summary: View {
                             .frame(height: geometry.size.height * 0.55) // Increased height
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color("PinkBorderColor"), lineWidth: 3.5)
+                                    .stroke(Color("BoxStrokeColor"), lineWidth: 3.5)
                             )
                         
                         // Scrollable list of bullet points with auto-scroll
@@ -90,7 +91,7 @@ struct P3Summary: View {
                             showGlow = false // Hide glow when text starts typing
                             currentIndex += 1
                         } else {
-                            navigateToWellnessQuestion = true // Trigger navigation
+                            closeAction("")
                         }
                     }) {
                         Text(currentIndex < bulletPoints.count - 1 ? "Next" : "Done")
@@ -100,7 +101,7 @@ struct P3Summary: View {
                             .padding(.horizontal, 12)
                             .background(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PinkButtonGradientColor1"), Color("PinkButtonGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("ButtonGradient1"), Color("ButtonGradient2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -112,7 +113,7 @@ struct P3Summary: View {
                     .disabled(isButtonDisabled) // Disable button if typing is not complete
                     
                     // Navigation link to the next screen
-                    NavigationLink(destination: P3BodyScan(), isActive: $navigateToWellnessQuestion) {
+                    NavigationLink(destination: P4IntroView2(), isActive: $navigateToWellnessQuestion) {
                         EmptyView()
                     }
                 }
@@ -128,7 +129,7 @@ struct P3Summary: View {
     }
 }
 
-struct P3FeatureBulletPoint10: View {
+struct P4FeatureBulletPoint10: View {
     var text: String
     @State private var visibleText: String = ""
     @State private var charIndex: Int = 0
@@ -138,7 +139,7 @@ struct P3FeatureBulletPoint10: View {
         // Feature text with typing animation
         Text(visibleText)
             .font(.custom("SFProText-Medium", size: 16))
-            .foregroundColor(Color("PinkTextColor"))
+            .foregroundColor(Color("TextInsideBoxColor"))
             .multilineTextAlignment(.leading)
             .onAppear {
                 typeText()
@@ -162,10 +163,10 @@ struct P3FeatureBulletPoint10: View {
     }
 }
 
-struct P3Summary_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            P3Summary()
-        }
-    }
-}
+//struct P4Summary_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            P4Summary()
+//        }
+//    }
+//}

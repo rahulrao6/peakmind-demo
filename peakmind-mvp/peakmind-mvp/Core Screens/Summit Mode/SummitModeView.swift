@@ -271,144 +271,34 @@ struct OnboardingView: View {
     init(authViewModel: AuthViewModel) {
         _viewModel = StateObject(wrappedValue: FlowModeViewModel(viewModel: authViewModel))
     }
-    
-
-
-    var body: some View {
-        NavigationView {
-            VStack(alignment: .leading) {
-                // MtnGraphic at the top, centered
-                Image("MtnGraphic")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 300, height: 200)
-                    .padding(.top, 60)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                
-                // Texts
-                Text("Welcome to Flow Mode")
-                    .font(.custom("SFProText-Heavy", size: 50))
-                    .foregroundColor(.white)
-                    .padding(.leading, 24) // Increased padding
-                    .padding(.trailing, 24) // Increased padding
-                
-                Text("Let's get focused today!")
-                    .font(.custom("SFProText-Bold", size: 22))
-                    .foregroundColor(.white)
-                    .padding(.leading, 24) // Increased padding
-                    .padding(.trailing, 24) // Increased padding
-                    .padding(.bottom, 20)
-                
-                // Start Focus Session button
-                NavigationLink(destination: FocusGoalView(viewModel: viewModel)
-                                .navigationBarBackButtonHidden(true)
-                ) {
-                    Text("Start Focus Session")
-                        .font(.custom("SFProText-Bold", size: 20))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color(hex: "081b3f")!)
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal, 30) // Added more horizontal padding to button
-                .padding(.bottom, 20)
-                
-                // View Previous Sessions text (clickable)
-                NavigationLink(destination: PreviousSessionsView(viewModel: viewModel)) {
-                    Text("View Previous Sessions")
-                        .font(.custom("SFProText-Bold", size: 18))
-                        .foregroundColor(.white)
-                        .padding(.leading, 24) // Increased padding for clickable text
-                        .underline()
-                }
-                
-                Spacer() // Push content to the top
-            }
-            .background(
-                LinearGradient(
-                    gradient: Gradient(colors: [Color(hex: "183464")!, Color(hex: "86bbf2")!]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .edgesIgnoringSafeArea(.all)
-            )
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-    }
-}
-
-
-
-// A placeholder view for the "View Previous Sessions" screen.
-struct PreviousSessionsView: View {
-    @ObservedObject var viewModel: FlowModeViewModel
-
-    var body: some View {
-        List(viewModel.focusSessions) { session in
-            VStack(alignment: .leading) {
-                Text(session.title)
-                    .font(.headline)
-                Text("Mountain: \(session.mountainName)")
-                Text("Duration: \(formatDuration(session.duration))")
-                Text("Elevation Climbed: \(Int(session.elevationClimbed)) feet")
-                Text(session.completed ? "Completed" : "Not Completed")
-                    .foregroundColor(session.completed ? .green : .red)
-            }
-        }
-        .navigationTitle("Previous Sessions")
-        .onAppear {
-            viewModel.fetchFocusSessions()
-        }
-    }
-
-    func formatDuration(_ duration: TimeInterval) -> String {
-        let hours = Int(duration) / 3600
-        let minutes = (Int(duration) % 3600) / 60
-        let seconds = Int(duration) % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
-}
-
-
-
-
-struct FocusGoalView: View {
-    @ObservedObject var viewModel: FlowModeViewModel
-    @State private var focusGoal: String = "" // Live update for the entered text
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("What’s your focus goal?")
-                .font(.custom("SFProText-Heavy", size: 40))
-                .foregroundColor(.white)
-                .padding(.leading, 30) // Increased horizontal padding
-                .padding(.top, 240)
-            
-            // This text will be replaced with live-updating text as the user types
-            ZStack(alignment: .leading) {
-                if viewModel.focusGoal.isEmpty {
-                    // Placeholder text with flickering cursor
-                    Text("Start typing here...")
-                        .font(.custom("SFProText-Bold", size: 22))
-                        .foregroundColor(.white)
-                        .opacity(0.5) // Faded effect for placeholder
-                }
+            // MtnGraphic at the top, centered
+            Image("MtnGraphic")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 300, height: 200)
+                .padding(.top, 60)
+                .frame(maxWidth: .infinity, alignment: .center)
 
-                // TextField for live-updating input with a transparent background
-                TextField("", text: $viewModel.focusGoal)
-                    .font(.custom("SFProText-Bold", size: 22))
-                    .foregroundColor(.white)
-                    .background(Color.clear) // Ensure there's no background color
-                    .accentColor(.white) // White flickering cursor
-                    .disableAutocorrection(true) // Disable autocorrection if needed
-            }
-            .padding(.horizontal, 30) // Increased horizontal padding
-            .padding(.top, 10)
-            
-            NavigationLink(destination: FocusDurationView(viewModel: viewModel)
-                            .navigationBarBackButtonHidden(true)) {
-                Text("Continue")
+            // Texts
+            Text("Welcome to Flow Mode")
+                .font(.custom("SFProText-Heavy", size: 50))
+                .foregroundColor(.white)
+                .padding(.leading, 24)
+                .padding(.trailing, 24)
+
+            Text("Let's get focused today!")
+                .font(.custom("SFProText-Bold", size: 22))
+                .foregroundColor(.white)
+                .padding(.leading, 24)
+                .padding(.trailing, 24)
+                .padding(.bottom, 20)
+
+            // Start Focus Session button
+            NavigationLink(destination: FocusGoalView(viewModel: viewModel)) {
+                Text("Start Focus Session")
                     .font(.custom("SFProText-Bold", size: 20))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
@@ -416,9 +306,18 @@ struct FocusGoalView: View {
                     .background(Color(hex: "081b3f")!)
                     .cornerRadius(10)
             }
-            .padding(.horizontal, 30) // Increased horizontal padding
-            .padding(.top, 20)
-            
+            .padding(.horizontal, 30)
+            .padding(.bottom, 20)
+
+            // View Previous Sessions text (clickable)
+            NavigationLink(destination: PreviousSessionsView(viewModel: viewModel)) {
+                Text("View Previous Sessions")
+                    .font(.custom("SFProText-Bold", size: 18))
+                    .foregroundColor(.white)
+                    .padding(.leading, 24)
+                    .underline()
+            }
+
             Spacer()
         }
         .background(
@@ -435,6 +334,150 @@ struct FocusGoalView: View {
 
 
 
+// A placeholder view for the "View Previous Sessions" screen.
+struct PreviousSessionsView: View {
+    @ObservedObject var viewModel: FlowModeViewModel
+
+    var body: some View {
+        ZStack {
+            // Background gradient
+            LinearGradient(
+                gradient: Gradient(colors: [Color(hex: "112864")!, Color(hex: "23429a")!]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .edgesIgnoringSafeArea(.all)
+
+            VStack {
+                // Title set to white
+                Text("Previous Sessions")
+                    .font(.custom("SFProText-Heavy", size: 30))
+                    .foregroundColor(.white)
+                    .padding(.top, 0)
+
+                // List of sessions
+                ScrollView {
+                    VStack(spacing: 10) {
+                        ForEach(viewModel.focusSessions) { session in
+                            HStack {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text(session.title)
+                                        .font(.custom("SFProText-Heavy", size: 22))
+                                        .foregroundColor(.white)
+
+                                    Text("Mountain: \(session.mountainName)")
+                                        .font(.custom("SFProText-Bold", size: 18))
+                                        .foregroundColor(.white)
+
+                                    Text("Duration: \(formatDuration(session.duration))")
+                                        .font(.custom("SFProText-Bold", size: 18))
+                                        .foregroundColor(.white)
+
+                                    Text("Elevation Climbed: \(Int(session.elevationClimbed)) feet")
+                                        .font(.custom("SFProText-Bold", size: 18))
+                                        .foregroundColor(.white)
+
+                                    Text(session.completed ? "Completed" : "Not Completed")
+                                        .font(.custom("SFProText-Bold", size: 18))
+                                        .foregroundColor(session.completed ? .green : .red)
+                                }
+                                Spacer() // Ensures the background color spans the full width
+                            }
+                            .padding()
+                            .background(Color(hex: "0b1953")) // Backing color for session history
+                            .cornerRadius(10)
+                            .frame(maxWidth: .infinity) // Full width of the screen
+                        }
+                    }
+                    .padding(.horizontal, 16) // Padding around the list items
+                }
+            }
+        }
+        .onAppear {
+            viewModel.fetchFocusSessions()
+        }
+    }
+
+    func formatDuration(_ duration: TimeInterval) -> String {
+        let hours = Int(duration) / 3600
+        let minutes = (Int(duration) % 3600) / 60
+        let seconds = Int(duration) % 60
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+}
+
+
+
+struct FocusGoalView: View {
+    @ObservedObject var viewModel: FlowModeViewModel
+    @State private var focusGoal: String = ""
+    @State private var isTextFieldFocused = false // Track when text field is focused
+
+    var body: some View {
+        ZStack {
+            // Background gradient
+            LinearGradient(
+                gradient: Gradient(colors: [Color(hex: "183464")!, Color(hex: "86bbf2")!]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .edgesIgnoringSafeArea(.all) // Ensures the background extends beyond safe areas
+            
+            VStack(alignment: .leading) {
+                // Conditional resizing of the title based on whether the text field is active
+                Text("What’s your focus goal?")
+                    .font(.custom("SFProText-Heavy", size: isTextFieldFocused ? 30 : 40)) // Adjust font size
+                    .foregroundColor(.white)
+                    .padding(.leading, 30)
+                    .padding(.top, isTextFieldFocused ? 120 : 240) // Adjust padding when focused
+                
+                ZStack(alignment: .leading) {
+                    if viewModel.focusGoal.isEmpty {
+                        Text("Start typing here...")
+                            .font(.custom("SFProText-Bold", size: 22))
+                            .foregroundColor(.white)
+                            .opacity(0.5)
+                    }
+
+                    // TextField with a transparent background
+                    TextField("", text: $viewModel.focusGoal, onEditingChanged: { isEditing in
+                        withAnimation {
+                            isTextFieldFocused = isEditing
+                        }
+                    })
+                    .font(.custom("SFProText-Bold", size: 22))
+                    .foregroundColor(.white)
+                    .background(Color.clear)
+                    .accentColor(.white)
+                    .disableAutocorrection(true)
+                }
+                .padding(.horizontal, 30)
+                .padding(.top, 10)
+                
+                NavigationLink(destination: FocusDurationView(viewModel: viewModel)) {
+                    Text("Continue")
+                        .font(.custom("SFProText-Bold", size: 20))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color(hex: "081b3f")!)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal, 30)
+                .padding(.top, 20)
+            }
+            .onTapGesture {
+                // Dismiss the keyboard when tapping outside the text field
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            }
+        }
+    }
+}
+
+
+
+
+
 
 
 
@@ -443,6 +486,7 @@ struct FocusGoalView: View {
 struct FocusDurationView: View {
     @ObservedObject var viewModel: FlowModeViewModel
     @State private var selectedDuration: TimeInterval = 1800 // Default to 30 minutes
+    @State private var showFocusTimer: Bool = false // State to control full screen cover
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -474,12 +518,12 @@ struct FocusDurationView: View {
             .cornerRadius(8)
             .padding(.horizontal, 30) // Increased horizontal padding
             
-            NavigationLink(destination: FocusTimerView(viewModel: viewModel, selectedDuration: selectedDuration)
-                            .onAppear {
-                                viewModel.selectedDuration = selectedDuration
-                                viewModel.startNewFocusSession()
-                            }
-                            .navigationBarBackButtonHidden(true)) {
+            // Full-screen presentation of FocusTimerView
+            Button(action: {
+                viewModel.selectedDuration = selectedDuration
+                viewModel.startNewFocusSession() // Start the session
+                showFocusTimer = true // Trigger full-screen view
+            }) {
                 Text("Start Timer")
                     .font(.custom("SFProText-Bold", size: 20))
                     .foregroundColor(.white)
@@ -490,11 +534,12 @@ struct FocusDurationView: View {
             }
             .padding(.horizontal, 30) // Increased horizontal padding
             .padding(.top, 20)
-            
+            .fullScreenCover(isPresented: $showFocusTimer) {
+                FocusTimerView(viewModel: viewModel, selectedDuration: selectedDuration)
+                    .navigationBarBackButtonHidden(true) // Hide the back button in the timer view
+            }
+
             Spacer()
-        }
-        .onAppear{
-            print(viewModel.$focusGoal)
         }
         .background(
             LinearGradient(
@@ -506,6 +551,7 @@ struct FocusDurationView: View {
         )
     }
 }
+
 
 
 
@@ -584,12 +630,13 @@ struct FocusTimerView: View {
                     if mountain.currentStage < mountain.stages.count {
                         let currentStage = mountain.stages[mountain.currentStage]
 
-                        Text("\(Int(calculateElevationClimbed())) feet climbed")
+                        Text("\(Int(calculateElevationClimbed()))/\(Int(viewModel.mountain?.elevation ?? 0)) feet climbed")
                             .font(.custom("SFProText-Bold", size: 18))
                             .foregroundColor(.black)
                             .padding(.top, 5)
                             .padding(.horizontal, 20)
                             .multilineTextAlignment(.center)
+
 
                         Text(formatTotalTimeLeft())
                             .font(.custom("SFProText-Heavy", size: 70))

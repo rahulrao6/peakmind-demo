@@ -1,13 +1,70 @@
-
-//
-//  PurpleNewBG9.2.swift
-//  peakmind-mvp
-//
-//  Created by ZA on 8/28/24.
-//
-
+//Toolbar added
 import SwiftUI
-
+import UIKit
+// Custom TextView with toolbar and clear background for Done button
+struct TextViewWithToolbar2: UIViewRepresentable {
+    @Binding var text: String
+    var placeholder: String
+    @FocusState var isTextEditorFocused: Bool
+    var onTap: () -> Void
+    class Coordinator: NSObject, UITextViewDelegate {
+        var parent: TextViewWithToolbar2
+        init(_ parent: TextViewWithToolbar2) {
+            self.parent = parent
+        }
+        func textViewDidChange(_ textView: UITextView) {
+            parent.text = textView.text
+        }
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            if textView.text == parent.placeholder {
+                textView.text = ""
+                textView.textColor = UIColor(named: "TextInsideBoxColor")
+            }
+            parent.onTap() // Notify when editing begins to set the focused field
+        }
+        func textViewDidEndEditing(_ textView: UITextView) {
+            if textView.text.isEmpty {
+                textView.text = parent.placeholder
+                textView.textColor = UIColor.gray.withAlphaComponent(0.5)
+            }
+        }
+        @objc func doneButtonTapped() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+    }
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(self)
+    }
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
+        // Add the toolbar with Done button
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: context.coordinator, action: #selector(Coordinator.doneButtonTapped))
+        toolbar.items = [flexibleSpace, doneButton]
+        textView.inputAccessoryView = toolbar
+        textView.delegate = context.coordinator
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.backgroundColor = .clear // Make the background clear
+        textView.textColor = text.isEmpty ? UIColor.gray.withAlphaComponent(0.5) : UIColor(named: "TextInsideBoxColor")
+        if text.isEmpty {
+            textView.text = placeholder
+            textView.textColor = UIColor.gray.withAlphaComponent(0.5)
+        } else {
+            textView.text = text
+            textView.textColor = UIColor(named: "TextInsideBoxColor")
+        }
+        textView.textContainerInset = UIEdgeInsets(top: 15, left: 12, bottom: 12, right: 16) // Adjust padding inside the box
+        textView.textContainer.lineBreakMode = .byWordWrapping // Ensure text wraps within the box
+        return textView
+    }
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.text = text
+        uiView.textColor = text.isEmpty ? UIColor.gray.withAlphaComponent(0.5) : UIColor(named: "TextInsideBoxColor")
+    }
+}
+// Updated P9_2 view with Done toolbar and gradient background added to TextEditor
 struct P9_2: View {
     var closeAction: (String) -> Void
     @State private var userInput: String = ""
@@ -15,7 +72,6 @@ struct P9_2: View {
     @State private var isTyping: Bool = false
     @State private var keyboardHeight: CGFloat = 0
     @State private var navigateToBreathingExercise: Bool = false
-    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -23,11 +79,9 @@ struct P9_2: View {
                 Image("PurpleNewBG")
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
-                
                 VStack(spacing: 8) {
                     Spacer()
                         .frame(height: (isTextEditorFocused || isTyping) ? 100 : 10)
-                    
                     // question header
                     Text("Wellness Question")
                         .font(.custom("SFProText-Bold", size: (isTextEditorFocused || isTyping) ? 12 : 18))
@@ -35,10 +89,9 @@ struct P9_2: View {
                         .padding(.top, (isTextEditorFocused || isTyping) ? -44 : 10)
                         .animation(.easeInOut(duration: 0.3), value: isTyping)
                         .animation(.easeInOut(duration: 0.3), value: isTextEditorFocused)
-                    
                     // question text
                     Text("Choose one area of your life—like sleep, exercise, or social connections. What's one small change you could make this week? How might it positively impact you?")
-                        .font(.custom("SFProText-Heavy", size: (isTextEditorFocused || isTyping) ? 10 : 24))
+                        .font(.custom("SFProText-Heavy", size: (isTextEditorFocused || isTyping) ? 8 : 24))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("PurpleQuestionColor"))
                         .lineLimit(nil)
@@ -47,7 +100,6 @@ struct P9_2: View {
                         .shadow(color: Color.white.opacity(0.3), radius: 10, x: 0, y: 0) // light glow around the text
                         .animation(.easeInOut(duration: 0.5), value: isTyping)
                         .animation(.easeInOut(duration: 0.5), value: isTextEditorFocused)
-                    
                     // input box
                     ZStack(alignment: .topLeading) {
                         // placeholder text
@@ -58,42 +110,23 @@ struct P9_2: View {
                                 .padding(.horizontal, 16)
                                 .zIndex(1) // ensure it stays on top
                         }
-                        
-                        // textEditor for user input
-                        TextEditor(text: $userInput)
-                            .font(.custom("SFProText-Bold", size: 16))
-                            .foregroundColor(Color("TextInsideBoxColor"))
-                            .focused($isTextEditorFocused)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-                            .frame(height: 200, alignment: .topLeading)
-                            .background(Color.clear) // make the background clear
-                            .scrollContentBackground(.hidden)
-                            .background(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                                .cornerRadius(10)
+                        // Custom TextViewWithToolbar for user input with gradient background
+                        TextViewWithToolbar2(text: $userInput, placeholder: "Start typing here...", isTextEditorFocused: _isTextEditorFocused) {
+                            isTextEditorFocused = true
+                        }
+                        .frame(height: 200)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
                             )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
-                            )
-                            .onChange(of: userInput) { newValue in
-                                withAnimation {
-                                    isTyping = !userInput.isEmpty
-                                }
-                                // Enforce character limit
-                                if newValue.count > 250 {
-                                    userInput = String(newValue.prefix(250))
-                                }
-                            }
-                            .onSubmit {
-                                isTextEditorFocused = false // dismiss the keyboard
-                            }
-                        
+                            .cornerRadius(10)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
+                        )
                         // character counter inside the text box
                         VStack {
                             Spacer()
@@ -111,10 +144,8 @@ struct P9_2: View {
                     }
                     .frame(height: 200)
                     .padding(.horizontal)
-                    
                     Spacer()
                         .frame(height: (isTextEditorFocused || isTyping) ? (keyboardHeight - geometry.safeAreaInsets.bottom) / 2 : 20)
-                    
                     // submit button
                     Button(action: {
                         isTextEditorFocused = false
@@ -138,11 +169,6 @@ struct P9_2: View {
                     .padding(.bottom, 50)
                     .disabled(userInput.isEmpty) // Disable button if no text
                     .opacity(userInput.isEmpty ? 1.0 : 1.0) // Change opacity when disabled
-                    
-                    // Navigation link to switch to BreathingExerciseView2
-//                    NavigationLink(destination: BreathingIntroView(), isActive: $navigateToBreathingExercise) {
-//                        EmptyView()
-//                    }
                 }
                 .padding(.horizontal)
                 .onTapGesture {
@@ -157,7 +183,6 @@ struct P9_2: View {
                             }
                         }
                     }
-                    
                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
                         withAnimation {
                             isTyping = false
@@ -169,9 +194,8 @@ struct P9_2: View {
         }
     }
 }
-
 struct WellnessQuestionViewPurple_Previews2: PreviewProvider {
     static var previews: some View {
-        WellnessQuestionViewPurple2()
+        P9_2(closeAction: { _ in })
     }
 }

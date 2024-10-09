@@ -179,92 +179,6 @@ struct AvatarCustomizationView: View {
         .navigationBarHidden(true)
     }
 }
-//struct AvatarCustomizationView: View {
-//    @Binding var isCustomizing: Bool // Binding to go back to the previous view
-//
-//    // State to control which group is expanded
-//    @State private var expandedGroup: String? = nil
-//
-//    // State to track selected assets for each category (Beanie, Head, Coat, Pants)
-//    @State private var selectedAssets: [String: String] = [:]
-//
-//    var body: some View {
-//        ZStack {
-//            // Match the background color to the rewards page
-//            Color(hex: "0d2c7b")
-//                .ignoresSafeArea()
-//
-//            VStack {
-//                // Avatar display remains fixed at the top
-//                ZStack {
-//                    Image("SampleIgloo")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(width: 250, height: 250) // Fixed size for avatar preview
-//                        .cornerRadius(10)
-//
-//                    ZStack {
-//                        Image(selectedAssets["Pants"] ?? "SamplePants")
-//                            .resizable()
-//                            .scaledToFit()
-//                        Image(selectedAssets["Coat"] ?? "SampleCoat")
-//                            .resizable()
-//                            .scaledToFit()
-//                        Image(selectedAssets["Head"] ?? "SampleHead")
-//                            .resizable()
-//                            .scaledToFit()
-//                        Image(selectedAssets["Beanie"] ?? "SampleBeanie")
-//                            .resizable()
-//                            .scaledToFit()
-//                    }
-//                    .frame(width: 250, height: 250) // Fixed size for avatar parts
-//                }
-//                .frame(width: 250, height: 250)
-//                .background(Color.gray.opacity(0.2))
-//                .cornerRadius(10)
-//                .padding()
-//
-//                // Scrollable customization categories
-//                ScrollView {
-//                    Text("Customize Your Avatar")
-//                        .font(.custom("SFProText-Heavy", size: 24)) // Set custom font SFProText-Heavy
-//                        .foregroundColor(.white) // White text to match the background
-//                        .padding(.bottom, 20)
-//
-//                    // Customization Categories as expandable sections
-//                    VStack(spacing: 20) {
-//                        CustomizationCategoryView(category: "Beanie", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
-//                        Divider().background(Color.white) // Divider between categories
-//                        CustomizationCategoryView(category: "Head", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
-//                        Divider().background(Color.white) // Divider between categories
-//                        CustomizationCategoryView(category: "Coat", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
-//                        Divider().background(Color.white) // Divider between categories
-//                        CustomizationCategoryView(category: "Pants", expandedGroup: $expandedGroup, selectedAssets: $selectedAssets)
-//                    }
-//                    .padding()
-//                }
-//                .frame(maxHeight: .infinity) // Allow ScrollView to grow without affecting the avatar preview
-//
-//                // Done button at the bottom, which remains visible
-//                Button(action: {
-//                    isCustomizing = false // Close customization view
-//                }) {
-//                    Text("Done")
-//                        .fontWeight(.bold)
-//                        .frame(maxWidth: .infinity)
-//                        .padding()
-//                        .background(Color(hex: "000722")!)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(10)
-//                }
-//                .padding()
-//            }
-//        }
-//        .navigationBarHidden(true) // Hide default navigation bar
-//    }
-//}
-//
-
 
 struct CustomizationCategoryView: View {
     let category: String
@@ -284,7 +198,7 @@ struct CustomizationCategoryView: View {
             if category == "Head" {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        ForEach(1...8, id: \.self) { index in
+                        ForEach(1...10, id: \.self) { index in
                             let assetName = headAssetName(for: index) // Get the corresponding asset name
                             
                             Circle()
@@ -302,47 +216,50 @@ struct CustomizationCategoryView: View {
                     .padding(.top, 10)
                 }
             } else {
-                // Color Selection for Beanie, Coat, and Pants
-                HStack(spacing: 20) {
-                    // Black circle for color selection
-                    Circle()
-                        .fill(Color.black) // Black color fill
-                        .frame(width: 60, height: 60) // Circle size for color selection
-                        .overlay( // Show green outline when selected
-                            Circle()
-                                .stroke(selectedColor == "Black" ? Color.green : Color.gray, lineWidth: 2)
-                        )
-                        .onTapGesture {
-                            selectedColor = "Black"
-                            isColorSelected.toggle() // Toggle color selection
-                        }
-                }
-                .padding(.top, 10)
+                // Horizontal scrollable color selection
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        // Black color circle (selectable)
+                        colorCircle(color: .black, colorName: "Black", selectedColor: $selectedColor, isColorSelected: $isColorSelected)
 
-                // Show variations for the selected color (e.g., black)
-                if isColorSelected && selectedColor == "Black" {
-                    HStack(spacing: 20) { // Smaller circle size for variations
-                        ForEach(itemNames(for: category), id: \.self) { item in
-                            Circle()
-                                .fill(selectedAssets[category] == item ? Color.green : Color.clear) // Fill the circle when selected
-                                .frame(width: 40, height: 40) // Smaller circle size for variations
-                                .overlay(Text(itemLabel(for: item)).foregroundColor(.white))
-                                .overlay( // Stroke border directly on Circle
-                                    Circle().stroke(Color.gray, lineWidth: 2)
-                                )
-                                .onTapGesture {
-                                    if !item.hasSuffix("3") { // Lock the third variation
-                                        selectedAssets[category] = item
-                                    }
-                                }
-                                .overlay(
-                                    Text(item.hasSuffix("3") ? "🔒" : "")
-                                        .foregroundColor(.white) // Display lock emoji for the third variation
-                                        .font(.caption)
-                                )
-                        }
+                        // Locked colors: blue, green, orange, purple, red, white, yellow
+                        lockedColorCircle(color: .blue, colorName: "Blue")
+                        lockedColorCircle(color: .green, colorName: "Green")
+                        lockedColorCircle(color: .orange, colorName: "Orange")
+                        lockedColorCircle(color: .purple, colorName: "Purple")
+                        lockedColorCircle(color: .red, colorName: "Red")
+                        lockedColorCircle(color: .white, colorName: "White")
+                        lockedColorCircle(color: .yellow, colorName: "Yellow")
                     }
                     .padding(.top, 10)
+                }
+
+                // Show variations for the selected color (e.g., black)
+                if isColorSelected {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) { // Smaller circle size for variations
+                            ForEach(itemNames(for: category), id: \.self) { item in
+                                Circle()
+                                    .fill(selectedAssets[category] == item ? Color.green : Color.clear) // Fill the circle when selected
+                                    .frame(width: 40, height: 40) // Smaller circle size for variations
+                                    .overlay(Text(itemLabel(for: item)).foregroundColor(.white))
+                                    .overlay( // Stroke border directly on Circle
+                                        Circle().stroke(Color.gray, lineWidth: 2)
+                                    )
+                                    .onTapGesture {
+                                        if !item.hasSuffix("3") { // Lock the third variation
+                                            selectedAssets[category] = item
+                                        }
+                                    }
+                                    .overlay(
+                                        Text(item.hasSuffix("3") ? "🔒" : "")
+                                            .foregroundColor(.white) // Display lock emoji for the third variation
+                                            .font(.caption)
+                                    )
+                            }
+                        }
+                        .padding(.top, 10)
+                    }
                 }
             }
         } label: {
@@ -361,16 +278,40 @@ struct CustomizationCategoryView: View {
         }
     }
 
+    // Helper function to display color selection circle (for the selectable black color)
+    private func colorCircle(color: Color, colorName: String, selectedColor: Binding<String?>, isColorSelected: Binding<Bool>) -> some View {
+        Circle()
+            .fill(color) // Fill with the color passed as argument
+            .frame(width: 60, height: 60) // Circle size for color selection
+            .overlay( // Show green outline when selected
+                Circle()
+                    .stroke(selectedColor.wrappedValue == colorName ? Color.green : Color.gray, lineWidth: 2)
+            )
+            .onTapGesture {
+                selectedColor.wrappedValue = colorName
+                isColorSelected.wrappedValue = true // Toggle color selection to show variations
+            }
+    }
+
+    // Helper function to display locked color selection circles
+    private func lockedColorCircle(color: Color, colorName: String) -> some View {
+        Circle()
+            .fill(color)
+            .frame(width: 60, height: 60) // Circle size for locked color selection
+            .overlay(
+                Text("🔒")
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+            )
+            .overlay( // Stroke border around the circle
+                Circle()
+                    .stroke(Color.gray, lineWidth: 2)
+            )
+    }
+
     // Function to return the appropriate items for each category
     func itemNames(for category: String) -> [String] {
-        switch category {
-        case "Beanie", "Coat", "Pants":
-            return ["\(selectedColor ?? "Black")\(category)1", "\(selectedColor ?? "Black")\(category)2", "\(selectedColor ?? "Black")3"] // Variations 1, 2, and 3 with third locked
-        case "Head":
-            return ["MaleHead1", "MaleHead2", "MaleHead3", "FemaleHead1", "FemaleHead2", "FemaleHead3", "FemaleHead4", "FemaleHead5"] // Combined head variations
-        default:
-            return []
-        }
+        return ["\(selectedColor ?? "Black")\(category)1", "\(selectedColor ?? "Black")\(category)2", "\(selectedColor ?? "Black")3"]
     }
 
     // Function to return the label for each item (1, 2, 3, etc. for variations)
@@ -381,13 +322,10 @@ struct CustomizationCategoryView: View {
             return "2"
         } else if item.hasSuffix("3") {
             return "3"
-        } else if item.hasSuffix("4") {
-            return "4"
-        } else if item.hasSuffix("5") {
-            return "5"
         }
         return ""
     }
+
     // Function to return the correct head asset name based on index
     func headAssetName(for index: Int) -> String {
         switch index {
@@ -398,20 +336,26 @@ struct CustomizationCategoryView: View {
         case 3:
             return "MaleHead3"
         case 4:
-            return "FemaleHead1"
+            return "MaleHead4" // Added MaleHead4
         case 5:
-            return "FemaleHead2"
+            return "MaleHead5" // Added MaleHead5
         case 6:
-            return "FemaleHead3"
+            return "FemaleHead1"
         case 7:
-            return "FemaleHead4"
+            return "FemaleHead2"
         case 8:
+            return "FemaleHead3"
+        case 9:
+            return "FemaleHead4"
+        case 10:
             return "FemaleHead5"
         default:
             return ""
         }
     }
 }
+
+
 
 
 // PointsAndBadgesView.swift

@@ -80,6 +80,15 @@ struct HomeDashboard: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 225, height: 60)
+                                            .overlay(
+                                                GeometryReader { geometry in
+                                                    Text("\(viewModel.currentUser?.dailyCheckInStreak ?? 0)")
+                                                        .font(.custom("SFProText-Heavy", size: 24))
+                                                        .foregroundColor(.black)
+                                                        .frame(width: 35, height: 35)
+                                                        .position(x: geometry.size.width + 45, y: 70)
+                                                }
+                                            )
                                     }
                                     .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
                                     .padding(.top)
@@ -90,9 +99,9 @@ struct HomeDashboard: View {
                                         DailyCheckInView() // Present DailyCheckInView as a sheet
                                             .environmentObject(viewModel) // Ensure AuthViewModel is passed
                                     }
-                                    
+
                                     Spacer() // Pushes the dots to the bottom
-                                    
+
                                     HStack(spacing: 5) {
                                         // Ensure that the viewModel is provided to this view, and currentUser is non-nil
                                         ForEach(0..<7, id: \.self) { index in
@@ -124,6 +133,7 @@ struct HomeDashboard: View {
                                     .padding(.leading, 25) // Align the days of the week with the CheckInText
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading) // Ensures alignment
+
                             }
                             
                             NavigationLink(destination: OnboardingView(authViewModel: viewModel)) {

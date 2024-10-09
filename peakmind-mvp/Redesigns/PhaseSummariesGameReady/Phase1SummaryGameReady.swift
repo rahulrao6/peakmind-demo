@@ -1,5 +1,5 @@
 //
-//  Phase4Summary.swift
+//  Phase1Summary.swift
 //  peakmind-mvp
 //
 //  Created by ZA on 10/4/24.
@@ -7,21 +7,22 @@
 
 import SwiftUI
 
-struct P4Summary: View {
+struct P1S: View {
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isButtonDisabled: Bool = true
     @State private var showGlow: Bool = false
     @State private var navigateToWellnessQuestion = false // state to control navigation
     
     let bulletPoints = [
-        "This phase focused on building resilience through consistent self-care and creating routines to manage your anxiety. You practiced grounding techniques like the 5/4/3/2/1 method to stay grounded and build mental resilience. Remember to prioritize and maintain your self-care habits to strengthen your resilience over time!"
+        "In this phase, you learned so much about mental health and how stress impacts your daily life. You explored various coping strategies, like breathing exercises and trigger mapping, to manage stress more effectively. Remember to consistently practice these techniques to stay calm and grounded when you are experiencing stress."
     ]
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 // Background image
-                Image("NewBG")
+                Image("PurpleNewBG")
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
                 
@@ -32,17 +33,17 @@ struct P4Summary: View {
                     // Title above the box
                     Text("Summary")
                         .font(.custom("SFProText-Bold", size: 30))
-                        .foregroundColor(Color("QuestionHeaderColor"))
+                        .foregroundColor(Color("PurpleTitleColor"))
                         .padding(.bottom, 10)
                         .shadow(color: Color.white.opacity(0.3), radius: 5, x: 0, y: 0)
                     
-                    // Larger gradient box with bullet points
+                    // Larger Gradient box with bullet points
                     ZStack {
                         // Gradient background box
                         RoundedRectangle(cornerRadius: 15)
                             .fill(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("BoxGradient1"), Color("BoxGradient2")]),
+                                    gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -50,7 +51,7 @@ struct P4Summary: View {
                             .frame(height: geometry.size.height * 0.55) // Increased height
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color("BoxStrokeColor"), lineWidth: 3.5)
+                                    .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
                             )
                         
                         // Scrollable list of bullet points with auto-scroll
@@ -83,14 +84,14 @@ struct P4Summary: View {
                     
                     Spacer()
                     
-                    // Next/continue button
+                    // Next/Continue Button
                     Button(action: {
                         if currentIndex < bulletPoints.count - 1 {
                             isButtonDisabled = true
                             showGlow = false // Hide glow when text starts typing
                             currentIndex += 1
                         } else {
-                            navigateToWellnessQuestion = true // Trigger navigation
+                            closeAction("")
                         }
                     }) {
                         Text(currentIndex < bulletPoints.count - 1 ? "Next" : "Done")
@@ -100,7 +101,7 @@ struct P4Summary: View {
                             .padding(.horizontal, 12)
                             .background(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("ButtonGradient1"), Color("ButtonGradient2")]),
+                                    gradient: Gradient(colors: [Color("PurpleButtonGradientColor1"), Color("PurpleButtonGradientColor2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -112,7 +113,7 @@ struct P4Summary: View {
                     .disabled(isButtonDisabled) // Disable button if typing is not complete
                     
                     // Navigation link to the next screen
-                    NavigationLink(destination: P4IntroView2(), isActive: $navigateToWellnessQuestion) {
+                    NavigationLink(destination: WellnessQuestionViewPurple(), isActive: $navigateToWellnessQuestion) {
                         EmptyView()
                     }
                 }
@@ -128,44 +129,12 @@ struct P4Summary: View {
     }
 }
 
-struct P4FeatureBulletPoint10: View {
-    var text: String
-    @State private var visibleText: String = ""
-    @State private var charIndex: Int = 0
-    var onTypingComplete: () -> Void
-    
-    var body: some View {
-        // Feature text with typing animation
-        Text(visibleText)
-            .font(.custom("SFProText-Medium", size: 16))
-            .foregroundColor(Color("TextInsideBoxColor"))
-            .multilineTextAlignment(.leading)
-            .onAppear {
-                typeText()
-            }
-    }
-    
-    private func typeText() {
-        visibleText = ""
-        charIndex = 0
-        
-        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { timer in
-            if charIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: charIndex)
-                visibleText.append(text[index])
-                charIndex += 1
-            } else {
-                timer.invalidate()
-                onTypingComplete()
-            }
-        }
-    }
-}
-
-struct P4Summary_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            P4Summary()
-        }
-    }
-}
+//// Preview for P1Summary
+//struct P1Summary_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            P1Summary()
+//        }
+//    }
+//}
+//

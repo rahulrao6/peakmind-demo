@@ -13,10 +13,26 @@ struct SettingsView: View {
     @State private var showHealthSettingsAlert = false
     @State private var showDeleteConfirmation = false
     @State private var deleteConfirmationText = ""
-    @EnvironmentObject  var nm : NetworkManager
+    @State private var showScreen = false  // State to trigger fullScreenCover
 
+    
     var body: some View {
         Form {
+            Section {
+                Button(action: {
+                    showScreen = true  // Trigger the fullScreenCover
+                }) {
+                    HStack {
+                        Image(systemName: "play.circle.fill")
+                            .foregroundColor(.blue)
+                        Text("Play Tutorial")
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
+            .fullScreenCover(isPresented: $showScreen) {
+                TutorialScene(isShowingTutorial: $showScreen).environmentObject(viewModel)  // Presenting the full-screen cover
+            }
             if let user = viewModel.currentUser {
                 Section {
                     HStack {

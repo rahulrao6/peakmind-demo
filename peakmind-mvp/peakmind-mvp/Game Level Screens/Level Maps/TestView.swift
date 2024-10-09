@@ -41,15 +41,17 @@ struct LevelDecoration: Identifiable {
 struct TestView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
-    let positions: [CGPoint] = [CGPoint(x: 215, y: 150), CGPoint(x: 240, y: 300), CGPoint(x: 215, y: 450), CGPoint(x: 240, y: 600), CGPoint(x: 180, y: 750),
+    let positions: [CGPoint] = [CGPoint(x: 235, y: sy(pixels: 150)), CGPoint(x: 240, y: 300), CGPoint(x: 215, y: 450), CGPoint(x: 240, y: 600), CGPoint(x: 180, y: 750),
                                 CGPoint(x: 150, y: 750)]
     
     @State private var activeModal: LevelNode?
     @State private var confetti = 0
     @State private var currentPhase = 1
+    @State private var phaseOnScreen = 1
     @State private var progress = CGFloat(0.22)
     @State private var progressString = "0"
     @State private var canViewVertProgress = true
+    @State private var showMountains = false
     
     @State private var showElevation: Bool = true
     
@@ -57,10 +59,23 @@ struct TestView: View {
         let scene = MapScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         scene.scaleMode = .fill
         scene.backgroundColor = .clear
-        scene.imagePositions = [CGPoint(x: 215, y: 150), CGPoint(x: 240, y: 300), CGPoint(x: 190, y: 450), CGPoint(x: 150, y: 600), CGPoint(x: 180, y: 750), CGPoint(x: 195, y: 900), CGPoint(x: 240, y: 1050), CGPoint(x: 225, y: 1200), CGPoint(x: 165, y: 1350), CGPoint(x: 160, y: 1500)]
+        scene.imagePositions = [
+            CGPoint(x: sx(pixels: 215), y: sy(pixels: 150)),
+            CGPoint(x: sx(pixels: 240), y: sy(pixels: 300)),
+            CGPoint(x: sx(pixels: 190), y: sy(pixels: 450)),
+            CGPoint(x: sx(pixels: 150), y: sy(pixels: 600)),
+            CGPoint(x: sx(pixels: 180), y: sy(pixels: 750)),
+            CGPoint(x: sx(pixels: 195), y: sy(pixels: 900)),
+            CGPoint(x: sx(pixels: 240), y: sy(pixels: 1050)),
+            CGPoint(x: sx(pixels: 225), y: sy(pixels: 1200)),
+            CGPoint(x: sx(pixels: 165), y: sy(pixels: 1350)),
+            CGPoint(x: sx(pixels: 160), y: sy(pixels: 1500))
+        ]
         scene.reloadGates()
         return scene
     }()
+    
+    
     
     
     var body: some View {
@@ -75,7 +90,11 @@ struct TestView: View {
                             VariableBlurView(maxBlurRadius: 5)
                                 .frame(height: 200)
                                 .ignoresSafeArea()
+                            
                         }
+                    }
+                    .onChange(of: scene.currentYPosition) { yPosition in
+                        phaseOnScreen = getPhaseForYPosition(y: CGFloat(yPosition))!
                     }
                     .onChange(of: scene.selectedPhase) { levelID in
                         if (levelID == -1) {
@@ -105,9 +124,8 @@ struct TestView: View {
                             
                             activeModal = nil
                             
-                            if (scene.completedLevelsList.count % 10 == 0) {
+                            if (scene.completedLevelsList.count % 10 == 0 && scene.completedLevelsList.count < 50) {
                                 scene.animateGate()
-                                
                             }
                             
                             currentPhase = Int(floor(Double(scene.completedLevelsList.count) / 10.0))
@@ -148,7 +166,7 @@ struct TestView: View {
                             LevelNode(uid: 8, internalName: "P1_9", title: "Wellness Question", viewFactory: { AnyView(P9_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 9, internalName: "P1_10", title: "Minigame", viewFactory: { AnyView(GameUnavailable(closeAction: { (str) -> Void in
+                            LevelNode(uid: 9, internalName: "P1_10", title: "Summary", viewFactory: { AnyView(P1S(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
                             
@@ -179,8 +197,8 @@ struct TestView: View {
                             LevelNode(uid: 8, internalName: "P2_9", title: "4/7/8 Breathing", viewFactory: { AnyView(LevelUnavailable(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 2),
-                            LevelNode(uid: 9, internalName: "P2_10", title: "Minigame", viewFactory: { AnyView(
-                                GameUnavailable(closeAction: { (str) -> Void in
+                            LevelNode(uid: 9, internalName: "P2_10", title: "Summary", viewFactory: { AnyView(
+                                P2S(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 2),
                             
@@ -242,7 +260,7 @@ struct TestView: View {
                             LevelNode(uid: 8, internalName: "P4_9", title: "Scenario", viewFactory: { AnyView(P4_9_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 4),
-                            LevelNode(uid: 9, internalName: "P4_10", title: "Minigame", viewFactory: { AnyView(GameUnavailable(closeAction: { (str) -> Void in
+                            LevelNode(uid: 9, internalName: "P4_10", title: "Summary", viewFactory: { AnyView(P4S(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 4),
                             
@@ -260,7 +278,7 @@ struct TestView: View {
                             })) }, phase: 5),
                             LevelNode(uid: 4, internalName: "P5_5", title: "Reflection", viewFactory: { AnyView(P5_5_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
-                            })) }, phase: 4),
+                            })) }, phase: 5),
                             LevelNode(uid: 5, internalName: "P5_6", title: "Finding Community", viewFactory: { AnyView(P5_6_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 5),
@@ -285,7 +303,9 @@ struct TestView: View {
                             UIColor(red: 152/255, green: 182/255, blue: 91/255, alpha: 1),    // Brighter Treeline
                             UIColor(red: 160/255, green: 170/255, blue: 180/255, alpha: 1),   // Brighter Rocky
                             UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1),   // Bright Snowy (pure white)
-                            UIColor(red: 220/255, green: 215/255, blue: 215/255, alpha: 1)    // Brighter Summit
+                            UIColor(red: 220/255, green: 215/255, blue: 215/255, alpha: 1),    // Brighter Summit
+                            UIColor(red: 220/255, green: 215/255, blue: 215/255, alpha: 1),    // Brighter Summit
+
                         ]
                         
                         if (user.LevelOneCompleted) {
@@ -330,8 +350,13 @@ struct TestView: View {
                                 .font(.system(size: 30, weight: .heavy, design: .default))
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                             
-                            Text("Phase "+String(currentPhase + 1))
-                                .frame(maxWidth: .infinity, alignment: .trailing)
+                            if((currentPhase+1) <= 5) {
+                                Text("Phase "+String(phaseOnScreen))
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                            } else {
+                                Text("Mountain Complete")
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                            }
                             
                         }
                         .padding()
@@ -344,33 +369,60 @@ struct TestView: View {
                             .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
                     }
                     
-                    if (true) {
+                    ZStack {
                         
-                        GeometryReader { geometry in
-                            ZStack(alignment: .bottom) {
-                                ProgressIndicatorView(isVisible: $canViewVertProgress, type: .impulseBar(progress: $progress, backgroundColor: .white.opacity(0.25)))
-                                    .foregroundColor(.white.opacity(0.65))
-                                    .frame(width: geometry.size.height - 100, height: 50) // Adjust the width based on the height
-                                    .rotationEffect(Angle(degrees: -90))
-                                
-                                Spacer()
-                                
-                                Text(progressString)
-                                    .foregroundColor(.white)
+                        if (true) {
+                            
+                            GeometryReader { geometry in
+                                ZStack(alignment: .bottom) {
+                                    ProgressIndicatorView(isVisible: $canViewVertProgress, type: .impulseBar(progress: $progress, backgroundColor: .white.opacity(0.25)))
+                                        .foregroundColor(.white.opacity(0.65))
+                                        .frame(width: geometry.size.height - 100, height: 50) // Adjust the width based on the height
+                                        .rotationEffect(Angle(degrees: -90))
+                                    
+                                    Text(progressString)
+                                        .foregroundColor(.white)
+                                        .padding(.bottom, 10) // Adjust padding to fine-tune positioning at the bottom
+                                }
+                                .position(x: 25, y: geometry.size.height / 2 - 40) // Adjust x position for left alignment
+                                .padding(.leading, 20) // Ensure no padding on the leading side
+                                .offset(x: showElevation ? 0 : -geometry.size.width) // Slide in from left
+                                .animation(.easeInOut, value: showElevation) // Animate the change
                             }
-                            .position(x: 25, y: geometry.size.height / 2 - 40) // Adjust x position for left alignment
-                            .padding(.leading, 20) // Ensure no padding on the leading side
-                            .offset(x: showElevation ? 0 : -geometry.size.width) // Slide in from left
-                            .animation(.easeInOut, value: showElevation) // Animate the change
+                            
+                            
                         }
                         
                         
+                        Spacer()
+                        
+                        HStack {
+                            Spacer() // Push the buttons to the right
+                            VStack(spacing: 16) { // Stack buttons vertically with some spacing
+                                Button(action: {
+                                    showMountains = true
+                                }) {
+                                    Image(systemName: "mountain.2") // Top button icon
+                                        .font(.system(size: 24)) // Icon size
+                                        .foregroundColor(.black) // Icon color
+                                        .frame(width: 60, height: 60) // Button size
+                                        .background(Color.white) // Button background color
+                                        .clipShape(Circle()) // Make button round
+                                        .shadow(radius: 4) // Add slight shadow
+                                }
+                               
+                            }
+                            .padding(.trailing, 16) // Padding from the right edge
+                            .padding(.top, 440) // Padding from the bottom edge
+                        }
                     }
-                    
-                    
-                    Spacer()
                 }
                 .padding(.top, 70)
+                .fullScreenCover(isPresented: $showMountains) {
+                                    MountainSelect(closeAction: {
+                                        showMountains = false
+                                    })
+                                }
                 
                 
                 
@@ -413,20 +465,28 @@ struct TestView: View {
         scene.imagePositions = positions
         return scene
     }
+    
+    private func getPhaseForYPosition(y: CGFloat) -> Int? {
+        let phase = Int(y / 2) + 1
+        
+        return phase
+    }
 }
 
 func sy(pixels: Int) -> CGFloat {
     let orig = 2622
-    let height = UIScreen.main.bounds.height
+    let height = UIScreen.main.nativeBounds.size.height
     
-    return CGFloat(pixels / orig) * (height)
+    
+    
+    return (CGFloat(pixels) / CGFloat(orig)) * (height)
 }
 
 func sx(pixels: Int) -> CGFloat {
-    let orig = 2622
-    let height = UIScreen.main.bounds.height
+    let orig = 1206
+    let width = UIScreen.main.nativeBounds.size.width
     
-    return CGFloat(pixels / orig) * (height)
+    return (CGFloat(pixels)/CGFloat(orig)) * (width)
 }
 
 //#Preview {

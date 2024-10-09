@@ -1,5 +1,5 @@
 //
-//  Phase1Summary.swift
+//  Phase3Summary.swift
 //  peakmind-mvp
 //
 //  Created by ZA on 10/4/24.
@@ -7,21 +7,22 @@
 
 import SwiftUI
 
-struct P1Summary: View {
+struct P3S: View {
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var isButtonDisabled: Bool = true
     @State private var showGlow: Bool = false
     @State private var navigateToWellnessQuestion = false // state to control navigation
     
     let bulletPoints = [
-        "In this phase, you learned so much about mental health and how stress impacts your daily life. You explored various coping strategies, like breathing exercises and trigger mapping, to manage stress more effectively. Remember to consistently practice these techniques to stay calm and grounded when you are experiencing stress."
+        "You’ve learned how anxiety affects your body and emotions, causing physical tension and emotional distress. Through exercises like body scans and understanding physical symptoms, you learned tools to reduce both emotional and physical discomfort. Remember to address anxiety symptoms early for quicker recovery and overall well-being."
     ]
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 // Background image
-                Image("PurpleNewBG")
+                Image("PinkNewBG")
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
                 
@@ -32,17 +33,17 @@ struct P1Summary: View {
                     // Title above the box
                     Text("Summary")
                         .font(.custom("SFProText-Bold", size: 30))
-                        .foregroundColor(Color("PurpleTitleColor"))
+                        .foregroundColor(Color("PinkTitleColor"))
                         .padding(.bottom, 10)
                         .shadow(color: Color.white.opacity(0.3), radius: 5, x: 0, y: 0)
                     
-                    // Larger Gradient box with bullet points
+                    // Larger gradient box with bullet points
                     ZStack {
                         // Gradient background box
                         RoundedRectangle(cornerRadius: 15)
                             .fill(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("PinkBoxGradientColor1"), Color("PinkBoxGradientColor2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -50,7 +51,7 @@ struct P1Summary: View {
                             .frame(height: geometry.size.height * 0.55) // Increased height
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
+                                    .stroke(Color("PinkBorderColor"), lineWidth: 3.5)
                             )
                         
                         // Scrollable list of bullet points with auto-scroll
@@ -83,14 +84,14 @@ struct P1Summary: View {
                     
                     Spacer()
                     
-                    // Next/Continue Button
+                    // Next/continue button
                     Button(action: {
                         if currentIndex < bulletPoints.count - 1 {
                             isButtonDisabled = true
                             showGlow = false // Hide glow when text starts typing
                             currentIndex += 1
                         } else {
-                            navigateToWellnessQuestion = true // Trigger navigation
+                            closeAction("")
                         }
                     }) {
                         Text(currentIndex < bulletPoints.count - 1 ? "Next" : "Done")
@@ -100,7 +101,7 @@ struct P1Summary: View {
                             .padding(.horizontal, 12)
                             .background(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color("PurpleButtonGradientColor1"), Color("PurpleButtonGradientColor2")]),
+                                    gradient: Gradient(colors: [Color("PinkButtonGradientColor1"), Color("PinkButtonGradientColor2")]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -112,7 +113,7 @@ struct P1Summary: View {
                     .disabled(isButtonDisabled) // Disable button if typing is not complete
                     
                     // Navigation link to the next screen
-                    NavigationLink(destination: WellnessQuestionViewPurple(), isActive: $navigateToWellnessQuestion) {
+                    NavigationLink(destination: P3BodyScan(), isActive: $navigateToWellnessQuestion) {
                         EmptyView()
                     }
                 }
@@ -128,12 +129,44 @@ struct P1Summary: View {
     }
 }
 
-// Preview for P1Summary
-struct P1Summary_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            P1Summary()
+struct P3FeatureBulletPoint10: View {
+    var text: String
+    @State private var visibleText: String = ""
+    @State private var charIndex: Int = 0
+    var onTypingComplete: () -> Void
+    
+    var body: some View {
+        // Feature text with typing animation
+        Text(visibleText)
+            .font(.custom("SFProText-Medium", size: 16))
+            .foregroundColor(Color("PinkTextColor"))
+            .multilineTextAlignment(.leading)
+            .onAppear {
+                typeText()
+            }
+    }
+    
+    private func typeText() {
+        visibleText = ""
+        charIndex = 0
+        
+        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { timer in
+            if charIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: charIndex)
+                visibleText.append(text[index])
+                charIndex += 1
+            } else {
+                timer.invalidate()
+                onTypingComplete()
+            }
         }
     }
 }
 
+//struct P3Summary_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            P3Summary()
+//        }
+//    }
+//}

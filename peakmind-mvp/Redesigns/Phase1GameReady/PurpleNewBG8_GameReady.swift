@@ -82,7 +82,10 @@ struct P8_1: View {
                     .frame(height: geometry.size.height * 0.3) // set a fixed height for the text box
                     .padding(.horizontal, 20)
                     
-                    Spacer()
+                    
+                    SpriteKitUIView(scene: BreathingExerciseScene(size: CGSize(width: 300, height: 300)))
+                        .frame(width: 300, height: 300)
+                        .background(Color.clear)
                     
                     // next Button
                     Button(action: {

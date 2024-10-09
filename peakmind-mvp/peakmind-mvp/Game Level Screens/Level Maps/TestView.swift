@@ -198,7 +198,7 @@ struct TestView: View {
                             LevelNode(uid: 7, internalName: "P2_8", title: "Mindfulness", viewFactory: { AnyView(P2_8_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 2),
-                            LevelNode(uid: 8, internalName: "P2_9", title: "4/7/8 Breathing", viewFactory: { AnyView(LevelUnavailable(closeAction: { (str) -> Void in
+                            LevelNode(uid: 8, internalName: "P2_9", title: "4/7/8 Breathing", viewFactory: { AnyView(P2_9_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 2),
                             LevelNode(uid: 9, internalName: "P2_10", title: "Summary", viewFactory: { AnyView(

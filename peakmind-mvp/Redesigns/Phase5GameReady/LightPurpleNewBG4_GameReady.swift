@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct P5_4_1: View {
-    var closeAction: (String) -> Void
+    var closeAction: (String, [String]) -> Void
     @State private var firstCause: String = ""
     @State private var firstEffect: String = ""
     @State private var secondCause: String = ""
@@ -129,7 +129,7 @@ struct P5_4_1: View {
                     
                     // continue button for next screen
                     Button(action: {
-                        closeAction("")
+                        closeAction("", [firstCause, firstEffect, secondCause, secondEffect])
                     }) {
                         Text("Continue")
                             .font(.custom("SFProText-Bold", size: 20))

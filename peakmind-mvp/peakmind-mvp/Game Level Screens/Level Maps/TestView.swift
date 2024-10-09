@@ -47,6 +47,7 @@ struct TestView: View {
     @State private var activeModal: LevelNode?
     @State private var confetti = 0
     @State private var currentPhase = 1
+    @State private var phaseOnScreen = 1
     @State private var progress = CGFloat(0.22)
     @State private var progressString = "0"
     @State private var canViewVertProgress = true
@@ -92,6 +93,9 @@ struct TestView: View {
                             
                         }
                     }
+                    .onChange(of: scene.currentYPosition) { yPosition in
+                        phaseOnScreen = getPhaseForYPosition(y: CGFloat(yPosition))!
+                    }
                     .onChange(of: scene.selectedPhase) { levelID in
                         if (levelID == -1) {
                             showElevation = true
@@ -120,9 +124,8 @@ struct TestView: View {
                             
                             activeModal = nil
                             
-                            if (scene.completedLevelsList.count % 10 == 0) {
+                            if (scene.completedLevelsList.count % 10 == 0 && scene.completedLevelsList.count < 50) {
                                 scene.animateGate()
-                                
                             }
                             
                             currentPhase = Int(floor(Double(scene.completedLevelsList.count) / 10.0))
@@ -300,7 +303,9 @@ struct TestView: View {
                             UIColor(red: 152/255, green: 182/255, blue: 91/255, alpha: 1),    // Brighter Treeline
                             UIColor(red: 160/255, green: 170/255, blue: 180/255, alpha: 1),   // Brighter Rocky
                             UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1),   // Bright Snowy (pure white)
-                            UIColor(red: 220/255, green: 215/255, blue: 215/255, alpha: 1)    // Brighter Summit
+                            UIColor(red: 220/255, green: 215/255, blue: 215/255, alpha: 1),    // Brighter Summit
+                            UIColor(red: 220/255, green: 215/255, blue: 215/255, alpha: 1),    // Brighter Summit
+
                         ]
                         
                         if (user.LevelOneCompleted) {
@@ -345,8 +350,13 @@ struct TestView: View {
                                 .font(.system(size: 30, weight: .heavy, design: .default))
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                             
-                            Text("Phase "+String(currentPhase + 1))
-                                .frame(maxWidth: .infinity, alignment: .trailing)
+                            if((currentPhase+1) <= 5) {
+                                Text("Phase "+String(phaseOnScreen))
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                            } else {
+                                Text("Mountain Complete")
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                            }
                             
                         }
                         .padding()
@@ -455,6 +465,12 @@ struct TestView: View {
         scene.imagePositions = positions
         return scene
     }
+    
+    private func getPhaseForYPosition(y: CGFloat) -> Int? {
+        let phase = Int(y / 2) + 1
+        
+        return phase
+    }
 }
 
 func sy(pixels: Int) -> CGFloat {
@@ -469,9 +485,6 @@ func sy(pixels: Int) -> CGFloat {
 func sx(pixels: Int) -> CGFloat {
     let orig = 1206
     let width = UIScreen.main.nativeBounds.size.width
-    
-    print("width: \(width)")
-    print(CGFloat(pixels)/CGFloat(orig))
     
     return (CGFloat(pixels)/CGFloat(orig)) * (width)
 }

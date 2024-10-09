@@ -39,6 +39,70 @@ class ChatMessage: Identifiable, Hashable {
     }
 }
 
+import SwiftUI
+import UIKit
+
+struct TextViewToolbar10: UIViewRepresentable {
+    @Binding var text: String
+    @FocusState var isTextEditorFocused: Bool
+    var onTap: () -> Void
+
+    class Coordinator: NSObject, UITextViewDelegate {
+        var parent: TextViewToolbar10
+
+        init(_ parent: TextViewToolbar10) {
+            self.parent = parent
+        }
+
+        func textViewDidChange(_ textView: UITextView) {
+            parent.text = textView.text
+        }
+
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            parent.onTap() // Notify when editing begins
+        }
+
+        @objc func doneButtonTapped() {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(self)
+    }
+
+    func makeUIView(context: Context) -> UITextView {
+        let textView = UITextView()
+
+        // Add the toolbar with Done button
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: context.coordinator, action: #selector(Coordinator.doneButtonTapped))
+        toolbar.items = [flexibleSpace, doneButton]
+
+        textView.inputAccessoryView = toolbar
+        textView.delegate = context.coordinator
+        textView.font = UIFont.systemFont(ofSize: 16)
+
+        textView.backgroundColor = .clear // Make the background clear
+        textView.text = text
+        textView.textColor = UIColor(named: "TextInsideBoxColor")
+
+        textView.textContainerInset = UIEdgeInsets(top: 14, left: 12, bottom: 12, right: 16) // Adjust padding inside the box
+        textView.textContainer.lineBreakMode = .byWordWrapping // Ensure text wraps within the box
+
+        return textView
+    }
+
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.text = text
+        uiView.textColor = UIColor(named: "TextInsideBoxColor")
+    }
+}
+
+
 struct ChatView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var message = ""
@@ -921,7 +985,7 @@ struct FeedbackSheetView: View {
                                 }
                                 .padding(.vertical)
                                 
-                                // Text editor for additional feedback
+                                // Custom TextViewToolbar for additional feedback
                                 ZStack(alignment: .topLeading) {
                                     if feedbackText.isEmpty {
                                         Text("Start typing here...")
@@ -930,39 +994,23 @@ struct FeedbackSheetView: View {
                                             .padding(.horizontal, 16)
                                             .zIndex(1)
                                     }
-                                    
-                                    TextEditor(text: $feedbackText)
-                                        .font(.custom("SFProText-Bold", size: 16))
-                                        .foregroundColor(Color("TextInsideBoxColor"))
-                                        .focused($isFeedbackTextFocused)
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 8)
-                                        .frame(height: 200, alignment: .topLeading)
-                                        .background(Color.clear)
-                                        .scrollContentBackground(.hidden)
-                                        .background(
-                                            LinearGradient(
-                                                gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
-                                                startPoint: .topLeading,
-                                                endPoint: .bottomTrailing
-                                            )
-                                            .cornerRadius(10)
+
+                                    TextViewToolbar10(text: $feedbackText, isTextEditorFocused: _isFeedbackTextFocused) {
+                                        isFeedbackTextFocused = true
+                                    }
+                                    .frame(height: 200)
+                                    .background(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [Color("PurpleBoxGradientColor1"), Color("PurpleBoxGradientColor2")]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
                                         )
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
-                                        )
-                                        .onChange(of: feedbackText) { newValue in
-                                            withAnimation {
-                                                isTyping = !feedbackText.isEmpty
-                                            }
-                                            if newValue.count > 500 {
-                                                feedbackText = String(newValue.prefix(500))
-                                            }
-                                        }
-                                        .onSubmit {
-                                            isFeedbackTextFocused = false
-                                        }
+                                        .cornerRadius(10)
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color("PurpleBorderColor"), lineWidth: 3.5)
+                                    )
                                     
                                     VStack {
                                         Spacer()

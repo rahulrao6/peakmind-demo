@@ -72,6 +72,8 @@ struct TestView: View {
             CGPoint(x: sx(pixels: 160), y: sy(pixels: 1500))
         ]
         scene.reloadGates()
+        
+        
         return scene
     }()
     
@@ -127,6 +129,8 @@ struct TestView: View {
                             if (scene.completedLevelsList.count % 10 == 0 && scene.completedLevelsList.count < 50) {
                                 scene.animateGate()
                             }
+                            
+                            
                             
                             currentPhase = Int(floor(Double(scene.completedLevelsList.count) / 10.0))
                             
@@ -322,8 +326,6 @@ struct TestView: View {
                         
                         
                         
-                        
-                        
                          for levelName in user.completedLevels {
                              let level = getNodeFromInternalLevelName(internalName: levelName)
                              if (level != nil) {
@@ -337,10 +339,12 @@ struct TestView: View {
                         scene.updatePhase()
                         scene.reloadGates()
                         
+                       
                         
                         progress = CGFloat(Float(user.completedLevels.count) / Float(50))
                         progressString = String(Int(Float(user.completedLevels.count) / Float(50) * Float(1000))) + "ft"
                          
+                        
                     }
                 
                 VStack {

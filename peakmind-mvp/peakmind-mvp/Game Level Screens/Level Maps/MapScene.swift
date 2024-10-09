@@ -124,6 +124,20 @@ class MapScene: SKScene, ObservableObject {
             }
         }
     }
+    
+    func getYPosForLevel(level: CompletedLevel) -> CGFloat {
+        return CGFloat(level.phase) * 2
+    }
+    
+    func setYPos(position: Float) {
+        currentYPosition = position
+        
+        if let cameraNode = cameraNode {
+            cameraNode.position.y = CGFloat(position) * UIScreen.main.bounds.height
+        } else {
+            print("cameraNode is not defined yet")
+        }
+    }
 
     override func didMove(to view: SKView) {
         setupBackground()
@@ -132,6 +146,7 @@ class MapScene: SKScene, ObservableObject {
         setupCamera()
         setupLevelBox()
         self.backgroundColor = phaseColors[0]
+        //centerOnNode(node: imageNodes[completedLevelsList.count + 1])
     }
 
     private func setupBackground() {
@@ -155,6 +170,10 @@ class MapScene: SKScene, ObservableObject {
         self.camera = cameraNode
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
         addChild(cameraNode)
+        
+        completedPhases = Int(floor(Double(completedLevelsList.count) / 10.0))
+        setYPos(position: Float(completedPhases) * 2.0)
+        
     }
     
     func reloadGates() {
@@ -326,6 +345,8 @@ class MapScene: SKScene, ObservableObject {
                 addChild(text)
             }
         }
+        
+
     }
     
     private func setupImages() {
@@ -430,7 +451,7 @@ class MapScene: SKScene, ObservableObject {
         zoomAlphaOut()
     }
     
-    private func centerOnNode(node: SKSpriteNode) {
+    func centerOnNode(node: SKSpriteNode) {
         //if (levels[selectedPhase].phase - 1) <= completedPhases {
         print(completedLevelsList)
         print(maxY)

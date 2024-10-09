@@ -26,8 +26,9 @@ struct P5_5_2: View {
     
     @State private var navigateToNextScreen = false
     
+    // Trigger the rearrangement animation after all challenges are matched
+    @State private var isOrganized: Bool = false
 
-    
     init(closeAction: @escaping (String) -> Void, firstText: String, secondText: String, thirdText: String, supportNames: [String]) {
         self.closeAction = closeAction
         self.firstText = firstText
@@ -61,65 +62,29 @@ struct P5_5_2: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 20)
                         .shadow(color: Color.white.opacity(0.3), radius: 5, x: 0, y: 0)
+
+                    // Instructions section
+                    Text("Drag each challenge from left to right to link it with the appropriate support.")
+                        .font(.custom("SFProText-Regular", size: 14)) // Smaller font size
+                        .foregroundColor(Color("LightPurpleTextColor")) // Use LightPurpleTextColor
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 20)
                     
-                    // Left and right columns
-                    HStack(spacing: 36) {
-                        // Challenges (left side)
-                        VStack(spacing: 20) {
-                            ForEach(unlinkedChallenges, id: \.self) { challenge in
-                                Text(challenge)
-                                    .font(.custom("SFProText-Medium", size: 16))
-                                    .foregroundColor(Color("LightPurpleTextColor"))
-                                    .foregroundColor(.white)
-                                    .multilineTextAlignment(.leading)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding()
-                                    .background(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [Color("LightPurpleBoxGradientColor1"), Color("LightPurpleBoxGradientColor2")]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    )
-                                    .cornerRadius(10)
-                                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
-                                    .onDrag {
-                                        draggedChallenge = challenge
-                                        return NSItemProvider(object: NSString(string: challenge))
-                                    }
-                            }
-                        }
-                        
-                        // Support Names (right side)
-                        VStack(spacing: 20) {
+                    // Animated content after dragging all challenges
+                    if isOrganized {
+                        VStack {
                             ForEach(supportNames.indices, id: \.self) { index in
-                                ZStack {
-                                    VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    VStack {
                                         Text(supportNames[index])
                                             .font(.custom("SFProText-Medium", size: 16))
                                             .foregroundColor(Color("LightPurpleTextColor"))
-                                            .foregroundColor(.white)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding()
-                                            .background(
-                                                LinearGradient(
-                                                    gradient: Gradient(colors: [Color("LightPurpleBoxGradientColor1"), Color("LightPurpleBoxGradientColor2")]),
-                                                    startPoint: .topLeading,
-                                                    endPoint: .bottomTrailing
-                                                )
-                                            )
-                                            .cornerRadius(10)
-                                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
                                         
-                                        // Display all challenges linked to this support
+                                        // Allow challenges to be dragged even after organization
                                         ForEach(connections[index] ?? [], id: \.self) { connection in
                                             Text(connection)
                                                 .font(.custom("SFProText-Medium", size: 14))
                                                 .foregroundColor(Color("LightPurpleTextColor"))
-                                                .foregroundColor(.white)
-                                                .multilineTextAlignment(.leading)
-                                                .frame(maxWidth: .infinity, alignment: .leading)
                                                 .padding(5)
                                                 .background(
                                                     LinearGradient(
@@ -131,7 +96,7 @@ struct P5_5_2: View {
                                                 .cornerRadius(10)
                                                 .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
                                                 .onDrag {
-                                                    // Allow dragging challenges already placed under a support
+                                                    // Allow dragging challenges even after organization
                                                     draggedChallenge = connection
                                                     sourceSupportIndex = index
                                                     return NSItemProvider(object: NSString(string: connection))
@@ -139,6 +104,12 @@ struct P5_5_2: View {
                                         }
                                     }
                                 }
+                                .frame(maxWidth: .infinity)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.white.opacity(0.2))
+                                )
+                                .padding(.vertical, 10)
                                 .onDrop(of: [.text], isTargeted: nil) { providers in
                                     if let draggedChallenge = draggedChallenge {
                                         // Remove the challenge from the original support if it was dragged from there
@@ -153,15 +124,120 @@ struct P5_5_2: View {
                                             connections[index] = [draggedChallenge]
                                         }
                                         
-                                        // If the challenge was unlinked, remove it from unlinkedChallenges
-                                        unlinkedChallenges.removeAll { $0 == draggedChallenge }
-                                        
                                         // Reset drag state
                                         self.draggedChallenge = nil
                                         self.sourceSupportIndex = nil
+                                        
                                         return true
                                     }
                                     return false
+                                }
+                            }
+                        }
+                        .animation(.easeInOut(duration: 1.0))
+                    } else {
+                        // Left and right columns before organization
+                        HStack(spacing: 36) {
+                            // Challenges (left side)
+                            VStack(spacing: 20) {
+                                ForEach(unlinkedChallenges, id: \.self) { challenge in
+                                    Text(challenge)
+                                        .font(.custom("SFProText-Medium", size: 16))
+                                        .foregroundColor(Color("LightPurpleTextColor"))
+                                        .multilineTextAlignment(.leading)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding()
+                                        .background(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [Color("LightPurpleBoxGradientColor1"), Color("LightPurpleBoxGradientColor2")]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                        )
+                                        .cornerRadius(10)
+                                        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+                                        .onDrag {
+                                            draggedChallenge = challenge
+                                            return NSItemProvider(object: NSString(string: challenge))
+                                        }
+                                }
+                            }
+                            
+                            // Support Names (right side)
+                            VStack(spacing: 20) {
+                                ForEach(supportNames.indices, id: \.self) { index in
+                                    ZStack {
+                                        VStack(alignment: .leading, spacing: 10) {
+                                            Text(supportNames[index])
+                                                .font(.custom("SFProText-Medium", size: 20))
+                                                .foregroundColor(Color("LightPurpleTextColor"))
+                                                .multilineTextAlignment(.leading)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .padding()
+                                                .background(
+                                                    LinearGradient(
+                                                        gradient: Gradient(colors: [Color("LightPurpleBoxGradientColor1"), Color("LightPurpleBoxGradientColor2")]),
+                                                        startPoint: .topLeading,
+                                                        endPoint: .bottomTrailing
+                                                    )
+                                                )
+                                                .cornerRadius(10)
+                                                .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+                                            
+                                            // Display all challenges linked to this support
+                                            ForEach(connections[index] ?? [], id: \.self) { connection in
+                                                Text(connection)
+                                                    .font(.custom("SFProText-Medium", size: 14))
+                                                    .foregroundColor(Color("LightPurpleTextColor"))
+                                                    .multilineTextAlignment(.leading)
+                                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                                    .padding(5)
+                                                    .background(
+                                                        LinearGradient(
+                                                            gradient: Gradient(colors: [Color("LightPurpleBoxGradientColor1"), Color("LightPurpleBoxGradientColor2")]),
+                                                            startPoint: .center,
+                                                            endPoint: .bottomTrailing
+                                                        )
+                                                    )
+                                                    .cornerRadius(10)
+                                                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+                                                    .onDrag {
+                                                        // Allow dragging challenges already placed under a support
+                                                        draggedChallenge = connection
+                                                        sourceSupportIndex = index
+                                                        return NSItemProvider(object: NSString(string: connection))
+                                                    }
+                                            }
+                                        }
+                                    }
+                                    .onDrop(of: [.text], isTargeted: nil) { providers in
+                                        if let draggedChallenge = draggedChallenge {
+                                            // Remove the challenge from the original support if it was dragged from there
+                                            if let sourceIndex = sourceSupportIndex, let indexOfDraggedChallenge = connections[sourceIndex]?.firstIndex(of: draggedChallenge) {
+                                                connections[sourceIndex]?.remove(at: indexOfDraggedChallenge)
+                                            }
+                                            
+                                            // Add the dragged challenge to the new support name's stack
+                                            if connections[index] != nil {
+                                                connections[index]?.append(draggedChallenge)
+                                            } else {
+                                                connections[index] = [draggedChallenge]
+                                            }
+                                            
+                                            // If the challenge was unlinked, remove it from unlinkedChallenges
+                                            unlinkedChallenges.removeAll { $0 == draggedChallenge }
+                                            
+                                            // Trigger the organization when all challenges are matched
+                                            if allChallengesMatched {
+                                                withAnimation {
+                                                    isOrganized = true
+                                                }
+                                            }
+                                            
+                                            return true
+                                        }
+                                        return false
+                                    }
                                 }
                             }
                         }
@@ -201,6 +277,9 @@ struct P5_5_2: View {
         }
     }
 }
+
+
+
 
 
 

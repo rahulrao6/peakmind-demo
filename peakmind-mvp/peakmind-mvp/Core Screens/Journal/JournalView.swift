@@ -38,132 +38,132 @@ struct JournalView: View {
         "Who has the biggest influence on your life?"
     ]
     var body: some View {
-         ZStack {
-             // Updated background gradient
-             LinearGradient(
-                 gradient: Gradient(colors: [Color(hex: "112864")!, Color(hex: "23429a")!]),
-                 startPoint: .bottom,
-                 endPoint: .top
-             )
-             .edgesIgnoringSafeArea(.all)
-             
-             VStack(alignment: .leading) {
-                 Text("Your Journal")
-                     .font(.custom("SFProText-Heavy", size: 34))
-                     .foregroundColor(.white)
-                     .padding(.top, 10)
-                     .padding(.leading, 20)
-                 
-                 // Daily Prompt Button
-                 Button(action: {
-                     showJournalPrompt = true
-                 }) {
-                     Text(Calendar.current.isDateInToday(journalEntries.last?.date ?? Date() - 1) ? "Daily Prompt Answered!" : "Answer Your Daily Prompt")
-                         .font(.custom("SFProText-Bold", size: 18))
-                         .foregroundColor(.white)
-                         .padding()
-                         .frame(maxWidth: .infinity)
-                         .background(Calendar.current.isDateInToday(journalEntries.last?.date ?? Date() - 1) ? Color.gray : Color(hex: "b0e8ff")!)
-                         .cornerRadius(10)
-                         .padding(.horizontal, 20)
-                 }
-                 .disabled(Calendar.current.isDateInToday(journalEntries.last?.date ?? Date() - 1))
-                 .padding(.bottom, 20)
-                 
-                 // Journal Entries Log
-                 ScrollView {
-                     ForEach(viewModel.journalEntries) { entry in
-                         NavigationLink(destination: JournalDetailView(entry: entry)) {
-                             HStack {
-                                 VStack(alignment: .leading) {
-                                     Text(entry.question)
-                                         .font(.custom("SFProText-Bold", size: 17))
-                                         .foregroundColor(.white)
-                                         .multilineTextAlignment(.leading)
-                                         .lineLimit(nil)
-                                         .fixedSize(horizontal: false, vertical: true)
-                                         .frame(width: 320, alignment: .leading)
-                                     
-                                     Text(entry.date, style: .date)
-                                         .font(.custom("SFProText-Bold", size: 12))
-                                         .foregroundColor(.gray)
-                                 }
-                             }
-                             .padding()
-                             .background(Color(hex: "0b1953")!)
-                             .cornerRadius(12)
-                             .padding(.horizontal, 20)
-                             .padding(.bottom, 10)
-                             .frame(maxWidth: .infinity)
-                         }
-                     }
-                 }
-                 
-                 Spacer()
-             }
+        ZStack {
+            // Updated background gradient
+            LinearGradient(
+                gradient: Gradient(colors: [Color(hex: "112864")!, Color(hex: "23429a")!]),
+                startPoint: .bottom,
+                endPoint: .top
+            )
+            .edgesIgnoringSafeArea(.all)
+            
+            VStack(alignment: .leading) {
+                Text("Your Journal")
+                    .font(.custom("SFProText-Heavy", size: 34))
+                    .foregroundColor(.white)
+                    .padding(.top, 10)
+                    .padding(.leading, 20)
+                
+                // Daily Prompt Button
+                Button(action: {
+                    showJournalPrompt = true
+                }) {
+                    Text(isPromptAnswered ? "Daily Prompt Answered!" : "Answer Your Daily Prompt")
+                        .font(.custom("SFProText-Bold", size: 18))
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(isPromptAnswered ? Color.gray : Color(hex: "b0e8ff")!)
+                        .cornerRadius(10)
+                        .padding(.horizontal, 20)
+                }
+                .disabled(isPromptAnswered)
+                .padding(.bottom, 20)
+                
+                // Journal Entries Log
+                ScrollView {
+                    ForEach(viewModel.journalEntries) { entry in
+                        NavigationLink(destination: JournalDetailView(entry: entry)) {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(entry.question)
+                                        .font(.custom("SFProText-Bold", size: 17))
+                                        .foregroundColor(.white)
+                                        .multilineTextAlignment(.leading)
+                                        .lineLimit(nil)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .frame(width: 320, alignment: .leading)
+                                    
+                                    Text(entry.date, style: .date)
+                                        .font(.custom("SFProText-Bold", size: 12))
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            .padding()
+                            .background(Color(hex: "0b1953")!)
+                            .cornerRadius(12)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 10)
+                            .frame(maxWidth: .infinity)
+                        }
+                    }
+                }
+                
+                Spacer()
+            }
+            
+            // Floating Add Button
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        isAddingEntry = true
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.system(size: 24))
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color(hex: "b0e8ff")!)
+                            .clipShape(Circle())
+                            .shadow(radius: 10)
+                    }
+                    .padding(.trailing, 20)
+                    .padding(.bottom, 20)
+                }
+            }
+        }
+        .sheet(isPresented: $isAddingEntry) {
+            AddJournalEntryView().environmentObject(viewModel)
+        }
+        .sheet(isPresented: $isShowingDetails) {
+            AddJournalEntryView().environmentObject(viewModel)
+        }
+        .fullScreenCover(isPresented: $showJournalPrompt) {
+            JournalPromptView(
+                question: currentQuestion,
+                isPromptAnswered: $isPromptAnswered
+            ).environmentObject(viewModel)
+        }
+        .onAppear {
+            viewModel.fetchJournalEntries2()
+            setCurrentQuestion()
+            checkIfPromptAnswered()
+        }
+        .onDisappear {
+            viewModel.removeListener2()
+        }
+    }
+    
+    func checkIfPromptAnswered() {
+        let calendar = Calendar.current
+        let today = Date()
+        
+        // Check if there is a journal entry for today
+        if let lastEntry = journalEntries.last, calendar.isDateInToday(lastEntry.date) {
+            isPromptAnswered = true
+        } else {
+            isPromptAnswered = false
+        }
+    }
 
-             // Floating Add Button
-             VStack {
-                 Spacer()
-                 HStack {
-                     Spacer()
-                     Button(action: {
-                         isAddingEntry = true
-                     }) {
-                         Image(systemName: "plus")
-                             .font(.system(size: 24))
-                             .foregroundColor(.white)
-                             .padding()
-                             .background(Color(hex: "b0e8ff")!)
-                             .clipShape(Circle())
-                             .shadow(radius: 10)
-                     }
-                     .padding(.trailing, 20)
-                     .padding(.bottom, 20)
-                 }
-             }
-         }
-         .sheet(isPresented: $isAddingEntry) {
-             AddJournalEntryView().environmentObject(viewModel)
-         }
-         .sheet(isPresented: $isShowingDetails) {
-             AddJournalEntryView().environmentObject(viewModel)
-         }
-         .fullScreenCover(isPresented: $showJournalPrompt) {
-             JournalPromptView(
-                 question: currentQuestion,
-                 isPromptAnswered: $isPromptAnswered
-             ).environmentObject(viewModel)
-         }
-         .onAppear {
-             viewModel.fetchJournalEntries2()
-             setCurrentQuestion()
-             checkIfPromptAnswered()
-         }
-         .onDisappear {
-             viewModel.removeListener2()
-         }
-     }
-     
-     func checkIfPromptAnswered() {
-         guard let lastEntry = journalEntries.first else {
-             isPromptAnswered = false
-             return
-         }
-         let calendar = Calendar.current
-         if calendar.isDateInToday(lastEntry.date) {
-             isPromptAnswered = true
-         } else {
-             isPromptAnswered = false
-         }
-     }
-     
-     func setCurrentQuestion() {
-         let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 0
-         let questionIndex = (dayOfYear - 1) % dailyQuestions.count
-         currentQuestion = dailyQuestions[questionIndex]
-     }
- }
+    
+    func setCurrentQuestion() {
+        let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 0
+        let questionIndex = (dayOfYear - 1) % dailyQuestions.count
+        currentQuestion = dailyQuestions[questionIndex]
+    }
+}
 
 struct JournalPromptView: View {
     var question: String

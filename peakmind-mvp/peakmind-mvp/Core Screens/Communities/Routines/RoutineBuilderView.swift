@@ -323,19 +323,16 @@ struct RoutineBuilderView: View {
                         }
                     } label: {
                         Text(selectedGroup)
-                            .font(.custom("SFProText-Heavy", size: 13))
-                            .foregroundColor(.white)
-                            .frame(width: 90, height: 40) // Fixed width and height for the button
+                            .font(.custom("SFProText-Heavy", size: 14))
+                            .frame(width: 50, height: 5)
+                            .padding()
                             .background(Color(hex: "6b58db"))
+                            .foregroundColor(.white)
                             .cornerRadius(10)
-                            .lineLimit(1) // Ensure text stays on one line
-                            .minimumScaleFactor(selectedGroup.count > 7 ? 0.5 : 1.0) // Only resize if text length exceeds 7 characters
-                            .padding(.horizontal, 10)
-                            .allowsTightening(selectedGroup.count > 7) // Allow tightening if the text is longer than 7 characters
+                            .padding(.trailing, 20)
                     }
                 }
                 .padding(.top, 40)
-                .padding(.trailing, 5)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {

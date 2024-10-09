@@ -104,7 +104,6 @@ struct Quest: Identifiable, Codable {
             currentProgress = 0 // Reset progress for the new segment
         }
     }
-
 }
 
 
@@ -176,14 +175,10 @@ struct YourQuestsView: View {
                             
                             
                             // Claim button on top of the image asset, positioned using y-offset
-                            // Claim button on top of the image asset, positioned using y-offset
                             Button(action: {
                                 // Claim reward and move to the next segment
                                 if let quest = selectedQuest {
-                                    // Increment the quest progress and reset for the next segment
                                     viewModel.claimReward(for: quest.id ?? "")
-                                    selectedQuest?.claimReward() // Move to the next segment after reward is claimed
-                                    selectedQuest = nil // Reset selectedQuest after claiming
                                 }
                                 showRewardPopup = false
                             }) {
@@ -195,7 +190,6 @@ struct YourQuestsView: View {
                                     .background(Color(hex: "03182c")!) // Button background color
                                     .cornerRadius(10) // Rounded corners for the button
                             }
-
                             .frame(width: 220) // Set a specific width to make the button less wide
                             .offset(y: -0) // Adjust Y-offset to position the button precisely
 
@@ -294,7 +288,6 @@ struct QuestCardView: View {
             .background(quest.currentProgress >= quest.totalSegments.last! ? Color(hex: "2a0068") : Color(hex: "122352"))
             .cornerRadius(12)
             .onTapGesture {
-                // Only allow claiming reward when the quest can be completed
                 if quest.canClaimReward {
                     selectedQuest = quest
                     showRewardPopup = true
@@ -314,7 +307,6 @@ struct QuestCardView: View {
         .shadow(color: quest.canClaimReward ? Color.white.opacity(0.44) : Color.clear, radius: 8, x: 0, y: 0)
     }
 }
-
 
 
 

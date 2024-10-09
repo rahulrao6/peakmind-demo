@@ -451,7 +451,7 @@ struct RoutineBuilderView: View {
                                 .font(.system(size: 24))
                         }
                         .padding()
-                        .background(Color.white.opacity(0.8)) // Transparent background
+                        .background(Color.white.opacity(1.0)) // Transparent background
                         .foregroundColor(.blue)
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 5) // Shadow effect

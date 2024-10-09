@@ -28,7 +28,8 @@ struct TabViewMain: View {
           Label("Quests", systemImage: "flag")
         }
         .tag(3)
-        RectangleView().environmentObject(viewModel).environmentObject(NetworkManager()).environmentObject(healthKitManager)
+        PeakMindProfileView()
+        //RectangleView().environmentObject(viewModel).environmentObject(NetworkManager()).environmentObject(healthKitManager)
         .tabItem {
           Label("Profiles", systemImage: "brain")
         }

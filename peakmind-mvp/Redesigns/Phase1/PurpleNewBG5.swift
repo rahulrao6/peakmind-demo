@@ -50,7 +50,7 @@ struct TriggerMappingView: View {
                         .frame(height: 10)
                     
                     // title section
-                    Text("Trigger Mapping")
+                    Text("Cause and Effect Mapping")
                         .font(.custom("SFProText-Bold", size: 28))
                         .foregroundColor(Color("PurpleTitleColor"))
                         .multilineTextAlignment(.center)

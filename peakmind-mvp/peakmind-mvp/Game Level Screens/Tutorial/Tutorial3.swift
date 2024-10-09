@@ -1,17 +1,9 @@
-//
-//  Tutorial2.swift
-//  peakmind-mvp
-//
-//  Created by James Wilson on 9/8/24.
-//
-
 import SwiftUI
 
 struct Tutorial3: View {
     var closeAction: (String) -> Void
     var viewModel: AuthViewModel = AuthViewModel()
 
-    
     var body: some View {
         ZStack {
             OnboardingView(authViewModel: viewModel)
@@ -19,23 +11,29 @@ struct Tutorial3: View {
                 Spacer()
 
                 Text("Tap to Continue")
-                    .font(.system(size: 20, weight: .black))
+                    .font(.system(size: 18, weight: .black))
                     .foregroundColor(.white)
-                    
-                Text("This is Flow Mode! Come here whenever you need to focus on a task and don’t want to get distracted!")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.white)
-                    .padding(50)
-                
-                    .background(
-                        RoundedRectangle(cornerRadius: 20, style: .continuous).fill(Color.white)
-                            .opacity(0.3)
-                    )
-                    .frame(height: 300)
-                    .frame(maxWidth: 300)
-            
+                    .padding(.bottom, 5) // Space between Tap text and the footer
+
+                // Footer-like rectangle for the description
+                VStack {
+                    Text("This is Flow Mode! Come here whenever you need to focus on a task and don’t want to get distracted!")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.black)
+                        .padding()
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity) // Full width footer
+                .frame(height: 160) // Adjust height as needed
+                .background(
+                    RoundedRectangle(cornerRadius: 0)
+                        .fill(Color.white)
+                        .opacity(0.9)
+                )
             }
-        }.onTapGesture {
+        }
+        .ignoresSafeArea(.all) // Ensure the footer reaches the bottom
+        .onTapGesture {
             closeAction("")
         }
     }

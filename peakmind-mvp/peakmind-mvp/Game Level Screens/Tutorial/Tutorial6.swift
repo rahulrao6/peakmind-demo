@@ -1,10 +1,3 @@
-//
-//  Tutorial2.swift
-//  peakmind-mvp
-//
-//  Created by James Wilson on 9/8/24.
-//
-
 import SwiftUI
 
 struct Tutorial6: View {
@@ -13,27 +6,36 @@ struct Tutorial6: View {
     var body: some View {
         ZStack {
             JournalView()
+                .padding(.top, 50) // Add padding at the top of JournalView
+
             VStack {
-                Text("This is your journal, come here to spark your creativity.")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.black)
-                    .padding(50)
-                
-                    .background(
-                        RoundedRectangle(cornerRadius: 20, style: .continuous).fill(Color.black)
-                            .opacity(0.3)
-                    )
-                    .frame(height: 300)
-                    .frame(maxWidth: 300)
-                Text("Tap here to Continue")
-                    .font(.system(size: 20, weight: .black))
-                    .foregroundColor(.black)
-                    .onTapGesture {
-                        closeAction("")
-                    }
                 Spacer()
+                
+                Text("Tap to Continue")
+                    .font(.system(size: 18, weight: .black))
+                    .foregroundColor(.white)
+                    .padding(.bottom, 5) // Space between Tap text and the footer
+                
+                // Footer-like rectangle for the description
+                VStack {
+                    Text("This is your journal, come here to spark your creativity.")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.black)
+                        .padding()
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity) // Full width footer
+                .frame(height: 160) // Adjust height as needed
+                .background(
+                    RoundedRectangle(cornerRadius: 0)
+                        .fill(Color.white)
+                        .opacity(0.9)
+                )
             }
         }
+        .ignoresSafeArea(.all) // Ensure the footer reaches the bottom
+        .onTapGesture {
+            closeAction("")
+        }
     }
-       
 }

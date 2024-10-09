@@ -31,7 +31,7 @@ struct SettingsView: View {
                 }
             }
             .fullScreenCover(isPresented: $showScreen) {
-                TutorialScene(isShowingTutorial: $showScreen).environmentObject(viewModel)  // Presenting the full-screen cover
+                TutorialScene(closeAction: closeTutorial, isShowingTutorial: $showScreen).environmentObject(viewModel)  // Presenting the full-screen cover
             }
             if let user = viewModel.currentUser {
                 Section {
@@ -231,6 +231,10 @@ struct SettingsView: View {
         UINavigationBar.appearance().tintColor = .black
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
+    }
+    
+    func closeTutorial() {
+        showScreen = false
     }
     
     func fetchNotificationSettings() {

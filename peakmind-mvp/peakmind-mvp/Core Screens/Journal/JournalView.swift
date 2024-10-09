@@ -138,10 +138,16 @@ struct JournalView: View {
         }
         .onAppear {
             Task {
-                viewModel.fetchJournalEntries2()
+                do {
+                    viewModel.fetchJournalEntries2()
+                    checkIfPromptAnswered()
+                } catch {
+                    
+                }
+                checkIfPromptAnswered()
             }
             setCurrentQuestion()
-            checkIfPromptAnswered()
+            
         }
         .onDisappear {
             viewModel.removeListener2()

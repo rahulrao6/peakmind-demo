@@ -1217,6 +1217,13 @@ struct AddHabitForm: View {
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     @State private var db = Firestore.firestore()
+    
+    @State private var selectedUnit: String = "Count"
+     @State private var customUnit: String = ""
+     @State private var isCustomUnit: Bool = false
+    
+    let builtInUnits = ["count", "sec", "min", "hour", "mile", "oz", "meter", "steps", "Custom"]
+
 
     @State private var showingTemplateSelection = true
     @Environment(\.dismiss) var dismiss
@@ -1284,9 +1291,18 @@ struct AddHabitForm: View {
                         Section(header: Text("Habit Details").font(.custom("SFProText-Bold", size: 16))) {
                             TextField("Habit Title", text: $habitTitle)
                                 .font(.custom("SFProText-Bold", size: 16))
-                            TextField("Unit", text: $habitUnit)
-                                .disabled(habitTemplates.map { $0.name }.contains(habitTitle))
-                                .font(.custom("SFProText-Bold", size: 16))
+
+                            Picker("Unit", selection: $selectedUnit) {
+                                ForEach(builtInUnits, id: \.self) {
+                                    Text($0.capitalized)
+                                }
+                            }
+                            .font(.custom("SFProText-Bold", size: 16))
+
+                            if (selectedUnit == "Custom") {
+                                TextField("Custom Unit", text: $customUnit)
+                                    .font(.custom("SFProText-Bold", size: 16))
+                            }
                         }
 
                         Section(header: Text("Goal").font(.custom("SFProText-Bold", size: 16))) {
@@ -1384,7 +1400,7 @@ struct AddHabitForm: View {
                                     .cornerRadius(10)
                                     .font(.custom("SFProText-Bold", size: 16))
                             }
-                            .disabled(habitTitle.isEmpty || habitUnit.isEmpty || habitGoal.isEmpty)
+                            .disabled(habitTitle.isEmpty || habitGoal.isEmpty)
                         }
                     }
                     .navigationTitle("New Habit")
@@ -1487,6 +1503,12 @@ struct AddHabitForm: View {
                 showAlert = true
                 return
             }
+        
+        if (selectedUnit == "Custom") {
+            isCustomUnit = true;
+        }
+        let unitToSave = isCustomUnit ? customUnit : selectedUnit
+
             
             // Ensure that if a new group was created, it's already added
             let selectedCategory = category
@@ -1494,7 +1516,7 @@ struct AddHabitForm: View {
             let newHabit = Habit(
                 id: UUID().uuidString,
                 title: habitTitle,
-                unit: habitUnit,
+                unit: unitToSave,
                 count: 0,
                 goal: goalInt,
                 startColor: startColor.toHex() ?? "#0000FF",
@@ -2314,4 +2336,3 @@ struct EditHabitForm: View {
 
     
     // Extension to convert Habit to Dictionary
-

@@ -549,6 +549,7 @@ struct ChatView: View {
         let currentTime = Date().timeIntervalSince1970
         let newMessage = ChatMessage(sender: "Patient", content: message, timestamp: currentTime)
         receivedMessages.append(newMessage)
+        message = ""
 
         // Log the current timestamp
         print("Timestamp when sending: \(currentTime)")

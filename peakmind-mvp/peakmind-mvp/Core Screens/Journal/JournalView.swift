@@ -11,6 +11,7 @@ struct JournalView: View {
     @State private var showJournalPrompt = false
     @EnvironmentObject var viewModel: AuthViewModel // Inject the AuthViewModel
     
+    
     private let dailyQuestions: [String] = [
         "What made you smile today?", "What is one thing you are grateful for?", "What was your biggest challenge today?",
         "How did you overcome a difficult situation recently?", "What is something you’re proud of this week?",
@@ -136,7 +137,9 @@ struct JournalView: View {
             ).environmentObject(viewModel)
         }
         .onAppear {
-            viewModel.fetchJournalEntries2()
+            Task {
+                viewModel.fetchJournalEntries2()
+            }
             setCurrentQuestion()
             checkIfPromptAnswered()
         }
@@ -148,13 +151,14 @@ struct JournalView: View {
     func checkIfPromptAnswered() {
         let calendar = Calendar.current
         let today = Date()
-        
-        // Check if there is a journal entry for today
-        if let lastEntry = journalEntries.last, calendar.isDateInToday(lastEntry.date) {
+
+        // Match both the current question and today's date
+        if let lastEntry = viewModel.journalEntries.first(where: { calendar.isDateInToday($0.date) && $0.question == currentQuestion }) {
             isPromptAnswered = true
         } else {
             isPromptAnswered = false
         }
+        print(isPromptAnswered)
     }
 
     

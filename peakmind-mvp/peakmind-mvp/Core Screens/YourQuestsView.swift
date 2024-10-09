@@ -84,7 +84,7 @@ struct Quest: Identifiable, Codable {
     
     // Check if the user can claim a reward for the current segment
     var canClaimReward: Bool {
-        currentProgress >= nextSegmentGoal
+        totalSegments.contains(currentProgress);
     }
     
     // Move to the next segment
@@ -100,8 +100,8 @@ struct Quest: Identifiable, Codable {
     mutating func claimReward() {
         if let nextGoalIndex = totalSegments.firstIndex(of: nextSegmentGoal),
            nextGoalIndex + 1 < totalSegments.count {
-            nextSegmentGoal = totalSegments[nextGoalIndex + 1]
-            currentProgress = 0 // Reset progress for the new segment
+            //nextSegmentGoal = totalSegments[nextGoalIndex + 1]
+            //currentProgress = 0 // Reset progress for the new segment
         }
     }
 }
@@ -179,8 +179,13 @@ struct YourQuestsView: View {
                                 // Claim reward and move to the next segment
                                 if let quest = selectedQuest {
                                     viewModel.claimReward(for: quest.id ?? "")
+                                    var updatedQuest = quest
+                                    updatedQuest.currentProgress = quest.currentProgress + 1;
+                                    viewModel.saveQuest(updatedQuest)
+                                    viewModel.fetchQuestData()
+                                    showRewardPopup = false
+
                                 }
-                                showRewardPopup = false
                             }) {
                                 Text("Claim")
                                     .font(.custom("SFProText-Bold", size: 24)) // Button font size

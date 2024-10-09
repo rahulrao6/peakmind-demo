@@ -42,7 +42,7 @@ struct P4_6_1: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 30) // Center the text with horizontal padding
                         .padding(.bottom, 20)
-
+ 
                     // Wheel for coping strategies
                     ZStack {
                         // Wheel sections (like a color wheel)
@@ -103,7 +103,7 @@ struct P4_6_1: View {
                     // Continue button (shown after spinning)
                     if showContinueButton {
                         Button(action: {
-                            closeAction("")
+                            showResult = true
                         }) {
                             Text("Continue")
                                 .font(.custom("SFProText-Bold", size: 20))
@@ -119,6 +119,9 @@ struct P4_6_1: View {
                                 )
                                 .cornerRadius(15)
                                 .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
+                        }
+                        .fullScreenCover(isPresented: $showResult) {
+                            P4WheelResultView(closeAction: closeAction, selectedStrategy: selectedStrategy ?? "")
                         }
                     }
 

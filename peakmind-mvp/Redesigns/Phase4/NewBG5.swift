@@ -136,10 +136,7 @@ struct WellnessQuestionView2: View {
                     .disabled(userInput.isEmpty) // Disable the button when there is no input
                     .padding(.bottom, 50)
                     
-                    // Navigation to P3QuizIntroView
-                    NavigationLink(destination: P4Wheel(), isActive: $navigateToQuizIntro) {
-                        EmptyView()
-                    }
+                   
                 }
                 .padding(.horizontal)
                 .onTapGesture {

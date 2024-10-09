@@ -139,7 +139,7 @@ struct P4_5_1: View {
                     .padding(.bottom, 50)
                     
                     // Navigation to P3QuizIntroView
-                    NavigationLink(destination: P4Wheel(), isActive: $navigateToQuizIntro) {
+                    NavigationLink(destination: P4Wheel(closeAction: closeAction), isActive: $navigateToQuizIntro) {
                         EmptyView()
                     }
                 }

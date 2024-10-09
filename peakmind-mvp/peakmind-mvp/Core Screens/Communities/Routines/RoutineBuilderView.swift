@@ -1550,31 +1550,47 @@ struct MultipleSelectionRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
+                .font(.headline)
+
             ForEach(options, id: \.self) { option in
                 Button(action: {
-                    if selectedOptions.contains(option) {
-                        selectedOptions.removeAll(where: { $0 == option })
-                    } else {
-                        selectedOptions.append(option)
-                    }
+                    toggleSelection(option: option)
                 }) {
                     HStack {
                         Text(dayName(for: option))
+                            .foregroundColor(.primary)
                         Spacer()
                         if selectedOptions.contains(option) {
                             Image(systemName: "checkmark")
+                                .foregroundColor(.blue)
                         }
                     }
+                    .padding(.vertical, 5)
+                    .background(Color.white.opacity(0.1))
+                    .cornerRadius(8)
                 }
+                .buttonStyle(PlainButtonStyle()) // To remove any default button styles
             }
+        }
+        .padding()
+    }
+
+    private func toggleSelection(option: Int) {
+        if selectedOptions.contains(option) {
+            selectedOptions.removeAll(where: { $0 == option }) // Deselect the option if already selected
+        } else {
+            selectedOptions.append(option) // Select the option if not already selected
         }
     }
 
+    // Helper function to convert the weekday number to a string
     func dayName(for weekday: Int) -> String {
         let formatter = DateFormatter()
-        return formatter.weekdaySymbols[weekday - 1]
+        formatter.locale = Locale(identifier: "en_US_POSIX") // Ensure consistent day names
+        return formatter.weekdaySymbols[weekday - 1] // Weekday symbols start from Sunday (index 0)
     }
 }
+
 
 
 struct AnalyticsView2: View {

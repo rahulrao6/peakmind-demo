@@ -52,6 +52,7 @@ struct TestView: View {
     @State private var progressString = "0"
     @State private var canViewVertProgress = true
     @State private var showMountains = false
+    @State private var supportSystem: [String] = []
     
     @State private var showElevation: Bool = true
     
@@ -277,12 +278,13 @@ struct TestView: View {
                             LevelNode(uid: 2, internalName: "P5_3", title: "Wellness Question", viewFactory: { AnyView(P5_3_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 5),
-                            LevelNode(uid: 3, internalName: "P5_4", title: "Support Mapping", viewFactory: { AnyView(P5_4_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 3, internalName: "P5_4", title: "Support Mapping", viewFactory: { AnyView(P5_4_1(closeAction: { (str, support) -> Void in
                                 completeLevel(str: str)
+                                supportSystem = support
                             })) }, phase: 5),
                             LevelNode(uid: 4, internalName: "P5_5", title: "Reflection", viewFactory: { AnyView(P5_5_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
-                            })) }, phase: 5),
+                            }, supportNames: supportSystem)) }, phase: 5),
                             LevelNode(uid: 5, internalName: "P5_6", title: "Finding Community", viewFactory: { AnyView(P5_6_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 5),

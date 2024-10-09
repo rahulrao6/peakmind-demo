@@ -16,7 +16,7 @@ struct P5_5_1: View {
     @State private var focusedField: String? = nil
     
     // Accept supportNames as a parameter
-    var supportNames: [String] = ["Dad", "Mom", "Sister", "Brother", "Friend"]
+    var supportNames: [String]
 
     var areAllTextFieldsFilled: Bool {
         return !firstText.isEmpty && !secondText.isEmpty && !thirdText.isEmpty

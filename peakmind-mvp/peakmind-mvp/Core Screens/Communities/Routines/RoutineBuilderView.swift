@@ -1222,7 +1222,7 @@ struct AddHabitForm: View {
      @State private var customUnit: String = ""
      @State private var isCustomUnit: Bool = false
     
-    let builtInUnits = ["count", "sec", "min", "hour", "mile", "oz", "meter", "steps", "Custom"]
+    let builtInUnits = ["count", "sec", "minutes", "hours", "mile", "oz", "meter", "steps", "pages", "calories", "Custom"]
 
 
     @State private var showingTemplateSelection = true
@@ -1258,6 +1258,7 @@ struct AddHabitForm: View {
                             Button(action: {
                                 habitTitle = template.name
                                 habitUnit = template.defaultUnit
+                                selectedUnit = template.defaultUnit
                                 showingTemplateSelection = false
                             }) {
                                 HStack {
@@ -1507,7 +1508,11 @@ struct AddHabitForm: View {
         if (selectedUnit == "Custom") {
             isCustomUnit = true;
         }
-        let unitToSave = isCustomUnit ? customUnit : selectedUnit
+        
+        var unitToSave = isCustomUnit ? customUnit : selectedUnit
+        if (selectedUnit == nil) {
+            unitToSave = habitUnit;
+        }
 
             
             // Ensure that if a new group was created, it's already added

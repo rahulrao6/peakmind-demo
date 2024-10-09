@@ -244,15 +244,15 @@ struct ChatView: View {
             .disabled(message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)  // Disable button if message is empty or whitespace
 
 
-            Button(action: {
-                showingSettings = true
-            }) {
-                Image(systemName: "gearshape.fill")
-                    .foregroundColor(.white)
-                    .padding(12)
-                    .background(Color(.mediumBlue))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            }
+//            Button(action: {
+//                showingSettings = true
+//            }) {
+//                Image(systemName: "gearshape.fill")
+//                    .foregroundColor(.white)
+//                    .padding(12)
+//                    .background(Color(.mediumBlue))
+//                    .clipShape(RoundedRectangle(cornerRadius: 10))
+//            }
 
             Button(action: {
                 fetchConversationHistory()
@@ -613,6 +613,7 @@ struct ChatView: View {
         let currentTime = Date().timeIntervalSince1970
         let newMessage = ChatMessage(sender: "Patient", content: message, timestamp: currentTime)
         receivedMessages.append(newMessage)
+        //message = ""
 
         // Log the current timestamp
         print("Timestamp when sending: \(currentTime)")

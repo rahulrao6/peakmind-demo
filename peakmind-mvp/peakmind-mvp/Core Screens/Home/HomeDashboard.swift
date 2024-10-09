@@ -173,6 +173,9 @@ struct HomeDashboard: View {
                 .onAppear {
                     viewModel.fetchUserData(userId: viewModel.currentUser?.id ?? "")
                     fetchCheckInStatus() // Fetch check-in status when the view appears
+                    viewModel.fetchJournalEntries { entries in
+                     print("")
+                    }
                 }
             }
         }

@@ -125,15 +125,20 @@ struct TutorialScene: View {
                     RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Color.white)
                         .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
                 }
+                
                 HStack {
-                    Spacer()
                     VStack {
-                        VStack {
-                            Text("Complete 3/4 Levels to Continue")
-                                .padding([.top, .leading, .bottom, .trailing], 10)
-                                .font(.system(size: 10))
-                            
-                            
+                        Button(action: {
+                            closeAction()
+                        }, label: {
+                            Text("Exit Tutorial")
+                                .foregroundStyle(.gray)
+                                .padding(20)
+
+                        })
+                        .background {
+                            RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Color.white)
+                                .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
                         }
                         
                     }
@@ -141,9 +146,11 @@ struct TutorialScene: View {
                         RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Color.white)
                             .shadow(color: Color.black.opacity(0.3), radius: 10, x:0, y:10)
                     }
-                    .padding(.trailing, 20)
-                    .frame(width: 200, alignment: .trailing)
-                    .opacity(0)
+                    .padding(.leading, 25)
+                    .frame(width: 200, alignment: .leading)
+                    .opacity(1)
+                    Spacer()
+
                 }
                 
                 Spacer()

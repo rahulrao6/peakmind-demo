@@ -497,7 +497,7 @@ struct ChatView: View {
             return
         }
 
-        let url = URL(string: "http://34.172.190.181:8080/start_conversation")!
+        let url = URL(string: "http://104.198.240.182:8080/start_conversation")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -558,7 +558,7 @@ struct ChatView: View {
             return
         }
 
-        let url = URL(string: "http://34.172.190.181:8080/continue_conversation")!
+        let url = URL(string: "http://104.198.240.182:8080/continue_conversation")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -616,7 +616,7 @@ struct ChatView: View {
                 return
             }
 
-            let url = URL(string: "http://34.172.190.181:8080/end_conversation")!
+            let url = URL(string: "http://104.198.240.182:8080/end_conversation")!
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")

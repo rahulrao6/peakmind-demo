@@ -1,3 +1,4 @@
+
 //
 //  PurpleNewBG8.swift
 //  peakmind-mvp
@@ -7,16 +8,18 @@
 
 import SwiftUI
 
-struct CopingMechanismView: View {
+struct P2_9_1: View {
+    var closeAction: (String) -> Void
     @State private var currentIndex: Int = 0
     @State private var visibleText: String = ""
     @State private var isTypingCompleted: Bool = false
     @State private var navigateToIntroView2 = false // state to control navigation
     
     let introText = """
-    Let’s learn progressive muscle relaxation, a powerful technique easing the physical tension driven by anxiety.
+    Let's take a moment to center ourselves with a breathing exercise. This technique will help clear your mind and wash away any built-up stress. Deep breaths are a powerful tool for relaxation.
 
-    Tense and relax each muscle group intensely one by one. Take a few seconds to flex, and a few seconds to release the tension. Let’s start with your right arm!
+
+    Breathe in quietly through your nose for a count of four. Hold your breath for a count of seven. Exhale completely through your mouth, making a whooshing sound, for a count of eight. Repeat this cycle for three to four breaths, or until you feel yourself calming down!
     """
     
     var body: some View {
@@ -33,7 +36,7 @@ struct CopingMechanismView: View {
                         .frame(height: 10)
                     
                     // title section
-                    Text("Coping Mechanism")
+                    Text("4/7/8 Breathing")
                         .font(.custom("SFProText-Bold", size: 28))
                         .foregroundColor(Color("PurpleTitleColor"))
                         .multilineTextAlignment(.center)
@@ -81,16 +84,13 @@ struct CopingMechanismView: View {
                     .padding(.horizontal, 20)
                     
                     
-                    
-                    Spacer()
-                    
-                    SpriteKitUIView(scene: BoxBreathingExerciseScene(size: CGSize(width: 500, height: 500)))
-                        .frame(width: 500, height: 500)
+                    SpriteKitUIView(scene: SpriteKitScene(size: CGSize(width: 200, height: 200)))
+                        .frame(width: 250, height: 200)
                         .background(Color.clear)
                     
                     // next Button
                     Button(action: {
-                        navigateToIntroView2 = true // trigger navigation
+                        closeAction("You completed a coping mechanism!")
                     }) {
                         Text("Next")
                             .font(.custom("SFProText-Bold", size: 20))
@@ -135,8 +135,4 @@ struct CopingMechanismView: View {
             }
         }
     }
-}
-
-#Preview {
-    CopingMechanismView()
 }

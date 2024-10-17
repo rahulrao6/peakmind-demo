@@ -40,7 +40,7 @@ struct DailyCheckInView: View {
                 // All questions on the same page
                 VStack(alignment: .leading, spacing: 10) {
                     QuestionView(
-                        question: "How would you rate your emotional well-being today?",
+                        question: "How are you feeling emotionally today?",
                         rating: $emotionalRating
                     )
                     QuestionView(
@@ -48,11 +48,11 @@ struct DailyCheckInView: View {
                         rating: $physicalRating
                     )
                     QuestionView(
-                        question: "How would you rate your social well-being today?",
+                        question: "How is your social-life going today?",
                         rating: $socialRating
                     )
                     QuestionView(
-                        question: "How would you rate your cognitive abilities today?",
+                        question: "How has your focus and concentration been today?",
                         rating: $cognitiveRating
                     )
                 }

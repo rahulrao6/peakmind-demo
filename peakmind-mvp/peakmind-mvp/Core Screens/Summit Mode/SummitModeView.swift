@@ -591,13 +591,17 @@ struct FocusTimerView: View {
         let url = Bundle.main.url(forResource: "mountainLoop", withExtension: "mp4")!
         let player = AVPlayer(url: url)
         player.isMuted = true
-        player.actionAtItemEnd = .none
+        player.actionAtItemEnd = .none // Ensure it doesn't stop playing
+
+        // Ensure the video loops without stopping
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { _ in
-            player.seek(to: .zero)
-            player.play()
+            player.seek(to: .zero) // Go back to the beginning of the video
+            player.play() // Play again to loop
         }
+
         return player
     }()
+
 
     var body: some View {
         ZStack {
@@ -618,14 +622,20 @@ struct FocusTimerView: View {
                     Text("Climbing: \(mountain.name)")
                         .font(.custom("SFProText-Heavy", size: 35))
                         .foregroundColor(.black)
-                        .padding(.top, 20)
+                        .padding(.top, 40)
                         .padding(.horizontal, 20)
                         .multilineTextAlignment(.center)
-
+                    Text("Goal: \(viewModel.focusGoal)")
+                        .font(.custom("SFProText-Bold", size: 18))
+                        .foregroundColor(.black)
+                        .padding(.top, 5)
+                        .padding(.horizontal, 20)
+                        .multilineTextAlignment(.center)
                     ProgressBar(progress: viewModel.progress)
                         .frame(height: 20)
                         .padding(.horizontal, 20)
                         .padding(.top, 5)
+
 
                     if mountain.currentStage < mountain.stages.count {
                         let currentStage = mountain.stages[mountain.currentStage]

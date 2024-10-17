@@ -66,14 +66,16 @@ struct AvatarView: View {
             Button(action: {
                 isCustomizing = true
             }) {
-                Image(systemName: "pencil.circle.fill")
+                Image(systemName: "gearshape.fill")
                     .resizable()
-                    .frame(width: 30, height: 30)
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .clipShape(Circle())
+                    .frame(width: 22, height: 22)  // Slightly reduce the gear size to fit better
+                    .foregroundColor(.iceBlue)  // Set gear icon to white
+                    .padding(10)  // Add padding to create space between the gear and the background
+                    .background(Color.navyBlue)  // Set background circle to black
+                    .clipShape(Circle())  // Clip the background to a circle
             }
             .padding()
+
         }
         .onAppear {
             Task {
@@ -402,7 +404,7 @@ struct PointsAndBadgesView: View {
                             BadgesGridView(badges: badges, totalPoints: totalPoints, currentLevel: currentLevel)
                             
                             // Points History Section
-                            PointsHistoryView(pointsHistory: pointsHistory)
+                            PointsHistoryView(pointsHistory: pointsHistory.reversed()) // Reverse the points history
                         }
                     }
                     .padding()

@@ -25,7 +25,7 @@ struct P3QuizIntro: View {
             
             Spacer()
             
-            // Next Button
+    
             Button(action: {
                 showNextScreen = true
             }) {
@@ -45,18 +45,19 @@ struct P3QuizIntro: View {
                     .shadow(color: Color.white.opacity(1), radius: 10, x: 0, y: 0)
             }
             .padding(.bottom, 50)
-            .background(
-                NavigationLink(
-                    destination: P3QuizPageView(),
-                    isActive: $showNextScreen,
-                    label: { EmptyView() }
-                )
+            
+            // NavigationLink outside of the Button's background
+            NavigationLink(
+                destination: P3QuizPageView(),
+                isActive: $showNextScreen,
+                label: { EmptyView() }
             )
         }
-        .padding(.horizontal)
+        .edgesIgnoringSafeArea(.all) // Ensures content reaches screen edges
         .background(
             Image("PinkNewBG")
                 .resizable()
+                .scaledToFill() // Ensures background image fills the screen
                 .edgesIgnoringSafeArea(.all)
         )
     }

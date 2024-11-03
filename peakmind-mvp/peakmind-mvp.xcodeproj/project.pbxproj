@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		100DC9E72CB64D9B00CD9249 /* GreenNewBG9_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100DC9E62CB64D9B00CD9249 /* GreenNewBG9_GameReady.swift */; };
+		102D59102CD08C5C00A1731D /* GameHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102D590F2CD08C5C00A1731D /* GameHistory.swift */; };
 		102F1B892BCB7C23008B8AC6 /* MuscleRelaxationExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */; };
 		102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */; };
 		102F1B8C2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */; };
@@ -407,6 +408,7 @@
 
 /* Begin PBXFileReference section */
 		100DC9E62CB64D9B00CD9249 /* GreenNewBG9_GameReady.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNewBG9_GameReady.swift; sourceTree = "<group>"; };
+		102D590F2CD08C5C00A1731D /* GameHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHistory.swift; sourceTree = "<group>"; };
 		102F1B872BCB7C22008B8AC6 /* MuscleRelaxationExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuscleRelaxationExplanationView.swift; sourceTree = "<group>"; };
 		102F1B882BCB7C23008B8AC6 /* LevelCompleteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelCompleteView.swift; sourceTree = "<group>"; };
 		102F1B8B2BCB7F8F008B8AC6 /* MuscleRelaxationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MuscleRelaxationView.swift; path = "../../../Game Level Screens/Level 1/James/MuscleRelaxationView.swift"; sourceTree = "<group>"; };
@@ -1528,6 +1530,7 @@
 				103D86382C2B8F3F0078A45B /* Confetti.swift */,
 				79A73DD72CA55ACB00CE9E40 /* TutorialScene.swift */,
 				79A73DD92CA55C7800CE9E40 /* MountainSelect.swift */,
+				102D590F2CD08C5C00A1731D /* GameHistory.swift */,
 			);
 			path = "Level Maps";
 			sourceTree = "<group>";
@@ -1918,6 +1921,7 @@
 				103F29812CA9C88B008525A5 /* GreenNewBGWQ_GameReady.swift in Sources */,
 				103F29822CA9C88B008525A5 /* GreenNewBG3_GameReady.swift in Sources */,
 				103F29832CA9C88B008525A5 /* GreenNewBG5.2_GameReady.swift in Sources */,
+				102D59102CD08C5C00A1731D /* GameHistory.swift in Sources */,
 				103F29842CA9C88B008525A5 /* GreenNewBG4_GameReady.swift in Sources */,
 				103F29852CA9C88B008525A5 /* GreenNewBG4.2_GameReady.swift in Sources */,
 				79A73E412CA9EA8000CE9E40 /* Analytics.swift in Sources */,

@@ -62,6 +62,13 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    struct GameData {
+        let phase: Int
+        let level: Int
+        let data: String
+        let timestamp: Date
+    }
+    
     func startPendoSession(user: UserData?, userId: String) {
         guard let user = user else { return }
         
@@ -159,6 +166,8 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+
+    
     
     func signUpWithEmail(email: String, password: String, username: String) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in

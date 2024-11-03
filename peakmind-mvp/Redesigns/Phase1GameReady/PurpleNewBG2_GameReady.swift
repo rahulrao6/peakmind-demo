@@ -70,11 +70,7 @@ struct P2_1: View {
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
                             }
-                            .onChange(of: currentIndex) { _ in
-                                withAnimation {
-                                    proxy.scrollTo(currentIndex, anchor: .bottom)
-                                }
-                            }
+                            .defaultScrollAnchor(.bottom)
                         }
                         .frame(height: geometry.size.height * 0.53)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
@@ -146,9 +142,10 @@ struct FeatureBulletPoint: View {
         visibleText = ""
         charIndex = 0
         
-        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
             if charIndex < text.count {
                 let index = text.index(text.startIndex, offsetBy: charIndex)
+                
                 visibleText.append(text[index])
                 charIndex += 1
             } else {

@@ -92,11 +92,7 @@ struct P5_1: View {
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
                             }
-                            .onChange(of: currentIndex) { _ in
-                                withAnimation {
-                                    proxy.scrollTo(currentIndex, anchor: .bottom)
-                                }
-                            }
+                            .defaultScrollAnchor(.bottom)
                         }
                         .frame(height: isKeyboardVisible ? geometry.size.height * 0.15 : geometry.size.height * 0.25) // adjust height when keyboard is visible
                         .clipShape(RoundedRectangle(cornerRadius: 15))

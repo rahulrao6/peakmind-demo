@@ -76,11 +76,7 @@ struct P3MentalHealthFeatureView3: View {
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
                             }
-                            .onChange(of: currentIndex) { _ in
-                                withAnimation {
-                                    proxy.scrollTo(currentIndex, anchor: .bottom)
-                                }
-                            }
+                            .defaultScrollAnchor(.bottom)
                         }
                         .frame(height: geometry.size.height * 0.53) // Adjust height to stay within the gradient box
                         .clipShape(RoundedRectangle(cornerRadius: 15)) // Ensure the text is clipped within the box

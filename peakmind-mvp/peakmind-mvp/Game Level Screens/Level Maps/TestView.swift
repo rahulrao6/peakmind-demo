@@ -52,6 +52,7 @@ struct TestView: View {
     @State private var progressString = "0"
     @State private var canViewVertProgress = true
     @State private var showMountains = false
+    @State private var showHistory = false
     @State private var supportSystem: [String] = []
     
     @State private var showElevation: Bool = true
@@ -147,7 +148,7 @@ struct TestView: View {
                             LevelNode(uid: 0, internalName: "P1_1", title: "Mental Health Intro", viewFactory: { AnyView(P1_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
-                            LevelNode(uid: 1, internalName: "P1_2", title: "Mental Health 2", viewFactory: { AnyView(P2_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 1, internalName: "P1_2", title: "Mental Health P2", viewFactory: { AnyView(P2_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 1),
                             LevelNode(uid: 2, internalName: "P1_3", title: "Coping Mechanism", viewFactory: { AnyView(P3_1(closeAction: { (str) -> Void in
@@ -213,7 +214,7 @@ struct TestView: View {
                             LevelNode(uid: 1, internalName: "P3_2", title: "Anxiety Physical", viewFactory: { AnyView(P3_2_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 3),
-                            LevelNode(uid: 2, internalName: "P3_3", title: "Mindfulness 2", viewFactory: { AnyView(P3_3_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 2, internalName: "P3_3", title: "Mindfulness P2", viewFactory: { AnyView(P3_3_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 3),
                             LevelNode(uid: 3, internalName: "P3_4", title: "Trigger Mapping", viewFactory: { AnyView(P3_4_1(closeAction: { (str) -> Void in
@@ -288,7 +289,7 @@ struct TestView: View {
                             LevelNode(uid: 5, internalName: "P5_6", title: "Finding Community", viewFactory: { AnyView(P5_6_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 5),
-                            LevelNode(uid: 6, internalName: "P5_7", title: "Finding Community 2", viewFactory: { AnyView(P5_7_1(closeAction: { (str) -> Void in
+                            LevelNode(uid: 6, internalName: "P5_7", title: "Finding Community P2", viewFactory: { AnyView(P5_7_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 5),
                             LevelNode(uid: 7, internalName: "P5_8", title: "Quiz", viewFactory: { AnyView(P5_8_1(closeAction: { (str) -> Void in
@@ -416,10 +417,23 @@ struct TestView: View {
                                         .clipShape(Circle()) // Make button round
                                         .shadow(radius: 4) // Add slight shadow
                                 }
+                                
+                                Button(action: {
+                                    showHistory = true
+                                }) {
+                                    Image(systemName: "clock") // Top button icon
+                                        .font(.system(size: 24)) // Icon size
+                                        .foregroundColor(.black) // Icon color
+                                        .frame(width: 60, height: 60) // Button size
+                                        .background(Color.white) // Button background color
+                                        .clipShape(Circle()) // Make button round
+                                        .shadow(radius: 4) // Add slight shadow
+                                }
                                
                             }
                             .padding(.trailing, 16) // Padding from the right edge
-                            .padding(.top, 440) // Padding from the bottom edge
+                            .padding(.top, 400) // Padding from the bottom edge
+                            
                         }
                     }
                 }
@@ -428,6 +442,11 @@ struct TestView: View {
                                     MountainSelect(closeAction: {
                                         showMountains = false
                                     })
+                                }
+                .fullScreenCover(isPresented: $showHistory) {
+                    GameHistory(closeAction: {
+                        showHistory = false
+                    }).environmentObject(viewModel)
                                 }
                 
                 

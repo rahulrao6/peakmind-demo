@@ -160,7 +160,18 @@ class MapScene: SKScene, ObservableObject {
                 node.position = CGPoint(x: size.width / 2, y: yPosition + (size.height / 2))
                 node.zPosition = -1
                 node.size = sizes[index]
+                
                 addChild(node)
+            }
+            
+            if (index != 0) {
+                let phase = SKLabelNode(text: "Phase "+String(index+1))
+                phase.position = CGPoint(x: size.width / 2, y: ((CGFloat(index) * (size.height)*2))-50)
+                
+                phase.fontName = "AvenirNext-Bold"
+                phase.fontColor = .white
+                
+                addChild(phase)
             }
         }
     }

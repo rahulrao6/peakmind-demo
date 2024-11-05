@@ -31,7 +31,8 @@ struct P5_1: View {
         "Here's a neat strategy to tackle them head-on: trigger mapping.",
         "Write down your top three current stress triggers in the bubbles on the left.",
         "Now, pause for a moment and think about how these triggers are impacting your life.",
-        "Let's dive in! Fill these in on the corresponding symptom bubble on the right."
+        "Let's dive in! Fill these in on the corresponding symptom bubble on the right.",
+        ""
     ]
     
     var areAllTextFieldsFilled: Bool {

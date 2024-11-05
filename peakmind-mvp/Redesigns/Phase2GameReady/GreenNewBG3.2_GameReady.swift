@@ -149,7 +149,7 @@ struct P2_3_2: View {
                                 Spacer()
                                 
                                 HStack {
-                                    Text("\(cycleCount)/3")
+                                    Text("\(min(cycleCount + 1, 3))/3") // Cycle count fix
                                         .font(.custom("SFProText-Bold", size: 12))
                                         .foregroundColor(Color("GreenTextColor"))
                                     
@@ -277,3 +277,4 @@ struct P2_3_2: View {
         startExercise()
     }
 }
+

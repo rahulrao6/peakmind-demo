@@ -47,15 +47,18 @@ struct P3_7_1: View {
             }
             .padding(.bottom, 50)
 
+            // Full Screen Cover for the Next Screen
             .fullScreenCover(isPresented: $showNextScreen) {
                 P3_7_2(closeAction: closeAction)
             }
         }
-        .padding(.horizontal)
+        .edgesIgnoringSafeArea(.all) // Ensures content reaches screen edges
         .background(
             Image("PinkNewBG")
                 .resizable()
+                .scaledToFill() // Ensures background image fills the screen
                 .edgesIgnoringSafeArea(.all)
         )
     }
 }
+

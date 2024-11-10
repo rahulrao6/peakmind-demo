@@ -81,6 +81,7 @@ struct P3_3_1: View {
                     Spacer()
                     
                     // Body Scan visualization (shows after text animation completes)
+                    
                     if isTextCompleted {
                         VStack(spacing: 16) {
                             ForEach(0..<bodySections.count, id: \.self) { index in
@@ -94,6 +95,15 @@ struct P3_3_1: View {
                             startBodyScan()
                         }
                     }
+                     
+                    
+                    /*
+                    if isTextCompleted {
+                        SpriteKitUIView(scene: BreathingExerciseScene(size: CGSize(width: 300, height: 300)))
+                            .frame(width: 300, height: 300)
+                            .background(Color.clear)
+                    }
+                     */
                     
                     // Continue button to navigate after the body scan completes
                     if currentLitSection == bodySections.count - 1 {

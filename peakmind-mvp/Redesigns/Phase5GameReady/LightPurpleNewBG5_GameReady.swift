@@ -64,6 +64,9 @@ struct P5_5_1: View {
                         )
                     }
                     .padding(.horizontal, 20)
+                    .onAppear {
+                        print(supportNames)
+                    }
                     
                     // continue button for next screen
                     Button(action: {

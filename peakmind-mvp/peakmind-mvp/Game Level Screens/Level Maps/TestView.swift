@@ -37,6 +37,9 @@ struct LevelDecoration: Identifiable {
     var size: CGSize
 }
 
+class SupportData: ObservableObject {
+    @Published var supportSystem: [String] = []
+}
 
 struct TestView: View {
     @EnvironmentObject var viewModel: AuthViewModel
@@ -53,7 +56,7 @@ struct TestView: View {
     @State private var canViewVertProgress = true
     @State private var showMountains = false
     @State private var showHistory = false
-    @State private var supportSystem: [String] = []
+    @StateObject private var supportData = SupportData()
     
     @State private var showElevation: Bool = true
     
@@ -281,11 +284,11 @@ struct TestView: View {
                             })) }, phase: 5),
                             LevelNode(uid: 3, internalName: "P5_4", title: "Support Mapping", viewFactory: { AnyView(P5_4_1(closeAction: { (str, support) -> Void in
                                 completeLevel(str: str)
-                                supportSystem = support
+                                supportData.supportSystem = support
                             })) }, phase: 5),
                             LevelNode(uid: 4, internalName: "P5_5", title: "Reflection", viewFactory: { AnyView(P5_5_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
-                            }, supportNames: supportSystem)) }, phase: 5),
+                            }, supportNames: supportData.supportSystem)) }, phase: 5),
                             LevelNode(uid: 5, internalName: "P5_6", title: "Finding Community", viewFactory: { AnyView(P5_6_1(closeAction: { (str) -> Void in
                                 completeLevel(str: str)
                             })) }, phase: 5),
@@ -429,6 +432,7 @@ struct TestView: View {
                                         .clipShape(Circle()) // Make button round
                                         .shadow(radius: 4) // Add slight shadow
                                 }
+                                .opacity(0)
                                
                             }
                             .padding(.trailing, 16) // Padding from the right edge

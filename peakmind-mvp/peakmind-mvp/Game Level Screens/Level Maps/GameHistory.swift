@@ -40,13 +40,6 @@ struct GameHistory: View {
                 }
             }.padding(.top)
         }
-        .onAppear {
-            viewModel.getAllGameData { gameDataList in
-                for gameData in gameDataList {
-                    print("Phase: \(gameData.phase), Level: \(gameData.level), Data: \(gameData.data), Timestamp: \(gameData.timestamp)")
-                }
-            }
-        }
     }
 }
 

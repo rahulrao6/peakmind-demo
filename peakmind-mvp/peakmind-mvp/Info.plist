@@ -56,5 +56,10 @@
 		<string>SF-Pro-Text-Medium.otf</string>
 		<string>SF-Pro-Text-Regular.otf</string>
 	</array>
+	<key>CFBundleIdentifier</key>
+	<string>&lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;
+&lt;array&gt;
+    &lt;string&gt;App-Prefs&lt;/string&gt;
+&lt;/array&gt;</string>
 </dict>
 </plist>

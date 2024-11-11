@@ -37,7 +37,8 @@ struct Stage {
 
 class FlowModeViewModel: ObservableObject {
     @Published var focusSessions: [FocusSession] = []
-    
+    @Published var showAirplaneModePrompt: Bool = false // Flag to trigger airplane mode prompt
+
     @Published var mountain: Mountain?
     @Published var focusGoal: String = ""
     @Published var selectedDuration: TimeInterval = 1800 // Default to 30 minutes (25 min work, 5 min break)
@@ -259,6 +260,14 @@ class FlowModeViewModel: ObservableObject {
         selectedDuration = 1800
         elapsedTime = 0
         progress = 0.0
+    }
+    
+    func promptForAirplaneMode() {
+        if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: nil)
+            }
+        }
     }
 }
 
@@ -487,6 +496,7 @@ struct FocusDurationView: View {
     @ObservedObject var viewModel: FlowModeViewModel
     @State private var selectedDuration: TimeInterval = 1800 // Default to 30 minutes
     @State private var showFocusTimer: Bool = false // State to control full screen cover
+    @State private var showAirplaneModeAlert: Bool = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -520,9 +530,7 @@ struct FocusDurationView: View {
             
             // Full-screen presentation of FocusTimerView
             Button(action: {
-                viewModel.selectedDuration = selectedDuration
-                viewModel.startNewFocusSession() // Start the session
-                showFocusTimer = true // Trigger full-screen view
+                showAirplaneModeAlert = true // Trigger full-screen view
             }) {
                 Text("Start Timer")
                     .font(.custom("SFProText-Bold", size: 20))
@@ -534,6 +542,18 @@ struct FocusDurationView: View {
             }
             .padding(.horizontal, 30) // Increased horizontal padding
             .padding(.top, 20)
+            .alert(isPresented: $showAirplaneModeAlert) {
+                Alert(
+                    title: Text("Enable Airplane Mode"),
+                    message: Text("For a distraction-free focus session, we recommend enabling airplane mode. Would you like to do this now?"),
+                    primaryButton: .default(Text("Enable Airplane Mode")) {
+                        openAirplaneModeSettings()
+                    },
+                    secondaryButton: .cancel(Text("Skip")) {
+                        proceedToFocusTimer()
+                    }
+                )
+            }
             .fullScreenCover(isPresented: $showFocusTimer) {
                 FocusTimerView(viewModel: viewModel, selectedDuration: selectedDuration)
                     .navigationBarBackButtonHidden(true) // Hide the back button in the timer view
@@ -549,6 +569,38 @@ struct FocusDurationView: View {
             )
             .edgesIgnoringSafeArea(.all)
         )
+    }
+    
+    private func openAirplaneModeSettings() {
+        if let url = URL(string: "App-Prefs:root=AIRPLANE_MODE") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:]) { success in
+                    if success {
+                        // After returning from settings, proceed to focus timer
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            proceedToFocusTimer()
+                        }
+                    }
+                }
+            } else {
+                // Fallback to general settings if specific URL scheme doesn't work
+                if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(settingsUrl, options: [:]) { success in
+                        if success {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                proceedToFocusTimer()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func proceedToFocusTimer() {
+        viewModel.selectedDuration = selectedDuration
+        viewModel.startNewFocusSession()
+        showFocusTimer = true
     }
 }
 

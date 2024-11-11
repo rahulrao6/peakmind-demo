@@ -104,11 +104,11 @@ struct peakmind_mvpApp: App {
 
                     .onAppear {
                         // Example of scheduling a notification
-                        scheduleNotificationsBasedOnLastLogin()
+                        //scheduleNotificationsBasedOnLastLogin()
                     }
                 
             }
-            .pendoEnableSwiftUI()
+            //       .pendoEnableSwiftUI()
             .onOpenURL(perform: handleURL)
         }
 
@@ -235,14 +235,15 @@ class HealthKitManager: ObservableObject {
 
     init() {
         self.healthStore = HKHealthStore.isHealthDataAvailable() ? HKHealthStore() : nil
-        checkAuthorization()
+        guard let healthStore = healthStore else { return }
+        let stepType = HKObjectType.quantityType(forIdentifier: .stepCount)!
+        healthStore.authorizationStatus(for: stepType) == .sharingAuthorized ? (self.isAuthorized = true) : (self.isAuthorized = false)
+        //checkAuthorization()
     }
     
     
     func checkAuthorization() {
-        guard let healthStore = healthStore else { return }
-        let stepType = HKObjectType.quantityType(forIdentifier: .stepCount)!
-        healthStore.authorizationStatus(for: stepType) == .sharingAuthorized ? (self.isAuthorized = true) : (self.isAuthorized = false)
+        
     }
 
     func requestAuthorization() {

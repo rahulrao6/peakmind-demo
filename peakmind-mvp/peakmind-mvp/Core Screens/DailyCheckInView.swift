@@ -193,7 +193,9 @@ struct DailyCheckInView: View {
         
         let today = Date()
         let calendar = Calendar.current
-        let weekday = calendar.component(.weekday, from: today) - 1 // Subtract 1 to adjust for the array index (0-based)
+        
+        // Determine the weekday (we use Sunday = 1, Monday = 2, ... Saturday = 7)
+        let weekday = calendar.component(.weekday, from: today)
 
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             let userDocument: DocumentSnapshot
@@ -203,15 +205,18 @@ struct DailyCheckInView: View {
                 errorPointer?.pointee = fetchError
                 return nil
             }
-            
+
+            // Get the user's weekly status array (0 for no check-in, 1 for check-in)
             var weeklyStatus = userDocument.get("weeklyStatus") as? [Int] ?? [0, 0, 0, 0, 0, 0, 0]
-            
-            if weekday == 0 { // It's Monday, reset weekly status
-                weeklyStatus = [1, 0, 0, 0, 0, 0, 0]
-            } else { // Set current day to 1
-                weeklyStatus[weekday] = 1
+
+            // Check if today is Monday (adjust if the first day of the week is different in your region)
+            if weekday == 2 { // Monday in Gregorian calendar
+                weeklyStatus = [1, 0, 0, 0, 0, 0, 0] // Reset on Monday, mark Monday as checked-in
+            } else {
+                // Update the correct day index (weekday - 1) because Sunday starts at 1
+                weeklyStatus[weekday - 1] = 1
             }
-            
+
             transaction.updateData([
                 "weeklyStatus": weeklyStatus
             ], forDocument: userRef)
@@ -257,20 +262,20 @@ struct DailyCheckInView: View {
             let dayDifference = calendar.dateComponents([.day], from: lastCheckInDay, to: today).day ?? 0
 
             if dayDifference == 1 {
-                // Increment streak
+                // Increment streak for consecutive check-in
                 dailyCheckInStreak += 1
             } else if dayDifference > 1 {
-                // Reset streak
+                // Missed a day, reset streak
                 dailyCheckInStreak = 1
             } else if dayDifference == 0 {
-                // Already checked in today
+                // Already checked in today, no changes
                 return nil
             }
 
             // Update the user's streak and last check-in date
             transaction.updateData([
                 "dailyCheckInStreak": dailyCheckInStreak,
-                "lastCheckInDate": Timestamp(date: Date())
+                "lastCheckInDate": Timestamp(date: today)
             ], forDocument: userRef)
 
             return nil
@@ -284,7 +289,6 @@ struct DailyCheckInView: View {
             }
         })
     }
-
 
 }
 

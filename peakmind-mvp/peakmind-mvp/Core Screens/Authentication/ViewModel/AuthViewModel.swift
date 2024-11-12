@@ -25,7 +25,8 @@ class AuthViewModel: ObservableObject {
     @Published var quests: [Quest] = []
     @Published  var journalEntries: [JournalEntry] = []
     @Published var habitsByName: [String: [Habit]] = [:]
-    
+    @Published var weeklyCheckIns: [Bool] = Array(repeating: false, count: 7)
+    @Published var currentWeekStartDate: Date = Date()
     
     //    @Published var communitiesViewModel = CommunitiesViewModel()
     @Published var authErrorMessage: String? // New property for error messages
@@ -110,6 +111,9 @@ class AuthViewModel: ObservableObject {
                     self.startPendoSession(user: self.currentUser, userId: userId)
                 } catch {
                     print("Error decoding user data: \(error.localizedDescription)")
+                }
+                Task{
+                    await self.updateUserMeta()
                 }
             }
         } else {
@@ -1994,6 +1998,8 @@ class AuthViewModel: ObservableObject {
         listenerRegistration2?.remove()
     }
     
+    
+    
     func checkAndSyncQuests() {
         for (index, quest) in quests.enumerated() {
             switch quest.baseName {
@@ -2503,6 +2509,38 @@ class AuthViewModel: ObservableObject {
                          interval: interval, daysOfWeek: daysOfWeek, specificDates: specificDates)
         }
         return nil
+    }
+    
+    func getCurrentWeekDates() -> [Date] {
+        let calendar = Calendar.current
+        let today = Date()
+        
+        // Find the start of the week (Sunday)
+        let weekStart = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
+        
+        // Generate dates for the week
+        return (0..<7).map { day in
+            calendar.date(byAdding: .day, value: day, to: weekStart)!
+        }
+    }
+    
+    func resetWeeklyStatus() {
+        let calendar = Calendar.current
+        let today = Date()
+        let weekStart = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
+        
+        if !calendar.isDate(currentWeekStartDate, equalTo: weekStart, toGranularity: .weekOfYear) {
+            weeklyCheckIns = Array(repeating: false, count: 7)
+            currentWeekStartDate = weekStart
+            
+            // Update Firestore
+            guard let userId = currentUser?.id else { return }
+            let db = Firestore.firestore()
+            db.collection("users").document(userId).updateData([
+                "weeklyStatus": weeklyCheckIns.map { $0 ? 1 : 0 },
+                "currentWeekStartDate": Timestamp(date: weekStart)
+            ])
+        }
     }
     
 }

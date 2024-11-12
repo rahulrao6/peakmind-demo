@@ -348,13 +348,18 @@ struct JournalDetailView: View {
                 
                 if isEditing {
                     // Editable fields for editing the journal entry
-                    TextField("Edit question", text: $editedQuestion)
-                        .font(.custom("SFProText-Bold", size: 20))
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .foregroundColor(.black)
-                        .padding(.horizontal, 20)
+//                    Text(entry.question)
+//                        .font(.custom("SFProText-Heavy", size: 29))
+//                        .foregroundColor(.white)
+//                        .padding(.horizontal, 20)
+                    
+//                    TextField("Edit question", text: $editedQuestion)
+//                        .font(.custom("SFProText-Bold", size: 20))
+//                        .padding()
+//                        .background(Color.white)
+//                        .cornerRadius(10)
+//                        .foregroundColor(.black)
+//                        .padding(.horizontal, 20)
                     
                     TextEditor(text: $editedAnswer)
                         .font(.custom("SFProText-Bold", size: 16))

@@ -69,7 +69,7 @@ struct SettingsView: View {
                         Button(action: {
                             healthKitManager.requestAuthorization()
                         }) {
-                            Text(healthKitManager.isAuthorized ? "Reauthorize" : "Authorize")
+                            Text(healthKitManager.isAuthorized ? "Unauthorize" : "Authorize")
                                 .foregroundColor(healthKitManager.isAuthorized ? .green : .red)
                         }
                         .buttonStyle(BorderlessButtonStyle())
@@ -105,7 +105,7 @@ struct SettingsView: View {
                                 fetchNotificationSettings()
                             }
                         }) {
-                            Text(eventKitManager.isCalendarAuthorized ? "Reauthorize" : "Authorize")
+                            Text(eventKitManager.isCalendarAuthorized ? "Unauthorize" : "Authorize")
                                 .foregroundColor(eventKitManager.isCalendarAuthorized ? .green : .red)
                         }
                         .buttonStyle(BorderlessButtonStyle())
@@ -128,7 +128,7 @@ struct SettingsView: View {
                                 fetchNotificationSettings()
                             }
                         }) {
-                            Text(eventKitManager.isRemindersAuthorized ? "Reauthorize" : "Authorize")
+                            Text(eventKitManager.isRemindersAuthorized ? "Unauthorize" : "Authorize")
                                 .foregroundColor(eventKitManager.isRemindersAuthorized ? .green : .red)
                         }
                         .buttonStyle(BorderlessButtonStyle())
@@ -151,7 +151,7 @@ struct SettingsView: View {
                             requestNotificationPermissions()
                             fetchNotificationSettings()
                         }) {
-                            Text(notificationSettings?.authorizationStatus == .authorized ? "Reauthorize" : "Authorize")
+                            Text(notificationSettings?.authorizationStatus == .authorized ? "Unauthorize" : "Authorize")
                                 .foregroundColor(notificationSettings?.authorizationStatus == .authorized ? .green : .red)
                         }
                         .buttonStyle(BorderlessButtonStyle())
@@ -268,13 +268,15 @@ struct SettingsView: View {
     }
     
     func openHealthSettings() {
-        if let healthSettingsURL = URL(string: "x-apple-health://") {
+        if let healthSettingsURL = URL(string: "x-apple-health://sharing") {
             if UIApplication.shared.canOpenURL(healthSettingsURL) {
                 UIApplication.shared.open(healthSettingsURL)
             } else {
                 showHealthSettingsAlert = true
             }
         }
+        
+        
     }
     
     func deleteAllData() async throws {

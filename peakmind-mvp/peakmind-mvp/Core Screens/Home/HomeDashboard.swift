@@ -68,11 +68,10 @@ struct HomeDashboard: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                 
-                                
                                 VStack(alignment: .leading) {
                                     Button(action: {
                                         if (!isCheckedIn) {
-                                            self.showDailyCheckInSheet.toggle() // Show Daily Check-In sheet when button pressed
+                                            self.showDailyCheckInSheet.toggle()
                                         }
                                     }) {
                                         Image(isCheckedIn ? "Thanks" : "CheckInText")
@@ -89,49 +88,84 @@ struct HomeDashboard: View {
                                                 }
                                             )
                                     }
-                                    .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
+                                    .buttonStyle(PlainButtonStyle())
                                     .padding(.top)
-                                    .padding(.leading, 25) // Adjust the left padding as necessary
+                                    .padding(.leading, 25)
                                     .sheet(isPresented: $showDailyCheckInSheet, onDismiss: {
-                                        fetchCheckInStatus() // Refresh check-in status after dismissal
+                                        fetchCheckInStatus()
                                     }) {
-                                        DailyCheckInView() // Present DailyCheckInView as a sheet
-                                            .environmentObject(viewModel) // Ensure AuthViewModel is passed
+                                        DailyCheckInView()
+                                            .environmentObject(viewModel)
                                     }
 
-                                    Spacer() // Pushes the dots to the bottom
+                                    Spacer()
 
-                                    HStack(spacing: 5) {
-                                        // Ensure that the viewModel is provided to this view, and currentUser is non-nil
-                                        ForEach(0..<7, id: \.self) { index in
-                                            if viewModel.currentUser?.weeklyStatus[index] == 1 { // Checked-in
-                                                Circle()
-                                                    .fill(Color("Ice Blue")) // Highlighted color for check-in
-                                                    .frame(width: 25, height: 25)
-                                                    .overlay(
-                                                        Text(abbreviationForDay(index: index))
-                                                            .font(.system(size: 12))
-                                                            .fontWeight(.bold)
-                                                            .foregroundColor(.white) // Changed for better contrast
-                                                    )
-                                            } else {
-                                                Circle()
-                                                    .fill(Color.gray) // Default color for no check-in
-                                                    .frame(width: 25, height: 25)
-                                                    .overlay(
-                                                        Text(abbreviationForDay(index: index))
-                                                            .font(.system(size: 12))
-                                                            .fontWeight(.bold)
-                                                            .foregroundColor(.black)
-                                                    )
-                                                
-                                            }
-                                        }
-                                    }
-                                    .padding(.bottom, 35)
-                                    .padding(.leading, 25) // Align the days of the week with the CheckInText
+                                    WeeklyCheckInIndicator()
                                 }
-                                .frame(maxWidth: .infinity, alignment: .leading) // Ensures alignment
+                                .frame(maxWidth: .infinity, alignment: .leading)
+//                                VStack(alignment: .leading) {
+//                                    Button(action: {
+//                                        if (!isCheckedIn) {
+//                                            self.showDailyCheckInSheet.toggle() // Show Daily Check-In sheet when button pressed
+//                                        }
+//                                    }) {
+//                                        Image(isCheckedIn ? "Thanks" : "CheckInText")
+//                                            .resizable()
+//                                            .aspectRatio(contentMode: .fit)
+//                                            .frame(width: 225, height: 60)
+//                                            .overlay(
+//                                                GeometryReader { geometry in
+//                                                    Text("\(viewModel.currentUser?.dailyCheckInStreak ?? 0)")
+//                                                        .font(.custom("SFProText-Heavy", size: 24))
+//                                                        .foregroundColor(.black)
+//                                                        .frame(width: 35, height: 35)
+//                                                        .position(x: geometry.size.width + 45, y: 70)
+//                                                }
+//                                            )
+//                                    }
+//                                    .buttonStyle(PlainButtonStyle()) // Use PlainButtonStyle to remove default button styling
+//                                    .padding(.top)
+//                                    .padding(.leading, 25) // Adjust the left padding as necessary
+//                                    .sheet(isPresented: $showDailyCheckInSheet, onDismiss: {
+//                                        fetchCheckInStatus() // Refresh check-in status after dismissal
+//                                    }) {
+//                                        DailyCheckInView() // Present DailyCheckInView as a sheet
+//                                            .environmentObject(viewModel) // Ensure AuthViewModel is passed
+//                                    }
+//
+//                                    Spacer() // Pushes the dots to the bottom
+//
+//                                    HStack(spacing: 5) {
+//                                        // Ensure that the viewModel is provided to this view, and currentUser is non-nil
+//                                        ForEach(0..<7, id: \.self) { index in
+//                                            if viewModel.currentUser?.weeklyStatus[index] == 1 { // Checked-in
+//                                                Circle()
+//                                                    .fill(Color("Ice Blue")) // Highlighted color for check-in
+//                                                    .frame(width: 25, height: 25)
+//                                                    .overlay(
+//                                                        Text(abbreviationForDay(index: index))
+//                                                            .font(.system(size: 12))
+//                                                            .fontWeight(.bold)
+//                                                            .foregroundColor(.white) // Changed for better contrast
+//                                                    )
+//                                            } else {
+//                                                Circle()
+//                                                    .fill(Color.gray) // Default color for no check-in
+//                                                    .frame(width: 25, height: 25)
+//                                                    .overlay(
+//                                                        Text(abbreviationForDay(index: index))
+//                                                            .font(.system(size: 12))
+//                                                            .fontWeight(.bold)
+//                                                            .foregroundColor(.black)
+//                                                    )
+//                                                
+//                                            }
+//                                        }
+//                                    }
+//                                    .padding(.bottom, 35)
+//                                    .padding(.leading, 25) // Align the days of the week with the CheckInText
+//                                }
+//                                .frame(maxWidth: .infinity, alignment: .leading) // Ensures alignment
 
                             }
                             
@@ -176,6 +210,8 @@ struct HomeDashboard: View {
                     viewModel.fetchJournalEntries { entries in
                      print("")
                     }
+                    //viewModel.resetWeeklyStatus()
+
                 }
             }
         }
@@ -256,5 +292,46 @@ struct HomeDashboard: View {
                     .environmentObject(viewModel) // Inject the mock AuthViewModel into the view
             }
         }
+    }
+}
+
+
+
+struct WeeklyCheckInIndicator: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    
+    var body: some View {
+        HStack(spacing: 5) {
+            ForEach(0..<7, id: \.self) { index in
+                if viewModel.currentUser?.weeklyStatus[index] == 1 {
+                    Circle()
+                        .fill(Color("Ice Blue"))
+                        .frame(width: 25, height: 25)
+                        .overlay(
+                            Text(abbreviationForDay(index: index))
+                                .font(.system(size: 12))
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                        )
+                } else {
+                    Circle()
+                        .fill(Color.gray)
+                        .frame(width: 25, height: 25)
+                        .overlay(
+                            Text(abbreviationForDay(index: index))
+                                .font(.system(size: 12))
+                                .fontWeight(.bold)
+                                .foregroundColor(.black)
+                        )
+                }
+            }
+        }
+        .padding(.bottom, 35)
+        .padding(.leading, 25)
+    }
+    
+    func abbreviationForDay(index: Int) -> String {
+        let days = ["S", "M", "T", "W", "T", "F", "S"]
+        return days[index]
     }
 }

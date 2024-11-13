@@ -361,9 +361,7 @@ struct RegistrationView: View {
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Error"), message: Text(errorMessage ?? "Unknown error"), dismissButton: .default(Text("OK")))
             }
-            .sheet(isPresented: $showAvatarSelection) {
-                AvatarSettingsView()
-            }
+
         }
     }
 

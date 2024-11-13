@@ -46,10 +46,6 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>SF-Pro-Display-Bold.otf</string>
-		<string>SF-Pro-Display-Black.otf</string>
-		<string>SF-Pro-Display-BlackItalic.otf</string>
-		<string>SF-Pro-Display-Medium.otf</string>
 		<string>SF-Pro-Text-Bold.otf</string>
 		<string>SF-Pro-Text-Heavy.otf</string>
 		<string>SF-Pro-Text-Light.otf</string>

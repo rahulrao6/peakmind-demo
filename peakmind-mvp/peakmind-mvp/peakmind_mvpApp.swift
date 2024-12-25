@@ -17,7 +17,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        PendoManager.shared().setup("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhY2VudGVyIjoidXMiLCJrZXkiOiJmN2M1NzVmODNkNDhkOTQ1M2JlMjM4ZjBjNjUwYTQxNzBlMTI2NGYyZmE0NmMxMTg0NzRjY2E4NTlhNzFiN2ZhMzI3NzNkOTc0NDg1NzljNjVmMjBiZTZkZWJjMjA4Mjc1NDgwMmY4MTZlZmFjNGFjN2NjNDUyNDUwMmIxYzMxMTZiZmE4ODFlYTUzM2ViZWRjZjBlZjJkMjI5N2Q1NjIyOGY5MmRkNDdkMzRlYzNjNDMyMzAyYTYzYjE4N2I2NmIwNWVkMDk0MmQzNzQ5ODU4NTczYTMyZTJlOTA0YzQwZGMyZTdlNDFmZWEzNjIxZDU1Zjc3MzNiYTE1NWM5OGEyNmI2MTVmNjJlN2UzYjcxMzBiMzM4ZTNmYTIxMjMzN2YuODlhOTBjMmI4OWVmZmExNGU4M2RjNzEwMzk2YjY1YTAuYzAwNDQxNTQxMDRiZmRjYmFmZDcxMjU4ZThlYzMzOTdhNjA5MGQ5M2FhZTkyYjM5ZGY0ZWZkYzE4MWNjNWFkNCJ9.GvEo5mEc8ota3tSD_S96vjIGztJH9EjcnZHAXcufAiKJz88iRLLJHJMjMceD0yZKylVk5EA6b-Ie81cidZ8poXKhZzU8utlHycnq1eaBFEpXsLJd4MQV5CBZp_wuBPnkk5GeRPDtOgxEf8J5HEqqbATSv_krbZmszN8sW4oOm4o")
+//        PendoManager.shared().setup("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhY2VudGVyIjoidXMiLCJrZXkiOiJmN2M1NzVmODNkNDhkOTQ1M2JlMjM4ZjBjNjUwYTQxNzBlMTI2NGYyZmE0NmMxMTg0NzRjY2E4NTlhNzFiN2ZhMzI3NzNkOTc0NDg1NzljNjVmMjBiZTZkZWJjMjA4Mjc1NDgwMmY4MTZlZmFjNGFjN2NjNDUyNDUwMmIxYzMxMTZiZmE4ODFlYTUzM2ViZWRjZjBlZjJkMjI5N2Q1NjIyOGY5MmRkNDdkMzRlYzNjNDMyMzAyYTYzYjE4N2I2NmIwNWVkMDk0MmQzNzQ5ODU4NTczYTMyZTJlOTA0YzQwZGMyZTdlNDFmZWEzNjIxZDU1Zjc3MzNiYTE1NWM5OGEyNmI2MTVmNjJlN2UzYjcxMzBiMzM4ZTNmYTIxMjMzN2YuODlhOTBjMmI4OWVmZmExNGU4M2RjNzEwMzk2YjY1YTAuYzAwNDQxNTQxMDRiZmRjYmFmZDcxMjU4ZThlYzMzOTdhNjA5MGQ5M2FhZTkyYjM5ZGY0ZWZkYzE4MWNjNWFkNCJ9.GvEo5mEc8ota3tSD_S96vjIGztJH9EjcnZHAXcufAiKJz88iRLLJHJMjMceD0yZKylVk5EA6b-Ie81cidZ8poXKhZzU8utlHycnq1eaBFEpXsLJd4MQV5CBZp_wuBPnkk5GeRPDtOgxEf8J5HEqqbATSv_krbZmszN8sW4oOm4o")
 
         print("Configuring Firebase...")
         FirebaseApp.configure()
@@ -90,6 +90,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 struct peakmind_mvpApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var viewModel = AuthViewModel()
+    
     @StateObject var HealthKitManager1 = HealthKitManager()
     @StateObject var EventKitManager1 = EventKitManager()
 
@@ -374,7 +375,10 @@ class HealthKitManager: ObservableObject {
            let endDate = now // Include up to the current time
 
            fetchStepCount(for: userId, startDate: startDate, endDate: endDate)
+            print("getting the sleep now")
            fetchSleepAnalysis(for: userId, startDate: startDate, endDate: endDate)
+        print("got the sleep now")
+
            fetchActiveCalories(for: userId, startDate: startDate, endDate: endDate) // Fetch Active Minutes
        }
 
@@ -395,8 +399,6 @@ class HealthKitManager: ObservableObject {
                    if let sum = statistics.sumQuantity() {
                        let stepCount = sum.doubleValue(for: HKUnit.count())
                        let date = statistics.startDate
-                       print("this is step")
-                       print(stepCount)
                        self?.saveHealthDataToFirestore(userId: userId, type: "stepCount", date: date, data: ["steps": stepCount])
                    }
                }
@@ -413,6 +415,7 @@ class HealthKitManager: ObservableObject {
 
         let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+        print("doing sleep analysis")
         
         let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { [weak self] _, samples, error in
             if let error = error {
@@ -426,6 +429,8 @@ class HealthKitManager: ObservableObject {
             }
 
             var dailySleepData = [Date: TimeInterval]()
+            
+            print("we have fetched these jaunts")
 
             for sample in samples {
                 let date = Calendar.current.startOfDay(for: sample.startDate)
@@ -473,7 +478,7 @@ class HealthKitManager: ObservableObject {
                        if let sum = statistics.sumQuantity() {
                            let activeEnergy = sum.doubleValue(for: HKUnit.kilocalorie()) // Active energy is measured in kilocalories
                            let date = statistics.startDate
-                           print("Active energy burned for \(date): \(activeEnergy) kcal")
+                           //print("Active energy burned for \(date): \(activeEnergy) kcal")
                            self?.saveHealthDataToFirestore(userId: userId, type: "activeEnergyBurned", date: date, data: ["activeEnergy": activeEnergy])
                        }
                    }
@@ -486,10 +491,10 @@ class HealthKitManager: ObservableObject {
            let dateFormatter = DateFormatter()
            dateFormatter.dateFormat = "yyyy-MM-dd"
            let formattedDate = dateFormatter.string(from: date)
-           print("we are firebaseing now")
-           print(userId)
-           print(type)
-           print(date)
+//           print("we are firebaseing now")
+//           print(userId)
+//           print(type)
+//           print(date)
            let healthDataRef = db.collection("users").document(userId)
                .collection("healthKitData").document(type)
                .collection("days").document(formattedDate)
@@ -518,6 +523,7 @@ class HealthKitManager: ObservableObject {
            }
        }
 }
+
 import EventKit
 import FirebaseAuth
 

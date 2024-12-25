@@ -154,6 +154,14 @@
 		1C9FA25D2BCE1B21003C844C /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */; };
 		1CA15D132C4FE8A400391AE9 /* FirebaseVertexAI-Preview in Frameworks */ = {isa = PBXBuildFile; productRef = 1CA15D122C4FE8A400391AE9 /* FirebaseVertexAI-Preview */; };
 		1CA25E322BFFEF6A004B0AD2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA25E312BFFEF6A004B0AD2 /* Message.swift */; };
+		1CB4F5DF2D190F1D0003CE27 /* NewHomeDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4F5DE2D190F1D0003CE27 /* NewHomeDashboard.swift */; };
+		1CB4F5E22D193E490003CE27 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4F5E12D193E490003CE27 /* Tools.swift */; };
+		1CB4F5E42D193E680003CE27 /* ToolsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4F5E32D193E680003CE27 /* ToolsViewModel.swift */; };
+		1CB4F5E72D19EC9B0003CE27 /* Tools2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4F5E62D19EC9B0003CE27 /* Tools2.swift */; };
+		1CB4F5E92D19ECCA0003CE27 /* DailyInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4F5E82D19ECCA0003CE27 /* DailyInsights.swift */; };
+		1CB4F5EB2D19ECF10003CE27 /* RecommendedActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4F5EA2D19ECF10003CE27 /* RecommendedActions.swift */; };
+		1CB4F5ED2D1A003D0003CE27 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4F5EC2D1A003D0003CE27 /* Preferences.swift */; };
+		1CB4F5EF2D1A05EF0003CE27 /* Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4F5EE2D1A05EF0003CE27 /* Custom.swift */; };
 		1CBBE30D2C517D3C006EFD6A /* NewPPContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CBBE30C2C517D3C006EFD6A /* NewPPContentView.swift */; };
 		1CC1F5C92B89706900AC9B77 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1F5C82B89706900AC9B77 /* ChatView.swift */; };
 		1CD029F72BE9E7200047951D /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD029F62BE9E7200047951D /* Tutorial.swift */; };
@@ -500,6 +508,14 @@
 		1C9FA25A2BCE1992003C844C /* peakmind-mvp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "peakmind-mvp.entitlements"; sourceTree = "<group>"; };
 		1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		1CA25E312BFFEF6A004B0AD2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		1CB4F5DE2D190F1D0003CE27 /* NewHomeDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeDashboard.swift; sourceTree = "<group>"; };
+		1CB4F5E12D193E490003CE27 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		1CB4F5E32D193E680003CE27 /* ToolsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsViewModel.swift; sourceTree = "<group>"; };
+		1CB4F5E62D19EC9B0003CE27 /* Tools2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools2.swift; sourceTree = "<group>"; };
+		1CB4F5E82D19ECCA0003CE27 /* DailyInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyInsights.swift; sourceTree = "<group>"; };
+		1CB4F5EA2D19ECF10003CE27 /* RecommendedActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedActions.swift; sourceTree = "<group>"; };
+		1CB4F5EC2D1A003D0003CE27 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		1CB4F5EE2D1A05EF0003CE27 /* Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custom.swift; sourceTree = "<group>"; };
 		1CBBE30C2C517D3C006EFD6A /* NewPPContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPPContentView.swift; sourceTree = "<group>"; };
 		1CC1F5C82B89706900AC9B77 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		1CD029F62BE9E7200047951D /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
@@ -944,7 +960,9 @@
 				7976E66A2BD73877006C3726 /* Self Care Suite */,
 				7969B4F82CA9F44300CEEB05 /* Routines */,
 				798D067C2CB515860043DFD2 /* ComingSoonView.swift */,
+				1CB4F5E02D193E3C0003CE27 /* Tools */,
 				791A274E2C8A80D8000D52BE /* MentalModelView.swift */,
+				1CB4F5E52D19EC800003CE27 /* NewDashboard */,
 				791A27502C8FA970000D52BE /* TriangleView.swift */,
 				797BF6422C9D032300118768 /* QuizOnboardingVIew.swift */,
 				79A73E422CA9EADB00CE9E40 /* PeakmindProfiles.swift */,
@@ -1029,6 +1047,28 @@
 				1C9FA25C2BCE1B21003C844C /* HealthKitManager.swift */,
 			);
 			path = HealthKit;
+			sourceTree = "<group>";
+		};
+		1CB4F5E02D193E3C0003CE27 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1CB4F5E12D193E490003CE27 /* Tools.swift */,
+				1CB4F5E32D193E680003CE27 /* ToolsViewModel.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		1CB4F5E52D19EC800003CE27 /* NewDashboard */ = {
+			isa = PBXGroup;
+			children = (
+				1CB4F5DE2D190F1D0003CE27 /* NewHomeDashboard.swift */,
+				1CB4F5E82D19ECCA0003CE27 /* DailyInsights.swift */,
+				1CB4F5EE2D1A05EF0003CE27 /* Custom.swift */,
+				1CB4F5EA2D19ECF10003CE27 /* RecommendedActions.swift */,
+				1CB4F5E62D19EC9B0003CE27 /* Tools2.swift */,
+				1CB4F5EC2D1A003D0003CE27 /* Preferences.swift */,
+			);
+			path = NewDashboard;
 			sourceTree = "<group>";
 		};
 		1CC1F5C62B89705200AC9B77 /* Chat */ = {
@@ -1637,6 +1677,7 @@
 				1C9C63CC2B8141630066AF70 /* ProfileView.swift in Sources */,
 				79A73E2A2CA5DBE500CE9E40 /* NewBG5.swift in Sources */,
 				79A73E282CA5DBDE00CE9E40 /* NewBG4.swift in Sources */,
+				1CB4F5E22D193E490003CE27 /* Tools.swift in Sources */,
 				103F29A02CA9D088008525A5 /* PinkNewBG1_GameReady.swift in Sources */,
 				103F29A12CA9D088008525A5 /* PinkNewBG2_GameReady.swift in Sources */,
 				103F29A22CA9D088008525A5 /* PinkNewBG10_GameReady.swift in Sources */,
@@ -1657,6 +1698,7 @@
 				1CF4A8942B82E9EB00051684 /* ColorConverter.swift in Sources */,
 				1C9C63CA2B813BF70066AF70 /* RegistrationView.swift in Sources */,
 				797B4C452BDC094C00A3A25D /* SherpaTutorialBox.swift in Sources */,
+				1CB4F5E92D19ECCA0003CE27 /* DailyInsights.swift in Sources */,
 				79A73E302CA5DBF900CE9E40 /* NewBG7.swift in Sources */,
 				1C9C63C82B81359A0066AF70 /* InputView.swift in Sources */,
 				79A73DB22CA5570800CE9E40 /* PurpleNewBG3_GameReady.swift in Sources */,
@@ -1688,6 +1730,7 @@
 				792ED8652C536CBC0050D12C /* SelfCareNew.swift in Sources */,
 				79A73E182CA5DB9A00CE9E40 /* NewBG10.swift in Sources */,
 				1C9C63C62B8133360066AF70 /* LoginView.swift in Sources */,
+				1CB4F5EF2D1A05EF0003CE27 /* Custom.swift in Sources */,
 				79A73DD22CA55A7500CE9E40 /* Tutorial7.swift in Sources */,
 				79A73E3A2CA5DC1B00CE9E40 /* NewBG8.swift in Sources */,
 				79A73E142CA5DB8300CE9E40 /* NewBG.swift in Sources */,
@@ -1719,6 +1762,7 @@
 				7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */,
 				102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
+				1CB4F5EB2D19ECF10003CE27 /* RecommendedActions.swift in Sources */,
 				791AC8F82BA7C16A0094A688 /* PersonalizedPlanNew.swift in Sources */,
 				79A73E102CA5DAF900CE9E40 /* PinkNewBG8.swift in Sources */,
 				79D521BA2CE4536300A6EAEA /* Notification.swift in Sources */,
@@ -1729,6 +1773,7 @@
 				1C9C63D42B8147C70066AF70 /* AuthViewModel.swift in Sources */,
 				79A73DE62CA5D98200CE9E40 /* GreenNewBG3.swift in Sources */,
 				103F29812CA9C88B008525A5 /* GreenNewBGWQ_GameReady.swift in Sources */,
+				1CB4F5ED2D1A003D0003CE27 /* Preferences.swift in Sources */,
 				103F29822CA9C88B008525A5 /* GreenNewBG3_GameReady.swift in Sources */,
 				103F29832CA9C88B008525A5 /* GreenNewBG5.2_GameReady.swift in Sources */,
 				102D59102CD08C5C00A1731D /* GameHistory.swift in Sources */,
@@ -1770,6 +1815,7 @@
 				79A73DC62CA55A1300CE9E40 /* Tutorial8.swift in Sources */,
 				79A73E002CA5DAAB00CE9E40 /* PinkNewBG3.swift in Sources */,
 				79A73E082CA5DAC100CE9E40 /* PinkNewBG6.swift in Sources */,
+				1CB4F5E72D19EC9B0003CE27 /* Tools2.swift in Sources */,
 				79A73DBC2CA5576500CE9E40 /* PurpleNewBG7_GameReady.swift in Sources */,
 				79A73E162CA5DB8A00CE9E40 /* NewBG1.swift in Sources */,
 				79A73E062CA5DABC00CE9E40 /* PinkNewBG5.swift in Sources */,
@@ -1792,6 +1838,7 @@
 				79A73DC12CA5578500CE9E40 /* PurpleNewBG9.2_GameReady.swift in Sources */,
 				79A73E2E2CA5DBF000CE9E40 /* NewBG7.2.swift in Sources */,
 				109A4A5C2CAC9C9100305E39 /* Wheel.swift in Sources */,
+				1CB4F5DF2D190F1D0003CE27 /* NewHomeDashboard.swift in Sources */,
 				1C7F93EB2BC3B291000754E2 /* PacMan.swift in Sources */,
 				79A73E362CA5DC0E00CE9E40 /* NewBG8.3.swift in Sources */,
 				79F902512CABCDEF00928A9A /* GameUnavailable.swift in Sources */,
@@ -1800,6 +1847,7 @@
 				19F895C52C5059F900C5D6E6 /* ViewMod.swift in Sources */,
 				191340032C682B0500DB5C01 /* LottieView.swift in Sources */,
 				79A73DCE2CA55A5D00CE9E40 /* Tutorial4.swift in Sources */,
+				1CB4F5E42D193E680003CE27 /* ToolsViewModel.swift in Sources */,
 				79BFB52C2B8EABC500634262 /* Info.swift in Sources */,
 				10CE960A2BF7DC4C0092EE29 /* ResilienceChecklistView.swift in Sources */,
 				10FA686C2BB53B18007CCBAC /* SpriteKitUIView.swift in Sources */,

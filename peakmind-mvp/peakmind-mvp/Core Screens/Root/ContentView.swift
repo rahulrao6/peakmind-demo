@@ -1,6 +1,7 @@
 import SwiftUI
 import HealthKit
 import Firebase
+
 struct ContentView: View {
   @EnvironmentObject var viewModel: AuthViewModel
   @State private var showingSplash = true
@@ -8,6 +9,7 @@ struct ContentView: View {
   @State private var navigateToInventoryScreen = false
   @EnvironmentObject var healthKitManager: HealthKitManager
   @EnvironmentObject var EventKitManager1: EventKitManager
+
   var body: some View {
     ZStack {
       Group {

@@ -8,7 +8,7 @@ struct TabViewMain: View {
   var body: some View {
     // Main content with tabs
     TabView(selection: $selectedTab) {
-        HomeDashboard(selectedTab: $selectedTab).environmentObject(healthKitManager).environmentObject(viewModel).environmentObject(EventKitManager1)
+        HomeDashboardView().environmentObject(healthKitManager).environmentObject(viewModel).environmentObject(EventKitManager1).environmentObject(ToolsViewModel(userId: viewModel.currentUser?.id ?? "", viewModel: viewModel)).environmentObject(InsightsAggregator(userId: viewModel.currentUser?.id ?? "")).environmentObject(RecommendationsViewModel(userId: viewModel.currentUser?.id ?? ""))
         .tabItem {
           Label("Home", systemImage: "square.grid.2x2")
         }

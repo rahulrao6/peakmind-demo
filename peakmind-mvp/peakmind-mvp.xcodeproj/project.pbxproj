@@ -213,6 +213,7 @@
 		792ED8652C536CBC0050D12C /* SelfCareNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792ED8642C536CBC0050D12C /* SelfCareNew.swift */; };
 		7930831C2BE8527E002A2E0B /* FeedbackFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7930831B2BE8527E002A2E0B /* FeedbackFormView.swift */; };
 		7930831E2BE85713002A2E0B /* ResourcesToUtilize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7930831D2BE85713002A2E0B /* ResourcesToUtilize.swift */; };
+		79335B812D2DD8300022404D /* OnboardingFlowNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79335B802D2DD8300022404D /* OnboardingFlowNew.swift */; };
 		7953387F2C0144C100A42D4C /* Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7953387E2C0144C100A42D4C /* Structs.swift */; };
 		79582AB62C6FBE29006866BC /* SummitModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79582AB52C6FBE29006866BC /* SummitModeView.swift */; };
 		79582AB92C6FBE3A006866BC /* FlowingWaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79582AB82C6FBE3A006866BC /* FlowingWaterView.swift */; };
@@ -225,6 +226,8 @@
 		797BF6432C9D032300118768 /* QuizOnboardingVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797BF6422C9D032300118768 /* QuizOnboardingVIew.swift */; };
 		797BF6452C9D735800118768 /* DailyCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797BF6442C9D735800118768 /* DailyCheckInView.swift */; };
 		797BF6472C9E205D00118768 /* YourQuestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797BF6462C9E205D00118768 /* YourQuestsView.swift */; };
+		798B7BF82D4178E800A806AF /* FlowStateModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798B7BF72D4178E800A806AF /* FlowStateModule.swift */; };
+		798B7BFA2D417AB200A806AF /* HabitModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798B7BF92D417AB200A806AF /* HabitModule.swift */; };
 		798D067D2CB515860043DFD2 /* ComingSoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798D067C2CB515860043DFD2 /* ComingSoonView.swift */; };
 		79A73DAA2CA5564800CE9E40 /* PurpleNewBG1_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73DA92CA5564800CE9E40 /* PurpleNewBG1_GameReady.swift */; };
 		79A73DAC2CA5568000CE9E40 /* PurpleNewBG2.2_GameReady.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A73DAB2CA5568000CE9E40 /* PurpleNewBG2.2_GameReady.swift */; };
@@ -534,6 +537,7 @@
 		792ED8642C536CBC0050D12C /* SelfCareNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfCareNew.swift; sourceTree = "<group>"; };
 		7930831B2BE8527E002A2E0B /* FeedbackFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormView.swift; sourceTree = "<group>"; };
 		7930831D2BE85713002A2E0B /* ResourcesToUtilize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesToUtilize.swift; sourceTree = "<group>"; };
+		79335B802D2DD8300022404D /* OnboardingFlowNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowNew.swift; sourceTree = "<group>"; };
 		7953387E2C0144C100A42D4C /* Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structs.swift; sourceTree = "<group>"; };
 		79582AB52C6FBE29006866BC /* SummitModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummitModeView.swift; sourceTree = "<group>"; };
 		79582AB82C6FBE3A006866BC /* FlowingWaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowingWaterView.swift; sourceTree = "<group>"; };
@@ -546,6 +550,8 @@
 		797BF6422C9D032300118768 /* QuizOnboardingVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizOnboardingVIew.swift; sourceTree = "<group>"; };
 		797BF6442C9D735800118768 /* DailyCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheckInView.swift; sourceTree = "<group>"; };
 		797BF6462C9E205D00118768 /* YourQuestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourQuestsView.swift; sourceTree = "<group>"; };
+		798B7BF72D4178E800A806AF /* FlowStateModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowStateModule.swift; sourceTree = "<group>"; };
+		798B7BF92D417AB200A806AF /* HabitModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitModule.swift; sourceTree = "<group>"; };
 		798D067C2CB515860043DFD2 /* ComingSoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingSoonView.swift; sourceTree = "<group>"; };
 		79A73DA92CA5564800CE9E40 /* PurpleNewBG1_GameReady.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG1_GameReady.swift; sourceTree = "<group>"; };
 		79A73DAB2CA5568000CE9E40 /* PurpleNewBG2.2_GameReady.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleNewBG2.2_GameReady.swift; sourceTree = "<group>"; };
@@ -947,6 +953,7 @@
 				791A274E2C8A80D8000D52BE /* MentalModelView.swift */,
 				791A27502C8FA970000D52BE /* TriangleView.swift */,
 				797BF6422C9D032300118768 /* QuizOnboardingVIew.swift */,
+				79335B802D2DD8300022404D /* OnboardingFlowNew.swift */,
 				79A73E422CA9EADB00CE9E40 /* PeakmindProfiles.swift */,
 				797BF6442C9D735800118768 /* DailyCheckInView.swift */,
 				797BF6402C93C32300118768 /* FactorPage.swift */,
@@ -955,6 +962,8 @@
 				79F902562CAE294B00928A9A /* OnboardingView.swift */,
 				79AB21EB2CAE305F003767AF /* HabitIndividualView.swift */,
 				79AB21ED2CAE49C3003767AF /* SurveyView.swift */,
+				798B7BF72D4178E800A806AF /* FlowStateModule.swift */,
+				798B7BF92D417AB200A806AF /* HabitModule.swift */,
 				79A73E442CA9EAF400CE9E40 /* Rewards.swift */,
 				79A73E462CA9EB0F00CE9E40 /* Settings.swift */,
 			);
@@ -1675,6 +1684,7 @@
 				791A27512C8FA970000D52BE /* TriangleView.swift in Sources */,
 				79582AB92C6FBE3A006866BC /* FlowingWaterView.swift in Sources */,
 				194AA0662CAC89620041D129 /* LightPurpleNewBG4.swift in Sources */,
+				79335B812D2DD8300022404D /* OnboardingFlowNew.swift in Sources */,
 				7976E6642BD73793006C3726 /* TabViewMain.swift in Sources */,
 				79A73E382CA5DC1500CE9E40 /* NewBG8.4.swift in Sources */,
 				79A73DF82CA5DA9100CE9E40 /* PinkNewBG.swift in Sources */,
@@ -1716,6 +1726,7 @@
 				791A274F2C8A80D8000D52BE /* MentalModelView.swift in Sources */,
 				797BF6472C9E205D00118768 /* YourQuestsView.swift in Sources */,
 				79A73DEA2CA5D98E00CE9E40 /* GreenNewBG4.swift in Sources */,
+				798B7BF82D4178E800A806AF /* FlowStateModule.swift in Sources */,
 				7976E6662BD73862006C3726 /* SelfCareMainView.swift in Sources */,
 				102F1B8A2BCB7C23008B8AC6 /* LevelCompleteView.swift in Sources */,
 				10FA68562BB4D93F007CCBAC /* Level3IntroView.swift in Sources */,
@@ -1730,6 +1741,7 @@
 				79A73DE62CA5D98200CE9E40 /* GreenNewBG3.swift in Sources */,
 				103F29812CA9C88B008525A5 /* GreenNewBGWQ_GameReady.swift in Sources */,
 				103F29822CA9C88B008525A5 /* GreenNewBG3_GameReady.swift in Sources */,
+				798B7BFA2D417AB200A806AF /* HabitModule.swift in Sources */,
 				103F29832CA9C88B008525A5 /* GreenNewBG5.2_GameReady.swift in Sources */,
 				102D59102CD08C5C00A1731D /* GameHistory.swift in Sources */,
 				103F29842CA9C88B008525A5 /* GreenNewBG4_GameReady.swift in Sources */,
@@ -2041,7 +2053,7 @@
 				CODE_SIGN_ENTITLEMENTS = "peakmind-mvp/peakmind-mvp.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.3.08;
+				CURRENT_PROJECT_VERSION = 1.3.09;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
 				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
 				ENABLE_PREVIEWS = YES;
@@ -2062,7 +2074,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2085,7 +2097,7 @@
 				CODE_SIGN_ENTITLEMENTS = "peakmind-mvp/peakmind-mvp.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.3.08;
+				CURRENT_PROJECT_VERSION = 1.3.09;
 				DEVELOPMENT_ASSET_PATHS = "\"peakmind-mvp/Preview Content\"";
 				DEVELOPMENT_TEAM = 2Z27ZT6VBY;
 				ENABLE_PREVIEWS = YES;
@@ -2106,7 +2118,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "platemate.ai.peakmind-mvp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
